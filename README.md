@@ -1,6 +1,9 @@
 # Introduction
 The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. 
 
+# Donation
+If this project help you reduce time to develop, you can give me a cup of coffee :)
+
 # Core courses
 
 ## Classical Mechanics
