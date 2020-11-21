@@ -13,13 +13,13 @@ The textbook of this courses had been published. https://www.amazon.com/gp/produ
 The textbook of this courses had been published. https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065
 
 ## General Relativity
-https://www.lapasserelle.com/general_relativity/
+The lecture notes had been taken by https://www.lapasserelle.com/general_relativity/ .
 
 ## Cosmology
-https://www.lapasserelle.com/cosmology/
+The lecture notes, from chapter 1 to 9,  had been taken by https://www.lapasserelle.com/cosmology/ . 
 
 ## Statistical Mechanics
-https://www.lapasserelle.com/statistical_mechanics/
+The lecture notes had been taken by  https://www.lapasserelle.com/statistical_mechanics/.
 
 # Supllementary courses
 
