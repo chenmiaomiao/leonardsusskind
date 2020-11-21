@@ -14,6 +14,10 @@ The textbook of this courses had been published.
 
 ## General Relativity
 
+## Cosmology
+
+## Statistical Mechanics
+
 # Supllementary courses
 
 ## Advanced Quantum Mechanics
