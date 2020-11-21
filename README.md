@@ -4,13 +4,13 @@ The lecture notes of Professor Leonard Susskind. If this violates any copyrights
 # Core courses
 
 ## Classical Mechanics
-The textbook of this courses had been published. https://www.amazon.com/gp/product/0465075681?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465075681
+The textbook of this courses had been published. [Classical Mechanics](https://www.amazon.com/gp/product/0465075681?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465075681)
 
 ## Quantum Mechanics
-The textbook of this courses had been published. https://www.amazon.com/gp/product/0465062903?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465062903
+The textbook of this courses had been published. [Quantum Mechanics](https://www.amazon.com/gp/product/0465062903?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465062903)
 
 ## Special Relativity and Electrodynamics
-The textbook of this courses had been published. https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065
+The textbook of this courses had been published. [Special Relativity and Electrodynamics](https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065)
 
 ## General Relativity
 Draft progress: 10/10
