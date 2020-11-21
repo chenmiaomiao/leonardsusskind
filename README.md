@@ -13,10 +13,13 @@ The textbook of this courses had been published.
 The textbook of this courses had been published.
 
 ## General Relativity
+https://www.lapasserelle.com/general_relativity/
 
 ## Cosmology
+https://www.lapasserelle.com/cosmology/
 
 ## Statistical Mechanics
+https://www.lapasserelle.com/statistical_mechanics/
 
 # Supllementary courses
 
