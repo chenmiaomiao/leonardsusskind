@@ -58,9 +58,9 @@ Draft progress: 0/9
 Notes progress: 0/9
 
 ## Particle Physics 1: Basic Concepts
-Draft progress: 0/10
+Draft progress: 6/10
 
-Notes progress: 6/10
+Notes progress: 0/10
 
 ## Particle Physics 2: Standard Model
 Draft progress: 0/10
