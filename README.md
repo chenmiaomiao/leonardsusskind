@@ -4,10 +4,13 @@ The lecture notes of Professor Leonard Susskind. If this violates any copyrights
 # Core courses
 
 ## Classical Mechanics
+The textbook of this courses had been published.
 
 ## Quantum Mechanics
+The textbook of this courses had been published.
 
 ## Special Relativity and Electrodynamics
+The textbook of this courses had been published.
 
 ## General Relativity
 
