@@ -1,5 +1,5 @@
 # Introduction
-The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. One can contribute to this project by forking this project and sned a pull request. 
+The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. One can contribute to this project by forking this project and send a pull request. 
 
 # Donation
 If this project help you reduce time to develop, you can give me a cup of coffee :)
@@ -7,13 +7,13 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 # Core courses
 
 ## Classical Mechanics
-The textbook of this courses [Classical Mechanics](https://www.amazon.com/gp/product/0465075681?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465075681) had been published. 
+The textbook of this courses [Classical Mechanics](https://www.amazon.com/gp/product/0465075681?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465075681) had been published. You can buy it from Amazon [Classical Mechanics](https://www.amazon.com/gp/product/0465075681?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465075681). 
 
 ## Quantum Mechanics
-The textbook of this courses [Quantum Mechanics](https://www.amazon.com/gp/product/0465062903?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465062903) had been published. 
+The textbook of this courses [Quantum Mechanics](https://www.amazon.com/gp/product/0465062903?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465062903) had been published. You can buy it from Amazon [Quantum Mechanics](https://www.amazon.com/gp/product/0465062903?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=0465062903). 
 
 ## Special Relativity and Electrodynamics
-The textbook of this courses [Special Relativity and Electrodynamics](https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065) had been published. 
+The textbook of this courses [Special Relativity and Electrodynamics](https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065) had been published. You can buy it from Amazon [Special Relativity and Electrodynamics](https://www.amazon.com/gp/product/1541674065?ie=UTF8&tag=lachlanchen-20&camp=1789&linkCode=xm2&creativeASIN=1541674065). 
 
 ## General Relativity
 Draft progress: 10/10
