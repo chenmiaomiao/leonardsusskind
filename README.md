@@ -1,5 +1,5 @@
 # Introduction
-The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. 
+The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. One can contribute to this project by forking this project and sned a pull request. 
 
 # Donation
 If this project help you reduce time to develop, you can give me a cup of coffee :)
