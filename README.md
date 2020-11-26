@@ -1,8 +1,8 @@
 # Introduction
-The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. One can contribute to this project by forking this project and send a pull request. Professor Susskind takes no responsibility for the error or misinformation in the notes, neither do I. 
+The lecture notes of Professor Leonard Susskind. If this violates any copyrights, please contact me to delete this repository. Professor Susskind takes no responsibility for the error or misinformation in the notes, neither do I. 
 
-# Donation
-If this project help you reduce time to develop, you can give me a cup of coffee :)
+# Contribution or Donation
+One can contribute to this project by forking this project and send a pull request. If this project help you reduce time to develop, you can give me a cup of coffee :)
 
 # Core courses
 
