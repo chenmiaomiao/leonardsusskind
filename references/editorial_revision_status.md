@@ -10,7 +10,7 @@ The July 2026 audit covers 19 generated books and 175 chapters. It found systema
 
 The approved production queue now covers 15 books and 137 chapters. It revises all nine supplementary courses first, followed by the latest complete Classical Mechanics, Quantum Mechanics, Special Relativity, General Relativity, Statistical Mechanics, and Cosmology runs. The completed Cosmology pilot and three older or partial duplicate runs are excluded from this pass.
 
-The tracked queue is `references/editorial_revision_queue.json`. It uses one persistent full-access `gpt-5.6-sol` writer session at `ultra` reasoning with approvals disabled. Codex saves candidates under `.editorial-revision-work/`; the driver promotes them after validation, commits and pushes each accepted chapter, and resumes from atomic queue state. Each accepted chapter receives an editorial audit, fidelity report, and machine-readable source map. Normal and pocket PDFs are republished only after source, style, figure, and LaTeX gates pass.
+The tracked manifest at `references/editorial_revision_queue.json` remains the source of truth for course selection and order. Current work is performed directly, one chapter at a time, under [`direct_editorial_goal.md`](direct_editorial_goal.md), without a tmux writer queue. Each accepted chapter receives an exhaustive transcript-beat audit, blackboard and Q&A verification, a fidelity report, a machine-readable source map, a clean compile, and its own commit and push. Normal and pocket PDFs are republished only after every chapter in a course passes.
 
 ## Pilot Result
 
@@ -18,4 +18,4 @@ The Cosmology pilot completed on July 16, 2026. All eight chapters pass the sour
 
 Local 6-by-9-inch review editions were also built at normal and 1.2-times font size. They contain 122 and 152 pages respectively, and both report zero actionable overfulls, page-builder overflows, underfull paragraphs, or leaked TeX sizing tokens. The normal, pocket, and 1.2-times pocket artifacts were visually checked at the cover, front matter, chapter openings, wrapped running heads, equations, Q&A blocks, and retained blackboard figures.
 
-The pilot standard is now approved for the remaining latest-edition queue. Older duplicate editions remain available but will not be revised until the canonical supplementary and core sequence is complete.
+The pilot informed the stricter direct editorial standard. Older duplicate editions remain available but are excluded while the canonical supplementary and latest complete core sequence is revised.
