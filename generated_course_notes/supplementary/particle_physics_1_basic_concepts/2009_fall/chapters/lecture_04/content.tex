@@ -1,158 +1,204 @@
-\chapter{Lecture 4: New Revolutions in Particle Physics}
+\chapter{Delta Functions, Quantum Fields, and Conservation Laws}
 
-These notes follow Leonard Susskind's fourth lecture in the supplementary particle physics track, curated by LazyingArt LLC. We suppress the brief administrative opening and return directly to the mathematical line of thought. The lecture resumes an unfinished task: the simple quantum field has already been introduced, but it has not yet been made to reveal how particle processes encode conservation laws. The order is deliberate. First comes the Dirac delta function, then bra-ket bookkeeping, then the time-dependent field, then the field equation, and only after that the simplest scattering amplitude.
+The simple quantum field introduced earlier is enough to describe scattering, creation, and annihilation in outline, but there is more to extract from it. In particular, it shows how conservation laws enter particle processes. A full course in quantum field theory takes much longer than a few lectures; here the aim is narrower. We shall use the simplest field to see, mechanically, where energy conservation comes from, why a fixed target need not conserve the momentum of the scattered particle, and how phase invariance encodes charge conservation.
 
-\section{Why Return to the Simple Field?}
+Before returning to the field, two pieces of mathematics are needed: the Dirac delta function and the action of creation and annihilation operators on bra vectors.
 
-Susskind begins by insisting that the simple field is not a toy we have outgrown; it is the first place where the mechanics of particle processes can actually be seen. We have already talked about scattering, creation, and annihilation in outline. What the lecture now wants is a little more depth, enough to see where energy conservation and, later, momentum conservation enter the formalism.
+\section{The Dirac Delta Function}
 
-The motivation is experimental as much as mathematical. In the microscopic world, collisions are almost all we have. We prepare an initial state, let particles interact, and then ask for the amplitude to end up in some final state. A quantum field is useful because it provides exactly that bookkeeping. But before we can use it, we need a few bits of mathematics on the board.
+Call the coordinate \(y\), without deciding whether it will later represent position, wave number, or something else. Begin with an ordinary lump-shaped function concentrated near \(y=a\). Make the lump narrower and narrower. If its height were held fixed, its area would shrink to zero, so raise the height as the width decreases, keeping height times width equal to one. The limiting object is the Dirac delta function \(\delta(y-a)\).
 
-\section{Dirac Delta as a Working Tool}
-
-The first tool is the Dirac delta function. The lecture does not begin with a distributional definition. It begins with a picture: a lump concentrated near one point, narrower and narrower, while the area under it is held fixed. If the point is \(y=a\), the limiting object is \(\delta(y-a)\). It is zero away from \(y=a\), but it is so narrow and so high at \(y=a\) that its total area remains one.
+It vanishes away from \(y=a\), is infinitely sharply concentrated at \(y=a\), and has unit area:
+\begin{equation}
+\delta(y-a)=0\quad (y\neq a),
+\qquad
+\int_{-\infty}^{\infty}dy\,\delta(y-a)=1.
+\end{equation}
+The important point is the combination of localization and fixed area. Narrowing the peak does not remove it, because its height increases at the same time.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.68\textwidth]{lecture_04_figure_02.png}
-\caption{Delta-function spike at \(y=a\).}
+\caption{Unit-area delta-function spike centered at \(y=a\).}
+\lectureframe{00:05:50}
 \end{figure}
 
-The measure \(dy\) is not fully visible in the frame, but the intended mathematical statement is clear:
-\begin{equation}
-\int dy\,\delta(y-a)=1.
-\end{equation}
-
+The same picture can be idealized as a vertical spike:
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=1.0]
 \draw[->] (-3.1,0) -- (3.3,0) node[right] {$y$};
 \draw[very thick] (0,0) -- (0,2.9);
 \draw (0,-0.15) node[below] {$y=a$};
-\draw (1.2,1.65) node {$\int \delta(y-a)$};
+\node at (1.35,1.65) {$\delta(y-a)$};
 \end{tikzpicture}
-\caption{A clean redraw of the delta-function sketch. The screenshot remains the documentary evidence for the board layout.}
+\caption{Idealized localization of \(\delta(y-a)\) at the zero of its argument.}
 \end{figure}
 
-This is not an isolated mathematical aside. The lecture immediately asks where such an object comes from in the Fourier integrals that will later appear in amplitudes. We work on a periodic interval of total length \(L\), so the allowed wave numbers are
+The delta function appears naturally in Fourier integrals. Return for a moment to a periodic spatial interval of total length \(L\). A periodic mode is
+\begin{equation}
+e^{ikx},
+\end{equation}
+where \(k\) is one of the allowed wave numbers
 \begin{equation}
 k_n=\frac{2\pi n}{L},
-\qquad
-\Delta k=\frac{2\pi}{L}.
+\qquad n\in\mathbb Z.
 \end{equation}
-Now consider the periodic mode \(e^{ikx}\) and integrate it over a full period, conveniently from \(-L/2\) to \(L/2\):
+The interval may be represented as \(0\leq x<L\), but it is more symmetric to put the origin in the middle and use
 \begin{equation}
-\int_{-L/2}^{L/2} dx\,e^{ikx}
-=
+-\frac L2\leq x<\frac L2.
+\end{equation}
+The endpoints are identified: crossing \(L/2\) brings one back at \(-L/2\).
+
+Integrate one allowed mode over the entire periodic interval:
+\begin{equation}
+I_L(k)=\int_{-L/2}^{L/2}dx\,e^{ikx}.
+\end{equation}
+If \(k=0\), the integrand is identically one and the answer is \(L\). If \(k\neq0\) is an allowed value, the positive and negative parts of the oscillation cancel over the full number of periods. Thus
+\begin{equation}
+I_L(k)=
 \begin{cases}
-L, & k=0,\\[4pt]
-0, & k\neq 0.
+L,&k=0,\\[4pt]
+0,&k\neq0,
 \end{cases}
-\end{equation}
-As a function of the discrete variable \(k\), this is a spike at \(k=0\): its height is \(L\), its width is one spacing \(\Delta k=2\pi/L\), and therefore its area is
-\[
-L\cdot \frac{2\pi}{L}=2\pi.
-\]
-When \(L\) becomes very large, the spacing in \(k\) becomes very small, and the spike approaches a genuine delta function:
-\begin{equation}
-\int_{-\infty}^{\infty} dx\,e^{ikx}=2\pi\,\delta(k).
-\end{equation}
-By the same symmetry between \(x\) and \(k\),
-\begin{equation}
-\int_{-\infty}^{\infty} dk\,e^{ikx}=2\pi\,\delta(x).
+\qquad
+k=\frac{2\pi n}{L}.
 \end{equation}
 
-That is the real point of the section. The lecture is installing the exact mechanism by which later integrals will collapse and produce conservation laws.
+Now regard \(I_L(k)\) as a function on the discrete set of allowed \(k\)'s. The spacing between neighboring values is
+\begin{equation}
+\Delta k=\frac{2\pi}{L}.
+\end{equation}
+At \(k=0\) the function has height \(L\); at every other allowed value it is zero. For purposes of drawing the discrete spike, give it one \(k\)-spacing of width. Its area is then
+\begin{equation}
+(\text{height})(\text{width})
+=L\frac{2\pi}{L}=2\pi.
+\end{equation}
+As \(L\) grows, the height grows, the spacing shrinks, and the area remains \(2\pi\). In the infinite-volume limit the spike becomes \(2\pi\delta(k)\), giving the formal Fourier identity
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,e^{ikx}=2\pi\delta(k).
+\end{equation}
+The variables \(x\) and \(k\) occur symmetrically in the exponential. Interchanging their roles gives the companion identity
+\begin{equation}
+\int_{-\infty}^{\infty}dk\,e^{ikx}=2\pi\delta(x).
+\end{equation}
+These two elementary rules will soon turn an integral over all interaction times into a condition of energy conservation.
 
 \section{Bras, Kets, and Operators Acting to the Left}
 
-The next bit of mathematics is just as purposeful. Susskind turns to bras and kets not because he wants an abstract interlude, but because scattering amplitudes are bra-operator-ket expressions, and he wants the bookkeeping to be automatic.
+A ket is symbolic notation for a quantum state. For the present purpose, an initial state will be written as a ket and a final state as a bra. Putting a bra and ket together produces an inner product, which is a number. Those numbers, or absolute squares of them, are ultimately what can be compared with experiment.
 
-For the oscillator basis \(|n\rangle\), the inner product is
+\begin{classroomqa}
+\lecturetimestamp{00:15:30}
+\audiencequestion{Had the word ``ket'' actually been introduced before?}
+\lecturerresponse{Yes. A ket is one half of the bra-ket notation; the other half, introduced now, is the bra.}
+\end{classroomqa}
+
+For the harmonic oscillator, the occupation-number states may be written either as kets \(\lvert n\rangle\) or as bras \(\langle n\rvert\). Their inner product is
 \begin{equation}
-\langle m|n\rangle=\delta_{mn},
+\langle m\vert n\rangle=\delta_{mn}
+=\begin{cases}
+1,&m=n,\\
+0,&m\neq n.
+\end{cases}
 \end{equation}
-the discrete analogue of the Dirac delta function. In the lecture, we use kets for initial states and bras for final states. The objects themselves are abstract; what matters is that their pairing produces numbers, and in the end those numbers are the experimental quantities we care about.
+The Kronecker delta \(\delta_{mn}\) is the discrete analogue of the Dirac delta function.
 
-The familiar actions on ket vectors are
+Creation and annihilation operators act on kets in the familiar way:
+\begin{align}
+a^\dagger\lvert n\rangle&=\sqrt{n+1}\,\lvert n+1\rangle,\\
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle.
+\end{align}
+The creation and annihilation operators may also be denoted \(a^+\) and \(a^-\); here \(a^\dagger\) and \(a\) will be used throughout.
+
+How should the same operators act on bras? The notation puts an operator to the right of a bra when it acts to the left. The definition is chosen so that a matrix element has the same value whether the operator is first applied to the ket or first applied to the bra. Consider
 \begin{equation}
-a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle,
-\qquad
-a|n\rangle=\sqrt{n}\,|n-1\rangle.
+\langle n\rvert a^\dagger\lvert m\rangle.
 \end{equation}
-The lecture then asks for the corresponding rule when operators act on bra vectors. The answer is chosen so that acting to the left or acting to the right gives the same numerical result:
+Acting on the ket gives
+\begin{align}
+\langle n\rvert a^\dagger\lvert m\rangle
+&=\sqrt{m+1}\,\langle n\vert m+1\rangle\\
+&=\sqrt{m+1}\,\delta_{n,m+1}.
+\end{align}
+This is nonzero only if \(n=m+1\), or equivalently if \(m=n-1\). To reproduce the same condition by acting on the bra, \(a^\dagger\) must lower its label:
 \begin{equation}
-\langle n|a^\dagger=\sqrt{n}\,\langle n-1|,
-\qquad
-\langle n|a=\sqrt{n+1}\,\langle n+1|.
+\langle n\rvert a^\dagger
+=\sqrt n\,\langle n-1\rvert.
 \end{equation}
-On the board these are written with \(a^+\) and \(a^-\); we standardize here to \(a^\dagger\) and \(a\).
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why does a creation operator lower a bra?
-
-\paragraph{Answer.} Because the matrix element is what must stay fixed. If we compute
-\[
-\langle n|a^\dagger|m\rangle
-\]
-by acting on the ket first, we get
-\[
-\langle n|a^\dagger|m\rangle
-=
-\langle n|\,\sqrt{m+1}\,|m+1\rangle
-=
-\sqrt{m+1}\,\delta_{n,m+1}.
-\]
-So the matrix element is nonzero only when \(n=m+1\). To reproduce that same condition by acting on the bra, \(a^\dagger\) must turn \(\langle n|\) into something proportional to \(\langle n-1|\). That is precisely
-\[
-\langle n|a^\dagger=\sqrt{n}\,\langle n-1|.
-\]
-The lecture presents this as a definition, and the reason for the definition is usefulness.
-
-The usefulness becomes immediate in the standard example
+The numerical factor is \(\sqrt n\), since on the nonzero matrix element \(n=m+1\). The annihilation operator obeys the complementary rule
 \begin{equation}
-\langle n|a^\dagger a|n\rangle.
+\langle n\rvert a
+=\sqrt{n+1}\,\langle n+1\rvert.
+\end{equation}
+Thus \(a^\dagger\) raises a ket but lowers a bra, while \(a\) lowers a ket but raises a bra.
+
+The advantage is visible in the number-operator matrix element
+\begin{equation}
+\langle n\rvert a^\dagger a\lvert n\rangle.
 \end{equation}
 Acting to the right,
 \begin{align}
-a|n\rangle &= \sqrt{n}\,|n-1\rangle,\\
-a^\dagger|n-1\rangle &= \sqrt{n}\,|n\rangle,
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle,\\
+a^\dagger\lvert n-1\rangle&=\sqrt n\,\lvert n\rangle,
 \end{align}
 so
 \begin{equation}
-\langle n|a^\dagger a|n\rangle=n\langle n|n\rangle=n.
+\langle n\rvert a^\dagger a\lvert n\rangle
+=n\langle n\vert n\rangle=n.
 \end{equation}
-Acting to the left,
+Acting instead to the left,
 \begin{align}
-\langle n|a^\dagger &= \sqrt{n}\,\langle n-1|,\\
-\langle n-1|a &= \sqrt{n}\,\langle n|,
+\langle n\rvert a^\dagger&=\sqrt n\,\langle n-1\rvert,\\
+\langle n-1\rvert a&=\sqrt n\,\langle n\rvert,
 \end{align}
-and again
-\begin{equation}
-\langle n|a^\dagger a|n\rangle=n.
-\end{equation}
-That is the beauty of the rule. The calculus is arranged so that one does not have to worry about which way the operators are imagined to act.
+and the same answer follows. One need not decide which direction is more fundamental; the calculus is arranged so that either direction gives the same number.
 
-\section{The Simple Field, Units, and Time Dependence}
+\section{A Quantum Field in Space and Time}
 
-Only after this bookkeeping is in place does the lecture return to the field itself. First comes the choice of units:
+The reason for this bookkeeping is particle physics. At microscopic scales, the main experimental handle is to collide particles and observe what emerges. An initial state with one or two particles may turn into a state with four, five, seven, nine, or some other number. Quantum fields, built from creation and annihilation operators, provide a language for such processes.
+
+Work first in one spatial dimension. Nothing essential prevents the use of three dimensions: \(x\) and \(k\) simply become vectors with three components. It is also convenient to use units in which
 \begin{equation}
 \hbar=1.
 \end{equation}
-With that choice, momentum and wave number coincide.
+Then momentum and wave vector have the same numerical value,
+\begin{equation}
+\vec p=\vec k.
+\end{equation}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.58\textwidth]{lecture_04_figure_03.png}
-\caption{Units \(\hbar=1\) and the identification \(\vec p=\vec k\).}
+\caption{Natural units \(\hbar=1\) and the identification \(\vec p=\vec k\).}
+\lectureframe{00:36:56}
 \end{figure}
 
-So we may write
+Adopt the convention that \(\psi\) annihilates and \(\psi^\dagger\) creates:
+\begin{align}
+\psi(x)&=\sum_k a(k)e^{ikx},\\
+\psi^\dagger(x)&=\sum_k a^\dagger(k)e^{-ikx}.
+\end{align}
+The sum is over \(k=2\pi n/L\) in periodic space and becomes continuous in infinite space. The second equation is the Hermitian conjugate of the first. It may also be thought of as the operator analogue of a complex conjugate.\footnote{The blackboard temporarily labels the creation-field expansion \(\sum_k a^\dagger(k)e^{-ikx}\) by \(\Psi\), and later hesitates over the dagger assignment. The labels here are fixed globally so that \(\psi\) annihilates and \(\psi^\dagger\) creates, exactly as in the subsequent scattering calculation.}
+
+Why this definition? At this stage the best answer is that it is useful. It is a simple sum over momentum modes, and its coefficients are precisely the operators that remove or add particles. The detailed justification comes from the dynamics and from the calculations it makes possible.
+
+\editorialnote{A short portion of the source immediately after the conjugate spatial field is introduced is not intelligible enough to support an additional normalization or interpretation statement. The secure content resumes with the usefulness of the definition.}
+
+So far the fields depend on position but not time. Fields oscillate, and each wave number \(k\) has an associated frequency \(\omega(k)\). An object of definite frequency \(\omega\) has time dependence
 \begin{equation}
-\vec p=\vec k.
+e^{i\omega t}=\cos(\omega t)+i\sin(\omega t).
 \end{equation}
-Likewise, the wave-particle relations are
+Attach the conjugate phases to the two field expansions:
+\begin{align}
+\psi(x,t)&=\sum_k a(k)e^{ikx}e^{-i\omega(k)t},\\
+\psi^\dagger(x,t)&=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+Now each spatial mode oscillates at the frequency appropriate to its wave number, and the field depends on both space and time.
+
+\section{The Nonrelativistic Field Equation}
+
+The relation between \(\omega\) and \(k\) determines the differential equation obeyed by the field. For a single quantum, the wave-particle relations are
 \begin{equation}
 E=\hbar\omega,
 \qquad
@@ -162,102 +208,122 @@ p=\hbar k.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.62\textwidth]{lecture_04_figure_04.png}
-\caption{Energy-frequency and momentum-wave-number relations.}
+\caption{Energy-frequency and momentum-wave-number relations \(E=\hbar\omega\) and \(p=\hbar k\).}
+\lectureframe{00:41:28}
 \end{figure}
 
-With \(\hbar=1\), these become
+With \(\hbar=1\), energy is frequency and momentum is wave number:
 \begin{equation}
 E=\omega,
 \qquad
 p=k.
 \end{equation}
-
-The simplest spatial field is then written as
+For a nonrelativistic particle moving much more slowly than light, the kinetic energy and momentum obey
 \begin{equation}
-\psi(x)=\sum_k a^\dagger(k)e^{-ikx},
+E=\frac{p^2}{2m}.
 \end{equation}
-and its conjugate as
-\begin{equation}
-\psi^\dagger(x)=\sum_k a(k)e^{ikx}.
-\end{equation}
-The lecture is explicit that one should not over-philosophize this definition at the outset. It is the useful definition. The field is made out of the creation and annihilation operators, and that is what later allows it to describe particle processes.
-
-Now comes the next transition. As written so far, the field varies in space but not in time. That cannot be the end of the story if the object is to behave like a field. Each mode \(k\) has a frequency \(\omega(k)\), so we attach the corresponding oscillatory factor to each term:
-\begin{equation}
-\psi(x,t)=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
-\end{equation}
-The conjugate field carries the opposite phase,
-\begin{equation}
-\psi^\dagger(x,t)=\sum_k a(k)e^{ikx}e^{-i\omega(k)t}.
-\end{equation}
-This is the lecture's convention, and it is the convention we keep during the derivation. The board writes \(a^+(k)\) rather than \(a^\dagger(k)\), and occasionally writes a capital \(\Psi\), but no mathematical difference is intended.
-
-A brief point of orientation is also worth keeping. The lecture is working in one space dimension only to keep the algebra light. The same structure survives in three dimensions; only the vector character of \(x\) and \(k\) changes.
-
-\section{From Dispersion Relation to the Field Equation}
-
-Once time dependence has been introduced, the next question is inevitable: what differential equation does the field satisfy? Here Susskind specializes to a nonrelativistic particle, so that
+This is the same relation obtained from \(E=\tfrac12 mv^2\) and \(p=mv\). Combining these relations gives the nonrelativistic dispersion relation
 \begin{equation}
 \omega(k)=\frac{k^2}{2m}.
 \end{equation}
-That is just the nonrelativistic relation \(E=p^2/2m\), rewritten using \(E=\omega\) and \(p=k\).
+
+For the creation field, the mode expansion is
+\begin{equation}
+\psi^\dagger(x,t)=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.66\textwidth]{lecture_04_figure_05.png}
-\caption{Beginning the time-dependent field expansion \(\Psi(x,t)\).}
+\caption{Time-dependent mode expansion used to begin the nonrelativistic field equation.}
+\lectureframe{00:43:23}
 \end{figure}
+
+Differentiate with respect to time:
+\begin{equation}
+\dot\psi^\dagger(x,t)
+=\sum_k i\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+Differentiate once with respect to position:
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial x}
+=\sum_k(-ik)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+There is no direct first-order relation between these derivatives because the time derivative brings down \(\omega(k)\), whereas one spatial derivative brings down \(k\). To see the distinction explicitly, imagine the linear dispersion relation
+\begin{equation}
+\omega(k)=k.
+\end{equation}
+The time derivative would then bring down \(i\omega=ik\), while the first spatial derivative brings down \(-ik\). Mode by mode,
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{\partial\psi^\dagger}{\partial x}.
+\end{equation}
+That hypothetical field would satisfy a first-order equation. Here, however, \(\omega=k^2/(2m)\), so a second spatial derivative is required:
+\begin{align}
+\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=\sum_k(-k^2)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}\\
+&=-2m\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{00:47:14}
+\audiencequestion{Is the minus sign from the spatial derivatives really supposed to be there?}
+\lecturerresponse{Yes. Each \(x\)-derivative of \(e^{-ikx}\) brings down \(-ik\), and two derivatives give \((-ik)^2=-k^2\). Substituting \(k^2=2m\omega\) therefore gives \(-2m\omega\).}
+\end{classroomqa}
+
+Multiplying the time derivative by \(i\) gives the same mode coefficient as dividing the second spatial derivative by \(2m\):
+\begin{align}
+i\dot\psi^\dagger
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t},\\
+\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+Hence
+\begin{equation}
+i\frac{\partial\psi^\dagger}{\partial t}
+=\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2},
+\end{equation}
+or, equivalently,
+\begin{equation}
+-i\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}.
+\end{equation}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.72\textwidth]{lecture_04_figure_06.png}
-\caption{Correcting the time-derivative equation for \(\Psi\).}
+\caption{Time and spatial derivatives of the creation-field mode expansion.}
+\lectureframe{00:49:06}
 \end{figure}
 
-The lecture now proceeds in the live order in which one would naturally do the calculation. Differentiate with respect to time:
+\begin{classroomqa}
+\lecturetimestamp{00:49:43}
+\audiencequestion{Is the coefficient \(1/(2m)^2\)?}
+\lecturerresponse{No. It is \(1/(2m)\).}
+\end{classroomqa}
+
+The conjugate annihilation field obeys the familiar Schr\"odinger form
 \begin{equation}
-\dot{\psi}(x,t)=\sum_k i\omega(k)\,a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+i\frac{\partial\psi}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi}{\partial x^2}.
 \end{equation}
-Differentiate with respect to space:
-\begin{equation}
-\partial_x\psi(x,t)=\sum_k (-ik)\,a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
-\end{equation}
-At this stage the lecture stops to notice the obstruction. There is no simple first-order relation between these two expressions, because the time derivative brings down \(\omega(k)\), whereas the spatial derivative brings down only \(k\), and here \(\omega\) is proportional to \(k^2\), not to \(k\).
+The two field equations are Hermitian conjugates.\footnote{During the sign check, the board briefly gave the spatial term with the opposite sign. Direct differentiation of the displayed mode phases gives the conjugate pair of equations written here.}
 
-So we differentiate once more:
-\begin{equation}
-\partial_x^2\psi(x,t)=\sum_k (-k^2)\,a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
-\end{equation}
-Using \(k^2=2m\,\omega(k)\), we obtain
-\begin{equation}
-\partial_x^2\psi(x,t)=\sum_k \bigl(-2m\,\omega(k)\bigr)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
-\end{equation}
-Now the mode-by-mode structure matches the time derivative, so after rearranging the factor of \(i\) we arrive at
-\begin{equation}
--i\dot{\psi}=\frac{1}{2m}\frac{\partial^2\psi}{\partial x^2}.
-\end{equation}
-Equivalently,
-\begin{equation}
-i\dot{\psi}=-\frac{1}{2m}\frac{\partial^2\psi}{\partial x^2}.
-\end{equation}
+The equation has the same form as the Schr\"odinger equation of elementary quantum mechanics, but the object satisfying it is different. In elementary quantum mechanics, a wavefunction is a complex-valued function whose absolute square is interpreted probabilistically. Here \(\psi\) and \(\psi^\dagger\) are operators: \(\psi\) removes a particle and \(\psi^\dagger\) adds one. The conjugate pair provides a direct link between particles and fields.
 
-The lecture recognizes this as the Schr\"odinger equation, but immediately warns us not to confuse the object satisfying it with the wavefunction of elementary quantum mechanics. The differential equation is the same in form. The thing satisfying it is not.
+When many quanta occupy the relevant modes, a field can behave approximately classically, just as a strongly excited harmonic oscillator can look classical while a one-quantum oscillator does not. Large occupation makes a large classical scale possible and can make appropriate relative fluctuations small.
 
-\subsection{Question \& Answer}
+\editorialnote{Large occupation by itself is not sufficient for a classical field. A phase-coherent semiclassical state is also needed; a number eigenstate has no definite phase and need not have a nonzero mean field.}
 
-\paragraph{Question.} Why does the equation require a second spatial derivative, and what should we make of the live sign check?
+\section{A Fixed Target and a Scattering Amplitude}
 
-\paragraph{Answer.} The second derivative is forced by the dispersion relation. One spatial derivative produces a factor of \(k\); the time derivative produces a factor of \(\omega\sim k^2\). If the particle had obeyed a different dispersion relation, say \(\omega\propto k\), a first-order equation would have sufficed. But for the nonrelativistic particle we need \(\partial_x^2\), because only that brings down \(k^2\).
+How are these fields used? Consider the simplest possible scattering process. A particle meets a target so heavy that its recoil will be ignored. The target is fixed in space forever. A particle can be reflected, transmitted, or redirected; in three dimensions its outgoing direction can differ from its incoming direction.
 
-As for the sign, the lecture checks it in real time because the derivation is being unfolded rather than recited. The underlying content is steady: two \(x\)-derivatives produce \(-k^2\), and after using \(k^2=2m\omega\) one rearranges the factor of \(i\) into the Schr\"odinger form. The board wobble is therefore part of the pedagogical rhythm, not a sign of competing equations.
+The particle's momentum need not be the same before and after the collision. Momentum is conserved for the complete physical system, but the target absorbs the missing momentum. Once the target's motion is omitted from the mathematical description, the momentum of the particle alone is not conserved.
 
-This is also where the lecture insists on the conceptual distinction. In elementary quantum mechanics, \(\psi\) is a c-number wavefunction. Here \(\psi(x,t)\) is an operator-valued field. It creates particles and annihilates particles. It only begins to look like a classical field when the occupation numbers are large, so that the quantum fluctuations become relatively small.
+Its energy behaves differently in the idealized model. Imagine throwing a tennis ball against a wall. A real tennis ball heats and deforms, but if those effects are ignored, it returns with the same kinetic energy even though its momentum reverses. The fixed-target model is designed to reproduce that distinction: the particle's energy is conserved while its momentum may change.
 
-\section{Fixed-Target Scattering and the Time Integral}
-
-Only now does the lecture cash in the preparation. The field has been defined, it has been given a time dependence, and it has been shown to satisfy an equation. What do we do with it? We use it to describe the simplest possible scattering process.
-
-The model is deliberately crude. A heavy target is fixed at \(x=0\). One incoming particle, with momentum \(k_i\), hits the target and one outgoing particle, with momentum \(k_f\), emerges. We are to think of the process as absorption followed by immediate re-emission at the target. The lecture is perfectly clear that this is a model, not a universal law of nature.
+Draw space horizontally and time vertically. The target is the vertical line \(x=0\). An incoming one-particle state of momentum \(k_i\) reaches the target and an outgoing one-particle state of momentum \(k_f\) leaves it.
 
 \begin{figure}[h]
 \centering
@@ -265,142 +331,364 @@ The model is deliberately crude. A heavy target is fixed at \(x=0\). One incomin
 \draw[->] (-3.2,0) -- (3.2,0) node[right] {space};
 \draw[->] (0,-0.3) -- (0,4.2) node[above] {time};
 \draw[very thick] (0,0) -- (0,3.8);
-\draw (-0.45,3.55) node[left] {$x=0$};
+\node[left] at (-0.15,3.55) {$x=0$};
 \draw[thick,->] (-2.2,0.8) -- (0,2.0);
-\draw (-1.55,0.95) node[below] {$k_i$};
+\node[below] at (-1.45,1.05) {$k_i$};
 \draw[thick,->] (0,2.0) -- (2.2,3.2);
-\draw (1.55,3.0) node[above] {$k_f$};
+\node[above] at (1.5,2.9) {$k_f$};
 \fill (0,2.0) circle (1.4pt);
 \end{tikzpicture}
-\caption{The fixed-target scattering picture used in the lecture. The target is fixed in space, but the event may happen at any time.}
+\caption{A particle of momentum \(k_i\) scatters from a target fixed at \(x=0\) and emerges with momentum \(k_f\).}
 \end{figure}
 
-This last point matters. The target is fixed at one position, but the interaction is not assigned a preferred time. The process can happen whenever the particle gets there. That asymmetry between space and time is exactly what the lecture wants us to notice.
+Use the language of absorption and re-emission. The target annihilates the incoming particle and immediately creates the outgoing particle, possibly with a different momentum. This is only a mathematical model of the scattering event; an actual atom, for example, can absorb a photon, remain excited for a time, and emit later.
 
-We choose the convention that \(\psi\) annihilates and \(\psi^\dagger\) creates. The lecture briefly hesitates over the dagger assignment while recalling earlier notation, but the stable final expression is
-\begin{equation}
-\mathcal A_{i\to f}\propto \left\langle k_f\left|\,g\int dt\,\psi^\dagger(0,t)\psi(0,t)\,\right|k_i\right\rangle.
-\end{equation}
-Here \(g\) is the coupling constant, the numerical measure of the interaction strength. The integral over all times is not an afterthought. It is the mathematical implementation of ``no special time.''
+\begin{classroomqa}
+\lecturetimestamp{01:02:28}
+\audiencequestion{Why must the particle be absorbed and re-emitted immediately?}
+\lecturerresponse{It need not be in nature. Instantaneous absorption and re-emission at one point is the simplifying model being used here.}
+\end{classroomqa}
 
-At the target, \(x=0\), the spatial exponentials disappear:
+The initial state contains one particle in the \(k_i\) mode and none in any other mode. In occupation-number language every entry is zero except the entry associated with \(k_i\), which is one. It is enough to abbreviate the full list by
 \begin{equation}
-\psi(0,t)=\sum_k a(k)e^{-i\omega(k)t},
-\qquad
-\psi^\dagger(0,t)=\sum_\ell a^\dagger(\ell)e^{i\omega(\ell)t}.
+\lvert k_i\rangle=a^\dagger(k_i)\lvert0\rangle.
 \end{equation}
-Substituting these into the amplitude gives
+Similarly,
+\begin{equation}
+\langle k_f\rvert=\langle0\rvert a(k_f).
+\end{equation}
+
+Annihilation at the target and time \(t\) is represented by \(\psi(0,t)\); immediate recreation at the same point and time is represented by \(\psi^\dagger(0,t)\). There is no preferred time at which the event occurs. It can happen whenever the incoming particle reaches the target, with the same interaction strength at every time. To express that absence of a special time, integrate over all \(t\):
+\begin{equation}
+\int_{-\infty}^{\infty}dt\,\psi^\dagger(0,t)\psi(0,t).
+\end{equation}
+Acting on the initial ket, this operator produces a state. Its overlap with the final bra is the amplitude for the specified transition. The probability is obtained only after taking the absolute square of the amplitude.
+
+One further number is needed. Let \(g\) measure the strength of the interaction between the particle and the target. In this bookkeeping model, write the schematic leading amplitude as\footnote{State-normalization factors and the conventional overall factor of first-order perturbation theory are suppressed; the calculation uses only the operator selection rules and the energy-conserving support.}
+\begin{equation}
+\mathcal A_{i\to f}
+=g\left\langle k_f\left|
+\int_{-\infty}^{\infty}dt\,
+\psi^\dagger(0,t)\psi(0,t)
+\right|k_i\right\rangle.
+\end{equation}
+The coefficient \(g\) is called a coupling constant. For a charged target scattering a photon, electric charge supplies the relevant measure of interaction strength: increasing the charge increases the tendency to scatter.
+
+Different interactions have very different couplings. A meson reaching a proton undergoes a strong interaction and has a comparatively large scattering strength. A photon scattered by a charged proton has a smaller electromagnetic coupling. A neutrino interacting with a proton has a smaller coupling still.
+
+\begin{classroomqa}
+\lecturetimestamp{01:09:09}
+\audiencequestion{Is this simple model valid for an electron?}
+\lecturerresponse{Only as a simplified stand-in for several kinds of scattering. It should not yet be read as a realistic theory of an electron or of any one particular target.}
+\end{classroomqa}
+
+Gravitational scattering of a graviton from a nucleus would be extraordinarily weak. These examples do not share one universal \(g\); particle physics contains many coupling constants.
+
+Nor must an effective coupling always be independent of frequency.
+
+\begin{classroomqa}
+\lecturetimestamp{01:10:31}
+\audiencequestion{Why take \(g\) to be a constant rather than a function of \(\omega\) or \(k\)?}
+\lecturerresponse{It need not always be constant. If a photon is absorbed by an atom, the atom remains excited for a time, and the photon is emitted later, the effective scattering can depend on frequency. The constant \(g\) belongs to the present instantaneous model.}
+\end{classroomqa}
+
+For the moment, keep \(g\) constant and calculate the consequences of this simplest choice.
+
+\begin{classroomqa}
+\lecturetimestamp{01:12:32}
+\audiencequestion{If \(g=1\), must the scattering probability be one?}
+\lecturerresponse{No. The expression being calculated is only the leading approximation for small \(g\). If the coupling is not small, higher-order perturbation theory is required; a probability larger than one would signal the breakdown of the one-step approximation, not a physical probability.}
+\end{classroomqa}
+
+\section{Collapsing the Mode Sums}
+
+At \(x=0\), the spatial phases equal one, so
+\begin{align}
+\psi(0,t)&=\sum_k a(k)e^{-i\omega(k)t},\\
+\psi^\dagger(0,t)&=\sum_\ell a^\dagger(\ell)e^{i\omega(\ell)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{01:13:58}
+\audiencequestion{Since the target is at \(x=0\), should the spatial exponential be omitted?}
+\lecturerresponse{Yes. At the target \(e^{ikx}=e^{ik0}=1\), and the conjugate spatial factor is also one.}
+\end{classroomqa}
+
+Use different dummy labels \(k\) and \(\ell\) in the two sums. Substitution gives
 \begin{align}
 \mathcal A_{i\to f}
-&\propto
-g\int dt
+&=g\int_{-\infty}^{\infty}dt
 \sum_{\ell,k}
 e^{i\omega(\ell)t}e^{-i\omega(k)t}
-\langle k_f|a^\dagger(\ell)a(k)|k_i\rangle.
+\langle k_f\rvert a^\dagger(\ell)a(k)\lvert k_i\rangle.
 \end{align}
-Now the bra-ket bookkeeping does the real work. Since the initial state contains only one particle of momentum \(k_i\), only the term \(k=k_i\) survives. Since the final bra contains only one particle of momentum \(k_f\), only the term \(\ell=k_f\) survives. In the one-particle sector, the operator part then reduces to the vacuum overlap,
-\[
-\langle 0|0\rangle=1.
-\]
-So the whole expression collapses to
+Which term in the \(k\)-sum can survive? An annihilation operator gives zero in every empty mode. The initial state contains a particle only in mode \(k_i\), so \(k=k_i\). Which term in the \(\ell\)-sum can survive? Acting to the left, \(a^\dagger(\ell)\) must remove the particle represented by the final bra, so \(\ell=k_f\). Both sums collapse:
+\begin{align}
+\mathcal A_{i\to f}
+&=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+\langle k_f\rvert a^\dagger(k_f)a(k_i)\lvert k_i\rangle.
+\end{align}
+The annihilation operator turns the initial one-particle ket into the vacuum,
 \begin{equation}
-\mathcal A_{i\to f}\propto g\int dt\,e^{i(\omega_f-\omega_i)t}.
+a(k_i)\lvert k_i\rangle=\lvert0\rangle,
 \end{equation}
-And now the earlier work on the Dirac delta function pays off:
+and the creation operator, acting to the left, turns the final one-particle bra into the vacuum bra,
 \begin{equation}
-\int dt\,e^{i(\omega_f-\omega_i)t}=2\pi\,\delta(\omega_f-\omega_i).
+\langle k_f\rvert a^\dagger(k_f)=\langle0\rvert.
 \end{equation}
-Therefore
+Their matrix element is therefore
 \begin{equation}
-\mathcal A_{i\to f}\propto 2\pi g\,\delta(\omega_f-\omega_i).
+\langle0\vert0\rangle=1.
 \end{equation}
-
-This is the central reveal of the lecture. The amplitude vanishes unless \(\omega_f=\omega_i\). In the units being used, that is simply equality of the final and initial energies. Energy conservation has emerged from the fact that no particular time was singled out.
-
-The lecture is informal about the probability itself, because squaring a delta function is a separate distributional issue that is not being regularized here. The intended statement is only that the first-order probability is proportional to
+All the operator bookkeeping reduces to one; the coupling supplies \(g\), and the nontrivial part left over is the time integral:
 \begin{equation}
-|\mathcal A_{i\to f}|^2\propto 4\pi^2 g^2,
+\mathcal A_{i\to f}
+=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}.
 \end{equation}
-together with the energy-conserving restriction already encoded by the delta function.
 
-This is also the place where Susskind broadens the physical reading. The coefficient \(g\) is what tells us how strongly the target and particle interact. It may stand, in a simple model, for something like electric charge. But the lecture insists that the present calculation is only a first approximation. When \(g\) is not small, the scattering is no longer captured by one absorption-re-emission event; one must sum a whole series of more complicated processes. That is the beginning of perturbation theory and, in the lecture's language, of Feynman graphs.
+\editorialnote{A brief audience question at 01:18:40 is not recoverable from the source. The response distinguishes this one-particle calculation from a relativistic or multiparticle issue; no more precise exchange can be reconstructed securely.}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why does this simple model conserve energy but not momentum?
-
-\paragraph{Answer.} Because the model treats time and position differently. The interaction is allowed to occur at any time, so we integrate over all \(t\), and that produces the energy-conserving delta function. But the interaction is tied to one point, \(x=0\), so there is no integral over all positions, and therefore no momentum-conserving delta function. Physically, the target can absorb momentum. In the simplified bookkeeping we have frozen the target and omitted its recoil, so the particle's momentum need not be conserved even though the full system's momentum would be.
-
-The lecture pushes this one step further. If the target were moved to some nonzero position \(x_{\text{target}}\), the amplitude would acquire the extra phase
+Now the earlier delta-function identity applies directly:
 \begin{equation}
-\mathcal A(x_{\text{target}})\propto e^{i(k_i-k_f)x_{\text{target}}}.
+\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+=2\pi\delta(\omega_f-\omega_i).
 \end{equation}
-That phase disappears from the probability after multiplication by the complex conjugate. So the amplitude remembers where the target is, but the probability does not.
+Hence
+\begin{equation}
+\boxed{
+\mathcal A_{i\to f}
+=2\pi g\,\delta(\omega_f-\omega_i)
+}.
+\end{equation}
+The amplitude vanishes unless
+\begin{equation}
+\omega_f=\omega_i.
+\end{equation}
+Since \(\hbar=1\), this is \(E_f=E_i\). Energy conservation has appeared because every interaction time was treated alike. If the time integral were restricted to a finite interval, it would produce a broadened function rather than an exact delta function. Exact invariance under translations of time is what gives the exact energy-conserving condition.
 
-And if we reversed the logic? If the interaction were allowed to happen anywhere in space but only at one distinguished time, then the analogous integral would produce momentum conservation rather than energy conservation. The lecture does not work that case out fully here, but it names the pattern: time-translation symmetry gives energy conservation, and spatial-translation symmetry will give momentum conservation.
+\begin{classroomqa}
+\lecturetimestamp{01:21:30}
+\audiencequestion{The amplitude must be squared to obtain a probability. What happens to the delta function when it is squared?}
+\lecturerresponse{The squared delta function requires additional care. The point needed here is secure: the result is zero unless the initial and final energies are equal. On the energy-conserving support, the schematic squared prefactor contains \(4\pi^2g^2\).}
+\end{classroomqa}
 
-Finally, the lecture uses questions from the room to point out how the simple model can fail. If the coupling depends on time, or if the target position itself depends on time, then there is no longer a clean integral over all times with no preferred instant. In such a reduced description, energy need not be conserved. The missing energy is a sign that some dynamics have been omitted from the bookkeeping.
+\editorialnote{A normalized transition probability or rate cannot be obtained by simply discarding \(\delta(\omega_f-\omega_i)^2\). It requires finite-time regularization and consistent state normalization. Thus \(4\pi^2g^2\) is retained only as the schematic squared prefactor emphasized in the source.}
 
-\section{Phase Invariance and Charge Conservation}
+Nothing in this point-target interaction distinguishes one final momentum from another except the energy condition. In three dimensions, the model therefore assigns equal leading weight to all outgoing momenta with the same energy---equivalently, to all outgoing directions on the fixed-energy sphere. That isotropy is a property of this very simple point scatterer, not of every real target.
 
-The final movement of the lecture shifts from energy to charge. Suppose now that \(\psi\) is the field operator for an electron. Each species of particle has its own field, so the notation must now be read that way: \(\psi\) means the electron field.
+The calculation has supplied three linked ideas. The coefficient \(g\) measures the interaction strength. A bra-operator-ket expression is a scattering amplitude whose absolute square enters the probability. Most importantly, integration over all times produces the energy delta function: time-translation symmetry enforces energy conservation.
 
-At the simplest level, the counting rule is obvious. Each \(\psi\) annihilates an electron. Each \(\psi^\dagger\) creates an electron. So
-\[
+\section{What Changes When the Target or Coupling Changes?}
+
+The origin \(x=0\) was chosen only for convenience. Put the target at \(x=x_{\mathrm T}\). The spatial factors in \(\psi^\dagger(x_{\mathrm T},t)\psi(x_{\mathrm T},t)\) give
+\begin{equation}
+e^{-ik_f x_{\mathrm T}}e^{ik_i x_{\mathrm T}}
+=e^{i(k_i-k_f)x_{\mathrm T}}.
+\end{equation}
+Thus the amplitude becomes
+\begin{equation}
+\mathcal A_{i\to f}(x_{\mathrm T})
+=e^{i(k_i-k_f)x_{\mathrm T}}
+\mathcal A_{i\to f}(0).
+\end{equation}
+
+\begin{classroomqa}
+\lecturetimestamp{01:24:37}
+\audiencequestion{Can the position always be redefined so that the target is at \(x=0\)?}
+\lecturerresponse{For this single fixed target, yes. If it is left at \(x_{\mathrm T}\neq0\), its position appears as the phase \(e^{i(k_i-k_f)x_{\mathrm T}}\) in the amplitude. Multiplication by the complex-conjugate phase removes it from the probability.}
+\end{classroomqa}
+
+Indeed,
+\begin{equation}
+\left|e^{i(k_i-k_f)x_{\mathrm T}}\right|^2=1.
+\end{equation}
+The amplitude remembers the target's position, but this one-target probability does not.
+
+Now reverse the asymmetry. Suppose an interaction could occur at any position but only at one distinguished time. An integral over position would give
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,
+e^{i(k_i-k_f)x}
+=2\pi\delta(k_i-k_f),
+\end{equation}
+while fixing the time would remove the energy delta function.
+
+\begin{classroomqa}
+\lecturetimestamp{01:26:41}
+\audiencequestion{If it did not matter where the interaction happened, but it happened only at one fixed time, would a different quantity be conserved?}
+\lecturerresponse{Yes. Integration over all positions would enforce momentum conservation, while the distinguished interaction time would remove exact energy conservation. In a complete two-particle problem, the interaction may occur at any time and any place.}
+\end{classroomqa}
+
+This also gives a physical interpretation of explicit time dependence. If the coupling is \(g(t)\), or an outside intervention suddenly makes the scattering possible, not every time is equivalent. The reduced description may then exchange energy with whatever external dynamics were omitted.
+
+\begin{classroomqa}
+\lecturetimestamp{01:28:29}
+\audiencequestion{Do coupling constants mostly come from experiment, and what does a time-dependent coupling mean?}
+\lecturerresponse{Yes, their values are determined experimentally. Explicit time dependence usually means that some moving or changing part of the system has been left out, much as target recoil was left out of the fixed-target model. Energy that appears missing belongs to those omitted degrees of freedom.}
+\end{classroomqa}
+
+A moving target is the simplest example.
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:23}
+\audiencequestion{Is hitting a moving target an example in which the particle's energy is not conserved?}
+\lecturerresponse{Yes. If the target's prescribed motion is omitted from the energy bookkeeping, it can supply or remove energy from the particle.}
+\end{classroomqa}
+
+The pointlike character of the target is another simplification.
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:43}
+\audiencequestion{When does the size of the target have to be compared with the size or wavelength of the incident wave?}
+\lecturerresponse{In the present model the target has zero size. A finite target size does produce additional effects when compared with the wavelength, but that refinement is postponed.}
+\end{classroomqa}
+
+Return now to the moving target. Imagine a wall moving toward a tennis ball. The wall can give energy to the ball. If the wall's motion is prescribed and its energy is omitted, the ball's energy alone is not conserved. Mathematically this is time dependence in the target position rather than necessarily in \(g\).
+
+Creation and annihilation operators have therefore done exactly what was wanted: they describe a transition from one particle state to another, while the spacetime dependence of the fields determines which conservation conditions accompany that transition.
+
+\section{Charge Counting and Phase Invariance}
+
+Each particle species has its own field. Electrons and photons, for example, are not described by the same \(\psi\). To expose charge counting with the algebra already available, temporarily let \(\psi\) stand for an electron-like field: \(\psi\) annihilates one such charged particle and \(\psi^\dagger\) creates one. This is a bosonic stand-in for the bookkeeping; the genuine fermionic electron field requires algebra not yet introduced.
+
+The fixed-target factor
+\begin{equation}
 \psi^\dagger\psi
-\]
-describes one electron in and one electron out, while
-\[
-\psi^\dagger\psi^\dagger\psi
-\]
-would describe one electron in and two out, which violates charge conservation. A term of the form
-\[
-\psi^\dagger\psi^\dagger\psi\psi
-\]
-describes two in and two out, so it does not violate charge conservation.
+\end{equation}
+annihilates one particle and creates one. One electron comes in and one goes out, so the charge carried by this species does not change.
 
-The lecture then asks whether there is a more structural way to diagnose this than merely counting operators. There is. We apply a global phase transformation,
+Now imagine one electron entering and two leaving from the same point. The corresponding operator product would contain one annihilation field and two creation fields,
 \begin{equation}
-\psi\longrightarrow e^{i\alpha}\psi,
-\qquad
+\psi^\dagger\psi^\dagger\psi.
+\end{equation}
+For an electron field this would create one net electron and would violate electric charge conservation. Two electrons in and two out can instead be represented by
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+which has equal numbers of creation and annihilation fields. Two in and three out would require
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+and again changes the net charge. The immediate rule is simple: a charge-conserving interaction contains the same number of \(\psi\)'s and \(\psi^\dagger\)'s.
+
+\begin{classroomqa}
+\lecturetimestamp{01:34:27}
+\audiencequestion{Does the order of the field operators matter for this charge-conservation test?}
+\lecturerresponse{The immediate test concerns the number of \(\psi\) and \(\psi^\dagger\) factors, not their order. Whether differently ordered products are otherwise identical is a separate question.}
+\end{classroomqa}
+
+There is a mathematical diagnostic deeper than merely counting. Multiply the field by a constant phase:
+\begin{equation}
+\psi\longrightarrow e^{i\alpha}\psi.
+\end{equation}
+Because \(\psi^\dagger\) is the Hermitian conjugate, it transforms with the conjugate phase,
+\begin{equation}
 \psi^\dagger\longrightarrow e^{-i\alpha}\psi^\dagger.
 \end{equation}
-Under this transformation, any product with equal numbers of \(\psi\)'s and \(\psi^\dagger\)'s is unchanged, while any product with unequal numbers picks up a nontrivial phase. For example,
+An expression with equal numbers of the two fields is unchanged. For example,
+\begin{align}
+\psi^\dagger\psi
+&\longrightarrow
+e^{-i\alpha}e^{i\alpha}\psi^\dagger\psi
+=\psi^\dagger\psi,\\
+\psi^\dagger\psi^\dagger\psi\psi
+&\longrightarrow
+e^{-2i\alpha}e^{2i\alpha}
+\psi^\dagger\psi^\dagger\psi\psi
+=\psi^\dagger\psi^\dagger\psi\psi.
+\end{align}
+An expression with unequal numbers changes. Thus
 \begin{equation}
-\psi^\dagger\psi \longrightarrow \psi^\dagger\psi,
-\qquad
-\psi^\dagger\psi^\dagger\psi\psi \longrightarrow \psi^\dagger\psi^\dagger\psi\psi,
+\psi^\dagger\psi^\dagger\psi
+\longrightarrow
+e^{-i\alpha}\psi^\dagger\psi^\dagger\psi.
 \end{equation}
-but
-\begin{equation}
-\psi^\dagger\psi^\dagger\psi \longrightarrow e^{-i\alpha}\,\psi^\dagger\psi^\dagger\psi.
-\end{equation}
-Likewise,
+The allowed charge-conserving interactions are precisely the ones invariant under this global change of phase. Phase invariance and charge conservation are two descriptions of the same rule in this simple field language.
+
+The combination
 \begin{equation}
 \psi+\psi^\dagger
 \end{equation}
-is not phase-invariant.
+is not invariant under an arbitrary phase rotation.
 
-At this stage the lecture is still deliberately modest. It does not turn this into a full formal derivation of Noether's theorem. It simply shows how the rule works mechanically in the field language.
+\begin{classroomqa}
+\lecturetimestamp{01:37:53}
+\audiencequestion{Isn't that the real part of \(\psi\)?}
+\lecturerresponse{Yes. It is proportional to the real part of \(\psi\), and multiplying \(\psi\) by a phase changes that real part. It is therefore not phase invariant.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\lecturetimestamp{01:38:05}
+\audiencequestion{If an electron strikes a target and many secondary electrons are emitted, how can charge still be conserved?}
+\lecturerresponse{The target is not passive in that process. If an atom emits many electrons, the atom itself changes charge and state. Its dynamics must be included, and the target must also be described by quantum fields.}
+\end{classroomqa}
 
-\paragraph{Question.} Is there a more structural test than merely counting \(\psi\)'s and \(\psi^\dagger\)'s?
+At this point three correspondences are visible. Time-translation invariance corresponds to energy conservation. Global phase invariance corresponds to charge conservation. Spatial-translation invariance corresponds to momentum conservation, although the full spatial calculation remains to be carried out.
 
-\paragraph{Answer.} Yes. Counting is the quick rule, but the structural statement is phase invariance. An interaction conserves charge precisely when it is invariant under the global rephasing
-\[
-\psi\to e^{i\alpha}\psi,
-\qquad
-\psi^\dagger\to e^{-i\alpha}\psi^\dagger.
-\]
-Equal numbers of \(\psi\) and \(\psi^\dagger\) mean the phases cancel. Unequal numbers mean they do not. The charge-counting rule is therefore not just a mnemonic; it is the concrete reflection of a symmetry.
+\section{Operator Order and the Limits of the Lowest-Order Model}
 
-The lecture adds one more cautionary remark. If an incoming electron strikes a complicated target and many electrons emerge, charge conservation is not lost. What has happened is that the target itself has changed state. One can no longer treat it as a passive background. The target must itself be described by fields, and its changing charge must be included in the bookkeeping.
+For simplicity, the products above place all creation fields to the left and all annihilation fields to the right. An interleaved product can still have equal numbers and therefore pass the charge-counting test, but operator order can affect the expression in other ways.
 
-There is also a small but important boundary line drawn at the end. The order of operators is not yet being analyzed in full. Susskind chooses to keep the daggers to the left and the undaggered fields to the right as the simplest bookkeeping convention, and he explicitly postpones the question of how other orderings are related. That too belongs to the next stage of the story.
+\begin{classroomqa}
+\lecturetimestamp{01:40:02}
+\audiencequestion{Could the same kind of process be written with interleaved factors such as \(\psi\psi^\dagger\psi\psi^\dagger\)?}
+\lecturerresponse{It still has equal numbers and so satisfies the charge rule, but it is not generally the same expression as one with all daggers to the left. The rearrangement of different orderings is postponed.}
+\end{classroomqa}
 
-\section{Summary}
+\editorialnote{The wording of an audience question at 01:41:10 is too damaged to reconstruct. The recoverable response repeats that equal numbers of \(\psi\) and \(\psi^\dagger\) imply phase invariance and charge conservation, whereas unequal numbers imply neither.}
 
-The lecture has unfolded one simple but powerful theme. If no special time is selected, the time integral produces a delta function and energy is conserved. If the interaction is invariant under a global phase rotation of the field, charge is conserved. In both cases the conservation law does not descend from a mysterious commandment; it appears mechanically because the description has a symmetry.
+These links between symmetries and conservation laws are instances of Noether's theorem. In classical mechanics that theorem gives the general framework; here the same connection has been displayed directly through the phases and delta functions of the quantum fields.
 
-What remains for the next lecture is the spatial counterpart. If time-translation symmetry gives energy conservation, and phase invariance gives charge conservation, then spatial translation invariance should give momentum conservation. The present lecture stops just before carrying that out in detail, but the method is already in place: build the field, write the amplitude, integrate over what is not special, and read off the conservation law that follows.
+The leading fixed-target result also has an obvious domain of validity. A schematic probability prefactor such as \(4\pi^2g^2\) cannot be trusted once it approaches or exceeds unity.
+
+\begin{classroomqa}
+\lecturetimestamp{01:43:33}
+\audiencequestion{Does the schematic result mean that \(g\) must be smaller than roughly \(1/(2\pi)\)?}
+\lecturerresponse{Either \(g\) is small enough for this first term to be useful, or the model is incomplete. A particle can scatter once, return and scatter twice, then three times, and so on. The full amplitude is an infinite series. Only for small \(g\) is the simplest term dominant; otherwise many Feynman graphs must be summed.}
+\end{classroomqa}
+
+The simple spacetime pictures are the beginnings of Feynman graphs. Their vertices specify elementary possibilities: one particle in and one out corresponds to a factor such as \(\psi^\dagger\psi\); two in and two out corresponds to a factor such as \(\psi^\dagger\psi^\dagger\psi\psi\). Repeated vertices generate higher powers of the coupling and the higher-order terms in the series.
+
+\begin{classroomqa}
+\lecturetimestamp{01:45:39}
+\audiencequestion{Can a coupling constant have an imaginary component?}
+\lecturerresponse{Complex coupling constants can occur. Irreducible \(T\)-odd phase combinations can signal violation of time-reversal invariance: the time-reversed process need not carry the symmetry-related amplitude.}
+\end{classroomqa}
+
+\editorialnote{The QCD \(\theta\) parameter was mentioned in this exchange, but it is a real coefficient multiplying a \(T\)-odd interaction, not an imaginary component of a coupling. A removable phase or an absorptive complex phase does not by itself establish \(T\) violation. The inference applies only to irreducible \(T\)-odd phase combinations.}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:02}
+\audiencequestion{Can the outgoing particle be emitted before or after the incoming particle is absorbed, rather than at the same instant?}
+\lecturerresponse{That is a fair question, but the instantaneous model does not address it. The more general time ordering is deferred.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:44}
+\audiencequestion{How is this construction made relativistic?}
+\lecturerresponse{The brief indication is to combine the conjugate pieces and include a denominator involving a square root of \(\omega(k)\). The complete construction is postponed.}
+\end{classroomqa}
+
+\editorialnote{The brief spoken relativistic formula is not recoverable securely enough to typeset. Only its stated ingredients and deferral are retained.}
+
+Charge conservation must also be distinguished sharply from conservation of rest mass.
+
+\begin{classroomqa}
+\lecturetimestamp{01:48:22}
+\audiencequestion{Is rest mass conserved in the same structural sense as electric charge?}
+\lecturerresponse{No. In Galilean nonrelativistic mechanics, mass is an additive conserved quantity. In relativistic reactions the sum of the individual particles' rest masses need not be conserved. An electron and a positron can annihilate into two photons while electric charge remains conserved.}
+\end{classroomqa}
+
+\editorialnote{For a complete closed relativistic system, total four-momentum is conserved, so the invariant mass of that system is fixed. The annihilation example concerns the sum of the individual particles' rest masses, not the invariant mass of the closed system.}
+
+Conservation of additive mass is therefore an effective nonrelativistic fact, not a fundamental rule on the same footing as electric charge conservation. The phase invariance found above expresses the deeper charge symmetry.
+
+The next steps are to replace the bosonic stand-in by fermionic fields and to allow several particle species---electrons, muons, quarks, photons, and others---each with its own field and its own allowed interactions.
+
+\begin{classroomqa}
+\lecturetimestamp{01:50:39}
+\audiencequestion{Was it legitimate to call the earlier example an electron field when only bosonic fields have been developed so far?}
+\lecturerresponse{Only as a bosonic version or stand-in for an electron. The genuine fermionic theory has not yet been introduced.}
+\end{classroomqa}
