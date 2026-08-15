@@ -1,448 +1,423 @@
-\chapter{Quantum Entanglements, Part 1}
+\chapter{Qubits, Complex State Vectors, and Observables}
 
-These notes follow Leonard Susskind's second lecture in the supplementary \emph{Quantum Entanglement} track, in an edition curated by LazyingArt LLC. The lecture opens by leaving the world of classical bits and entering quantum mechanics at its simplest nontrivial point: a single electron spin. But it does not begin with formalism. It begins with a puzzle. The electron can be prepared as though it were pointing in many different directions, yet an up-down measurement returns only two answers. The chapter should be read in that order. We first let the classical picture build up enough force to fail, and only then do we introduce the complex vector space of states that can carry the physics.
+\lectureoverview{A single electron spin is the first genuinely quantum bit. It may be prepared relative to any spatial direction, yet a fixed detector returns only two outcomes. We let the classical magnetic picture fail, then construct the complex vector space, probability rule, and matrix language needed to describe what the experiment actually does.}
 
-\section{Classical Bits, Qubits, and the Spin Example}
+\section{One Spin and Two Meanings of Vector}
 
-We begin where the lecture begins: classical physics with a discrete state space. In that setting the space of states is a Boolean space, a collection of points, one point for each possible state, and the logic governing those states is ordinary classical logic. A classical bit is the simplest example. It has two possible values and nothing in between.
+A classical bit has two possible states and nothing between them. We may call them \(0\) and \(1\), heads and tails, or up and down; the names are labels for two distinct points in a classical state space. A quantum bit also yields two alternatives when measured in a fixed way, but it cannot be described by only two state-space points. The simplest example is the spin of an electron.
 
-If we draw a two-state object with one end distinguished from the other, then ``up'' is one state and ``down'' is another. That is a classical bit in its barest form: two possibilities, no intermediate state. One can build many-bit systems out of such objects, and in classical physics that point of view goes a surprisingly long way.
+There are two different notions of vector in this example, and confusing them makes everything that follows unnecessarily mysterious. First there is an ordinary \emph{spatial vector}: an arrow in three-dimensional space with a magnitude and a direction. The electron has a magnetic moment that behaves, for the present purpose, like a tiny magnet. Its magnitude is fixed, while a spatial direction can be assigned to it in a preparation procedure.
 
-Quantum mechanics forces a different notion of state, and Susskind chooses the simplest example immediately: the spin of an electron. He also warns us, at the outset, that the word \emph{vector} is about to become dangerous.
+The second object is an abstract vector in a complex vector space. This \emph{state vector} will describe the quantum state. It is not simply the magnetic arrow written in another notation. The relation between spatial directions and state vectors is real and important, but it is not the identity of two objects. We shall earn that relation gradually.
 
-On the one hand, there is the familiar vector in ordinary space: an arrow with magnitude and direction. To keep the distinction visible, we will call that a \emph{spatial vector}. The electron carries such a spatial vector in the form of its magnetic moment. The magnetic moment has a fixed magnitude for every electron, but its direction may vary.
+\section{Letting the Classical Picture Fail}
 
-On the other hand, there is the abstract vector that belongs to a vector space of states. That vector is not an arrow in space. It is a mathematical object, and before long it will be this abstract vector, not the spatial arrow, that carries the state of the qubit.
+Begin deliberately with a classical story. Put a tiny magnet in a strong external magnetic field. Unless it is already aligned, it precesses about the field. As it radiates energy, the precession damps and the magnet settles into its lowest-energy orientation. By choosing the direction of the applied field, waiting for this relaxation, and then removing the field, we seem able to prepare the magnetic moment in any desired direction.
 
-That is already the lecture's first tension. The electron seems to come equipped with something that can point in any direction in space, but the measurement story we are heading toward will not return a continuum of answers. We are being steered toward a conflict between classical imagery and quantum logic.
+The same apparatus suggests a method of detection. Turn on a field in a chosen direction and observe the radiation produced while the little magnet settles. A classical magnet aligned with the field should emit no energy. One initially opposed to the field should emit the maximum amount, and an intermediate angle should produce an intermediate amount. In that picture the radiated energy varies continuously with the angle.
 
-\section{The Classical Preparation-and-Detection Story, and Why It Fails}
-
-Susskind next does something very deliberate: he tells a classical story in full. He even says that for the moment we are still thinking very classically. The point is not to endorse that story. The point is to let it fail in a way that makes the quantum alternative unavoidable.
-
-Imagine the electron as a tiny bar magnet with a north pole and a south pole. Suppose we place it in a strong external magnetic field. A classical magnet does not, in general, jump instantly into alignment. In vacuum, with no friction, it precesses around the external field. Then it radiates away its excess energy and settles into the energetically preferred orientation. That is the lecture's classical picture of \emph{preparation}: choose the direction of the external field, wait long enough, and the electron's magnetic moment comes into equilibrium with that field.
-
-The same setup then suggests a classical model of \emph{detection}. Put the electron into a known field and watch how much radiation it emits as it relaxes. If the electron begins almost aligned with the field, only a little energy is emitted. If it begins farther away, more energy is emitted. If it begins anti-aligned, the emitted energy is maximal. So, classically, the emitted energy should be a continuous function of the initial angle.
-
-The lecture's experimental staging is captured well enough by a schematic reconstruction:
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw (-0.2,0) rectangle (2.3,4.3);
-\draw (1.05,3.75) node {\small strong field};
-\draw[thick,->] (1.05,3.2) -- (1.05,1.1);
-\draw (1.05,2.15) circle (0.28);
-\draw[thick,->] (1.05,2.15) -- (1.75,2.55);
-\draw (1.95,2.72) node {\small electron moment};
-\draw (1.05,0.45) node {\small preparation};
+\begin{tikzpicture}[>=Latex,thick,scale=0.92]
+  \draw[rounded corners] (-0.2,-0.2) rectangle (3.0,3.4);
+  \node at (1.4,3.05) {\small preparation};
+  \draw[->,very thick] (1.4,0.45) -- (1.4,2.55);
+  \node[right] at (1.4,2.35) {\small applied field};
+  \fill (1.4,1.35) circle (2.3pt);
+  \draw[->,very thick] (1.4,1.35) -- (2.25,1.95);
+  \node[below] at (1.4,0.15) {\small choose a direction and wait};
 
-\draw (4.5,0.7) rectangle (8.2,3.6);
-\draw (6.35,3.0) node {\small detector};
-\draw (6.35,2.25) node {\small outcome 1: no photon};
-\draw (6.35,1.55) node {\small outcome 2: one photon};
-\draw (6.35,1.05) node {\small of fixed energy};
-\draw[thick,->] (2.6,2.15) -- (4.25,2.15);
-\draw (3.45,2.45) node {\small turn on field};
+  \draw[->] (3.25,1.6) -- (4.25,1.6);
+
+  \draw[rounded corners] (4.5,-0.2) rectangle (8.8,3.4);
+  \node at (6.65,3.05) {\small measurement in a fixed direction};
+  \draw[->,very thick] (5.15,0.45) -- (5.15,2.55);
+  \fill (5.15,1.35) circle (2.3pt);
+  \node[anchor=west] at (5.7,2.0) {no photon};
+  \node[anchor=west] at (5.7,1.25) {one photon of fixed energy};
+  \node[anchor=west] at (5.7,0.5) {no intermediate outcome};
 \end{tikzpicture}
+\caption{The operational puzzle. A continuously variable preparation is followed by a detector with only two possible outputs.}
 \end{figure}
 
-In this classical picture we do \emph{not} need an explicit formula for emitted energy as a function of angle, and the lecture never gives one. What matters is only the qualitative statement that the response is continuous.
+That classical prediction is false for an electron. When the detector field is turned on, only two results occur:
+\begin{enumerate}
+  \item no photon is emitted;
+  \item one photon is emitted with the fixed energy separating the down and up levels.
+\end{enumerate}
+There is never a photon carrying an arbitrary fraction of that energy. The continuous classical response has collapsed into a binary quantum answer.
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (0,0) -- (5.3,0);
-\draw[->] (0,0) -- (0,2.9);
-\draw (5.05,-0.28) node {\small angle relative to field};
-\draw[rotate=90] (-1.25,-0.58) node {\small emitted energy};
-\draw[thick] (0.35,0.2) .. controls (1.45,0.25) and (3.2,1.2) .. (4.75,2.45);
-\draw (0.38,-0.22) node {\small up};
-\draw (4.75,-0.22) node {\small down};
-\draw (3.95,2.68) node {\small classical continuum};
-\end{tikzpicture}
-\end{figure}
-
-This, however, is exactly the point at which the lecture reverses itself. Susskind says, in effect: that was the wrong story. For a real electron the detector does \emph{not} produce a continuous output.
-
-Once the magnetic field is turned on, only two things can happen:
-\begin{itemize}
-\item no photon is emitted;
-\item one photon of a definite energy is emitted, namely the energy corresponding to the transition from down to up.
-\end{itemize}
-
-Nothing in between ever appears. The detector does not report a small amount of up or a medium amount of down. It returns one of two answers.
-
-What \emph{does} depend on the preparation is the probability distribution over those two answers. If the electron has been prepared vertically upward and we measure it in the same up-down setup, then no photon is emitted. If it has been prepared vertically downward and we reverse the field appropriately, the photon is emitted with probability one. If it has been prepared horizontally and then measured in the vertical device, the two outcomes occur with equal probabilities:
+The direction used in preparation has not become irrelevant. It controls the \emph{probabilities} of the two answers. Prepare the electron up relative to the detector and the up result occurs with certainty. Prepare it down and the transition occurs with certainty. Prepare it horizontally and a vertical detector returns the two answers equally often:
 \begin{equation}
-P(\text{one photon})=\frac{1}{2},
-\qquad
-P(\text{no photon})=\frac{1}{2}.
+  P(\text{up})=\frac12,
+  \qquad
+  P(\text{down})=\frac12.
+  \label{eq:l02-horizontal-probabilities}
 \end{equation}
+Thus a continuously variable family of preparations leads to a two-valued measurement whose statistics vary continuously.
 
-The lecture also pauses, in audience questions, over the operational meaning of this probability. A single run does not display a distribution. We must repeat the whole prepare-and-measure procedure many times. And once a given measurement has found the electron in the up state, repeating the same measurement does not recover the earlier preparation. The system has been fixed relative to that detector.
+\begin{classroomqa}
+\lecturetimestamp{00:21:23}
+\audiencequestion{Could another small object, perhaps a second electron, supply the magnetic field instead of a macroscopic magnet?}
+\lecturerresponse{It could, but then the two electrons form a joint quantum system and can become entangled. That is precisely where the course is going. We postpone it until the state space of one electron is under control.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\lecturetimestamp{00:22:17}
+\audiencequestion{Must the probability distribution be found by repeating the entire preparation and measurement? What happens if we measure the same electron again?}
+\lecturerresponse{Yes, the original distribution requires repeated, identically prepared trials. After the first measurement, repeating the same measurement on that electron gives the same result; the measurement has prepared it relative to that detector. Waiting for a radiative transition is itself one possible preparation procedure.}
+\end{classroomqa}
 
-\paragraph{Question.} If the electron can be prepared in arbitrary directions, why does the up-down detector return only up or down?
+\begin{classroomqa}
+\lecturetimestamp{00:23:48}
+\audiencequestion{Are we imagining a free electron, and is the magnetic field left on continuously?}
+\lecturerresponse{We isolate the spin degree of freedom and ignore the electron's position, whether it is freely moving or otherwise constrained. A large electromagnet may be switched on quickly for preparation or detection. The simplified experiment is designed to ask only about spin.}
+\end{classroomqa}
 
-\paragraph{Answer.} Because the preparation direction does not create new outcomes for a fixed detector. A vertical detector always asks a binary question. The preparation changes only the probabilities of the two available answers. The mystery, then, is not that new detector values appear. The mystery is that a continuously variable preparation changes only a two-valued probability distribution.
+\begin{classroomqa}
+\lecturetimestamp{00:25:22}
+\audiencequestion{If the electron is prepared exactly down and the field is reversed, is a photon emitted with certainty, and where does its energy come from?}
+\lecturerresponse{For exact opposition the transition occurs with probability one. For an oblique preparation the probability is smaller. The energy ultimately comes from the work done in establishing or reversing the external magnetic field; the apparatus is part of the energy accounting.}
+\end{classroomqa}
 
-That is the lecture's main puzzle. In one sense the electron seems to have only two measurable states. In another sense it can still be prepared in many directions. A set of two points will not be enough to describe such an object.
+\begin{classroomqa}
+\lecturetimestamp{00:27:31}
+\audiencequestion{When does the photon appear? Is the transition instantaneous?}
+\lecturerresponse{The emission time is random, like the decay time of an unstable state. One can specify a characteristic lifetime or half-life, and a stronger field shortens that scale. Energy--time uncertainty enters the finer description, but the present operational facts are the two possible outputs and their measured frequencies.}
+\end{classroomqa}
 
-\section{From the Puzzle to a Complex Vector Space of States}
+\begin{classroomqa}
+\lecturetimestamp{00:29:17}
+\audiencequestion{Would a beam containing a million identically prepared electrons simply produce a measurable light intensity?}
+\lecturerresponse{Yes. The ensemble intensity reveals the average transition probability, while the emission time of any particular electron remains random. An ensemble displays the distribution that a single trial cannot.}
+\end{classroomqa}
 
-Now comes the lecture's central pivot. Susskind says, in substance, that we need a different mathematics of states. Not a Boolean set of two points, but a vector space.
+This is the point of departure. Two isolated classical points can encode the detector answers, but they cannot encode all the preparations that alter the probabilities of those answers. We need a different state space.
 
-He also tells us what the bargain is. We are going to do some abstract mathematics first and interpret it afterward. The first piece of that mathematics is the algebra of complex numbers.
+\section{Complex Numbers and the Geometry of State Space}
 
-We introduce the imaginary unit \(i\) by
+The required state space is linear: its elements can be added and multiplied by scalars. Its scalars are complex numbers. Write
 \begin{equation}
-i^2=-1.
+  z=a+ib,
+  \qquad
+  i^2=-1,
+  \qquad
+  z^*=a-ib,
+  \label{eq:l02-complex-number}
 \end{equation}
-A complex number is written
-\begin{equation}
-z=a+ib,
-\qquad
-z^*=a-ib,
-\end{equation}
-where \(a\) and \(b\) are real and \(z^*\) denotes the complex conjugate.
-
-The lecture's blackboard cluster for this interlude is worth keeping, even though the frame is only partial evidence for the exact line-by-line algebra.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.58\textwidth]{lecture_02_figure_02.png}
-\end{figure}
-
-A key example is the product of a complex number with its conjugate:
+where \(a\) and \(b\) are real. Complex conjugation produces the positive quantity
 \begin{align}
-z^*z
-&=(a+ib)(a-ib) \\
-&=a^2-iab+iab+b^2 \\
-&=a^2+b^2.
+  z^*z
+  &=(a-ib)(a+ib) \notag\\
+  &=a^2+b^2.
+  \label{eq:l02-complex-norm}
 \end{align}
-The cross terms cancel, and the result is real and nonnegative. That is not yet quantum mechanics, but it is the algebraic pattern quantum mechanics will use when amplitudes become probabilities.
+This simple cancellation is the algebraic seed of the probability rule.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.74\linewidth]{lecture_02_figure_02.png}
+\caption{Complex conjugation and \(z^*z\) are developed on the board before amplitudes are interpreted as probabilities.}
+\lectureframe{00:37:10}
+\end{figure}
+
+A complex vector space contains objects \(\ket a,\ket b,\ldots\) for which
+\begin{equation}
+  c\ket a,
+  \qquad
+  \ket a+\ket b
+\end{equation}
+are again vectors whenever \(c\) is complex. Column vectors give a concrete realization:
+\begin{equation}
+  \ket a=
+  \begin{pmatrix}
+    a_1\\a_2\\ \vdots\\a_n
+  \end{pmatrix},
+  \qquad
+  c\ket a=
+  \begin{pmatrix}
+    ca_1\\ca_2\\ \vdots\\ca_n
+  \end{pmatrix},
+  \qquad
+  \ket a+\ket b=
+  \begin{pmatrix}
+    a_1+b_1\\a_2+b_2\\ \vdots\\a_n+b_n
+  \end{pmatrix}.
+  \label{eq:l02-vector-operations}
+\end{equation}
+Even the complex numbers themselves form a one-dimensional complex vector space. For an electron spin we shall need two dimensions.
+
+To each column ket we associate a conjugate row bra:
+\begin{equation}
+  \ket a=
+  \begin{pmatrix}a_1\\a_2\end{pmatrix}
+  \quad\longleftrightarrow\quad
+  \bra a=
+  \begin{pmatrix}a_1^*&a_2^*\end{pmatrix}.
+  \label{eq:l02-bra-ket-components}
+\end{equation}
+The inner product is then
+\begin{equation}
+  \braket{b}{a}=b_1^*a_1+b_2^*a_2,
+  \label{eq:l02-inner-product}
+\end{equation}
+and the squared norm is
+\begin{equation}
+  \braket{a}{a}=|a_1|^2+|a_2|^2.
+  \label{eq:l02-norm}
+\end{equation}
+It is real and nonnegative because every term has the form \(z^*z\).
+
+\begin{classroomqa}
+\lecturetimestamp{00:45:24}
+\audiencequestion{Why is there no explicit star on the bra symbol?}
+\lecturerresponse{Turning a ket into its bra already means transpose and complex conjugate. The reversal of the bracket is notation for that operation, so writing another star would repeat what is implicit.}
+\end{classroomqa}
+
+\section{The Qubit Basis and the Born Rule}
+
+Return now to the detector. Let \(\ket{+}\) denote its up state and \(\ket{-}\) its down state. A general spin state is a linear combination
+\begin{equation}
+  \ket\psi=a_+\ket{+}+a_-\ket{-}
+  \quad\longleftrightarrow\quad
+  \begin{pmatrix}a_+\\a_-\end{pmatrix}.
+  \label{eq:l02-general-qubit}
+\end{equation}
+The plus and minus signs inside the kets are labels, not arithmetic operations. Once this ordered basis is chosen,
+\begin{equation}
+  \ket{+}=
+  \begin{pmatrix}1\\0\end{pmatrix},
+  \qquad
+  \ket{-}=
+  \begin{pmatrix}0\\1\end{pmatrix}.
+  \label{eq:l02-basis-columns}
+\end{equation}
+Indeed,
+\begin{equation}
+  a_+\begin{pmatrix}1\\0\end{pmatrix}
+  +a_-\begin{pmatrix}0\\1\end{pmatrix}
+  =
+  \begin{pmatrix}a_+\\a_-\end{pmatrix}.
+  \label{eq:l02-basis-expansion}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\linewidth]{lecture_02_figure_03.png}
+\caption{The detector states are fixed as the two standard basis columns.}
+\lectureframe{00:58:10}
+\end{figure}
+
+The coefficients are probability amplitudes. The probability of each detector outcome is the squared magnitude of the corresponding amplitude:
+\begin{equation}
+  P(+)=|a_+|^2,
+  \qquad
+  P(-)=|a_-|^2.
+  \label{eq:l02-born-rule}
+\end{equation}
+Because these are the only outcomes,
+\begin{equation}
+  |a_+|^2+|a_-|^2=1,
+  \qquad\text{or equivalently}\qquad
+  \braket{\psi}{\psi}=1.
+  \label{eq:l02-normalization}
+\end{equation}
+A physical state vector is therefore normalized.
+
+\begin{classroomqa}
+\lecturetimestamp{00:56:54}
+\audiencequestion{Do the plus and minus signs have an algebraic meaning in the components?}
+\lecturerresponse{Here they label the two basis states and their coefficients. We could call them \(1\) and \(2\), or up and down. In particular, \(-\ket{+}\) is a valid scalar multiple of \(\ket{+}\); it is not the state \(\ket{-}\).}
+\end{classroomqa}
+
+Multiplying a state by a complex number of unit magnitude leaves all its probabilities unchanged:
+\begin{equation}
+  \ket\psi\longmapsto e^{i\phi}\ket\psi,
+  \qquad
+  |e^{i\phi}a_\pm|^2=|a_\pm|^2.
+  \label{eq:l02-global-phase}
+\end{equation}
+Thus two vectors differing only by an overall phase represent the same physical state. A \emph{relative} phase is different. Replacing only \(a_-\) by \(-a_-\), for example, cannot generally be removed by multiplying the whole vector by one phase; it can change the results of measurements in another basis.
+
+\begin{classroomqa}
+\lecturetimestamp{00:59:54}
+\audiencequestion{Are \(\ket{+}\), \(-\ket{+}\), and \(e^{i\phi}\ket{+}\) different states? What about changing the sign of one term in a superposition?}
+\lecturerresponse{They are different mathematical vectors but, when the factor multiplies the entire vector and has unit magnitude, they describe the same physical state. A relative sign or phase between the up and down terms is observable in suitable measurements and therefore changes the state.}
+\end{classroomqa}
+
+The basis is orthonormal:
+\begin{align}
+  \braket{+}{+}&=1,
+  &\braket{-}{-}&=1,
+  \notag\\
+  \braket{+}{-}&=0,
+  &\braket{-}{+}&=0.
+  \label{eq:l02-orthonormality}
+\end{align}
+For example,
+\begin{equation}
+  \braket{+}{-}
+  =
+  \begin{pmatrix}1&0\end{pmatrix}
+  \begin{pmatrix}0\\1\end{pmatrix}
+  =0.
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{lecture_02_figure_04.png}
+\caption{The four inner products of the up/down basis are checked directly on the board.}
+\lectureframe{01:05:00}
+\end{figure}
+
+An equal-weight state provides the first useful correction at the board. The column
+\begin{equation}
+  \begin{pmatrix}1\\1\end{pmatrix}
+\end{equation}
+has squared norm \(2\), not \(1\), and therefore is not normalized. Dividing by \(\sqrt2\) repairs it:
+\begin{equation}
+  \ket{\rightarrow}
+  =
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}1\\1\end{pmatrix}
+  =
+  \frac{\ket{+}+\ket{-}}{\sqrt2}.
+  \label{eq:l02-horizontal-state}
+\end{equation}
+It gives \(P(+)=P(-)=1/2\) in the vertical detector and corresponds to one horizontal preparation. The correction from \((1,1)^T\) to \(2^{-1/2}(1,1)^T\) is not cosmetic: normalization is what turns squared amplitudes into a complete probability distribution.
+
+After the break it is worth returning to the two meanings of vector. A spatial arrow has three real components. A qubit state vector has two complex components, hence four real numbers before imposing normalization and identifying overall phase. The objects are related, but one is not merely a relabeling of the other. We do not yet need the full geometric map between them.
+
+\begin{classroomqa}
+\lecturetimestamp{01:10:56}
+\audiencequestion{How do we know the dimension of the state space for a different quantum system?}
+\lecturerresponse{Experiment tells us how many mutually exclusive outcomes a complete measurement can distinguish. Electron spin has two such outcomes and therefore a two-dimensional complex state space. A spin-one system has three outcomes in the corresponding measurement and requires three components.}
+\end{classroomqa}
+
+\section{Classical Observables and Ensemble Averages}
+
+Having described states, turn to measurable quantities. In a classical system with discrete states \(n\), an observable is a real-valued function \(f_n\) on those states. If the state is uncertain and described by probabilities \(p_n\), its ensemble average is
+\begin{equation}
+  \langle f\rangle_{\mathrm{ens}}
+  =\sum_n p_n f_n.
+  \label{eq:l02-classical-expectation}
+\end{equation}
+The notation does not imply that a single measurement must ever equal this number.
+
+For a coin, assign \(f_+=+1\) and \(f_-=-1\). Then
+\begin{equation}
+  \langle f\rangle_{\mathrm{ens}}
+  =p_+-p_-.
+  \label{eq:l02-coin-expectation}
+\end{equation}
+A fair coin has average zero. If \(p_+=3/4\) and \(p_-=1/4\), the average is \(1/2\). Neither \(0\) nor \(1/2\) is an outcome of a single toss; each summarizes many \(+1\) and \(-1\) results.
+
+\begin{classroomqa}
+\lecturetimestamp{01:23:30}
+\audiencequestion{How can the expected value be zero or one half when neither value can appear in a single trial?}
+\lecturerresponse{The phrase expected value is potentially misleading. It means the average of a large ensemble, not the value one should expect to see on the next run. A fair sequence of \(+1\) and \(-1\) results averages to zero, and a three-to-one imbalance averages to one half.}
+\end{classroomqa}
+
+An especially useful observable is the indicator for one state:
+\begin{equation}
+  \chi_k(n)=
+  \begin{cases}
+    1,&n=k,\\
+    0,&n\ne k.
+  \end{cases}
+\end{equation}
+Its average is
+\begin{equation}
+  \langle\chi_k\rangle_{\mathrm{ens}}=p_k.
+\end{equation}
+Thus knowledge of the averages of all classical observables includes, in particular, knowledge of the probability distribution.
+
+\section{Matrices and Quantum Observables}
+
+In quantum mechanics observables are represented not by functions on state-space points but by linear operators. In a finite-dimensional state space, those operators are matrices. A matrix \(M\) maps one vector to another:
+\begin{equation}
+  M\ket a=\ket{a'}.
+  \label{eq:l02-matrix-action}
+\end{equation}
+For two components,
+\begin{equation}
+  \begin{pmatrix}
+    m_{11}&m_{12}\\
+    m_{21}&m_{22}
+  \end{pmatrix}
+  \begin{pmatrix}a_1\\a_2\end{pmatrix}
+  =
+  \begin{pmatrix}
+    m_{11}a_1+m_{12}a_2\\
+    m_{21}a_1+m_{22}a_2
+  \end{pmatrix}.
+  \label{eq:l02-matrix-components}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{lecture_02_figure_05.png}
+\caption{Matrix action is expanded row by row into the two components of the transformed vector.}
+\lectureframe{01:32:10}
+\end{figure}
+
+Real two-dimensional vectors make the geometry visible. The matrices
+\begin{equation}
+  \begin{pmatrix}2&0\\0&2\end{pmatrix},
+  \qquad
+  \begin{pmatrix}1&0\\0&2\end{pmatrix},
+  \qquad
+  \begin{pmatrix}2&0\\0&1\end{pmatrix}
+\end{equation}
+respectively stretch every direction uniformly, stretch only the \(y\)-component, and stretch only the \(x\)-component. The matrix
+\begin{equation}
+  \begin{pmatrix}0&1\\1&0\end{pmatrix}
+\end{equation}
+interchanges the components and reflects the plane across \(x=y\). Meanwhile,
+\begin{equation}
+  \begin{pmatrix}0&1\\-1&0\end{pmatrix}
+  \begin{pmatrix}v_x\\v_y\end{pmatrix}
+  =
+  \begin{pmatrix}v_y\\-v_x\end{pmatrix}
+  \label{eq:l02-quarter-turn}
+\end{equation}
+rotates vectors through a clockwise quarter-turn in the convention used at the board. A shear supplies another linear example, although its matrix is left as practice. The essential restriction is linearity: not every imaginable transformation of the plane is represented by a matrix.
+
+Quantum observables belong to a special class.
 
 \begin{definition}
-A complex vector space, in the minimal sense used in this lecture, is a collection of objects that can be added and multiplied by complex numbers, with the result remaining in the same collection.
-\end{definition}
-
-The lecture then gives the simplest concrete realization of this idea: column vectors with complex entries. If
-\[
-A \leftrightarrow \begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix},
-\]
-then multiplication by a complex number \(c\) is defined componentwise:
+A matrix \(M\) is \emph{Hermitian} when
 \begin{equation}
-c\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}
-=
-\begin{pmatrix}cA_1\\cA_2\\cA_3\end{pmatrix},
-\end{equation}
-and addition is defined by
-\begin{equation}
-\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}
-+
-\begin{pmatrix}B_1\\B_2\\B_3\end{pmatrix}
-=
-\begin{pmatrix}A_1+B_1\\A_2+B_2\\A_3+B_3\end{pmatrix}.
-\end{equation}
-
-There is no need yet to say more. The point is to establish the kind of space in which quantum states will live. For the spin of a single electron, the relevant case will be a two-dimensional complex vector space.
-
-\section{Column Vectors, Bras, Kets, and the Inner Product}
-
-The lecture now tightens the notation. Abstract vectors are represented by columns, and their conjugates by rows.
-
-If
-\[
-|a\rangle \leftrightarrow \begin{pmatrix}a_1\\a_2\end{pmatrix},
-\]
-then its conjugate is represented by
-\[
-\langle a| \leftrightarrow \begin{pmatrix}a_1^* & a_2^*\end{pmatrix}.
-\]
-The star is implicit in turning the ket into the bra; that is exactly the point Susskind pauses over in the lecture.
-
-The notation \(\langle b|a\rangle\) is a \emph{bracket} split into its two halves, bra and ket. In components the rule is
-\begin{equation}
-\langle b|a\rangle = b_1^*a_1+b_2^*a_2.
-\end{equation}
-This is the inner product.
-
-If we take the inner product of a vector with itself, we find
-\begin{equation}
-\langle a|a\rangle = a_1^*a_1+a_2^*a_2.
-\end{equation}
-Each term has the form \(z^*z\), and therefore each term is real and nonnegative. So \(\langle a|a\rangle\) itself is real and nonnegative.
-
-\begin{remark}
-The lecture interprets \(\langle a|a\rangle\) as the square of the size of the vector. We are not yet using this abstractly; we are preparing it for a physical interpretation.
-\end{remark}
-
-This is the point at which the mathematics begins to justify itself. Complex numbers were introduced because their conjugation law produces positive real quantities. Those are exactly the quantities that can later be interpreted as probabilities.
-
-\section{Up and Down as an Orthogonal Basis of States}
-
-At this point Susskind explicitly returns from the abstract vector space to the quantum bit. The detector has two possible outputs. Let us denote the corresponding states by
-\[
-|+\rangle
-\qquad \text{and} \qquad
-|-\rangle.
-\]
-These stand for the electron being found up or down in the chosen measurement basis.
-
-Now the lecture makes the space concrete. A general state of the electron spin is written as a linear combination
-\begin{equation}
-|\psi\rangle=a_+|+\rangle+a_-|-\rangle.
-\end{equation}
-The corresponding blackboard layout is an important piece of visual evidence because it shows exactly how the coefficient-weighted basis states are assembled into a single column vector.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_02_figure_03.png}
-\end{figure}
-
-Once the basis has been fixed, the canonical column-vector representatives are
-\begin{equation}
-|+\rangle \leftrightarrow \begin{pmatrix}1\\0\end{pmatrix},
-\qquad
-|-\rangle \leftrightarrow \begin{pmatrix}0\\1\end{pmatrix}.
-\end{equation}
-Then
-\[
-a_+|+\rangle \leftrightarrow \begin{pmatrix}a_+\\0\end{pmatrix},
-\qquad
-a_-|-\rangle \leftrightarrow \begin{pmatrix}0\\a_-\end{pmatrix},
-\]
-and adding these two contributions gives
-\begin{equation}
-|\psi\rangle \leftrightarrow \begin{pmatrix}a_+\\a_-\end{pmatrix}.
-\end{equation}
-
-The lecture later revisits the same identification more cleanly on the board, and that cleaner basis-fixing picture should remain visible as well.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_02_figure_04.png}
-\end{figure}
-
-Now comes the physical interpretation. The squared magnitudes of the coefficients are the probabilities for the two detector outcomes:
-\begin{equation}
-P(+)=a_+^*a_+=|a_+|^2,
-\qquad
-P(-)=a_-^*a_-=|a_-|^2.
-\end{equation}
-Since these are the only two possibilities, they must add to one:
-\begin{equation}
-|a_+|^2+|a_-|^2=1.
-\end{equation}
-Equivalently,
-\begin{equation}
-\langle \psi|\psi\rangle=1.
-\end{equation}
-This is the normalization condition. The physical states are the normalized vectors in the vector space.
-
-The two basis states are orthonormal:
-\begin{align}
-\langle +|+\rangle &= 1, &
-\langle -|-\rangle &= 1, \\
-\langle +|-\rangle &= 0, &
-\langle -|+\rangle &= 0.
-\end{align}
-The lecture explicitly checks these relations in components. For example,
-\[
-\langle +|-\rangle
-=
-\begin{pmatrix}1 & 0\end{pmatrix}
-\begin{pmatrix}0\\1\end{pmatrix}
-=0.
-\]
-So the up and down states correspond to orthogonal vectors in the state space.
-
-\paragraph{Worked example.}
-The lecture does not move too quickly past its first nontrivial example. It writes, in effect,
-\[
-\begin{pmatrix}1\\1\end{pmatrix},
-\]
-then immediately notices that this cannot yet be a physical state because its norm-squared is \(2\). To repair it, we divide by \(\sqrt{2}\):
-\begin{equation}
-\frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix}.
-\end{equation}
-Now the probabilities are
-\[
-P(+)=\frac{1}{2},
-\qquad
-P(-)=\frac{1}{2}.
-\]
-This is the lecture's equal-weight state. It is not pure up and not pure down. It is one of the states associated with a horizontal preparation.
-
-We now see how the lecture wants us to think. A detector aligned along a chosen axis still returns only two answers. But the state space is larger than those two detector values, because it contains all normalized linear combinations of the corresponding basis vectors.
-
-\section{What the State Vector Does and Does Not Encode}
-
-After the break Susskind performs a reset. More than one person is probably confused, he says, about the two notions of vector. That is exactly the right place to slow down and separate them.
-
-A spatial vector in ordinary space has three real components. A two-component state vector,
-\[
-\begin{pmatrix}a_+\\a_-\end{pmatrix},
-\]
-has two complex components, which means four real numbers before any constraints are imposed. So the state vector is not just a disguised spatial arrow.
-
-Of course, not all four of those real numbers are physically independent. Normalization removes one. Overall phase removes another. But the lecture does not yet build the full geometry that connects state vectors to spatial directions, and we should not force it. The right statement, and the lecture's own statement, is simpler: the two objects are related, but not simply related.
-
-There is another important clarification here. The dimension of the state space is fixed experimentally. The up-down measurement has two possible outcomes, and that is why we use a two-dimensional complex vector space. In that sense the mathematics is not arbitrary. The experiment tells us how many basis states we need.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Is \(-|+\rangle\) the same thing as \(|-\rangle\)?
-
-\paragraph{Answer.} No. The symbol \(-\) in \(|-\rangle\) is part of a label. It does not mean minus one times the plus state. By contrast, \(-|+\rangle\) is an ordinary scalar multiple of \(|+\rangle\), and it is perfectly allowed in the vector space.
-
-This answer leads immediately to the lecture's next point. The states \(|+\rangle\) and \(-|+\rangle\) are not equal as vectors, but they represent the same physics, because an overall phase does not change the probabilities of any measurement. More generally, if \(|\psi\rangle\) is multiplied by a complex number of magnitude one, the physical state is unchanged.
-
-But a relative sign inside a superposition is a different matter. The states
-\[
-a_+|+\rangle+a_-|-\rangle
-\qquad \text{and} \qquad
-a_+|+\rangle-a_-|-\rangle
-\]
-need not represent the same physics. The lecture does not yet unpack the full meaning of relative phase, but it clearly insists on this distinction: overall phase is inessential, relative phase can matter.
-
-\section{From Classical Observables to Quantum Matrices}
-
-The lecture now shifts its center of gravity. Up to now we have been asking what a state is. Next we ask what a measurable quantity is.
-
-In classical mechanics, if the possible states are discrete points labeled by \(n\), then an observable is simply a function that assigns a real number to each state:
-\[
-f_n.
-\]
-If the system is not known exactly, but only through a probability distribution \(p_n\), then the average value of the observable over many repeated experiments is
-\begin{equation}
-\langle f\rangle=\sum_n p_n f_n.
-\end{equation}
-
-The lecture lingers here because it wants matrices to emerge by motivation rather than fiat. A coin provides the simplest example. Suppose heads is assigned the value \(+1\) and tails the value \(-1\). If the probabilities are \(p_+\) and \(p_-\), then
-\begin{equation}
-\langle f\rangle=p_+-p_-.
-\end{equation}
-This is the average value of the observable, not necessarily an attainable single-shot outcome.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How can the average value be zero when zero is not one of the actual outcomes?
-
-\paragraph{Answer.} Because the average value is not the same thing as a detector reading from a single run. If a fair coin yields \(+1\) half the time and \(-1\) half the time, then the average over many trials is zero, even though no single toss ever produces zero. The average is a summary of the distribution, not a new observable value that occurs in one trial.
-
-The lecture then singles out a special classical observable: the indicator function that is \(1\) on one state and \(0\) on all the others. In that case the average is exactly the probability of that state. So if we know how to compute average values of all observables, we also know how to recover probabilities.
-
-This now raises the quantum question: what mathematical objects represent observables in quantum mechanics? The answer, for the present finite-dimensional setting, is matrices.
-
-A matrix acts on a state vector and produces another vector:
-\begin{equation}
-M|a\rangle=|a'\rangle.
-\end{equation}
-The lecture's board picture should remain in place here because it preserves the two-level transition from abstract operator language to explicit component calculation.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.66\textwidth]{lecture_02_figure_05.png}
-\end{figure}
-
-If
-\[
-M=\begin{pmatrix}m_{11}&m_{12}\\m_{21}&m_{22}\end{pmatrix},
-\qquad
-|a\rangle=\begin{pmatrix}a_1\\a_2\end{pmatrix},
-\]
-then the component rule is
-\begin{equation}
-\begin{pmatrix}
-m_{11} & m_{12} \\
-m_{21} & m_{22}
-\end{pmatrix}
-\begin{pmatrix}
-a_1 \\
-a_2
-\end{pmatrix}
-=
-\begin{pmatrix}
-m_{11}a_1+m_{12}a_2 \\
-m_{21}a_1+m_{22}a_2
-\end{pmatrix}.
-\end{equation}
-
-Susskind first motivates this by going back to a very ordinary real vector space, the plane of arrows drawn on the board. In that setting matrices represent linear transformations:
-\begin{itemize}
-\item
-\[
-\begin{pmatrix}
-2 & 0 \\
-0 & 2
-\end{pmatrix}
-\]
-doubles every vector;
-
-\item
-\[
-\begin{pmatrix}
-1 & 0 \\
-0 & 2
-\end{pmatrix}
-\]
-stretches only the \(y\)-component;
-
-\item
-\[
-\begin{pmatrix}
-0 & 1 \\
-1 & 0
-\end{pmatrix}
-\]
-reflects across the diagonal \(x=y\);
-
-\item
-\[
-\begin{pmatrix}
-0 & 1 \\
--1 & 0
-\end{pmatrix}
-\]
-rotates the plane by \(90^\circ\), in the clockwise convention used in the discussion.
-\end{itemize}
-
-The lesson is simple: matrices are the language of linear transformations of vector spaces. That is why they are the right candidates for quantum observables.
-
-Now comes the special class singled out by the lecture.
-
-\begin{definition}
-A matrix \(M\) is Hermitian if
-\begin{equation}
-M_{ij}=M_{ji}^*.
+  M_{ij}=M_{ji}^*.
+  \label{eq:l02-hermitian-condition}
 \end{equation}
 \end{definition}
 
-This is a kind of reality condition, though it does \emph{not} say that every entry is real. It says, first, that on the diagonal
-\[
-M_{ii}=M_{ii}^*,
-\]
-so diagonal entries are real. It says, second, that off-diagonal entries come in complex-conjugate pairs. In the special case that all entries are real, Hermitian reduces to symmetric.
+The diagonal condition \(M_{ii}=M_{ii}^*\) forces every diagonal entry to be real. Off-diagonal entries occur in conjugate pairs. For example,
+\begin{equation}
+  M=
+  \begin{pmatrix}
+    r&4+i\\
+    4-i&s
+  \end{pmatrix},
+  \qquad r,s\in\mathbb R,
+  \label{eq:l02-hermitian-example}
+\end{equation}
+is Hermitian. If all entries happen to be real, Hermitian is the same as symmetric.
 
-The lecture ends this part of the story with a clear declaration. In classical mechanics observables are functions on state points. In quantum mechanics observables will be represented by Hermitian operators, which at the moment means Hermitian matrices.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\linewidth]{lecture_02_figure_06.png}
+\caption{The defining conjugation across the diagonal, \(M_{ij}=M_{ji}^*\), is isolated at the end of the lecture.}
+\lectureframe{01:42:50}
+\end{figure}
 
-There is one further preview. If we want to \emph{kick} the electron, that is not generally done by a Hermitian operator. It is done by a unitary operator. At this stage only one fact is stated: unitary operators preserve the length of vectors. Their role in dynamics and physical operations belongs to what comes next.
+Hermitian matrices will represent measurable quantities, including spin along the \(x\), \(y\), and \(z\) directions. They should not be confused with the operators that describe a physical kick or time evolution.
 
-\section{Summary}
+\begin{classroomqa}
+\lecturetimestamp{01:45:49}
+\audiencequestion{If a matrix kicks the state into another state, must it preserve normalization? Does a Hermitian matrix do that?}
+\lecturerresponse{A physical kick must preserve the length of the state vector, but a general Hermitian matrix does not. Length-preserving transformations are unitary. Hermitian operators represent observables; unitary operators represent the reversible transformations that act on states. Their detailed relation comes next.}
+\end{classroomqa}
 
-The lecture has carried us from a concrete spin-measurement puzzle to the threshold of the quantum formalism. We began with a classical bit and a classical magnetic-arrow picture of the electron. We let that picture generate a continuous detector response, and then watched the lecture reject it. A real electron, measured in a fixed up-down setup, yields only two outcomes. What varies with preparation is not the list of outcomes but the probability distribution over them.
-
-That failure of the classical story forced a new mathematics of states. We introduced complex numbers, conjugation, column vectors, bras, kets, and the inner product. We chose the orthonormal basis \(|+\rangle\) and \(|-\rangle\), wrote a general qubit state as
-\[
-|\psi\rangle=a_+|+\rangle+a_-|-\rangle,
-\]
-and interpreted \(|a_+|^2\) and \(|a_-|^2\) as probabilities, subject to normalization.
-
-After that, the lecture shifted from states to observables. Classical observables are functions \(f_n\) on discrete states, with averages
-\[
-\langle f\rangle=\sum_n p_n f_n.
-\]
-Quantum observables are more intricate: they are represented by matrices acting on state vectors, with Hermitian matrices singled out as the measurable ones. That is the mathematical entrance fee the lecture insists upon before entanglement can be discussed honestly. Once states, inner products, and Hermitian operators are in hand, the rest of the structure of quantum mechanics can be built without sleight of hand.
+We have reached the minimum language needed for the next step. A qubit is a normalized vector in a two-dimensional complex vector space; amplitudes determine probabilities; and observables are Hermitian matrices. With those pieces in place, spin along arbitrary directions and eventually entangled pairs can be discussed without returning to the classical picture that has already failed.
