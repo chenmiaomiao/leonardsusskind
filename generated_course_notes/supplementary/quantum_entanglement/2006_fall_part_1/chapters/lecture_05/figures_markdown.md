@@ -1,48 +1,36 @@
 # Figure Notes
-## Image Inventory
-- `lecture_05_figure_02.png`: A sparse whiteboard frame at the start of a fresh table. The only visible mathematics is the first line of the Pauli-action list at the upper left, with Susskind still writing the right-hand side.
-- `lecture_05_figure_03.png`: A partially occluded board showing a normalized two-spin superposition at upper left, small up/down spin sketches across the top, and a lower line ending in an equals-zero statement while Susskind writes in front of it.
-- `lecture_05_figure_04.png`: A projection-operator frame with partially visible ket notation on the left and a clear geometric sketch on the right: a coordinate-style diagram with a slanted line/subspace and a vector/projection picture.
-- `lecture_05_figure_05.png`: A stronger projection-operator frame. The left side shows generic projection notation at the top and two explicit actions of projectors on a spinor below; on the right Susskind is beginning to write the operator itself in matrix form.
 
-## Blackboard Equations
-- `lecture_05_figure_02.png`: `\sigma_1 |u\rangle =` [visible]
-- `lecture_05_figure_02.png`: `\sigma_1 |u\rangle = |d\rangle` [standard reconstruction]
+## Verified Frame Inventory
 
-- `lecture_05_figure_03.png`: `\dfrac{|ud\rangle \pm |du\rangle}{\sqrt{2}}` [partially visible]
-- `lecture_05_figure_03.png`: `\langle \sigma_i \rangle = 0` [standard reconstruction]
+- **lecture_05_figure_02.png** at 00:03:15 shows the completed six-line Pauli-action table.
+- **lecture_05_figure_03.png** at 00:07:00 shows the plus-state expectation calculation and cancellation.
+- **lecture_05_figure_04.png** at 00:49:53 pairs abstract projector notation with a geometric projection sketch.
+- **lecture_05_figure_05.png** at 00:51:40 shows projector actions on a spinor and the move to matrix form.
+- **lecture_05_figure_06.png** at 00:16:30 records the component-by-component total-spin cancellation.
+- **lecture_05_figure_07.png** at 00:31:15 shows the three-set diagram used for the classical Bell inequality.
+- **lecture_05_figure_08.png** at 00:39:00 clearly lists the \(A,B,C\) spin propositions at \(0^\circ,45^\circ,90^\circ\).
+- **lecture_05_figure_09.png** at 01:08:20 shows the first Bell-projector probability calculation.
+- **lecture_05_figure_10.png** at 01:12:15 shows the completed numerical Bell comparison.
+- **lecture_05_figure_11.png** at 01:33:45 shows the hypothetical cloning machine and its basis-state actions.
+- **lecture_05_figure_12.png** at 01:35:20 shows the right-state input and the two incompatible outputs.
 
-- `lecture_05_figure_04.png`: `P|\alpha\rangle = |\alpha_p\rangle` [standard reconstruction]
-- `lecture_05_figure_04.png`: `|\alpha\rangle` and `|\alpha_p\rangle` [partially visible]
+## Reconstruction Decisions
 
-- `lecture_05_figure_05.png`: `P|\alpha\rangle = |\alpha_p\rangle` [partially visible]
-- `lecture_05_figure_05.png`: `P_{\sigma_3=1}\begin{pmatrix}\alpha\\ \beta\end{pmatrix}=\begin{pmatrix}\alpha\\ 0\end{pmatrix}` [visible]
-- `lecture_05_figure_05.png`: `P_{\sigma_3=-1}\begin{pmatrix}\alpha\\ \beta\end{pmatrix}=\begin{pmatrix}0\\ \beta\end{pmatrix}` [visible]
-- `lecture_05_figure_05.png`: `P_{\sigma_3=1}=\begin{pmatrix}1&0\\0&0\end{pmatrix}` [standard reconstruction]
+The direct frames remain as source evidence, while every equation is also typeset in full. The geometric projector receives a nearby TikZ reconstruction because its spatial relation is clearer than its chalk labels. The Bell set argument is written as the exact inclusion
+\[
+A\cap C^c\subseteq(A\cap B^c)\cup(B\cap C^c),
+\]
+so the live board's self-corrected region labels do not introduce an algebraic ambiguity.
 
-## Diagram And Layout Reading
-- `lecture_05_figure_02.png` is mainly useful as board layout evidence. It shows the Pauli-action table being restarted from the top left of a clean board, with the first line written before the rest of the list appears.
-- `lecture_05_figure_03.png` has a layered layout: the entangled-state superposition sits at upper left, the spin-orientation doodles sit above and to the right, and the lower line moves toward the zero-expectation conclusion. The value of the frame is the organization of the argument more than exact symbol legibility.
-- `lecture_05_figure_04.png` is the most diagrammatic of the set. The right side shows a coordinate-style picture with a one-dimensional slanted subspace line and an additional vector/projection construction. The left side carries the abstract projection notation, so the board explicitly pairs operator language with geometric intuition.
-- `lecture_05_figure_05.png` is more algebraic. The top line gives generic projection notation, then the next two lines show what the two \(\sigma_3\)-projectors do to a general spinor. The empty space at right is being used to transition from “what the projector does” to “what matrix represents it.”
+The two inherited early frames were replaced. The original Pauli frame caught only the first line mid-write, and the original expectation frame preceded the actual calculation. Their replacements come from the same video at the completed mathematical moments.
 
-## TeX Reconstruction Plan
-- `lecture_05_figure_02.png` must remain visible. Pair it with a clean displayed equation for `\sigma_1|u\rangle=|d\rangle`, since the hand blocks the right-hand ket in the screenshot.
-- `lecture_05_figure_03.png` should remain visible as evidence for the local board layout of the zero-expectation discussion. Typeset the normalized two-spin superposition and the clean statement `\langle \sigma_i\rangle=0` nearby rather than relying on literal board transcription.
-- `lecture_05_figure_04.png` must remain visible, and the right-hand geometric sketch should be redrawn in TikZ nearby. The left-hand projection notation should be typeset cleanly in display math or short prose, since the chalk writing is only partly legible.
-- `lecture_05_figure_05.png` must remain visible. The two action formulas for \(P_{\sigma_3=\pm1}\) should be typeset as clean displayed equations next to the screenshot. If the notes also use the explicit matrix form of \(P_{\sigma_3=1}\), that matrix should be typeset from the lecture context rather than copied literally from the incomplete right-hand writing.
-- In the final chapter, `lecture_05_figure_04.png` and `lecture_05_figure_05.png` should appear near each other, because together they show the lecture’s progression from geometric intuition for projection to explicit spinor/projector formulas.
+## Mathematical Checks
 
-## Caption Drafts
-- `lecture_05_figure_02.png`: First Pauli action on \(|u\rangle\)
-- `lecture_05_figure_03.png`: Entangled state and vanishing one-spin expectation
-- `lecture_05_figure_04.png`: Geometric picture of projection onto a spin subspace
-- `lecture_05_figure_05.png`: Projectors onto the \(\sigma_3=\pm1\) components
+- The plus state is only guaranteed to be anti-correlated along the third axis; all-axis anti-correlation belongs to the minus singlet.
+- The \(45^\circ\) projector is \(\bigl[I+(\tau_1+\tau_3)/\sqrt2\bigr]/2\); the outer factor divides the complete numerator.
+- The Bell probabilities are \(P(A,\neg B)=P(B,\neg C)=\frac14(1-1/\sqrt2)\) and \(P(A,\neg C)=\frac14\).
+- The linear cloning output \((|uu\rangle+|dd\rangle)/\sqrt2\) is distinct from the tensor-product clone, which also contains \(|ud\rangle\) and \(|du\rangle\).
 
 ## Uncertainties
-- In `lecture_05_figure_02.png`, the right-hand ket is hidden by the lecturer’s hand, so the full equation requires standard completion from the subtitle and lecture context.
-- In `lecture_05_figure_03.png`, the sign in the two-spin superposition is not readable from the frame alone, and the lower expectation-value line is partly occluded; the visible `=0` does not by itself fix the full left-hand expression.
-- In `lecture_05_figure_04.png`, the exact subscript on the projected ket is not fully legible; the intended notation is likely the projected vector \(|\alpha_p\rangle\), but the frame alone does not settle every character.
-- In `lecture_05_figure_04.png`, the right-hand sketch is clearly a projection diagram, but the precise intended axes/subspace labels are not written explicitly in the frame.
-- In `lecture_05_figure_05.png`, the top generic projection line is only partly crisp, and the right-hand matrix for the \(\sigma_3=+1\) projector is mid-write rather than fully settled.
-- The subscript notation on the \(P\)-operators in `lecture_05_figure_05.png` is readable in substance but not with complete typographic sharpness, so the clean LaTeX should be treated as a cautious transcript-supported reconstruction.
+
+The transcript around 01:06--01:08 is fragmented while the first Bell probability is simplified. The final expression is fixed by the complete projector algebra and the later board result. The late laser discussion is retained as a question about approximate cloning and environmental degrees of freedom, not promoted to a separate theorem.
