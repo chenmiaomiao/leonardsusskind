@@ -1,358 +1,445 @@
-\chapter{Quantum Entanglements, Part 1}
+\chapter{Classical Information, Reversible Dynamics, and Matrices}
 
-These notes follow Leonard Susskind's opening lecture on quantum entanglement, with curation by LazyingArt LLC. The lecture begins, characteristically, with a sermon about intuition. It then turns that sermon into a program: we will not begin with wave mechanics, but with information, bits, configurations, update rules, and only then the elementary algebra that makes those update rules precise. The chapter should therefore be read in that order. We are being taught not merely a list of facts, but a way of rebuilding intuition.
+\lectureoverview{Quantum mechanics asks us to reason outside the range in which ordinary intuition was trained. We therefore begin one step earlier, with classical information: bits, configurations, and reversible update laws. The same discussion leads naturally to vectors and matrices, which will provide the language for quantum bits.}
 
-\section{Why Quantum Mechanics Feels Unnatural}
+\section{Intuition Built for the Wrong World}
 
-Susskind begins by reminding us that our ordinary physical intuition is an evolutionary inheritance. It was formed in a world of rocks, arrows, prey, predators, and moderate velocities. Even an animal chasing another animal is already solving a problem in kinematics: it tracks relative velocity, direction, and the moment at which the sign of that relative velocity changes. So one should not underestimate how much classical mechanics is already wired into ordinary behavior.
+Our physical intuition is old. Long before anyone wrote an equation, an animal chasing prey had to estimate relative speed and direction. If a lion is gaining on an antelope, the lion is responding to a changing separation and therefore, in an implicit way, to relative velocity. Nervous systems that handled such judgments well were favored; those that handled them badly did not leave many descendants. Much of what we call common sense about motion was trained in this ordinary world.
 
-But modern physics begins precisely where that inheritance stops being reliable. Relativity concerns velocities that no human or animal ever encountered in ordinary life. Quantum mechanics concerns electrons, uncertainty, and the breakdown of the very trajectory-based picture that ordinary experience encourages us to adopt. A particle, according to common sense, is a thing that has a position at every instant; if it has a position at every instant, then it has a trajectory; if it has a trajectory, then we compute its velocity from the differences of positions. That whole chain of intuition comes from the world of thrown stones and flying arrows. It is not a guide to the microscopic world.
+That inheritance is useful, but narrow. Nothing in ordinary life moves close to the speed of light, so evolution supplied no instinct for relativistic spacetime. A physicist first learns the abstract geometry and only later acquires a new intuition for it. Quantum mechanics is harder still. Our familiar picture of a particle comes from rocks and arrows: at each instant the object has a position, the succession of positions forms a trajectory, and changes of position define a velocity. An electron does not oblige us by fitting that picture. Position uncertainty and the absence of a classical trajectory have no analogue in the experience that shaped our senses.
 
-So the problem is not that quantum mechanics is illogical. The problem is that it lies outside the regime that trained our brains. We therefore need abstraction before we can recover intuition. Susskind says, in effect, that physicists rewire themselves. They learn abstract mathematics first, and only afterward develop new habits of thought that make the subject feel less alien.
+There is no paradox in this failure of intuition. There would be a paradox only if instincts adapted to stones, animals, and modest speeds somehow knew in advance about electrons. The right response is to build a different intuition from a small set of precise rules. Here the emphasis will not be the usual route through wave mechanics and the Schr\"odinger equation. We will concentrate on the logical structure of quantum mechanics and on quantum information. Before asking what a quantum bit is, we must understand exactly what an ordinary bit does.
 
-That sermon is not decorative. It explains the method of the lecture. This will not be a conventional first course in quantum mechanics, centered from the outset on the Schr\"odinger equation and the wave picture. The emphasis will be different. We are going to concentrate on the logic of quantum mechanics and the logic of quantum information. That is why the lecture pivots almost immediately to its first concrete object: the bit.
+\section{Bits and the Amount of Information}
 
-\section{Classical Bits and the Counting of States}
-
-Physics, in this register, is information. To say something about a physical system is to provide information about it, often numerically, but very often in the form of a discrete alternative. Heads or tails, yes or no, up or down: these are all examples of the same logical structure.
+Physics is inseparable from information. Sometimes that information is expressed by a real number, but the simplest possible piece of information is an answer to a question with only two alternatives: yes or no, heads or tails, up or down.
 
 \begin{definition}
-A bit is a question about a system with exactly two possible answers.
+A \emph{classical bit} is a physical question with exactly two possible answers.
 \end{definition}
 
-Susskind insists on starting with the classical case. A classical bit may be represented by \(0\) and \(1\), although the choice of symbols is arbitrary. We could equally well use \(1\) and \(-1\), or any other pair of labels. The point is only that there are two possibilities. Once that is fixed, we can write the two classical states as
+We may label those answers \(0\) and \(1\). The labels carry no intrinsic meaning; any two distinct symbols would do. Since Dirac notation will soon become indispensable, we introduce it even while it is redundant:
 \begin{equation}
-|0\rangle,\qquad |1\rangle.
+  \ket{0},
+  \qquad
+  \ket{1}.
 \end{equation}
-At this stage the Dirac notation looks like excess baggage, and Susskind says so. It adds nothing to the classical description \emph{yet}. But it is installed here because it will be the natural notation later, when the bit becomes quantum.
+The vertical bar and angle bracket form a \emph{ket}, the right half of a bra--ket. Nothing quantum has entered merely because we have changed notation.
 
-For many bits we simply write a string inside the ket:
+For several distinguishable bits, write the answers in a fixed order. Six distinguishable coins, for example, may have the configuration
 \begin{equation}
-|001011\cdots\rangle.
+  \ket{0\,1\,1\,0\,1\,0}.
 \end{equation}
-This is a configuration of a multibit system. The notation is intentionally plain. We are not yet taking tensor products apart; we are just recording a string of binary values.
-
-Now comes the first quantitative question: how many states does such a system have? One bit has two states. Two bits have four. Each new bit doubles the number of possibilities. Therefore an \(n\)-bit classical system has
+Commas are optional once the ordering is understood. One bit has two possible states, two bits have four, and every added bit doubles the count. Thus an \(n\)-bit system has
 \begin{equation}
-N_s=2^n
+  N_s=2^n
+  \label{eq:l01-state-count}
 \end{equation}
-possible configurations, where \(N_s\) is the number of states. Inverting the relation gives
+states. Conversely,
 \begin{equation}
-n=\log_2 N_s.
+  n=\log_2 N_s.
+  \label{eq:l01-bits-from-states}
 \end{equation}
 
-This is the point where the lecture turns the word \emph{bit} from a label into a measure. The number of bits of information carried by a system is, by definition, the logarithm base two of the number of available states:
+Equation~\eqref{eq:l01-bits-from-states} suggests a definition that is useful even when the number of states is not a power of two:
 \begin{equation}
-I=\log_2 N_s.
+  I=\log_2 N_s.
+  \label{eq:l01-information}
 \end{equation}
-For systems built from binary alternatives this reproduces an integer. But the definition is broader. A die has six states, so its information content is \(\log_2 6\), which is not an integer. The definition survives even when the system is not literally built from a set of binary switches.
+A six-sided die therefore carries \(\log_2 6\) bits of information. The answer need not be an integer. Systems assembled literally from binary switches will be convenient examples, but the logarithm is the more general measure.
 
-This is a small but important beat in the lecture. Susskind first defines the bit operationally, then counts states, then inverts the relation. The movement is deliberate: we are being taught to think of a state space as something whose size already measures information.
+\section{Encoding an Apparently Continuous World}
 
-\section{How Ordinary Physics Becomes a Bit String}
+Bits are not confined to coins. Any measured quantity known to finite accuracy can be written as a finite binary string. Suppose, for example, that the temperature of a room is required only to a chosen number of significant figures. Express the measured value in base two and retain the digits needed for that accuracy. Greater precision requires a longer string, but no change of principle.
 
-The next question is the natural one: are bits merely a convenient language for toy systems such as coins, or do they really reach ordinary physics? Susskind's answer is emphatic. Almost any physical information can be represented by bits, at least approximately and often to arbitrarily improving approximation.
+A spatially varying field can be treated similarly. Divide the room into a fine ordered lattice of cells, record the field value in each cell to finite precision, and concatenate the resulting binary strings. Making the cells smaller improves spatial resolution; keeping more binary digits improves the field-value resolution. Temperature fields, electric fields, and magnetic fields can all be encoded this way to any prescribed finite accuracy.
 
-Begin with a single measured quantity, such as the temperature of a room. If we care only about finite accuracy, then we may truncate the value and write it in base two. Once that is done, the number is simply a finite string of zeros and ones. If we want more accuracy, we keep more places. If we want a finer notion of temperature, we redefine the unit and again represent the result in binary. The essential move is the same every time: finite accuracy turns a real-valued quantity into a long but finite bit string.
-
-The same idea applies to fields. A field is something that varies from place to place. To encode it, we divide space into many small cells, order the cells, and record the field value in each cell with some chosen precision. The result is a long sequence of binary strings, one block per cell, and therefore a long sequence of bits. In that sense, a temperature field, an electric field, or a magnetic field may all be represented by binary data once we agree to discretize space and tolerate finite precision.
-
-Susskind then gives a second example, even more directly in the language of yes-or-no questions. Impose a lattice on a room and suppose that no cell can contain more than one particle. Then each cell carries one bit:
+Particle configurations give an even more literal binary picture. Subdivide space into cells small enough that each contains at most one particle. Assign
 \begin{equation}
-\text{occupied} \longleftrightarrow 1,
-\qquad
-\text{empty} \longleftrightarrow 0.
+  n_i=
+  \begin{cases}
+    1,&\text{cell \(i\) is occupied},\\
+    0,&\text{cell \(i\) is empty}.
+  \end{cases}
+  \label{eq:l01-occupancy-bit}
 \end{equation}
-A particle configuration is thus encoded by a string of occupancies. What does the string mean? It means exactly this: the first cell is occupied, the second is empty, the third is empty, the fourth is occupied, and so on. We have traded a spatial picture for a sequence of answers to yes-or-no questions.
+The complete configuration is the ordered string
+\begin{equation}
+  \ket{n_1n_2n_3\cdots}.
+\end{equation}
+It is a very long answer to a sequence of yes-or-no questions: is there a particle in the first cell, in the second, and so on? This is the physical version of the game \emph{Twenty Questions}, except that the number of questions may be enormous.
 
-This is one of the lecture's recurring motifs: \emph{so far no quantum mechanics}. Nothing quantum has entered yet. We are still talking about classical information, classical bits, and classical approximation schemes. But the point is already substantial. If physical information can be encoded by bit strings, then digital computation is not an accident. That is why computers can simulate physics at all.
+The construction explains why digital computers can simulate physics. A computer stores finite strings, while finite resolution turns measured quantities and fields into precisely such strings. The approximation can be improved systematically by refining the lattice, the time step, or the number of retained digits.
 
-There is, however, a caveat, and the lecture states it explicitly. Exact classical real numbers may require infinitely many bits. Rational numbers may repeat, irrational numbers certainly do not terminate, and long-time classical tracking may demand more and more precision. But that does not disturb the practical or conceptual point being made here. It only sharpens it: a computer works because finite approximation is often enough, and because physical descriptions can be improved systematically by using more bits and finer discretization.
+\begin{classroomqa}
+\lecturetimestamp{00:29:43}
+\audiencequestion{Is the accuracy of the temperature representation arbitrary?}
+\lecturerresponse{It is chosen according to the approximation we want. A finite string gives finite accuracy; retaining more binary places gives a finer approximation. There is no claim here that a finite string specifies an arbitrary classical real number exactly.}
+\end{classroomqa}
 
-\section{Configurations, Update Rules, and State Space}
+\begin{classroomqa}
+\lecturetimestamp{00:30:11}
+\audiencequestion{What happens for a general real number, especially an irrational one?}
+\lecturerresponse{An exact real number may require infinitely many bits. Some rational binary expansions repeat, and a generic irrational expansion never terminates. A real computer always keeps finitely many digits. The point is that any specified finite accuracy can be encoded, not that every classical real number has a finite exact description.}
+\end{classroomqa}
 
-Up to this point the lecture has concentrated on how to \emph{describe} a system at one time. The next pivot is from description to law. A physical theory is not only a list of possible configurations; it must also tell us how one configuration becomes another.
+\section{A State and a Law of Motion}
+
+So far we have described a system at one instant. Motion requires a second ingredient.
 
 \begin{definition}
-A configuration is the state of a system at a given instant of time.
+A \emph{configuration} is the complete state of a system at a specified instant. A discrete-time law of motion is a rule that maps each configuration to the configuration one time step later.
 \end{definition}
 
-Susskind is careful here. First comes configuration, not motion. We specify the state at one instant. Then, if we wish, we may discretize time as well as space and speak of updating from one digital instant to the next. In that language a physical theory consists of two parts: a space of possible states and a rule that updates one state into another slightly later state.
-
-To make this visible, the lecture introduces an abstract state space. Its points are not points in ordinary space; they are entire configurations. That distinction matters. A closed loop in this state space is not a particle running around a spatial circle. It is a system moving through a cycle of possible configurations.
-
-For a one-bit system the state space has only two points. Then the simplest possible update laws can be written in bare form:
+The distinction is elementary but essential. A snapshot of an electron distribution is a configuration; it is not yet an orbit. If space is replaced by a lattice and time by a sequence \(t_0,t_1,t_2,\ldots\), then motion is the succession
 \begin{equation}
-0\mapsto 0,\qquad 1\mapsto 1,
+  \ket{s(t_0)}
+  \longmapsto
+  \ket{s(t_1)}
+  \longmapsto
+  \ket{s(t_2)}
+  \longmapsto\cdots.
+  \label{eq:l01-discrete-motion}
 \end{equation}
-or
+A physical model therefore needs both a set of possible states and an update rule.
+
+\begin{classroomqa}
+\lecturetimestamp{00:31:12}
+\audiencequestion{How does this cell description account for an electron moving in an orbit?}
+\lecturerresponse{First specify only the configuration at an instant: which cells are occupied, with the nucleus fixed if that is part of the model. Then discretize time. The orbital motion is the rule that updates one occupancy string to the next. The rule may be complicated because of the ordering of the cells, but it is still an update of information.}
+\end{classroomqa}
+
+It helps to draw an abstract \emph{state space}. Each point in this space denotes an entire configuration, not a location in ordinary space. A \(10\times10\) occupancy lattice contains one hundred bits and hence \(2^{100}\) possible configurations.\editorialnote{The spoken lecture briefly says \(10^{100}\) while developing the example; the bit count fixes the intended value as \(2^{100}\).} Each one of those configurations is a single point in the state space.
+
+For one bit there are only two points. The identity law leaves both fixed:
 \begin{equation}
-0\mapsto 1,\qquad 1\mapsto 0.
+  0\mapsto0,
+  \qquad
+  1\mapsto1.
+  \label{eq:l01-identity-update}
 \end{equation}
-The first is the trivial fixed-point law: nothing happens. The second is the flip-flop law: the system alternates forever between the two possibilities.
+The other reversible possibility swaps them:
+\begin{equation}
+  0\mapsto1,
+  \qquad
+  1\mapsto0.
+  \label{eq:l01-flip-update}
+\end{equation}
+This is a flip-flop. A freely evolving physical example is less immediate than a manually operated light switch, because intervention would enlarge the system. Day and night provide an approximate two-state cycle; a pendulum also alternates between extremes, although its full state includes all the intermediate positions and velocities.
 
-The same idea extends immediately to two bits. A two-bit system has four states. One perfectly good law moves the system around a closed loop in the logical space of those four configurations. Another good law describes two separate flip-flops happening in parallel. The lecture is not trying to exhaust the possibilities. It is trying to install a picture: the laws of motion may be drawn as arrows between states.
+\begin{classroomqa}
+\lecturetimestamp{00:40:38}
+\audiencequestion{Would an ordinary light switch be an example of the flip-flop law?}
+\lecturerresponse{Not if a person is toggling it, because then the switch is not evolving by itself; the person belongs to the enlarged dynamical system. What we seek is a closed system whose own law alternates its state. Day and night suggest the idea, while a pendulum reminds us that a real example usually has more than two states.}
+\end{classroomqa}
 
-That is why the section matters. We are being led from a string of bits to a geometry of possibilities, and from there to dynamics as a pattern of arrows. Once that picture is in place, one further question becomes unavoidable: are all arrow patterns equally good?
+A two-bit system has four configurations. One update law may carry all four around a single cycle. Another may consist of two separate two-cycles. These are loops in the logical space of configurations, not necessarily loops in physical space. The arrows specify the law: wherever the system starts, following the arrows tells us its subsequent history.
 
-\section{Reversibility, Information Loss, and Unitarity}
+\section{Reversibility and the Preservation of Distinctions}
 
-Now the lecture reaches its conceptual center. Susskind first shows examples of acceptable update laws, and then he draws another law that is logically easy to imagine but physically defective. Two distinct states flow into a single later state. Going forward is still defined. Going backward is not.
+Not every arrow diagram has the same physical status. Consider a rule in which two different states merge into the same successor:
+\begin{equation}
+  a\mapsto c,
+  \qquad
+  b\mapsto c.
+  \label{eq:l01-merging-update}
+\end{equation}
+The next state is defined whether we start at \(a\) or \(b\), but after reaching \(c\) we cannot determine which past occurred. The distinction between \(a\) and \(b\) has disappeared.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_01_figure_02.png}
-\caption{Board evidence from the discussion of reversible and irreversible update rules. The handwritten word \emph{unitarity} appears beside the emphasized four-state sketch.}
+\includegraphics[width=0.82\linewidth]{lecture_01_figure_02.png}
+\caption{Several update diagrams remain on the board during the discussion of reversibility. Closed cycles coexist with a merging pattern, and the quantum term \emph{unitarity} is written beside them.}
+\lectureframe{00:53:21}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=1.0]
-\fill (0,1) circle (2pt);
-\fill (1,2) circle (2pt);
-\fill (2,1) circle (2pt);
-\fill (1,0) circle (2pt);
-\draw[->] (0,1) .. controls (0.15,1.7) and (0.55,1.95) .. (1,2);
-\draw[->] (1,2) .. controls (1.65,1.95) and (1.9,1.45) .. (2,1);
-\draw[->] (2,1) .. controls (1.85,0.35) and (1.35,0.05) .. (1,0);
-\draw[->] (1,0) .. controls (0.35,0.15) and (0.1,0.55) .. (0,1);
+\begin{tikzpicture}[>=Latex,thick,node distance=1.15cm]
+  \node[circle,fill,inner sep=1.8pt,label=above:\(1\)] (r1) {};
+  \node[circle,fill,inner sep=1.8pt,right=of r1,label=above:\(2\)] (r2) {};
+  \node[circle,fill,inner sep=1.8pt,below=of r2,label=below:\(3\)] (r3) {};
+  \node[circle,fill,inner sep=1.8pt,left=of r3,label=below:\(4\)] (r4) {};
+  \draw[->] (r1) -- (r2);
+  \draw[->] (r2) -- (r3);
+  \draw[->] (r3) -- (r4);
+  \draw[->] (r4) -- (r1);
+  \node[below=0.5cm of r4,anchor=north west] {\small reversible cycle};
 
-\fill (4.4,1) circle (2pt);
-\fill (5.4,2) circle (2pt);
-\fill (6.4,1) circle (2pt);
-\fill (5.4,0) circle (2pt);
-\draw[->] (4.4,1) -- (5.4,2);
-\draw[->] (5.4,2) -- (6.4,1);
-\draw[->] (6.4,1) -- (5.4,0);
-\draw[->] (5.4,0) -- (4.4,1);
-\node at (7.7,2) {unitarity};
-
-\fill (9.0,1.8) circle (2pt);
-\fill (9.0,0.2) circle (2pt);
-\fill (10.2,1.0) circle (2pt);
-\fill (11.4,1.0) circle (2pt);
-\draw[->] (9.0,1.8) -- (10.2,1.0);
-\draw[->] (9.0,0.2) -- (10.2,1.0);
-\draw[->] (10.2,1.0) -- (11.4,1.0);
-\draw[->] (11.4,1.0) .. controls (11.75,1.45) and (11.75,1.9) .. (11.35,2.25);
+  \node[circle,fill,inner sep=1.8pt,right=4.2cm of r1,label=above:\(a\)] (a) {};
+  \node[circle,fill,inner sep=1.8pt,below=1.25cm of a,label=below:\(b\)] (b) {};
+  \node[circle,fill,inner sep=1.8pt,right=1.6cm of a,yshift=-0.625cm,label=above:\(c\)] (c) {};
+  \node[circle,fill,inner sep=1.8pt,right=of c,label=above:\(d\)] (d) {};
+  \draw[->] (a) -- (c);
+  \draw[->] (b) -- (c);
+  \draw[->] (c) -- (d);
+  \node[below=0.55cm of b,anchor=north west] {\small information-losing merge};
 \end{tikzpicture}
-}%
-\caption{A clean schematic reconstruction of the board logic: reversible loops on the left, and a contrasting information-losing update rule on the right. The redraw stays schematic because the board does not securely label the states.}
+\caption{A reversible rule assigns one predecessor and one successor to every state. A merging rule has a unique future but an ambiguous past.}
 \end{figure}
 
-The good diagrams all have the same structural feature. Each state has one definite next state, but also one definite previous state. Susskind phrases this as the \emph{uniqueness of the future} and the \emph{uniqueness of the past}. That is what reversibility means here.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why is the merging update rule forbidden? It seems perfectly sensible as a forward rule. If the system is here, it goes there. Why is that not enough?
-
-\paragraph{Answer.} Because the rule destroys information about the past. If two distinct starting points both flow into the same later point, then once we arrive there we can no longer tell where we came from. The future is defined, but the past is not uniquely reconstructible. In Susskind's language, the rule loses information. At the fundamental level, where we imagine keeping track of every degree of freedom and not merely a coarse-grained summary, classical physics does not allow that.
-
-This is the rhythm of the lecture: first a picture that looks reasonable, then the recognition that something has gone wrong, and then the sharpened principle that repairs it. The repair is not a matter of logic alone. Susskind explicitly says that such information-losing rules are logically conceivable; they are simply not the form taken by fundamental physical laws.
-
-A second clarification follows immediately. Reversibility is not quite the same thing as exact time-reversal symmetry. A cyclic law still has an orientation: under forward evolution it runs one way around the loop, not both ways at once. What reversibility means is that there exists a reverse law taking us back uniquely. So the lecture draws a distinction between \emph{time reversibility} and the stronger notion of exact symmetry under interchange of past and future.
-
-A third clarification comes from thermodynamics. It often \emph{looks} as if information is lost. Release the gas from one corner of a room and after a while the whole room looks the same no matter which corner we started from. But, Susskind argues, this is usually not fundamental loss. It is coarse-graining. We have stopped keeping track of the microscopic details. If we followed every molecule with enough precision, then in principle the information would still be there. What is lost in practice is our power to resolve it.
-
-This is also the place where the lecture gestures beyond classical physics. Susskind jokes about naming the property ``unique-tarity,'' and then gives the quantum name: \emph{unitarity}. The quantum theory will have its own formal statement of this idea, but the principle has already appeared in classical dress: past and future must both be unique.
-
-\section{Vectors, Rows, Columns, and Inner Products}
-
-After the break Susskind says, in effect, that he was about to jump into quantum mechanics, but he wants to stop first and lay out some elementary mathematics. The timing matters. The algebra is not an isolated appendix; it is being installed because the classical discussion has made it necessary.
-
-A vector is introduced in the least ceremonial possible way. Susskind does not begin with axioms of a vector space. He says plainly: a vector is a finite sequence of numbers. At this point the entries are real numbers. Complex conjugation, daggers, and the full quantum notation are postponed.
-
-A four-component vector may be written as a row,
+Fundamental classical dynamics does not permit this loss when every degree of freedom is retained. The required property has two halves:
 \begin{equation}
-A=(A_1,A_2,A_3,A_4),
+  \boxed{\text{one unique future and one unique past for every state}.}
+  \label{eq:l01-reversibility}
 \end{equation}
-or as a column,
-\begin{equation}
-A=
-\begin{pmatrix}
-A_1\\
-A_2\\
-A_3\\
-A_4
-\end{pmatrix}.
-\end{equation}
-The two forms contain the same information. They are simply different notations adapted to different operations. Susskind even warns us not to visualize these as arrows in ordinary space. For the present purpose they are just organized lists of numbers.
+For a finite state space, the update must therefore be a permutation. Every state has exactly one outgoing arrow and exactly one incoming arrow, so the diagram decomposes into disjoint cycles.
 
-\begin{figure}[h]
+\begin{classroomqa}
+\lecturetimestamp{00:46:32}
+\audiencequestion{What is different about the merging diagram?}
+\lecturerresponse{It does not consist entirely of loops. More fundamentally, finding the system at the merged state does not tell us which predecessor it had. We can construct the future, but we cannot reconstruct the past. One bit of historical distinction has been lost.}
+\end{classroomqa}
+
+This notion is \emph{time reversibility}, not necessarily exact time-reversal symmetry. A clockwise cycle has a definite forward orientation. The original law does not send the system counterclockwise, but an inverse law exists that does. Exact time-reversal symmetry asks an additional question: after applying the appropriate reversal operation, are the same dynamical laws obtained? Reversibility alone asks only whether the history can be uniquely run backward.
+
+\begin{classroomqa}
+\lecturetimestamp{00:49:58}
+\audiencequestion{Is the uniqueness of the past just time-reversal symmetry?}
+\lecturerresponse{Not exactly. The arrows of a cycle may point only one way, so the law has an orientation. Reversibility means that a well-defined inverse law can be constructed by reversing every arrow. It does not by itself say that the inverse law is identical to the original law.}
+\end{classroomqa}
+
+Nor should we repair an irreversible diagram by placing two outgoing arrows at the merged state. That would make the backward motion ambiguous in a different way: the system would need a probabilistic instruction, perhaps choosing one branch \(30\%\) of the time and the other \(70\%\). We are still constructing deterministic classical dynamics, for which one present state determines one future and one past.
+
+Every real system is ultimately quantum mechanical. Why large objects appear classical, and why their quantum alternatives become difficult to observe, is a later question. The corresponding quantum principle will preserve the same logical core. Half jokingly, one might call uniqueness of past and future \emph{unique-tarity}. Its actual name is \emph{unitarity}: quantum evolution can be run uniquely forward or backward.
+
+\section{Apparent Information Loss and Coarse-Graining}
+
+Macroscopic experience seems to contradict reversibility. Put all the molecules of a gas in the left corner of a sealed room and release them. Soon the gas fills the room. Start instead from the right corner and the final macroscopic picture looks the same. Have the two distinct initial states merged?
+
+Only after we have thrown away detail. A microscopic state specifies every molecule. If every position and velocity could be followed with sufficient precision, reversing those motions would distinguish the two preparations. In practice the calculation is prohibitively difficult and the required precision grows rapidly, but practical inability is not fundamental erasure. The macroscopic statement \emph{air fills the room} identifies an enormous number of distinct microscopic configurations as one coarse-grained state.
+
+This is where the second law of thermodynamics enters. We lose the ability to distinguish detailed states because we do not keep track of all microscopic variables. Information appears to disappear because our description is coarse, not because the fine-grained deterministic law merges distinct points.
+
+\begin{classroomqa}
+\lecturetimestamp{00:56:11}
+\audiencequestion{Would tracking all the molecules in a classical room require infinitely many bits?}
+\lecturerresponse{For an exact classical description, yes. Positions and velocities are real numbers, and following a chaotic many-particle system for longer times demands ever greater precision. Quantum mechanics changes this conclusion: for a sealed region with bounded energy, the physically distinguishable description can be discrete rather than an arbitrary list of exact classical real numbers.}
+\end{classroomqa}
+
+The issue is not merely academic. Whether a black hole can destroy information was disputed for decades; Stephen Hawking originally argued that it could. That controversy asks whether the apparent merging is only another coarse-grained description or a genuine violation of quantum unitarity. We will not settle it before quantum mechanics has supplied the precise language, but it reveals how much rests on the simple arrow diagrams.
+
+\section{Rows, Columns, and Inner Products}
+
+Before replacing classical bits by quantum bits, we need a small amount of linear algebra. For present purposes a vector may be treated simply as a finite ordered list of real numbers. A four-component vector can be written horizontally,
+\begin{equation}
+  A^{\mathsf T}=(A_1,A_2,A_3,A_4),
+  \label{eq:l01-row-vector}
+\end{equation}
+or vertically,
+\begin{equation}
+  A=
+  \begin{pmatrix}
+    A_1\\ A_2\\ A_3\\ A_4
+  \end{pmatrix}.
+  \label{eq:l01-column-vector}
+\end{equation}
+The word \emph{four-dimensional} means only that there are four components. There is no need to visualize an arrow in ordinary space. The horizontal object is a row vector and the vertical object a column vector.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.45\textwidth]{lecture_01_figure_03.png}
-\caption{The board at the moment the lecture isolates a column vector. The entries are too small to transcribe literally, so the clean reconstruction uses generic components \(A_1,\dots,A_4\).}
+\includegraphics[width=0.92\linewidth]{lecture_01_figure_03.png}
+\caption{The same components are written as a row and as a column. At this stage they are real numbers, so no complex conjugation is involved.}
+\lectureframe{01:03:05}
 \end{figure}
 
-Now take a second vector, written as a row:
-\begin{equation}
-B=(B_1,B_2,B_3,B_4).
-\end{equation}
-If the row and the column have the same number of entries, we may multiply them. The rule is the familiar one:
-\begin{equation}
-BA=B_1A_1+B_2A_2+B_3A_3+B_4A_4.
-\end{equation}
-This is the inner product. It is not another vector. It is a single number. In ordinary three-dimensional language it would be called the dot product, and Susskind says so, but he prefers the more general name because the objects are being treated abstractly.
+\begin{classroomqa}
+\lecturetimestamp{01:03:14}
+\audiencequestion{Isn't the row vector the dagger of the column vector?}
+\lecturerresponse{That will be the right language once the components are complex. Then transposition must be accompanied by complex conjugation. For the moment the entries are real, so we need only distinguish the row arrangement from the column arrangement.}
+\end{classroomqa}
 
-The pedagogical point is simple and operational. Rows multiply columns to produce scalars. Once that is secure, matrices can be introduced with almost no extra conceptual burden.
-
-\section{Matrices as Update Operators}
-
-A matrix is now presented as a machine that acts on a vector and produces a new vector. That description is intentionally concrete. We are not yet being handed the formal theory of linear operators. We are being given the piece of algebra that will encode update laws.
-
-A \(4\times4\) matrix is written as
+Let
 \begin{equation}
-M=
-\begin{pmatrix}
-M_{11} & M_{12} & M_{13} & M_{14}\\
-M_{21} & M_{22} & M_{23} & M_{24}\\
-M_{31} & M_{32} & M_{33} & M_{34}\\
-M_{41} & M_{42} & M_{43} & M_{44}
-\end{pmatrix}.
+  B=(B_1,B_2,B_3,B_4)
 \end{equation}
-Its rows and columns are themselves collections of numbers, but together they define one operation. Acting on the column vector \(A\), the matrix produces a new column vector whose entries are row-by-column inner products:
-\begin{equation}
-(MA)_i=\sum_j M_{ij}A_j.
-\end{equation}
-Written out componentwise, the first two entries are
+be a row with the same number of entries as the column \(A\). Their product is defined by matching positions and summing:
 \begin{align}
-(MA)_1 &= M_{11}A_1+M_{12}A_2+M_{13}A_3+M_{14}A_4,\\
-(MA)_2 &= M_{21}A_1+M_{22}A_2+M_{23}A_3+M_{24}A_4.
+  BA
+  &=
+  (B_1,B_2,B_3,B_4)
+  \begin{pmatrix}
+    A_1\\ A_2\\ A_3\\ A_4
+  \end{pmatrix}\\
+  &=B_1A_1+B_2A_2+B_3A_3+B_4A_4.
+  \label{eq:l01-inner-product}
 \end{align}
-The later entries are obtained in exactly the same way. Susskind does two and leaves the pattern to the audience.
+The result is a number, not another vector or a matrix. In an abstract vector space this operation is called an inner product.
 
-\begin{figure}[h]
+\begin{classroomqa}
+\lecturetimestamp{01:06:44}
+\audiencequestion{Is this the dot product?}
+\lecturerresponse{Yes. For ordinary vectors in three-dimensional space it is the familiar dot product. The name \emph{inner product} emphasizes that the same row-by-column operation applies in vector spaces of any finite dimension.}
+\end{classroomqa}
+
+\section{Matrices as Machines for Updating States}
+
+A matrix is a square array of numbers that acts on a vector to produce another vector. Think of it as a machine: feed in the old column, apply a fixed rule, and obtain a new column. In four dimensions,
+\begin{equation}
+  M=
+  \begin{pmatrix}
+    M_{11}&M_{12}&M_{13}&M_{14}\\
+    M_{21}&M_{22}&M_{23}&M_{24}\\
+    M_{31}&M_{32}&M_{33}&M_{34}\\
+    M_{41}&M_{42}&M_{43}&M_{44}
+  \end{pmatrix}.
+  \label{eq:l01-general-matrix}
+\end{equation}
+The first index labels the row and the second the column. One may regard \(M\) as a collection of columns or as a collection of rows; both viewpoints will be useful.
+
+To calculate \(A'=MA\), take the inner product of each row of \(M\) with the input column:
+\begin{equation}
+  A'_i=(MA)_i=\sum_{j=1}^{4}M_{ij}A_j.
+  \label{eq:l01-matrix-vector}
+\end{equation}
+For example,
+\begin{align}
+  A'_1&=M_{11}A_1+M_{12}A_2+M_{13}A_3+M_{14}A_4,\\
+  A'_2&=M_{21}A_1+M_{22}A_2+M_{23}A_3+M_{24}A_4.
+\end{align}
+The third and fourth entries follow by the same pattern.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_01_figure_04.png}
-\caption{Board layout for the discussion of a matrix acting on a column vector. The frame preserves the spatial organization of the explanation more reliably than the individual micro-entries.}
+\includegraphics[width=0.94\linewidth]{lecture_01_figure_04.png}
+\caption{A matrix acts on a column vector row by row. The first two output components are expanded explicitly on the board.}
+\lectureframe{01:12:45}
 \end{figure}
 
-\paragraph{A worked classical example.}
-Now the lecture turns back to the classical discussion and shows why matrices matter. Suppose the system has finitely many configurations arranged in a cycle. Susskind first tries to draw a five-state example, then abandons it and retreats to four states so that the arithmetic will fit. That change does not alter the mathematical point.
+\subsection{Encoding a Classical Configuration}
 
-We encode the four classical states by one-hot column vectors:
+Suppose a system has four possible states. Represent them by the one-hot columns
 \begin{equation}
-e_1=
-\begin{pmatrix}
-1\\0\\0\\0
-\end{pmatrix},
-\qquad
-e_2=
-\begin{pmatrix}
-0\\1\\0\\0
-\end{pmatrix},
-\qquad
-e_3=
-\begin{pmatrix}
-0\\0\\1\\0
-\end{pmatrix},
-\qquad
-e_4=
-\begin{pmatrix}
-0\\0\\0\\1
-\end{pmatrix}.
+  e_1=
+  \begin{pmatrix}1\\0\\0\\0\end{pmatrix},
+  \quad
+  e_2=
+  \begin{pmatrix}0\\1\\0\\0\end{pmatrix},
+  \quad
+  e_3=
+  \begin{pmatrix}0\\0\\1\\0\end{pmatrix},
+  \quad
+  e_4=
+  \begin{pmatrix}0\\0\\0\\1\end{pmatrix}.
+  \label{eq:l01-one-hot}
 \end{equation}
-The cycle \(1\to2\to3\to4\to1\) is represented by the permutation matrix
-\begin{equation}
-P=
-\begin{pmatrix}
-0&0&0&1\\
-1&0&0&0\\
-0&1&0&0\\
-0&0&1&0
-\end{pmatrix}.
-\end{equation}
-This is a deliberate clean convention. On the board the direction is corrected live, so the notes should not pretend that the first version written there was final. What is stable is the cyclic structure. With the present convention,
-\begin{equation}
-\begin{aligned}
-Pe_1&=e_2,\qquad Pe_2=e_3,\\
-Pe_3&=e_4,\qquad Pe_4=e_1.
-\end{aligned}
-\end{equation}
-The same matrix acts on a general column by shifting its entries cyclically:
-\begin{equation}
-P
-\begin{pmatrix}
-A\\
-B\\
-C\\
-D
-\end{pmatrix}
-=
-\begin{pmatrix}
-D\\
-A\\
-B\\
-C
-\end{pmatrix}.
-\end{equation}
-This is the lecture's first real worked example of an update rule written algebraically. A law of motion has become a matrix.
+The location of the single \(1\) tells us which classical configuration is present.
 
-\paragraph{Matrix multiplication as repeated updating.}
-Once a matrix represents one step of evolution, the reason for multiplying matrices by matrices becomes immediate. If
+Consider the cyclic update
 \begin{equation}
-V'=MV,
+  1\longrightarrow2\longrightarrow3\longrightarrow4\longrightarrow1.
+  \label{eq:l01-four-cycle}
 \end{equation}
-then a second step gives
+It is represented by
 \begin{equation}
-V''=MV'=M^2V.
+  P=
+  \begin{pmatrix}
+    0&0&0&1\\
+    1&0&0&0\\
+    0&1&0&0\\
+    0&0&1&0
+  \end{pmatrix}.
+  \label{eq:l01-permutation-matrix}
 \end{equation}
-So matrix multiplication composes updates. To evolve by two time steps, we apply the update matrix twice. To evolve by five, we multiply it into itself five times.
+Indeed,
+\begin{equation}
+  Pe_1=e_2,\qquad
+  Pe_2=e_3,\qquad
+  Pe_3=e_4,\qquad
+  Pe_4=e_1.
+\end{equation}
+The board construction is corrected while it is being written, first with five states and then with four. Equation~\eqref{eq:l01-permutation-matrix} records the settled cyclic rule rather than the abandoned intermediate array.
 
-\begin{figure}[h]
+The same matrix acts on an arbitrary column:
+\begin{equation}
+  P
+  \begin{pmatrix}A\\B\\C\\D\end{pmatrix}
+  =
+  \begin{pmatrix}D\\A\\B\\C\end{pmatrix}.
+  \label{eq:l01-cyclic-shift}
+\end{equation}
+For a classical state only one component is \(1\), but allowing general entries exposes the underlying linear operation. Classical deterministic updates use special zero-one matrices with one \(1\) in every row and every column. Quantum mechanics will retain matrix evolution while greatly enlarging the allowed entries.
+
+\subsection{Composition Is Matrix Multiplication}
+
+If one time step is
+\begin{equation}
+  V'=MV,
+\end{equation}
+then a second application gives
+\begin{equation}
+  V''=MV'=M(MV)=M^2V.
+  \label{eq:l01-two-updates}
+\end{equation}
+Multiplying matrices is therefore not an arbitrary algebraic pastime. It composes physical updates. Five time steps are represented by \(M^5\).
+
+For two \(2\times2\) matrices
+\begin{equation}
+  M=
+  \begin{pmatrix}
+    M_{11}&M_{12}\\
+    M_{21}&M_{22}
+  \end{pmatrix},
+  \qquad
+  N=
+  \begin{pmatrix}
+    N_{11}&N_{12}\\
+    N_{21}&N_{22}
+  \end{pmatrix},
+\end{equation}
+the product \(C=MN\) has entries
+\begin{equation}
+  C_{ij}=\sum_k M_{ik}N_{kj}.
+  \label{eq:l01-matrix-product}
+\end{equation}
+In particular,
+\begin{align}
+  C_{11}&=M_{11}N_{11}+M_{12}N_{21},\\
+  C_{12}&=M_{11}N_{12}+M_{12}N_{22},\\
+  C_{21}&=M_{21}N_{11}+M_{22}N_{21},\\
+  C_{22}&=M_{21}N_{12}+M_{22}N_{22}.
+\end{align}
+Each entry is a row of the left matrix multiplied by a column of the right matrix. Equivalently, act with \(M\) on each column of \(N\) and place the resulting columns side by side.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_01_figure_05.png}
-\caption{Board layout for the \(2\times2\) matrix product. The pedagogical point is that the right-hand matrix may be read column by column, each column being acted on by the left-hand matrix.}
+\includegraphics[width=0.86\linewidth]{lecture_01_figure_05.png}
+\caption{Matrix multiplication organized as repeated matrix--column multiplication. The first row and the columns of the second matrix are marked to show where each entry of the product comes from.}
+\lectureframe{01:26:30}
 \end{figure}
 
-To make the arithmetic explicit, Susskind reduces the discussion to \(2\times2\) matrices:
+A row vector can also act from the left. If \(B=(B_1,\ldots,B_4)\), then \(BM\) is another row vector with
 \begin{equation}
-M=
-\begin{pmatrix}
-M_{11} & M_{12}\\
-M_{21} & M_{22}
-\end{pmatrix},
-\qquad
-N=
-\begin{pmatrix}
-N_{11} & N_{12}\\
-N_{21} & N_{22}
-\end{pmatrix}.
+  (BM)_j=\sum_i B_iM_{ij}.
+  \label{eq:l01-row-times-matrix}
 \end{equation}
-Their product \(C=MN\) is another matrix. The first entry is obtained by taking the first row of \(M\) and multiplying it by the first column of \(N\):
+Again the rule is row times column. The shapes keep track of the result:
 \begin{equation}
-C_{11}=M_{11}N_{11}+M_{12}N_{21}.
-\end{equation}
-The next entry comes from the first row of \(M\) and the second column of \(N\):
-\begin{equation}
-C_{12}=M_{11}N_{12}+M_{12}N_{22}.
-\end{equation}
-The general rule is
-\begin{equation}
-C_{ij}=\sum_k M_{ik}N_{kj}.
+\begin{array}{c@{\qquad}c}
+\text{row}\times\text{column}&=\text{number},\\
+\text{matrix}\times\text{column}&=\text{column},\\
+\text{row}\times\text{matrix}&=\text{row},\\
+\text{matrix}\times\text{matrix}&=\text{matrix}.
+\end{array}
+\label{eq:l01-shape-rules}
 \end{equation}
 
-The board layout in the lecture is especially revealing here. The right-hand matrix is drawn almost as two neighboring columns, because that is how Susskind wants us to think of it. Multiply the left matrix by the first column and put the result in the first column of the answer; multiply the left matrix by the second column and put the result in the second column of the answer. Matrix multiplication is thus visibly the same operation as matrix-times-vector multiplication, performed column by column.
+These operations are worth practicing with small numerical \(2\times2\) and \(3\times3\) examples. Together with a little calculus, row--column multiplication is the main new mathematical habit needed for the quantum mechanics ahead.
 
-\paragraph{Row vectors multiplied by matrices.}
-The final pattern is the one obtained by multiplying a row vector by a matrix. If
-\begin{equation}
-B=(B_1,B_2,B_3,B_4),
-\end{equation}
-then \(BM\) is another row vector, and its \(j\)-th entry is found by multiplying the original row \(B\) by the \(j\)-th column of \(M\):
-\begin{equation}
-(BM)_j=\sum_i B_iM_{ij}.
-\end{equation}
+\begin{classroomqa}
+\lecturetimestamp{01:31:50}
+\audiencequestion{What restriction does reversibility place on the update matrix?}
+\lecturerresponse{It must have an inverse. The inverse matrix implements the reverse update and takes every state back to its unique predecessor. Not every matrix is invertible, so the algebra reproduces the distinction made earlier with arrow diagrams. For the cyclic example, \(P^{-1}=P^3\) and \(P^4=\mathbb{1}\).}
+\end{classroomqa}
 
-This closes the elementary algebra of the lecture. A row times a column is a number. A matrix times a column is a column. A row times a matrix is a row. A matrix times a matrix is a matrix. Susskind ends by stressing that if we can do these manipulations fluently, then we already possess the basic mathematics that quantum mechanics will use over and over again.
+\section{Why Prepare the Algebra Before the Qubit?}
 
-Only at the end, in the questions, does the lecture phrase reversibility in matrix language. A reversible update should be represented by a matrix with an inverse. That is the algebraic shadow of the earlier physical statement that there must be a unique future and a unique past.
+The first hour gave a qualitative account of deterministic classical physics in terms of bits and reversible arrows. The remaining mathematics translates that account into a form that can survive the transition to quantum mechanics. A configuration becomes a column; a one-step law becomes a matrix; repeated time evolution becomes a product of matrices; reversibility becomes the existence of an inverse.
 
-\section{Summary}
+We have not yet used a quantum rule. That delay is deliberate. Next we replace the classical alternatives \(\ket{0}\) and \(\ket{1}\) by a qubit and ask what new states are possible. The row vectors, column vectors, inner products, and matrices introduced here will then reveal why quantum information differs so sharply from a classical string of bits.
 
-The first lecture does not yet present the new quantum rules. Instead it prepares the ground with unusual care. First we are told why abstraction is necessary: ordinary intuition is a classical inheritance, not a trustworthy guide to the microscopic world. Then the lecture reframes physics as information. From there it constructs classical bits, counts their states, and shows how surprisingly much of ordinary physics may be represented by long strings of binary data.
-
-Only after that groundwork does the lecture turn from configuration to law. A physical system consists of possible states together with an update rule. Not every conceivable update rule is acceptable: fundamental laws must preserve the distinction between different pasts, which is why reversibility and uniqueness of past and future become central. The quantum name for the corresponding principle has already been previewed: unitarity.
-
-Finally, after the break, the lecture installs the algebraic machinery required for the next step. Vectors, inner products, matrices, and matrix multiplication are not side remarks. They are the clean language of updating. So the lecture ends exactly where it should end: classical bits have been lifted into linear algebra, and the stage is set for qubits.
+\begin{classroomqa}
+\lecturetimestamp{01:34:00}
+\audiencequestion{Why introduce all this matrix algebra before saying what it is for?}
+\lecturerresponse{The qualitative problem came first: how should deterministic physics be represented by states and update laws? The algebra is the preparation for the next step. Once qubits are introduced, these manipulations will no longer look detached; they will be the natural language of quantum states and their evolution.}
+\end{classroomqa}
