@@ -1,558 +1,721 @@
-\chapter{Quantum Entanglements, Part 1}
+\chapter{Spin Geometry and the First Entangled State}
 
-These companion notes follow Leonard Susskind's fourth lecture in the \emph{Quantum Entanglement} supplementary track and are curated for this archive by LazyingArt LLC. The lecture opens by saying, in effect, that Bell's theorem will have to wait and that entanglement itself is only just within reach. But before two spins can do anything interesting together, we still have to finish the one-spin machinery. That is the governing decision of the lecture: first complete the story of a single two-state system, and only then return to the promised subject of entanglement.
+\lectureoverview{Entanglement belongs to systems with parts, but the two-spin problem cannot be read honestly until the one-spin machinery is complete. We therefore begin with spin along an arbitrary axis, derive the transition probability between two directions, interpret measurement as a filter, and identify commutation as the criterion for compatible observables. A counting argument then reveals that two spins possess more pure states than two separately prepared spins can supply. The excess states are entangled, and the simplest example already has definite pair correlations while each electron separately is completely unpolarized.}
 
-\section{The Arbitrary-Axis Spin Operator}
+\section{Finishing the One-Spin Problem}
 
-We resume with a single spin and an arbitrary axis in space. Susskind labels the spatial directions by \(1,2,3\), while warning that he may lapse into \(x,y,z\). We will keep the \(1,2,3\) notation, with the understanding that these are just the three spatial axes.
+Bell's theorem can wait. Entanglement itself begins with two electrons, but the remaining structure of one electron will enter every calculation. Let us therefore finish the two-state system before combining two copies of it.
 
-An arbitrary direction is represented by a unit vector
+Choose an ordinary spatial unit vector
 \begin{equation}
-\hat n=(n_1,n_2,n_3),
-\qquad
-n_1^2+n_2^2+n_3^2=1.
+  \hat n=(n_1,n_2,n_3),
+  \qquad
+  n_1^2+n_2^2+n_3^2=1.
+  \label{eq:l04-unit-pointer}
 \end{equation}
-If \(\sigma=(\sigma_1,\sigma_2,\sigma_3)\) denotes the spin operator, then the component of spin along \(\hat n\) is
-\begin{equation}
-\sigma\cdot\hat n = n_1\sigma_1+n_2\sigma_2+n_3\sigma_3.
-\end{equation}
-At this point the lecture makes an important distinction: this is the ordinary dot product in space, not the inner product of two state-vectors in Hilbert space. The \(n_i\) are just numbers, the direction cosines of the chosen axis. The \(\sigma_i\), however, are matrices. Therefore \(\sigma\cdot\hat n\) is itself an operator.
+The labels \(1,2,3\) may equally be called \(x,y,z\). What matters is that the axes form one consistent right-handed coordinate system.
 
-\begin{figure}[t]
+\begin{classroomqa}
+\lecturetimestamp{00:02:33}
+\audiencequestion{Is the coordinate triad drawn on the board right-handed?}
+\lecturerresponse{The first sketch is left-handed. Reversing the second axis, or relabeling two axes consistently, repairs it. The calculation below uses only a fixed right-handed convention; the accidental orientation of the sketch carries no physics.}
+\end{classroomqa}
+
+The spin has three observable components, represented by the Pauli matrices
+\begin{equation}
+  \sigma_1=
+  \begin{pmatrix}0&1\\1&0\end{pmatrix},
+  \qquad
+  \sigma_2=
+  \begin{pmatrix}0&-i\\i&0\end{pmatrix},
+  \qquad
+  \sigma_3=
+  \begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\end{equation}
+The component along \(\hat n\) is the ordinary spatial dot product of the pointer with this matrix-valued vector:
+\begin{equation}
+  \sigma_{\hat n}
+  \equiv
+  \boldsymbol{\sigma}\cdot\hat n
+  =
+  n_1\sigma_1+n_2\sigma_2+n_3\sigma_3.
+  \label{eq:l04-sigma-dot-n}
+\end{equation}
+This dot product is in physical three-space. It is not the inner product of two state vectors.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_04_figure_02.png}
-\caption{Spin component along an arbitrary direction.}
+\includegraphics[width=0.82\linewidth]{lecture_04_figure_02.png}
+\caption{The spatial component along \(\hat n\) becomes a linear combination of three matrix observables.}
+\lectureframe{00:05:09}
 \end{figure}
 
-Using the Pauli matrices, we obtain the explicit form
+Substituting the Pauli matrices gives
 \begin{equation}
-\sigma\cdot\hat n
-=
-\begin{pmatrix}
-n_3 & n_1-i n_2 \\
-n_1+i n_2 & -n_3
-\end{pmatrix}.
+  \sigma_{\hat n}
+  =
+  \begin{pmatrix}
+    n_3 & n_1-in_2\\
+    n_1+in_2 & -n_3
+  \end{pmatrix}.
+  \label{eq:l04-sigma-n-matrix}
 \end{equation}
-This is the operator that answers the physical question: if we orient the measuring apparatus along \(\hat n\), what are the possible results for the spin component along that axis?
+It is convenient to abbreviate
+\begin{equation}
+  n_-=n_1-in_2,
+  \qquad
+  n_+=n_1+in_2=n_-^*,
+\end{equation}
+so that
+\begin{equation}
+  \sigma_{\hat n}
+  =
+  \begin{pmatrix}
+    n_3&n_-\\
+    n_+&-n_3
+  \end{pmatrix}.
+\end{equation}
+The real diagonal and conjugate off-diagonal entries make the operator Hermitian.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_04_figure_03.png}
-\caption{Matrix form of \(\sigma\cdot\hat n\).}
+\includegraphics[width=0.84\linewidth]{lecture_04_figure_03.png}
+\caption{The arbitrary-axis spin observable in explicit two-by-two form.}
+\lectureframe{00:07:34}
 \end{figure}
 
-The lecture keeps the physical interpretation close at hand. To measure \(\sigma\cdot\hat n\), we imagine turning on a large magnetic field oriented along \(\hat n\). The electron either emits a photon or does not. That physical process is encoded mathematically by the operator \(\sigma\cdot\hat n\). The whole point is that the abstract operator language and the laboratory procedure are describing the same thing.
+Operationally, measuring \(\sigma_{\hat n}\) means orienting a strong magnetic field along \(\hat n\) and observing the spin-dependent response, represented in the lecture by whether a photon is emitted. The matrix and the laboratory question are two descriptions of the same measurement.
 
-\section{Basic Properties of \texorpdfstring{$\sigma\cdot\hat n$}{sigma dot n}}
-
-It is convenient to introduce the standard shorthand
+Two small identities will carry the rest of the calculation. First,
 \begin{equation}
-n_- = n_1-i n_2,
-\qquad
-n_+ = n_1+i n_2.
+  \sigma_{\hat n}^{\,2}=I.
+  \label{eq:l04-sigma-n-square}
 \end{equation}
-Then the matrix can be written as
+This follows either by multiplying Equation~\eqref{eq:l04-sigma-n-matrix} by itself or by using
 \begin{equation}
-\sigma\cdot\hat n
-=
-\begin{pmatrix}
-n_3 & n_- \\
-n_+ & -n_3
-\end{pmatrix}.
+  \sigma_i^2=I,
+  \qquad
+  \sigma_i\sigma_j=-\sigma_j\sigma_i
+  \quad(i\ne j).
 \end{equation}
-The lower shorthand line on the board is only partially visible, but the notation is clear from the surrounding lecture.
-
-The matrix is Hermitian: the diagonal entries are real, and the off-diagonal entries are complex conjugates of one another. That is exactly what we want from an observable. The lecture then extracts a few working facts and moves on; these are tools, not a separate formalism.
-
-\begin{remark}
-Here and below, the symbol \(1\) means the identity operator on the two-dimensional one-spin state space.
-\end{remark}
-
-\begin{proposition}
-For any unit vector \(\hat n\),
+Every eigenvalue \(\lambda\) of \(\sigma_{\hat n}\) therefore satisfies \(\lambda^2=1\), so the only possible outcomes are
 \begin{equation}
-(\sigma\cdot\hat n)^2=1.
+  \lambda=\pm1.
 \end{equation}
-Hence the eigenvalues of \(\sigma\cdot\hat n\) are \(\pm1\).
-\end{proposition}
-
-\begin{proof}
-One may verify the square directly from the matrix and the identity \(n_1^2+n_2^2+n_3^2=1\). The lecture also recalls the Pauli-matrix relation
+Second,
 \begin{equation}
-\sigma_i\sigma_j=-\sigma_j\sigma_i,
-\qquad i\neq j,
+  n_+n_-
+  =n_1^2+n_2^2
+  =1-n_3^2
+  =(1-n_3)(1+n_3).
+  \label{eq:l04-nplus-nminus}
 \end{equation}
-which gives the same result. If \(\lambda\) is an eigenvalue of \(\sigma\cdot\hat n\), then \(\lambda^2=1\), so \(\lambda=\pm1\).
-\end{proof}
-
-A second algebraic identity is introduced because it will be used repeatedly in the eigenvector calculation:
-\begin{equation}
-n_+n_-=(n_1+i n_2)(n_1-i n_2)=n_1^2+n_2^2=1-n_3^2.
-\end{equation}
-The lecture treats this exactly as it should be treated: not as a deep theorem, but as the small fact that makes the later algebra survivable.
+This is not a deep theorem, but it is the identity that keeps the eigenvector algebra under control.
 
 \section{From Preparation to Probability}
 
-Now the lecture arrives at the question it really wants to answer. Suppose we prepare the electron so that its spin is definitely up along the axis \(\hat n\). Then we measure the spin along a different axis \(\hat m\). What is the probability that the outcome along \(\hat m\) is \(+1\)?
-
-Before calculating anything, Susskind notes what symmetry suggests. The answer ought to depend only on the angle between \(\hat n\) and \(\hat m\), and it ought to be symmetric in \(n\) and \(m\). But he does not stop there. The lecture insists that we derive the answer from the probability postulate rather than simply guess the angle-dependence and bless it afterward.
-
-We therefore introduce the \(+1\) eigenstates of the two operators:
+Prepare the electron with spin \(+1\) along \(\hat n\), then measure along a different direction \(\hat m\). The central one-spin question is
 \begin{equation}
-\sigma\cdot\hat n\,|\sigma\cdot\hat n=1\rangle
-=
-|\sigma\cdot\hat n=1\rangle,
-\qquad
-\sigma\cdot\hat m\,|\sigma\cdot\hat m=1\rangle
-=
-|\sigma\cdot\hat m=1\rangle.
+  P(m,+\mid n,+)
+  =
+  P(\sigma_{\hat m}=+1\mid\sigma_{\hat n}=+1).
+  \label{eq:l04-central-probability}
 \end{equation}
-The equality sign inside each ket is part of the label; it is not an additional assertion. The lecture is explicit about this because the notation is a bit heavy. The board is partially occluded at this point, so what we write here is the cautious standard reconstruction of the intended notation.
+Symmetry suggests that the answer should depend only on the angle between \(\hat n\) and \(\hat m\), and that interchanging the two directions should not change it. Those expectations are useful checks, not substitutes for the probability postulate.
 
-\begin{figure}[t]
+\begin{classroomqa}
+\lecturetimestamp{00:14:03}
+\audiencequestion{Does quantum mechanics itself tell us that the three Pauli matrices are spin operators, or is that learned from experiment?}
+\lecturerresponse{The identification is part of the accumulated empirical structure of quantum mechanics, not the result of one isolated experiment. Repeated spin experiments reveal probabilistic regularities, and the matrix formalism was built through the work of Einstein, Born, Heisenberg, Dirac, and others to encode those regularities. The postulates are exceptionally successful guesses constrained by data.}
+\end{classroomqa}
+
+Let
+\begin{equation}
+  \sigma_{\hat n}\ket{n,+}=\ket{n,+},
+  \qquad
+  \sigma_{\hat m}\ket{m,+}=\ket{m,+}.
+  \label{eq:l04-nm-eigenstates}
+\end{equation}
+The symbols \(n,+\) and \(m,+\) are labels inside the kets. They identify the eigenstates whose eigenvalue is \(+1\).
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_04_figure_04.png}
-\caption{Spin-up eigenstates along \(\hat m\) and \(\hat n\).}
+\includegraphics[width=0.76\linewidth]{lecture_04_figure_04.png}
+\caption{The \(+1\) eigenstates for spin along \(\hat n\) and \(\hat m\).}
+\lectureframe{00:17:36}
 \end{figure}
 
-\begin{figure}[t]
+The first object to calculate is the probability amplitude
+\begin{equation}
+  \mathcal A(m,+\mid n,+)=\braket{m,+}{n,+}.
+\end{equation}
+The probability is its absolute square:
+\begin{equation}
+  P(m,+\mid n,+)
+  =
+  \left|\braket{m,+}{n,+}\right|^2.
+  \label{eq:l04-born-nm}
+\end{equation}
+Amplitude first, probability second: that order is the essential quantum step.
+
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.4]
-\draw[->] (0,0) -- (1.3,0.25) node[right] {$\hat n$};
-\draw[->] (0,0) -- (0.65,1.18) node[above] {$\hat m$};
-\end{tikzpicture}
-\caption{A clean reconstruction of the \(\hat n\)-\(\hat m\) sketch that remains on the board while the eigenstate equations are written.}
+\includegraphics[width=0.78\linewidth]{lecture_04_figure_05.png}
+\caption{The overlap between the prepared \(n\)-state and the tested \(m\)-state is the probability amplitude.}
+\lectureframe{00:19:59}
 \end{figure}
 
-\subsection{Question \& Answer}
+\subsection{Solving for the Eigenstate}
 
-\paragraph{Question.} Once the state is prepared along \(\hat n\), what quantity do we calculate first in order to predict the outcome along \(\hat m\)?
+Write a candidate \(+1\) eigenvector of \(\sigma_{\hat n}\) as
+\begin{equation}
+  \begin{pmatrix}\alpha\\\beta\end{pmatrix}.
+\end{equation}
+Normalization can wait, and an overall phase has no physical effect. Away from the south-pole coordinate patch, we may therefore choose \(\alpha=1\) and write \(\beta=z\). The top component of
+\begin{equation}
+  \begin{pmatrix}
+    n_3&n_-\\
+    n_+&-n_3
+  \end{pmatrix}
+  \begin{pmatrix}1\\z\end{pmatrix}
+  =
+  \begin{pmatrix}1\\z\end{pmatrix}
+\end{equation}
+gives
+\begin{equation}
+  n_3+n_-z=1,
+  \qquad
+  z=\frac{1-n_3}{n_-}.
+  \label{eq:l04-z-solution}
+\end{equation}
+The lower component gives the same condition once Equation~\eqref{eq:l04-nplus-nminus} is used.
 
-\paragraph{Answer.} First we calculate a probability amplitude, not a probability. The amplitude is the inner product between the prepared state and the final eigenstate whose outcome we want to test:
-\begin{equation}
-\langle \sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1\rangle.
-\end{equation}
-Only after that do we form the probability by multiplying by the complex conjugate:
-\begin{equation}
-P(\sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1)
-=
-\left|\langle \sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1\rangle\right|^2.
-\end{equation}
-That distinction is one of the lecture's central pedagogical beats: amplitude first, probability second.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.74\textwidth]{lecture_04_figure_05.png}
-\caption{Overlap of spin-up states along \(\hat m\) and \(\hat n\).}
-\end{figure}
-
-The transcript is garbled around this point, but the board progression and the surrounding discussion make the intended route clear: define the relevant eigenvectors, take their overlap, then square the magnitude.
-
-\section{The Eigenvector Calculation and the Formula \texorpdfstring{$\frac{1+\hat n\cdot\hat m}{2}$}{(1+n.m)/2}}
-
-The lecture now slows down and performs the calculation. Susskind warns the audience that it is ugly. We may clean it up a little, but we should preserve the rhythm of the argument: first solve for the eigenvectors, then normalize them, and only then take the inner product.
-
-We seek a \(+1\) eigenvector of \(\sigma\cdot\hat n\), so we solve
-\begin{equation}
-(\sigma\cdot\hat n)\binom{\alpha}{\beta}=\binom{\alpha}{\beta}.
-\end{equation}
-At first we do \emph{not} normalize the vector. We also keep in mind another point the lecture emphasizes: multiplying a state by an overall phase \(e^{i\theta}\) changes no probability, since every physical probability is built from a quantity times its complex conjugate. Therefore, at this stage, there is no loss of physical content in choosing
-\begin{equation}
-\alpha=1.
-\end{equation}
-Write the lower component as \(z\). Then
-\begin{equation}
-\begin{pmatrix}
-n_3 & n_- \\
-n_+ & -n_3
-\end{pmatrix}
-\begin{pmatrix}
-1\\
-z
-\end{pmatrix}
-=
-\begin{pmatrix}
-1\\
-z
-\end{pmatrix}.
-\end{equation}
-From the top component we obtain
-\begin{equation}
-n_3+n_-z=1,
-\end{equation}
-and hence
-\begin{equation}
-z=\frac{1-n_3}{n_-}.
-\end{equation}
-So one unnormalized \(+1\) eigenvector is
-\begin{equation}
-\begin{pmatrix}
-1\\[4pt]
-\dfrac{1-n_3}{n_-}
-\end{pmatrix}.
-\end{equation}
-
-Now we normalize it. The corresponding bra is
-\begin{equation}
-\left(
-1,\frac{1-n_3}{n_+}
-\right),
-\end{equation}
-so the norm is
+The unnormalized vector has squared norm
 \begin{align}
-\left(
-1,\frac{1-n_3}{n_+}
-\right)
-\begin{pmatrix}
-1\\[4pt]
-\dfrac{1-n_3}{n_-}
-\end{pmatrix}
-&=
-1+\frac{(1-n_3)^2}{n_+n_-} \\
-&=
-1+\frac{(1-n_3)^2}{(1-n_3)(1+n_3)} \\
-&=
-\frac{2}{1+n_3}.
+  \begin{pmatrix}
+    1&\dfrac{1-n_3}{n_+}
+  \end{pmatrix}
+  \begin{pmatrix}
+    1\\[3pt]\dfrac{1-n_3}{n_-}
+  \end{pmatrix}
+  &=
+  1+\frac{(1-n_3)^2}{n_+n_-}
+  \notag\\
+  &=
+  1+\frac{1-n_3}{1+n_3}
+  =
+  \frac{2}{1+n_3}.
+  \label{eq:l04-unnormalized-norm}
 \end{align}
-Therefore a convenient normalized eigenvector is
+Hence a normalized choice is
 \begin{equation}
-|\sigma\cdot\hat n=1\rangle
-=
-\sqrt{\frac{1+n_3}{2}}
-\begin{pmatrix}
-1\\[6pt]
-\dfrac{1-n_3}{n_-}
-\end{pmatrix}.
+  \ket{n,+}
+  =
+  \sqrt{\frac{1+n_3}{2}}
+  \begin{pmatrix}
+    1\\[5pt]\dfrac{1-n_3}{n_-}
+  \end{pmatrix}.
+  \label{eq:l04-normalized-n-state}
 \end{equation}
-This is one explicit phase convention. The lecture would not want us to forget that other equivalent conventions exist; what matters physically is the ray, not the overall phase.
+At \(n_3=-1\), this coordinate expression is singular although the state is not; the eigenstate is simply \(\ket d=(0,1)^T\). The singularity belongs to the phase convention, not to the spin.
 
-The corresponding bra for the \(+1\) eigenstate of \(\sigma\cdot\hat m\) is obtained by replacing \(n\) with \(m\) and taking the conjugate:
+Replacing \(n\) by \(m\) and conjugating gives
 \begin{equation}
-\langle \sigma\cdot\hat m=1|
-=
-\left(
-\sqrt{\frac{1+m_3}{2}},
-\ 
-\frac{1-m_3}{m_+}\sqrt{\frac{1+m_3}{2}}
-\right).
+  \bra{m,+}
+  =
+  \sqrt{\frac{1+m_3}{2}}
+  \begin{pmatrix}
+    1&
+    \dfrac{1-m_3}{m_+}
+  \end{pmatrix}.
 \end{equation}
-
-The next step is the one Susskind refuses to do line by line on the board. We form the inner product
+The overlap looks unpleasant, and multiplying it by its conjugate looks worse. Repeated use of Equation~\eqref{eq:l04-nplus-nminus} reduces the result to
 \begin{equation}
-\langle \sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1\rangle
+  P(m,+\mid n,+)
+  =
+  \frac{1+n_1m_1+n_2m_2+n_3m_3}{2}
+  =
+  \frac{1+\hat n\cdot\hat m}{2}.
+  \label{eq:l04-spin-transition-probability}
 \end{equation}
-and then multiply by its complex conjugate. The intermediate expression is, in his words, an unholy mess. But after repeated use of identities such as \(n_+n_-=1-n_3^2\), everything collapses to
+If \(\theta_{nm}\) is the angle between the two spatial directions,
 \begin{equation}
-P(\sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1)
-=
-\frac{1+n_1m_1+n_2m_2+n_3m_3}{2}
-=
-\frac{1+\hat n\cdot\hat m}{2}.
-\end{equation}
-If \(\theta_{nm}\) is the angle between the two axes, then
-\begin{equation}
-\hat n\cdot\hat m=\cos\theta_{nm},
-\end{equation}
-and therefore
-\begin{equation}
-P(\sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1)
-=
-\frac{1+\cos\theta_{nm}}{2}.
+  P(m,+\mid n,+)
+  =
+  \frac{1+\cos\theta_{nm}}{2}
+  =
+  \cos^2\frac{\theta_{nm}}{2}.
+  \label{eq:l04-half-angle-probability}
 \end{equation}
 
-Now the lecture does what it always does after a calculation: it checks the answer against obvious cases.
-\begin{itemize}
-\item If \(\hat m=\hat n\), then \(\cos\theta_{nm}=1\), so \(P=1\).
-\item If \(\hat m=-\hat n\), then \(\cos\theta_{nm}=-1\), so \(P=0\).
-\item If \(\hat m\perp\hat n\), then \(\cos\theta_{nm}=0\), so \(P=\tfrac12\).
-\end{itemize}
-So the formula passes the tests the lecture wanted: same axis gives certainty, opposite axis gives impossibility, and a right angle gives a half-half result.
+\begin{classroomqa}
+\lecturetimestamp{00:32:47}
+\audiencequestion{Must the overlap vanish because the two states are orthogonal?}
+\lecturerresponse{No. The labels \(m,+\) and \(n,+\) refer to different measurement axes, not to different eigenvalues of one fixed observable. If \(m=n\), the two states coincide and their overlap is one. They become orthogonal only when the physical directions are opposite, so that one state is the \(+1\) state and the other is the \(-1\) state of the same spin component.}
+\end{classroomqa}
 
-\begin{remark}
-After the fact, one can simplify the derivation by choosing coordinates so that \(\hat n\) is the third axis. Then the prepared state is simply \(\binom{1}{0}\), and the amplitude is immediately the upper component of the \(m\)-eigenvector. The lecture deliberately resists doing that at the start, because the point is to \emph{derive} the rotationally invariant answer rather than assume it.
-\end{remark}
+\section{What the Probability Formula Means}
 
-The lecture also pauses to interpret what probability means operationally. One does not measure a probability in a single shot. One either repeats the same preparation-and-measurement sequence on the same electron, re-preparing it each time along \(\hat n\), or else prepares many identical electrons and performs the same measurement on each. In either method the fraction of \(+1\) outcomes tends to the probability above.
+Equation~\eqref{eq:l04-spin-transition-probability} passes three immediate tests:
+\begin{align}
+  \hat m=\hat n
+  &\quad\Longrightarrow\quad P=1,
+  \notag\\
+  \hat m=-\hat n
+  &\quad\Longrightarrow\quad P=0,
+  \notag\\
+  \hat m\cdot\hat n=0
+  &\quad\Longrightarrow\quad P=\frac12.
+\end{align}
+The answer depends only on the relative angle and is symmetric under \(m\leftrightarrow n\). Rotating the entire apparatus changes no prediction.
 
-The real surprise is now in plain view. Every measurement of spin along any chosen axis still gives only \(\pm1\), never anything in between. Yet the theory is rotationally smooth, not because the individual outcomes are fractional, but because the \emph{probabilities} are.
+This is the remarkable compromise made by spin one-half. Along every axis the observed result remains \(+1\) or \(-1\), never a fractional spin value. Smooth rotational dependence appears instead in the probabilities of those two discrete answers.
 
-\section{Measurement as Filter; Simultaneous Measurements}
+\begin{classroomqa}
+\lecturetimestamp{00:39:20}
+\audiencequestion{How do we know that repeated trials concern the same electron, and how is a probability measured?}
+\lecturerresponse{One may confine one electron in a cavity and monitor the conserved charge through its electric flux, reprepare that electron along \(\hat n\), and repeat the measurement along \(\hat m\). Equivalently, one may prepare a large ensemble of electrons identically and measure each once. The long-run ratio of plus and minus outcomes is the same in either procedure, within statistical error.}
+\end{classroomqa}
 
-With the probability formula in hand, the lecture turns to another important point that had been hovering in the background: a measurement changes the state.
+\begin{classroomqa}
+\lecturetimestamp{00:41:29}
+\audiencequestion{Must all members of the ensemble be measured in one collective experiment?}
+\lecturerresponse{No. Each member is prepared by the same protocol and measured separately. A million such trials form one statistical experiment only in the sense that their outcome frequencies estimate the same probability.}
+\end{classroomqa}
 
-If we measure \(\sigma\cdot\hat m\) and the outcome is \(+1\), we do not merely discover something about the original state. We also leave the electron in the state \(|\sigma\cdot\hat m=1\rangle\). The lecture compares this to a polarizer for photons: the device both tests the polarization and prepares the outgoing polarization state. A measurement is therefore a filter.
+\begin{classroomqa}
+\lecturetimestamp{00:42:23}
+\audiencequestion{If one electron is reused, how many photons can it emit?}
+\lecturerresponse{There is no fixed lifetime quota. Each cycle includes external work when the magnetic field is switched on. If the spin is in the higher-energy orientation, that supplied energy can leave as a photon during relaxation. The apparatus can therefore repeat the preparation-and-emission cycle indefinitely in principle.}
+\end{classroomqa}
 
-This is the bridge to simultaneous measurement. If one measurement leaves the system in an eigenstate of the measured operator, then a second quantity can be measured simultaneously only if the same post-measurement state is an eigenstate of both observables.
+The formula can be obtained very quickly after rotational invariance is known: choose \(\hat n\) as the third axis, so \(\ket{n,+}=(1,0)^T\), and read the probability from the upper component of \(\ket{m,+}\). But using that shortcut at the outset would assume the symmetry that the explicit calculation has just demonstrated.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\lecturetimestamp{00:43:33}
+\audiencequestion{Could a better choice of basis remove the ugly arbitrary-axis eigenvectors?}
+\lecturerresponse{Yes, once rotations and unitary transformations are available, one can align a coordinate axis with one of the directions and make the calculation short. At this stage the explicit calculation serves a purpose: it verifies that the chosen Pauli matrices really produce a rotationally invariant answer rather than assuming that fact.}
+\end{classroomqa}
 
-\paragraph{Question.} When can two observables be measured simultaneously?
+\begin{classroomqa}
+\lecturetimestamp{00:48:30}
+\audiencequestion{What is the physical reason that the answer depends only on the angle?}
+\lecturerresponse{The structural answer belongs to the quantum theory of symmetry: spatial rotations are represented by unitary transformations acting on the spin states and observables. That language comes later. For now, the angle dependence is an earned result of the Pauli-matrix calculation.}
+\end{classroomqa}
 
-\paragraph{Answer.} They must have the same eigenvectors. Otherwise the state left behind by one measurement cannot also be a definite state for the other observable.
+\section{Measurement Is a Filter}
 
-This is why different spin components do not admit simultaneous reproducible measurement. For \(\sigma\cdot\hat n\) and \(\sigma\cdot\hat m\) with \(\hat n\neq \hat m\), the eigenvectors are different. There is no state that is simultaneously an eigenvector of both. So one cannot measure both without spoiling the information carried by the other.
+A measurement does more than report a number. If \(\sigma_{\hat m}\) is measured and the result is \(+1\), the electron is left in \(\ket{m,+}\). The apparatus has acted as both detector and state preparer, much as a polarizer tests a photon and leaves the transmitted photon polarized along its own axis.
 
-The lecture then writes the general theorem on the board.
+This state-change rule makes the problem of simultaneous measurement concrete. Two observables can have reproducible definite values together only when there are states that are eigenvectors of both.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_04_figure_06.png}
-\caption{Two matrices sharing the same eigenvectors.}
-\end{figure}
+\begin{classroomqa}
+\lecturetimestamp{00:51:29}
+\audiencequestion{Can one measurement determine two different spin components, such as \(\sigma_1\) and \(\sigma_2\), simultaneously?}
+\lecturerresponse{No. Their eigenvectors are different. A measurement of one component leaves the electron in an eigenstate of that component, but that state is not an eigenstate of the other. The first measurement therefore destroys the definiteness required by the second.}
+\end{classroomqa}
+
+The general finite-dimensional statement is most cleanly made for Hermitian operators.
 
 \begin{theorem}
-Suppose \(A\) and \(B\) share the same complete set of eigenvectors \(|\alpha_i\rangle\):
+Two Hermitian operators \(A\) and \(B\) are simultaneously diagonalizable if and only if they commute:
 \begin{equation}
-A|\alpha_i\rangle=\lambda_i|\alpha_i\rangle,
-\qquad
-B|\alpha_i\rangle=\mu_i|\alpha_i\rangle.
+  [A,B]\equiv AB-BA=0.
+  \label{eq:l04-commutator}
 \end{equation}
-Then
-\begin{equation}
-AB=BA.
-\end{equation}
-Equivalently,
-\begin{equation}
-[A,B]\equiv AB-BA=0.
-\end{equation}
+Equivalently, they admit a complete common orthonormal eigenbasis.
 \end{theorem}
 
-\begin{proof}
-On any common eigenvector,
+For the easy direction, suppose
 \begin{equation}
-AB|\alpha_i\rangle
-=
-A(\mu_i|\alpha_i\rangle)
-=
-\lambda_i\mu_i|\alpha_i\rangle,
+  A\ket{\alpha_i}=\lambda_i\ket{\alpha_i},
+  \qquad
+  B\ket{\alpha_i}=\mu_i\ket{\alpha_i}
 \end{equation}
-while
-\begin{equation}
-BA|\alpha_i\rangle
-=
-B(\lambda_i|\alpha_i\rangle)
-=
-\mu_i\lambda_i|\alpha_i\rangle.
-\end{equation}
-Thus \(AB\) and \(BA\) act the same way on every basis vector \(|\alpha_i\rangle\), so \(AB=BA\).
-\end{proof}
-
-The lecture states the converse as well in the present finite-dimensional setting: commuting operators can be simultaneously diagonalized. That is the standard criterion for simultaneous measurability. The proof of the converse is not developed in detail here, but the theorem itself is part of the lecture's mathematical payload.
-
-\section{Any One-Spin State Is Up Along Some Axis}
-
-There is one more single-spin theorem before the lecture will allow itself to move on to entanglement. Up to now we have been given a direction \(\hat n\) and have found the corresponding eigenvector. The lecture now reverses the problem.
-
-Take an arbitrary normalized spinor
-\begin{equation}
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix},
-\qquad
-|\alpha|^2+|\beta|^2=1.
-\end{equation}
-Can we find a direction \(\hat n\) such that
-\begin{equation}
-(\sigma\cdot\hat n)
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix}
-=
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix}?
-\end{equation}
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Given an arbitrary normalized one-spin state, is there always some axis along which the spin is definitely up?
-
-\paragraph{Answer.} Yes. The lecture proves it by counting degrees of freedom.
-
-A unit vector \(\hat n\) has only two independent real parameters, since \(n_1^2+n_2^2+n_3^2=1\). On the other hand, the state-vector \(\binom{\alpha}{\beta}\) begins with four real parameters, but normalization removes one and overall phase removes one more. Thus a physical one-spin state also depends on only two real parameters.
-
-So the reverse eigenvalue problem has the right number of meaningful unknowns. In the lecture's language, there are two equations and two variables. Therefore there is always some direction \(\hat n\) for which the given spinor is the \(+1\) eigenstate of \(\sigma\cdot\hat n\).
-
-This is a concrete completion of the one-spin story. No matter how a pure one-spin state is prepared, it can always be thought of as ``spin up'' along some axis.
-
-The lecture even gives an operational picture. Prepare a large number of identical copies of the same electron state. Measure one batch along one axis, another batch along a nearby axis, and keep adjusting the direction of the magnet until you find the axis along which all test electrons come out up. That is the axis corresponding to the state.
-
-At this point the one-spin machinery is complete: arbitrary-axis observables, probability amplitudes, the measurement-as-filter rule, the commutator criterion, and the reverse theorem that identifies every pure one-spin state with spin-up along some direction. Only now does the lecture return to the topic it promised at the start.
-
-\section{Two Spins, Product States, and the First Entangled State}
-
-We now begin the two-spin system. The lecture simplifies the situation brutally: forget the motion of the electrons; imagine them nailed down in space so that only their spins are free to vary. That is enough to reach entanglement.
-
-Just before switching to two spins, Susskind writes a compact action table for the Pauli matrices on the \(\sigma_3\)-basis states \(|u\rangle\) and \(|d\rangle\):
+for a complete basis. Then
 \begin{align}
-\sigma_1|u\rangle &= |d\rangle, &
-\sigma_1|d\rangle &= |u\rangle, \\
-\sigma_2|u\rangle &= i|d\rangle, &
-\sigma_2|d\rangle &= -i|u\rangle, \\
-\sigma_3|u\rangle &= |u\rangle, &
-\sigma_3|d\rangle &= -|d\rangle.
+  AB\ket{\alpha_i}
+  &=\lambda_i\mu_i\ket{\alpha_i},
+  \notag\\
+  BA\ket{\alpha_i}
+  &=\mu_i\lambda_i\ket{\alpha_i},
 \end{align}
-This is the same content as the matrix representation, now repackaged in the language of kets. The scalar factors \(i\) and \(-i\) multiply the vector from outside; they do not alter the label inside the ket.
+so \(AB\) and \(BA\) agree on every basis vector. Hence \(AB=BA\). Conversely, if Hermitian \(A\) and \(B\) commute, \(B\) preserves each eigenspace of \(A\); diagonalizing \(B\) within any degenerate eigenspace produces a common eigenbasis.
 
-For two electrons there are four basis states:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{lecture_04_figure_06.png}
+\caption{Two observables may have the same eigenvectors while assigning different eigenvalues to them.}
+\lectureframe{00:55:45}
+\end{figure}
+
+\begin{classroomqa}
+\lecturetimestamp{00:53:56}
+\audiencequestion{Could we apply magnetic fields along \(x\) and \(y\) at once and call that a simultaneous measurement?}
+\lecturerresponse{The fields add to one resultant direction. The apparatus then measures spin along that resultant axis, perhaps at \(45^\circ\), rather than measuring \(\sigma_x\) and \(\sigma_y\) separately. The attempted construction produces a third observable, not two compatible readings.}
+\end{classroomqa}
+
+\section{Every Pure One-Spin State Has an Axis}
+
+Now reverse the eigenvector problem. Given an arbitrary normalized spinor
 \begin{equation}
-|uu\rangle,\qquad |du\rangle,\qquad |ud\rangle,\qquad |dd\rangle.
+  \ket\psi=
+  \begin{pmatrix}\alpha\\\beta\end{pmatrix},
+  \qquad
+  |\alpha|^2+|\beta|^2=1,
+  \label{eq:l04-general-spinor}
 \end{equation}
-The first slot refers to electron \(1\), the second to electron \(2\). These four states correspond to distinct measurement outcomes of the third components of the two spins, and the lecture treats them as mutually orthogonal basis vectors.
-
-The first electron's spin operators continue to be called \(\sigma_1,\sigma_2,\sigma_3\). The second electron's are renamed \(\tau_1,\tau_2,\tau_3\). Their action is simple:
-\begin{itemize}
-\item \(\sigma_i\) acts only on the first slot and ignores the second;
-\item \(\tau_i\) acts only on the second slot and ignores the first.
-\end{itemize}
-For example,
+does some spatial direction \(\hat n\) satisfy
 \begin{equation}
-\sigma_1|ud\rangle=|dd\rangle,
-\qquad
-\sigma_1|dd\rangle=|ud\rangle,
-\qquad
-\sigma_3|dd\rangle=-|dd\rangle,
-\qquad
-\tau_2|ud\rangle=-i|uu\rangle.
+  \sigma_{\hat n}\ket\psi=\ket\psi?
+  \label{eq:l04-reverse-eigenproblem}
 \end{equation}
-That is the lecture's rule: the untouched electron simply goes along for the ride.
+Yes. The lecture first sees why by counting. The two complex components contain four real numbers. Normalization removes one, and the physically irrelevant overall phase removes another, leaving two. A unit pointer also has two independent real parameters, such as longitude and latitude.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\lecturetimestamp{01:03:52}
+\audiencequestion{How can the state have only two degrees of freedom when \(\alpha\) and \(\beta\) are both complex?}
+\lecturerresponse{They begin with four real components. The normalization condition removes one real degree of freedom, and multiplying the whole state by \(e^{i\theta}\) changes no probability, so the common phase removes another. Two physically meaningful parameters remain, matching the two angles of a unit pointer.}
+\end{classroomqa}
 
-\paragraph{Question.} Why does the two-spin system require six real parameters rather than four?
+\begin{classroomqa}
+\lecturetimestamp{01:04:20}
+\audiencequestion{Do we also need to solve for the eigenvalue?}
+\lecturerresponse{Here the target eigenvalue is fixed to \(+1\). We are searching only for the direction whose up-state is the given spinor. The opposite pointer would describe the same ray as a down-state with eigenvalue \(-1\).}
+\end{classroomqa}
 
-\paragraph{Answer.} Because the general two-spin state is richer than ``electron one in its own state'' plus ``electron two in its own state.''
-
-A general state of two spins is
-\begin{equation}
-|\Psi\rangle
-=
-c_{uu}|uu\rangle
-+
-c_{du}|du\rangle
-+
-c_{ud}|ud\rangle
-+
-c_{dd}|dd\rangle,
-\end{equation}
-with four complex coefficients. That is eight real numbers. Normalization removes one real parameter and overall phase removes another, leaving
-\begin{equation}
-8-1-1=6
-\end{equation}
-independent real parameters.
-
-If we had merely added the two physical parameters of the first electron to the two physical parameters of the second, we would have guessed only \(4\). The fact that the actual answer is \(6\) is exactly the pressure that drives the lecture to entanglement: there are more states than product states.
-
-Now we describe the product states first, because the lecture wants the contrast to be sharp. If electron \(1\) is in the state
-\begin{equation}
-\alpha_1|u\rangle+\beta_1|d\rangle,
-\end{equation}
-and electron \(2\) is in the state
-\begin{equation}
-\alpha_2|u\rangle+\beta_2|d\rangle,
-\end{equation}
-then the combined two-electron state is their product:
-\begin{equation}
-(\alpha_1|u\rangle+\beta_1|d\rangle)(\alpha_2|u\rangle+\beta_2|d\rangle).
-\end{equation}
-Expanding it in the two-spin basis gives
+The count explains why the correspondence should exist. A direct construction confirms it. Define
 \begin{align}
-(\alpha_1|u\rangle+\beta_1|d\rangle)(\alpha_2|u\rangle+\beta_2|d\rangle)
-&=
-\alpha_1\alpha_2|uu\rangle
-+
-\alpha_1\beta_2|ud\rangle \\
-&\quad
-+
-\beta_1\alpha_2|du\rangle
-+
-\beta_1\beta_2|dd\rangle.
+  n_1&=\bra\psi\sigma_1\ket\psi
+      =2\operatorname{Re}(\alpha^*\beta),
+  \notag\\
+  n_2&=\bra\psi\sigma_2\ket\psi
+      =2\operatorname{Im}(\alpha^*\beta),
+  \notag\\
+  n_3&=\bra\psi\sigma_3\ket\psi
+      =|\alpha|^2-|\beta|^2.
+  \label{eq:l04-bloch-components}
 \end{align}
-Such a state is a \emph{product state}. Each electron still has its own definite polarization axis, just as in the one-spin story. Product states are the natural states of two independently prepared electrons.
+Normalization gives \(n_1^2+n_2^2+n_3^2=1\), and direct substitution gives Equation~\eqref{eq:l04-reverse-eigenproblem}. Thus every pure one-spin state is spin-up along one spatial axis.
 
-The lecture then constructs a state which manifestly does \emph{not} have that property:
-\begin{equation}
-|\psi_+\rangle
-=
-\frac{1}{\sqrt2}\bigl(|ud\rangle+|du\rangle\bigr).
-\end{equation}
-This is the first entangled example in the lecture, and it is important to keep the plus sign here. Only later does Susskind remark that the minus-sign version is the better state and will matter next time.
+There is an operational version of the statement. Prepare many copies of the same unknown pure state. Measure batches along trial directions, adjust the magnet, and search for the direction along which every outcome is up. Finite data determine the direction only within uncertainty, but the ideal state has one exact axis.
 
-The first property of this state is immediate. If we measure electron \(2\) and find it down, then electron \(1\) must be up. If we find electron \(2\) up, then electron \(1\) must be down. So the state carries definite anti-correlation in the \(3\)-direction.
+Questions are part of this method, not interruptions to it. A brief classroom aside recalls ten-year-olds asking freely about string theory, extra dimensions, and whether surrounding neutrinos cause headaches. The details of a question may be wrong; the willingness to expose the point of confusion is still valuable.
 
-But the lecture does not stop with that observation. It proves something more startling: every one-spin expectation value vanishes in this state.
+\section{Two Spins and Local Operators}
 
-For \(\sigma_1\),
+Before combining two spins, record how the Pauli matrices act on the \(\sigma_3\) basis:
 \begin{align}
-\sigma_1|\psi_+\rangle
-&=
-\frac{1}{\sqrt2}\bigl(|dd\rangle+|uu\rangle\bigr), \\
-\langle \psi_+|\sigma_1|\psi_+\rangle
-&=
-\frac{1}{2}
-(\langle ud|+\langle du|)(|dd\rangle+|uu\rangle)
-=0.
+  \sigma_1\ket u&=\ket d,
+  &
+  \sigma_1\ket d&=\ket u,
+  \notag\\
+  \sigma_2\ket u&=i\ket d,
+  &
+  \sigma_2\ket d&=-i\ket u,
+  \notag\\
+  \sigma_3\ket u&=\ket u,
+  &
+  \sigma_3\ket d&=-\ket d.
+  \label{eq:l04-pauli-action-table}
 \end{align}
-No term survives because the basis states are orthogonal: the bra contains only \(\langle ud|\) and \(\langle du|\), while the ket contains only \(|dd\rangle\) and \(|uu\rangle\).
 
-The same orthogonality argument gives
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\linewidth]{lecture_04_figure_07.png}
+\caption{The Pauli action table repackages the matrices as rules on the up/down basis.}
+\lectureframe{01:09:35}
+\end{figure}
+
+Now imagine two electrons held at distinguishable locations so that only their spins vary. The four basis states are
 \begin{equation}
-\langle \psi_+|\sigma_2|\psi_+\rangle=0.
+  \ket{uu},
+  \qquad
+  \ket{du},
+  \qquad
+  \ket{ud},
+  \qquad
+  \ket{dd}.
+  \label{eq:l04-two-spin-basis}
 \end{equation}
-For \(\sigma_3\), the cancellation is slightly different:
+The first label belongs to electron \(1\), the second to electron \(2\). These are mutually orthonormal because they represent distinct joint outcomes of the two third-component measurements.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{lecture_04_figure_08.png}
+\caption{The four product-basis labels span the two-spin state space.}
+\lectureframe{01:11:40}
+\end{figure}
+
+Call the operators on electron \(1\) \(\sigma_i\), and those on electron \(2\) \(\tau_i\). More explicitly,
+\begin{equation}
+  \sigma_i\equiv\sigma_i\otimes I,
+  \qquad
+  \tau_i\equiv I\otimes\sigma_i.
+\end{equation}
+The first set acts only on the first label, while the second set acts only on the second:
 \begin{align}
-\sigma_3|\psi_+\rangle
-&=
-\frac{1}{\sqrt2}\bigl(|ud\rangle-|du\rangle\bigr), \\
-\langle \psi_+|\sigma_3|\psi_+\rangle
-&=
-\frac{1}{2}
-(\langle ud|+\langle du|)(|ud\rangle-|du\rangle)
-=0.
+  \sigma_1\ket{ud}&=\ket{dd},
+  &
+  \sigma_1\ket{dd}&=\ket{ud},
+  \notag\\
+  \sigma_3\ket{dd}&=-\ket{dd},
+  &
+  \tau_2\ket{ud}&=-i\ket{uu}.
+  \label{eq:l04-local-operator-examples}
 \end{align}
+Once an operator's action is known on the four basis states, linearity determines its action on every two-spin state.
+
+\begin{classroomqa}
+\lecturetimestamp{01:17:47}
+\audiencequestion{Why is the factor \(-i\) written outside the ket? Does it act on both electrons?}
+\lecturerresponse{The symbols inside the ket are labels for a basis configuration. A complex scalar multiplies the whole state vector, so standard notation places it outside. Its origin here is the action of \(\tau_2\) on the second label; writing it outside does not mean that a separate physical operation was applied to both electrons.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:19:44}
+\audiencequestion{Does multiplication by \(i\) represent a rotation of the electron in ordinary space?}
+\lecturerresponse{Not by itself. It is complex scalar multiplication in state space. Spatial rotations will later be represented by particular unitary operators; an isolated factor \(i\) in this action table is not a literal real-space turn.}
+\end{classroomqa}
+
+\section{Six Parameters, Not Four}
+
+A general pure state of the pair is
+\begin{equation}
+  \ket\Psi
+  =
+  c_{uu}\ket{uu}
+  +c_{du}\ket{du}
+  +c_{ud}\ket{ud}
+  +c_{dd}\ket{dd}.
+  \label{eq:l04-general-two-spin-state}
+\end{equation}
+Four complex coefficients give eight real numbers. Normalization removes one and overall phase removes one:
+\begin{equation}
+  8-1-1=6.
+  \label{eq:l04-two-spin-parameter-count}
+\end{equation}
+A separately prepared pure state of electron \(1\) needs two real parameters, and electron \(2\) needs two more, for only four. The two missing parameters are not an accounting error. They signal pure states of the pair that cannot be assigned separate pure states for the parts.
+
+First identify the states that do come from separate preparations. If
+\begin{equation}
+  \ket{\psi_1}=\alpha_1\ket u+\beta_1\ket d,
+  \qquad
+  \ket{\psi_2}=\alpha_2\ket u+\beta_2\ket d,
+\end{equation}
+then
+\begin{align}
+  \ket{\psi_1}\otimes\ket{\psi_2}
+  &=
+  \alpha_1\alpha_2\ket{uu}
+  +\alpha_1\beta_2\ket{ud}
+  \notag\\
+  &\quad
+  +\beta_1\alpha_2\ket{du}
+  +\beta_1\beta_2\ket{dd}.
+  \label{eq:l04-product-expansion}
+\end{align}
+This is a \emph{product state}. Each electron has its own polarization axis, just as it would if the two magnetic preparations were performed independently.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\linewidth]{lecture_04_figure_09.png}
+\caption{Multiplying two one-spin states produces a restricted four-term product state.}
+\lectureframe{01:25:15}
+\end{figure}
+
+If the four coefficients are arranged as
+\begin{equation}
+  C=
+  \begin{pmatrix}
+    c_{uu}&c_{ud}\\
+    c_{du}&c_{dd}
+  \end{pmatrix},
+\end{equation}
+the state is a product precisely when \(C\) has rank one, equivalently
+\begin{equation}
+  c_{uu}c_{dd}-c_{ud}c_{du}=0.
+  \label{eq:l04-product-condition}
+\end{equation}
+Most choices of four amplitudes do not satisfy this condition. They are entangled.
+
+\section{The First Entangled State}
+
+The lecture's first example is
+\begin{equation}
+  \ket{\psi_+}
+  =
+  \frac{1}{\sqrt2}
+  \left(\ket{ud}+\ket{du}\right).
+  \label{eq:l04-psi-plus}
+\end{equation}
+It cannot be factored into one state for electron \(1\) and one for electron \(2\). If a third-axis measurement finds electron \(2\) down, electron \(1\) is up; if it finds electron \(2\) up, electron \(1\) is down. The pair has definite information that neither particle possesses separately.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{lecture_04_figure_10.png}
+\caption{The first entangled superposition contains one up and one down but assigns neither result to a particle in advance.}
+\lectureframe{01:29:30}
+\end{figure}
+
+To see what either electron looks like alone, calculate the three local expectation values. For the first component,
+\begin{equation}
+  \sigma_1\ket{\psi_+}
+  =
+  \frac{1}{\sqrt2}
+  \left(\ket{dd}+\ket{uu}\right),
+\end{equation}
+which is orthogonal to \(\ket{\psi_+}\). Therefore
+\begin{equation}
+  \bra{\psi_+}\sigma_1\ket{\psi_+}=0.
+\end{equation}
+Similarly,
+\begin{equation}
+  \sigma_2\ket{\psi_+}
+  =
+  \frac{i}{\sqrt2}
+  \left(\ket{dd}-\ket{uu}\right),
+\end{equation}
+so
+\begin{equation}
+  \bra{\psi_+}\sigma_2\ket{\psi_+}=0.
+\end{equation}
+For the third component,
+\begin{equation}
+  \sigma_3\ket{\psi_+}
+  =
+  \frac{1}{\sqrt2}
+  \left(\ket{ud}-\ket{du}\right),
+\end{equation}
+and the two diagonal contributions cancel:
+\begin{equation}
+  \bra{\psi_+}\sigma_3\ket{\psi_+}
+  =\frac12(1-1)=0.
+\end{equation}
 Thus
 \begin{equation}
-\langle \psi_+|\sigma_i|\psi_+\rangle=0,
-\qquad i=1,2,3.
+  \bra{\psi_+}\sigma_i\ket{\psi_+}=0,
+  \qquad
+  \bra{\psi_+}\tau_i\ket{\psi_+}=0,
+  \qquad i=1,2,3.
+  \label{eq:l04-zero-local-spin}
 \end{equation}
-By exactly the same reasoning,
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\linewidth]{lecture_04_figure_11.png}
+\caption{The transformed state and the cancellation \(1-1=0\) establish vanishing local spin expectation values.}
+\lectureframe{01:35:50}
+\end{figure}
+
+For any direction,
 \begin{equation}
-\langle \psi_+|\tau_i|\psi_+\rangle=0,
-\qquad i=1,2,3.
+  \bra{\psi_+}\sigma_{\hat n}\ket{\psi_+}=0,
+  \qquad
+  \bra{\psi_+}\tau_{\hat n}\ket{\psi_+}=0.
+  \label{eq:l04-zero-arbitrary-local-spin}
 \end{equation}
-Hence for any direction \(\hat n\),
+Since each local measurement has only outcomes \(\pm1\), zero expectation means
 \begin{equation}
-\langle \psi_+|\sigma\cdot\hat n|\psi_+\rangle
-=
-n_1\langle \sigma_1\rangle
-+
-n_2\langle \sigma_2\rangle
-+
-n_3\langle \sigma_3\rangle
-=
-0,
+  P(\sigma_{\hat n}=+1)
+  =
+  P(\sigma_{\hat n}=-1)
+  =
+  \frac12,
 \end{equation}
-and likewise for the second electron.
+and likewise for the second electron. No direction polarizes either electron by itself. This is impossible for a pure one-spin state but perfectly possible for one part of an entangled pure state.
 
-This is the genuinely new phenomenon. For a single pure spin state, there is always some axis along which the spin is definitely up. But for this two-electron state, every one-spin direction gives a half-half distribution. No axis is preferred for either electron by itself, even though the pair carries definite correlation information.
+\begin{classroomqa}
+\lecturetimestamp{01:38:23}
+\audiencequestion{Are the half-half local result and the fact that measuring one electron informs us about the other the same claim?}
+\lecturerresponse{No. First ignore electron \(2\): every direction measured on electron \(1\) alone gives a half-half distribution. That establishes the absence of any local polarization. Correlation is a separate joint statement about how the two recorded outcomes are related. Entanglement supplies both features, but one should not use one as a substitute for proving the other.}
+\end{classroomqa}
 
-The lecture now asks how odd this really is. At first sight, not very. If we mix up a penny and a dime, separate them without looking, and inspect only one, then the result tells us what the other must be. So correlation by itself is not yet the deepest mystery. The penny-dime analogy is used very carefully: it shows that simple anti-correlation is not enough to distinguish the classical from the quantum. The real difference is Bell's theorem, and the lecture explicitly postpones that difference to the next time.
+\section{Correlation Before Bell}
 
-There is one final turn. Near the end, Susskind says that the minus-sign combination
+Correlation by itself is not uniquely quantum. Mix a penny and a dime, separate them without looking, and inspect one. Before inspection either object has a fifty-fifty chance of being the penny, but finding the penny here tells us that the distant object is the dime. The pair carries definite information even when either part by itself does not.
+
+\begin{classroomqa}
+\lecturetimestamp{01:41:45}
+\audiencequestion{Does the penny-and-dime inference work only if we know the original pair contained exactly one of each?}
+\lecturerresponse{Exactly. The classical inference depends on trusted preparation. Likewise, a quantum correlation prediction applies only when the two-electron system has been prepared in the specified joint state.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:42:09}
+\audiencequestion{For \(\ket{\psi_+}\), is the probability that both third-component measurements are up equal to zero? Does that prove the spins are opposite along every axis?}
+\lecturerresponse{The probability of \(uu\) in the third-axis basis is zero, and the two third-axis outcomes are opposite. But the second conclusion is too strong for this plus-sign state. Its local spin is zero in every direction, while its joint correlation depends on the direction. Universal opposite outcomes belong to the minus-sign singlet introduced at the end of the lecture.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:43:51}
+\audiencequestion{Could the classical pair be imagined as two coins welded so that one face is always opposite the other?}
+\lecturerresponse{That is a possible classical mechanism for fixed anti-correlation, provided the shaking does not disturb the linkage. It remains a hidden classical arrangement established at preparation. The analogy is deliberately provisional; Bell's theorem will test where every such classical account fails.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:44:32}
+\audiencequestion{Where does the law of large numbers enter if one outcome already determines the partner's outcome?}
+\lecturerresponse{Conditional certainty is a statement about one trial once the joint state and one result are given. Repeated trials are still needed to verify experimentally that the promised correlation is reliable and to estimate expectation values and imperfect probabilities. The law of large numbers connects those repeated frequencies to the theoretical distribution.}
+\end{classroomqa}
+
+The two observers may be separated by an enormous distance. Looking at one result changes what the local observer knows about the other result, but it does not send a controllable message to the distant observer. At this stage the situation still resembles the separated penny and dime.
+
+\begin{classroomqa}
+\lecturetimestamp{01:46:46}
+\audiencequestion{Is the separated penny-and-dime picture the right way to think about the quantum pair?}
+\lecturerresponse{It is the right first classical comparison, not the final quantum explanation. Bell's theorem concerns the measurable difference between a pair carrying pre-existing classical properties and an entangled quantum pair. That distinction is postponed until the necessary correlations have been calculated.}
+\end{classroomqa}
+
+\section{The Singlet and Its Preparation}
+
+At the end of the blackboard calculation, replace the plus sign by a minus:
 \begin{equation}
-\frac{1}{\sqrt2}\bigl(|ud\rangle-|du\rangle\bigr)
+  \ket{\psi_-}
+  =
+  \frac{1}{\sqrt2}
+  \left(\ket{ud}-\ket{du}\right).
+  \label{eq:l04-singlet}
 \end{equation}
-is the better state. He sketches a physical reason why two nearby electron magnets tend to anti-align and even names the later state as the singlet. But the reason for the minus sign is also declared to be non-obvious and is deferred. So the present chapter should end exactly where the lecture ends: with the first entangled state understood, with the better state visible on the horizon, and with Bell still waiting.
+The change leaves the local expectations in Equation~\eqref{eq:l04-zero-local-spin} equal to zero and leaves the third-axis outcomes opposite. It does change the transverse joint correlations. This minus-sign state is the spin singlet, the rotationally invariant state in which the two spins are opposite along every common measurement axis.
 
-\section{Summary}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\linewidth]{lecture_04_figure_12.png}
+\caption{The final blackboard change replaces the symmetric superposition by the minus-sign singlet while retaining zero local spin.}
+\lectureframe{01:47:25}
+\end{figure}
 
-The lecture began by promising entanglement and then refusing to rush to it. That refusal was mathematically productive. We first completed the one-spin machinery: the operator \(\sigma\cdot\hat n\), its explicit matrix form, its eigenvalues and eigenvectors, the distinction between amplitude and probability, and the formula
-\begin{equation}
-P(\sigma\cdot\hat m=1 \mid \sigma\cdot\hat n=1)=\frac{1+\hat n\cdot\hat m}{2}.
-\end{equation}
-Along the way we clarified two general principles: a measurement leaves the system in an eigenstate, and simultaneous measurability is tied to commuting operators.
+In the simplified physical picture used here, bringing two localized electron magnetic moments close enough to interact lets the higher-energy alignment relax by photon emission. With no preferred external axis, the lower spin state is represented by the rotationally symmetric singlet. The exact interaction and the reason the relative phase must be negative require a further calculation.
 
-Only after that could two spins reveal something new. The two-electron state space is richer than the space of simple product states, and the symmetric state \(\frac{1}{\sqrt2}(|ud\rangle+|du\rangle)\) shows the first unmistakable sign of that richness. Each electron by itself looks completely unbiased in every direction, yet measuring one teaches us something about the other. That is the lecture's first real encounter with quantum entanglement, and it is left poised just before Bell's theorem and just before the full importance of the minus-sign singlet state.
+\begin{classroomqa}
+\lecturetimestamp{01:49:02}
+\audiencequestion{Is the practical preparation simply to bring two electrons close together and wait?}
+\lecturerresponse{In this idealized model, yes: let the spin-spin interaction act and allow radiative relaxation into the lower state. The electrons need only be close enough, for long enough, that their magnetic interaction is effective. A real preparation protocol must control the orbital state and competing interactions as well.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:49:16}
+\audiencequestion{Is this just the Pauli exclusion principle?}
+\lecturerresponse{No. The two electrons have been assigned distinguishable spatial locations, so their spin discussion does not yet require antisymmetrizing overlapping orbital wavefunctions. Exclusion becomes relevant when identical electrons occupy overlapping one-particle states; the present entanglement argument already works for separated sites.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:50:31}
+\audiencequestion{Would an ordinary electron beam naturally contain such interacting pairs?}
+\lecturerresponse{Usually not. A beam is dilute, and typical electrons remain too far apart for appreciable spin-spin interaction during the available flight time. Collisions or a deliberately confining interaction can create entangled pairs, but mere membership in the same beam does not.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:51:45}
+\audiencequestion{What distance is required for the magnetic interaction?}
+\lecturerresponse{There is no universal sharp cutoff; the decisive quantity is the interaction time scale. The lecture gives a rough microscopic estimate of order \(10^{-11}\,\mathrm{cm}\) for rapid coupling. At larger separation the energy splitting is smaller, the emitted photon has longer wavelength, and relaxation takes much longer. A sufficiently long wait can compensate in principle, while an ordinary beam provides too little time.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:53:10}
+\audiencequestion{Why must the singlet contain a minus sign rather than a plus sign?}
+\lecturerresponse{That is not obvious from the local half-half statistics, because those statistics are identical for the two relative phases. The answer lies in how the state transforms under rotations and how the interaction selects total spin zero. The derivation belongs to the next lecture.}
+\end{classroomqa}
+
+The course has now crossed the intended threshold. A single pure spin always has a definite up-axis. A pure pair need not assign any pure state to either member, yet it can encode exact relations between their outcomes. That extra structure is entanglement; Bell's theorem will determine why no classical penny-and-dime story can reproduce all of it.
