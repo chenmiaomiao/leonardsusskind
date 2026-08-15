@@ -53,3 +53,19 @@
 - `lecture_08_figure_04.png`: Several left edges are cropped, and the lower line is only partially readable. The full inner-product equation should therefore be reconstructed from the transcript rather than transcribed verbatim from the frame.
 - `lecture_08_figure_05.png`: The scalar multiplying `|\psi(0)\rangle` is not fully legible from the frame alone. The transcript supports reading it as a generic time-dependent function, later solved as an exponential phase.
 - Across the algebraic frames, the board often shows only part of a derivation block. Clean note equations should therefore do the mathematical work, with the screenshots kept as local evidence of order, emphasis, and board sequencing.
+
+## Editorially Verified Additions
+
+- lecture_08_figure_06.png at 00:09:32: pure-state density matrix acting as a projector.
+- lecture_08_figure_07.png at 00:14:25: trace formula reduced to a pure-state expectation value.
+- lecture_08_figure_08.png at 00:21:08: entropy definition and the equal-probability value S = log n.
+- lecture_08_figure_09.png at 00:33:50: sum over subsystem B leaving the reduced density matrix in A.
+- lecture_08_figure_10.png at 00:46:35: product-state factorization and normalization of the B factor.
+- lecture_08_figure_11.png at 00:55:35: all four single-spin density-matrix entries for the singlet.
+- lecture_08_figure_12.png at 01:11:40: reversible classical evolution as arrows among discrete states.
+- lecture_08_figure_13.png at 01:19:00: linear quantum evolution from the initial state.
+- lecture_08_figure_14.png at 01:29:35: first-order unitarity and Hermiticity of the generator.
+- lecture_08_figure_15.png at 01:32:18: the difference quotient leading to the general Schrodinger equation.
+- lecture_08_figure_16.png at 01:46:10: energy-eigenstate phase evolution and E = hbar omega.
+
+The added frames were inspected against their local transcript windows. Figures 01 and 02 remain excluded from the chapter because the first is a title card and the second contains no reliably interpretable mathematical content.
