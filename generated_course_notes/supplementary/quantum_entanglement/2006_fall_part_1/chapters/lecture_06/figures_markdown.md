@@ -1,5 +1,13 @@
 # Figure Notes
 ## Image Inventory
+- lecture_06_figure_07.png: An unobstructed close view of \(\sum_n|n\rangle\langle n|=I\).
+- lecture_06_figure_08.png: The intersecting-subspace sketch beside the commuting-projector product.
+- lecture_06_figure_09.png: The Bell inequality and three columns of analyzer projectors.
+- lecture_06_figure_10.png: The finite position lattice beside the linear evolution rules \(A\to A'\) and \(B\to B'\).
+- lecture_06_figure_11.png: The screen amplitude and its direct, conjugate, and cross terms.
+- lecture_06_figure_12.png: The slit alternatives correlated with up and down detector records.
+- lecture_06_figure_13.png: Both path evolutions and their final entangled screen state.
+- lecture_06_figure_14.png: Overlapping environmental wave packets used to explain partial path information.
 - `lecture_06_figure_02.png`: A mostly blank whiteboard with a compact blue three-vector sketch in the upper-right region. One arrow is horizontal to the right, one is diagonal upward to the right, and a third shorter mark/vector sits near the upper-left side of the sketch. Susskind stands in front of the board but does not cover the main lines.
 - `lecture_06_figure_03.png`: A clean equation board for basis vectors and expansion coefficients. At top left is a basis ket, in the middle an orthonormality relation, and below an expansion of an arbitrary state in the basis. A partial note at upper right indicates the index range.
 - `lecture_06_figure_04.png`: A sparse board showing two two-spin basis states written side by side, separated by a comma. The left ket is slightly smudged but still readable in substance; the right ket is clearer.
@@ -62,7 +70,29 @@
 - `lecture_06_figure_05.png`: Projector onto the \(k=\lambda\) eigensubspace
 - `lecture_06_figure_06.png`: The projected state as a vector in the eigensubspace
 
+## Additional Blackboard Checks
+- lecture_06_figure_07.png visibly gives \(\sum_n|n\rangle\langle n|=I\).
+- lecture_06_figure_08.png partially shows \(P_kP_\ell|\psi\rangle=P_\ell P_k|\psi\rangle\).
+- lecture_06_figure_09.png retains all three Bell joint projectors.
+- lecture_06_figure_10.png retains the linear evolution rule beside the finite lattice.
+- lecture_06_figure_11.png visibly gives \(|\psi_m+\phi_m|^2\) and its four terms.
+- lecture_06_figure_12.png retains the two detector-correlated slit alternatives.
+- lecture_06_figure_13.png retains \(\sum_n\psi_n|n,u\rangle+\sum_n\phi_n|n,d\rangle\).
+- lecture_06_figure_14.png retains the overlapping and shifted packet sketch.
+
+## Additional Caption Drafts
+- lecture_06_figure_07.png: Resolution of identity
+- lecture_06_figure_08.png: Commuting projectors select an intersection
+- lecture_06_figure_09.png: Bell analyzer projectors
+- lecture_06_figure_10.png: Finite-state evolution and linearity
+- lecture_06_figure_11.png: Interference cross terms
+- lecture_06_figure_12.png: A detector records the path
+- lecture_06_figure_13.png: Orthogonal records reach the screen
+- lecture_06_figure_14.png: Partial environmental records
+
 ## Uncertainties
+- Figures 08 and 09 retain some lecturer occlusion; the visible board state verifies the geometry and operator layout, while the adjacent TeX supplies the complete equations.
+- Figure 14 is diagrammatic. Its interpretation as distinguishable versus overlapping environmental records is fixed by the simultaneous spoken explanation.
 - In `lecture_06_figure_02.png`, the three-vector sketch has no visible labels, and the exact relation among the arrows is not fully fixed by the image alone. The transcript should determine whether the intended point is linear dependence in the plane or comparison with a vector off the plane.
 - In `lecture_06_figure_03.png`, the upper-right index note is cropped and soft. It looks like the start of an index range, but the full endpoint is not readable from the screenshot.
 - In `lecture_06_figure_04.png`, the left ket is slightly smudged; it reads most plausibly as \(|ud\rangle\), but the transcript is what firmly settles that reading.
