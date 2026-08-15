@@ -53,6 +53,16 @@
 - `lecture_07_figure_05.png`: Symmetric placement of the spin detector
 - `lecture_07_figure_06.png`: Schematic transition to a density-matrix description
 
+## Editorially Verified Additions
+
+- lecture_07_figure_07.png, 01:16:08: the board preserves \(S=\log n\), \(S=-\sum_i p_i\log p_i\), and the equal-probability reduction. The nearby typeset derivation supplies the small subscripts that are soft in the frame.
+- lecture_07_figure_08.png, 01:21:20: the completed definition \(\sum_i\langle i|M|i\rangle=\operatorname{Tr}M\) is unobstructed. This is direct equation evidence.
+- lecture_07_figure_09.png, 01:32:12: the diagonal entries \(\rho_1,\rho_2,\ldots\) and the normalization discussion are visible. The full matrix and \(\operatorname{Tr}\rho=1\) are typeset beside it.
+- lecture_07_figure_10.png, 01:35:05: \(\langle F\rangle=\operatorname{Tr}(F\rho)\) and the start of its basis expansion are legible. The completed two-index derivation comes from the continuous transcript argument.
+- lecture_07_figure_11.png, 01:41:25: the boxed equation \(S=-\operatorname{Tr}(\rho\log\rho)\) is complete, with the classical entropy formula retained above it.
+
+All five additions were inspected against adjacent candidate frames. Each chosen timestamp shows a completed board state rather than an equation still being written, and none is used to support mathematics outside its visible or continuously spoken context.
+
 ## Uncertainties
 - `lecture_07_figure_02.png`: The subscripts on the summed basis expansion are not perfectly sharp, and the crop does not fully preserve the left-hand arrows. The transcript is needed to regularize these as the $A$- and $B$-path expansions into the screen basis.
 - `lecture_07_figure_03.png`: The left edge of the top line is slightly cropped, so the full initial state on that line should be completed from the transcript. The lower probability expansion is much clearer than the top line.

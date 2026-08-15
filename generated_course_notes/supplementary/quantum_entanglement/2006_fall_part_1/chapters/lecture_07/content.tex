@@ -1,415 +1,585 @@
-\chapter{Quantum Entanglements, Part 1}
+\chapter{Measurement, Density Matrices, and Entropy}
 
-These notes follow Leonard Susskind's seventh lecture on quantum entanglement, curated by LazyingArt LLC. The lecture begins in repair mode. Susskind does not yet launch into entanglement entropy; instead he goes back and finishes the two-slit discussion in the simplest possible discrete language. That is the right starting point, because the real issue is not the geometry of the slits but the fate of interference once some apparatus records which route the electron took. Only after that mechanism is made precise does he turn to entropy, trace, and density matrices, which are the tools he will need next time.
+The two-slit experiment contains the measurement problem in its smallest useful form. When two alternatives remain coherent, their amplitudes interfere. When another system acquires a record of the alternative taken, the object and the recorder become entangled, and the interference changes. We shall make that mechanism exact before introducing the trace, the density matrix, and entropy---the language needed to quantify entanglement.
 
-\section{Finishing the Discrete Two-Slit Setup}
+\section{Rebuilding the Two-Slit Experiment}
 
-We begin with a stripped-down model. There is a source at a site labeled \(0\), two openings labeled \(A\) and \(B\), and a screen whose possible arrival sites are denoted by \(|m\rangle\). Everything else in the barrier is regarded as blocked off. For the moment the electron's own spin is irrelevant and is set aside; the states are characterized only by position.
+Consider a discrete model with a source at site \(0\), two openings \(A\) and \(B\), and a screen whose possible arrival sites are represented by orthonormal states \(\{|m\rangle\}\). The particle may be an electron, a photon, or any other quantum object. We call it an electron, and we ignore its own spin so that position is the only degree of freedom under discussion. The rest of the barrier is closed: an electron reaching any site other than \(A\) or \(B\) is reflected.
 
-The governing principle is linearity. If a state begins as a linear combination, then under time evolution it becomes the corresponding linear combination of the separately evolved pieces. In the symmetric situation Susskind writes, schematically,
+The structural principle is linearity. If two states evolve as
 \begin{equation}
-|0\rangle \longrightarrow |A\rangle + |B\rangle .
+|A\rangle\longrightarrow |A'\rangle,
+\qquad
+|B\rangle\longrightarrow |B'\rangle,
 \end{equation}
-This line is deliberately schematic. The lecture suppresses normalization on the board. A fully normalized version would carry an overall factor of \(1/\sqrt{2}\), but that factor is not the point here; the point is that the source feeds both slits with equal amplitude.
+then every superposition evolves with the same coefficients:
+\begin{equation}
+\alpha|A\rangle+\beta|B\rangle
+\longrightarrow
+\alpha|A'\rangle+\beta|B'\rangle.
+\end{equation}
 
-Once the electron reaches one slit or the other, it propagates to the screen. The two route amplitudes are written
+In a symmetric arrangement the source feeds the two openings with equal amplitude. Suppressing the common normalization, as on the board,
+\begin{equation}
+|0\rangle\longrightarrow |A\rangle+|B\rangle.
+\end{equation}
+The normalized state would be \((|A\rangle+|B\rangle)/\sqrt{2}\); the omitted factor plays no role in the interference argument.
+
+Now study each route separately. Propagation from the openings to the screen has the form
 \begin{align}
-|A\rangle &\longrightarrow \sum_m \psi_m |m\rangle , \\
-|B\rangle &\longrightarrow \sum_m \phi_m |m\rangle .
+|A\rangle &\longrightarrow \sum_m \psi_m|m\rangle, \\
+|B\rangle &\longrightarrow \sum_m \phi_m|m\rangle.
 \end{align}
-Here \(\psi_m\) is the amplitude for an electron that started at \(A\) to arrive at the \(m\)-th site on the screen, and \(\phi_m\) is the corresponding amplitude from \(B\).
+The complex number \(\psi_m\) is the amplitude to arrive at screen site \(m\) after starting at \(A\), and \(\phi_m\) is the corresponding amplitude after starting at \(B\).
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_07_figure_02.png}
-\caption{Lecture board: screen-basis amplitude expansion.}
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_02.png}
+\caption{The separate \(A\)- and \(B\)-route expansions in the screen basis.}
+\lectureframe{00:05:39}
 \end{figure}
 
-The lecture insists on the order of construction. First we understand the propagation from \(A\) alone and from \(B\) alone. Only then do we reopen both holes and ask what quantum mechanics really says.
-
-\section{From Path Amplitudes to the Interference Term}
-
-Suppose first that hole \(B\) is closed. Then the amplitude to arrive at site \(m\) is simply \(\psi_m\), so the probability is
+If \(B\) is closed, the probability at \(m\) is
 \begin{equation}
-P_A(m)=\psi_m^*\psi_m .
+P_A(m)=|\psi_m|^2.
 \end{equation}
-If instead hole \(A\) is closed and only \(B\) is open, then
+If \(A\) is closed,
 \begin{equation}
-P_B(m)=\phi_m^*\phi_m .
+P_B(m)=|\phi_m|^2.
 \end{equation}
-
-At this point classical instinct suggests the wrong answer. One is tempted to say that if both holes are open, then the probability at \(m\) should be the sum of these two probabilities. Susskind pauses here to mark the pivot: not so in quantum mechanics. What we add are amplitudes.
-
-With both slits open, linearity gives
+Classical probability would suggest adding these two answers when both openings are available. Quantum mechanics instead adds the amplitudes first:
 \begin{equation}
-|A\rangle+|B\rangle \longrightarrow \sum_n (\psi_n+\phi_n)|n\rangle .
+|A\rangle+|B\rangle
+\longrightarrow
+\sum_m(\psi_m+\phi_m)|m\rangle.
 \end{equation}
-So at a fixed screen site \(m\), the relevant amplitude is \(\psi_m+\phi_m\). The probability is therefore
+At a fixed screen site,
 \begin{align}
-P_m &= |\psi_m+\phi_m|^2 \\
-&= \psi_m^*\psi_m+\phi_m^*\phi_m+\psi_m^*\phi_m+\phi_m^*\psi_m .
+P(m)
+&=|\psi_m+\phi_m|^2 \\
+&=|\psi_m|^2+|\phi_m|^2
+  +\psi_m^*\phi_m+\phi_m^*\psi_m.
 \end{align}
-The first two terms are the direct route contributions. The last two are the interference terms. They are the genuinely quantum part of the story.
 
-The lecture then dramatizes this with the simplest symmetry arguments. At the symmetry point on the screen we expect
-\begin{equation}
-\psi_m=\phi_m ,
-\end{equation}
-and then the probability is enhanced. In the lecture's shorthand one gets four times the single-route contribution. On the other hand, if the geometry and phases are such that
-\begin{equation}
-\psi_m=-\phi_m ,
-\end{equation}
-then the amplitudes cancel and
-\begin{equation}
-P_m=0 .
-\end{equation}
-So despite the fact that the electron can get to \(m\) through \(A\) and it can get to \(m\) through \(B\), with both slits open it may fail to arrive there altogether. That is the weirdness Susskind wants sitting in plain view before he asks the next question.
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.74\textwidth]{lecture_07_figure_03.png}
-\caption{Lecture board: interference probability and cross terms.}
+\includegraphics[width=0.70\textwidth]{lecture_07_figure_03.png}
+\caption{The four-term screen probability. The last two terms are the interference terms.}
+\lectureframe{00:09:21}
 \end{figure}
 
-Now the lecture can make the real turn: what happens if the experiment is arranged so that the route is recorded?
+At a symmetry point, \(\psi_m=\phi_m\), and the two alternatives reinforce one another. At a point where their phases differ by \(\pi\), \(\psi_m=-\phi_m\), the probability vanishes. Either route alone can reach that point, yet opening both routes can prevent the electron from arriving there. The question is now unavoidable: what changes when something records which opening was used?
 
-\section{Which-Path Recording as Entanglement with a Spin}
+\section{A Detector Becomes Entangled}
 
-Susskind introduces the simplest recording apparatus he can think of: an auxiliary spin with two states, \(u\) and \(d\). This could in principle be the electron's own spin, but he explicitly asks us not to think of it that way. The point is to model an external detector, however simple, that can register passage through one slit and not the other.
-
-The initial state is therefore not just the electron at the source. It is the electron at the source together with the detector in its untriggered state:
+Introduce an auxiliary two-state system with states \(|u\rangle\) and \(|d\rangle\). It is not the electron's spin in this model; it is a minimal external apparatus. Initially the detector is untriggered:
 \begin{equation}
-|0,d\rangle .
+|0,d\rangle.
 \end{equation}
-The rules of the model are simple. If the electron passes through slit \(A\), it flips the detector from down to up. If it passes through \(B\), the detector remains down. So the post-slit state is
+Arrange the interaction so that passage through \(A\) flips the detector, whereas passage through \(B\) leaves it unchanged:
 \begin{equation}
-|0,d\rangle \longrightarrow |A,u\rangle + |B,d\rangle .
+|0,d\rangle
+\longrightarrow
+|A,u\rangle+|B,d\rangle.
 \end{equation}
-From there the electron propagates to the screen just as before, except that the detector state comes along as a route label:
+After the electron leaves the openings, it no longer interacts with the auxiliary spin. The two branches therefore propagate as
 \begin{align}
-|A,u\rangle &\longrightarrow \sum_n \psi_n |n,u\rangle , \\
-|B,d\rangle &\longrightarrow \sum_n \phi_n |n,d\rangle .
+|A,u\rangle &\longrightarrow \sum_m\psi_m|m,u\rangle, \\
+|B,d\rangle &\longrightarrow \sum_m\phi_m|m,d\rangle,
 \end{align}
-The final state is thus
+and the final state is
 \begin{equation}
-|\Psi_{\mathrm{final}}\rangle
-=
-\sum_n \bigl(\psi_n|n,u\rangle+\phi_n|n,d\rangle\bigr) .
+|\Psi\rangle
+=\sum_m\left(\psi_m|m,u\rangle+\phi_m|m,d\rangle\right).
+\end{equation}
+The route and the detector record are now entangled. Reading the detector would reveal which opening was used.
+
+\begin{classroomqa}
+\lecturetimestamp{00:13:24}
+\audiencequestion{Has the wave packet already collapsed when the spin flips?}
+\lecturerresponse{For the electron alone, one may use collapse language: the path alternatives no longer interfere. For the complete electron--detector system, however, neither branch has been discarded. The state is still \(|A,u\rangle+|B,d\rangle\). Including the apparatus replaces the statement \emph{the electron collapsed} by the precise statement that system--apparatus entanglement was established.}
+\end{classroomqa}
+
+The auxiliary spin is only a convenient pointer. A fired or unfired device, an emitted or absent photon, or any other pair of distinguishable records can play the same role.
+
+\begin{classroomqa}
+\lecturetimestamp{00:15:17}
+\audiencequestion{Does passing through the metal plate itself always leave a path record?}
+\lecturerresponse{Not necessarily. What matters is whether the interaction leaves the plate in distinguishable final states. If the plate has an excitation gap and the electron lacks enough energy to excite it, no lasting internal mark need be left. Mere interaction is not enough; the two alternatives must become correlated with distinguishable records.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:16:29}
+\audiencequestion{Could the plate's recoil reveal whether the electron passed through the upper or lower opening?}
+\lecturerresponse{Only if the opposite momentum kicks produce sufficiently distinguishable plate states. A well-localized plate already has a broad momentum wave function. Small upward and downward shifts can overlap almost completely, so the recoil states are not orthogonal and do not provide an unambiguous route record. This is where the uncertainty principle protects interference.}
+\end{classroomqa}
+
+A partial record is possible. If the detector is kicked only slightly, the two final record states need not be orthogonal. Interference is then reduced rather than eliminated. For the formal calculation we first take the limiting case of a complete measurement:
+\begin{equation}
+\langle u|d\rangle=0.
 \end{equation}
 
-The important change is now visible. We do not have a single electron wave function over the screen. We have a superposition of two branches, and each branch carries a different detector record.
+\section{The Projector Calculation}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Did the wave packet collapse, or did the electron become entangled with the detector?
-
-\paragraph{Answer.} Susskind's answer is that both ways of speaking occur, but they are not equally sharp. If we insist on describing only the electron and forgetting the detector, then one may use the old language of collapse: the interference terms are gone, and one says the wave packet has collapsed to one route or the other. But if we include the apparatus in the description, then that is not what has happened. The composite system has not become only one branch. It has become
-\[
-|A,u\rangle + |B,d\rangle ,
-\]
-an entangled state of electron and detector. In that fuller description the correct statement is not ``collapse occurred'' but ``entanglement was established.''
-
-This correction matters because the lecture is trying to replace vague talk of measurement with a precise mechanism. If we keep the apparatus in view, we can see exactly where the interference goes.
-
-\section{Projector onto a Screen Position and Loss of Cross Terms}
-
-Having set up the entangled state, Susskind deliberately slows down and does the formal calculation. We want the probability that the electron is found at a particular screen site \(m\).
-
-In the enlarged Hilbert space, the property ``the electron is at \(m\)'' defines a two-dimensional subspace. The basis states of that subspace are
-\[
-|m,u\rangle
-\qquad \text{and} \qquad
-|m,d\rangle .
-\]
-Therefore the projector onto that subspace is
+We now calculate the probability that the electron arrives at a fixed screen site \(m\), without asking for the detector outcome. In the combined Hilbert space, the property \emph{electron at \(m\)} is a two-dimensional subspace spanned by
 \begin{equation}
-\Pi_m = |m,u\rangle\langle m,u| + |m,d\rangle\langle m,d| .
+|m,u\rangle,\qquad |m,d\rangle.
 \end{equation}
-This is exactly the object the board snapshot preserves most clearly.
+The corresponding projector is
+\begin{equation}
+\Pi_m
+=|m,u\rangle\langle m,u|
+ +|m,d\rangle\langle m,d|.
+\end{equation}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.68\textwidth]{lecture_07_figure_04.png}
-\caption{Lecture board: projector onto a fixed screen position.}
+\includegraphics[width=0.66\textwidth]{lecture_07_figure_04.png}
+\caption{The projector onto a fixed screen position, summed over the two orthogonal detector records.}
+\lectureframe{00:22:04}
 \end{figure}
 
-The probability of arrival at \(m\) is the expectation value of this projector in the final state:
+The probability postulate gives
 \begin{equation}
-P_m=\langle \Psi_{\mathrm{final}}|\Pi_m|\Psi_{\mathrm{final}}\rangle .
+P(m)=\langle\Psi|\Pi_m|\Psi\rangle.
 \end{equation}
-Substituting the final state gives
+Writing out the sums,
 \begin{align}
-P_m
+P(m)
 &=
 \sum_{n,n'}
-\bigl(\psi_n^*\langle n,u|+\phi_n^*\langle n,d|\bigr)
+\left(\psi_n^*\langle n,u|+\phi_n^*\langle n,d|\right)
 \Pi_m
-\bigl(\psi_{n'}|n',u\rangle+\phi_{n'}|n',d\rangle\bigr) .
+\left(\psi_{n'}|n',u\rangle+\phi_{n'}|n',d\rangle\right).
 \end{align}
-Now one sees why Susskind kept saying that \(\psi_m\) and \(\phi_m\) multiply different ket vectors. The projector can pair \(|n,u\rangle\) only with \(|m,u\rangle\), and \(|n,d\rangle\) only with \(|m,d\rangle\). In particular,
+The position inner products require \(n=m=n'\). The detector inner products then decide which terms remain:
+\begin{align}
+\langle u|u\rangle&=1,
+&
+\langle d|d\rangle&=1,
+&
+\langle u|d\rangle&=\langle d|u\rangle=0.
+\end{align}
+Consequently,
 \begin{equation}
-\langle u|d\rangle=0 .
-\end{equation}
-So the mixed terms vanish. The only surviving contributions are the direct ones, with matching screen label and matching detector label. Hence
-\begin{equation}
-P_m = |\psi_m|^2 + |\phi_m|^2 .
+P(m)=|\psi_m|^2+|\phi_m|^2.
 \end{equation}
 
-This is the formal centerpiece of the lecture. The interference terms do not disappear because we announced a collapse postulate. They disappear because a measurement has correlated the route alternatives with orthogonal detector states. One must match not only the endpoint on the screen, but also the detector label. Once that extra label is there, the two amplitudes no longer add into a single coherent amplitude at \(m\).
+The cross terms have not been removed by decree. They vanish because the two route amplitudes now multiply orthogonal vectors of the enlarged state space. To interfere, alternatives must agree not only at the screen endpoint but in every degree of freedom that carries a record.
 
 \section{What Counts as a Measurement?}
 
-Once the clean spin model is on the board, the lecture opens out into a long Socratic clarification. The point is not to leave the spin as an artificial toy. It is to identify the general rule behind it.
+The clean spin model supplies a general rule: measurement occurs when an interaction establishes a correlation between alternatives of the system and distinguishable states of an apparatus. The following variations test that rule.
 
-The rule is this: a measurement has occurred if some mark has been left on the world from which one can, in principle, infer which alternative took place. No conscious observer is required at that stage. A human being may later read the record, but the decisive event is that the record exists.
+\begin{classroomqa}
+\lecturetimestamp{00:26:53}
+\audiencequestion{What if the spin is placed symmetrically and flips for passage through either opening?}
+\lecturerresponse{Then both branches carry the same record, \(|A,u\rangle+|B,u\rangle=(|A\rangle+|B\rangle)\otimes|u\rangle\). The detector state factors out and reveals no route information, so the interference pattern remains.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} What counts as a measurement?
-
-\paragraph{Answer.} Any interaction that leaves a distinguishable route record counts as a measurement. If the record states are orthogonal, interference is destroyed completely. If they overlap, the interference is only partially washed out.
-
-The lecture first tests the symmetric placement of the detector. Suppose the auxiliary spin is placed so that it is kicked in exactly the same way whether the electron passes through \(A\) or through \(B\). Then the record state is the same on both branches, and the post-slit state is effectively
-\begin{equation}
-|A,u\rangle + |B,u\rangle .
-\end{equation}
-Because the detector no longer distinguishes the routes, the interference pattern returns.
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_07_figure_05.png}
-\caption{Lecture board: symmetric placement of the spin detector.}
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_05.png}
+\caption{The board variation in which a symmetrically placed detector responds identically to both routes.}
+\lectureframe{00:27:14}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.0]
-\fill (-2,0) circle (0.05);
+\fill (-2,0) circle (1.5pt);
 \node[left] at (-2,0) {$0$};
-
-\fill (-0.7,0.9) circle (0.05);
+\fill (-0.7,0.9) circle (1.5pt);
 \node[left] at (-0.8,0.9) {$A$};
-
-\fill (-0.7,-0.9) circle (0.05);
+\fill (-0.7,-0.9) circle (1.5pt);
 \node[left] at (-0.8,-0.9) {$B$};
-
 \draw (-2,0) -- (-0.7,0.9);
 \draw (-2,0) -- (-0.7,-0.9);
-
 \draw (-0.7,0.9) -- (2.0,0.5);
 \draw (-0.7,-0.9) -- (2.0,-0.5);
-
 \draw (2.2,-1.4) -- (2.2,1.4);
 \node[right] at (2.2,0) {screen};
-
-\fill (0.1,1.6) circle (0.05);
-\node[above] at (0.1,1.6) {$\mathrm{spin}$};
-
-\draw (0.1,1.6) -- (-0.15,0.95);
-\draw (0.1,1.6) -- (-0.15,-0.75);
+\fill (0.1,1.55) circle (1.5pt);
+\node[above] at (0.1,1.55) {detector};
+\draw[dashed] (0.1,1.45) -- (-0.15,0.72);
+\draw[dashed] (0.1,1.45) -- (-0.15,-0.72);
 \end{tikzpicture}
-\caption{Clean schematic of the symmetric detector placement.}
+\caption{A clean reconstruction of the symmetric detector placement: both routes produce the same detector state.}
 \end{figure}
 
-The recoil example makes the same point less idealized. If the slit plate receives an upward kick when the electron goes through the upper hole and a downward kick when it goes through the lower hole, then the plate itself may store route information. But because the plate is also localized in position, its momentum must already have some quantum uncertainty. If the kick is small compared with that spread, the two recoil states overlap strongly and are not orthogonal. This is precisely where the uncertainty principle enters the discussion. The mark exists only to the extent that the recoil states can be told apart.
+\begin{classroomqa}
+\lecturetimestamp{00:27:55}
+\audiencequestion{Must someone actually read the auxiliary spin before interference disappears?}
+\lecturerresponse{No. The electron has already correlated its route with the spin. One may reset the detector, repeat the experiment one electron at a time, and inspect only the distribution of screen hits. The fringes are absent even if nobody reads the spin; the physical record, not human awareness of it, matters.}
+\end{classroomqa}
 
-The lecture does not write a general environment-overlap formula on the board, but its content is well captured by the cautious reconstruction
+\begin{classroomqa}
+\lecturetimestamp{00:29:36}
+\audiencequestion{Would a sufficiently light recoiling plate destroy interference?}
+\lecturerresponse{Yes, if the recoil shifts the plate into orthogonal momentum states for the two routes. If the shifted wave packets still overlap, the destruction is only partial. Mass by itself is not the criterion; distinguishability of the final plate states is.}
+\end{classroomqa}
+
+Radiation provides another imperfect recorder. An accelerated charged particle may emit a photon. Radiation emitted near \(A\) need not be the same state as radiation emitted near \(B\), so the electromagnetic field can retain route information. For a slowly deflected electron the emission probability may be small; the lecture uses an illustrative estimate of roughly one event in a hundred. Stronger acceleration makes radiation and therefore loss of contrast more likely. The important point is qualitative: even an unobserved photon can carry away coherence.
+
+\begin{classroomqa}
+\lecturetimestamp{00:32:00}
+\audiencequestion{How does one infer the interference probability in a real experiment with imperfect contrast?}
+\lecturerresponse{One repeats the experiment many times and estimates the screen distribution from relative frequencies. Finite samples and environmental records leave residual counts in nominally dark regions. The inferred probability distribution improves with the number of trials, while decohering processes reduce the physical fringe contrast.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:33:13}
+\audiencequestion{Does any possibility of determining the route destroy all interference?}
+\lecturerresponse{Complete distinguishability destroys it completely. Partial information produces partial loss. A detector that rotates only slightly leaves two nonorthogonal record states, so one route becomes more likely than the other when the detector is read, but not certain; correspondingly, the fringes are blurred rather than erased.}
+\end{classroomqa}
+
+Let \(|E_A\rangle\) and \(|E_B\rangle\) denote arbitrary record states. The combined state at the screen can be written
 \begin{equation}
-P_m
-=
-|\psi_m|^2+|\phi_m|^2
-+\psi_m^*\phi_m\langle E_A|E_B\rangle
-+\phi_m^*\psi_m\langle E_B|E_A\rangle ,
+|\Psi\rangle
+=\sum_m\left(
+\psi_m|m\rangle|E_A\rangle
++\phi_m|m\rangle|E_B\rangle
+\right).
 \end{equation}
-where \(|E_A\rangle\) and \(|E_B\rangle\) are the record states left by the two routes. If \(\langle E_A|E_B\rangle=0\), the record is perfectly distinguishing and the interference is gone. If \(\langle E_A|E_B\rangle\) is merely small rather than zero, the fringes are only blurred.
+Ignoring the record system gives
+\begin{align}
+P(m)
+&=|\psi_m|^2+|\phi_m|^2 \\
+&\quad
++\psi_m^*\phi_m\langle E_A|E_B\rangle
++\phi_m^*\psi_m\langle E_B|E_A\rangle.
+\end{align}
+Thus the overlap \(\langle E_A|E_B\rangle\) is the coherence factor. Identical records preserve full interference; orthogonal records remove it; intermediate overlap gives intermediate visibility.
 
-That is how Susskind organizes the later examples. A partial spin kick leaves the detector mostly down with only a little admixture of up, and the pattern is only partially destroyed. Emission of a photon carries route information into the radiation field, but for a slow electron the probability of emission is small and the record is incomplete. A bubble chamber or any track-forming device leaves a far more robust route record, and then the interference is destroyed outright.
+\begin{classroomqa}
+\lecturetimestamp{00:34:12}
+\audiencequestion{If photons are emitted only occasionally, what happens when one keeps only the photon-emission events?}
+\lecturerresponse{That selected subensemble generally has poorer interference because a photon carries route information. The loss need not be complete: photon wave packets emitted at the two openings may themselves overlap, so even the radiative records may fail to be perfectly orthogonal.}
+\end{classroomqa}
 
-One of the lecture's most important clarifications appears here. We do not have to look at the detector. The electron has already done the measurement by becoming entangled with it. It is enough that the information is recorded in principle. We send electrons through one at a time, reset the apparatus, gather statistics on arrival positions, and we see the loss of fringes whether or not anyone ever reads the auxiliary spin.
+Environmental bombardment scales this mechanism up. Air molecules, ambient photons, and surrounding matter continuously acquire records of macroscopic positions. A person or the Moon does not remain visibly spread into a coherent position superposition: mass slows free spreading, and continual environmental entanglement suppresses observable interference between macroscopically separated alternatives.
 
-A second clarification is that the time at which one reads the record is not the essential issue. If a later measurement can reveal which route was taken, then the route information had already been stored in some correlated degree of freedom. That is why Susskind keeps returning to the same rule: ask whether something remembers.
+\begin{classroomqa}
+\lecturetimestamp{00:36:02}
+\audiencequestion{Is this already a theory of measurement, rather than merely another use of the phrase \emph{wave-packet collapse}?}
+\lecturerresponse{It is the mechanism in a deliberately exact example. In an electron-only description, collapse means discarding the off-diagonal \(\psi^*\phi\) terms. In the composite description no ad hoc deletion is needed: entanglement with orthogonal apparatus states makes those terms unavailable to measurements on the electron alone. More complicated examples should be traced back to this structure.}
+\end{classroomqa}
 
-Before leaving this part of the lecture, he briefly generalizes once more. Why do macroscopic objects not visibly spread into fuzzy superpositions? Part of the reason is their mass, but part of it is environmental bombardment. Air, light, and surrounding matter are continually leaving records. The environment is performing measurements all the time.
+\begin{classroomqa}
+\lecturetimestamp{00:38:04}
+\audiencequestion{Would a gravitational field that bends the route naturally change the radiation argument or the interference rule?}
+\lecturerresponse{The detailed radiation may change, and quantum mechanics does not assign a single sharp trajectory before a path measurement. The general conclusion does not change: only a degree of freedom that retains distinguishable route information suppresses interference. A concrete apparatus must be specified before a more detailed answer is meaningful.}
+\end{classroomqa}
 
-\section{Measurement Chains, Schr\"odinger's Cat, and the Movable Cut}
+\begin{classroomqa}
+\lecturetimestamp{00:39:44}
+\audiencequestion{Is this interference different from the interference of classical electromagnetic waves?}
+\lecturerresponse{For many photons, the observed pattern agrees with ordinary wave interference of the electromagnetic field. The single-particle experiment shows the deeper quantum statement: photons and electrons arrive as individual events, while their quantum amplitudes interfere. For electrons the relevant wave is the electron wave function, not an electromagnetic wave.}
+\end{classroomqa}
 
-From here the lecture scales up the same mechanism. Schr\"odinger's cat is not introduced as a different mystery but as the same entanglement logic with a larger apparatus.
+\begin{classroomqa}
+\lecturetimestamp{00:40:45}
+\audiencequestion{What happens to portions of the initial wave aimed between \(A\) and \(B\)?}
+\lecturerresponse{In this deliberately discrete model the rest of the barrier is blocked. Those portions are reflected and do not contribute to the transmitted screen amplitude. The model isolates the two transmitted alternatives without claiming that a real beam has only two momentum components.}
+\end{classroomqa}
 
-Suppose a gun may or may not fire, and the cat's fate is correlated with the gun. Then the composite system evolves to
+\section{The Cat, the Screen, and the Movable Cut}
+
+The same mathematics applies to Schr\"odinger's cat. Let the gun have states \(|U\rangle\) and \(|F\rangle\) for unfired and fired, and let the cat have states \(|L\rangle\) and \(|D\rangle\) for live and dead. Starting from a live cat and an unfired gun, the interaction may produce
 \begin{equation}
 |\Psi_{\mathrm{cat}}\rangle
-=
-\alpha\,|{\rm live},{\rm unfired}\rangle
-+
-\beta\,|{\rm dead},{\rm fired}\rangle .
+=\alpha|L,U\rangle+\beta|D,F\rangle.
 \end{equation}
-What matters is what this is not. It is not an isolated cat state
-\[
-\alpha\,|{\rm live}\rangle+\beta\,|{\rm dead}\rangle .
-\]
-The cat is entangled with the gun. The gun has already left a mark, and therefore there are no interference terms between ``live'' and ``dead'' in the ordinary description of the cat. This is, as Susskind emphasizes, the same mathematics as the slit detector.
+The cat alone is not in the coherent state \(\alpha|L\rangle+\beta|D\rangle\). It is entangled with a gun that has recorded the alternative. Looking at the gun can reveal the cat's branch, and the orthogonal gun records remove ordinary live--dead interference in the cat subsystem.
 
-The same structure persists when Schr\"odinger looks into the box, and when Wigner later asks Schr\"odinger what he saw. Each new observer can be included as another system with a pair of record states. Thus the chain
-\[
-\text{system} \longrightarrow \text{detector} \longrightarrow \text{observer} \longrightarrow \text{observer of observer}
-\]
-can be extended as far as we like.
+\begin{classroomqa}
+\lecturetimestamp{00:41:18}
+\audiencequestion{Is the cat itself in a superposition of alive and dead?}
+\lecturerresponse{Not in the simple isolated sense. The composite cat--gun system is in a superposition of correlated alternatives, live with unfired and dead with fired. The cat subsystem is entangled with a record-bearing gun, exactly as the electron route is entangled with the auxiliary spin.}
+\end{classroomqa}
 
-What becomes ambiguous is not the probabilities but the placement of the cut. We may choose to say that the electron's wave function collapsed. Or we may include the detector and say that the combined wave function collapsed. Or we may include Schr\"odinger and postpone the collapse until Wigner's observation. Susskind's point is not that the ambiguity disappears, but that the theory remains consistent. If Wigner asks Schr\"odinger what he saw, the correlations line up.
+The final screen also has to be treated as an apparatus. An electron arriving at \(m\) may blacken a photographic grain, make a scintillator emit a photon, or flip one detector in a row of local two-state devices. The mark becomes correlated with the arrival position.
 
-This also answers an important question about the screen. Why do we talk about the probability that the electron arrives at a given point on the screen? Because the screen is itself another measuring device. A photographic plate blackens, a scintillation screen emits light, or a row of local detectors flips. In each case the arrival position becomes entangled with some macroscopic record. The probability postulate is then applied by constructing the projector onto the relevant subspace and taking its expectation value.
+\begin{classroomqa}
+\lecturetimestamp{00:43:38}
+\audiencequestion{Why may we speak of probabilities at the final screen rather than carry only state vectors forever?}
+\lecturerresponse{The probability postulate assigns \(\langle\Pi_m\rangle\) to the property \emph{arrival at \(m\)}. To complete the physical experiment, the screen then leaves a position record. The projector gives the probability; blackening, scintillation, or a local detector flip realizes the measurement whose statistics are being collected.}
+\end{classroomqa}
 
-The lecture also sharpens the contrast with classical measurement. In classical physics one imagines that, at least in principle, an experiment can be done gently enough that it does not appreciably disturb the system. In the quantum case that picture fails exactly when incompatible alternatives are at stake. To determine among them, the apparatus must become entangled with the system, and that is a real change of state. Measurement is therefore not just passive observation. It alters whether interference exists.
+\begin{classroomqa}
+\lecturetimestamp{00:45:00}
+\audiencequestion{Why discuss a screen measurement but not a probability for passage through \(A\) or \(B\)?}
+\lecturerresponse{One may assign and test path probabilities only by installing a path recorder. Without such a record the alternatives remain coherent and must be added as amplitudes. At the screen, a position-sensitive apparatus is assumed. The difference is not a privileged time but whether a corresponding measurement interaction has been arranged.}
+\end{classroomqa}
 
-\section{Entropy, Trace, Density Matrix, and the Next-Lecture Setup}
-
-At this point Susskind says, more or less explicitly, that the lecture has not gone as far as he hoped. He wanted a measure of how entangled two systems are. So he changes gears. The remaining material is preparatory, but it is not an afterthought. It is the exact machinery that will be needed next time.
-
-He begins with the simplest non-entangled example: two spins both up. That is a product state. Looking at one spin tells us nothing new about the other. By contrast, entangled states do correlate subsystems, and the quantity he wants to use to diagnose that correlation is entanglement entropy.
-
-But first we go back to the classical situation.
-
-Suppose a classical system has a finite set of possible states. Entropy, in this discussion, is not merely a property of the system; it is a property of the system together with our knowledge of it. If all we know is that the system lies in one of a set of \(n\) equally likely states, then the entropy is
+The boundary between system and apparatus can be moved. Include an observer with record states \(|O_u\rangle\) and \(|O_d\rangle\); then
 \begin{equation}
-S=\log n .
+|A,u\rangle+|B,d\rangle
+\longrightarrow
+|A,u,O_u\rangle+|B,d,O_d\rangle.
 \end{equation}
-The logarithm measures, roughly, how many yes-no questions would be needed to pin the state down.
+Another observer may in turn become correlated with the first. Smoke in the cat's box, the gun, the cat, Schr\"odinger, and Wigner can all be included in one longer entanglement chain. Wherever the cut is drawn, the correlations must remain consistent: if Wigner later asks Schr\"odinger what he saw, their records agree.
 
-More generally, if the state space carries a probability distribution \(p_i\), then the entropy is
-\begin{equation}
-S=-\sum_i p_i\log p_i .
-\end{equation}
-The minus sign is needed because \(\log p_i<0\) whenever \(0<p_i<1\).
+\begin{classroomqa}
+\lecturetimestamp{00:47:24}
+\audiencequestion{Where exactly should the system end and the measuring observer begin?}
+\lecturerresponse{Quantum mechanics does not select a unique convenient cut. One may collapse the electron-only description, include the detector and collapse a larger description, or include an observer and enlarge the entangled state again. The physical requirement is consistency of all accessible probabilities and records, not a unique bookkeeping boundary.}
+\end{classroomqa}
 
-The lecture checks that this reproduces the equal-probability case. If
+\begin{classroomqa}
+\lecturetimestamp{00:49:47}
+\audiencequestion{Does the uncertainty principle enter because measuring the path disturbs the event?}
+\lecturerresponse{Yes. The recoil example makes the connection explicit: localization of the plate produces momentum uncertainty, which can prevent small path-dependent kicks from becoming distinguishable. More generally, a quantum measurement is not complete until system--apparatus entanglement has changed the state, and that change can alter later interference.}
+\end{classroomqa}
+
+This marks a sharp contrast with the classical ideal. Classically one imagines making a measurement arbitrarily gentle, extracting information with negligible disturbance. Here extracting path information requires establishing a correlation with an apparatus. That is a genuine change of the joint state, and it changes the answer to a later interference experiment.
+
+\begin{classroomqa}
+\lecturetimestamp{00:52:06}
+\audiencequestion{What happens if the separation between \(A\) and \(B\) becomes very large?}
+\lecturerresponse{There is no universal new rule. In this source-and-barrier geometry the amplitudes to reach very distant openings may simply become small, so most particles hit the blocked region. Apart from such apparatus-dependent changes in \(\psi_m\) and \(\phi_m\), separation alone does not decide whether coherence survives.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:53:04}
+\audiencequestion{Is the linearity of quantum evolution fundamentally exact, and why does nature use it?}
+\lecturerresponse{Linearity is an empirical foundation of quantum mechanics. Small nonlinear modifications are notoriously difficult to make logically coherent and tend to spoil the structure. The deeper reason that physical propositions follow the logic of subspaces rather than classical sets is not supplied here; the lecture treats it as a fact of nature.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:54:53}
+\audiencequestion{Could a later observation reveal the earlier path and thereby change whether interference occurred?}
+\lecturerresponse{If a later observation can reveal the path, some physical degree of freedom must have preserved a path-dependent record. That record already affects coherence; nobody has to read it. Causality must still be respected, and an abstract delayed-choice claim cannot be settled without specifying the complete spacetime arrangement and apparatus.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:56:47}
+\audiencequestion{What if a bubble chamber is placed immediately after the openings?}
+\lecturerresponse{A track that distinguishes the two emerging routes is an unambiguous mark, so it destroys their interference. A thin path-recording layer is enough. If a downstream device does not retain enough information to infer the earlier opening, then it does not automatically serve as a which-path detector.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{00:59:29}
+\audiencequestion{If the world is already highly entangled, how can an interference experiment ever begin with disentangled systems?}
+\lecturerresponse{The preparation must isolate, reset, or condition the relevant degrees of freedom well enough that the alternatives start with the same environmental record. A prior bubble-chamber track cannot simply be ignored if it remains correlated with the path. Interference requires a product-like initial relation between the controlled system and the relevant recorder.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:01:04}
+\audiencequestion{Where does practical disentanglement come from after a measurement?}
+\lecturerresponse{Condition on a definite observed outcome. If the spin is found up, the observer retains the branch \(|A,u\rangle\) and discards the alternative from the working description. That conditional product state can be used as a new starting point. The full observer-inclusive state may remain entangled, but relative to the recorded outcome the selected preparation is definite.}
+\end{classroomqa}
+
+This nested hierarchy does not resolve every interpretive question, but it makes the operational consistency visible. System, detector, observer, and observer of observer may all be included. No matter where the description is cut, correctly correlated records do not later contradict one another.
+
+\section{From Entanglement to Entropy}
+
+The discussion has gone farther into measurement than planned, but it has exposed the next question: how can the degree of entanglement be measured? Two spins in the product state
 \begin{equation}
-p_i=\frac{1}{n}
-\qquad \text{for } i\in \mathcal N,
-\qquad
-p_i=0
-\qquad \text{for } i\notin \mathcal N ,
+|u\rangle\otimes|u\rangle
 \end{equation}
-with \(|\mathcal N|=n\), then
+are not entangled. Each subsystem has its own definite state, and observing one supplies no new information about the other. Entangled states do not factor this way. A standard quantitative diagnostic will be entanglement entropy, but we first need the ordinary notion of entropy and then its quantum form.
+
+\section{Classical Entropy as Missing Information}
+
+Begin with a classical system having a finite set of \(N\) possible states. Entropy here is a property of the system together with our knowledge of it. Suppose all we know is that the system occupies one of \(n\) equally probable states. Then
+\begin{equation}
+S=\log n.
+\end{equation}
+If \(n=1\), the state is known and \(S=0\). If \(n=N\), nothing is known beyond the state space itself and the entropy is maximal, \(S_{\max}=\log N\).
+
+The logarithm counts independent yes--no choices additively. For \(M\) classical spins there are \(2^M\) configurations, so
+\begin{equation}
+\log(2^M)=M\log 2.
+\end{equation}
+Up to the choice of logarithm base, entropy therefore counts the amount of binary information missing from the description.
+
+For a general probability distribution \(p_i\), the appropriate definition is
+\begin{equation}
+S=-\sum_i p_i\log p_i.
+\end{equation}
+
+\begin{classroomqa}
+\lecturetimestamp{01:14:17}
+\audiencequestion{Why is there a minus sign in the entropy formula?}
+\lecturerresponse{Every nonzero probability satisfies \(0<p_i\leq 1\), so \(\log p_i\leq 0\). The minus sign makes entropy nonnegative. At \(p_i=0\), the contribution is defined by the limit \(p_i\log p_i\to0\).}
+\end{classroomqa}
+
+For the equal-probability distribution
+\begin{equation}
+p_i=
+\begin{cases}
+1/n, & i\in\mathcal N,\\
+0, & i\notin\mathcal N,
+\end{cases}
+\qquad |\mathcal N|=n,
+\end{equation}
+the general formula becomes
 \begin{align}
 S
-&=
--\sum_i p_i\log p_i \\
-&=
--n\left(\frac{1}{n}\right)\log\left(\frac{1}{n}\right) \\
-&=
-\log n .
+&=-n\left(\frac1n\right)\log\left(\frac1n\right)\\
+&=\log n.
 \end{align}
-The states outside \(\mathcal N\) contribute nothing, because \(p\log p\to 0\) as \(p\to 0\). So the Shannon formula reproduces the simpler \(\log n\) rule exactly where it should.
+It therefore reproduces the elementary counting definition. A distribution concentrated with certainty on one state has \(S=0\).
 
-Susskind then introduces the trace. This is the operation that will play the role of summing over configurations in quantum mechanics.
-
-\begin{definition}
-For an operator \(M\) and any complete orthonormal basis \(\{|i\rangle\}\), the trace is
-\begin{equation}
-\operatorname{Tr}M=\sum_i \langle i|M|i\rangle .
-\end{equation}
-\end{definition}
-
-A crucial theorem, quoted rather than proved in the lecture, is that the trace is basis independent. If \(M\) happens to be diagonal in some basis, then its diagonal entries are its eigenvalues, and therefore
-\begin{equation}
-\operatorname{Tr}M=\sum_i \lambda_i .
-\end{equation}
-This is the sense in which the trace is an invariant.
-
-Now Susskind makes the next step. Suppose someone prepares a system in one of the basis states \(|i\rangle\), but does not tell us which one. We are told only the probabilities \(\rho_i\) for the various preparation outcomes. This is not a coherent superposition. The system is not in \(\rho_1|1\rangle+\rho_2|2\rangle+\cdots\). It is a statistical ensemble of definite preparation states. That is why we need an object more flexible than a state vector.
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.70\textwidth]{lecture_07_figure_06.png}
-\caption{Lecture board: schematic transition to a density-matrix description.}
+\includegraphics[width=0.66\textwidth]{lecture_07_figure_07.png}
+\caption{The board collects \(S=\log n\), the Shannon formula, and the equal-probability check.}
+\lectureframe{01:16:08}
 \end{figure}
 
-\begin{figure}[h]
+\begin{classroomqa}
+\lecturetimestamp{01:17:35}
+\audiencequestion{What is the largest entropy a system with \(N\) states can have, and what is known in that case?}
+\lecturerresponse{The maximum is \(\log N\), attained by the uniform distribution \(p_i=1/N\). One still knows what the system is and therefore knows its state space; what is unknown is which of those \(N\) states it occupies.}
+\end{classroomqa}
+
+The difference
+\begin{equation}
+I=S_{\max}-S
+\end{equation}
+is the available information in this counting sense. Entropy and information are opposite sides of the same bookkeeping: entropy records information that could distinguish the state but is not available to us.
+
+\section{Trace: the Quantum Replacement for a Sum}
+
+For an operator \(M\) and any complete orthonormal basis \(\{|i\rangle\}\), define
+\begin{equation}
+\operatorname{Tr}M
+=\sum_i\langle i|M|i\rangle.
+\end{equation}
+
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\node at (-2.3,0) {$|\psi\rangle$};
-\draw[->] (-1.5,0) -- (-0.3,0);
-
-\draw (1.1,0) circle (1.15);
-\fill (0.55,0.45) circle (0.05);
-\fill (1.45,0.55) circle (0.05);
-\fill (0.75,-0.15) circle (0.05);
-\fill (1.55,-0.35) circle (0.05);
-\fill (1.05,0.05) circle (0.05);
-
-\node at (1.1,-1.55) {$\rho$};
-\end{tikzpicture}
-\caption{Clean schematic of the move from a state-vector description to a statistical description.}
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_08.png}
+\caption{The trace written as the sum of diagonal matrix elements.}
+\lectureframe{01:21:20}
 \end{figure}
 
-In the basis of preparation states, the density matrix is diagonal:
+Although the definition is written using a basis, the result is basis independent. For a Hermitian operator one may choose an eigenbasis, in which
 \begin{equation}
-\rho=\mathrm{diag}(\rho_1,\rho_2,\rho_3,\ldots) .
+\operatorname{Tr}M=\sum_i\lambda_i.
 \end{equation}
-Its entries are real and nonnegative, and because probabilities sum to one,
+The eigenvalues, and hence their sum, do not depend on the coordinates used to represent the operator.
+
+\begin{classroomqa}
+\lecturetimestamp{01:23:04}
+\audiencequestion{Does putting a matrix in diagonal form imply that it has an inverse?}
+\lecturerresponse{No. Diagonal form displays the eigenvalues; invertibility is a separate condition. A diagonal matrix is invertible precisely when none of its diagonal eigenvalues is zero. Hermitian matrices are diagonalizable even when some eigenvalues vanish.}
+\end{classroomqa}
+
+After the break, return briefly to classical probability. A classical observable is a function \(f_i\) of the configuration, and its average is
 \begin{equation}
-\operatorname{Tr}\rho=1 .
+\langle f\rangle_{\mathrm{cl}}=\sum_i p_i f_i.
+\end{equation}
+In the quantum formulas, the trace will replace the sum over alternatives, an operator will replace the classical function, and a density matrix will replace the probability distribution.
+
+\section{Statistical Mixtures and the Density Matrix}
+
+Suppose someone prepares a system in one state of an orthonormal basis but does not tell us which state was chosen. They provide only preparation probabilities---for example, a spin is prepared up with probability \(3/4\) and down with probability \(1/4\). This is not the coherent superposition
+\begin{equation}
+\sqrt{\frac34}|u\rangle+\sqrt{\frac14}|d\rangle,
+\end{equation}
+because no relative phase has been prepared. It is a statistical mixture of definite states. Quantum probabilities remain even when a pure state is known; here there is an additional uncertainty about which pure state was prepared.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.66\textwidth]{lecture_07_figure_06.png}
+\caption{The conceptual transition from a specified ket to an ensemble description.}
+\lectureframe{01:29:43}
+\end{figure}
+
+If state \(|i\rangle\) is prepared with probability \(\rho_i\), the density operator is
+\begin{equation}
+\rho=\sum_i\rho_i|i\rangle\langle i|.
+\end{equation}
+In the preparation basis,
+\begin{equation}
+\rho=
+\begin{pmatrix}
+\rho_1&0&0&\cdots\\
+0&\rho_2&0&\cdots\\
+0&0&\rho_3&\cdots\\
+\vdots&\vdots&\vdots&\ddots
+\end{pmatrix}.
 \end{equation}
 
-Now let \(F\) be an observable. The lecture's central formula is
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_09.png}
+\caption{The diagonal density matrix and its normalization condition.}
+\lectureframe{01:32:12}
+\end{figure}
+
+Its eigenvalues are real and nonnegative, and normalization of probabilities becomes
 \begin{equation}
-\langle F\rangle=\operatorname{Tr}(F\rho) .
+\operatorname{Tr}\rho=\sum_i\rho_i=1.
 \end{equation}
-This is the quantum analog of the classical average \(\sum_i p_i f_i\). To see the analogy, we insert a resolution of the identity,
+
+Let \(F\) be a Hermitian observable. The ensemble expectation value is
 \begin{equation}
-\sum_j |j\rangle\langle j| = I ,
+\langle F\rangle=\operatorname{Tr}(F\rho).
 \end{equation}
-between \(F\) and \(\rho\). Then
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_10.png}
+\caption{The trace expectation value \(\langle F\rangle=\operatorname{Tr}(F\rho)\).}
+\lectureframe{01:35:05}
+\end{figure}
+
+To recover the ordinary weighted average, evaluate the trace in the basis where \(\rho\) is diagonal and insert the resolution of identity:
 \begin{align}
-\langle F\rangle
-&=
-\operatorname{Tr}(F\rho) \\
-&=
-\sum_i \langle i|F\rho|i\rangle \\
-&=
-\sum_{i,j}\langle i|F|j\rangle\langle j|\rho|i\rangle .
+\operatorname{Tr}(F\rho)
+&=\sum_i\langle i|F\rho|i\rangle\\
+&=\sum_{i,j}\langle i|F|j\rangle
+               \langle j|\rho|i\rangle\\
+&=\sum_i\rho_i\langle i|F|i\rangle.
 \end{align}
-If we choose the basis in which \(\rho\) is diagonal, then \(\langle j|\rho|i\rangle\) vanishes unless \(i=j\). Hence
-\begin{align}
-\langle F\rangle
-&=
-\sum_i \langle i|F|i\rangle \rho_i \\
-&=
-\sum_i F_{ii}\rho_i .
-\end{align}
-This is exactly the weighted average we wanted: the expectation value of \(F\) in each possible preparation state, multiplied by the probability that the system was prepared that way.
+Thus each pure-state expectation value is weighted by the probability that the corresponding state was prepared.
 
-The trace also satisfies the cyclic property
+The trace has the cyclic property
 \begin{equation}
-\operatorname{Tr}(AB)=\operatorname{Tr}(BA) ,
+\operatorname{Tr}(AB)=\operatorname{Tr}(BA),
 \end{equation}
-even when \(A\) and \(B\) do not commute. That is why it does not matter whether we write \(\operatorname{Tr}(F\rho)\) or \(\operatorname{Tr}(\rho F)\).
+even if \(A\) and \(B\) do not commute. Hence \(\operatorname{Tr}(F\rho)=\operatorname{Tr}(\rho F)\).
 
-Finally, Susskind defines the quantum entropy associated with a density matrix:
-\begin{equation}
-S=-\operatorname{Tr}(\rho\log\rho) .
-\end{equation}
-If \(\rho\) is diagonal, then \(\log\rho\) is obtained by taking the logarithm of each eigenvalue:
-\begin{equation}
-\log\rho=\mathrm{diag}(\log\rho_1,\log\rho_2,\log\rho_3,\ldots) .
-\end{equation}
-So in that basis
-\begin{equation}
-S=-\sum_i \rho_i\log\rho_i .
-\end{equation}
-Thus the quantum formula reduces to the classical one when the density matrix is diagonal.
+\section{Quantum Entropy and the Deferred Payoff}
 
-The two limiting cases are exactly those emphasized in the lecture. If one eigenvalue is \(1\) and all the rest are \(0\), then the entropy vanishes. That is the pure-state case. If the density matrix is proportional to the identity, so that all states are equally likely, then the entropy is maximal:
+The entropy of a density matrix is
 \begin{equation}
-\rho \propto I
-\qquad \Longrightarrow \qquad
-S=\log(\dim \mathcal H) .
+S(\rho)=-\operatorname{Tr}(\rho\log\rho).
+\end{equation}
+For a Hermitian positive operator, functions such as \(\log\rho\) are defined through its eigenvalues. If
+\begin{equation}
+\rho=\sum_i\rho_i|i\rangle\langle i|,
+\end{equation}
+then
+\begin{equation}
+\log\rho=\sum_{\rho_i>0}(\log\rho_i)|i\rangle\langle i|,
+\end{equation}
+and therefore
+\begin{equation}
+S(\rho)=-\sum_i\rho_i\log\rho_i.
 \end{equation}
 
-The lecture is very careful here. The entropy of a pure state is zero not because quantum mechanics has somehow ceased to be probabilistic, but because no extra ignorance about preparation remains. The nonzero entropy of a mixed state measures ignorance about which state was prepared.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_07_figure_11.png}
+\caption{The classical entropy formula recast as \(S=-\operatorname{Tr}(\rho\log\rho)\).}
+\lectureframe{01:41:25}
+\end{figure}
 
-And now the lecture stops. The payoff is deferred one more step. If a composite system \(AB\) is entangled and we describe only subsystem \(A\), then the right object is a density matrix for \(A\), and that density matrix will carry entropy. If \(A\) and \(B\) are not entangled, it will not. Entanglement entropy itself is therefore not yet computed in this lecture, but every ingredient needed for it has now been assembled.
+A known pure state has density operator
+\begin{equation}
+\rho_\psi=|\psi\rangle\langle\psi|,
+\end{equation}
+with eigenvalues \(1,0,\ldots\), so \(S(\rho_\psi)=0\). This does not mean that every measurement on \(|\psi\rangle\) has a certain outcome. It means there is no additional statistical ignorance about the prepared state. At the opposite extreme,
+\begin{equation}
+\rho=\frac{I}{d}
+\qquad\Longrightarrow\qquad
+S(\rho)=\log d,
+\end{equation}
+where \(d=\dim\mathcal H\). The maximally mixed state assigns equal weight to every orthogonal direction.
 
-\section{Summary}
-
-The lecture unfolds in two deliberate movements. First, the discrete two-slit experiment is rebuilt so that we can see exactly where interference comes from and exactly how it disappears when the route becomes entangled with a detector. Measurement is not treated as a vague act of observation but as the establishment of system-apparatus entanglement, with orthogonal record states killing the cross terms. Second, after that mechanism is made precise, Susskind backs up and introduces the mathematics needed to quantify entanglement: classical entropy, the trace, diagonal density matrices, expectation values of the form \(\operatorname{Tr}(F\rho)\), and the quantum entropy \(S=-\operatorname{Tr}(\rho\log\rho)\). The chapter therefore ends at the right place: not with entanglement entropy already in hand, but with the conceptual and mathematical stage set for it.
+The connection to entanglement is now close but not yet worked out. Suppose a composite system \(AB\) is in a joint state and all experiments are confined to \(A\). There must be an object that reproduces every expectation value obtainable on \(A\) while \(B\) is ignored. That object is a density matrix for \(A\). If the joint state factorizes, the density matrix of \(A\) is pure and has zero entropy. If \(A\) and \(B\) are entangled, the density matrix of \(A\) is generally mixed and has nonzero entropy. Constructing that reduced density matrix and evaluating its entropy is the task reserved for the next lecture.
