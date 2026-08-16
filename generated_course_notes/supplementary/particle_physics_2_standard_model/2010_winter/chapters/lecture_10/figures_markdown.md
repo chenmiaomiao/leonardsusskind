@@ -5,6 +5,14 @@
 - `lecture_10_figure_04.png`: Susskind stands at the left edge while the board now focuses on the mass term split into left- and right-handed pieces. The top line is the key content; beneath it is a simple branching chalk doodle, with older faint writing lower down.
 - `lecture_10_figure_05.png`: The board combines three elements at once: a top-line chiral/Higgs coupling expression, a small central branching sketch labeled by left/right and \(\phi\), and a large double-well potential sketch on the right that serves as the visual cue for the Mexican-hat discussion.
 
+- lecture_10_figure_06.png: An unobstructed completed minimization board shows the double-well cross-section, \(V=-\mu^2\phi^2/2+\lambda\phi^4/4\), \(V'=0\), and \(\phi^2=\mu^2/\lambda\).
+- lecture_10_figure_07.png: A positive source and its surrounding opposite screening cloud are visible during the conductor discussion.
+- lecture_10_figure_08.png: The slowly rising effective-charge curve is visible against the inverse-distance axis during the QED running discussion.
+- lecture_10_figure_09.png: Chromoelectric field lines are squeezed into an elongated tube joining separated color sources.
+- lecture_10_figure_10.png: The completed qualitative ultraviolet plot shows gauge trajectories converging while gravity rises steeply.
+- lecture_10_figure_11.png: Newton's force with relativistic energies remains visible during the live dimensional check.
+- lecture_10_figure_12.png: The corrected expression \(r=\sqrt{\hbar G/c^3}\) is clearly isolated.
+
 ## Blackboard Equations
 - `lecture_10_figure_02.png`: \(\psi^\dagger(\cdots + \alpha_i \partial_i \psi - \beta m \psi)=\mathcal{L}\) [partially visible]
 - `lecture_10_figure_02.png`: \(\beta m\psi\) [visible]
@@ -22,11 +30,27 @@
 - `lecture_10_figure_05.png`: \(\phi\) [visible]
 - `lecture_10_figure_05.png`: \(L,\ R\) [visible]
 
+- lecture_10_figure_06.png: \(V=-\mu^2\phi^2/2+\lambda\phi^4/4\), \(-\mu^2\phi+\lambda\phi^3=0\), and \(\phi^2=\mu^2/\lambda\) [visible]
+- lecture_10_figure_07.png: Source charge plus surrounding opposite charge cloud [diagram visible]
+- lecture_10_figure_08.png: Effective charge increasing with \(1/R\) [curve visible; axis notation partial]
+- lecture_10_figure_09.png: Color sources joined by a flux tube [diagram visible]
+- lecture_10_figure_10.png: Qualitative gauge-coupling and gravitational trajectories [curves visible; labels faint]
+- lecture_10_figure_11.png: \(F_G\sim GE_1E_2/(c^4R^2)\) and the localization substitution [partially visible]
+- lecture_10_figure_12.png: \(r=\sqrt{\hbar G/c^3}\) [visible]
+
 ## Diagram And Layout Reading
 - `lecture_10_figure_02.png` is organized as a single long board line. The important layout feature is that the lecture is still in the older Dirac \(\alpha,\beta\) notation, before the covariant \(\gamma^\mu\) rewrite has been cleaned up. The small forked chalk mark under the equation looks like a mnemonic pointer rather than a formal diagram.
 - `lecture_10_figure_03.png` is a conversion board. The upper remnants preserve the older \(\beta m\psi\) presentation, while the lower line compresses the result into a barred-spinor form. The spatial organization itself helps the notes: the lecture is visibly moving from the older notation to the more elegant covariant one.
 - `lecture_10_figure_04.png` is a focused board for the chirality point. The top line is the content that matters: the scalar bilinear is being decomposed into left-right mixing pieces. The branching doodle below is not a proper Feynman diagram; it functions more like a quick visual reminder that the term connects two distinct chiral sectors.
 - `lecture_10_figure_05.png` is the richest visual record. The top equation extends the left-right mixing story by inserting the Higgs field \(\phi\). The central little sketch, labeled \(L\), \(R\), and \(\phi\), is again a mnemonic Yukawa-style coupling picture rather than a precise diagram. On the right, the large curve is a one-dimensional cross-section through the symmetry-breaking potential: two minima separated by a central hump, with no axes or labels written. It is better read as a radial slice of the Mexican hat than as a full two-dimensional surface.
+
+- Figure 06 records the algebraic completion of the Higgs-potential discussion and directly supports the displayed minimization.
+- Figure 07 is a qualitative screening cartoon, not a microscopic charge-density profile.
+- Figure 08 records only the sign and slow trend of QED running; the one-loop equation is a standard reconstruction.
+- Figure 09 is a flux-tube cartoon whose longitudinal shape supports the linear-energy argument without fixing a field profile.
+- Figure 10 is a qualitative logarithmic-scale sketch and does not establish an exact common crossing.
+- Figure 11 preserves the live, partly corrected derivation; the neighboring TeX controls dimensional consistency.
+- Figure 12 records the corrected endpoint after the class resolves the preceding slips.
 
 ## TeX Reconstruction Plan
 - `lecture_10_figure_02.png` must remain visible. It should be paired with a cleaned displayed equation in the older notation, reconstructed from the transcript rather than the board alone, e.g. the Dirac equation multiplied by \(\psi^\dagger\) to form the Lagrangian. The screenshot is evidence of the board layout; the equation nearby should do the mathematical heavy lifting.
@@ -35,11 +59,21 @@
 - `lecture_10_figure_05.png` must remain visible. It should be paired with two reconstructed elements nearby: a clean displayed Yukawa-style left-right coupling involving \(\phi\), and a TikZ redraw of the right-hand double-well potential as a clear one-dimensional symmetry-breaking cross-section. If the small \(L/R/\phi\) chalk doodle is used pedagogically, it may also be redrawn as a minimal schematic, but the main redraw priority is the potential curve.
 - Across all four figures, the screenshots should be treated as visual evidence of lecture flow and board organization, while the final displayed equations in the notes should be transcript-controlled and notation-stabilized.
 
+- Frames 06--12 replace the old proposal for synthetic late-lecture diagrams. Keep the real board images visible and pair them with cleaned equations; do not infer exact plotted values from qualitative chalk curves.
+
 ## Caption Drafts
 - `lecture_10_figure_02.png`: Dirac Lagrangian in \(\alpha,\beta\) notation.
 - `lecture_10_figure_03.png`: Covariant gamma-matrix form of the Dirac Lagrangian.
 - `lecture_10_figure_04.png`: Left-right decomposition of the Dirac mass term.
 - `lecture_10_figure_05.png`: Higgs-inserted chiral coupling and double-well potential.
+
+- lecture_10_figure_06.png: Completed minimization of the Higgs potential.
+- lecture_10_figure_07.png: Conductor screening cloud around a source charge.
+- lecture_10_figure_08.png: Logarithmic increase of the QED effective charge.
+- lecture_10_figure_09.png: Chromoelectric flux tube between color sources.
+- lecture_10_figure_10.png: Qualitative high-energy convergence of couplings.
+- lecture_10_figure_11.png: Relativistic-energy substitution in the gravity estimate.
+- lecture_10_figure_12.png: Corrected Planck-length combination.
 
 ## Uncertainties
 - In `lecture_10_figure_02.png`, the beginning of the long line is partly cropped and the exact placement of the time-derivative term is not securely legible from the frame alone. The overall \(i\)-factor convention should be taken from the transcript, not the chalk.

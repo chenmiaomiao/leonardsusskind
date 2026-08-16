@@ -5,6 +5,14 @@
 - `lecture_10_figure_04.png`: The board focuses on the chiral decomposition of the mass bilinear, with Susskind at the far left and a small branching chalk doodle below; keep this screenshot in the final notes.
 - `lecture_10_figure_05.png`: The board combines a Higgs-inserted chiral coupling at the top, a small \(L/R/\phi\) branching sketch in the middle, and a double-well potential cross-section on the right; keep this screenshot in the final notes.
 
+- lecture_10_figure_06.png: Completed Higgs-potential minimization; keep beside the cleaned derivative and minimum equations.
+- lecture_10_figure_07.png: Conductor screening cloud matching the complete-screening argument.
+- lecture_10_figure_08.png: Rising QED effective-charge curve matching the inverse-distance discussion.
+- lecture_10_figure_09.png: Chromoelectric flux tube matching the linear-potential argument.
+- lecture_10_figure_10.png: Qualitative high-energy convergence of gauge couplings and gravity.
+- lecture_10_figure_11.png: Short-distance gravity algebra with the lecture's live dimensional corrections.
+- lecture_10_figure_12.png: Isolated corrected Planck-length square root.
+
 ## Equation Extraction
 - `lecture_10_figure_02.png`: \(\psi^\dagger(\cdots + \alpha_i \partial_i \psi - \beta m \psi)=\mathcal{L}\) [partially visible]
 - `lecture_10_figure_02.png`: \(\alpha_i \partial_i \psi\) [partially visible]
@@ -38,6 +46,8 @@
 - Use `lecture_10_figure_05.png` to preserve the fact that Susskind is simultaneously discussing Higgs insertion and symmetry breaking, then pair it with a clean Yukawa-style displayed equation and a minimal TikZ redraw of the double-well potential.
 - Where a screenshot mainly shows board organization rather than complete mathematics, let the screenshot preserve rhythm and layout while the neighboring LaTeX provides the stabilized equation.
 - In all four cases, let the transcript control sign conventions, \(i\)-factors, and legibility repairs; the screenshots should support the notes, not override the cleaned mathematical reconstruction.
+
+- Use frames 06--12 as direct evidence for the late-lecture argument. Standard equations repair the unstable algebra in frame 11; the running-coupling curves remain explicitly qualitative.
 
 ## Uncertainties
 - In `lecture_10_figure_02.png`, the leftmost part of the Dirac-Lagrangian line is cropped and the time-derivative term is not reliably legible.
