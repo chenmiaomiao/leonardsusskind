@@ -4,6 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 video2book_root="${VIDEO2BOOK_ROOT:-/home/lachlan/ProjectsLFS/Video2Book}"
 nutstore_root="${NUTSTORE_ROOT:-/home/lachlan/Nutstore Files/Projects/LazyingArtBooks/leonardsusskind}"
+nutstore_share_root="${NUTSTORE_SHARE_ROOT:-/home/lachlan/Nutstore Files/Share/Leonard Susskind}"
 
 course=""
 
@@ -126,6 +127,11 @@ publish_pocket_variant \
   "$repo_root/all_notes/pocket_books_1_2x" \
   pocket_1_2x \
   "$nutstore_root/pocket_books_1_2x"
+
+python3 "$repo_root/scripts/sync_share_pocket_books.py" \
+  --repo-root "$repo_root" \
+  --target-root "$nutstore_share_root" \
+  --course "$course"
 
 bash "$video2book_root/scripts/codex_commit_push.sh" \
   "$repo_root" \
