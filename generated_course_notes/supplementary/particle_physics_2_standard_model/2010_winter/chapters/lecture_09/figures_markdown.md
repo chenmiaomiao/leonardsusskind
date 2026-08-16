@@ -44,6 +44,13 @@
 - `lecture_09_figure_04.png`: Emergent \(f^2A^2\) term in the broken phase.
 - `lecture_09_figure_05.png`: Coupled left- and right-handed fermion equations.
 
+## Added Frame Notes
+- **lecture_09_figure_06.png, 00:51:30:** Unobstructed board view of the scalar-dressed left- and right-chiral equations. Use it with the invariant Yukawa term \(\bar\psi_L\phi\psi_R+\mathrm{h.c.}\), not as authority for unstable board signs.
+- **lecture_09_figure_07.png, 01:01:15:** Close view of the Higgs vacuum value plus radial fluctuation inside the Yukawa factor. The pointing hand identifies the factor being split into a mass contribution and a physical Higgs coupling.
+- **lecture_09_figure_08.png, 01:16:30:** The upper board states \(m_i=g_i f\). The lower board contains earlier equations and the lecturer, but neither obscures the species-indexed mass relation.
+
+Final captions should describe only these visible claims: the symmetry-allowed scalar insertion, restoration of the Higgs fluctuation, and the common vacuum scale multiplied by species-dependent Yukawa couplings.
+
 ## Uncertainties
 - In `lecture_09_figure_02.png`, the derivative notation is legible in intent but written in a nonstandard fraction form with \(x^\mu\) and \(x^\nu\) in the denominators. The final notes should typeset the standard \(F_{\mu\nu}=\partial_\mu A_\nu-\partial_\nu A_\mu\) form while noting that the screenshot preserves the board-level reminder.
 - In `lecture_09_figure_03.png`, the derivative in \((\partial\alpha + A)\) is written schematically without Lorentz indices, and the sign convention for the covariant derivative is only locally reliable. The transcript should control the final indexed form.

@@ -47,3 +47,10 @@
 - In `lecture_09_figure_05.png`, the exact placement of the \(i\) factors and the precise form of the spatial-derivative terms are not fully legible. The transcript itself later admits inconsistency in how the \(i\) was handled on the board, so the split equations should be treated as cautious standard completions.
 - Also in `lecture_09_figure_05.png`, the matrix multiplying the spatial derivative is almost certainly \(\alpha_i\), but the visual evidence alone is weaker than the transcript-backed reading.
 - Across the Higgs-mechanism frames, the gauge coupling constant is suppressed entirely. Any fully indexed or normalized formula in the final notes is therefore a reconstruction, not a verbatim board transcription.
+
+## Added Verified Frames
+- **lecture_09_figure_06.png (00:51:30):** The two scalar-dressed chiral equations are visible with minimal obstruction. The frame supports the transition from a forbidden bare mass to a symmetry-allowed Yukawa interaction. Exact factors and signs remain standardized from the invariant Lagrangian.
+- **lecture_09_figure_07.png (01:01:15):** The board visibly replaces the scalar by its vacuum value plus a Higgs fluctuation. The lecturer points to the separated factor, making this the evidence frame for \(y(f+h)=m_f+yh\).
+- **lecture_09_figure_08.png (01:16:30):** The upper board displays \(m_i=g_i f\), with the species index visible and unobstructed. In the chapter, \(g_i\) is renamed \(y_i\) to distinguish the Yukawa coupling from a gauge coupling.
+
+These three frames should remain beside cleaned equations. None is used to infer mathematics that is absent from the visible board.
