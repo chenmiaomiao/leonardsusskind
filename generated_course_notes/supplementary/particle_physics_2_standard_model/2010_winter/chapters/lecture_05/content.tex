@@ -1,320 +1,794 @@
-\chapter{New Revolutions in Particle Physics: Standard Model}
+\chapter{Gauge Fields, Interaction Scales, and Charged Weak Currents}
 
-This lecture begins by widening the frame. We have already studied quantum electrodynamics and quantum chromodynamics, and both are gauge theories; now the question is what that statement really means. The answer is given in a deliberately economical way. We are not asked for a full theory of gauge symmetry. We are asked instead for the minimal mathematical content of a gauge theory, and the lecture unfolds that content in a very specific order: Maxwell first, then the non-abelian lesson of QCD, then the comparison of scales that makes the weak interactions look mysterious, and only after that the weak \(SU(2)\) structure and the \(W\) bosons.
+Quantum electrodynamics and quantum chromodynamics look very different in the
+laboratory, yet both are gauge theories. In fact, nearly every interaction in
+the Standard Model is organized this way. The word \emph{gauge} has a deeper
+meaning involving local symmetry, but we can postpone that machinery. For the
+moment we need a minimal physical description: a gauge theory contains
+Maxwell-like fields, conserved sources, symmetry transformations, gauge bosons,
+and rules for emitting and absorbing those bosons.
 
-\section{Maxwell Theory As The Minimal Gauge-Theory Prototype}
+\section{Maxwell Theory as the Prototype}
 
-The first example is Maxwell theory, because it is the cleanest gauge theory and the least burdened way to begin. Electromagnetism has six field components, three electric and three magnetic, but those six components may be repackaged in terms of a four-potential,
+\subsection{Fields and potentials}
+
+The electromagnetic field has six components: three components of electric
+field and three components of magnetic field. The same information can be
+encoded, with some redundancy, in a four-vector potential
 \begin{equation}
-A_\mu=(A_0,\vec A).
+A_\mu=(A_0,\boldsymbol A),
 \end{equation}
-The point is not that the four-potential will do all the work later in the lecture. In fact Susskind says at once that it will not play a large formal role that evening. The point is simply that the electromagnetic field can be described either in terms of \((\mathbf E,\mathbf B)\) or in terms of \(A_\mu\), and that the latter language is the one which generalizes.
-
-The time component \(A_0\) is introduced first. It is the electrostatic potential, the quantity whose spatial derivatives determine the electric force. The lower line on the board is not fully legible, but the intended content is clear enough that we may record it cautiously as
+where \(A_0\) is the electrostatic potential and \(\boldsymbol A\) is the
+spatial vector potential. In the electrostatic limit the electric field is
+obtained from the spatial gradient,
 \begin{equation}
-F_x = e\,\partial_x A_0,
+\boldsymbol E=-\boldsymbol\nabla A_0,
+\qquad
+\boldsymbol F=q\boldsymbol E,
 \end{equation}
-with the understanding that the lecture is emphasizing the derivative structure rather than pausing over sign conventions. The magnetic field comes from derivatives of the spatial vector potential, and more specifically
+while the magnetic field is
 \begin{equation}
-\mathbf B=\nabla\times\mathbf A.
+\boldsymbol B=\boldsymbol\nabla\times\boldsymbol A.
 \end{equation}
+The sign in the first equation depends on the standard definition of the
+potential; the board discussion is concerned mainly with the fact that fields
+are derivatives of potentials.
+\editorialnote{For time-dependent fields the complete relation is
+\(\boldsymbol E=-\boldsymbol\nabla A_0-\partial_t\boldsymbol A\). The lecture
+deliberately works at the simpler electrostatic level here.}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.62\textwidth]{lecture_05_figure_02.png}
-\caption{Four-vector potential and derivative relation on the board.}
+\caption{The electromagnetic four-potential and its derivative relation to the
+field.}
+\lectureframe{00:03:33}
 \end{figure}
 
-Thus there are two equivalent descriptions of electrodynamics: one in terms of six field components, and one in terms of four potentials. The lecture immediately cashes this out dynamically. Maxwell's equations support electromagnetic waves, and a plane-polarized wave has the transverse structure
+Thus electrodynamics admits two equivalent descriptions: one in terms of
+\(\boldsymbol E\) and \(\boldsymbol B\), and one in terms of \(A_\mu\).
+The latter contains only four displayed components because different
+potentials can describe the same physical fields. That redundancy is the first
+hint behind the word gauge, though we will not use it formally yet.
+
+\subsection{Waves and polarization}
+
+Maxwell's equations support waves. Take a plane wave moving along a unit vector
+\(\hat{\boldsymbol k}\). At every point the electric and magnetic fields are
+transverse:
 \begin{equation}
-\mathbf E\perp\mathbf B,
+\boldsymbol E\cdot\hat{\boldsymbol k}=0,
 \qquad
-\mathbf E\perp \hat k,
+\boldsymbol B\cdot\hat{\boldsymbol k}=0,
 \qquad
-\mathbf B\perp \hat k,
+\boldsymbol E\cdot\boldsymbol B=0.
 \end{equation}
-where \(\hat k\) denotes the direction of propagation. In the normalization Susskind has in mind for the sketch, the electric and magnetic fields have equal magnitude,
+In units with \(c=1\), their magnitudes are equal,
 \begin{equation}
-|\mathbf E|=|\mathbf B|.
+|\boldsymbol E|=|\boldsymbol B|.
 \end{equation}
-The polarization is then read from the electric field. This is not presented as a detached textbook reminder. It is the first step in a pattern: identify the field variables, show how they propagate, and then ask what their sources are.
+For a linearly polarized wave, the direction of \(\boldsymbol E\) specifies
+the polarization. The entire pattern propagates at the speed of light.
 
-\section{From Electromagnetism To General Gauge Theory}
+Quantization changes the language but not the polarization structure. A
+quantum of the electromagnetic wave is a photon. Drawing a photon as a point
+is inevitably misleading, but it is useful to imagine that the point carries
+a small transverse pointer recording its polarization. A quarter-wave plate
+or another optical element can rotate that polarization. A static Coulomb
+field may likewise be pictured, only roughly, as arising from repeated
+emission and absorption of photons.
 
-Once the wave picture is on the board, the lecture turns to the fact that electromagnetic fields are sourced. Charges create electric fields, and electric field lines do not simply end in empty space. They end on charges. If we imagine a sphere surrounding an isolated charge, the flux through that sphere is independent of the sphere's size. In unit-free form, which is the right level for the lecture, we may summarize the point as
+\subsection{Sources, flux, and conservation}
+
+Electromagnetic waves can propagate through empty space, but the field also
+has sources: electric charges and currents. A positive point charge produces
+an outward radial electric field proportional to \(1/r^2\). The number of
+field lines piercing any sphere around the charge is independent of the
+sphere's radius. Mathematically,
 \begin{equation}
-\oint_{S^2}\mathbf E\cdot d\mathbf S \propto Q.
+\oint_{S^2}\boldsymbol E\cdot d\boldsymbol S
+=\frac{Q_{\mathrm{enc}}}{\epsilon_0},
+\label{eq:l5-gauss}
 \end{equation}
+in SI units.
 
-The interesting part is the consequence. If field lines may terminate only on charges, then an isolated charge cannot simply disappear. One cannot make the Coulomb field vanish everywhere at once, since that would require instantaneous causal propagation, and one cannot let the field lines stop without leaving a source behind. The lecture therefore uses Gauss's law not merely as a formula, but as the physical intuition behind charge conservation.
+This is more than a convenient way to calculate the field. Electric field
+lines may end only on charge. If one isolated charge simply disappeared, its
+field would either have to disappear everywhere at once, violating causality,
+or a front of missing field would have to propagate outward with field lines
+ending on empty space. Neither is allowed. The geometry of flux therefore
+makes charge conservation natural: charge can move, and opposite charges can
+annihilate, but net charge cannot vanish locally without a compensating
+current.
 
-This is the point at which the chapter can say, in the lecture's own spirit, what a gauge theory is. A gauge theory is a theory of Maxwell-like fields: fields with electric-like and magnetic-like components, fields that can propagate as waves when weakly coupled, and fields that come with sources whose conservation is tied to symmetry. If one passes to the quantum description, the wave becomes a stream of quanta. In electrodynamics those quanta are photons, and they come with polarization. One may even think of the Coulomb field, roughly speaking, as arising from the repeated emission and absorption of photons.
-
-The conservation law is then tied to a symmetry of the matter field. For electric charge the symmetry is the familiar phase rotation
+The corresponding local statement is the continuity equation
 \begin{equation}
-\psi \to e^{i\theta}\psi.
+\partial_t\rho+\boldsymbol\nabla\cdot\boldsymbol J=0.
+\label{eq:l5-continuity}
 \end{equation}
-The lecture deliberately avoids writing down the Lagrangian, but it later says explicitly what is meant: the Lagrangian would be invariant under the corresponding transformation. For present purposes the shorter language is enough. Conserved source and symmetry belong to the same structure.
+\editorialnote{Equation~\eqref{eq:l5-continuity} is the standard local
+mathematical form of the causal flux argument developed verbally in the
+lecture.}
 
-The lecture then inserts a useful counterexample. Baryon number is conserved, and one could imagine it acting as a gauge charge. If it did, protons and neutrons would feel a Coulomb-like long-range force associated not with electric charge but with baryon number. Like baryon numbers would repel; opposite baryon numbers would attract. But nature does not supply such a gauge field. The example is mathematically possible and physically false. It clarifies the point that conserved quantities do not automatically come with gauge fields, though genuine gauge charges do.
+\subsection{A working definition of gauge theory}
 
-\section{QCD As The Non-Abelian Model Case}
+We can now state the operational pattern. A gauge theory has:
+\begin{itemize}
+\item electric-like and magnetic-like fields;
+\item waves that, when interactions are weak enough, resemble light waves;
+\item sources analogous to electric charge;
+\item a Gauss law tying flux to those sources;
+\item a conservation law and an associated symmetry;
+\item quanta of the field, called gauge bosons; and
+\item a coupling constant controlling emission and absorption.
+\end{itemize}
+The source need not be electric charge. As a deliberately unphysical example,
+imagine gauging baryon number. Protons and neutrons both have baryon number
+\(+1\), so they would repel through a new Coulomb-like force; a proton and an
+antiproton would attract. Such a theory is mathematically imaginable, but
+nature supplies no observed long-range gauge field coupled to baryon number.
+Conservation by itself does not guarantee a gauge force.
 
-With that general picture in place, the lecture returns to QCD as the richer non-abelian example. Quarks transform in the fundamental representation of \(SU(3)\), and the board writes this in the form
+Electric charge does come with a symmetry. For a charged matter field,
 \begin{equation}
-q_i'=U_{ij}q_j.
+\psi(x)\longmapsto e^{i\theta}\psi(x).
+\label{eq:l5-u1}
 \end{equation}
-The index \(i\) is the color index: red, green, or blue. Anti-quarks are represented by the complex-conjugate fields, so if we conjugate the transformation law we obtain
+The phase symmetry and charge conservation are two sides of the same
+structure. Later we can make \(\theta\) depend on spacetime and see why the
+potential \(A_\mu\) is required. Here the global transformation is enough to
+identify the conserved charge.
+
+\section{QCD as the Non-Abelian Example}
+
+\subsection{Triplets, anti-triplets, and the gluon matrix}
+
+In quantum chromodynamics a quark field carries a color index
+\(i\in\{r,g,b\}\) and transforms in the fundamental representation of
+\(SU(3)\):
+\begin{equation}
+q'_i=U_{ij}q_j,
+\qquad
+U^\dagger U=\boldsymbol 1,
+\qquad
+\det U=1.
+\label{eq:l5-q-transform}
+\end{equation}
+This is a rotation in a three-dimensional complex color space, not a rotation
+of ordinary position space. The three-component representation is also called
+the defining representation.
+
+Antiparticle fields are represented by the complex-conjugate variables. Taking
+the complex conjugate of Equation~\eqref{eq:l5-q-transform} gives
 \begin{equation}
 q_i^{\prime *}=U_{ij}^*q_j^*.
+\label{eq:l5-antiquark-transform}
 \end{equation}
-This is precisely the point supported by the second selected frame: the original transformation and the conjugate transformation are written one under the other.
+Thus quarks transform as \(\boldsymbol 3\), whereas antiquarks transform as
+\(\bar{\boldsymbol 3}\).
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.62\textwidth]{lecture_05_figure_03.png}
-\caption{Complex-conjugate \(SU(3)\) transformation rule.}
+\caption{The fundamental transformation and its complex-conjugate
+anti-triplet transformation.}
+\lectureframe{00:18:47}
 \end{figure}
 
-The isolated \(A_{ij}\) on the left side of the frame belongs to the neighboring gluon discussion, not to the derivation of the conjugate rule itself. But that neighboring discussion is exactly where the lecture now goes. The QCD gauge field is denoted \(A_{ij}\), a matrix-valued field with one quark-type index and one anti-quark-type index. In transformation language it behaves as though a quark and an anti-quark were sitting on top of one another, not in spin or mass, but in color structure.
+\begin{classroomqa}
+\audiencequestion{How many \(U\) matrices are there -- seven, eight, or nine?
+\lecturetimestamp{00:19:37}}
+\lecturerresponse{There are infinitely many group elements \(U\). The finite
+number being counted is the number of independent generators, which is eight
+for \(SU(3)\). A general \(3\times3\) matrix has nine matrix positions, but
+special unitarity leaves eight continuous directions.}
+\end{classroomqa}
 
-A general \(3\times 3\) matrix would have nine components, but one removes the singlet piece by imposing tracelessness:
+The gluon field may be written as a traceless matrix \(A_{ij}\). One index
+transforms like a quark and the other like an antiquark, so its color structure
+is that of
 \begin{equation}
-\operatorname{tr}A=A_{ii}=0.
+\boldsymbol 3\otimes\bar{\boldsymbol 3}
+=\boldsymbol 1\oplus\boldsymbol 8.
 \end{equation}
-That is why there are eight gluons rather than nine. In general,
+QCD retains the traceless octet,
 \begin{equation}
-\dim(\text{adjoint of }SU(N))=N^2-1.
+A_{ii}=\operatorname{tr}A=0,
 \end{equation}
-
-The lecture then shifts from representation theory to interaction rules. If we follow the indices through a diagram, an \(i\)-type quark can become a \(j\)-type quark by emitting the corresponding gluon:
+and discards the singlet. That is why QCD has eight gluons rather than nine.
+More generally, \(SU(N)\) has
 \begin{equation}
-q_i \to q_j + A_{ij}.
+N^2-1
 \end{equation}
-Susskind momentarily wavers on the order of the indices when speaking, but the real rule is not in doubt: one follows the lines and never loses an index.
+generators and the same number of gauge-boson fields.
 
-Now comes the genuinely new feature. Because the gluon field itself carries a quark-type and an anti-quark-type index, gluons carry color. Unlike photons, they are not neutral under the corresponding gauge symmetry. That means they can interact with each other. The lecture encodes this schematically by following the same index flow through a gluon line, so that one may think in terms of an \(ij\)-gluon turning into an \(ik\)-gluon together with a \(kj\)-gluon. The point is not the exact algebraic form of a Yang--Mills vertex; the lecture explicitly avoids writing that machinery. The point is that gluons exert forces on gluons.
+The photon is neutral under electric \(U(1)\): rotating the phase of an
+electron does not rotate the photon into a different photon. Gluons are
+different. A gluon carries a color and an anticolor, so it transforms in the
+adjoint representation. A red--antiblue combination, for example, is not a
+color singlet even though it contains one color and one anticolor.
 
-This is then converted into the qualitative flux-tube picture. Field lines still cannot end, but now they attract one another and bundle. The result is confinement: as two quarks are pulled apart, the energy in the tube of color flux grows with distance. QCD is therefore not merely another example of a gauge theory. It is the example that shows how radically non-abelian dynamics can differ from electrodynamics.
+\subsection{Index flow and self-interaction}
 
-\section{Coupling Constants, Scales, And Why ``Strong'' Means Strong}
-
-At this stage the lecture pauses for a brisk summary of gauge theory: Maxwell-like fields, sources, Gauss's law, conservation, symmetry, and emission or absorption rules. Then it adds one more ingredient, the coupling constant. In electrodynamics the electric charge is the amplitude for photon emission at a vertex. Probability is the square of amplitude, so operationally
+The interaction rule can be read by following indices. Schematically, a quark
+of color \(i\) can become a quark of color \(j\) while emitting a gluon carrying
+the corresponding color flow:
 \begin{equation}
-P(\text{photon emission}) \propto e^2.
+q_i\longrightarrow q_j+A_{ij}.
+\label{eq:l5-quark-gluon-vertex}
 \end{equation}
-Up to the ubiquitous factors of \(4\pi\), one packages this into the fine-structure constant,
-\begin{equation}
-\alpha \sim \frac{e^2}{4\pi}\approx \frac{1}{137}.
-\end{equation}
-This is the lecture's concrete interpretation of charge: not merely a label, but a measure of how likely emission is.
+The precise placement of \(i\) and \(j\) depends on the arrow convention; the
+invariant content is that every index entering a vertex must continue through
+another line. No color index is lost.
 
-The next movement may look like a digression, but it is really the preparation for the weak force. We are reminded that in natural units
+This rule applies in any \(SU(N)\) gauge theory. Fundamental matter has one
+index, antifundamental matter has one conjugate index, and a gauge boson has
+one of each. The physical names can change, but the index structure remains.
+
+Because a gluon itself carries color, it can emit another gluon. An
+\(A_{ij}\) gluon can split through an intermediate index \(k\), schematically,
+\begin{equation}
+A_{ij}\longrightarrow A_{ik}+A_{kj}.
+\label{eq:l5-three-gluon-index}
+\end{equation}
+This is not a complete Yang--Mills vertex, but it displays the color flow.
+Nothing analogous occurs for photons in ordinary electrodynamics. Gluons
+therefore exert forces on gluons, and non-Abelian field dynamics is much more
+complicated than Maxwell's linear theory.
+
+One qualitative consequence is confinement. Color flux lines cannot end, and
+their self-interaction draws them into a tube joining a quark to an antiquark.
+The tube carries an approximately constant energy per unit length:
+\begin{equation}
+V(R)\simeq \sigma R.
+\end{equation}
+Pulling the endpoints farther apart therefore stores more energy instead of
+liberating isolated color. This is the gooey piece of glue picture: the
+field itself prevents colored constituents from escaping as free particles.
+
+\section{Couplings and the Meaning of Strong or Weak}
+
+\subsection{Charge as an emission amplitude}
+
+A gauge theory still needs a coupling constant. In QED the electron charge
+\(e\) is the coefficient associated with an electron--photon vertex. It is an
+amplitude, and probabilities are squares of amplitudes. Operationally,
+imagine stopping a fast electron abruptly in a cathode-ray tube. The
+probability for radiating a photon is proportional to \(e^2\), with conventional
+factors absorbed into the fine-structure constant,
+\begin{equation}
+\alpha=\frac{e^2}{4\pi\hbar c}
+\simeq \frac{1}{137}.
+\label{eq:l5-alpha}
+\end{equation}
+In natural units \(\hbar=c=1\), the coupling is dimensionless. A one-percent
+scale for an elementary emission makes electromagnetism weak in the
+perturbative sense: most stopped electrons do not each release a spray of
+hard photons.
+
+\subsection{Natural units connect energy, time, and distance}
+
+Set
 \begin{equation}
 c=1,
 \qquad
-\hbar=1,
+\hbar=1.
+\end{equation}
+Then time and distance have the same units, while energy has inverse units:
+\begin{equation}
+E=\hbar\omega\longrightarrow E=\omega\sim\frac1t,
 \qquad
-E\sim \omega \sim \frac{1}{t},
+x\sim t\sim\frac1E.
+\end{equation}
+Large energies probe short distances and short times.
+
+For orientation,
+\begin{equation}
+1\ {\rm eV}^{-1}
+=\frac{\hbar c}{1\ {\rm eV}}
+\simeq 1.97\times10^{-7}\ {\rm m}.
+\end{equation}
+An atomic length of order \(10^{-10}\ {\rm m}\) therefore corresponds roughly
+to an inverse kiloelectronvolt. These are order-of-magnitude conversions, not
+precision spectroscopy.
+
+\subsection{The hierarchy inside an atom}
+
+For a typical atom, take
+\begin{equation}
+R_{\rm atom}\sim10^{-10}\ {\rm m}.
+\end{equation}
+Light crosses this distance in
+\begin{equation}
+t_{\rm transit}^{\rm atom}\sim10^{-18}\ {\rm s}.
+\end{equation}
+An electron, however, moves at only a small fraction of the speed of light in
+a light atom. In the Bohr picture \(v/c\sim\alpha\), so a typical orbital time
+is longer:
+\begin{equation}
+t_{\rm orbit}^{\rm atom}\sim10^{-16}\ {\rm s}.
+\end{equation}
+
+An excited atom takes longer still to radiate:
+\begin{equation}
+t_{\rm decay}^{\rm atom}\sim10^{-9}\ {\rm s}
+\end{equation}
+as a broad lecture-scale estimate. There are two suppressions in the physical
+picture. The electromagnetic force produces only modest acceleration, and an
+accelerated electron has another small emission probability controlled by
+\(\alpha\). The small fine-structure constant therefore creates a hierarchy
+among transit, orbital, and radiative-decay times.
+
+\subsection{The absence of hierarchy in a hadron}
+
+A hadron is an atom-like bound system made of quarks and gluons, but its scale
+is much smaller:
+\begin{equation}
+R_{\rm hadron}\sim10^{-15}\ {\rm m},
 \qquad
-x\sim \frac{1}{E}.
+t_{\rm transit}^{\rm hadron}\sim10^{-23}\ {\rm s}.
 \end{equation}
-Distance, time, and inverse energy are then the same kind of quantity measured in different languages.
-
-With that in hand, the lecture compares atoms and hadrons. For atoms the relevant scales are of order
-\begin{align}
-R_{\text{atom}} &\sim 10^{-10}\,\mathrm m,\\
-t_{\text{transit}} &\sim 10^{-18}\,\mathrm s,\\
-t_{\text{orbital}} &\sim 10^{-16}\,\mathrm s,\\
-t_{\text{decay}} &\sim 10^{-9}\,\mathrm s.
-\end{align}
-The striking point is not the individual numbers but their hierarchy. The electron moves slowly compared with light, because the electromagnetic force is weak, and once accelerated it still emits photons inefficiently because \(\alpha\) is small. The decay time is therefore suppressed twice over: once by the small acceleration, once by the small emission probability.
-
-For hadrons, by contrast, the scales collapse toward one another:
-\begin{align}
-R_{\text{hadron}} &\sim 10^{-15}\,\mathrm m,\\
-t_{\text{transit}} &\sim 10^{-23}\,\mathrm s,\\
-t_{\text{orbital}} &\sim 10^{-23}\,\mathrm s,\\
-t_{\text{decay}} &\sim 10^{-23}\,\mathrm s.
-\end{align}
-There is no comparable hierarchy. The lecture's conclusion is therefore dynamical rather than taxonomic:
+Quarks cross the hadron on essentially the same time scale, and strongly
+decaying excited hadrons also live for roughly
 \begin{equation}
-\alpha_{\mathrm{QCD}} \gg \alpha.
+t_{\rm orbit}^{\rm hadron}
+\sim t_{\rm decay}^{\rm hadron}
+\sim10^{-23}\ {\rm s}.
 \end{equation}
-At lecture level one may think of \(\alpha_{\mathrm{QCD}}\) as lying around \(0.2\), or more loosely as being much closer to one than \(1/137\). That is why the strong interaction is called strong. It proceeds about as fast as such a process can proceed.
+A struck hadron may vibrate and emit a pion almost as quickly as causality
+allows. There is no seven- or nine-order-of-magnitude separation like the one
+inside an atom.
 
-\section{Why Weak Interactions Are Puzzling Before We Even Build Them}
+\begin{classroomqa}
+\audiencequestion{Does special relativity imply that a hadron cannot decay
+substantially faster than its light-crossing time?
+\lecturetimestamp{00:47:15}}
+\lecturerresponse{That is a fair way to state the order-of-magnitude bound.
+Strong decays occur about as fast as the size of the system permits; there is
+no small coupling or other large suppression slowing them down.}
+\end{classroomqa}
 
-Only after the gauge-theory recap and the comparison of scales do we reach the weak interaction. This order matters. The lecture wants the reader to feel the puzzle before seeing the mechanism. Historically weak processes appeared through beta decay, and the old name still captures the phenomenon well enough: the decay rates are extraordinarily slow.
-
-The first example is neutron beta decay,
+The corresponding strong coupling is therefore much larger than
+\(\alpha\). At an illustrative hadronic scale the lecture quotes
 \begin{equation}
-n\to p+e^-+\bar\nu_e,
+\alpha_{\rm QCD}\sim0.2,
+\end{equation}
+much closer to unity than \(1/137\). This is the dynamical origin of the older
+name \emph{strong interactions}.
+\editorialnote{The QCD coupling runs with energy, so \(\alpha_s\) is not one
+fixed number. The quoted value is an illustrative scale-dependent value, as
+the lecture intends.}
+
+\begin{classroomqa}
+\audiencequestion{Is the strong analogue simply called the strong-force
+constant?
+\lecturetimestamp{00:48:17}}
+\lecturerresponse{It is conventionally called \(\alpha_{\rm QCD}\), or more
+often \(\alpha_s\). The electromagnetic one is usually just \(\alpha\), though
+\(\alpha_{\rm QED}\) can be used when both appear in the same discussion.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Would a paper distinguish a bare electromagnetic coupling
+from the measured, shielded value?
+\lecturetimestamp{00:48:38}}
+\lecturerresponse{Yes. One speaks of a bare coupling and a renormalized
+coupling. Vacuum polarization makes the effective coupling depend on the
+scale at which it is measured.}
+\end{classroomqa}
+
+\section{The Puzzle of Weak Decay}
+
+Weak interactions were named from their very long decay times. They are
+usually slower than strong decays and can even be slower than atomic
+radiation. The oldest example is nuclear beta decay.
+
+\subsection{Neutron beta decay}
+
+A free neutron decays through
+\begin{equation}
+n\longrightarrow p+e^-+\bar\nu_e.
+\label{eq:l5-neutron-decay-intro}
+\end{equation}
+The lecture uses a lifetime of roughly twelve minutes, absurdly long compared
+with \(10^{-23}\ {\rm s}\). Modern precision values do not matter for the
+argument.
+
+Part of the slowness is kinematic. Roughly,
+\begin{equation}
+m_n\simeq940\ {\rm MeV},
 \qquad
-\tau_n\sim 12\ \text{minutes}.
-\end{equation}
-On hadronic timescales that is absurd. Part of the explanation is obvious. The neutron lies only slightly above the proton-plus-electron threshold, with the lecture quoting the rough numbers
-\begin{equation}
-m_n\approx 940\,\mathrm{MeV},
+m_p\simeq939\ {\rm MeV},
 \qquad
-m_p\approx 939\,\mathrm{MeV},
+m_e\simeq0.5\ {\rm MeV}.
+\end{equation}
+Only a tiny fraction of the neutron's rest energy is available as kinetic
+energy. If the neutron were lighter than the sum of the final rest masses,
+decay would be impossible. If it lay only infinitesimally above threshold, the
+available phase space would be tiny and the decay would be slow. But phase
+space alone cannot explain a lifetime measured in minutes.
+
+\subsection{The charged pion removes the threshold excuse}
+
+Consider also
+\begin{equation}
+\pi^-\longrightarrow e^-+\bar\nu_e
+\end{equation}
+and its charge-conjugate process. The pion has ample energy above the electron
+channel, yet its weak lifetime is still of nanosecond order rather than
+hadronic \(10^{-23}\)-second order. A similar channel with a muon will soon
+become important. The puzzle is therefore intrinsic to the weak interaction,
+not merely an accident of the neutron's near-degenerate masses.
+
+\editorialnote{The charged-pion lifetime is about \(26\ {\rm ns}\), and the
+dominant channel is \(\pi^-\to\mu^-\bar\nu_\mu\). The electron channel is
+helicity suppressed. The lecture first uses the electron channel because its
+particle bookkeeping is simplest, then returns to the dominant muon channel.}
+
+The term beta decay originates historically from calling emitted electrons
+beta rays. The pion and neutron examples involve the same charged-current
+interaction even though their kinematics differ sharply.
+
+\section{A Table of Quarks and Leptons}
+
+\subsection{Color acts vertically}
+
+Arrange the six quark flavors in three paired columns,
+\begin{equation}
+(u,d),\qquad(c,s),\qquad(t,b),
+\end{equation}
+and place a red, green, and blue copy of every quark in separate rows. Color
+\(SU(3)\) acts vertically: it rotates red, green, and blue versions of an up
+quark into one another, and performs the same color rotation simultaneously
+on down, charm, strange, top, and bottom. It does not turn an up quark into a
+down quark.
+
+\subsection{Weak isospin acts horizontally}
+
+The weak symmetry acts in the other direction. It mixes each neighboring pair
+\begin{equation}
+Q_1=\begin{pmatrix}u\\d\end{pmatrix},
 \qquad
-m_e\approx 0.5\,\mathrm{MeV}.
-\end{equation}
-So the available energy is tiny. If the neutron were just a little lighter, it could not decay at all. If it were only infinitesimally above threshold, the decay would indeed be slow. But the lecture insists that this is only a small part of the story. Twelve minutes is far too long to be explained by phase space alone.
-
-The second example is a charged pion. The lecture first uses the channel
-\begin{equation}
-\pi^- \to e^-+\bar\nu_e,
+Q_2=\begin{pmatrix}c\\s\end{pmatrix},
 \qquad
-\tau_{\pi^-}\sim 10\ \text{ns},
+Q_3=\begin{pmatrix}t\\b\end{pmatrix}.
+\label{eq:l5-quark-doublets}
 \end{equation}
-not because that is the dominant decay, but because it is a simple first route into the weak vertex. Here the kinematic situation is entirely different. There is plenty of energy available. So the slowness cannot be blamed on near-threshold suppression. Something else must be making weak processes proceed reluctantly.
+The up-type quarks have charge \(+2/3\), and the down-type quarks have charge
+\(-1/3\), so the charge changes by one unit across each pair.
+\editorialnote{The source momentarily says that a down quark has charge
+\(-2/3\). The surrounding subtraction and every subsequent process require
+the standard value \(-1/3\), used here.}
 
-That is the real setup for the second half of the lecture. The question is not merely what particles are involved, but what sort of symmetry could produce these decays at all.
+Because the symmetry acts on doublets, the natural group is \(SU(2)\). It acts
+on every color copy of each quark doublet without changing color.
 
-\section{Horizontal Doublets, Leptons, And The Weak \(SU(2)\)}
-
-To answer that, the lecture builds a table. The transcript is garbled at the moment when the table first appears, but the stable structure is clear from the surrounding explanation. Quarks come in weak doublets,
+There is also a fourth row of particles that do not carry color and therefore
+do not interact with gluons: the leptons. They form three more doublets,
 \begin{equation}
-\left(\begin{array}{c}u\\ d\end{array}\right),
+L_e=\begin{pmatrix}\nu_e\\e^-\end{pmatrix},
 \qquad
-\left(\begin{array}{c}c\\ s\end{array}\right),
+L_\mu=\begin{pmatrix}\nu_\mu\\\mu^-\end{pmatrix},
 \qquad
-\left(\begin{array}{c}t\\ b\end{array}\right),
+L_\tau=\begin{pmatrix}\nu_\tau\\\tau^-\end{pmatrix}.
+\label{eq:l5-lepton-doublets}
 \end{equation}
-and leptons do as well,
-\begin{equation}
-\left(\begin{array}{c}\nu_e\\ e^-\end{array}\right),
-\qquad
-\left(\begin{array}{c}\nu_\mu\\ \mu^-\end{array}\right),
-\qquad
-\left(\begin{array}{c}\nu_\tau\\ \tau^-\end{array}\right).
-\end{equation}
-On the board this was arranged so that color transformations could be pictured as acting vertically through the quark entries, while the weak symmetry acted horizontally, mixing the members of each paired column. In cleaned notation it is simpler to display the pairs as doublets, but the lecture's geometric point should be remembered: color and weak symmetry act in different directions.
+The neutrinos are electrically neutral; the electron, muon, and tau have
+charge \(-1\). Again the two members differ by one unit of electric charge.
+The electron, muon, and tau have the same gauge quantum numbers but different
+masses, just as the three generations of up-type or down-type quarks repeat
+the same charge pattern.
 
-The charged members of the quark doublets have charges \(+2/3\) and \(-1/3\), while the lepton doublets have charges \(0\) and \(-1\). In both cases the change across the doublet is one unit:
-\begin{equation}
-Q(u)-Q(d)=+1,
-\qquad
-Q(\nu_e)-Q(e^-)=+1.
-\end{equation}
-That common charge step is one of the reasons the quark and lepton sectors can be spoken of in a single breath here.
-
-The natural group is then \(SU(2)\), because the symmetry acts on doublets. The lecture does not yet want the formal representation theory of \(SU(2)\) written out in detail. What matters immediately is that an \(SU(2)\) gauge theory should have three generators, hence three gauge bosons. At this stage only \(W^\pm\) are built explicitly. The third boson is acknowledged as lurking in the background and postponed.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Charge conservation tells us that the boson in processes such as \(e^-\to\nu_e+\cdots\) and \(d\to u+\cdots\) must carry charge \(-1\). But why should it be the same boson in all of these cases?
-
-\paragraph{Answer.} The lecture's answer is that this is an empirical fact encoded by the symmetry itself. The weak interaction does not act by one \(SU(2)\) on electrons, another on quarks, and a third on the heavier families. It acts simultaneously on all the doublets. Nature could have been more complicated, with several different \(W\)-type bosons attached to different rows, but experimentally it is simpler: the same gauge bosons mediate all these horizontal transitions.
-
-\section{\(W^\pm\) Bosons, Decay Diagrams, And Off-Shell Intermediate States}
-
-Now the lecture builds the charged gauge bosons operationally. One looks for an object with the quantum numbers of a particle from the second column together with the antiparticle of a particle from the first. On the lepton side that means \(e^-\bar\nu_e\). On the quark side it means \(d\bar u\). Either way the electric charge is \(-1\), so the object is called \(W^-\):
-\begin{equation}
-W^- \sim e^-\bar\nu_e \sim d\bar u.
-\end{equation}
-Again, the symbol \(\sim\) is only a statement about quantum numbers, not a claim that the \(W\) is literally a bound state of those particles. Likewise
-\begin{equation}
-W^+ \sim e^+\nu_e \sim \bar d u.
-\end{equation}
-
-The basic weak vertices are then
-\begin{align}
-e^- &\to \nu_e + W^-,\\
-d &\to u + W^-,\\
-s &\to c + W^-.
-\end{align}
-Once one vertex has been written, many other processes follow by flipping lines and arrows. The lecture is careful about this point: when a line is reversed in time, particle and antiparticle are exchanged. That is why the same local interaction can be read as emission, absorption, decay, or inverse decay, depending on how the diagram is oriented.
-
-The first worked example is the pion. Since
-\begin{equation}
-\pi^- \sim d\bar u,
-\end{equation}
-the pion can turn into a \(W^-\), and the \(W^-\) can then decay. The lecture first draws the electron channel because it exposes the weak vertex cleanly:
-\begin{equation}
-\pi^- \to W^- \to e^-+\bar\nu_e.
-\end{equation}
-Only after that does it add the phenomenological correction: the dominant charged-pion decay is actually
-\begin{equation}
-\pi^- \to W^- \to \mu^-+\bar\nu_\mu.
-\end{equation}
-
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.68\textwidth]{lecture_05_figure_04.png}
-\caption{Pion decay through an intermediate \(W^-\).}
+\includegraphics[width=0.82\textwidth]{lecture_05_figure_05.png}
+\caption{The board table: color acts among the red, blue, and green rows,
+whereas weak \(SU(2)\) links the paired flavor columns and the lepton row.}
+\lectureframe{01:03:35}
 \end{figure}
 
-\begin{figure}[t]
+Calling leptons a fourth color is only an analogy at this stage. They fill
+a fourth row in the weak-doublet table, but ordinary QCD \(SU(3)\) does not
+rotate quarks into leptons.
+
+\section{Constructing the Charged Weak Bosons}
+
+\subsection{Quantum numbers of the charged bosons}
+
+Gauge bosons carry the transformation properties needed to move from one
+member of a doublet to the other. Begin with the lepton pair
+\(e^-\bar\nu_e\). It has electric charge \(-1\), so the corresponding charged
+gauge boson is called \(W^-\):
+\begin{equation}
+W^-\sim e^-\bar\nu_e.
+\end{equation}
+The same quantum numbers arise from a down quark and an anti-up quark:
+\begin{equation}
+W^-\sim d\bar u.
+\end{equation}
+The symbol \(\sim\) means has the same relevant gauge quantum numbers as.
+It does not mean that the \(W\) is literally a bound state of these particles.
+The antiparticle has the conjugate combinations,
+\begin{equation}
+W^+\sim e^+\nu_e\sim\bar d u.
+\end{equation}
+
+The charged weak vertices include
+\begin{align}
+e^-&\longrightarrow\nu_e+W^-,
+&
+\mu^-&\longrightarrow\nu_\mu+W^-,
+\label{eq:l5-lepton-w}\\
+d&\longrightarrow u+W^-,
+&
+s&\longrightarrow c+W^-,
+\label{eq:l5-quark-w}
+\end{align}
+with analogous transitions for the third generation when kinematically
+allowed. The gauge boson performs dynamically the same horizontal mixing that
+the symmetry performs on the doublet.
+
+\begin{classroomqa}
+\audiencequestion{Charge conservation fixes the emitted boson to have charge
+\(-1\), but why must the electron, down-quark, and strange-quark transitions
+all involve the same particle?
+\lecturetimestamp{01:12:56}}
+\lecturerresponse{That is an empirical fact encoded by the common weak
+symmetry. Nature could consistently have assigned a different \(W\)-type
+boson to every family or to quarks and leptons separately. Instead, one
+\(SU(2)\) acts simultaneously on all the doublets, and the same charged gauge
+bosons mediate all these transitions.}
+\end{classroomqa}
+
+\subsection{Reading and reversing a vertex}
+
+A single vertex represents a family of processes. Reversing an incoming line
+to an outgoing line changes a particle into its antiparticle, and reversing a
+\(W^-\) line gives a \(W^+\). One can therefore read a vertex as emission,
+absorption, decay, annihilation, or the inverse reaction, provided charge,
+momentum, and all relevant quantum numbers are followed consistently.
+
+\begin{classroomqa}
+\audiencequestion{Can the arrows and lines in these weak vertices be flipped?
+\lecturetimestamp{01:14:51}}
+\lecturerresponse{Yes. A line may be crossed from the final state to the
+initial state or vice versa, but a particle then becomes its antiparticle.
+The same local vertex consequently describes many differently oriented
+reactions.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does writing a \(W^-\) with strange and charm lines mean
+that the boson is literally a strange quark bound to an anti-charm quark?
+\lecturetimestamp{01:15:43}}
+\lecturerresponse{No. The line bookkeeping says only that the \(W^-\) carries
+the quantum-number change between those columns. If the diagram is read as a
+decay, a sufficiently energetic \(W^-\) can produce a strange quark and an
+anti-charm quark; it is not composed of them.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can an electron and an antineutrino make a \(W\), which then
+produces a quark pair?
+\lecturetimestamp{01:17:22}}
+\lecturerresponse{Exactly. If enough center-of-mass energy is available, the
+initial leptons can form the charged-current intermediate state and that state
+can emerge through an allowed quark channel. The two vertices are the same
+ones used in decay, read in another orientation.}
+\end{classroomqa}
+
+\subsection{The missing third boson}
+
+An \(SU(2)\) group has three generators, hence three gauge fields. So far we
+have displayed only \(W^+\) and \(W^-\). A third, electrically neutral field
+must be associated with diagonal combinations such as electron--positron and
+neutrino--antineutrino quantum numbers. It is deliberately left lurking in the
+background. Its relation to the physical \(Z\) boson and photon requires
+electroweak mixing, which comes later.
+
+\begin{classroomqa}
+\audiencequestion{Were the weak and strong forces suspected at different
+historical times?
+\lecturetimestamp{01:24:11}}
+\lecturerresponse{Their experimental roots appeared together in early
+radioactivity. Alpha decay revealed nuclear and strong-interaction physics,
+beta decay revealed the weak interaction, and gamma decay emitted
+electromagnetic photons. Becquerel's era already contained all three clues,
+long before their modern field theories existed.}
+\end{classroomqa}
+
+\section{Worked Charged-Current Decays}
+
+\subsection{Pion decay}
+
+The negatively charged pion has valence-quark content
+\begin{equation}
+\pi^-=d\bar u.
+\end{equation}
+Those quantum numbers can annihilate into a \(W^-\), which can then produce a
+charged lepton and the corresponding antineutrino:
+\begin{align}
+\pi^-&\longrightarrow W^{-*}
+\longrightarrow e^-+\bar\nu_e,
+\label{eq:l5-pion-electron}\\
+\pi^-&\longrightarrow W^{-*}
+\longrightarrow \mu^-+\bar\nu_\mu.
+\label{eq:l5-pion-muon}
+\end{align}
+The star reminds us that the intermediate \(W\) is virtual. The second channel
+is the dominant one.
+
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}
-\draw (-3,0) -- (0,0);
-\node at (-1.6,0.38) {$\pi^-$};
-\node at (-1.7,0.82) {$d$};
-\node at (-1.7,-0.82) {$\bar u$};
-
-\fill (0,0) circle (1.3pt);
-\node at (0.45,0.32) {$W^-$};
-
-\draw (0,0) -- (2.7,1.45);
-\draw (0,0) -- (2.7,-1.45);
-
-\node at (3.05,1.48) {$\mu^-$};
-\node at (3.15,-1.48) {$\bar\nu_\mu$};
-\end{tikzpicture}
-\caption{Clean redraw of the decay topology used in the lecture's kinematic discussion.}
+\includegraphics[width=0.72\textwidth]{lecture_05_figure_04.png}
+\caption{A \(d\bar u\) pion annihilates into a virtual \(W^-\), followed by a
+charged lepton and its matching antineutrino.}
+\lectureframe{01:19:38}
 \end{figure}
 
-The lecture even pauses to note that the diagram may be read in reverse. A pion created by strong interactions can decay into a muon and antineutrino, but if one were to fire a muon and an antineutrino toward one another with the right kinematics, they could also produce a \(\pi^-\). That is exactly the sort of two-way reading one expects from a Feynman diagram.
+\begin{classroomqa}
+\audiencequestion{Is this really a Feynman diagram even though the time
+direction was drawn horizontally rather than vertically?
+\lecturetimestamp{01:20:21}}
+\lecturerresponse{Yes. The orientation of time on the page is a convention.
+Once one direction is declared to be time and all arrows are interpreted
+consistently, the drawing carries the same interaction information.}
+\end{classroomqa}
 
-The next example is the muon, and here the process is purely leptonic:
+\begin{classroomqa}
+\audiencequestion{Could the diagram be read more like a reversible chemical
+reaction than as an irreversible one-way decay?
+\lecturetimestamp{01:21:35}}
+\lecturerresponse{The inverse process is allowed. A pion produced in empty
+space decays because the outgoing particles separate and do not ordinarily
+recombine. But if a muon and antineutrino are fired together with the right
+energy and momentum, there is a nonzero amplitude to form the pion through the
+reverse interaction.}
+\end{classroomqa}
+
+\subsection{Energy and a virtual intermediate state}
+
+For a pion at rest,
 \begin{equation}
-\mu^- \to \nu_\mu + W^- \to \nu_\mu + e^- + \bar\nu_e.
-\end{equation}
-The muon is unstable simply because it is heavy enough to decay to the electron. The electron is stable against that mode because there is nothing lighter with the same charge pattern for it to decay into.
-
-Then comes neutron beta decay at quark level. Writing the neutron as \(ddu\), one possibility would be to turn the up quark into a down quark. But that would create a three-down-quark state, and the lecture rejects that route because it is too heavy. The successful route is
-\begin{align}
-ddu &\to uud + W^-,\\
-uud &= p,\\
-W^- &\to e^-+\bar\nu_e.
-\end{align}
-Therefore
-\begin{equation}
-n\to p+e^-+\bar\nu_e.
-\end{equation}
-In the lecture's own words, the basic components are always the same: one column-changing transition, followed by a \(W\), followed by another column-changing transition.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How can the intermediate \(W\) fail to conserve energy?
-
-\paragraph{Answer.} The lecture answers this at the level of Feynman-diagram kinematics. One does not insist that every intermediate line be on-shell. Exact conservation is enforced between the initial and final states. An intermediate state may violate the on-shell relation for a short time, and the lecture summarizes that by the energy-time uncertainty principle,
-\begin{equation}
-\Delta E\,\Delta t \sim 1.
-\end{equation}
-So one should not demand exact energy conservation between the first vertex and the second. One demands it for the complete process.
-
-The pion example makes this concrete. If the pion is at rest, then
-\begin{equation}
-m_\pi \approx 140\,\mathrm{MeV},
+m_\pi\simeq140\ {\rm MeV},
 \qquad
-m_\mu \approx 100\,\mathrm{MeV},
+m_\mu\simeq106\ {\rm MeV},
 \qquad
-m_\nu \approx 0.
+m_\nu\approx0
 \end{equation}
-Hence the final rest masses do not exhaust the initial energy,
+at the precision relevant here. The remaining energy becomes kinetic energy
+of the outgoing particles. Momentum conservation requires
 \begin{equation}
-m_\pi > m_\mu + m_{\nu_\mu},
+\boldsymbol p_\mu+\boldsymbol p_{\bar\nu}=0,
 \end{equation}
-and the difference appears as kinetic energy of the outgoing particles. If the initial pion is at rest, momentum conservation then forces the muon and antineutrino to emerge back-to-back.
+so the two particles leave back to back in the pion rest frame.
 
-Exactly the same logic explains why ordinary neutron beta decay does not produce a muon. There is not enough available energy. If one were to excite the neutron strongly enough, a muon channel could open, but for an unexcited neutron only the electron channel is kinematically accessible.
+\begin{classroomqa}
+\audiencequestion{How can energy be conserved when the intermediate \(W\) is
+far heavier than the pion?
+\lecturetimestamp{01:25:08}}
+\lecturerresponse{Only the initial and final particles must be on their mass
+shell. Four-momentum is conserved at every vertex, but an internal virtual
+line need not obey \(E^2=\boldsymbol p^2+m_W^2\). The larger its off-shell
+mismatch, the more strongly its propagator suppresses the process.\editorialnote{The lecture uses the traditional energy--time uncertainty
+language and says the intermediate state may violate energy briefly. The
+modern precise statement is the one in the response: energy-momentum is
+conserved, while a virtual internal line need not satisfy the real-particle
+mass-shell condition.}}
+\end{classroomqa}
 
-\section{Summary}
+\subsection{Muon decay}
 
-The lecture has now unfolded its main construction. A gauge theory means Maxwell-like fields, sources, conservation laws, symmetries, and the emission or absorption rules that go with them. Maxwell theory supplied the prototype, QCD supplied the non-abelian example in which gauge bosons themselves carry charge and interact, and the weak interaction supplied a new \(SU(2)\) structure acting on doublets of quarks and leptons.
+A muon can first change into its own neutrino by emitting a virtual \(W^-\):
+\begin{equation}
+\mu^-\longrightarrow\nu_\mu+W^{-*}.
+\end{equation}
+The virtual boson then produces an electron and electron antineutrino:
+\begin{equation}
+\mu^-\longrightarrow
+\nu_\mu+e^-+\bar\nu_e.
+\label{eq:l5-muon-decay}
+\end{equation}
+This is a purely leptonic process. The muon is about two hundred times heavier
+than the electron, so the final rest masses leave ample kinetic energy.
 
-But the final note is deliberately unresolved. One might guess that weak decays are slow because the weak analog of the fine-structure constant is ridiculously small. The lecture says explicitly that this is not the reason. At the level relevant here, the weak coupling is not absurdly smaller than the electromagnetic one. So the local machinery of the weak interaction is now on the board, but the real mystery is still ahead: why are weak decay rates so slow? That puzzle is left standing for the next lecture.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_05_figure_06.png}
+\caption{Muon decay through a virtual charged weak boson.}
+\lectureframe{01:29:24}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is the neutral particle emitted with the electron an
+antineutrino?
+\lecturetimestamp{01:29:06}}
+\lecturerresponse{Yes. The full final state contains one muon neutrino, one
+electron antineutrino, and the electron. Keeping the flavor labels prevents
+the two neutral particles from being confused.}
+\end{classroomqa}
+
+The electron cannot reverse this decay in empty space because it is lighter
+than the muon. The tau is heavier and can decay through analogous weak
+channels. Stability here is partly an accident of the mass ordering, not a
+difference in the underlying vertex.
+
+\begin{classroomqa}
+\audiencequestion{Is a linear accelerator effectively increasing the
+electron's mass so that otherwise forbidden reactions can run in the opposite
+direction?
+\lecturetimestamp{01:30:23}}
+\lecturerresponse{It does not change the electron's invariant rest mass, but
+it supplies kinetic energy. Sufficient center-of-mass energy can create heavier
+final particles, so the proposed physical idea is correct once mass is
+replaced by available collision energy.}
+\end{classroomqa}
+
+\subsection{Neutron beta decay at quark level}
+
+The neutron and proton valence compositions are
+\begin{equation}
+n=udd,
+\qquad
+p=uud.
+\end{equation}
+One down quark in the neutron makes the charged-current transition
+\begin{equation}
+d\longrightarrow u+W^{-*},
+\end{equation}
+turning \(udd\) into \(uud\). The virtual boson then decays:
+\begin{equation}
+W^{-*}\longrightarrow e^-+\bar\nu_e.
+\end{equation}
+Combining the two vertices reproduces
+\begin{equation}
+n\longrightarrow p+e^-+\bar\nu_e.
+\end{equation}
+
+The opposite quark transition \(u\to d+W^+\) would leave a three-down-quark
+baryon, but that available state is too heavy for a free neutron to produce.
+The actual down-to-up route is the energetically allowed one.
+
+\begin{classroomqa}
+\audiencequestion{Could a neutron decay into a proton, a muon, and the
+corresponding antineutrino instead?
+\lecturetimestamp{01:32:38}}
+\lecturerresponse{Not for a free neutron at rest: the neutron--proton mass
+difference is far smaller than the muon mass. With enough additional collision
+or excitation energy, the same weak vertex can participate in a channel that
+produces a muon. The prohibition is kinematic, not a missing interaction.}
+\end{classroomqa}
+
+\section{The Unresolved Suppression}
+
+The charged weak vertices explain which processes can occur, but not yet why
+they are so slow. One tempting answer would be an extraordinarily tiny weak
+coupling. That answer is wrong: the dimensionless weak gauge coupling is of
+roughly electromagnetic size. The suppression must come from something else.
+
+The missing ingredient is already visible in the virtual propagator: the
+\(W\) is very massive. At energies far below \(m_W\), charged-current
+amplitudes are suppressed roughly by powers of \(1/m_W^2\). That connection
+will be developed after the Higgs mechanism and electroweak symmetry breaking
+explain how the gauge bosons acquire mass.
+\editorialnote{The lecture preserves this as the puzzle for the next meeting.
+The heavy-\(W\) explanation is included here as a forward connection, not as a
+claim that its derivation occurred in this lecture.}
+
+\begin{classroomqa}
+\audiencequestion{When we say that the theory has this symmetry, do we mean
+that its Lagrangian is invariant under the corresponding operations?
+\lecturetimestamp{01:34:14}}
+\lecturerresponse{Exactly. The statement that the theory has the symmetry is
+shorthand for invariance of the Lagrangian, or equivalently the action, under
+those transformations. Writing the full Lagrangian is being postponed, not
+replaced by a different definition.}
+\end{classroomqa}
+
+The route is now complete: Maxwell theory supplies the prototype; QCD shows
+how non-Abelian gauge bosons carry and exchange charge; coupling constants
+explain the contrast between atomic and hadronic time scales; and weak
+\(SU(2)\) organizes quarks and leptons into doublets connected by
+\(W^\pm\). The remaining task is to understand why these gauge-mediated
+processes are weak in practice even though their underlying coupling is not
+exceptionally small.
