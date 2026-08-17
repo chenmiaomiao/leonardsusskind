@@ -41,7 +41,11 @@
 - Keep the screenshots nearby whenever the original board composition matters. In this lecture, that is especially true for the colored simultaneity constructions: the notes should not replace those frames with polished TikZ alone.
 - Prefer cautious completions over aggressive transcription. If a symbol is too small or too cropped to be trusted from the frame, state it in clean mathematical form only when the transcript and surrounding construction make the intended line unambiguous.
 
-## Uncertainties
+## Added Verified Frames
+- **lecture_01_figure_06.png (01:32:38):** Keep. The completed \(c=1\) Lorentz pair is legible and minimally obstructed.
+- **lecture_01_figure_07.png (01:35:58):** Keep. The restored factors of \(c\) are visible in both transformation equations.
+
+## Remaining Uncertainties
 - In `lecture_01_figure_02.png`, the subtitle refers to drawing horizontal lines, but the frame itself preserves the vertical and worldline structure more clearly than the finished grid. The full lattice must therefore be completed from the transcript.
 - In `lecture_01_figure_03.png`, the lower inverse equation is cropped, so the final factor after \(v\) is not securely legible from the image alone. The lecture context strongly supports \(t'\), with \(t\) temporarily interchangeable because \(t=t'\).
 - In `lecture_01_figure_03.png`, the upper equation \(x'=x-vt\) is only partially framed and should not be treated as a perfect board transcription.

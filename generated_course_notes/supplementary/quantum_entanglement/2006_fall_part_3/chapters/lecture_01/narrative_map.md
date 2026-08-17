@@ -11,7 +11,7 @@ After that framing, Susskind immediately shifts from program to first principles
 
 3. He defines a frame operationally as a lattice of meter sticks and clocks, then insists that the first move in a relativity problem is to draw spacetime with time vertical and space horizontal. This appears at exactly the point where the lecture must stop speaking abstractly and start assigning coordinates to events, and it leads directly into the Galilean transformation read off from the stationary and moving lattices.
 
-4. He derives \(t'=t\) and \(x'=x-vt\), then immediately tests them by asking what is invariant. This testing phase appears right away because he does not want the formulas to float free of physical meaning; by checking distance, position, velocity, and acceleration in sequence, he motivates why Newtonian laws take the form they do and why Galileo seemed right for ordinary mechanics.
+4. He derives \(t'=t\) and \(x'=x-vt\), then immediately tests them by asking what is invariant. The audience questions whether transported clocks could conceal a discrepancy and whether the two events in the distance calculation really share one time. These exchanges belong here because they expose the assumptions behind the algebra. The subsequent checks of distance, position, velocity, and acceleration motivate why Newtonian laws take the form they do and why Galileo seemed right for ordinary mechanics.
 
 5. He pivots from “what Galileo gets right” to “where Galileo fails,” using Maxwell and the speed of light as the crisis. This appears only after Galilean invariance has been made to look respectable, so that the clash with electromagnetism feels like a genuine contradiction rather than a textbook slogan, and it leads into Einstein’s decision to return to the foundations of coordinates and clocks.
 
@@ -21,7 +21,7 @@ After that framing, Susskind immediately shifts from program to first principles
 
 8. He extracts the result of that construction, \(t=vx\) in \(c=1\) units, then pauses to interpret the geometry rather than rush onward. This comes here because the lecture wants the audience to see the tilted simultaneity surface and the moving time axis as a symmetric pair before any abstract transformation is written, and it leads naturally to the Lorentz ansatz with unknown scale factors.
 
-9. He derives the Lorentz transformation in two stages: first by using light-ray invariance to force the two scale factors to coincide, and then by using reciprocity to determine the remaining function. This appears last because the lecture now has enough geometry to justify the algebra, and it ends with the full transformation, the restoration of \(c\), and the spoken moral that the new thing is not merely a different formula but the failure of universal simultaneity.
+9. He derives the Lorentz transformation in two stages: first by using light-ray invariance to force the two scale factors to coincide, and then by using reciprocity to determine the remaining function. This appears last because the lecture now has enough geometry to justify the algebra. The derivation ends with the full transformation, the restoration of \(c\), and a final audience question that sharpens why equal arrival times imply simultaneous emission only at the midpoint.
 
 ## Transition Cues
 - He often resets the room with compact pivots like “All right, now let’s begin,” or “So let’s begin with Galilean relativity.”
@@ -48,7 +48,7 @@ After that framing, Susskind immediately shifts from program to first principles
 - The spacetime lattice should not be rushed. If one writes the Galilean formulas before letting the frame become a grid of clocks and meter sticks, the lecture’s actual build-up is lost.
 - The invariance checks are easy to flatten into a short summary, but Susskind uses them to justify why Newtonian mechanics takes the form it does. That motivational chain matters.
 - The synchronization discussion should not be rewritten as a slick textbook definition. The midpoint observer, emitted flashes, and moving observer’s reinterpretation are the lecture’s conceptual engine.
-- The sound objection should survive as a standalone `Question & Answer` subsection. If it is absorbed into prose, the lecture loses one of its cleanest tension-and-resolution moments.
+- All four substantive audience exchanges should survive as standalone `Question & Answer` blocks: transported clocks, the common time in the separation calculation, sound synchronization, and the midpoint criterion.
 - The long simultaneity construction is vulnerable to over-compression into “one finds \(t=vx\).” The spoken lecture earns that line through a concrete path-tracing argument, and the chapter should preserve that feeling of construction.
 - The late Lorentz derivation should not be over-sanitized. The lecture’s rhythm depends on partial knowledge, one-more-step reasoning, and reciprocal back-solving rather than a single polished theorem statement.
 - The close should not drift into later relativity topics. This lecture stops at the Lorentz transformation and the nonuniversality of simultaneity, then points ahead to length contraction and time dilation for next time.

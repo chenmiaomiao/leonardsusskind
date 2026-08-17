@@ -44,7 +44,15 @@
 - `lecture_01_figure_04.png`: Light-ray line \(x=t\) in the simultaneity construction
 - `lecture_01_figure_05.png`: Symmetric \(c=1\) spacetime diagram
 
-## Uncertainties
+## Added Verified Frames
+- **lecture_01_figure_06.png (01:32:38):** Both completed natural-unit equations are visible with minimal obstruction:
+  \[
+  x'=\frac{x-vt}{\sqrt{1-v^2}},\qquad
+  t'=\frac{t-vx}{\sqrt{1-v^2}}.
+  \]
+- **lecture_01_figure_07.png (01:35:58):** Both dimensionally restored equations are visible, including \(v^2/c^2\) in the denominators and \(vx/c^2\) in the time numerator.
+
+## Remaining Uncertainties
 - In `lecture_01_figure_02.png`, the subtitle refers to drawing horizontal lines, but the frame preserves the vertical axis and worldline structure more clearly than the full set of horizontal constant-time slices. The redraw should therefore use the transcript to complete the grid, not the screenshot alone.
 - In `lecture_01_figure_03.png`, the inverse lower equation is cropped. The visible writing supports \(x=x'+v\cdots\), but the final factor is not fully shown in the image. The transcript strongly indicates \(vt\) or \(vt'\), with the lecture immediately noting that \(t=t'\).
 - In `lecture_01_figure_03.png`, the upper equation \(x'=x-vt\) is only partially framed. It is legible enough to identify the transformation, but not presented as a clean standalone board line.
