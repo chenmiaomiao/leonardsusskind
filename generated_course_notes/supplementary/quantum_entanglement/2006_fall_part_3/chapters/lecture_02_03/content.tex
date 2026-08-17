@@ -1,383 +1,547 @@
-\chapter{Maxwell Equations, Covariance, and Electromagnetic Waves}
+\chapter{Maxwell's Equations, Covariance, and Electromagnetic Waves}
 
-We begin exactly where the previous lecture stopped. We already know how electric and magnetic fields act on charged particles; the Lorentz force law tells us that part of the story. The missing half is the reverse question: what determines the fields themselves, and how do charges and currents generate them? In this lecture Leonard Susskind answers that question in a deliberately relativistic way. Maxwell's equations are not introduced merely as a list to memorize, but as field equations to be motivated physically, written covariantly, checked component by component, and then used to derive the existence of light waves. Throughout we work in units with \(c=1\). These notes follow Leonard Susskind closely and are curated by LazyingArt LLC.
+\lectureoverview{Electric and magnetic fields act on charged matter through the Lorentz force, but matter must also create and rearrange the fields. We shall formulate that reciprocal half of electromagnetism, show that Maxwell's equations are Lorentz covariant, derive their wave solutions, and then restore charge and current in a form that makes local conservation manifest. Throughout the lecture we use units in which \(c=1\).}
 
-\section{From the Lorentz Force to the Missing Field Equations}
+\section{The Other Half of Electromagnetism}
 
-The lecture opens by looking backward before it moves forward. Electric and magnetic fields push charged particles around, and the force is proportional to the charge because an uncharged particle does not feel the electromagnetic field at all. In ordinary three-vector language the law is
-\begin{align}
-\mathbf F = q\bigl(\mathbf E + \mathbf v \times \mathbf B\bigr).
-\end{align}
-This is the familiar half of electromagnetism: given the fields, we know how matter responds.
+Begin with the part of the subject already in hand. If a particle of charge \(q\) moves with velocity \(\mathbf v\) through electric and magnetic fields, the force is
+\begin{equation}
+\mathbf F=q\bigl(\mathbf E+\mathbf v\times\mathbf B\bigr).
+\label{eq:lorentz-force-three}
+\end{equation}
+The factor \(q\) is indispensable. An uncharged particle does not feel the electromagnetic force. The electric field contributes even when the particle is instantaneously at rest, whereas the magnetic contribution depends on its motion.
 
-\begin{figure}[h]
+Equation~\eqref{eq:lorentz-force-three} tells us what prescribed fields do to matter. It does not tell us what determines the fields. What produces an electric field around one object, a magnetic field around another, or a wave moving through empty space? The equations that answer those questions are Maxwell's equations.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.58\textwidth]{lecture_58_figure_02.png}
-\caption{Lorentz force rewritten schematically in field-tensor notation.}
+\includegraphics[width=0.62\textwidth]{lecture_58_figure_02.png}
+\caption{The three-vector Lorentz force and the beginning of its tensor reformulation.}
+\lectureframe{00:05:49}
 \end{figure}
 
-The board then pivots toward covariant notation. As written there, the second line is only schematic; it suppresses the free force index and the contraction with the four-velocity. The clean covariant statement is
-\begin{align}
-f^\mu = q\,F^\mu{}_{\nu}\,u^\nu.
-\end{align}
-Here \(f^\mu\) is the four-force, \(u^\nu\) is the four-velocity, and \(F^{\mu\nu}\) is the antisymmetric electromagnetic field tensor that we will reconstruct shortly. The point of the reminder is not just formal prettiness. Written this way, the Lorentz force law is manifestly the same in every inertial frame.
+The relativistic form of the force law anticipates the notation we shall need:
+\begin{equation}
+f^\mu=qF^\mu{}_{\nu}u^\nu.
+\label{eq:lorentz-force-four}
+\end{equation}
+Here \(u^\nu\) is the four-velocity, \(f^\mu\) is the four-force, and \(F^{\mu\nu}\) is an antisymmetric tensor assembled from \(\mathbf E\) and \(\mathbf B\). The board first displays only the schematic beginning of this expression; the contraction with \(u^\nu\) supplies the missing vector needed to leave one free force index.
 
-That is already the standard against which Maxwell's equations will be judged. The missing question is no longer how a charged particle moves in a prescribed field. The missing question is what determines the field itself: what decides whether there is an electric field here, a magnetic field there, or an electromagnetic wave moving through empty space? Those are the equations we now need, and those equations are Maxwell's equations.
+There is a physical reason that matter must act back on the field. An electromagnetic wave can strike a charge, accelerate it, and transfer energy to it. If the field could affect the charge while the charge could never affect the field, there would be no place from which that energy was withdrawn. Action and reaction are not quite the whole argument, but conservation of energy makes the reciprocal coupling unavoidable.
 
-As always in this course, the broader issue is relativity. If Maxwell's equations are the theory of light, and if the laws of physics are the same in all inertial frames, then light itself must come out with the same speed in all inertial frames. That is the puzzle Einstein struggled with, and the lecture keeps it in view from the start.
+\section{A Changing Source Sends Out a Disturbance}
 
-\section{Why Charges Must Affect Fields}
+A point charge produces an electric field directed outward or inward from its position. A current in a wire--a flow of charged particles--produces a magnetic field that circulates around the wire. These familiar static pictures already show two different geometric patterns: electric flux emanates from charge, while magnetic field lines wind around current.
 
-Before writing any field equations, Susskind slows down and asks why charged matter must affect the field at all. A point charge creates an electric field spreading outward from it. A current in a wire creates a magnetic field circulating around the wire. Those are familiar empirical facts, but the lecture wants the deeper logic that makes Maxwell's equations necessary.
+Now move the point charge abruptly. Near its new position the electric field must begin to rearrange, but a distant observer cannot learn of the motion instantly. The old field remains far away until a signal has had time to arrive. Between the near and far regions lies a moving front at which the field is changing. That moving rearrangement is an electromagnetic disturbance.
 
-The key point is reciprocity sharpened by conservation laws. An electromagnetic wave can hit a charged particle, change its motion, and give it energy. If that can happen, then the influence cannot run only one way. Charged matter must also be able to alter the electromagnetic field. Otherwise energy could appear in the particle without being taken from anywhere.
+If the charge is driven back and forth, successive rearrangements follow one another and form an electromagnetic wave. This is the elementary function of an antenna: an oscillating electric current sends a field disturbance outward. Reversing a current in a wire gives the magnetic version of the same argument. The circulation of \(\mathbf B\) must reverse, but the reversal propagates rather than appearing everywhere at once.
 
-\subsection{Question \& Answer}
+This causal picture sets two targets for Maxwell's equations. They must describe how charge and current source the fields, and they must permit changes in those fields to propagate no faster than light. The second target is also a test of relativity. If Maxwell's equations have the same form in every inertial frame and imply a definite wave speed, then every inertial frame must infer the same speed from them.
 
-\paragraph{Question.} Why must charged matter act back on the electromagnetic field?
+\section{Reviewing the Relativistic Wave Equation}
 
-\paragraph{Answer.} Because otherwise energy conservation would fail. If a field can do work on a charge, then a charge must be able to draw energy from the field and modify it. One may call this action and reaction, but the lecture's sharper point is conservation: the field cannot give energy to matter unless matter can affect the field in return.
+Before turning to vector fields, consider a scalar field \(\phi(\mathbf x,t)\), one number at every spacetime point. A first-derivative equation
+\begin{equation}
+\partial_\mu\phi=0
+\end{equation}
+would say that every spacetime derivative vanishes. The field would be constant and therefore unable to carry a wave. A nontrivial relativistic wave equation uses two derivatives:
+\begin{equation}
+\partial_\mu\partial^\mu\phi=0.
+\end{equation}
+With the sign convention used here,
+\begin{equation}
+\left(\partial_t^2-\partial_x^2-\partial_y^2-\partial_z^2\right)\phi=0,
+\label{eq:scalar-wave-four}
+\end{equation}
+or, more compactly,
+\begin{equation}
+\left(\partial_t^2-\nabla^2\right)\phi=0.
+\end{equation}
+The choice \(c=1\) lets time and distance carry compatible units. Restoring ordinary units would place \(1/c^2\) beside the second time derivative.
 
-The lecture then turns that abstract point into a causal picture. Suppose we move a point charge suddenly from one place to another. The field cannot rearrange itself instantaneously throughout all of space. A distant observer is not allowed to see the effect before a light signal could have arrived. Thus the field must rearrange by sending out a disturbance. Near the charge, the rearrangement happens first; farther away, the old field remains until the signal reaches it. If we shake the charge back and forth, the outward-moving disturbance becomes an electromagnetic wave. An antenna is precisely such a device.
+For a wave traveling along the \(z\)-axis, the field depends on \(z\) and \(t\), not on \(x\) or \(y\). Equation~\eqref{eq:scalar-wave-four} reduces to
+\begin{equation}
+\left(\partial_t^2-\partial_z^2\right)\phi=0.
+\label{eq:scalar-wave-one}
+\end{equation}
 
-The same story can be told for currents. Reverse a current in a wire, and the magnetic field around the wire must reverse as well. But that reversal cannot be known arbitrarily far away in arbitrarily short time. The change in the magnetic field must propagate outward, again as an electromagnetic disturbance. This is the basic physics Maxwell's equations must describe.
-
-\section{Wave Review and Vector-Calculus Review}
-
-Only now does the lecture pause for review. This is not filler. Before Maxwell's equations can be made to produce waves, we first recall what wave equations look like.
-
-Start with a scalar field \(\phi\), a single number attached to each point of spacetime. The relativistic wave equation is
-\begin{align}
-\partial_\mu \partial^\mu \phi = 0.
-\end{align}
-With the sign convention used throughout the lecture, this means
-\begin{align}
-\partial_t^2 \phi - \partial_x^2 \phi - \partial_y^2 \phi - \partial_z^2 \phi = 0.
-\end{align}
-If the wave moves along the \(z\)-axis, then \(\phi\) depends on \(z\) and \(t\) but not on \(x\) or \(y\), and the equation reduces to
-\begin{align}
-\partial_t^2 \phi - \partial_z^2 \phi = 0.
-\end{align}
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.56\textwidth]{lecture_58_figure_04.png}
-\caption{One-dimensional reduction of the wave equation.}
+\caption{The one-dimensional scalar wave equation used as the model for electromagnetic waves.}
+\lectureframe{00:47:03}
 \end{figure}
 
-The lecture emphasizes the two basic traveling-wave solutions,
+Its general traveling-wave form is
+\begin{equation}
+\phi(z,t)=f(z-t)+g(z+t).
+\end{equation}
+The profile \(f(z-t)\) moves toward increasing \(z\), because a point of fixed phase satisfies \(z-t=\text{constant}\). The profile \(g(z+t)\) moves in the opposite direction. Nothing requires either profile to be sinusoidal; any sufficiently smooth shape translates without changing form.
+
+Sinusoids are nevertheless convenient:
+\begin{equation}
+\phi(z,t)=A\cos\!\bigl(k(z-t)\bigr).
+\end{equation}
+The wave number \(k\) controls the wavelength,
+\begin{equation}
+\lambda=\frac{2\pi}{k}.
+\end{equation}
+A large \(k\) produces rapid spatial oscillation and a short wavelength; a small \(k\) produces a long wavelength. These same profiles will soon become components of \(\mathbf E\) and \(\mathbf B\).
+
+\section{The Vector Calculus Maxwell Needs}
+
+Maxwell's equations are written with dot products, cross products, divergence, and curl. It is worth rebuilding the notation once, because the later component calculations use precisely these patterns.
+
+For ordinary three-vectors \(\mathbf a\) and \(\mathbf b\), the dot product is the scalar
+\begin{equation}
+\mathbf a\cdot\mathbf b
+=a_xb_x+a_yb_y+a_zb_z.
+\end{equation}
+The cross product is another vector,
 \begin{align}
-\phi = f(z-t), \qquad \phi = g(z+t),
+(\mathbf a\times\mathbf b)_x&=a_yb_z-a_zb_y,\\
+(\mathbf a\times\mathbf b)_y&=a_zb_x-a_xb_z,\\
+(\mathbf a\times\mathbf b)_z&=a_xb_y-a_yb_x.
 \end{align}
-representing right-moving and left-moving profiles. A particularly useful special case is the sinusoidal wave
+The remaining components follow from the cyclic order \(x\to y\to z\to x\).
+
+Introduce the differential operator
+\begin{equation}
+\boldsymbol\nabla=
+\left(\partial_x,\partial_y,\partial_z\right).
+\end{equation}
+Its entries are operators rather than ordinary numbers, but the dot- and cross-product patterns can still be used. For a vector field \(\mathbf A\),
+\begin{equation}
+\boldsymbol\nabla\cdot\mathbf A
+=\partial_xA_x+\partial_yA_y+\partial_zA_z
+\label{eq:divergence}
+\end{equation}
+is the divergence, while
 \begin{align}
-\phi(z,t) = \cos\!\bigl(k(z-t)\bigr),
+(\boldsymbol\nabla\times\mathbf A)_x
+ &=\partial_yA_z-\partial_zA_y,\\
+(\boldsymbol\nabla\times\mathbf A)_y
+ &=\partial_zA_x-\partial_xA_z,\\
+(\boldsymbol\nabla\times\mathbf A)_z
+ &=\partial_xA_y-\partial_yA_x
+\label{eq:curl}
 \end{align}
-where \(k\) is the wave number. Large \(k\) means short wavelength; small \(k\) means long wavelength. These are exactly the shapes that will later reappear in the electric and magnetic fields themselves.
+are the components of the curl.
 
-The lecture then reminds us of the vector operations Maxwell's equations use. For ordinary three-vectors,
+The geometry is as important as the formulas. A vector field has positive divergence where it appears to flow outward from a source. It has curl where it circulates. The radial electric field of a point charge illustrates divergence; the magnetic field winding around a current-carrying wire illustrates curl. A spatially constant vector field has neither.
+
+\section{Maxwell's Equations in Vacuum}
+
+In the absence of charge and current, Maxwell's equations are
 \begin{align}
-\mathbf a \cdot \mathbf b &= a_x b_x + a_y b_y + a_z b_z,\\
-(\mathbf a \times \mathbf b)_x &= a_y b_z - a_z b_y,
+\boldsymbol\nabla\times\mathbf E&=-\partial_t\mathbf B,
+\label{eq:faraday-vac}\\
+\boldsymbol\nabla\cdot\mathbf B&=0,
+\label{eq:gauss-b-vac}\\
+\boldsymbol\nabla\times\mathbf B&=\partial_t\mathbf E,
+\label{eq:ampere-vac}\\
+\boldsymbol\nabla\cdot\mathbf E&=0.
+\label{eq:gauss-e-vac}
 \end{align}
-with the remaining components obtained by cyclic permutation. For a vector field \(\mathbf A\),
-\begin{align}
-\nabla \cdot \mathbf A &= \partial_x A_x + \partial_y A_y + \partial_z A_z,\\
-(\nabla \times \mathbf A)_x &= \partial_y A_z - \partial_z A_y,
-\end{align}
-again with cyclic permutation for the other components.
+The two curl equations nearly exchange \(\mathbf E\) and \(\mathbf B\), but an essential minus sign distinguishes them. The two divergence equations say that neither field has a source in the vacuum region under consideration. Magnetic divergence remains zero even after electric sources are restored; ordinary electromagnetism contains no magnetic charge.
 
-Susskind keeps the geometry in sight. Divergence measures the extent to which a field seems to emanate from somewhere. Curl measures the extent to which it circulates around something. A field of arrows flowing outward from a point suggests divergence; a field winding around a wire suggests curl. These are the operational meanings needed when Maxwell's equations are written down.
-
-\section{Vacuum Maxwell Equations and the Relativity Puzzle}
-
-With that preparation in place, the lecture writes the source-free Maxwell equations, in the order actually used on the board:
-\begin{align}
-\nabla \times \mathbf E &= -\,\partial_t \mathbf B,\\
-\nabla \cdot \mathbf B &= 0,\\
-\nabla \times \mathbf B &= \partial_t \mathbf E,\\
-\nabla \cdot \mathbf E &= 0.
-\end{align}
-These are the vacuum Maxwell equations. They describe electric and magnetic fields in the absence of charge density and current density.
-
-Two features are immediately visible. First, the curl equations are almost symmetric under interchange of \(\mathbf E\) and \(\mathbf B\), but not quite: there is an essential sign difference. Second, the divergence equations are asymmetric. The electric field will later acquire a source term \(\rho\), but the magnetic field does not acquire an analogous source term in this lecture, so \(\nabla\cdot\mathbf B=0\).
-
-Susskind briefly points out where sources will eventually go. One will later write
-\(\nabla\cdot\mathbf E=\rho\) and \(\nabla\times\mathbf B=\partial_t\mathbf E+\mathbf J\), but for the moment those terms are set aside. This postponement is deliberate. The vacuum equations reveal the covariant structure in its cleanest form.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How can Maxwell's equations be the same in every frame if they imply the same light speed in every frame?
-
-\paragraph{Answer.} That is precisely the relativistic puzzle. If Maxwell's equations are the theory of light, and if those equations are the same in every inertial frame, then every inertial frame must predict the same light speed from them. The resolution is not to patch the wave speed by hand from frame to frame. The resolution is to express the laws in terms of objects with definite Lorentz transformation rules, so that the equations themselves are manifestly frame-independent.
-
-That is why the lecture now turns to the electromagnetic field tensor. The payoff is not elegance by itself. The payoff is that once the equations are written as tensor equations, their invariance is visible, and the constancy of the speed of light follows from the same structure.
-
-\section{The Electromagnetic Field Tensor}
-
-The next move is the central formal pivot of the lecture. The electric and magnetic fields are assembled into a single antisymmetric \(4\times 4\) tensor \(F^{\mu\nu}\). The time coordinate is placed first, so the row and column order is \(t,x,y,z\). The board image fixes the electric entries and the antisymmetric layout.
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.54\textwidth]{lecture_58_figure_03.png}
-\caption{Board layout of the electromagnetic field tensor.}
+\includegraphics[width=0.76\textwidth]{lecture_58_figure_06.png}
+\caption{The four vacuum Maxwell equations, arranged to display the near symmetry between electric and magnetic fields.}
+\lectureframe{00:27:30}
 \end{figure}
 
-With the sign convention fixed by the visible board entries, we write
-\begin{align}
+Charge density \(\rho\) will eventually replace the zero on the right of Equation~\eqref{eq:gauss-e-vac}, and current density \(\mathbf J\) will enter Equation~\eqref{eq:ampere-vac}. We postpone those terms temporarily. The source-free equations expose the transformation structure and the wave mechanism with the least clutter.
+
+They also sharpen Einstein's puzzle. A Galilean observer following a wave would expect to subtract velocities and measure a smaller wave speed. Yet if the same Maxwell equations hold in every inertial frame, each observer derives the same unit wave speed. The way out is not to alter the wave equation from frame to frame. It is to use the Lorentz transformation and to exhibit Maxwell's equations in objects whose transformation laws are already known.
+
+\section{Electric and Magnetic Fields as One Tensor}
+
+The electric and magnetic fields combine into the antisymmetric field tensor
+\begin{equation}
 F^{\mu\nu}=
 \begin{pmatrix}
-0 & -E_x & -E_y & -E_z\\
-E_x & 0 & -B_z & B_y\\
-E_y & B_z & 0 & -B_x\\
-E_z & -B_y & B_x & 0
+0   & -E_x & -E_y & -E_z\\
+E_x & 0    & -B_z & B_y\\
+E_y & B_z  & 0    & -B_x\\
+E_z & -B_y & B_x  & 0
+\end{pmatrix},
+\label{eq:field-tensor}
+\end{equation}
+where the row and column order is \(t,x,y,z\). Antisymmetry,
+\begin{equation}
+F^{\mu\nu}=-F^{\nu\mu},
+\end{equation}
+forces the diagonal entries to vanish and determines the lower half of the matrix from the upper half. The time-space entries contain \(\mathbf E\); the purely spatial entries contain \(\mathbf B\).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\textwidth]{lecture_58_figure_03.png}
+\caption{The completed electromagnetic field tensor, including its electric and magnetic entries.}
+\lectureframe{00:32:05}
+\end{figure}
+
+The importance of \(F^{\mu\nu}\) is not merely that six field components fit into one matrix. Under a Lorentz transformation it transforms as a rank-two tensor. Electric and magnetic fields measured by different observers therefore mix in exactly the way required for the entire object to transform coherently.
+
+There is a second antisymmetric tensor, the dual field tensor \(\widetilde F^{\mu\nu}\). With the present convention it is obtained from Equation~\eqref{eq:field-tensor} by the replacement
+\begin{equation}
+\mathbf E\longmapsto-\mathbf B,
+\qquad
+\mathbf B\longmapsto\mathbf E.
+\label{eq:dual-replacement}
+\end{equation}
+Thus
+\begin{equation}
+\widetilde F^{\mu\nu}=
+\begin{pmatrix}
+0    & B_x  & B_y  & B_z\\
+-B_x & 0    & -E_z & E_y\\
+-B_y & E_z  & 0    & -E_x\\
+-B_z & -E_y & E_x  & 0
 \end{pmatrix}.
-\end{align}
-The diagonal entries vanish because the tensor is antisymmetric, and the entries below the diagonal are the negatives of those above it. The time-space slots contain the electric field; the purely spatial slots contain the magnetic field.
+\label{eq:dual-tensor}
+\end{equation}
+The sign in Equation~\eqref{eq:dual-replacement} matters. The lecture first tries the interchange verbally, catches the sign mismatch, and corrects it before completing the matrix.
 
-The lecture then introduces a second antisymmetric tensor, the dual tensor \(\tilde F^{\mu\nu}\). We do not need to overdevelop it. What matters is the replacement rule, stated cautiously because Susskind corrects himself while talking through the signs:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\textwidth]{lecture_58_figure_07.png}
+\caption{The dual tensor being assembled by exchanging electric and magnetic entries with the required sign.}
+\lectureframe{00:35:45}
+\end{figure}
+
+\section{The Covariant Vacuum Equations}
+
+Each Maxwell equation contains one derivative. Starting from a rank-two tensor and contracting one derivative index leaves one free index, so the natural covariant candidates are
 \begin{align}
-\mathbf E \mapsto -\,\mathbf B, \qquad \mathbf B \mapsto \mathbf E.
+\partial_\mu F^{\mu\nu}&=0,
+\label{eq:maxwell-covariant-vac}\\
+\partial_\mu\widetilde F^{\mu\nu}&=0.
+\label{eq:maxwell-dual-vac}
 \end{align}
-With that convention, \(\tilde F^{\mu\nu}\) packages the other half of Maxwell's equations.
+For each fixed value of \(\nu\), Equation~\eqref{eq:maxwell-covariant-vac} is one equation. Since \(\nu\) can be \(t,x,y,z\), it packages four scalar equations. Equation~\eqref{eq:maxwell-dual-vac} packages the other four. This matches the two vector curl equations and two scalar divergence equations in the original list.
 
-At this stage the lecture's rhythm is very clear: write the tensor, inspect its slots, and then ask what covariant first-derivative equations it could possibly satisfy. Since Maxwell's equations contain only first derivatives and should leave one free index, the natural guess is
-\begin{align}
-\partial_\mu F^{\mu\nu} &= 0,\\
-\partial_\mu \tilde F^{\mu\nu} &= 0.
-\end{align}
-There are four equations in the first line and four in the second, one for each choice of \(\nu\).
-
-Now comes the trust-building step: we check components. For the time component,
-\begin{align}
-\partial_\mu F^{\mu t}
-&= \partial_t F^{tt} + \partial_x F^{xt} + \partial_y F^{yt} + \partial_z F^{zt}\\
-&= \partial_x E_x + \partial_y E_y + \partial_z E_z\\
-&= \nabla \cdot \mathbf E.
-\end{align}
-Thus \(\partial_\mu F^{\mu t}=0\) is exactly \(\nabla\cdot\mathbf E=0\).
-
-To stay close to the lecture, it is also useful to check a spatial component. Taking \(\nu=z\),
+Compact notation is useful only if it reproduces the familiar equations. Take \(\nu=z\):
 \begin{align}
 \partial_\mu F^{\mu z}
-&= \partial_t F^{tz} + \partial_x F^{xz} + \partial_y F^{yz} + \partial_z F^{zz}\\
-&= -\,\partial_t E_z + \partial_x B_y - \partial_y B_x\\
-&= -\,\partial_t E_z + (\nabla \times \mathbf B)_z.
+&=\partial_tF^{tz}
+  +\partial_xF^{xz}
+  +\partial_yF^{yz}
+  +\partial_zF^{zz}\\
+&=-\partial_tE_z+\partial_xB_y-\partial_yB_x\\
+&=-\partial_tE_z+
+  \bigl(\boldsymbol\nabla\times\mathbf B\bigr)_z.
 \end{align}
-So \(\partial_\mu F^{\mu z}=0\) is precisely the \(z\)-component of
-\begin{align}
-\nabla \times \mathbf B = \partial_t \mathbf E.
-\end{align}
-The other spatial components work the same way. Likewise, \(\partial_\mu \tilde F^{\mu\nu}=0\) packages \(\nabla\cdot\mathbf B=0\) together with \(\nabla\times\mathbf E=-\,\partial_t\mathbf B\).
+The term \(F^{zz}\) vanishes by antisymmetry. Setting the result to zero gives the \(z\)-component of
+\begin{equation}
+\boldsymbol\nabla\times\mathbf B=\partial_t\mathbf E.
+\end{equation}
+The \(x\)- and \(y\)-components follow by cycling the indices.
 
-This is the formal heart of the lecture. Once Maxwell's equations are written as tensor equations, we can see immediately that they are the same in every inertial frame.
-
-\section{From Maxwell to Electromagnetic Waves}
-
-The lecture then pivots from invariance to content: now that Maxwell's equations are written covariantly, what do they actually say? The answer is that they allow wave-like solutions.
-
-We begin with
-\begin{align}
-\nabla \times \mathbf B = \partial_t \mathbf E
-\end{align}
-and differentiate once more with respect to time:
-\begin{align}
-\partial_t^2 \mathbf E = \nabla \times \partial_t \mathbf B.
-\end{align}
-Now we use the other curl equation,
-\begin{align}
-\partial_t \mathbf B = -\,\nabla \times \mathbf E,
-\end{align}
-to eliminate \(\mathbf B\). This gives
-\begin{align}
-\partial_t^2 \mathbf E = -\,\nabla \times (\nabla \times \mathbf E).
-\end{align}
-So far the equations still involve the whole vector \(\mathbf E\). The next step, exactly as in the lecture, is to isolate one component, say \(E_x\).
-
-The board algebra is long, but its strategy is simple. The \(x\)-component of the double curl can be reorganized into a clean form:
-\begin{align}
-\partial_t^2 E_x
-&= -\bigl(\nabla \times (\nabla \times \mathbf E)\bigr)_x\\
-&= -\,\partial_x(\nabla \cdot \mathbf E)
-   + \partial_x^2 E_x + \partial_y^2 E_x + \partial_z^2 E_x.
-\end{align}
-In vacuum, \(\nabla\cdot\mathbf E=0\), so the first term drops out and we obtain
-\begin{align}
-\partial_t^2 E_x - \partial_x^2 E_x - \partial_y^2 E_x - \partial_z^2 E_x = 0.
-\end{align}
-Thus the \(x\)-component of the electric field satisfies the same wave equation that we earlier wrote for the scalar field \(\phi\). This is the exact mathematical payoff Susskind wants. The electric field itself can propagate as a wave.
-
-A simple plane-wave example is now immediate:
-\begin{align}
-E_x(z,t) = \cos(z-t), \qquad E_y = 0.
-\end{align}
-This is a right-moving wave along the \(z\)-axis in the lecture's units. It is also polarized: the electric field has been chosen to point along the \(x\)-direction. With the sign convention fixed above, a consistent accompanying magnetic field is
-\begin{align}
-B_y(z,t) = \cos(z-t), \qquad B_x = B_z = 0.
-\end{align}
-This explicit \(B_y\) is not copied from the board; it is the clean consequence of the chosen sign convention together with \(\nabla\times\mathbf E=-\,\partial_t\mathbf B\).
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why must the electromagnetic wave be transverse?
-
-\paragraph{Answer.} Because the divergence and curl equations leave no room for a propagating longitudinal component. For a wave depending only on \(z\) and \(t\),
-\begin{align}
-\nabla \cdot \mathbf E
-= \partial_x E_x + \partial_y E_y + \partial_z E_z
-= \partial_z E_z.
-\end{align}
-In vacuum this must vanish, so
-\begin{align}
-\partial_z E_z = 0.
-\end{align}
-Therefore \(E_z\) can at most be a constant. A constant field is not part of the wave profile, so the wave part of the \(z\)-component must be absent.
-
-Now look at the curl. If \(E_x(z,t)\) is nonzero while \(E_y=0\) and the wave part of \(E_z\) vanishes, then the only nonzero component of \(\nabla\times\mathbf E\) lies along \(y\). But \(\nabla\times\mathbf E=-\,\partial_t\mathbf B\), so the magnetic field itself must point along \(y\). Hence
-\begin{align}
-\mathbf E \perp \hat z, \qquad \mathbf B \perp \hat z, \qquad \mathbf E \perp \mathbf B.
-\end{align}
-That is the transversality of electromagnetic radiation. The electric field, the magnetic field, and the direction of propagation are mutually perpendicular.
-
-\begin{remark}
-The next frame is kept because it preserves the board geometry of the wave, even though its subtitle metadata is mismatched. Its evidentiary value here is visual: it belongs to the wave-and-polarization discussion, not to the anti-symmetric-matrix discussion suggested by the subtitle timing.
-\end{remark}
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.48\textwidth]{lecture_58_figure_05.png}
-\caption{Board sketch of a transverse wave propagating along \(z\).}
+\includegraphics[width=0.76\textwidth]{lecture_58_figure_08.png}
+\caption{Component expansion of the covariant field equation; the diagonal tensor entry vanishes and the remaining terms reconstruct Maxwell's equations.}
+\lectureframe{00:43:30}
 \end{figure}
 
-\begin{figure}[h]
+Now take the time component:
+\begin{align}
+\partial_\mu F^{\mu t}
+&=\partial_tF^{tt}
+  +\partial_xF^{xt}
+  +\partial_yF^{yt}
+  +\partial_zF^{zt}\\
+&=\partial_xE_x+\partial_yE_y+\partial_zE_z\\
+&=\boldsymbol\nabla\cdot\mathbf E.
+\end{align}
+It therefore gives Equation~\eqref{eq:gauss-e-vac}. Performing the same checks on the dual tensor yields
+\(\boldsymbol\nabla\cdot\mathbf B=0\) and
+\(\boldsymbol\nabla\times\mathbf E=-\partial_t\mathbf B\).
+
+The compact equations are now established rather than merely guessed. Their free-index structure makes them four-vector equations, so a Lorentz transformation changes their components but not their form. This is the precise sense in which the vacuum Maxwell equations are the same in every inertial frame.
+
+\section{From First-Order Equations to a Wave}
+
+Maxwell's equations contain only first derivatives, whereas a wave equation contains second derivatives. The apparent mismatch is resolved because Maxwell's theory couples two fields. A pair of first-order equations for \(\mathbf E\) and \(\mathbf B\) can be combined into a second-order equation for either field alone.
+
+Differentiate Equation~\eqref{eq:ampere-vac} with respect to time:
+\begin{equation}
+\partial_t^2\mathbf E
+=\boldsymbol\nabla\times\partial_t\mathbf B.
+\end{equation}
+Faraday's law supplies the time derivative of \(\mathbf B\),
+\begin{equation}
+\partial_t\mathbf B=-\boldsymbol\nabla\times\mathbf E,
+\end{equation}
+and therefore
+\begin{equation}
+\partial_t^2\mathbf E
+=-\boldsymbol\nabla\times
+  \bigl(\boldsymbol\nabla\times\mathbf E\bigr).
+\label{eq:double-curl}
+\end{equation}
+
+The board works through one component rather than invoking a memorized identity. For the \(x\)-component,
+\begin{align}
+\bigl[\boldsymbol\nabla\times
+(\boldsymbol\nabla\times\mathbf E)\bigr]_x
+&=\partial_y(\boldsymbol\nabla\times\mathbf E)_z
+ -\partial_z(\boldsymbol\nabla\times\mathbf E)_y\\
+&=\partial_y(\partial_xE_y-\partial_yE_x)
+ -\partial_z(\partial_zE_x-\partial_xE_z)\\
+&=\partial_x(\partial_yE_y+\partial_zE_z)
+ -\partial_y^2E_x-\partial_z^2E_x.
+\end{align}
+Add and subtract \(\partial_x^2E_x\) to expose the divergence:
+\begin{align}
+\bigl[\boldsymbol\nabla\times
+(\boldsymbol\nabla\times\mathbf E)\bigr]_x
+&=\partial_x
+  (\partial_xE_x+\partial_yE_y+\partial_zE_z)
+ -(\partial_x^2+\partial_y^2+\partial_z^2)E_x\\
+&=\partial_x(\boldsymbol\nabla\cdot\mathbf E)
+ -\nabla^2E_x.
+\label{eq:double-curl-x}
+\end{align}
+In vacuum \(\boldsymbol\nabla\cdot\mathbf E=0\). Combining
+Equations~\eqref{eq:double-curl} and \eqref{eq:double-curl-x} gives
+\begin{equation}
+\left(\partial_t^2-\nabla^2\right)E_x=0.
+\label{eq:ex-wave}
+\end{equation}
+
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-0.3,0) -- (8.5,0) node[right] {$z$};
-\draw[->] (0,-1.7) -- (0,1.7) node[above] {$x$};
-\draw[->] (0,0) -- (-1.4,0.9) node[above left] {$y$};
+\includegraphics[width=0.72\textwidth]{lecture_58_figure_09.png}
+\caption{The component calculation reaches the wave equation for \(E_x\).}
+\lectureframe{00:57:10}
+\end{figure}
 
-\draw[thick] plot[smooth] coordinates {
-(0.0,0.0)
-(0.7,0.9)
-(1.4,0.0)
-(2.1,-0.9)
-(2.8,0.0)
-(3.5,0.9)
-(4.2,0.0)
-(4.9,-0.9)
-(5.6,0.0)
-(6.3,0.9)
-(7.0,0.0)
-};
+The same calculation applies to \(E_y\) and \(E_z\), and an analogous elimination gives
+\begin{equation}
+\left(\partial_t^2-\nabla^2\right)\mathbf B=0.
+\end{equation}
+Electric and magnetic fields can therefore propagate through empty space as waves. In the units used here their speed is one, which means the speed is \(c\) when ordinary units are restored.
 
-\draw[->,thick] (0.7,0.0) -- (0.2,0.32);
-\draw[->,thick] (2.1,0.0) -- (2.6,-0.32);
-\draw[->,thick] (3.5,0.0) -- (3.0,0.32);
-\draw[->,thick] (4.9,0.0) -- (5.4,-0.32);
-\draw[->,thick] (6.3,0.0) -- (5.8,0.32);
+\section{A Plane Wave and Its Polarization}
 
-\node at (7.7,1.15) {$\mathbf E$};
-\node at (7.2,-0.7) {$\mathbf B$};
+Construct a simple wave traveling in the positive \(z\)-direction:
+\begin{equation}
+\mathbf E(z,t)
+=\widehat{\mathbf x}\,E_0
+  \cos\!\bigl(k(z-t)\bigr).
+\label{eq:plane-e}
+\end{equation}
+Its profile translates along \(z\) without changing shape. Because the electric field points along the \(x\)-axis, the wave is linearly polarized in the \(x\)-direction. We have chosen \(E_y=0\) only to keep the example simple; a second transverse polarization could be included.
+
+The longitudinal component is not equally free. Since the wave depends only on \(z\) and \(t\),
+\begin{equation}
+\boldsymbol\nabla\cdot\mathbf E
+=\partial_zE_z=0.
+\end{equation}
+Thus \(E_z\) may be a constant, but it cannot contain the varying wave profile. A uniform background field can be superposed or removed independently; it is not part of the propagating radiation. The wave itself is transverse:
+\begin{equation}
+\mathbf E_{\mathrm{wave}}\cdot\widehat{\mathbf z}=0.
+\end{equation}
+
+Faraday's law fixes the magnetic field. For Equation~\eqref{eq:plane-e}, the only nonzero component of \(\boldsymbol\nabla\times\mathbf E\) is the \(y\)-component,
+\begin{equation}
+(\boldsymbol\nabla\times\mathbf E)_y=\partial_zE_x.
+\end{equation}
+Consequently \(\partial_t\mathbf B\) points along \(y\), and a compatible choice is
+\begin{equation}
+\mathbf B(z,t)
+=\widehat{\mathbf y}\,E_0
+  \cos\!\bigl(k(z-t)\bigr).
+\label{eq:plane-b}
+\end{equation}
+In these units the electric and magnetic amplitudes are equal. Their orientation obeys
+\begin{equation}
+\mathbf E\perp\mathbf B,
+\qquad
+\mathbf E\perp\widehat{\mathbf z},
+\qquad
+\mathbf B\perp\widehat{\mathbf z},
+\qquad
+\mathbf E\times\mathbf B\parallel\widehat{\mathbf z}.
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.70\textwidth]{lecture_58_figure_05.png}
+\caption{The completed board sketch of a transverse electromagnetic wave: the electric and magnetic oscillations are perpendicular to one another and to the direction of propagation.}
+\lectureframe{01:05:25}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+  \draw[->,thick] (0,0) -- (8.2,0) node[right] {$z$};
+  \draw[->,thick] (0,-1.6) -- (0,1.7) node[above] {$x$};
+  \draw[->,thick] (0,0) -- (-1.15,-0.8) node[below left] {$y$};
+  \draw[blue!70!black,thick,domain=0:7.5,samples=120]
+    plot (\x,{0.95*sin(90*\x)});
+  \foreach \z/\s in {0.8/1,2.8/-1,4.8/1,6.8/-1}{
+    \draw[->,green!45!black,thick]
+      (\z,0) -- ++({-0.55*\s},{-0.38*\s});
+  }
+  \node[blue!70!black] at (6.9,1.25) {$\mathbf E$};
+  \node[green!45!black] at (5.2,-1.05) {$\mathbf B$};
+  \draw[->,very thick] (6.2,1.55) -- (7.7,1.55)
+    node[midway,above] {propagation};
 \end{tikzpicture}
-\caption{A clean reconstruction of the transverse electromagnetic-wave geometry: propagation along \(z\), electric field along \(x\), magnetic field along \(y\).}
+\caption{A clean geometric reconstruction: \(\mathbf E\), \(\mathbf B\), and the propagation direction form a mutually perpendicular triad.}
 \end{figure}
 
-This is the lecture's physical climax. Maxwell's equations imply electromagnetic waves, those waves move with speed \(1\) in the chosen units, and their electric and magnetic fields are transverse and polarized. Because the equations themselves are the same in every frame, these structural properties belong to every inertial observer.
+This is the character of light and of all electromagnetic radiation in vacuum. Since the equations that produced the wave are Lorentz covariant, another inertial observer again describes an electromagnetic wave moving at \(c\), with transverse electric and magnetic fields.
 
-\section{Restoring Sources: Charge, Current, Continuity, and Covariance}
+\section{Charge Density and Current Density}
 
-Only after the vacuum story is clear does the lecture restore what had been postponed: charge density and current density. The Maxwell equations become
-\begin{align}
-\nabla \cdot \mathbf E &= \rho,\\
-\nabla \cdot \mathbf B &= 0,\\
-\nabla \times \mathbf E &= -\,\partial_t \mathbf B,\\
-\nabla \times \mathbf B &= \partial_t \mathbf E + \mathbf J.
-\end{align}
-Here \(\rho\) is the charge density and \(\mathbf J\) is the current density.
+We now restore the sources that were temporarily set aside. When many charged particles occupy a region, it is useful to coarse-grain them into a continuous charge density
+\begin{equation}
+\rho(\mathbf x,t)=\frac{dQ}{dV}.
+\end{equation}
+The approximation is like treating water as a continuous fluid even though it consists of molecules. Positive and negative charges contribute with opposite signs, so \(\rho\) is the net charge per unit volume.
 
-The charge density is defined by
-\begin{align}
-\rho = \frac{dQ}{dV},
-\end{align}
-so that the charge in a region \(V\) is
-\begin{align}
-Q_V = \int_V \rho\,dV.
-\end{align}
-The lecture emphasizes the continuum approximation: in reality space may contain many individual charges, but if we coarse-grain over sufficiently small regions we may treat charge as a continuous density field.
+The charge in a chosen region \(V\) is
+\begin{equation}
+Q_V(t)=\int_V\rho(\mathbf x,t)\,dV.
+\label{eq:charge-volume}
+\end{equation}
+The density may vary with position and time. A pile of charge can move away from a point, changing the local density there. It cannot, however, vary in an arbitrary fashion. Nature conserves electric charge.
 
-The density \(\rho\) can depend on time as well as position, because charge can move. But it cannot change arbitrarily. The total amount of charge in the universe is conserved, and the lecture immediately strengthens that statement. Charge is not allowed simply to disappear here and reappear there with nothing in between. If charge leaves one region and appears in another, there must be a flow of charge connecting the two.
+Global conservation alone would be too weak. It would allow charge to disappear from Earth and reappear on Mars at the same instant while the total remained unchanged. The stronger statement is local: charge can leave one place and reach another only through a flow in the intervening space.
 
-\subsection{Question \& Answer}
+To describe that flow, take an infinitesimal oriented surface element
+\begin{equation}
+d\boldsymbol\sigma=\widehat{\mathbf n}\,d\sigma.
+\end{equation}
+Its magnitude is the area, and its direction is normal to the surface. The current density \(\mathbf J\) is defined so that the charge crossing the element per unit time is
+\begin{equation}
+\frac{dQ}{dt}=\mathbf J\cdot d\boldsymbol\sigma.
+\label{eq:current-flux-element}
+\end{equation}
+The magnitude of \(\mathbf J\) is charge per unit area per unit time, and its direction is the direction of positive-charge flow.
 
-\paragraph{Question.} Why is charge conservation stronger than the statement that total charge is constant?
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.64\textwidth]{lecture_58_figure_10.png}
+\caption{An oriented area element and the flux factor \(d\boldsymbol\sigma\cdot\mathbf J\).}
+\lectureframe{01:18:15}
+\end{figure}
 
-\paragraph{Answer.} Because global constancy by itself would still allow absurd behavior: charge could vanish on Earth and reappear on Mars without anything happening in between. The lecture forbids that. Charge may move from one place to another only by flowing through the intervening space. That stronger, local form of conservation is what leads to current density and to the continuity equation.
+The dot product selects the component normal to the surface. A current tangent to the surface crosses neither side and contributes zero. A current parallel to the normal gives the maximum flux for a fixed magnitude. A wire current is one special case, but \(\mathbf J\) may also describe charge flowing through a sheet or throughout three-dimensional space.
 
-To describe such flow, take an infinitesimal oriented surface element \(d\boldsymbol{\sigma}\). The charge per unit time passing through it is
-\begin{align}
-\frac{dQ}{dt} = \mathbf J \cdot d\boldsymbol{\sigma}.
-\end{align}
-This is why current is a vector. Its magnitude is charge per unit area per unit time, and its direction is the direction in which charge flows.
+\section{Local Conservation and the Continuity Equation}
 
-Now fix a spatial region \(V\) with outward-pointing boundary element \(d\boldsymbol{\sigma}\). If net current flows outward through the boundary, the charge inside must decrease. Thus
-\begin{align}
-\frac{dQ_V}{dt} = -\oint_{\partial V} \mathbf J \cdot d\boldsymbol{\sigma}.
-\end{align}
-Since \(Q_V=\int_V \rho\,dV\), we also have
-\begin{align}
-\frac{dQ_V}{dt} = \int_V \partial_t \rho\,dV.
-\end{align}
-Combining the two,
-\begin{align}
-\int_V \partial_t \rho\,dV = -\oint_{\partial V} \mathbf J \cdot d\boldsymbol{\sigma}.
-\end{align}
+Fix a region \(V\) in space and orient every element of its closed boundary \(\partial V\) outward. If there is a net outward current, the charge inside decreases:
+\begin{equation}
+\frac{dQ_V}{dt}
+=-\oint_{\partial V}\mathbf J\cdot d\boldsymbol\sigma.
+\label{eq:integral-conservation}
+\end{equation}
+The minus sign is physical rather than conventional: positive outward flux removes positive charge from the region. Using Equation~\eqref{eq:charge-volume},
+\begin{equation}
+\int_V\partial_t\rho\,dV
+=-\oint_{\partial V}\mathbf J\cdot d\boldsymbol\sigma.
+\label{eq:integral-continuity-one}
+\end{equation}
 
-At this point the lecture invokes Gauss's theorem, also called the divergence theorem:
-\begin{align}
-\oint_{\partial V} \mathbf A \cdot d\boldsymbol{\sigma}
-= \int_V (\nabla \cdot \mathbf A)\,dV.
-\end{align}
-Applying it to \(\mathbf J\) gives
-\begin{align}
-\int_V \partial_t \rho\,dV
-= -\int_V (\nabla \cdot \mathbf J)\,dV.
-\end{align}
-If this holds for every region \(V\), then the integrands themselves must agree, and we obtain
-\begin{align}
-\partial_t \rho + \nabla \cdot \mathbf J = 0.
-\end{align}
-This is the continuity equation, the local form of charge conservation.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_58_figure_11.png}
+\caption{The fixed-region conservation law after the surface flux is converted into a volume statement.}
+\lectureframe{01:29:00}
+\end{figure}
 
-Now the relativistic packaging becomes natural. The four quantities \(\rho, J_x, J_y, J_z\) form the four-current
-\begin{align}
-J^\mu = (\rho, J_x, J_y, J_z),
-\end{align}
-and the continuity equation becomes
-\begin{align}
-\partial_\mu J^\mu = 0.
-\end{align}
+Gauss's theorem, also called the divergence theorem, relates flux through a closed surface to divergence in its interior:
+\begin{equation}
+\oint_{\partial V}\mathbf A\cdot d\boldsymbol\sigma
+=\int_V\boldsymbol\nabla\cdot\mathbf A\,dV.
+\label{eq:divergence-theorem}
+\end{equation}
+One can picture hidden pipes injecting water at points inside a vessel. The divergence measures the local rate at which water emerges from the pipe ends; the surface integral measures the total water leaving the vessel. Whatever is created as outward flow inside must eventually cross the boundary.
 
-The sourced Maxwell equations themselves then collapse into a single covariant equation:
-\begin{align}
-\partial_\mu F^{\mu\nu} = J^\nu.
-\end{align}
-For \(\nu=t\), the right-hand side is \(J^t=\rho\), so the equation becomes
-\begin{align}
-\nabla \cdot \mathbf E = \rho.
-\end{align}
-For spatial \(\nu\), it becomes
-\begin{align}
-\nabla \times \mathbf B = \partial_t \mathbf E + \mathbf J.
-\end{align}
-The other half of Maxwell's equations remains
-\begin{align}
-\partial_\mu \tilde F^{\mu\nu} = 0.
-\end{align}
+Applying Equation~\eqref{eq:divergence-theorem} to \(\mathbf J\) gives
+\begin{equation}
+\int_V
+\left(\partial_t\rho+\boldsymbol\nabla\cdot\mathbf J\right)dV=0.
+\end{equation}
+This relation holds for every possible region \(V\). The integrand must therefore vanish point by point:
+\begin{equation}
+\boxed{\partial_t\rho+\boldsymbol\nabla\cdot\mathbf J=0.}
+\label{eq:continuity-three}
+\end{equation}
 
-So the return of sources does not spoil covariance. On the contrary, it completes it. Charges and currents enter as a four-vector, and the field equations remain tensor equations. The way fields act on matter is Lorentz invariant, and the way matter generates fields is Lorentz invariant as well.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_58_figure_12.png}
+\caption{The local continuity equation written component by component.}
+\lectureframe{01:29:50}
+\end{figure}
 
-\section{Summary}
+Equation~\eqref{eq:continuity-three} says exactly what local conservation requires. If charge density decreases at a point or within a small region, current must diverge outward from it. If current converges inward, charge density increases.
 
-The lecture has a very definite arc. We begin with the Lorentz force law and identify the missing half of the subject: not how fields act on matter, but how matter determines fields. Maxwell's equations answer that question. In vacuum they can be written as the covariant equations \(\partial_\mu F^{\mu\nu}=0\) and \(\partial_\mu \tilde F^{\mu\nu}=0\), and from them we derive wave equations for the field components themselves. A plane-wave solution then shows that electromagnetic radiation is transverse and polarized, with \(\mathbf E\), \(\mathbf B\), and the direction of propagation mutually perpendicular.
+The density and current naturally form the four-current
+\begin{equation}
+J^\mu=(\rho,J_x,J_y,J_z)
+\label{eq:four-current}
+\end{equation}
+in \(c=1\) units. The continuity equation becomes the Lorentz scalar equation
+\begin{equation}
+\partial_\mu J^\mu=0.
+\label{eq:continuity-four}
+\end{equation}
+The flow of a relativistic distribution should transform as a four-vector, just as the four-velocity of one particle does. Equation~\eqref{eq:continuity-four} makes local charge conservation valid in every inertial frame.
 
-Finally, when charges and currents are restored, the continuity equation and the four-current \(J^\mu\) lead to the sourced covariant equation \(\partial_\mu F^{\mu\nu}=J^\nu\). That is the closing point Susskind wants to leave with us: electromagnetism can be written entirely in Lorentz-covariant form, and because those same laws imply waves moving with speed \(c\), light travels with the same speed in every inertial frame.
+\section{Maxwell's Equations with Sources}
+
+Restoring charge and current gives
+\begin{align}
+\boldsymbol\nabla\cdot\mathbf E&=\rho,
+\label{eq:gauss-e-source}\\
+\boldsymbol\nabla\cdot\mathbf B&=0,\\
+\boldsymbol\nabla\times\mathbf E&=-\partial_t\mathbf B,\\
+\boldsymbol\nabla\times\mathbf B&=\partial_t\mathbf E+\mathbf J.
+\label{eq:ampere-source}
+\end{align}
+The equations involving electric sources collapse into
+\begin{equation}
+\boxed{\partial_\mu F^{\mu\nu}=J^\nu,}
+\label{eq:maxwell-source-covariant}
+\end{equation}
+while the source-free magnetic pair remains
+\begin{equation}
+\boxed{\partial_\mu\widetilde F^{\mu\nu}=0.}
+\label{eq:maxwell-dual-source}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_58_figure_13.png}
+\caption{The sourced Maxwell equations beside their covariant form \(\partial_\mu F^{\mu\nu}=J^\nu\).}
+\lectureframe{01:34:00}
+\end{figure}
+
+The time component of Equation~\eqref{eq:maxwell-source-covariant} reads
+\begin{equation}
+\partial_\mu F^{\mu t}=J^t=\rho,
+\end{equation}
+and the component calculation already performed turns its left side into
+\(\boldsymbol\nabla\cdot\mathbf E\). The three spatial components reproduce
+\(\boldsymbol\nabla\times\mathbf B=\partial_t\mathbf E+\mathbf J\).
+
+There is also a useful consistency check. Applying \(\partial_\nu\) to
+Equation~\eqref{eq:maxwell-source-covariant} gives
+\begin{equation}
+\partial_\nu J^\nu
+=\partial_\nu\partial_\mu F^{\mu\nu}=0,
+\end{equation}
+because the two derivatives are symmetric under \(\mu\leftrightarrow\nu\), whereas \(F^{\mu\nu}\) is antisymmetric.\editorialnote{This short consistency check follows from the covariant equation and makes explicit why Maxwell's sourced equations automatically respect the continuity equation.}
+
+The reciprocal structure is now complete. The tensor force law
+\(f^\mu=qF^\mu{}_\nu u^\nu\) describes how fields act on charge, and
+Equation~\eqref{eq:maxwell-source-covariant} describes how charge and current generate fields. Both are tensor equations. In vacuum, the same field equations yield transverse waves moving at \(c\). Lorentz covariance and the electromagnetic wave equation therefore meet at the point that motivated the construction: every inertial observer obtains the same laws of electromagnetism and the same speed of light.
