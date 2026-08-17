@@ -6,22 +6,20 @@
 
 > Led by [LazyingArt LLC](https://lazying.art). Websites: [lazying.art](https://lazying.art) and [learn.lazying.art](https://learn.lazying.art).
 
-[![Archive](https://img.shields.io/badge/archive-active-16a34a?style=flat-square)](#)
-[![Subtitles](https://img.shields.io/badge/subtitles-.srt-2563eb?style=flat-square)](#-repo-layout)
-[![Transcripts](https://img.shields.io/badge/transcripts-markdown-0f766e?style=flat-square)](#-repo-layout)
-[![Generated Notes](https://img.shields.io/badge/generated_notes-LaTeX-f97316?style=flat-square)](#-repo-layout)
-[![PDF Outputs](https://img.shields.io/badge/outputs-PDF-a855f7?style=flat-square)](#-repo-layout)
-[![Theoretical Minimum](https://img.shields.io/badge/focus-Theoretical%20Minimum-f59e0b?style=flat-square)](#)
+[![Archive](https://img.shields.io/badge/archive-active-16a34a?style=flat-square)](all_notes/)
+[![Subtitles](https://img.shields.io/badge/subtitles-.srt-2563eb?style=flat-square)](subtitles/)
+[![Transcripts](https://img.shields.io/badge/transcripts-markdown-0f766e?style=flat-square)](markdown/)
+[![Generated Notes](https://img.shields.io/badge/generated_notes-LaTeX-f97316?style=flat-square)](generated_course_notes/)
+[![PDF Outputs](https://img.shields.io/badge/outputs-PDF-a855f7?style=flat-square)](all_notes/)
+[![Theoretical Minimum](https://img.shields.io/badge/focus-Theoretical%20Minimum-f59e0b?style=flat-square)](https://www.youtube.com/playlist?list=PLERGeJGfknBTR_nXt5QL88xJF5LhDZBnG)
 
-This repository is a physics-study archive centered on Leonard Susskind lectures, the broader *Theoretical Minimum* ecosystem, and transcript-derived companion notes.
+This archive brings Leonard Susskind lecture subtitles, timestamped transcripts, editable TeX notes, and published PDFs together by course. It covers the *Theoretical Minimum* sequence and supplementary lectures.
 
-It combines lecture transcriptions, subtitle files, generated TeX notes, compiled PDFs, and hand-maintained course folders in a stable directory structure.
-
-> 📘 Full lecture transcriptions, subtitle files, generated TeX note workflows, and published course PDFs are maintained here in one archive.
+> 🛠️ The reusable download, transcription, and notes pipeline lives in [Video2Book](https://github.com/lachlanchen/Video2Book), included here as a submodule.
 >
-> 🛠️ The download, transcription, and subtitle-to-notes automation used here is maintained in the companion tool repo [Video2Book](https://github.com/lachlanchen/Video2Book), which is included in this repository as the `Video2Book/` submodule.
-
-> **Edition note:** the timestamped transcripts are machine-generated and may contain recognition errors. The compiled books are independently edited, AI-assisted companion notes reconstructed from those transcripts and blackboard frames; they are not exact transcripts, original Susskind manuscripts, or lecturer-endorsed editions. The ongoing [editorial revision](references/editorial_revision_status.md) records source and figure provenance chapter by chapter.
+> **Repository status:** [lachlanchen/leonardsusskind](https://github.com/lachlanchen/leonardsusskind) is the canonical repository. [chenmiaomiao/leonardsusskind](https://github.com/chenmiaomiao/leonardsusskind) is a temporary legacy mirror planned for deprecation; use the canonical repository for clones, issues, and pull requests.
+>
+> **Edition note:** timestamped transcripts are machine-generated and may contain recognition errors. The compiled books are independently edited, AI-assisted companion notes reconstructed from transcripts and blackboard frames; they are not exact transcripts, original Susskind manuscripts, or lecturer-endorsed editions. The [editorial revision log](references/editorial_revision_status.md) records source and figure provenance chapter by chapter.
 
 ## 📚 Published Books
 
@@ -94,7 +92,7 @@ It combines lecture transcriptions, subtitle files, generated TeX notes, compile
     <td></td>
   </tr>
   <tr>
-    <td colspan="4"><strong>Supplementary</strong> · Quantum → Special → General → Statistical → Cosmology</td>
+    <td colspan="4"><strong>Supplementary</strong> · Quantum · Particle Physics · String Theory · Higgs</td>
   </tr>
   <tr>
     <td align="center">
@@ -149,222 +147,77 @@ It combines lecture transcriptions, subtitle files, generated TeX notes, compile
   </tr>
 </table>
 
-## ✨ What This Repo Provides
+## 🗂️ Find the Material
 
-- Existing hand-maintained course PDFs and LaTeX material in `core_*` and `supplemental_*` folders.
-- A paired transcription layer for the lecture archive:
-  - `subtitles/` for `.srt`
-  - `markdown/` for timestamped Markdown transcripts
-- A transcript-to-TeX pipeline in `generated_course_notes/`.
-- The `Video2Book/` submodule for playlist download, transcription, and subtitle-to-notes automation.
-- Imported companion material in `theoretical_minimum_companion_notes/`.
-- Reusable LaTeX templates in `template/kaobook` and `template/tuftle`.
+| 📚 Material | 📍 Path | 🧾 Contents |
+|---|---|---|
+| Full course books | [`all_notes/`](all_notes/) | One merged PDF per available course run, plus `pocket_books/` and larger-type `pocket_books_1_2x/` editions. |
+| Published course shelves | `core_*`, `supplemental_*` | Reader-facing PDFs, course READMEs, selected chapter PDFs, and older hand-maintained notes. |
+| Editable generated notes | [`generated_course_notes/`](generated_course_notes/) | Lecture TeX, verified frames, audit records, chapter PDFs, and merged course sources. |
+| Timestamped transcripts | [`markdown/`](markdown/) | Searchable Markdown transcriptions arranged lecture by lecture. |
+| Subtitles | [`subtitles/`](subtitles/) | Matching `.srt` files for the lecture videos. |
+| Companion and historical notes | [`theoretical_minimum_companion_notes/`](theoretical_minimum_companion_notes/), [`the_theoretical_minimum/`](the_theoretical_minimum/) | Imported companion TeX, a related source submodule, and older note sets preserved in the published course shelves. |
+| Tools and templates | [`Video2Book/`](Video2Book/), [`scripts/`](scripts/), [`template/`](template/) | Playlist download, transcription, note generation, publishing helpers, and LaTeX layouts. |
 
-English is the canonical README. Translations live in `i18n/` and may lag behind the English file.
+The transcript, subtitle, and generated-note trees share the same hierarchy: `core/` or `supplementary/`, then subject, course run, and lecture. A generated course normally contains `chapters/`, `figures/`, `course.tex`, and the merged `course.pdf`.
 
-## 🎬 Source Playlist
+English is the canonical README. Translations are maintained in [`i18n/`](i18n/) and may follow the English revision shortly afterward.
 
-The main transcript and subtitle archive in this repository is derived from this YouTube playlist:
+## 🎬 Source Lectures
+
+The main transcription archive follows this YouTube playlist:
 
 - <https://www.youtube.com/playlist?list=PLERGeJGfknBTR_nXt5QL88xJF5LhDZBnG>
 
-## 🗂️ Repo Layout
+## 🚀 Build and Automation
 
-<table>
-  <colgroup>
-    <col style="width: 33%">
-    <col style="width: 33%">
-    <col style="width: 34%">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>📚 Layer</th>
-      <th>📍 Main path</th>
-      <th>🧾 What it contains</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Hand-maintained course folders</td>
-      <td><code>core_*</code>, <code>supplemental_*</code></td>
-      <td>Reader-facing course folders, published PDFs, READMEs, and selected LaTeX sources.</td>
-    </tr>
-    <tr>
-      <td>Subtitles</td>
-      <td><code>subtitles/</code></td>
-      <td>Lecture subtitle files in <code>.srt</code> format.</td>
-    </tr>
-    <tr>
-      <td>Markdown transcripts</td>
-      <td><code>markdown/</code></td>
-      <td>Timestamped lecture transcripts used for reading, search, and note generation.</td>
-    </tr>
-    <tr>
-      <td>Generated note sources</td>
-      <td><code>generated_course_notes/</code></td>
-      <td>Transcript-derived TeX chapters, figures, prompts, and course build material.</td>
-    </tr>
-    <tr>
-      <td>Published generated PDFs</td>
-      <td><code>supplemental_*/</code></td>
-      <td>Canonical published outputs for finished generated courses, using a course-specific merged PDF filename plus <code>lecture_XX.pdf</code> files.</td>
-    </tr>
-    <tr>
-      <td>Legacy build artifacts</td>
-      <td><code>core_cosmology/cosmology_ch10/artifacts/</code></td>
-      <td>Build outputs kept for the older chapter-10 cosmology subproject.</td>
-    </tr>
-    <tr>
-      <td>Companion notes</td>
-      <td><code>theoretical_minimum_companion_notes/</code></td>
-      <td>Imported TeX companion notes derived from the <code>weka511/tm</code> project.</td>
-    </tr>
-    <tr>
-      <td>Templates and shared material</td>
-      <td><code>template/</code>, <code>figs/</code>, <code>the_theoretical_minimum/</code>, <code>Video2Book/</code></td>
-      <td>LaTeX templates, shared branding/assets, the related submodule checkout, and the download/transcription automation submodule.</td>
-    </tr>
-  </tbody>
-</table>
-
-Within `subtitles/`, `markdown/`, and `generated_course_notes/`, material is organized by track (`core/` or `supplementary/`), then subject, then course run.
-
-For generated notes, each course folder usually contains:
-
-- `chapters/` for lecture-by-lecture TeX and per-lecture PDFs
-- `figures/` for extracted lecture frames and figure assets
-- `course.tex` and `course.pdf` for the merged full-course book
-
-## 🧭 Root Course Folders
-
-| 🏷️ Group | 📂 Folders |
-|---|---|
-| Core | `core_classical_mechanics`, `core_quantum_mechanics`, `core_special_relativity`, `core_general_relativity`, `core_cosmology`, `core_statistical_mechanics` |
-| Supplemental | `supplemental_advanced_quantum`, `supplemental_cosmology_and_black_holes`, `supplemental_higgs_boson`, `supplemental_particle_physics_1`, `supplemental_particle_physics_2`, `supplemental_particle_physics_3`, `supplemental_quantum_entanglement`, `supplemental_relativity`, `supplemental_string_theory` |
-
-## 🚀 How To Use The Repo
-
-### 📖 Read published notes
-
-Open the PDFs in the relevant course folder, for example:
-
-- `core_classical_mechanics/2011_fall_theoretical_minimum/classical_mechanics_theoretical_minimum.pdf`
-- `core_classical_mechanics/2011_fall_modern_physics_stanford_partial/classical_mechanics_stanford_partial.pdf`
-- `core_quantum_mechanics/2012_winter_theoretical_minimum/quantum_mechanics_theoretical_minimum.pdf`
-- `core_quantum_mechanics/2012_winter_modern_physics_stanford/quantum_mechanics_modern_physics_stanford.pdf`
-- `core_special_relativity/2012_spring_theoretical_minimum/special_relativity_theoretical_minimum.pdf`
-- `core_general_relativity/2012_fall_theoretical_minimum/general_relativity_theoretical_minimum.pdf`
-- `core_cosmology/2013_winter_theoretical_minimum/cosmology_theoretical_minimum.pdf`
-- `core_cosmology/2009_winter_legacy_cosmology/cosmology_legacy.pdf`
-- `core_statistical_mechanics/lesson_1.pdf`
-- `supplemental_advanced_quantum/advanced_quantum_mechanics.pdf`
-- `supplemental_cosmology_and_black_holes/topics_in_string_theory.pdf`
-- `supplemental_higgs_boson/demystifying_the_higgs_boson.pdf`
-- `supplemental_particle_physics_1/particle_physics_1_basic_concepts.pdf`
-- `supplemental_particle_physics_2/particle_physics_2_standard_model.pdf`
-- `supplemental_particle_physics_3/particle_physics_3_supersymmetry_and_grand_unification.pdf`
-- `supplemental_quantum_entanglement/quantum_entanglement_part_1.pdf`
-- `supplemental_quantum_entanglement/quantum_entanglement_part_3.pdf`
-- `supplemental_string_theory/string_theory_and_m_theory.pdf`
-
-### 📝 Read transcripts directly
-
-Use:
-
-- `subtitles/` for subtitle-style reading and timestamp fidelity
-- `markdown/` for text review, searching, and note generation
-
-### ⬇️ Refresh the source playlist
-
-Use the parent wrapper, which delegates to the `Video2Book` submodule:
+Clone the canonical repository with its submodules:
 
 ```bash
-./scripts/download_susskind_playlist.sh
+git clone --recurse-submodules git@github.com:lachlanchen/leonardsusskind.git
+cd leonardsusskind
+git submodule update --init --recursive
 ```
 
-### 🎙️ Run the transcription queue
-
-Use the parent wrappers, which delegate to the `Video2Book` submodule:
+The root wrappers delegate reusable work to the `Video2Book/` submodule:
 
 ```bash
+# Download or refresh the source playlist.
+./scripts/download_susskind_playlist.sh
+
+# Run transcription and its monitor.
 ./scripts/start_transcription_tmux.sh
 ./scripts/start_transcription_monitor_tmux.sh
-```
 
-### 🧪 Work on transcript-derived notes
-
-The generated-note workspace lives under:
-
-- `generated_course_notes/`
-
-Within each course run:
-
-- `chapters/` holds one folder per lecture
-- each lecture folder contains the chapter TeX and its compiled lecture PDF
-- `course.pdf` is the merged full-course PDF for that run
-
-Run the note curator through the parent wrappers, which delegate to the `Video2Book` submodule:
-
-```bash
+# Curate lecture-by-lecture TeX notes and monitor the queue.
 ./scripts/start_course_notes_tmux.sh
 ./scripts/start_course_notes_monitor_tmux.sh
-```
 
-### 📘 Export compact pocket-format PDFs
-
-Generate hand-held, 6x9-inch variants from finished generated course LaTeX:
-
-```bash
+# Export compact 6x9-inch or A5 editions.
 ./scripts/export_course_pocket_pdfs.sh
 ./scripts/export_course_pocket_pdfs.sh --size a5 --suffix a5
-```
 
-Outputs are written to `all_notes/pocket_books/<course>_pocket.pdf` by default (canonical
-filenames, with optional custom suffix via `--suffix`).
-
-### 📚 Work on imported companion notes
-
-```bash
+# Rebuild the imported companion notes.
 ./theoretical_minimum_companion_notes/build_all.sh
 ```
 
 ## 🤝 Collaboration
 
-Contributions that improve the mathematical quality, clarity, and preservation of Leonard Susskind-related study material are welcome.
+Contributions that improve mathematical accuracy, readability, or source preservation are welcome.
 
-Priority areas include:
+- Correct physics terms, speaker attribution, and timestamps in `subtitles/` or `markdown/`.
+- Refine derivations, prose, typography, and cross-references in `generated_course_notes/`.
+- Verify extracted frames, reconstruct blackboard equations, or redraw diagrams in TikZ.
+- Improve provenance and connect related lectures, books, and historical note sets.
 
-- transcript cleanup
-  - fix speaker attribution
-  - repair timestamps
-  - correct physics terms, names, and notation
-- TeX improvement
-  - turn transcripts into cleaner mathematical exposition
-  - improve structure, typography, and cross-references
-  - refine generated chapters into durable course notes
-- figure and equation work
-  - verify extracted lecture frames
-  - redraw diagrams in TikZ
-  - convert blackboard equations into reliable LaTeX
-- broader physics archival work
-  - improve *Theoretical Minimum* companion material
-  - connect related Susskind lectures, books, and note sets
-  - help spread and preserve this body of physics teaching responsibly
-
-Contributions should use focused commits and identify the exact folders, transcripts, or course runs changed.
+Keep each contribution focused, identify the exact course and lecture changed, and include source timestamps or build evidence where relevant.
 
 ## 🙏 Acknowledgements
 
-- Leonard Susskind for the original lecture content.
-- Repository curation and publication tooling: [LazyingArt LLC](https://lazying.art)
-- Simon Crase for the companion-note repository imported into `theoretical_minimum_companion_notes/`.
-- Companion note source repository: <https://github.com/weka511/tm>
-- Existing referenced note sources:
-  - <https://www.lapasserelle.com/general_relativity/>
-  - <https://www.lapasserelle.com/cosmology/>
-  - <https://www.lapasserelle.com/statistical_mechanics/>
-- Provenance note for the older La Passerelle-derived PDF sets:
-  - [`references/lapasserelle_susskind_pdf_provenance.md`](references/lapasserelle_susskind_pdf_provenance.md)
+- Leonard Susskind for the original lectures and teaching.
+- [LazyingArt LLC](https://lazying.art) for repository curation and publication tooling.
+- Simon Crase and the [`weka511/tm`](https://github.com/weka511/tm) project for the imported companion notes.
+- La Passerelle and André Cabannes for older [general relativity](https://www.lapasserelle.com/general_relativity/), [cosmology](https://www.lapasserelle.com/cosmology/), and [statistical mechanics](https://www.lapasserelle.com/statistical_mechanics/) note sets preserved here. See the [provenance record](references/lapasserelle_susskind_pdf_provenance.md).
 
 ## ❤️ Support
 
