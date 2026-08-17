@@ -1,45 +1,29 @@
 # Visual Evidence
-## Frame Inventory
-- `lecture_04_figure_01.png`: Stanford title card only, with no board mathematics or diagram content, so this screenshot should not remain in the final notes.
-- `lecture_04_figure_02.png`: Early whiteboard setup for the Galilean-relativity picture, showing \(x' = x-vt\), \(t' = t\), and the initial \(t\)-\(x\) axes, and this screenshot should remain in the final notes as board-layout evidence.
-- `lecture_04_figure_03.png`: Strong spacetime-diagram frame showing the slanted moving-origin worldline labeled by \(x=vt\), \(x'=0\), and \(t'\), and this screenshot should remain in the final notes as primary visual evidence.
-- `lecture_04_figure_04.png`: Later two-board frame with partial algebra on the left and a more developed skewed spacetime sketch on the right, and this screenshot should remain only as a secondary figure if the asymmetry discussion is kept.
 
-## Equation Extraction
-- `lecture_04_figure_02.png`: \(x' = x - vt\) [visible]
-- `lecture_04_figure_02.png`: \(t' = t\) [visible]
-- `lecture_04_figure_02.png`: \(t\) as the vertical-axis label [visible]
-- `lecture_04_figure_02.png`: \(x\) as the horizontal-axis label [visible]
-- `lecture_04_figure_03.png`: \(x = vt\) [visible]
-- `lecture_04_figure_03.png`: \(x' = 0\) [visible]
-- `lecture_04_figure_03.png`: \(t'\) [visible]
-- `lecture_04_figure_03.png`: \(t\) on the original vertical axis [partially visible]
-- `lecture_04_figure_03.png`: \(x = vt \iff x' = 0\) for the slanted worldline of the primed origin [standard completion]
-- `lecture_04_figure_04.png`: \(-2xvt\) [partially visible]
-- `lecture_04_figure_04.png`: a term of the form \((1-v^2)x^2\), or a closely related \(x^2\)-term, on the left board [partially visible]
-- `lecture_04_figure_04.png`: additional left-board algebra is present but too cropped to transcribe reliably [partially visible]
+## Verification Result
 
-## Diagram Extraction
-- `lecture_04_figure_02.png` should be shown both as a screenshot and as a TikZ redraw: the frame preserves the board structure of the Galilean setup, while the redraw can cleanly show the unprimed \(t\)- and \(x\)-axes before the moving-frame construction is completed.
-- `lecture_04_figure_03.png` should be shown both as a screenshot and as a TikZ redraw: the screenshot is the clearest evidence that the lecturer identifies the slanted line with both \(x=vt\) and \(x'=0\), and the redraw can make the geometry legible.
-- `lecture_04_figure_03.png` is the key frame for preserving the original board logic that the primed construction is being drawn on top of the unprimed axes, not on a separate diagram.
-- `lecture_04_figure_04.png` should be used, if at all, as a screenshot-plus-TikZ pair: the right-hand board is useful as qualitative evidence of a later asymmetric spacetime sketch, but the redraw should be explicitly treated as cautious editorial cleanup because the lecturer blocks part of the figure.
-- `lecture_04_figure_01.png` should be omitted entirely from the mathematical notes.
+Twelve source-board frames are accepted and the opening title card is rejected. The accepted frames follow the recording from Galilean kinematics through length contraction. The compact-space image was re-extracted because the former frame belonged to the preceding twin discussion.
 
-## Reconstruction Guidance
-- For `lecture_04_figure_02.png`, keep the screenshot nearby and typeset the clean equations
-  \(x' = x-vt\) and \(t' = t\)
-  as displayed mathematics; the screenshot is evidence for the board order and the axis layout, not for a polished final figure.
-- For `lecture_04_figure_03.png`, keep the screenshot nearby and redraw the spacetime diagram with unprimed axes, the slanted worldline through the origin, and the labels \(x=vt\), \(x'=0\), and \(t'\); this is the frame where the board most clearly supports the identification of the moving origin with the primed time axis.
-- The clean note version should standardize the geometry using the transcript where needed, especially the idea that the primed origin satisfies \(x'=0\) and appears in the unprimed frame as \(x=vt\).
-- For `lecture_04_figure_04.png`, use the screenshot only as evidence that the lecture had a right-board skewed spacetime construction and simultaneous left-board algebra; do not build exact displayed equations from it beyond the few legible fragments.
-- If the asymmetry discussion is retained, redraw only the qualitative diagrammatic structure from `lecture_04_figure_04.png` and keep the screenshot beside it so the reader can see which parts are genuinely visible and which parts are cautious completion.
-- Full Lorentz-transformation formulas, invariant-interval algebra, or length-contraction derivations should be reconstructed from the transcript and standard formulas, not inferred aggressively from these frames alone.
+## Equation Evidence
 
-## Uncertainties
-- `lecture_04_figure_02.png` does not yet show a finished \(t'\)-axis clearly enough to treat the frame as the completed Galilean grid.
-- In `lecture_04_figure_03.png`, Susskind’s hand comes very close to the upper labels, so the exact spacing and placement of \(x=vt\), \(x'=0\), and \(t'\) should not be overread.
-- In `lecture_04_figure_03.png`, the lower horizontal axis is only partly visible, so a clean redraw should normalize the axis lengths rather than copying the crop literally.
-- In `lecture_04_figure_04.png`, the left-board algebra is incomplete and partly cut off; the exact sign structure and coefficients beyond fragments like \(-2xvt\) are not reliable from the image alone.
-- In `lecture_04_figure_04.png`, the right-board diagram has visible structure but not fully legible labels, so any TikZ version should be presented as a cautious reconstruction rather than a verbatim transcription.
-- `lecture_04_figure_01.png` is visually clean but mathematically useless, so it should not be allowed to influence the note structure at all.
+- **00:03:06:** \(x'=x-vt\), \(t'=t\), and the initial spacetime axes.
+- **00:09:10:** the Lorentz transformation with explicit \(c\).
+- **00:18:45:** reciprocal scale factors for \(t+x\) and \(t-x\).
+- **00:33:15:** the algebra establishing \(t'^2-x'^2=t^2-x^2\).
+- **00:50:45:** \(t'=t\sqrt{1-v^2}\) in natural units.
+- **00:59:35:** the twin proper-time calculation.
+- **01:28:10:** \(x'=\sqrt{1-v^2}\) for a unit rest length.
+
+## Diagram Evidence
+
+- **00:38:40:** light cone and interval regions, paired with a labeled TikZ classification.
+- **00:48:18:** moving-origin worldline and \(t'\)-axis.
+- **01:12:55:** pulse exchange between the twins.
+- **01:17:56:** compact spatial identification, paired with an intrinsic cylinder.
+- **01:24:20:** the rod's spacetime ribbon and the moving observer's simultaneity slice.
+
+## Limits
+
+- The recording is \(320\times240\), so board details are supported by nearby typeset mathematics.
+- The compact-space exchange remains unresolved in the lecture; the figure documents the question and does not imply a solution.
+- TikZ companions clarify visible geometry without introducing a different physical setup.
