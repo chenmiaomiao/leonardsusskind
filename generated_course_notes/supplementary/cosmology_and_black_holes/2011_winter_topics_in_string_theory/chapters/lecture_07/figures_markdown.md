@@ -1,42 +1,49 @@
 # Figure Notes
-## Image Inventory
-- `lecture_07_figure_02.png`: Leonard Susskind stands at the left of a mostly blank whiteboard. Near the top right of the visible board is `c=\hbar=1`, and below it a single large `E`. The frame captures the start of an equation-writing sequence rather than a completed derivation.
-- `lecture_07_figure_03.png`: Susskind stands in front of a rough hand-drawn lattice-like sketch on the board. The drawing consists of several uneven vertical and horizontal strokes, with a small stacked rectangular feature at the upper left. No legible algebraic text is visible.
-- `lecture_07_figure_04.png`: Susskind walks across a board that already contains part of the string-theory equation column. Near the top is a scale relation of the form `g\ell_s=\ell_p`, and below it an entropy relation beginning with `S=` and ending with `M\ell_s`. A lower line beginning with `M` is partly visible but mostly blocked by the lecturer.
 
-## Blackboard Equations
-- `lecture_07_figure_02.png`: `c=\hbar=1` [visible]
-- `lecture_07_figure_02.png`: `E` [visible]
-- `lecture_07_figure_02.png`: `E\sim \frac{\hbar c}{\lambda}` [standard reconstruction]
-- `lecture_07_figure_02.png`: `m=\frac{E}{c^2}` [standard reconstruction]
-- `lecture_07_figure_02.png`: `m\sim \frac{1}{\lambda}` in units `c=\hbar=1` [standard reconstruction]
+## Verified Frame Inventory
 
-- `lecture_07_figure_03.png`: no legible equation text [visible]
+| Asset | Time | Visible evidence | Use in chapter |
+|---|---:|---|---|
+| lecture_07_figure_02.png | 00:03:27.900 | \(c=\hbar=1\) and the start of the energy argument | Natural-units setup |
+| lecture_07_figure_03.png | 00:17:20.000 | Clear lattice/random-walk board sketch | String state counting |
+| lecture_07_figure_04.png | 00:21:57.800 | String-side scale, mass, and entropy column | Long-string formulas |
+| lecture_07_figure_05.png | 00:12:15.000 | \(G_N=\ell_p^2\) and \(g_s^2\ell_s^2\sim\ell_p^2\) | Coupling relation |
+| lecture_07_figure_06.png | 00:25:35.000 | Completed string/black-hole entropy comparison | Formula mismatch |
+| lecture_07_figure_07.png | 00:49:35.000 | Mass--coupling curves and their crossing | Correspondence geometry |
+| lecture_07_figure_08.png | 00:54:40.000 | Completed crossover algebra | Recovered area scaling |
+| lecture_07_figure_09.png | 01:05:20.000 | Room divided into binary cells | Volume-law count |
+| lecture_07_figure_10.png | 01:13:30.000 | Region and incoming shell | Holographic bound |
+| lecture_07_figure_11.png | 01:25:10.000 | Spatially flat expanding metric | FRW geometry |
+| lecture_07_figure_12.png | 01:29:10.000 | \(V=D\dot a/a\) | Hubble law |
+| lecture_07_figure_13.png | 01:33:20.000 | Equal-time line and past light ray | Observation versus simultaneity |
+| lecture_07_figure_14.png | 01:39:30.000 | Constant-H equation and exponential solution | de Sitter expansion |
 
-- `lecture_07_figure_04.png`: `g\,\ell_s=\ell_p` [partially visible]
-- `lecture_07_figure_04.png`: `S=\frac{L}{\ell_s}=M\ell_s` [partially visible]
-- `lecture_07_figure_04.png`: lower line beginning with `M` [partially visible]
-- `lecture_07_figure_04.png`: `M=\frac{L}{\ell_s^2}` [standard reconstruction]
+## Reconstruction Policy
 
-## Diagram And Layout Reading
-- `lecture_07_figure_02.png` is useful mainly for board layout. The lecture has just switched into natural units, and the board shows that Susskind writes the convention first and then starts the energy relation with a standalone `E`. The emptiness of the rest of the board matters: the argument is only just being set up.
-- `lecture_07_figure_03.png` is a qualitative lattice or linked-step sketch rather than a precise graph. The unevenness is important: it reads as a board-level cartoon of a random-walk model, not as a clean Cartesian grid. The small stacked boxes at the upper left suggest discrete step counting rather than a smooth curve.
-- `lecture_07_figure_04.png` shows the equation column that Susskind has assembled on the string-theory side before he begins the black-hole comparison. The frame is valuable as documentary evidence of board organization: scale relation above, entropy relation below, and at least one further mass relation beginning underneath. It does not yet show the black-hole column itself.
+The source frame remains visible whenever a board equation or diagram is used. Typeset equations supply legibility but do not claim that cropped or occluded symbols were directly readable. TikZ is used only for the three diagrams whose logic benefits from a clean reconstruction:
 
-## TeX Reconstruction Plan
-- `lecture_07_figure_02.png` should remain visible in the notes as a small documentary screenshot. Pair it with cleaned displayed equations nearby for the energy-wavelength relation, the mass-energy conversion, and the natural-units conclusion that mass scales like inverse length.
-- `lecture_07_figure_03.png` should remain visible and should be paired with a compact TikZ redraw. The redraw should preserve the rough, irregular character of the sketch rather than turning it into a perfectly regular grid.
-- `lecture_07_figure_04.png` should remain visible as evidence for the pre-comparison board state. Nearby displayed equations should reconstruct the string-side formulas cleanly, especially `\ell_p=g\,\ell_s`, `S=L/\ell_s`, `M=L/\ell_s^2`, and `S=M\ell_s`, since the screenshot itself is partially occluded.
-- None of these screenshots should stand alone as the sole source of the mathematics. They should function as visual evidence, with the transcript supplying cautious completion where the board is cropped or only partly legible.
+- the random walk, with step size \(\ell_s\);
+- the isentrope and correspondence curve in the \((g_s,M)\) plane;
+- the shell-collapse construction used in the entropy bound.
 
-## Caption Drafts
-- `lecture_07_figure_02.png`: Natural-units setup for the energy relation
-- `lecture_07_figure_03.png`: Rough lattice sketch for the string random walk
-- `lecture_07_figure_04.png`: String-side equations before the black-hole comparison
+## Frame-Specific Notes
+
+- Figure 02 records only the beginning of the natural-units derivation. The completed energy and mass equations come from the spoken argument.
+- Figure 03 replaces the earlier obstructed frame at 00:18:14.480. The 00:17:20 state shows the intended lattice sketch more clearly.
+- Figure 04 is partially occluded but establishes the order of the string-side equation column.
+- Figure 05 preserves both the Planck-area definition and the string-coupling scaling in one board state.
+- Figure 06 was selected after the black-hole column was complete, not while it was being written.
+- Figure 07 shows the two distinct slopes and the crossing used by the derivation; the TikZ redraw labels rather than redesigns them.
+- Figure 08 records the corrected final algebra after the audience catches the placement of \(\ell_s\).
+- Figure 09 supports the fictional two-state-per-cell model and does not depict the actual entropy of the classroom.
+- Figure 10 is paired with a schematic shell diagram because the board drawing is physically meaningful but visually rough.
+- Figures 11 and 12 separately document the metric and the recession law so neither frame is asked to support unseen algebra.
+- Figure 13 is used only to explain equal-time separation versus past-light-cone observation.
+- Figure 14 captures the completed exponential solution rather than the earlier partial differential equation.
 
 ## Uncertainties
-- `lecture_07_figure_02.png`: only `c=\hbar=1` and a standalone `E` are directly visible. The full energy and mass relations are transcript-backed reconstructions, not completed board text in the frame itself.
-- `lecture_07_figure_03.png`: the sketch is clear enough to identify as a lattice or random-walk cartoon, but not clear enough to recover a unique path, labeling scheme, or exact combinatorics.
-- `lecture_07_figure_04.png`: the top relation is best read as `g\ell_s=\ell_p`, but the exact glyph shapes are slightly soft. The middle entropy formula is partly blocked by Susskind, so the full equality `S=L/\ell_s=M\ell_s` must be completed cautiously from the lecture context.
-- `lecture_07_figure_04.png`: the lower line beginning with `M` is not sufficiently legible on its own; the standard completion `M=L/\ell_s^2` is justified by the surrounding lecture, not by direct full-board legibility in this frame.
-- Across `lecture_07_figure_04.png`, the lecture’s spoken ambiguity between little `g` and big `G` remains a notation risk; the notes should standardize to `g` for the string coupling and reserve `G_N` for Newton’s constant.
+
+- Numerical coefficients are not recoverable from the random-walk or correspondence sketches and are intentionally suppressed.
+- The board often uses bare \(g\) and \(G\); the notes standardize to \(g_s\) and \(G_N\).
+- The shell picture motivates a spherical entropy bound but does not itself establish the fully covariant formulation.
+- The spacetime sketch is qualitative and is not treated as a coordinate-accurate Penrose diagram.
