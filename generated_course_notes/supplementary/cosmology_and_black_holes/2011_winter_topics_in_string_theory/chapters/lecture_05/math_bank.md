@@ -2,6 +2,7 @@
 ## Core Equations
 - \(R_s \sim \lambda_{\text{thermal}}\) for the warm-up \(3\,\mathrm{K}\) estimate [transcript-backed]
 - \(R_s \sim 1\,\mathrm{cm}\) for a black hole radiating centimeter-scale microwaves [transcript-backed]
+- \(R_s\simeq6.1\times10^{-5}\,\mathrm{m}\) and \(M\simeq4.1\times10^{22}\,\mathrm{kg}\) for \(T_H=3\,\mathrm{K}\) after restoring constants [editorial calculation]
 - \(R_s = 2MG\) in the lecture’s \(c=1\) shorthand [transcript-backed]
 - \(R_s = \dfrac{2GM}{c^2}\) [transcript-backed]
 - \(M \propto R_s\) for Schwarzschild black holes [transcript-backed]
@@ -22,6 +23,7 @@
 - \(T_H=\dfrac{\hbar c^3}{8\pi GM k_B}\) in SI-style units [standard reconstruction]
 - \(T_H \propto \dfrac{1}{R_s}\) [transcript-backed]
 - \(T_H=\dfrac{\hbar c}{4\pi R_s}\) with \(k_B=1\) [standard reconstruction]
+- \(T_{\mathrm{loc}}(r)\sqrt{-g_{tt}(r)}=T_\infty\) for static thermal equilibrium [editorial clarification]
 - \(T(\rho)=\dfrac{1}{2\pi \rho}\) [transcript-backed]
 - \(\lambda \lesssim \Delta x\) for position resolution [transcript-backed]
 - \(p_\gamma \gtrsim \dfrac{\hbar}{\Delta x}\) [transcript-backed]
@@ -134,13 +136,14 @@
 
 ## Uncertain Mathematics
 - The opening \(3\,\mathrm{K}\) estimate is only order-of-magnitude; \(\lambda\sim R_s\) is a lecture heuristic, not an exact thermal relation.
-- The Earth-mass versus Moon-mass outcome depends on omitted numerical constants; keep the estimate qualitative.
+- The classroom Earth-mass estimate must remain as the spoken dimensional route, but the constant-restored result should be identified explicitly as lunar scale.
 - The board-visible labels \(r=6MG\) and \(r=100MG\) are transcript-motivated sample radii, not precisely placed coordinate curves.
 - The exact compactifying coordinate transformation for the flat-space Penrose diagram is never given; do not invent one in the chapter unless explicitly needed.
 - The lecture’s rewrite of \(T_H\) in terms of radius includes verbal hesitation over factors of \(2\), \(4\), and \(\pi\); use the canonical formula in the final notes and mention only the scaling \(T_H\propto 1/R_s\) if necessary.
 - The local formula \(T(\rho)=1/(2\pi\rho)\) is stated, not derived. Present it as a near-horizon result rather than a full derivation from first principles.
 - The statement that photons “lose energy climbing out” is used heuristically; the exact redshift factor is not worked out in this lecture.
-- The “13 electron volts \(\sim 3000\) degrees” exchange is numerically inconsistent if interpreted literally; keep the ionization discussion qualitative or retain \(13.6\,\mathrm{eV}\) as the safer benchmark.
+- The classroom conversion \(13.6\,\mathrm{eV}\sim3000\,\mathrm{K}\) is wrong. Use \(13.6\,\mathrm{eV}/k_B\simeq1.58\times10^5\,\mathrm{K}\) and preserve the exchange as a marked correction.
 - The near-horizon experimental argument is an operational uncertainty-principle estimate, not a rigorous theorem phrased in full operator language.
+- The divergence \(T_{\mathrm{loc}}\sim1/(2\pi\rho)\) belongs to static accelerated observers; do not assign it unqualifiedly to a freely falling detector.
 - The appeal to “time-energy uncertainty” near the end is heuristic; the more solid content in the lecture is the spatial-resolution argument \(\lambda\lesssim \rho\).
 - The horizon-growth discussion is geometric and causal, not an explicit calculation of area as a function of time.
