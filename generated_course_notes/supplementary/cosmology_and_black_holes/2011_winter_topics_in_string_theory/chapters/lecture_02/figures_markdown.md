@@ -1,63 +1,19 @@
-# Figure Notes
-## Image Inventory
-- `lecture_02_figure_02.png`: A whiteboard frame showing two line elements written in large handwriting. The upper line is the flat-space metric in spherical coordinates, and the lower line is the Schwarzschild black-hole metric with the familiar factor \(1-\frac{2MG}{c^2 r}\). A small shorthand expression involving \(R_s/r\) appears below on the left. On the far right there is a separate small radial sketch built from concentric circles and outward lines. Leonard Susskind is only slightly visible at the far left edge and does not seriously occlude the board.
+# Figure Notes: Lecture 2
 
-## Blackboard Equations
-- `lecture_02_figure_02.png` [visible]:
-  \[
-  d\tau^2 = dt^2 - \left(dr^2 + r^2 d\Omega^2\right)
-  \]
-- `lecture_02_figure_02.png` [partially visible]:
-  \[
-  \left(1-\frac{2MG}{c^2 r}\right)
-  \]
-  as the key Schwarzschild factor multiplying the \(dt^2\) term and reappearing in the denominator of the radial term.
-- `lecture_02_figure_02.png` [partially visible]:
-  \[
-  \frac{dr^2}{\left(1-\frac{2MG}{c^2 r}\right)}
-  \]
-- `lecture_02_figure_02.png` [visible]:
-  \[
-  r^2 d\Omega^2
-  \]
-- `lecture_02_figure_02.png` [visible]:
-  \[
-  1-\frac{R_s}{r}
-  \]
-- `lecture_02_figure_02.png` [standard reconstruction]:
-  \[
-  d\tau^2
-  =
-  \left(1-\frac{2MG}{c^2 r}\right)dt^2
-  -
-  \frac{dr^2}{\left(1-\frac{2MG}{c^2 r}\right)}
-  -
-  r^2 d\Omega^2
-  \]
-  This is the cautious note-quality completion suggested by the board and transcript, though some signs are not perfectly secure from the image alone.
+## Accepted Source Frames
 
-## Diagram And Layout Reading
-- The board is organized in three zones: flat-space metric at the upper left/center, Schwarzschild metric directly below it, and a separate radial sketch on the far right.
-- The upper equation functions as the reference metric in spherical coordinates, from which the lower Schwarzschild expression is being presented as a modification.
-- The lower equation is visually centered on the factor \(1-\frac{2MG}{c^2 r}\), which appears twice: once multiplying the time part and once inverted in the radial part.
-- The small notation \(1-\frac{R_s}{r}\) below the main equations reads like a shorthand reminder that the same factor can be written using the Schwarzschild radius.
-- The right-hand sketch looks like a compact central object or horizon drawn as concentric circles, with several radial lines extending outward. It appears to be a schematic cue for spherical symmetry rather than a fully annotated spacetime diagram.
-- The separation between the equations and the sketch matters: the image is not one continuous derivation but an equation block paired with a conceptual geometry cue.
+- **lecture_02_figure_02.png** at **00:19:12.520** preserves the side-by-side flat and Schwarzschild spherical metrics. The visible factor \(1-2GM/(c^2r)\) and shorthand \(1-R_s/r\) support the cleaned standard equation, but the frame alone does not settle every sign.
+- **lecture_02_figure_03.png** at **00:30:25.000** shows the completed \(t\)-\(r\) null-ray sketch with the dashed horizon unobstructed. The earlier 00:30:20 candidate was rejected because Susskind's body covered the drawing.
+- **lecture_02_figure_04.png** at **00:58:40.000** clearly shows \(S=\text{entropy}\), \(\Delta S=1\), and \(\Delta E=T\Delta S\).
+- **lecture_02_figure_05.png** at **01:22:40.000** shows the one-bit energy and area-increment scaling after the classroom correction of the powers of \(c\).
+- **lecture_02_figure_06.png** at **01:31:02.000** shows the boxed final entropy formula with Hawking's factor \(1/4\).
 
-## TeX Reconstruction Plan
-- `lecture_02_figure_02.png` should remain visible in the notes. It is strong evidence for the board layout at the moment Susskind introduces the Schwarzschild metric.
-- Nearby, the notes should typeset the flat-space spherical metric as a clean displayed equation.
-- Nearby, the notes should also typeset a clean Schwarzschild metric as a cautious standard reconstruction, with a brief prose note if needed that the board sign convention is partially obscured.
-- The small shorthand \(1-\frac{R_s}{r}\) should be preserved in the prose or as a short displayed relation, since it is visibly present and helps connect the factor to the Schwarzschild radius.
-- The right-hand sketch should be redrawn in TikZ as a simple radial or spherically symmetric diagram: a small central circular region with one or two concentric shells and a few radial guide lines. It should remain schematic and should not be overinterpreted into a Penrose diagram or a precise embedding.
-- The screenshot and the reconstructed equations/TikZ should appear close together, with the screenshot serving as visual evidence and the LaTeX as the cleaned mathematical companion.
+## Interpretation
 
-## Caption Drafts
-- `lecture_02_figure_02.png`: Schwarzschild metric and radial black-hole sketch.
+The source frames remain in the chapter as blackboard evidence. Typeset equations supply legibility and dimensional consistency; they do not claim that every restored factor was visible in the handwriting. The companion TikZ null-ray diagram is a conservative redraw of the verified board geometry, not a Penrose diagram.
 
-## Uncertainties
-- The left edge of the lower Schwarzschild equation is cropped enough that the full leading symbol sequence is not perfectly secure.
-- The sign convention in the lower line is not fully trustworthy from the image alone; the transcript strongly suggests the standard Schwarzschild form, but the handwritten minus signs are not all equally clear.
-- It is not completely certain whether the metric symbol at the top is intended as \(d\tau^2\) or a nearby variant of \(ds^2\), though \(d\tau^2\) is the best visual reading.
-- The lower-left shorthand \(1-\frac{R_s}{r}\) is clearly present, but the surrounding context is minimal, so it should be treated as an auxiliary note rather than a standalone derivation.
-- The right-hand drawing has no labels, so it should only be used as evidence for a radial, spherically symmetric black-hole sketch, not for a more specific geometric claim.
+## Rejected Candidates
+
+- The original 00:30:20 null-ray capture was rejected because the lecturer occluded the horizon and rays.
+- A 01:23:10 area-law candidate was rejected because the lecturer covered the central derivation.
+- The 01:30:10 entropy candidate omitted the later factor \(1/4\); the accepted 01:31:02 frame contains the completed result.
