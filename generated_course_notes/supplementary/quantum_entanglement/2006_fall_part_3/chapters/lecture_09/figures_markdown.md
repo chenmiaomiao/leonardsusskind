@@ -1,68 +1,34 @@
 # Figure Notes
-## Image Inventory
-- `lecture_09_figure_02.png`: Close crop of the left side of the board with Susskind turned toward the writing. The board shows a short vertical setup of definitions: a top line beginning `R =`, a second line beginning `V =`, and a lower line beginning with `\frac12 m`. The right-hand sides are partly blocked by the lecturer.
-- `lecture_09_figure_03.png`: Tight board close-up centered on the key energy equation. Susskind points at the factor `G/R`. The left-hand side shows `\frac12 v^2`, and the right-hand side shows the enclosed-mass expression with `\frac{4\pi}{3}\rho R^3`.
-- `lecture_09_figure_04.png`: Clean board close-up of the density discussion. At the top is a density formula with `\rho` expressed as mass over a cubic volume involving `\Delta x` and `a`. Beneath it is a present-day normalization of the form `\rho_{\text{today}} = C / a_{\text{today}}^3`, and at lower left Susskind has begun the next `\rho` line.
-- `lecture_09_figure_05.png`: Medium shot of Susskind gesturing in front of the board. A boxed earlier energy equation remains visible at the top, while a lower line beneath it contains a Hubble-form relation with `\frac12 H^2` on the left and a density term involving `G\rho` on the right. The figure is useful mainly for the juxtaposition of the original boxed equation and its cosmological reformulation.
 
-## Blackboard Equations
-- `lecture_09_figure_02.png`: \(R = x a\) [partially visible]
-- `lecture_09_figure_02.png`: \(V = x\dot a\) [standard reconstruction]
-- `lecture_09_figure_02.png`: \(\tfrac12 m v^2\) [partially visible]
-- `lecture_09_figure_02.png`: \(E=\tfrac12 m v^2-\dfrac{GMm}{R}\) [standard reconstruction]
+All source frames were read against the transcript and checked at their stated timestamps.
 
-- `lecture_09_figure_03.png`: \(\tfrac12 v^2 = \dfrac{G}{R}\,\dfrac{4\pi}{3}\rho R^3\) [visible]
-- `lecture_09_figure_03.png`: \(\dfrac{4\pi}{3}\rho R^3\) [visible]
+| Figure | Time | Blackboard content | Use |
+|---|---:|---|---|
+| lecture_09_figure_01.png | 00:01:50 | Minkowski proper-time element | Source equation |
+| lecture_09_figure_02.png | 00:09:12 | Flat expanding metric | Source equation |
+| lecture_09_figure_03.png | 00:16:40 | Four-coordinate equation for \(S^3\) | Source equation |
+| lecture_09_figure_04.png | 00:22:20 | Grid carried by expanding space | Source sketch |
+| lecture_09_figure_05.png | 00:26:40 | \(D=a\Delta x\), \(v=(\dot a/a)D\) | Source derivation |
+| lecture_09_figure_06.png | 00:30:54 | Null condition and \(dt=a\,dx\) | Source derivation |
+| lecture_09_figure_07.png | 00:37:30 | Positive, flat, and negative triangle sketches | Source sketch |
+| lecture_09_figure_08.png | 00:41:10 | Observer-centered shell-theorem sphere | Source plus redraw |
+| lecture_09_figure_09.png | 00:48:40 | \(R=xa\), \(v=x\dot a\), \(E=0\) | Source derivation |
+| lecture_09_figure_10.png | 00:54:16.060 | Enclosed mass in the energy equation | Source derivation |
+| lecture_09_figure_11.png | 00:57:30 | \(H^2=(8\pi G/3)\rho\) | Source derivation |
+| lecture_09_figure_12.png | 01:04:47.940 | \(\rho_{\rm m}\propto a^{-3}\) and present normalization | Source derivation |
+| lecture_09_figure_13.png | 01:13:05 | Power-law trial and \(p=2/3\) | Source derivation |
+| lecture_09_figure_14.png | 01:20:42 | \(H=2/(3t)\) | Source derivation |
+| lecture_09_figure_15.png | 01:29:20 | Radiation adds one inverse power of \(a\) | Source context |
+| lecture_09_figure_16.png | 01:35:48 | Constant density and exponential expansion | Source derivation |
+| lecture_09_figure_17.png | 01:42:05 | Surface-of-last-scattering sphere | Source plus redraw |
+| lecture_09_figure_18.png | 01:44:42.440 | Newtonian and Friedmann energy forms | Source context |
+| lecture_09_figure_19.png | 01:46:40 | Photon-filled movable piston | Source plus redraw |
+| lecture_09_figure_20.png | 01:51:05 | Conformal factor and time redefinition | Source derivation |
 
-- `lecture_09_figure_04.png`: \(\rho = \dfrac{M}{(\Delta x\, a)^3}\) [visible]
-- `lecture_09_figure_04.png`: \(\rho_{\text{today}} = \dfrac{C}{a_{\text{today}}^3}\) [partially visible]
-- `lecture_09_figure_04.png`: \(\rho(t)=\dfrac{C}{a^3(t)}\) [standard reconstruction]
-- `lecture_09_figure_04.png`: \(\dfrac{\rho(t)}{\rho_{\text{today}}}=\dfrac{a_{\text{today}}^3}{a^3(t)}\) [standard reconstruction]
+## Clean Reconstructions
 
-- `lecture_09_figure_05.png`: \(\tfrac12 v^2 = \dfrac{G}{R}\,\dfrac{4\pi}{3}\rho R^3\) [partially visible]
-- `lecture_09_figure_05.png`: \(\tfrac12 H^2 = \cdots\, G\rho\) [partially visible]
-- `lecture_09_figure_05.png`: \(\tfrac12 H^2 = \dfrac{4\pi G}{3}\rho\) [standard reconstruction]
-- `lecture_09_figure_05.png`: \(H^2=\dfrac{8\pi G}{3}\rho\) [standard reconstruction]
+- The shell-theorem redraw labels the enclosed radius, test galaxy, recession velocity, and cancellation of exterior shells.
+- The last-scattering redraw labels the observer, emitting sphere, and inward redshifted photon.
+- The piston redraw makes radiation pressure, wavelength stretching, and outward wall motion legible.
 
-## Diagram And Layout Reading
-- `lecture_09_figure_02.png` is not a diagram in the geometric sense, but it preserves the board rhythm of the setup: first define radius, then velocity, then begin the kinetic-energy term. It is a left-column derivation layout rather than a finished equation.
-- `lecture_09_figure_03.png` is organized as a single-line identity. The left side is the kinetic term, the right side is the gravitational factor times the enclosed mass. Susskind’s pointing finger marks the `G/R` factor, which helps show how he is verbally unpacking the equation.
-- `lecture_09_figure_04.png` is vertically organized in three steps: a general density formula at top, a present-day normalization in the middle, and the beginning of the time-dependent version at the bottom. That stacked layout is pedagogically useful because it shows the move from raw volume scaling to cosmological dilution as \(a^{-3}\).
-- `lecture_09_figure_05.png` preserves a two-level board structure. The upper level is the boxed escape-velocity or zero-energy equation from the Newtonian derivation. The lower level is the simplified cosmological relation in terms of \(H\) and \(\rho\). The main value of the image is this transition from the original energy equation to the Hubble-form statement.
-
-## TeX Reconstruction Plan
-- `lecture_09_figure_02.png` should remain visible if the notes keep the step-by-step Newtonian setup. Nearby, the notes should typeset the cleaned definitions \(R=xa\) and \(v=x\dot a\), followed by the total-energy expression \(E=\tfrac12 mv^2-\dfrac{GMm}{R}\). The screenshot is mainly evidence for board order and setup, not for exact legibility.
-- `lecture_09_figure_03.png` should remain visible and should be paired with a clean displayed equation
-  \[
-  \frac12 v^2=\frac{G}{R}\left(\frac{4\pi}{3}\rho R^3\right).
-  \]
-  No TikZ is needed; the board image is already the right kind of evidence.
-- `lecture_09_figure_04.png` should remain visible and should be paired with the cleaned density-scaling formulas
-  \[
-  \rho=\frac{M}{(\Delta x\,a)^3},\qquad
-  \rho(t)=\frac{C}{a^3(t)},\qquad
-  \frac{\rho(t)}{\rho_{\text{today}}}=\frac{a_{\text{today}}^3}{a^3(t)}.
-  \]
-  The screenshot is valuable because it preserves the stacked board logic from raw dilution to normalization.
-- `lecture_09_figure_05.png` should remain visible specifically as evidence for the pedagogical transition from the boxed energy equation to the Hubble-density form. Nearby, the notes should typeset the cleaned relation
-  \[
-  H^2=\frac{8\pi G}{3}\rho,
-  \]
-  and, if useful for the intermediate step,
-  \[
-  \frac12 H^2=\frac{4\pi G}{3}\rho.
-  \]
-  No TikZ is needed; the important thing is the board juxtaposition, not a geometric sketch.
-
-## Caption Drafts
-- `lecture_09_figure_02.png`: Radius, velocity, and energy setup on the board
-- `lecture_09_figure_03.png`: Energy equation with the enclosed mass term
-- `lecture_09_figure_04.png`: Matter density scaling as the universe expands
-- `lecture_09_figure_05.png`: Boxed energy equation and its Hubble-form rewriting
-
-## Uncertainties
-- In `lecture_09_figure_02.png`, the right-hand sides of the `R =` and `V =` lines are partly hidden by Susskind, and the lower kinetic-energy line is only started. The full expressions should be normalized from the transcript rather than claimed from the frame alone.
-- In `lecture_09_figure_03.png`, the board writes the right-hand side as a product rather than a carefully parenthesized mass factor. The grouped form \(\left(\frac{4\pi}{3}\rho R^3\right)\) is mathematically the intended reading, but the parentheses are a reconstruction.
-- In `lecture_09_figure_04.png`, the handwritten `\text{today}` labels under \(\rho\) and \(a\) are small and somewhat rough. The lower time-dependent \(\rho\) line has only just begun, so \(\rho(t)=C/a^3(t)\) is a transcript-supported completion.
-- In `lecture_09_figure_05.png`, the lower equation is partly blocked by the lecturer, and the exact numerical coefficient between \(\frac12 H^2\) and \(G\rho\) is not fully secure from the image alone. The normalized coefficient should come from the transcript derivation.
-- In `lecture_09_figure_05.png`, the frame is more valuable for the board layout than for symbol-by-symbol transcription of the lower line. The upper boxed equation is clearer than the lower reformulated one.
+The reconstructions accompany rather than replace the original frames. Equations are typeset separately whenever handwriting is incomplete or partially occluded.
