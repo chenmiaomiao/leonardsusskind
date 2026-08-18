@@ -1,50 +1,38 @@
 # Visual Evidence
-## Frame Inventory
-- `lecture_08_figure_02.png`: Susskind stands between two boards, with two stacked wave sketches on the left and a vertical cluster of second-derivative equations on the right; the screenshot should remain in the final notes.
-- `lecture_08_figure_03.png`: A clean board-only close-up shows a quadratic differential form above a \(2\times2\) coefficient matrix; the screenshot should remain in the final notes.
-- `lecture_08_figure_04.png`: Susskind partly blocks a board containing a spherical or circular local sketch and a line element with \(d\theta^2\) and a \(\sin^2\theta\) factor; the screenshot should remain in the final notes.
-- `lecture_08_figure_05.png`: A transition frame shows tensor-style interval notation on the left and part of the earlier quadratic-form matrix example on the right; the screenshot should remain in the final notes.
 
-## Equation Extraction
-- `lecture_08_figure_02.png`: \(m\frac{d^2 x}{dt^2}\) [partially visible]
-- `lecture_08_figure_02.png`: several terms of the form \(m\frac{d^2(\cdots)}{dt^2}\) arranged vertically [visible]
-- `lecture_08_figure_02.png`: \(m\frac{d^2 x_1}{dt^2}=-k x_1,\qquad m\frac{d^2 x_2}{dt^2}=-k x_2\) [standard completion]
-- `lecture_08_figure_02.png`: \(m\frac{d^2(x_1+x_2)}{dt^2}=-k(x_1+x_2)\) [standard completion]
+## Verified Frames
 
-- `lecture_08_figure_03.png`: \(a_{11}\,dx^2 + a_{22}\,dy^2 + a_{12}\,dx\,dy\) [visible]
-- `lecture_08_figure_03.png`: \(\begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}\) [visible]
-- `lecture_08_figure_03.png`: \(a_{21}\,dy\,dx\) [standard completion]
+| Asset | Time | Board evidence | Placement verdict |
+|---|---:|---|---|
+| lecture_08_figure_01.png | 00:05:30 | Two wave profiles | Correct for superposition |
+| lecture_08_figure_02.png | 00:10:10 | Separate and summed nonlinear oscillators | Correct for loss of linearity |
+| lecture_08_figure_03.png | 00:14:50 | Minkowski interval in three notations | Correct for the spacetime interval |
+| lecture_08_figure_04.png | 00:20:10 | Meter-centimeter conversion | Correct for coordinate units |
+| lecture_08_figure_05.png | 00:24:07.680 | Quadratic form and metric matrix | Correct for the metric definition |
+| lecture_08_figure_06.png | 00:28:10 | General position-dependent metric | Correct for arbitrary coordinates |
+| lecture_08_figure_07.png | 00:39:20 | Polar and Cartesian metric forms | Correct for flat nonconstant coefficients |
+| lecture_08_figure_08.png | 00:45:15 | Sphere sketch, line element, and matrix | Correct with a clean local-leg redraw |
+| lecture_08_figure_09.png | 00:48:40 | General spacetime line element | Correct for the transition to curvature |
+| lecture_08_figure_10.png | 01:03:15 | Spatially flat expanding metric | Correct with a separate comoving-grid redraw |
+| lecture_08_figure_11.png | 01:16:45 | Distance derivative and expansion rate | Correct for the Hubble law |
+| lecture_08_figure_12.png | 01:23:45 | Null condition and comoving ray equation | Correct for light propagation |
+| lecture_08_figure_13.png | 01:33:45 | Hubble-time cancellation | Correct for the age estimate |
+| lecture_08_figure_14.png | 01:50:05 | Enclosed sphere and test galaxy | Correct with a labeled shell-theorem redraw |
+| lecture_08_figure_15.png | 01:56:20 | Comoving light-ray graph | Correct with a clean graph redraw |
 
-- `lecture_08_figure_04.png`: \(ds^2\) [visible]
-- `lecture_08_figure_04.png`: \(d\theta^2\) [visible]
-- `lecture_08_figure_04.png`: \(+\sin^2\theta\,(d\phi)^2\) [partially visible]
-- `lecture_08_figure_04.png`: \(ds^2=d\theta^2+\sin^2\theta\,d\phi^2\) [standard completion]
+## Reconstruction Decisions
 
-- `lecture_08_figure_05.png`: repeated-index differential products on the left board, plausibly of the form \(dx^\mu dx_\mu\) [partially visible]
-- `lecture_08_figure_05.png`: tensor-style line-element notation of the form \(g_{\mu\nu}\,dx^\mu dx^\nu\) [partially visible]
-- `lecture_08_figure_05.png`: \(\begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}\) at the right edge [partially visible]
-- `lecture_08_figure_05.png`: \(ds^2=g_{\mu\nu}(x)\,dx^\mu dx^\nu\) [standard completion]
+- The final formulas use stable completed board states rather than equations still being written.
+- The polar and sphere metrics are kept distinct; the sine factor appears only on the sphere.
+- The scale factor multiplies all three spatial directions uniformly, matching the homogeneous flat metric on the board.
+- The Hubble-time passage retains the lecturer's correction that velocity, not \(H\), is held constant in the crude backward estimate.
+- The shell-theorem redraw labels the origin as a convenient choice rather than a center of the universe.
+- The light-ray redraw preserves the board's changing comoving slope and explicitly states that local light speed remains constant.
 
-## Diagram Extraction
-- `lecture_08_figure_02.png`: The two left-board waveforms should be shown both ways: keep the screenshot as evidence and redraw the waves in TikZ if the notes want a cleaner superposition illustration.
-- `lecture_08_figure_02.png`: The right-board equation stack does not need TikZ, only clean typeset equations placed near the screenshot.
-- `lecture_08_figure_03.png`: The board layout itself matters more than a geometric sketch, so keep the screenshot and typeset the quadratic form and matrix cleanly; no TikZ is needed.
-- `lecture_08_figure_04.png`: The spherical local sketch should be shown both ways: keep the screenshot and redraw the local patch, point, and differential triangle in TikZ.
-- `lecture_08_figure_04.png`: The line element should be typeset cleanly next to the screenshot rather than relied on in handwritten form.
-- `lecture_08_figure_05.png`: Keep the screenshot as evidence for the transition from concrete matrix notation to \(g_{\mu\nu}\)-notation; no dedicated TikZ is necessary unless the chapter wants a schematic bridge figure.
+## Source Limitations
 
-## Reconstruction Guidance
-- Use `lecture_08_figure_02.png` to preserve the board rhythm of “wave pictures on the left, linear equations on the right,” but normalize the actual oscillator equations from the transcript because the detailed right-hand sides are not fully readable.
-- Use `lecture_08_figure_03.png` as the anchor image for the moment where the coefficient matrix becomes the metric; nearby, typeset the full symmetrized quadratic form and the \(2\times2\) matrix in polished LaTeX.
-- Use `lecture_08_figure_04.png` as evidence that Susskind is pairing a local geometric construction on the sphere with the angular line element; redraw the geometry in TikZ and typeset the spherical metric in standard clean form.
-- Use `lecture_08_figure_05.png` to preserve the pedagogical transition from the earlier two-coordinate example to general spacetime tensor notation; the final notes should present the clean line element in standard \(g_{\mu\nu}(x)\) notation while keeping the screenshot nearby.
-- When a frame is partly blocked or cropped, prefer a cautious standard completion already motivated by the lecture rather than trying to over-read the handwriting.
-- Preserve screenshots where board layout carries explanatory weight, especially in figures `02`, `03`, `04`, and `05`; use LaTeX and TikZ to supply legibility, not to replace the evidence.
-
-## Uncertainties
-- In `lecture_08_figure_02.png`, the second-derivative structure is clear, but the exact numerators, subscripts, and right-hand sides are not fully legible.
-- In `lecture_08_figure_03.png`, the top expression is cropped before the full symmetrized mixed term is visible, so \(a_{21}\,dy\,dx\) should be treated as a completion rather than a directly read term.
-- In `lecture_08_figure_04.png`, Susskind blocks part of the central formula, so the full \(ds^2=d\theta^2+\sin^2\theta\,d\phi^2\) expression is not wholly image-secure even though its main pieces are.
-- In `lecture_08_figure_04.png`, the local labels on the spherical sketch are too unclear to transcribe exactly.
-- In `lecture_08_figure_05.png`, the top-left repeated-index notation is not fully reliable symbol by symbol; the frame supports the general move to tensor notation more strongly than any single exact left-board formula.
-- In `lecture_08_figure_05.png`, the dependence on position in \(g_{\mu\nu}(x)\) is transcript-supported and only weakly image-supported.
+- The video is 320 by 240 pixels, so some handwriting remains soft even in well-timed frames.
+- Figures 2, 8, 11, and 15 include part of the lecturer, but the relevant equations or diagrams remain readable.
+- A short ASR region near 01:26 consists of repeated isolated words; no substantive content is recoverable there.
+- The ruler exchange near 02:00 contains corrupt fragments. Its repeated, contextually stable claim about dimensionless ratios is retained.
+- No selected image is a title card, campus view, unrelated board state, or decorative frame.
