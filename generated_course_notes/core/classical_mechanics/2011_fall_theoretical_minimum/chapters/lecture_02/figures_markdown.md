@@ -1,63 +1,53 @@
 # Figure Notes
-## Image Inventory
-- `lecture_02_figure_02.png`: Susskind stands at the board with a large central equation reading `F = mV`; above it, a faint leftover formula of the form `y(t)=a\sin\omega t` remains from earlier writing. There is no diagram, only board text and layout.
-- `lecture_02_figure_03.png`: The right side of the board shows a boxed `F=\dot P` beneath a momentum line; to the left is a large vector-style `P`, and above is a cropped earlier `F=ma`. The frame records the moment when Newton’s law is rewritten in momentum form.
-- `lecture_02_figure_04.png`: This is the clearest two-box layout. Above the boxes is an “Initial Cond” line pointing toward `X(t)` and a dotted `X`; below it is the momentum definition line `P = Momentum = mV`; the two boxed relations are `F=\dot P` and `P=m\dot x`.
-- `lecture_02_figure_05.png`: The board shows the one-dimensional energy derivation in process: a top line of the form `\frac12 m\dot x^2 + V(x) = E`, a lower differentiated line, a bracketed factorization with an overall `\dot x`, and a right-hand `dE/dt`.
-- `lecture_02_figure_06.png`: The board compares one-dimensional and multidimensional force laws. The center box clearly reads `F_i(x)=-\partial V(x)/\partial x_i`; above and left, the one-dimensional `F(x)=-dV(x)/dx = m\ddot x` remains visible; at far right is a contour-map sketch with axes, nested level curves, and a rightward arrow.
 
-## Blackboard Equations
-- `lecture_02_figure_02.png`: \(F = mV\) [visible]
-- `lecture_02_figure_02.png`: \(y(t)=a\sin \omega t\) [partially visible]
-- `lecture_02_figure_02.png`: \(\vec F = m\vec v\) [standard reconstruction]
+## Retained Blackboard Evidence
 
-- `lecture_02_figure_03.png`: \(F=\dot P\) [visible]
-- `lecture_02_figure_03.png`: \(\vec P=\text{Momentum}=m\vec V\) [partially visible]
-- `lecture_02_figure_03.png`: \(F=ma\) [partially visible]
-- `lecture_02_figure_03.png`: \(\vec F=\dfrac{d\vec P}{dt}\) [standard reconstruction]
+| Asset | Time | Mathematical evidence |
+| --- | ---: | --- |
+| `lecture_02_figure_02.png` | 00:04:51 | Aristotle's deliberately wrong force--velocity law. |
+| `lecture_02_figure_07.png` | 00:10:15 | Discrete decay under the Aristotelian spring law. |
+| `lecture_02_figure_08.png` | 00:12:02 | Exponential rather than oscillatory spring motion. |
+| `lecture_02_figure_09.png` | 00:22:45 | Operational comparison of force and mass. |
+| `lecture_02_figure_03.png` | 00:32:35 | Newton's law in momentum form. |
+| `lecture_02_figure_04.png` | 00:35:47 | Position and momentum as a complete state. |
+| `lecture_02_figure_10.png` | 00:43:20 | Harmonic motion as a phase-space circle. |
+| `lecture_02_figure_11.png` | 00:50:45 | Time-reversal test for Aristotle and Newton. |
+| `lecture_02_figure_12.png` | 00:59:25 | Pairwise form of Newton's third law. |
+| `lecture_02_figure_13.png` | 01:01:38 | Central interaction forces. |
+| `lecture_02_figure_14.png` | 01:04:38 | Cancellation leading to total-momentum conservation. |
+| `lecture_02_figure_15.png` | 01:12:57 | Force as downhill motion on a potential landscape. |
+| `lecture_02_figure_16.png` | 01:19:18 | One-dimensional proof of energy conservation. |
+| `lecture_02_figure_17.png` | 01:24:15 | Conservative force from a multidimensional potential. |
+| `lecture_02_figure_18.png` | 01:28:30 | Indexed multidimensional energy proof. |
 
-- `lecture_02_figure_04.png`: \(F=\dot P\) [visible]
-- `lecture_02_figure_04.png`: \(P=m\dot x\) [visible]
-- `lecture_02_figure_04.png`: \(\vec P=\text{Momentum}=m\vec V\) [partially visible]
-- `lecture_02_figure_04.png`: \(\text{Initial Cond}\to X(t),\dot X(t)\) [partially visible]
-- `lecture_02_figure_04.png`: \(\dot p = F,\qquad \dot x = p/m\) [standard reconstruction]
+## Image-by-Image Reading
 
-- `lecture_02_figure_05.png`: \(\frac12 m\dot x^2 + V(x)=E\) [visible]
-- `lecture_02_figure_05.png`: \(\frac{dE}{dt}\) [visible]
-- `lecture_02_figure_05.png`: \(m\dot x\,\ddot x + \frac{dV}{dx}\dot x = \frac{dE}{dt}\) [partially visible]
-- `lecture_02_figure_05.png`: \(\frac{dE}{dt}=\dot x\!\left(m\ddot x+\frac{dV}{dx}\right)=0\) [standard reconstruction]
+- `lecture_02_figure_02.png` records the deliberately wrong \(\mathbf F=m\mathbf v\) law. Faint earlier chalk is not treated as part of this argument.
+- `lecture_02_figure_07.png` records the finite-step restoring-force update and repeated reduction of \(x\).
+- `lecture_02_figure_08.png` shows the completed exponential solution and the monotone approach to equilibrium.
+- `lecture_02_figure_09.png` preserves the spring-balance comparison used to operationalize equal force increments and mass ratios.
+- `lecture_02_figure_03.png` and `lecture_02_figure_04.png` preserve \(\mathbf F=\dot{\mathbf p}\), \(\mathbf p=m\dot{\mathbf x}\), and the transition to two first-order state equations.
+- `lecture_02_figure_10.png` contains the sinusoidal oscillator solution and its circular orbit in the normalized phase plane.
+- `lecture_02_figure_11.png` compares odd and even time derivatives under \(t\mapsto -t\).
+- `lecture_02_figure_12.png` and `lecture_02_figure_13.png` preserve the equal-and-opposite and line-of-centers parts of the third-law discussion.
+- `lecture_02_figure_14.png` shows the many-particle sum in which internal forces cancel pairwise.
+- `lecture_02_figure_15.png` shows \(V(x)\) as a landscape with force toward decreasing potential.
+- `lecture_02_figure_16.png` records the one-dimensional factorization of \(dE/dt\).
+- `lecture_02_figure_17.png` combines the component gradient law with level curves of \(V\).
+- `lecture_02_figure_18.png` records the indexed multidimensional energy derivative.
 
-- `lecture_02_figure_06.png`: \(F_i(x)=-\frac{\partial V(x)}{\partial x_i}\) [visible]
-- `lecture_02_figure_06.png`: \(F(x)=-\frac{dV(x)}{dx}=m\ddot x\) [partially visible]
-- `lecture_02_figure_06.png`: \(\vec F=-\nabla V\) [standard reconstruction]
+## Reconstruction Guidance
 
-## Diagram And Layout Reading
-- `lecture_02_figure_02.png` is a simple board-document frame: one oversized wrong Aristotle equation in the middle, with unrelated earlier writing faintly left above. The visual value is the emphatic presentation of the mistaken law, not any board geometry.
-- `lecture_02_figure_03.png` organizes the board vertically: an older `F=ma` high above, a momentum definition line through the middle, and the boxed `F=\dot P` below. The layout visually marks the shift from acceleration language to momentum language.
-- `lecture_02_figure_04.png` is the most pedagogically structured frame. The “Initial Cond” line sits at the top, the momentum definition line under it, and the two boxed equations side by side below. The left box updates momentum from force; the right box relates momentum to motion in \(x\). This is the board layout that supports the “two first-order equations” explanation.
-- `lecture_02_figure_05.png` is a derivation board rather than a final statement board. The eye moves from the top conserved-energy expression downward through the differentiated form, then toward the bracketed factorization and the `dE/dt` statement on the right.
-- `lecture_02_figure_06.png` has two visual registers. The boxed central formula gives the multidimensional component law, while the rightmost sketch is a contour-map picture of potential energy. The sketch shows a vertical and horizontal axis crossing near the center, nested closed curves, and a horizontal arrow pointing right from the central region, suggesting force aligned with steepest descent and normal to level sets.
-
-## TeX Reconstruction Plan
-- `lecture_02_figure_02.png` should remain visible as documentary evidence for the board moment where Susskind writes Aristotle’s wrong law in vector form. A clean displayed equation should appear nearby as \(\vec F=m\vec v\), with the prose making clear that it is intentionally wrong.
-- `lecture_02_figure_03.png` should remain visible. The notes should typeset the cleaned equation \(\vec F=\dfrac{d\vec p}{dt}\) nearby rather than relying on the screenshot for notation fidelity.
-- `lecture_02_figure_04.png` should remain visible. The notes should reconstruct the mathematical content as the pair of first-order equations \(\dot p=F\) and \(\dot x=p/m\), while also explaining that the state now lives in \((x,p)\) or equivalently \((x,\dot x)\).
-- `lecture_02_figure_05.png` is visually useful for preserving the rhythm of the live derivation, but the mathematics should be carried by typeset equations, not by the screenshot. Reconstruct the chain leading to \(\dfrac{dE}{dt}=\dot x\!\left(m\ddot x+\dfrac{dV}{dx}\right)=0\). If figure budget is tight, this is the most dispensable screenshot of the set.
-- `lecture_02_figure_06.png` should remain visible and should be paired with both a clean displayed formula \(F_i(x)=-\partial V/\partial x_i\) and a small TikZ redraw of the contour-map idea. The redraw should be schematic, showing nested level curves and a force arrow normal to the contours, not a literal trace of the board sketch.
-
-## Caption Drafts
-- `lecture_02_figure_02.png`: Aristotle’s mistaken force-velocity law in vector form
-- `lecture_02_figure_03.png`: Newton’s law rewritten as the time derivative of momentum
-- `lecture_02_figure_04.png`: Two first-order equations for position and momentum
-- `lecture_02_figure_05.png`: The one-dimensional energy-derivative step
-- `lecture_02_figure_06.png`: Force components from a scalar potential
+- Keep all fifteen screenshots. Each marks a distinct stage in the argument and was checked against its transcript window.
+- Carry complete equations in searchable TeX beside the frames; do not rely on faint or partially occluded chalk.
+- Preserve the two clean TikZ reconstructions: the normalized oscillator orbit and the level-set geometry of a conservative force.
+- Normalize chalk vectors and uppercase symbols to the chapter's consistent bold lowercase notation.
+- Do not restore the obsolete 01:20:52 frame: the lecturer obscures the derivation, while the selected 01:19:18 frame supports the proof more clearly.
+- Do not restore the obsolete 01:29:02 frame: the selected 01:24:15 and 01:28:30 frames separate the gradient law from the indexed proof.
 
 ## Uncertainties
-- In `lecture_02_figure_02.png`, the board clearly shows `F = mV`, but the vector arrows are not legible in the frame; the transcript is what justifies the cleaned vector reconstruction.
-- In `lecture_02_figure_02.png`, the upper `y(t)=a\sin\omega t` line is a leftover from earlier writing and should not be overused in the surrounding notes.
-- In `lecture_02_figure_03.png` and `lecture_02_figure_04.png`, the board uses uppercase \(P,V,X\), while a polished chapter may prefer normalized notation such as \(p,v,x\) or explicit vector arrows.
-- In `lecture_02_figure_04.png`, the initial-condition line is partially occluded; the exact punctuation and final time argument are not fully readable.
-- In `lecture_02_figure_05.png`, the sign on the \(dV/dx\) term inside the final bracket is hard to read from the image alone; the transcript strongly supports the \(m\ddot x+\dfrac{dV}{dx}\) form before Newton’s law sets the bracket to zero.
-- In `lecture_02_figure_05.png`, the top energy line is readable in structure but faint in detail; the chapter should standardize on Susskind’s \(V(x)\) notation rather than infer a different symbol.
-- In `lecture_02_figure_06.png`, the left edge of the one-dimensional formula is cropped, so the full \(F(x)\) is only partly visible.
-- In `lecture_02_figure_06.png`, the contour sketch is qualitative only. It should be reconstructed as a simple level-set picture, not as an exact geometric copy.
+
+- Several boards retain faint chalk from earlier steps; captions identify only the locally relevant equations.
+- The spring-balance drawing is schematic, so the prose rather than the image carries the operational definitions.
+- The level curves are qualitative. The TikZ redraw preserves normal-gradient geometry but is not a literal tracing.
+- The time-reversal board is partly occupied by the lecturer; the locally completed equations and transcript settle the signs.

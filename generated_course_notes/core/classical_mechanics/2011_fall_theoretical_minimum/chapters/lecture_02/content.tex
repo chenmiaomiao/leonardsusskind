@@ -1,384 +1,877 @@
-\chapter{Laws of Motion, Phase Space, and Conservation}
+\chapter{Forces, Phase Space, and Conservation Laws}
 
-We begin, as Susskind does, with a wrong law. That is not antiquarian stage-setting. It is a way of asking what a law of motion is supposed to accomplish. A law should tell us how to move from one instant to the next, and a fundamental law ought also to preserve enough information that the past is not washed away by the future. Aristotle's law is close enough to ordinary friction-dominated experience to feel plausible, and precisely for that reason it is a good place to begin. By watching it fail, we see more sharply what Newton changes.
+\lectureoverview{A law of motion must do more than relate familiar physical
+quantities.  It must specify the state of a system, carry that state from one
+instant to the next, and reveal which distinctions and quantities survive the
+motion.  We shall reach Newtonian mechanics by first testing a plausible but
+wrong force law, then enlarge the state from position to phase space, and
+finally derive conservation of momentum and energy.}
 
-\section{Aristotle's Useful Wrong Law}
+\section{A Useful Wrong Law}
 
-Aristotle lived in a world where friction is everywhere. Push an object and it moves; stop pushing and it stops. The heavier the object, the harder it is to give it a certain speed; the harder one pushes, the faster it goes. Out of that everyday experience comes the deliberately wrong law
+Everyday motion is dominated by friction.  Push a heavy object across a floor
+and it moves; stop pushing and it soon stops.  A larger push generally produces
+a larger speed, while a heavier object requires a harder push.  In such a
+world, it is natural to suppose that force produces velocity itself.  This was
+the basic intuition behind the Aristotelian description of motion.
+
+Ice skating supplies the missing experience.  A skater needs force to start,
+stop, or change direction, but not to continue gliding once in motion.  Had
+Aristotle worked on nearly frictionless ice rather than ordinary ground, the
+defect in the force--velocity intuition would have been much harder to miss.
+
+To expose what is wrong with that intuition, let us give it a precise modern
+form.  We write the deliberately incorrect equation
+
 \begin{equation}
-\vec F=m\vec v.
+  \mathbf F=m\mathbf v.
+  \label{eq:aristotle-vector-law}
 \end{equation}
-Susskind writes it down with some emphasis: this is the wrong equation. We are not to memorize it. We are to study it.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_02_figure_02.png}
+This is not Newton's law and should not be memorized as physics.  Its value is
+diagnostic: once a verbal rule has become an equation, we can ask whether it
+predicts motion and whether it preserves enough information to reconstruct the
+past.  The brief classroom discussion of the Greek word for force points to
+\emph{dynamis}, the root also heard in words such as dynamo and dynamics, but
+the terminology is secondary to the test of the law itself.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_02_figure_02.png}
+  \caption{The intentionally wrong force--velocity law used to test
+  predictability and reversibility.}
+  \lectureframe{00:04:51}
 \end{figure}
 
-The point is not merely that Aristotle missed ice skating. The point is that he took force to be the source of motion itself, whereas Newton will make force the source of change of motion. But before correcting Aristotle, the lecture asks a more interesting question: in what sense is this even a law?
+Restrict the motion to one spatial coordinate.  Since \(v=\dot x\), the law is
 
-\section{From Force to an Update Rule}
-
-To make that question precise, we pass at once to one dimension:
 \begin{equation}
-F=m\dot x.
+  F(t)=m\dot x(t).
+  \label{eq:aristotle-1d}
 \end{equation}
-Now we enter what Susskind calls a stroboscopic world. Time is broken into small intervals of size \(\delta\), and the velocity is approximated by
+
+Now divide time into short intervals of length \(\delta\).  Over one interval,
+
 \begin{equation}
-\dot x(t)\approx \frac{x(t+\delta)-x(t)}{\delta}.
+  \dot x(t)\simeq
+  \frac{x(t+\delta)-x(t)}{\delta}.
+  \label{eq:first-difference}
 \end{equation}
-Cleaning up the live board algebra, Aristotle's law becomes
-\begin{align}
-F(t)&=m\,\frac{x(t+\delta)-x(t)}{\delta},\\
-x(t+\delta)&=x(t)+\frac{\delta}{m}F(t).
-\end{align}
-That is already a law of motion in a perfectly recognizable sense. If we know where the particle is at time \(t\), and if we know the force, then the law tells us where it will be at time \(t+\delta\).
 
-This is the first important pivot of the lecture. A law becomes intelligible only when it becomes an update rule.
+Substitution into Eq.~\eqref{eq:aristotle-1d} gives
 
-We can also read off the no-force case immediately. If \(F=0\), then \(\dot x=0\), so the object simply sits there:
 \begin{equation}
-F=0 \qquad \Rightarrow \qquad \dot x=0.
+  x(t+\delta)
+  =x(t)+\frac{\delta}{m}F(t).
+  \label{eq:aristotle-update}
 \end{equation}
-In Aristotle's world, no force means no motion. The future is static, and so is the past.
 
-\section{Aristotle's Spring and the Suspicion of Irreversibility}
+This has the form of a genuine update rule.  If the present position and the
+force are known, the position at the next stroboscopic instant follows.  When
+the force vanishes, however, Aristotle's rule gives \(\dot x=0\): the object
+must remain at rest.  Motion without a sustaining force is excluded from the
+start.
 
-Susskind now chooses the same example that later will be used again under Newton: a spring force. Suppose
-\begin{equation}
-F(x)=-kx.
-\end{equation}
-Insert this into Aristotle's update rule:
-\begin{equation}
-x(t+\delta)=x(t)-\frac{k\delta}{m}x(t)
-=\left(1-\frac{k\delta}{m}\right)x(t).
-\end{equation}
-If \(\delta\) is small, then \(1-k\delta/m\) is slightly less than \(1\). So each time step multiplies the position by the same common factor. The motion is not oscillatory at all. The particle moves toward the origin, then closer, then closer still, shrinking by the same factor each step.
-
-The continuous version says the same thing more cleanly. The sign in the spoken transcript wobbles a bit, but the intended equation is the one consistent with \(F=-kx\):
-\begin{equation}
-m\dot x=-kx.
-\end{equation}
-Its solution is
-\begin{equation}
-x(t)=x(0)e^{-kt/m}.
-\end{equation}
-So under Aristotle's law a displaced spring simply drifts back to equilibrium, slower and slower, exponentially decaying toward the origin. It does not swing through. It does not remember where it started except through an exponentially fading trace.
-
-\subsection{Question \& Answer}
-
-In what sense does Aristotle's law fail to predict the past?
-
-Not in the trivial sense that the differential equation cannot be manipulated backward on paper. With infinite precision one can formally reconstruct earlier values. The lecture's point is subtler and more physical. Distinct initial conditions all flow into the same final resting state. If at a later time the particle is sitting essentially at the origin, then within any finite observational accuracy we can no longer tell where it came from. Initial distinctions are not preserved. Different histories collapse onto the same practical future.
-
-This is why Susskind says Aristotle's law goes in the wrong direction from the point of view of reversibility. It predicts the future well enough, but it steadily loses information about the past.
-
-\section{Newton's Law, Inertial Frames, and What the Law Really Says}
-
-At this point the lecture turns. We now know what was really wrong with Aristotle. Force is not what makes an object move; force is what changes its state of motion. Friction itself is a force. In ordinary life the force from our hand often balances friction, and that balance can masquerade as a force-velocity law. But that is not a fundamental law.
-
-Newton's second law is
-\begin{equation}
-F=m\ddot x.
-\end{equation}
-Before using it as a dynamical rule, Susskind pauses over inertial frames. The pause is brief but important. One should not be satisfied with the circular slogan that Newton's laws are true in inertial frames and inertial frames are the frames in which Newton's laws are true. The real statement is that there exist frames of reference in which Newton's laws hold. Those are the inertial frames. Other frames, accelerating or rotating relative to them, require extra structure.
-
-He also pauses over the operational meaning of force and mass. A kilogram mass is identified by comparison with a standard mass. A spring balance gives meaning to a unit of force by a fixed amount of stretch. If one identical spring produces one unit of force, then two identical springs in parallel produce two units, and the acceleration doubles. If we keep the force fixed and double the mass, the acceleration is halved. In this way the statement
-\begin{equation}
-a\propto F,\qquad a\propto \frac{1}{m}
-\end{equation}
-is not empty symbolism. It is the content of experiment.
-
-And now the lecture asks the same question it asked of Aristotle's law: is Newton's equation predictive?
-
-\section{From Second Order to Phase Space}
-
-If we discretize the second derivative in the standard way, we obtain
-\begin{equation}
-\ddot x(t)\approx \frac{x(t+\delta)-2x(t)+x(t-\delta)}{\delta^2}.
-\end{equation}
-The board algebra at this point is corrected in real time and is not worth following literally line by line. What matters is the cleaned update formula:
-\begin{equation}
-x(t+\delta)=2x(t)-x(t-\delta)+\frac{\delta^2}{m}F(t).
-\end{equation}
-Now a problem appears. To determine the next position, it is not enough to know the present position. We also need to know the earlier one. So Newton's law seems, at first glance, less predictive than Aristotle's.
-
-\subsection{Question \& Answer}
-
-If Newton's law is second order, why does it still count as a predictive law of motion?
-
-Because the apparent defect lies not in Newton's law but in the way we have described the state. ``Knowing everything'' about a system cannot mean merely knowing its position. It must mean knowing whatever is needed to predict the future. Newton's law teaches us that the right initial data are position together with velocity. The second-order law is not a failure of predictiveness; it is a clue that the space of states is larger than configuration space alone.
-
-That larger state space emerges when we introduce momentum:
-\begin{equation}
-p=m\dot x.
-\end{equation}
-Susskind writes this on the board and immediately rewrites Newton's law in terms of it.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_02_figure_03.png}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_07.png}
+  \caption{The discrete Aristotle update with a restoring force.  Each step
+  multiplies the displacement by a factor slightly smaller than one.}
+  \lectureframe{00:10:15}
 \end{figure}
 
-Since the mass is taken to be constant in Newtonian mechanics, we have
+\subsection{A spring in Aristotle's mechanics}
+
+Consider a particle attached to a spring, with equilibrium at \(x=0\).  A
+displacement produces the restoring force
+
 \begin{equation}
-\dot p = F,
+  F(x)=-kx,
+  \qquad k>0.
+  \label{eq:hooke-law}
 \end{equation}
-or in vector form,
+
+Inserting this force into Eq.~\eqref{eq:aristotle-update} yields
+
 \begin{equation}
-\vec F=\frac{d\vec p}{dt}.
+  x(t+\delta)
+  =\left(1-\frac{k\delta}{m}\right)x(t).
+  \label{eq:aristotle-spring-update}
 \end{equation}
-The second law has become one first-order equation. The definition of momentum gives the other:
+
+For sufficiently small \(\delta\), the factor in parentheses lies just below
+one.  Every update therefore reduces the displacement by the same fraction:
+
 \begin{equation}
-\dot x=\frac{p}{m}.
+  x_n=\left(1-\frac{k\delta}{m}\right)^n x_0.
+  \label{eq:aristotle-geometric-decay}
 \end{equation}
-So Newtonian mechanics in one dimension may be written as the pair
+
+The continuous equation and its solution are
+
 \begin{align}
-\dot p&=F,\\
-\dot x&=\frac{p}{m}.
+  m\dot x&=-kx,
+  \label{eq:aristotle-spring-continuous}\\
+  x(t)&=x(0)e^{-kt/m}.
+  \label{eq:aristotle-spring-solution}
 \end{align}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_02_figure_04.png}
+The spring does not oscillate.  Released from any displacement, it approaches
+the origin exponentially, moving more and more slowly as it comes in.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_08.png}
+  \caption{The exponential solution of the Aristotelian spring equation.  The
+  displacement decays rather than oscillates.}
+  \lectureframe{00:12:02}
 \end{figure}
 
-In discrete language these become update rules,
+The future is easy to predict: every initial displacement approaches the same
+resting configuration.  The past is another matter.  Suppose the particle is
+observed very near the origin with only finite accuracy.  It could have begun
+at any of many distinct displacements, because all of their exponentially
+small remnants eventually lie inside the same measurement tolerance.  With
+perfect mathematical precision Eq.~\eqref{eq:aristotle-spring-solution} can be
+run backward, but practical distinctions between histories are steadily
+erased.  The law is therefore suspicious from the standpoint of reversible
+fundamental dynamics.
+
+This does not mean that Aristotle was irrational.  The friction-dominated
+motion he described really is dissipative.  The mistake was to promote that
+effective behavior to a fundamental law.  Friction is itself a force arising
+from complicated microscopic interactions.  When a hand pushes an object at
+roughly steady speed, the applied force is balancing friction; the applied
+force is not creating velocity as such.
+
+\section{Newton's Law and Its Physical Meaning}
+
+The Newtonian correction is that force changes motion:
+
+\begin{equation}
+  \mathbf F=m\mathbf a=m\ddot{\mathbf x}.
+  \label{eq:newton-second-law}
+\end{equation}
+
+Before treating this as an evolution equation, two apparent circularities must
+be untangled.  The first concerns frames of reference.  One often hears that
+Newton's laws hold in inertial frames and that an inertial frame is one in
+which Newton's laws hold.  The physical assertion is not that circular
+definition.  It is the empirical claim that there \emph{exist} frames,
+described by suitable rods and clocks, in which Newton's laws take their simple
+form.  Frames accelerating or rotating relative to them require additional
+apparent forces.  How the equations transform in those other frames can be
+worked out later.
+
+The second circularity concerns force and mass.  If force is defined as mass
+times acceleration and mass as force divided by acceleration, the equation
+seems empty.  An operational experiment separates the definitions from the
+law.  Compare an object with a standard kilogram by balancing the two, then
+attach the object to a spring balance in otherwise force-free space.  Define
+one unit of force by a fixed small extension of the spring.  Two identical
+springs, each stretched by that same amount, provide two units of force and
+produce twice the acceleration.  It is safer to add a second spring than to
+stretch one spring twice as far, because a real spring eventually becomes
+nonlinear or breaks.  Keeping one spring but joining two equal masses produces
+half the acceleration; three equal masses produce one third.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_09.png}
+  \caption{The spring-balance thought experiment used to define equal units of
+  force and test acceleration proportional to force.}
+  \lectureframe{00:22:45}
+\end{figure}
+
+These comparisons give empirical content to
+
+\begin{equation}
+  a\propto F,
+  \qquad
+  a\propto\frac{1}{m},
+  \qquad
+  F=ma.
+  \label{eq:force-mass-scaling}
+\end{equation}
+
+The word \emph{particle} will be used for any small object whose internal
+structure is irrelevant, not only for an elementary particle.
+
+\subsection{Why position alone is not a state}
+
+We now test Newton's equation by the same stroboscopic method.  The centered
+finite difference for acceleration is
+
+\begin{equation}
+  \ddot x(t)\simeq
+  \frac{x(t+\delta)-2x(t)+x(t-\delta)}{\delta^2}.
+  \label{eq:second-difference}
+\end{equation}
+
+Thus Newton's equation implies
+
+\begin{equation}
+  x(t+\delta)
+  =2x(t)-x(t-\delta)+\frac{\delta^2}{m}F(t).
+  \label{eq:newton-position-update}
+\end{equation}
+
+The next position cannot be obtained from \(x(t)\) alone.  We also need the
+previous position \(x(t-\delta)\), or equivalently the velocity at the present
+instant.  At first this makes Newton's equation appear less predictive than
+Aristotle's.  The correct conclusion is instead that position alone was an
+incomplete description of the state.  To know everything relevant at one
+instant means to know enough data to determine the subsequent motion.  For a
+Newtonian particle those data are position and velocity.
+
+\section{Momentum and Phase Space}
+
+Introduce momentum by
+
+\begin{equation}
+  \mathbf p=m\mathbf v=m\dot{\mathbf x}.
+  \label{eq:momentum-definition}
+\end{equation}
+
+The mass of a fixed Newtonian system is taken to be constant.  An object can
+lose a piece, as a pen can lose its cap, but then the object being described
+has changed; the chosen closed system still has constant total mass.  With
+constant \(m\), Newton's second law becomes
+
+\begin{equation}
+  \mathbf F=\dot{\mathbf p}.
+  \label{eq:newton-momentum-form}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_02_figure_03.png}
+  \caption{Newton's law written as the time derivative of momentum.}
+  \lectureframe{00:32:35}
+\end{figure}
+
+For one coordinate, Newtonian motion can now be written as two first-order
+equations for two independent state variables:
+
 \begin{align}
-p(t+\delta)&=p(t)+\delta\,F(t),\\
-x(t+\delta)&=x(t)+\frac{\delta}{m}p(t),
+  \dot p&=F(x,t),
+  \label{eq:first-order-p}\\
+  \dot x&=\frac{p}{m}.
+  \label{eq:first-order-x}
 \end{align}
-to first order in \(\delta\). One equation tells us how the momentum changes if we know the force. The other tells us how the position changes if we know the momentum. If the force is given as a function of position rather than explicitly as a function of time, nothing essential changes: once \(x\) and \(p\) are known at an instant, the force is known too, and the update goes through.
 
-The state of the particle is therefore not just \(x\), but
-\begin{equation}
-(x,p),
-\end{equation}
-or equivalently \((x,\dot x)\). This enlarged space of initial data is phase space. The lecture stresses that point very strongly: phase space is the space of what one must know in order to predict the future.
+One equation says how the force changes momentum; the other says how momentum
+changes position.  Their first-order discrete form is
 
-\section{The Harmonic Oscillator and Time Reversal}
-
-Now Susskind goes back to the spring and does the analogous Newtonian problem. This is not just another example. It is the same example under a different law, and therefore it reveals the structural difference between Aristotle and Newton with great clarity.
-
-For the spring we have
-\begin{equation}
-m\ddot x=-kx.
-\end{equation}
-To keep the logic clear, let us set \(m=1\) and \(k=1\). Then
-\begin{equation}
-\ddot x=-x.
-\end{equation}
-The solutions are sines and cosines. A convenient form is
-\begin{equation}
-x(t)=c\cos(t-t_0),
-\end{equation}
-where \(c\) and \(t_0\) are the two constants of integration. Differentiating gives
-\begin{equation}
-\dot x(t)=-c\sin(t-t_0).
-\end{equation}
-Since \(m=1\), the momentum is equal to the velocity, so
-\begin{equation}
-p(t)=-c\sin(t-t_0).
-\end{equation}
-The sign of the trigonometric function is not the main point; the invariant relation is. Compute
-\begin{equation}
-x^2+p^2
-=c^2\cos^2(t-t_0)+c^2\sin^2(t-t_0)
-=c^2.
-\end{equation}
-Thus the motion in phase space lies on a circle:
-\begin{equation}
-x^2+p^2=c^2.
-\end{equation}
-
-That is the decisive contrast with Aristotle's spring. Under Aristotle's law all trajectories drift into the origin. Under Newton's law different initial conditions live on different cycles. Large displacements give large circles, small displacements give small circles, but no trajectory collapses onto any other. The past is not lost.
-
-Project the motion onto the \(x\)-axis and we see the ordinary oscillation back and forth. Project it onto the \(p\)-axis and we see the momentum oscillate as well. When \(x\) is maximal, \(p=0\). When the particle passes through the origin, the momentum is maximal. Position and momentum are exchanged back and forth, but the orbit in phase space remains fixed. In this normalization all circles are traversed with the same period; only the radius and the starting point change.
-
-The lecture then gives another view of reversibility. Under time reversal,
-\begin{equation}
-t\mapsto -t,\qquad \dot x\mapsto -\dot x,\qquad \ddot x\mapsto \ddot x.
-\end{equation}
-A first derivative changes sign, but a second derivative does not. So Aristotle's law is not invariant under reversal of time, whereas Newton's law is. If we film a Newtonian motion and run the film backward, we obtain another motion allowed by the same law.
-
-A student asks why reversibility should be expected at all. Susskind's answer is deliberately modest. We are looking at successful laws of physics, searching for common structural features, and reversibility appears as one of them. At a deeper level the logical order runs the other way: Newtonian mechanics is an approximation emerging from more fundamental physics. But in this course we are proceeding from simple principles upward, and reversibility is one of the principles worth tracking.
-
-\section{Conservation Laws: Momentum, Energy, and Potential}
-
-The lecture now broadens from reversibility to conserved quantities. The harmonic oscillator has already suggested the idea: motion stays on one cycle and never jumps to another. That means there must be a label attached to the orbit. Susskind next derives two such labels, first momentum and then energy.
-
-We begin with Newton's third law. Let \(\vec F_{ij}\) denote the force on particle \(i\) due to particle \(j\). Then
-\begin{equation}
-\vec F_{ij}=-\vec F_{ji}.
-\end{equation}
-Susskind also remarks that real interparticle forces are directed along the line joining the particles, but he explicitly postpones that part of the discussion to the later treatment of angular momentum. For momentum conservation, the crucial point is equal and opposite pairs.
-
-For a closed system of particles,
-\begin{equation}
-\dot{\vec p}_i=\sum_{j\ne i}\vec F_{ij}.
-\end{equation}
-Now sum over all \(i\):
-\begin{equation}
-\frac{d}{dt}\sum_i \vec p_i=\sum_i\sum_{j\ne i}\vec F_{ij}.
-\end{equation}
-Each pair \(\vec F_{ij}\) and \(\vec F_{ji}\) appears once each and cancels. Therefore
-\begin{equation}
-\frac{d\vec P_{\text{tot}}}{dt}=0,
-\end{equation}
-where
-\begin{equation}
-\vec P_{\text{tot}}=\sum_i \vec p_i.
-\end{equation}
-So total momentum is conserved.
-
-After that first conservation law, the lecture returns to a single particle and asks for energy conservation. We begin in one dimension, with a force that depends only on position:
-\begin{equation}
-F=F(x).
-\end{equation}
-Susskind is careful here. ``Time independent'' means not that the force cannot vary in time, but that its time dependence comes only through the particle's changing position. If the particle is at position \(x\), the force is \(F(x)\), no matter when that occurs.
-
-In one dimension, for a sufficiently well-behaved force, we can always write
-\begin{equation}
-F(x)=-\frac{dV(x)}{dx},
-\end{equation}
-with
-\begin{equation}
-V(x)=-\int^x F(u)\,du+\text{const}.
-\end{equation}
-The minus sign is a convention, but it is a useful one: it makes the force point toward decreasing potential. The lecture asks us to picture a particle moving along the \(x\)-axis on a terrain of hills and valleys whose height is \(V(x)\). The steeper the hill, the larger the force; the force points downhill.
-
-Now define the energy
-\begin{equation}
-E=\frac12 m\dot x^2+V(x).
-\end{equation}
-Here the first term is kinetic energy and the second is potential energy. Susskind emphasizes that, for present purposes, ``energy'' is simply the name we give to a conserved quantity if it turns out to be conserved.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_02_figure_05.png}
-\end{figure}
-
-Let us differentiate \(E\):
 \begin{align}
-\frac{dE}{dt}
-&=\frac{d}{dt}\left(\frac12 m\dot x^2\right)+\frac{dV}{dt}\\
-&=m\dot x\,\ddot x+\frac{dV}{dx}\dot x\\
-&=\dot x\left(m\ddot x+\frac{dV}{dx}\right).
+  p(t+\delta)&=p(t)+\delta F(x(t),t)+O(\delta^2),
+  \label{eq:momentum-discrete}\\
+  x(t+\delta)&=x(t)+\frac{\delta}{m}p(t)+O(\delta^2).
+  \label{eq:position-discrete}
 \end{align}
-Now Newton's law says \(m\ddot x=F\), and the potential relation says \(F=-dV/dx\). Therefore
-\begin{equation}
-m\ddot x+\frac{dV}{dx}=0,
-\end{equation}
-so
-\begin{equation}
-\frac{dE}{dt}=0.
-\end{equation}
-That is energy conservation in one dimension. As the particle rolls downhill, \(V\) decreases while the kinetic term increases; as it climbs, the opposite occurs. The proof is simply the exact version of that intuitive trade-off.
 
-For the spring force,
-\begin{equation}
-F=-kx,
-\end{equation}
-we obtain
-\begin{equation}
-\frac{dV}{dx}=kx,
-\end{equation}
-so
-\begin{equation}
-V(x)=\frac{k}{2}x^2.
-\end{equation}
-The total energy of the oscillator is therefore
-\begin{equation}
-E=\frac12 m\dot x^2+\frac{k}{2}x^2.
-\end{equation}
+Given \(x(t)\) and \(p(t)\), these equations determine the next pair, which
+then becomes the input for the next step.  The trajectory is built by repeated
+updates.
 
-\subsection{Question \& Answer}
-
-Is every force field the gradient of a potential energy?
-
-In one dimension, for nice enough \(F(x)\), essentially yes: any such function can be integrated, and so one can define a potential. But in several dimensions the situation changes completely. If we are given three independent force components \(F_1,F_2,F_3\), there is no mathematical necessity that they arise as partial derivatives of a single scalar \(V\). In one dimension the existence of \(V\) is nearly automatic; in several dimensions it is a genuine physical assumption.
-
-That is exactly the obstacle Susskind wants to raise before resolving it by postulate.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_02_figure_06.png}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_04.png}
+  \caption{The two first-order equations and the corresponding initial data.
+  Position and momentum together specify the state.}
+  \lectureframe{00:35:47}
 \end{figure}
 
-For one particle in several coordinates \(\mathbf{x}=(x_1,\dots,x_n)\), Newton's law reads componentwise
-\begin{equation}
-F_i(\mathbf{x})=m\ddot x_i.
-\end{equation}
-What we would like to assume is
-\begin{equation}
-F_i(\mathbf{x})=-\frac{\partial V(\mathbf{x})}{\partial x_i},
-\end{equation}
-or, more compactly,
-\begin{equation}
-\vec F=-\nabla V.
-\end{equation}
-This says that the force points in the direction of steepest descent of the potential. The contour-map picture on the board is precisely the picture of a scalar potential together with the downhill direction.
+The space of all pairs \((x,p)\) is called \emph{phase space}.  For one
+particle moving in three dimensions it has six coordinates,
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-2.7,0) -- (2.8,0);
-\draw[->] (0,-2.3) -- (0,2.5);
-\draw (0.15,0.05) ellipse (0.55 and 0.38);
-\draw (0.10,0.05) ellipse (1.05 and 0.72);
-\draw (0.05,0.02) ellipse (1.65 and 1.12);
-\draw (-0.05,-0.02) ellipse (2.25 and 1.55);
-\draw[->,line width=0.8pt] (0.15,0.05) -- (1.35,0.05);
-\end{tikzpicture}
-\end{figure}
-
-Once we assume this conservative-force form, the multidimensional energy is
 \begin{equation}
-E=\frac12 m\sum_i \dot x_i^2+V(x_1,\dots,x_n).
+  (x,y,z,p_x,p_y,p_z).
+  \label{eq:one-particle-phase-space}
 \end{equation}
-Its time derivative is
+
+Phase space is the space of complete initial conditions.  Configuration space
+records positions only; phase space records precisely the data needed by the
+law of motion.
+
+\begin{classroomqa}
+  \audiencequestion{If the force is a function of position rather than a known
+  function of time, does the update become more complicated?\lecturetimestamp{00:36:27--00:37:07}}
+  \lecturerresponse{The equations remain predictive.  Once \(x\) and \(p\) are
+  known, the value \(F(x)\) is known.  Equation~\eqref{eq:first-order-p}
+  advances \(p\), Eq.~\eqref{eq:first-order-x} advances \(x\), and the updated
+  pair can be used again.}
+\end{classroomqa}
+
+\section{The Newtonian Spring}
+
+Return to the spring so that the two laws can be compared on identical
+physical ground.  Newton gives
+
+\begin{equation}
+  m\ddot x=-kx.
+  \label{eq:newton-spring}
+\end{equation}
+
+Set \(m=k=1\) temporarily to remove constants.  Then
+
+\begin{equation}
+  \ddot x=-x.
+  \label{eq:normalized-oscillator}
+\end{equation}
+
+Unlike the exponential function, a sine or cosine returns to minus itself
+after two differentiations.  The general solution may be written
+
 \begin{align}
-\frac{dE}{dt}
-&=m\sum_i \dot x_i\ddot x_i+\frac{dV}{dt}\\
-&=m\sum_i \dot x_i\ddot x_i+\sum_i\frac{\partial V}{\partial x_i}\dot x_i\\
-&=\sum_i \dot x_i\left(m\ddot x_i+\frac{\partial V}{\partial x_i}\right).
+  x(t)&=C\cos(t-t_0),
+  \label{eq:oscillator-x}\\
+  p(t)=\dot x(t)&=-C\sin(t-t_0).
+  \label{eq:oscillator-p}
 \end{align}
-If \(m\ddot x_i=F_i\) and \(F_i=-\partial V/\partial x_i\), then each bracket vanishes:
-\begin{equation}
-\frac{dE}{dt}=0.
-\end{equation}
-So energy is conserved in several dimensions as well, but now we must admit that we have paid a price. Unlike the one-dimensional case, we have made a real physical assumption: that the force components come from one scalar potential.
 
-The many-particle generalization is then only a matter of bookkeeping. We flatten all coordinates of all particles into a single list \(x_1,\dots,x_{3N}\), allow corresponding masses \(m_i\), and define
-\begin{equation}
-E=\sum_{i=1}^{3N}\frac12 m_i\dot x_i^2+V(x_1,\dots,x_{3N}).
-\end{equation}
-If the force components satisfy
-\begin{equation}
-F_i=-\frac{\partial V}{\partial x_i},
-\end{equation}
-then exactly the same indexed derivation shows that the total energy of the whole system is conserved.
+The two constants carry the two pieces of initial information.  The amplitude
+\(C\) gives the maximum displacement, while \(t_0\) fixes the phase, chosen
+here so that the velocity vanishes at \(t=t_0\).  The particle stops only
+momentarily at the endpoints.  It then returns through the origin, where its
+speed and momentum are largest, and continues oscillating.
 
-Susskind closes this part of the lecture by coming back one last time to the harmonic oscillator. For the spring,
-\begin{equation}
-V(x)=\frac{k}{2}x^2,
-\end{equation}
-so
-\begin{equation}
-E=\frac12 m\dot x^2+\frac{k}{2}x^2.
-\end{equation}
-When \(m=k=1\), this reduces to
-\begin{equation}
-E=\frac12\left(\dot x^2+x^2\right).
-\end{equation}
-But earlier we found
-\begin{equation}
-x^2+p^2=c^2,
-\end{equation}
-and in the normalization \(m=1\) we have \(p=\dot x\). Therefore the circles in phase space are nothing but contours of constant energy. The oscillator returns here not as a fresh example but as the payoff: the cycles in phase space are the level curves of the conserved quantity.
+Squaring Eqs.~\eqref{eq:oscillator-x} and \eqref{eq:oscillator-p} gives
 
-\section{Summary}
+\begin{equation}
+  x^2+p^2=C^2.
+  \label{eq:oscillator-phase-circle}
+\end{equation}
 
-The lecture begins with Aristotle not to linger over a historical mistake, but to test what a law of motion should do. Aristotle's law becomes an update rule, predicts the future, and then reveals its weakness: distinct initial states collapse onto the same final rest state, so the past is not stably recoverable. Newton's law changes that by changing the very notion of state. Once we pass from position alone to phase space \((x,p)\), the second-order equation becomes a pair of first-order equations, and prediction is restored in the proper sense.
+Thus the phase-space point moves on a circle of radius \(C\).  Different
+initial amplitudes produce different circles; changing \(t_0\) chooses a
+different starting point on the same circle.  Every circle is traversed with
+the same period \(2\pi\) in these normalized units, independent of amplitude.
 
-From there the spring becomes the central example twice over. Under Aristotle it decays. Under Newton it oscillates. In phase space it runs on circles, and those circles announce conserved quantities. Newton's third law yields conservation of total momentum. Conservative forces yield conservation of energy. In one dimension the potential description is almost automatic; in several dimensions it is a substantive law of nature. That is where the lecture leaves us: with phase space, with conservation laws, and with the harmonic oscillator already hinting at the more general formulations of mechanics still to come.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_10.png}
+  \caption{The oscillator solution and its circular orbit in the \((x,p)\)
+  phase plane.}
+  \lectureframe{00:43:20}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=1.05,>=Latex]
+    \draw[->] (-2.6,0) -- (2.75,0) node[right] {$x$};
+    \draw[->] (0,-2.4) -- (0,2.55) node[above] {$p$};
+    \draw[blue!65!black,thick] (0,0) circle (1.85);
+    \draw[->,blue!65!black,thick]
+      (1.60,0.93) arc[start angle=30,end angle=72,radius=1.85];
+    \fill[red!65!black] (1.60,0.93) circle (2pt);
+    \draw[dashed] (0,0) -- (1.60,0.93)
+      node[midway,below right] {$C$};
+    \node[align=left] at (-1.55,1.85)
+      {$x=C\cos(t-t_0)$\\$p=-C\sin(t-t_0)$};
+  \end{tikzpicture}
+  \caption{A phase-space orbit retains both position and momentum.  Its radius
+  labels the motion, while the angle advances uniformly in time.}
+  \label{fig:oscillator-phase-space}
+\end{figure}
+
+Projection onto the horizontal axis gives the familiar back-and-forth motion
+of \(x\); projection onto the vertical axis gives the oscillation of \(p\).
+Unlike the Aristotelian spring, distinct circles never collapse into one
+another.  Knowing a phase-space point determines both its future and its past.
+
+For general \(m\) and \(k\), the angular frequency is
+
+\begin{equation}
+  \omega=\sqrt{\frac{k}{m}},
+  \qquad
+  x(t)=C\cos\bigl(\omega(t-t_0)\bigr),
+  \label{eq:general-oscillator-frequency}
+\end{equation}
+
+and the phase-space orbit becomes an ellipse in the unscaled \((x,p)\) plane.
+The circular picture is the convenient \(m=k=1\) normalization used in the
+lecture.
+
+\begin{classroomqa}
+  \audiencequestion{If the second derivative in the oscillator equation were
+  replaced by a first derivative, would predictability be lost?\lecturetimestamp{00:45:23--00:46:04}}
+  \lecturerresponse{No.  A first-order equation can still predict forward
+  motion from suitable initial data.  The stronger issue is whether its flow
+  preserves distinctions well enough to be reversible; the relevant general
+  theorem is deferred until the needed machinery is available.}
+\end{classroomqa}
+
+\section{Time Reversal}
+
+The oscillator picture makes reversibility concrete, but there is also a
+direct test on the equations.  Introduce a reversed time coordinate
+
+\begin{equation}
+  T=-t.
+  \label{eq:reverse-time}
+\end{equation}
+
+Then
+
+\begin{equation}
+  \frac{d}{dt}=-\frac{d}{dT},
+  \qquad
+  \frac{d^2}{dt^2}=\frac{d^2}{dT^2}.
+  \label{eq:time-derivative-parity}
+\end{equation}
+
+A first derivative changes sign under time reversal, while a second derivative
+does not.  Consequently the autonomous Aristotelian equation
+
+\begin{equation}
+  m\dot x=F(x)
+  \label{eq:aristotle-time-reversal}
+\end{equation}
+
+does not retain its form when a movie is run backward.  A decaying spring would
+become a spring that spontaneously departs from equilibrium.  By contrast,
+
+\begin{equation}
+  m\ddot x=F(x)
+  \label{eq:newton-time-reversal}
+\end{equation}
+
+is unchanged.  Reversing a Newtonian movie reverses velocity but leaves
+acceleration unchanged, so the backward movie is another allowed solution.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_11.png}
+  \caption{The board comparison under \(t\mapsto -t\): first derivatives
+  reverse sign, whereas second derivatives do not.}
+  \lectureframe{00:50:45}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Why should reversibility be accepted as a premise about
+  physics in general?\lecturetimestamp{00:46:16--00:48:26}}
+  \lecturerresponse{It is tested rather than guaranteed by definition.  We
+  examine successful laws, identify common experimental features, and elevate
+  those features to principles.  The deeper logical order runs in the opposite
+  direction: quantum field theory is more fundamental, and Newtonian mechanics
+  emerges through approximations such as slow motion and heavy objects.  A
+  course must build upward from simpler laws, so reversibility is introduced
+  now as a principle whose reach will be tested later.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Was reversibility itself a problem Newton consciously
+  recognized?\lecturetimestamp{00:48:28--00:49:02}}
+  \lecturerresponse{The historical answer is uncertain.  Newton certainly
+  understood inertia: force is required to change a state of motion, not to
+  sustain uniform motion.  Whether he framed that insight explicitly in terms
+  of reversibility is a separate historical question.}
+\end{classroomqa}
+
+\section{Cycles and Conserved Quantities}
+
+The phase-space circles suggest the next idea.  A trajectory remains on one
+circle and never jumps to another.  Therefore the circle can be labeled by a
+number that remains constant along the motion.  For the normalized oscillator
+that number is
+
+\begin{equation}
+  C^2=x^2+p^2.
+  \label{eq:cycle-label}
+\end{equation}
+
+Up to a factor of one half, this is the oscillator's energy.  Larger circles
+have larger energy; changing the starting phase does not change it.  We shall
+derive that statement rather than merely read it from the picture, but first
+consider momentum.
+
+Newton's first law says that an object subject to no net force moves with
+constant velocity.  It is already contained in the second law:
+
+\begin{equation}
+  \mathbf F=0
+  \quad\Longrightarrow\quad
+  \dot{\mathbf p}=0
+  \quad\Longrightarrow\quad
+  \mathbf v=\text{constant}
+  \label{eq:newton-first-from-second}
+\end{equation}
+
+for constant mass.  Newton's third law contributes genuinely new information
+about interactions between particles.
+
+\subsection{Equal, opposite, and central forces}
+
+Let \(\mathbf F_{ij}\) denote the force on particle \(i\) exerted by particle
+\(j\).  The equal-and-opposite part of the third law is
+
+\begin{equation}
+  \mathbf F_{ij}=-\mathbf F_{ji}.
+  \label{eq:newton-third-pair}
+\end{equation}
+
+If the two forces pointed in the same direction, an isolated pair could
+accelerate spontaneously.  It would be a propellant-free machine producing
+motion from internal forces alone.  Such behavior is not observed.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_12.png}
+  \caption{The indexed statement of equal and opposite interaction forces.}
+  \lectureframe{00:59:25}
+\end{figure}
+
+For the point-particle forces considered here, the pair also acts along the
+line joining the particle centers.  Equal and opposite forces that were not
+collinear could form a pure torque and set an isolated rigid pair rotating.
+The central-force condition prevents that possibility:
+
+\begin{equation}
+  \mathbf F_{ij}\parallel
+  (\mathbf r_i-\mathbf r_j).
+  \label{eq:central-force-condition}
+\end{equation}
+
+The equal-and-opposite condition will give conservation of linear momentum.
+The line-of-centers condition is tied to conservation of angular momentum,
+which will be studied later.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_13.png}
+  \caption{The central-force part of Newton's third law: interaction forces
+  lie along the line joining the particles.}
+  \lectureframe{01:01:38}
+\end{figure}
+
+\subsection{Total momentum}
+
+Consider a closed system of \(N\) particles.  There are no external forces;
+the only forces are those exerted by the particles on one another.  Force
+additivity and Newton's second law give, for each particle,
+
+\begin{equation}
+  \dot{\mathbf p}_i
+  =m_i\ddot{\mathbf r}_i
+  =\sum_{\substack{j=1\\j\ne i}}^N \mathbf F_{ij}.
+  \label{eq:many-particle-newton}
+\end{equation}
+
+Sum this equation over \(i\):
+
+\begin{align}
+  \frac{d}{dt}\sum_{i=1}^N\mathbf p_i
+  &=\sum_{i=1}^N
+    \sum_{\substack{j=1\\j\ne i}}^N\mathbf F_{ij}
+  \notag\\
+  &=\sum_{i<j}\bigl(\mathbf F_{ij}+\mathbf F_{ji}\bigr)
+  =0.
+  \label{eq:momentum-pair-cancellation}
+\end{align}
+
+Every interaction appears twice, once in each direction, and the pair cancels.
+Defining
+
+\begin{equation}
+  \mathbf P_{\mathrm{tot}}=\sum_{i=1}^N\mathbf p_i,
+  \label{eq:total-momentum}
+\end{equation}
+
+we obtain the first conservation law:
+
+\begin{equation}
+  \frac{d\mathbf P_{\mathrm{tot}}}{dt}=0.
+  \label{eq:momentum-conservation}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_14.png}
+  \caption{Summing the particle equations makes the pairwise forces cancel,
+  leaving the derivative of total momentum equal to zero.}
+  \lectureframe{01:04:38}
+\end{figure}
+
+Historically we have presented momentum conservation as a consequence of
+Newton's third law.  Modern physics often regards momentum conservation as the
+more fundamental statement: if an isolated two-particle system conserves total
+momentum, its internal momentum changes must be equal and opposite.  For the
+present development, however, the Newtonian route is the useful one.
+
+\section{Energy in One Dimension}
+
+Take one particle moving on a line under a force that depends only on its
+position:
+
+\begin{equation}
+  F=F(x).
+  \label{eq:position-force}
+\end{equation}
+
+Such a force is called time independent.  This does not mean that the force
+experienced by the moving particle has a constant numerical value.  Its value
+changes as \(x(t)\) changes.  It means that whenever the particle is at the
+same position \(x\), it experiences the same force, regardless of the clock
+time.
+
+In one dimension, any sufficiently regular force function can be integrated.
+We therefore define a potential energy \(V(x)\) by
+
+\begin{equation}
+  F(x)=-\frac{dV}{dx},
+  \label{eq:potential-definition-1d}
+\end{equation}
+
+or equivalently
+
+\begin{equation}
+  V(x)=-\int^x F(u)\,du+V_0.
+  \label{eq:potential-integral}
+\end{equation}
+
+The additive constant \(V_0\) has no effect on the force.  Picture \(V(x)\) as
+the height of a landscape above the \(x\)-axis.  The particle is pushed toward
+lower height, and the force is larger where the slope is steeper.  At the top
+or bottom of a smooth hill the slope vanishes, so the force vanishes there.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_15.png}
+  \caption{Potential energy as a one-dimensional landscape.  The force points
+  downhill and has magnitude set by the slope.}
+  \lectureframe{01:12:57}
+\end{figure}
+
+Define kinetic, potential, and total energy by
+
+\begin{equation}
+  T=\frac12m\dot x^2,
+  \qquad
+  E=T+V(x)
+  =\frac12m\dot x^2+V(x).
+  \label{eq:energy-1d}
+\end{equation}
+
+At this stage energy is simply the name assigned to this candidate conserved
+quantity.  Its physical interpretation is suggested by the landscape: rolling
+downhill lowers \(V\) while increasing speed and therefore \(T\); climbing
+uphill does the reverse.  Newton's equation proves that the exchange is exact.
+
+Differentiate Eq.~\eqref{eq:energy-1d}.  Since \(m\) is constant and \(V\)
+depends on time only through \(x(t)\),
+
+\begin{align}
+  \frac{dE}{dt}
+  &=m\dot x\ddot x+\frac{dV}{dx}\dot x
+  \notag\\
+  &=\dot x\left(m\ddot x+\frac{dV}{dx}\right).
+  \label{eq:energy-derivative-1d}
+\end{align}
+
+Newton's law and the definition of \(V\) say
+
+\begin{equation}
+  m\ddot x=F=-\frac{dV}{dx}.
+  \label{eq:newton-potential-1d}
+\end{equation}
+
+The bracket in Eq.~\eqref{eq:energy-derivative-1d} therefore vanishes:
+
+\begin{equation}
+  \frac{dE}{dt}=0.
+  \label{eq:energy-conservation-1d}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_16.png}
+  \caption{The one-dimensional energy derivative factored into velocity times
+  Newton's equation.}
+  \lectureframe{01:19:18}
+\end{figure}
+
+No additional dynamical assumption was needed in one dimension beyond a
+regular position-dependent force, because every such force admits an
+antiderivative.
+
+\section{Several Dimensions and Conservative Forces}
+
+For one particle with coordinates \(x_i\), Newton's equation has components
+
+\begin{equation}
+  F_i(\mathbf x)=m\ddot x_i.
+  \label{eq:newton-components}
+\end{equation}
+
+The force component \(F_i\) may depend on all coordinates, not only on
+\(x_i\).  We would like to find one scalar function \(V(\mathbf x)\) such that
+
+\begin{equation}
+  F_i(\mathbf x)
+  =-\frac{\partial V(\mathbf x)}{\partial x_i},
+  \qquad
+  \mathbf F=-\boldsymbol\nabla V.
+  \label{eq:gradient-force}
+\end{equation}
+
+Unlike the one-dimensional construction, this is not automatic.  Three
+arbitrary functions \(F_1,F_2,F_3\) generally contain more independent
+information than the derivatives of one scalar function.  Equivalently, a
+potential exists only when the force field satisfies compatibility conditions
+such as equality of the appropriate mixed partial derivatives; in a simply
+connected region this is expressed by \(\boldsymbol\nabla\times\mathbf F=0\).
+We therefore take Eq.~\eqref{eq:gradient-force} as a physical postulate for
+the class of forces under consideration, not as a mathematical identity.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_17.png}
+  \caption{The multidimensional force law and a contour sketch of the
+  potential.  Force points across level curves toward decreasing \(V\).}
+  \lectureframe{01:24:15}
+\end{figure}
+
+On a contour map, \(V\) is constant along each level curve.  The gradient is
+perpendicular to those curves and points toward steepest increase; the force
+\(-\boldsymbol\nabla V\) points toward steepest descent.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=1.0,>=Latex]
+    \draw[->] (-3.0,0) -- (3.1,0) node[right] {$x_1$};
+    \draw[->] (0,-2.4) -- (0,2.55) node[above] {$x_2$};
+    \draw[orange!65!black,thick]
+      plot[smooth cycle] coordinates
+      {(-0.55,-0.35) (0.15,-0.55) (0.72,-0.10) (0.50,0.53) (-0.25,0.65)};
+    \draw[orange!65!black,thick]
+      plot[smooth cycle] coordinates
+      {(-1.15,-0.75) (0.20,-1.10) (1.35,-0.25) (1.10,0.95) (-0.45,1.25)};
+    \draw[orange!65!black,thick]
+      plot[smooth cycle] coordinates
+      {(-1.85,-1.20) (0.15,-1.70) (2.15,-0.40) (1.70,1.50) (-0.80,1.85)};
+    \draw[->,blue!65!black,very thick] (1.62,0.73) -- (0.82,0.20)
+      node[midway,above left] {$\mathbf F$};
+    \draw[dashed,->,red!65!black,thick] (0.82,0.20) -- (1.62,0.73)
+      node[midway,below right] {$\boldsymbol\nabla V$};
+    \node[orange!65!black] at (-1.62,1.45) {$V=V_3$};
+    \node[orange!65!black] at (-0.92,0.92) {$V=V_2$};
+    \node[orange!65!black] at (-0.35,0.30) {$V=V_1$};
+  \end{tikzpicture}
+  \caption{Level curves of a scalar potential.  The gradient is normal to the
+  contours, and a conservative force points in the opposite direction.}
+  \label{fig:potential-contours}
+\end{figure}
+
+When Eq.~\eqref{eq:gradient-force} holds, define
+
+\begin{equation}
+  E=\frac12m\sum_i\dot x_i^2+V(x_1,\ldots,x_n).
+  \label{eq:energy-many-coordinates}
+\end{equation}
+
+The kinetic term is one half the mass times the squared length of the velocity
+vector.  Differentiating and applying the multivariable chain rule gives
+
+\begin{align}
+  \frac{dE}{dt}
+  &=m\sum_i\dot x_i\ddot x_i
+    +\sum_i\frac{\partial V}{\partial x_i}\dot x_i
+  \notag\\
+  &=\sum_i\dot x_i
+    \left(m\ddot x_i+\frac{\partial V}{\partial x_i}\right)
+  =0.
+  \label{eq:energy-derivative-multidimensional}
+\end{align}
+
+The proof is exactly the one-dimensional proof decorated with an index, but
+its premise is stronger: the force components must all arise from one
+potential.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_02_figure_18.png}
+  \caption{The indexed energy derivative.  Each bracket vanishes by the
+  corresponding component of Newton's equation.}
+  \lectureframe{01:28:30}
+\end{figure}
+
+For \(N\) particles in three dimensions, collect all coordinates into one list
+
+\begin{equation}
+  q_a=(x_1,y_1,z_1,x_2,y_2,z_2,\ldots,x_N,y_N,z_N),
+  \qquad a=1,\ldots,3N.
+  \label{eq:flattened-coordinates}
+\end{equation}
+
+There are \(3N\) coordinate entries but only \(N\) particle masses; the same
+mass occurs in the three entries belonging to a given particle.  If
+
+\begin{equation}
+  F_a=-\frac{\partial V(q_1,\ldots,q_{3N})}{\partial q_a},
+  \label{eq:many-particle-conservative-force}
+\end{equation}
+
+then
+
+\begin{equation}
+  E=\sum_{A=1}^{N}\frac12m_A\lvert\dot{\mathbf r}_A\rvert^2
+    +V(\mathbf r_1,\ldots,\mathbf r_N)
+  \label{eq:many-particle-energy}
+\end{equation}
+
+is conserved by the same calculation.  Forces that arise from a potential are
+called \emph{conservative} precisely because they support this conservation
+law; the adjective has no political meaning.
+
+\section{The Oscillator as an Energy Contour}
+\enlargethispage{3\baselineskip}
+
+For the spring force \(F=-kx\), Eq.~\eqref{eq:potential-definition-1d} gives
+
+\begin{equation}
+  V(x)=\frac12kx^2+V_0.
+  \label{eq:spring-potential}
+\end{equation}
+
+Choosing \(V_0=0\), the oscillator energy is
+
+\begin{equation}
+  E=\frac12m\dot x^2+\frac12kx^2
+   =\frac{p^2}{2m}+\frac12kx^2.
+  \label{eq:oscillator-energy}
+\end{equation}
+
+For \(m=k=1\),
+
+\begin{equation}
+  2E=p^2+x^2=C^2.
+  \label{eq:oscillator-energy-circle}
+\end{equation}
+
+The phase-space circles found earlier are therefore contours of constant
+energy.  For a more general one-dimensional potential, the contours need not
+be circles, but the motion still lies on curves
+
+\begin{equation}
+  \frac{p^2}{2m}+V(x)=E
+  \label{eq:general-energy-contour}
+\end{equation}
+
+in the \((x,p)\) plane.  This returns us to the idea of the first lecture: when
+trajectories remain on distinct cycles or orbits, a number can label those
+orbits and remain unchanged throughout the motion.
+
+We now have the state space, the Newtonian update equations, and the first two
+conservation laws.  The next formulation of mechanics will begin from the
+principle of least action and lead to Lagrangians, Hamiltonians, angular
+momentum, and the more general structure behind these examples.
+
+\begin{classroomqa}
+  \audiencequestion{How closely do the distributed handout and the work on the
+  board correspond, and where are the figures?\lecturetimestamp{01:37:56--01:38:54}}
+  \lecturerresponse{The handout should follow the lecture closely; if material
+  on the board is absent, the wrong file may have been sent.  The figures had
+  not yet been prepared; they would appear, he jokes, when Continuing Studies
+  paid the next check.}
+\end{classroomqa}
