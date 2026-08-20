@@ -1,583 +1,858 @@
-\chapter{Conformal Mapping, Laplace's Equation, and Open-String Scattering}
+\chapter{Conformal Maps and the Open-String Scattering Prescription}
 
-Let us begin exactly where Leonard Susskind begins. Conformal mappings are not introduced here as a technical convenience of string theory. They are interesting in their own right, they are widely useful in mathematical physics, and the most direct example for this lecture is two-dimensional electrostatics. These notes follow that lecture order, with the blackboard record preserved through the curation of LazyingArt LLC and Video2Book, so that the mathematics can unfold with the same motivation and rhythm.
+\lectureoverview{Conformal mapping first appears as a practical symmetry of
+two-dimensional electrostatics.  Complex differentiability turns that
+symmetry into a calculable one: the Cauchy--Riemann equations imply Laplace's
+equation, and a direction-independent complex derivative preserves angles.
+With this machinery in hand, a string worldsheet may be drawn as a strip,
+half-plane, cylinder, or disc without changing the physics.  Open-string
+scattering then becomes a Gaussian path integral on the disc with momentum
+insertions on its boundary, followed by an integral over their inequivalent
+positions.}
 
-\section{Electrostatics As The First Model For Conformal Mapping}
+\section{Electrostatics in a Two-Dimensional World}
 
-Susskind starts by being careful about what he means by electrostatics in two dimensions. He does not mean charges constrained to move in a plane while still interacting with the ordinary three-dimensional Coulomb law. He means a literal two-dimensional world, one in which electric flux lines are forced to lie in the plane. In such a world the Coulomb force is not \(1/r^2\), but
+We begin with a literal two-dimensional electrostatic problem.  Charges and
+their field lines are confined to a plane; they are not merely ordinary
+three-dimensional charges whose motion happens to be planar.  Gauss's law
+then gives
 \begin{equation}
-F(r)\propto \frac{1}{r},
+  F(r)\propto \frac{1}{r},
+  \qquad
+  V(r)\propto \log r,
+  \label{eq:l08-two-dimensional-coulomb}
 \end{equation}
-and therefore the potential energy is logarithmic,
-\begin{equation}
-V(r)\propto \log r.
-\end{equation}
-The mathematics is already different before conformal mapping enters.
+because the flux crosses a circle whose circumference grows like \(r\).
 
-The next move is characteristic of the lecture. Rather than working directly with the electric field, we pass to a simpler object, the scalar potential \(\phi\). Keeping the lecture's sign convention,
-\begin{align}
-\mathbf E &= \nabla \phi, \\
-\nabla\cdot \mathbf E &= \rho.
-\end{align}
-Combining these gives the Poisson equation
+Write the field in terms of a scalar potential \(\phi\).  In the sign
+convention used on the board,
 \begin{equation}
-\nabla^2\phi=\rho.
+  \mathbf E=\nabla\phi,
+  \qquad
+  \nabla\cdot\mathbf E=\rho,
 \end{equation}
-Now unpack the Laplacian in a literal two-dimensional world with coordinates \(x\) and \(y\):
+and therefore
 \begin{equation}
-\nabla^2\phi
-=
-\frac{\partial^2\phi}{\partial x^2}
-+
-\frac{\partial^2\phi}{\partial y^2}.
+  \nabla^2\phi
+  =\frac{\partial^2\phi}{\partial x^2}
+  +\frac{\partial^2\phi}{\partial y^2}
+  =\rho.
+  \label{eq:l08-poisson}
 \end{equation}
-Where there is charge density this equals \(\rho\); where there is no charge density it reduces to Laplace's equation,
+In a charge-free region this reduces to Laplace's equation,
 \begin{equation}
-\frac{\partial^2\phi}{\partial x^2}
-+
-\frac{\partial^2\phi}{\partial y^2}
-=0.
+  \nabla^2\phi=0.
+  \label{eq:l08-laplace-phi}
 \end{equation}
+\editorialnote{Many electrodynamics texts define
+\(\mathbf E=-\nabla\Phi\), in which case
+\(\nabla^2\Phi=-\rho\) after constants are absorbed.  The lecture uses the
+opposite potential sign.  The source-free equation and all conformal
+arguments are unchanged.}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_08_figure_02.png}
-\caption{Electrostatic equations and the two-dimensional Laplacian.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_01.png}
+  \caption{The electrostatic equations unfolded into the
+  two-dimensional Poisson operator.}
+  \lectureframe{00:03:48}
+  \label{fig:l08-electrostatics-board}
 \end{figure}
 
-This is the equation that matters. The point of the opening is not merely to remind us of electrostatics, but to put a definite invariant equation on the board. Conformal transformations preserve angles, and in two dimensions they preserve the form of Laplace's equation. That is why one can take a solution on one domain, map the domain, and carry the solution with it to a new geometry. Susskind mentions cartography and fluid flow for the same reason: the mathematics is broader than string theory, even though string theory is where we are headed.
+The plus sign between the two spatial derivatives matters.  It makes this
+an elliptic equation rather than a wave equation.  Conformal transformations
+preserve its source-free form, so a solution on one domain may be carried to
+a differently shaped domain together with its boundary conditions.  This is
+useful in electrostatics, two-dimensional fluid flow, and cartography before
+it is useful in string theory.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{If the Laplacian vanishes, is this a standing-wave
+equation? \lecturetimestamp{00:05:35}}
+\lecturerresponse{No.  Both spatial derivatives have the same sign and
+there is no time derivative.  A wave equation requires time dependence with
+the Lorentzian relative sign.  Electrostatics is static precisely because
+nothing, including a wave, is evolving.}
+\end{classroomqa}
 
-\paragraph{Question.} Why are these not wave equations?
-
-\paragraph{Answer.} Because the equation on the board is purely spatial and has the elliptic sign structure
+\begin{classroomqa}
+\audiencequestion{Is there a curl in two dimensions?
+\lecturetimestamp{00:06:06}}
+\lecturerresponse{Yes, but it has only one independent component.  For
+\(\mathbf E=(E_x,E_y)\),
 \[
-\partial_x^2\phi+\partial_y^2\phi=0.
+  \operatorname{curl}_{2d}\mathbf E
+  =\partial_yE_x-\partial_xE_y.
 \]
-There is no time derivative, and the two spatial second derivatives come with the same sign. If we wanted waves, we would have to add time dependence. Electrostatics is static precisely because nothing is moving.
+It may be pictured as the component perpendicular to the board, although an
+intrinsically two-dimensional world needs no external perpendicular
+direction.  In higher dimensions the corresponding object is naturally an
+antisymmetric two-form.}
+\end{classroomqa}
 
-A student then asks about curl in two dimensions, and Susskind uses the question as a bridge rather than a digression. If
-\[
-\mathbf E=(E_x,E_y),
-\]
-then in two dimensions the curl has only one component,
+\section{A Derivative with No Preferred Direction}
+
+Introduce complex coordinates on the original and image planes:
 \begin{equation}
-\operatorname{curl}_{2d}\mathbf E
-=
-\frac{\partial E_x}{\partial y}
--
-\frac{\partial E_y}{\partial x}.
+  z=x+iy,
+  \qquad
+  w=u+iv,
+  \qquad
+  w=w(z).
+  \label{eq:l08-complex-coordinates}
 \end{equation}
-One may think of it as the component perpendicular to the board if one likes, but the real point is simpler: in two dimensions the curl becomes a one-component object. We will meet this again once \(u\) and \(v\) begin to behave like the components of a vector field.
-
-\section{Complex Coordinates And The Problem Of A Unique Derivative}
-
-Having motivated conformal invariance through Laplace's equation, the lecture shifts to the right language for planar mappings. Write the original plane as
+Here \(x,y,u,v\) are real.  Locally, the derivative ought to be
 \begin{equation}
-z=x+iy,
+  \frac{dw}{dz}
+  =\lim_{\Delta z\to0}\frac{\Delta w}{\Delta z}.
+  \label{eq:l08-complex-derivative}
 \end{equation}
-and the image plane as
+The complex plane, unlike the real line, permits infinitely many directions
+of approach.  A continuous and ordinarily smooth map need not give the same
+ratio along each direction.
+
+Compare two simple approaches.  Along the \(x\)-direction, \(dy=0\), so
 \begin{equation}
-w=u+iv.
+  \left.\frac{dw}{dz}\right|_x
+  =\frac{\partial u}{\partial x}
+  +i\frac{\partial v}{\partial x}.
 \end{equation}
-A mapping of the plane to itself is then a complex function \(w(z)\), or equally well a coordinate transformation from \((x,y)\) to \((u,v)\). The lecture assumes the mapping is one-to-one, so every point on the \(z\)-plane determines a unique point on the \(w\)-plane, and vice versa. In that sense we are still doing coordinate transformations, only now in complex notation.
-
-Susskind deliberately concentrates on differential rather than integral calculus. Suppose we move from a point \(z\) to a nearby point \(z+\Delta z\). The image point moves from \(w\) to \(w+\Delta w\). The obvious candidate for the derivative is
+Along the \(y\)-direction, \(dx=0\), and
 \begin{equation}
-\frac{dw}{dz}
-=
-\lim_{\Delta z\to 0}\frac{\Delta w}{\Delta z}.
+  \left.\frac{dw}{dz}\right|_y
+  =\frac{1}{i}\frac{\partial u}{\partial y}
+  +\frac{\partial v}{\partial y}
+  =\frac{\partial v}{\partial y}
+  -i\frac{\partial u}{\partial y}.
 \end{equation}
-The problem is that, unlike the real line, the complex plane allows infinitely many directions of approach. It is not enough that the function be continuous or even smooth in an ordinary sense. The ratio \(\Delta w/\Delta z\) might depend on how we come into the point.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} What condition makes \(dw/dz\) well defined in the complex plane?
-
-\paragraph{Answer.} The limit must be independent of direction. Susskind derives the condition by comparing approach along the \(x\)-axis with approach along the \(y\)-axis. If those agree, one gets the crucial equations; and in fact that condition turns out to be sufficient as well.
-
-Along the \(x\)-axis we keep \(y\) fixed, so \(dy=0\). Then
+Equality of real and imaginary parts gives
 \begin{equation}
-\frac{dw}{dz}
-=
-\frac{\partial u}{\partial x}
-+
-i\frac{\partial v}{\partial x}.
+  \boxed{
+  \frac{\partial u}{\partial x}
+  =\frac{\partial v}{\partial y},
+  \qquad
+  \frac{\partial u}{\partial y}
+  =-\frac{\partial v}{\partial x}}
+  \label{eq:l08-cauchy-riemann}
 \end{equation}
-Along the \(y\)-axis we keep \(x\) fixed, so \(dx=0\). Then
-\begin{equation}
-\frac{dw}{dz}
-=
-\frac{1}{i}\frac{\partial u}{\partial y}
-+
-\frac{\partial v}{\partial y}
-=
-\frac{\partial v}{\partial y}
--
-i\frac{\partial u}{\partial y}.
-\end{equation}
-If these are to represent the same derivative, their real parts and imaginary parts must match.
+These are the Cauchy--Riemann equations.  Under the usual differentiability
+assumptions they are also sufficient for the limit
+\eqref{eq:l08-complex-derivative} to be direction independent.  A function
+with this property is analytic, or holomorphic, at the point.
 
-\section{Cauchy-Riemann Equations And Harmonic Functions}
-
-Matching the two directional derivatives gives the Cauchy-Riemann equations:
-\begin{align}
-\frac{\partial u}{\partial x} &= \frac{\partial v}{\partial y}, \\
-\frac{\partial u}{\partial y} &= -\,\frac{\partial v}{\partial x}.
-\end{align}
-This is the condition for the derivative \(dw/dz\) to exist in a unique, meaningful way. When the condition holds, the function is called analytic. If it holds everywhere, the lecture uses the standard name entire.
-
-The lecture does not leave these equations as mere formal conditions. It immediately asks what they imply. Since they couple \(u\) and \(v\), can we uncouple them and write separate equations for each? Yes. Differentiate the first equation with respect to \(x\):
-\begin{equation}
-\frac{\partial^2 u}{\partial x^2}
-=
-\frac{\partial^2 v}{\partial x\,\partial y}.
-\end{equation}
-Differentiate the second with respect to \(y\):
-\begin{equation}
-\frac{\partial^2 u}{\partial y^2}
-=
--\,\frac{\partial^2 v}{\partial x\,\partial y}.
-\end{equation}
-Add them and the mixed partial derivatives cancel:
-\begin{equation}
-\frac{\partial^2 u}{\partial x^2}
-+
-\frac{\partial^2 u}{\partial y^2}
-=0.
-\end{equation}
-Exactly the same maneuver, with \(x\) and \(y\) interchanged in the right places, gives
-\begin{equation}
-\frac{\partial^2 v}{\partial x^2}
-+
-\frac{\partial^2 v}{\partial y^2}
-=0.
-\end{equation}
-
-So an analytic function \(w=u+iv\) contains two real harmonic functions. This is the point of return to the opening electrostatics discussion. Complex differentiability has led us straight back to Laplace's equation.
-
-There is also the brief curl-divergence interpretation prompted by a student question. If we regard \((u,-v)\) as the components of a two-dimensional vector field, then the Cauchy-Riemann equations read
-\begin{align}
-\frac{\partial u}{\partial x}
--
-\frac{\partial v}{\partial y}
-&=0, \\
-\frac{\partial u}{\partial y}
-+
-\frac{\partial v}{\partial x}
-&=0.
-\end{align}
-The first says the divergence vanishes; the second says the curl vanishes. That is why these equations look so familiar from the electrostatics side of the story.
-
-The lecture also makes an important one-way caution. Every analytic function gives two harmonic functions, but not every pair of harmonic functions comes from an analytic function. The Cauchy-Riemann equations are what link the pair together.
-
-\section{Why Analytic Functions Are Conformal}
-
-Now comes the advertised payoff. Susskind says this quite plainly: that was the whole point. We want to show that analytic mappings are not merely examples of conformal mappings. They are the same thing.
-
-The argument is local and geometric. First recall a simple fact about complex numbers. A small complex number can be written in polar form as
-\begin{equation}
-\delta z=\rho e^{i\theta},
-\qquad
-\Delta z=\rho' e^{i\theta'}.
-\end{equation}
-Then
-\begin{equation}
-\frac{\delta z}{\Delta z}
-=
-\frac{\rho}{\rho'}e^{i(\theta-\theta')}.
-\end{equation}
-The magnitude is not the issue. The phase is. The phase of a ratio is the difference of the phases, and that difference is exactly the angle between the two displacements.
-
-Now return to the \(z\)-plane and the \(w\)-plane. At a point in the \(z\)-plane take two tiny intervals, \(\delta z\) and \(\Delta z\), meeting at that point. Under the mapping they go to \(\delta w\) and \(\Delta w\). If \(w(z)\) is analytic, the derivative is well defined and independent of direction, so
-\begin{equation}
-\frac{\delta w}{\delta z}
-=
-\frac{\Delta w}{\Delta z}.
-\end{equation}
-Rearranging,
-\begin{equation}
-\frac{\Delta z}{\delta z}
-=
-\frac{\Delta w}{\delta w}.
-\end{equation}
-But now the phase of the left-hand side is the angle between the two intervals in the \(z\)-plane, while the phase of the right-hand side is the angle between their images in the \(w\)-plane. Therefore those angles are equal. That is the conformal property.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-1.4,0) -- (1.6,0);
-\draw[->] (0,-1.2) -- (0,1.6);
-\node at (0,-1.5) {$z$-plane};
-\fill (0,0) circle (0.04);
-\draw[->] (0,0) -- (1.15,0.42);
-\draw[->] (0,0) -- (0.48,1.12);
-\node at (1.18,0.65) {$\delta z$};
-\node at (0.72,1.28) {$\Delta z$};
-\draw (0.48,0.17) arc (20:67:0.50);
-
-\begin{scope}[xshift=5.2cm]
-\draw[->] (-1.4,0) -- (1.6,0);
-\draw[->] (0,-1.2) -- (0,1.6);
-\node at (0,-1.5) {$w$-plane};
-\fill (0,0) circle (0.04);
-\draw[->] (0,0) -- (1.18,0.50);
-\draw[->] (0,0) -- (0.54,1.18);
-\node at (1.22,0.74) {$\delta w$};
-\node at (0.78,1.34) {$\Delta w$};
-\draw (0.50,0.21) arc (23:66:0.54);
-\end{scope}
-\end{tikzpicture}
-\caption{Two infinitesimal intervals in the \(z\)-plane and their images in the \(w\)-plane. Analyticity preserves the angle between them.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_02.png}
+  \caption{The completed Cauchy--Riemann pair, including the relative
+  minus sign.}
+  \lectureframe{00:19:48}
+  \label{fig:l08-cr-board}
 \end{figure}
 
-\subsection{Question \& Answer}
+The lecture briefly distinguishes related terminology.  A function
+holomorphic throughout the finite complex plane is entire.  A meromorphic
+function may have isolated poles.  Thus \(1/z\) is analytic away from
+\(z=0\), but it is not entire.
 
-\paragraph{Question.} Why does analyticity imply angle preservation?
+\section{Harmonic Conjugates and Conformal Geometry}
 
-\paragraph{Answer.} Because analyticity makes the derivative the same in every infinitesimal direction through the point. Once two intervals are compared by taking a ratio, the common derivative cancels. What remains is a ratio of complex intervals, and the phase of that ratio is the angle between them. Equal ratios therefore mean equal angles.
-
-So the local statement is complete: analytic maps preserve angles, and that is why they are the coordinate transformations under which the two-dimensional equations of motion keep their form. This is exactly why they matter in string theory.
-
-\section{Examples And Global Maps: \(z^2\), \(e^z\), \(\log z\), And The Disk}
-
-Only after the proof does the lecture turn to examples. The order matters. These are not a detached catalogue of complex functions; they are meant to train our eye.
-
-\paragraph{A first easy example: \(W=z^2\).} On the board the order is simple and clean:
+The Cauchy--Riemann equations are coupled first-order equations, but they
+imply separate second-order equations.  Differentiate
+\(\partial_xu=\partial_yv\) with respect to \(x\), differentiate
+\(\partial_yu=-\partial_xv\) with respect to \(y\), and add:
 \begin{align}
-W &= z^2, \\
-(x+iy)^2 &= x^2-y^2+2ixy=u+iv, \\
-u &= x^2-y^2, \\
-v &= 2xy.
+  \partial_x^2u&=\partial_x\partial_yv,\\
+  \partial_y^2u&=-\partial_y\partial_xv,\\
+  \therefore\qquad
+  \partial_x^2u+\partial_y^2u&=0.
+  \label{eq:l08-harmonic-u}
 \end{align}
+Repeating the argument with \(u\) and \(v\) interchanged gives
+\begin{equation}
+  \partial_x^2v+\partial_y^2v=0.
+  \label{eq:l08-harmonic-v}
+\end{equation}
+The real and imaginary parts of an analytic function are therefore harmonic
+conjugates.  Two arbitrary harmonic functions do not automatically make an
+analytic function; they must still be linked by
+\eqref{eq:l08-cauchy-riemann}.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_03.png}
-\caption{The map \(W=z^2\) and the identification of \(u\) and \(v\).}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_08_figure_03.png}
+  \caption{The mixed derivatives cancel, leaving Laplace's equation for
+  one component of the analytic map.}
+  \lectureframe{00:23:09}
+  \label{fig:l08-harmonic-board}
 \end{figure}
 
-Now check the harmonicity directly. For \(u=x^2-y^2\),
+There is also a useful vector interpretation.  If
+\(\mathbf F=(u,-v)\), then the two Cauchy--Riemann equations state, up to
+the chosen orientation convention, that both the divergence and the
+two-dimensional curl of \(\mathbf F\) vanish.  This is the promised return
+to electrostatics.
+
+\subsection{Why Angles Are Preserved}
+
+Write two small complex displacements in polar form:
 \begin{equation}
-\frac{\partial^2 u}{\partial x^2}=2,
-\qquad
-\frac{\partial^2 u}{\partial y^2}=-2,
+  \delta z=\rho e^{i\theta},
+  \qquad
+  \Delta z=\rho'e^{i\theta'}.
+\end{equation}
+Their ratio has phase \(\theta-\theta'\), exactly the angle between them.
+Under an analytic map,
+\begin{equation}
+  \frac{\delta w}{\delta z}
+  =\frac{\Delta w}{\Delta z}
+  =w'(z),
+\end{equation}
+because the derivative does not depend on direction.  Rearranging gives
+\begin{equation}
+  \frac{\Delta z}{\delta z}
+  =\frac{\Delta w}{\delta w}.
+  \label{eq:l08-angle-ratio}
+\end{equation}
+The two sides have the same phase, so the angle between the original
+intervals equals the angle between their images.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_04.png}
+  \medskip
+
+  \begin{tikzpicture}[x=0.9cm,y=0.9cm,>=Latex]
+    \begin{scope}
+      \draw[->] (-0.2,0) -- (2.3,0);
+      \draw[->] (0,-0.2) -- (0,2.1);
+      \draw[very thick,blue!65!black,->] (0,0) -- (1.85,0.45)
+        node[right] {\(\delta z\)};
+      \draw[very thick,orange!75!black,->] (0,0) -- (0.72,1.65)
+        node[above] {\(\Delta z\)};
+      \draw (0.58,0.14) arc[start angle=14,end angle=66,radius=0.60];
+      \node at (1.0,-0.55) {\(z\)-plane};
+    \end{scope}
+    \draw[->,thick] (3.0,0.9) -- (4.2,0.9)
+      node[midway,above] {\(w(z)\)};
+    \begin{scope}[xshift=5.0cm]
+      \draw[->] (-0.2,0) -- (2.3,0);
+      \draw[->] (0,-0.2) -- (0,2.1);
+      \draw[very thick,blue!65!black,->] (0,0) -- (1.65,0.70)
+        node[right] {\(\delta w\)};
+      \draw[very thick,orange!75!black,->] (0,0) -- (0.48,1.62)
+        node[above] {\(\Delta w\)};
+      \draw (0.54,0.23) arc[start angle=23,end angle=74,radius=0.59];
+      \node at (1.0,-0.55) {\(w\)-plane};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{The board proof and a clean local reconstruction.  Multiplication
+  by \(w'(z)\) rotates and rescales every infinitesimal direction by the
+  same amount, preserving their relative angle.}
+  \lectureframe{00:34:11}
+  \label{fig:l08-angle-proof}
+\end{figure}
+
+This local argument assumes \(w'(z)\neq0\).  At a critical point the map may
+fail to be locally one-to-one, and one must treat the geometry separately.
+Away from such points, analytic maps and orientation-preserving conformal
+maps are locally the same objects.
+
+\section{Examples that Train the Eye}
+
+\subsection{Squaring and Complex Conjugation}
+
+For \(w=z^2\),
+\begin{equation}
+  (x+iy)^2=x^2-y^2+2ixy=u+iv,
 \end{equation}
 so
 \begin{equation}
-\frac{\partial^2 u}{\partial x^2}
-+
-\frac{\partial^2 u}{\partial y^2}
-=0.
+  u=x^2-y^2,
+  \qquad
+  v=2xy.
+  \label{eq:l08-z-squared-components}
 \end{equation}
-For \(v=2xy\),
-\begin{equation}
-\frac{\partial^2 v}{\partial x^2}=0,
-\qquad
-\frac{\partial^2 v}{\partial y^2}=0,
-\end{equation}
-and therefore \(v\) is harmonic as well. This is exactly the kind of example the lecture wants: algebra on the complex side, Laplace's equation on the real side.
+The second derivatives of \(u\) are \(2\) and \(-2\); those of \(v\)
+vanish separately.  Both are harmonic, and direct differentiation also
+checks the Cauchy--Riemann equations.
 
-\paragraph{A deliberate failure: \(w=\bar z\).} To see what non-analyticity looks like, take
-\begin{equation}
-w=\bar z=x-iy.
-\end{equation}
-Then
-\begin{equation}
-u=x,
-\qquad
-v=-y.
-\end{equation}
-But now
-\begin{equation}
-\frac{\partial u}{\partial x}=1,
-\qquad
-\frac{\partial v}{\partial y}=-1,
-\end{equation}
-so the first Cauchy-Riemann equation already fails. The culprit is the complex conjugate. Analytic functions are built from \(z\), not from \(\bar z\).
-
-\paragraph{A richer analytic example: \(w=e^z\).} Write
-\begin{equation}
-w=e^z=e^{x+iy}=e^x(\cos y+i\sin y),
-\end{equation}
-so that
-\begin{equation}
-u=e^x\cos y,
-\qquad
-v=e^x\sin y.
-\end{equation}
-Then
-\begin{align}
-\frac{\partial u}{\partial x}
-&=
-e^x\cos y
-=
-\frac{\partial v}{\partial y},
-\\
-\frac{\partial u}{\partial y}
-&=
--\,e^x\sin y
-=
--\,\frac{\partial v}{\partial x}.
-\end{align}
-So \(e^z\) is analytic, exactly as expected.
-
-At this point the lecture notes that the logarithm is the inverse function, and asks why the inverse of an analytic map is again analytic where it exists. The answer comes from the same conformal logic: if angles are preserved one way, they are preserved the other way as well. With that in mind, we pass naturally to
-\begin{equation}
-w=\log z.
-\end{equation}
-
-Write
-\begin{equation}
-z=re^{i\theta}.
-\end{equation}
-Then
-\begin{equation}
-w=\log z=\log r+i\theta.
-\end{equation}
-Now restrict attention to the right half-plane. There \(\theta\) runs from \(-\pi/2\) to \(+\pi/2\), so the image is the strip
-\begin{equation}
--\frac{\pi}{2}\leq \Im w \leq \frac{\pi}{2}.
-\end{equation}
-Constant-\(\theta\) rays become horizontal lines. Constant-\(r\) circles become vertical lines. Translation along the strip becomes uniform dilation in the half-plane.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-0.2,0) -- (2.8,0);
-\draw[->] (0,-1.7) -- (0,1.7);
-\draw (0,-1.45) -- (0,1.45);
-\draw (0,0) -- (2.1,0);
-\draw (0,0) -- (1.8,0.95);
-\draw (0,0) -- (1.8,-0.95);
-\draw (0,0) arc (0:60:0.9);
-\draw (0,0) arc (0:-60:0.9);
-\draw (0,0) arc (0:60:1.4);
-\draw (0,0) arc (0:-60:1.4);
-\node at (1.35,1.45) {right half-plane};
-\node at (1.15,-1.9) {$z$-plane};
-\node at (1.95,0.90) {$\theta=\pi/2$};
-\node at (1.95,-0.90) {$\theta=-\pi/2$};
-\end{tikzpicture}
-\hspace{0.8cm}
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-2.0,0) -- (2.2,0);
-\draw[->] (0,-2.0) -- (0,2.0);
-\draw (-1.8,1.2) -- (1.8,1.2);
-\draw (-1.8,-1.2) -- (1.8,-1.2);
-\draw (-1.0,-1.2) -- (-1.0,1.2);
-\draw (0,-1.2) -- (0,1.2);
-\draw (1.0,-1.2) -- (1.0,1.2);
-\draw (-1.8,0.6) -- (1.8,0.6);
-\draw (-1.8,0) -- (1.8,0);
-\draw (-1.8,-0.6) -- (1.8,-0.6);
-\node at (0,1.45) {$\Im w=\pi/2$};
-\node at (0,-1.45) {$\Im w=-\pi/2$};
-\node at (0,-2.2) {$w$-plane};
-\end{tikzpicture}
-\caption{The logarithm map sends the right half-plane to a strip.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_05.png}
+  \caption{The squaring map separated into its real and imaginary
+  harmonic components.}
+  \lectureframe{00:36:45}
+  \label{fig:l08-z-square-board}
 \end{figure}
 
-This is the moment when the global geometry begins to touch string theory directly. The strip is exactly the kind of parameter space used to describe an open-string worldsheet. If instead we map the whole plane, then the imaginary direction is periodic modulo \(2\pi\). The strip wraps around and becomes an infinite cylinder. That is the corresponding closed-string picture.
+\begin{classroomqa}
+\audiencequestion{Does \(1/z\) give a nonanalytic example?
+\lecturetimestamp{00:37:49}}
+\lecturerresponse{Only at one point.  It is analytic wherever \(z\neq0\)
+and has a pole at the origin.  To see a map that fails the
+Cauchy--Riemann test everywhere, complex conjugation is a better example.}
+\end{classroomqa}
 
-The lecture then turns to another map of the same half-plane, now into the unit disk. The spoken algebra is a little loose, but the endpoint checks strongly support the standard representative
+By contrast,
 \begin{equation}
-w=\frac{z-1}{z+1},
-\qquad
-z=\frac{1+w}{1-w}.
+  w=\bar z=x-iy
+  \qquad\Longrightarrow\qquad
+  u=x,\quad v=-y
 \end{equation}
-This sends \(z=0\) to \(w=-1\), \(z=\infty\) to \(w=1\), and the imaginary axis to \(|w|=1\). So the right half-plane goes to the unit disk.
+reverses orientation.  Its derivatives fail the first
+Cauchy--Riemann equation by a sign, so it is not analytic as a function of
+\(z\).
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.92]
-\draw[->] (-0.2,0) -- (2.6,0);
-\draw[->] (0,-1.8) -- (0,1.8);
-\draw (0,-1.6) -- (0,1.6);
-\node at (1.15,1.55) {right half-plane};
-\node at (1.05,-2.0) {$z$-plane};
-\fill (0,0) circle (0.04);
-\node at (-0.18,-0.22) {$0$};
-\end{tikzpicture}
-\hspace{0.9cm}
-\begin{tikzpicture}[scale=0.92]
-\draw[->] (-1.9,0) -- (1.9,0);
-\draw[->] (0,-1.9) -- (0,1.9);
-\draw (0,0) circle (1.5);
-\fill (-1.5,0) circle (0.04);
-\fill (1.5,0) circle (0.04);
-\node at (-1.8,-0.25) {$-1$};
-\node at (1.8,-0.25) {$1$};
-\node at (0,1.82) {unit disk};
-\node at (0,-2.0) {$w$-plane};
-\end{tikzpicture}
-\caption{A linear fractional map sends the right half-plane to the unit disk.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_08_figure_06.png}
+  \caption{Complex conjugation provides the deliberately nonanalytic
+  counterexample.}
+  \lectureframe{00:38:38}
+  \label{fig:l08-conjugate-board}
 \end{figure}
 
-Susskind emphasizes one more geometric fact here. Under linear fractional, or M\"obius, transformations, circles and lines go to circles and lines. That is why the radial lines and circles of the half-plane picture reappear as arcs and circles in the disk picture. Another form, same physics.
+\subsection{The Exponential and Its Inverse}
 
-\section{Return To String Theory: The Worldsheet Action And The Disk Picture}
+\begin{classroomqa}
+\audiencequestion{If \(e^z\) is analytic, why should its inverse
+\(\log z\) also be analytic? \lecturetimestamp{00:40:38}}
+\lecturerresponse{Where the inverse exists and \(w'(z)\neq0\), its
+derivative is \(1/w'(z)\).  Direction independence is therefore preserved.
+Globally the logarithm is multivalued, so one chooses a branch and excludes
+its branch point and cut.  The local conformal statement remains valid on
+that chosen domain.}
+\end{classroomqa}
 
-After the break the lecture deliberately changes register. We have set up a good deal of mathematics; now let us see what it is for. Susskind goes back to the earlier \(2\to2\) open-string scattering picture, the strip-like worldsheet he jokingly calls the sports band-aid or butterfly bandage. Time runs from left to right. Two strings come in, join to form one string for a while, and then split back into two strings. The amount of time they spend joined is not fixed; one integrates over it, just as one sums over all histories in quantum mechanics.
-
-The first clarification is about the degrees of freedom. The coordinates \(\sigma\) and \(\tau\) on the worldsheet are merely labels, just as \(x\) and \(y\) were labels on the two-dimensional surfaces earlier in the lecture. The dynamical variables are the spacetime coordinates of points on the worldsheet,
+Euler's formula gives
 \begin{equation}
-X^\mu(\sigma,\tau).
+  w=e^z=e^{x+iy}
+  =e^x(\cos y+i\sin y),
 \end{equation}
-If we know all the \(X^\mu\), then we know how the worldsheet is embedded in spacetime.
-
-The lecture then reminds us of the Wick rotation. After rotating to Euclidean signature, the weight is of the form \(e^{-S_E}\). The exact chalk marks are partly obscured in the board frame, but the intended quadratic expression is the standard Euclidean worldsheet action,
+hence
 \begin{equation}
-S_E[X]
-=
-\int d\sigma\,d\tau
-\left[
-\left(\frac{\partial X^\mu}{\partial \tau}\right)^2
-+
-\left(\frac{\partial X^\mu}{\partial \sigma}\right)^2
-\right].
+  u=e^x\cos y,
+  \qquad
+  v=e^x\sin y.
+  \label{eq:l08-exponential-components}
 \end{equation}
-Equivalently, the factor in the path integral is
-\begin{equation}
-\exp\!\left[
--\int d\sigma\,d\tau
-\left(
-(\partial_\tau X^\mu)^2
-+
-(\partial_\sigma X^\mu)^2
-\right)
-\right].
-\end{equation}
-The square here means a sum over the spacetime index \(\mu\).
+For example,
+\(\partial_xu=e^x\cos y=\partial_yv\), and the second
+Cauchy--Riemann equation follows just as directly.
 
-Now integrate over all embeddings:
-\begin{equation}
-\int \mathcal{D}X\,e^{-S_E[X]}.
-\end{equation}
-This is the path integral over all possible ways the worldsheet can fill spacetime.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_04.png}
-\caption{Worldsheet strip sketch with the \(d\sigma\,d\tau\) measure.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_08_figure_07.png}
+  \caption{The real and imaginary components of the exponential map.}
+  \lectureframe{00:42:23}
+  \label{fig:l08-exponential-board}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw (-3,0.7) -- (3,0.7);
-\draw (-3,-0.7) -- (3,-0.7);
-\draw (-3,-0.7) -- (-3,0.7);
-\draw (3,-0.7) -- (3,0.7);
-\draw (-2.1,-0.7) -- (-2.1,0.7);
-\draw (0,-0.7) -- (0,0.7);
-\draw (2.1,-0.7) -- (2.1,0.7);
-\node at (0,0) {$X^\mu(\sigma,\tau)$};
-\node at (0,-1.15) {A simple strip parameter space for the worldsheet};
-\end{tikzpicture}
-\caption{A clean redraw of the long narrow strip labelled by the embedding field \(X^\mu(\sigma,\tau)\).}
+\section{Half-Plane, Strip, Cylinder, and Disc}
+
+\subsection{The Logarithm Turns Radius into Time}
+
+Take the right half-plane, where
+\(-\pi/2<\theta<\pi/2\), and write
+\begin{equation}
+  z=re^{i\theta},
+  \qquad
+  w=\log z=\log r+i\theta.
+  \label{eq:l08-log-map}
+\end{equation}
+The half-plane maps to the infinite strip
+\begin{equation}
+  -\frac{\pi}{2}<\operatorname{Im}w<\frac{\pi}{2}.
+\end{equation}
+Rays of fixed \(\theta\) become horizontal lines, while semicircles of fixed
+\(r\) become vertical lines.  The origin is sent to
+\(\operatorname{Re}w=-\infty\), and \(r=\infty\) to
+\(\operatorname{Re}w=+\infty\).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{lecture_08_figure_08.png}
+  \caption{The logarithm carries the right half-plane into an infinite
+  strip: polar rays and semicircles become an orthogonal rectangular grid.}
+  \lectureframe{00:47:48}
+  \label{fig:l08-log-strip-board}
 \end{figure}
 
-At this stage the lecture returns to the geometric freedom earned in the first half. The sports band-aid surface has one boundary. Any one-boundary surface of that sort may be conformally mapped to another one-boundary description, and in particular to a disk. Susskind explicitly says he once worked out the exact map from the sports band-aid to the disk but no longer remembers it. That is fine. We do not need the exact formula. The exact formula is not the point. The point is that the two pictures are conformally equivalent.
+The strip is the standard worldsheet of an open string.  Its bounded
+coordinate is the parameter along the string, while translation along the
+unbounded direction is worldsheet time.  Under the inverse exponential map,
+a time translation becomes a dilation \(z\mapsto e^a z\).  Thus the same
+symmetry looks like translation on the strip and uniform expansion on the
+half-plane.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Where does a particular value such as \(r=1\) go, and
+are the coordinates on the strip still polar? \lecturetimestamp{00:50:58}}
+\lecturerresponse{A circle of fixed radius becomes a vertical line at
+\(\operatorname{Re}w=\log r\); in particular \(r=1\) maps to the central
+line \(\operatorname{Re}w=0\).  Polar coordinates describe the
+\(z\)-plane.  The \(w\)-plane uses ordinary rectangular coordinates
+\((\log r,\theta)\).}
+\end{classroomqa}
 
-\paragraph{Question.} How do external momenta enter if the path integral integrates over all \(X^\mu\)?
+If the full punctured plane is mapped by \(\log z\), the angular coordinate
+has period \(2\pi\).  The resulting strip therefore has its upper and lower
+edges identified: it is an infinite cylinder.  The half-plane with a
+boundary describes the open-string worldsheet; the full plane, with no
+boundary and periodic angle, describes a closed-string cylinder.
 
-\paragraph{Answer.} Not through the bulk action alone. This is exactly where Susskind pauses and says that the strip picture is inconvenient. The momentum data are inserted by extra factors associated with the external particles, and the cleanest place to write those factors is the disk picture, where incoming and outgoing strings appear as boundary insertion points.
-
-\section{Vertex Operators, Moduli, And The Electrostatics Reinterpretation}
-
-Once the worldsheet has been redrawn as a disk, the external particles sit at points \(z_i\) on the boundary. For each particle, with spacetime momentum \(k_i^\mu\), we include a factor
-\begin{equation}
-e^{i k_i\cdot X(z_i)}
-=
-e^{i k_{i\mu}X^\mu(z_i)}.
-\end{equation}
-These are the vertex operators. Susskind is careful about their role. They are not the action itself. They are the extra factors that deposit, or inject, momentum into the diagram. They sit inside the path integral, but not inside the area integral that defines the bulk action.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_05.png}
-\caption{Euclidean worldsheet weight and vertex insertions.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{lecture_08_figure_09.png}
+  \caption{The half-plane/strip picture and the periodic identification
+  that turns the full punctured plane into a closed-string cylinder.}
+  \lectureframe{00:54:23}
+  \label{fig:l08-open-closed-board}
 \end{figure}
 
-So the open-string tree amplitude has the schematic form
+\subsection{A Cayley Map to the Unit Disc}
+
+A linear fractional, or Möbius, map carries the right half-plane to the unit
+disc:
 \begin{equation}
-\mathcal{A}_n
-\sim
-\int \mathcal{D}X\,
-e^{-S_E[X]}
-\prod_{i=1}^n e^{i k_i\cdot X(z_i)}.
+  w=\frac{z-1}{z+1}.
+  \label{eq:l08-cayley}
 \end{equation}
-The \(k_i\) are fixed external momenta. The \(X^\mu\) are integrated over, and after that one integrates over the insertion points \(z_i\) on the boundary. Susskind answers this explicitly in the lecture: one does \emph{not} integrate over the momenta. One integrates over the locations where the momenta are inserted.
-
-The same physics can be presented in different coordinate pictures. In the strip picture there is an integration over the relevant separation or time interval. In the disk picture the same freedom appears as integration over the boundary insertion positions. Same picture, same physics, different pictures.
-
-Because of conformal freedom, not all boundary positions are independent. One may use a conformal transformation to place any three boundary points wherever one likes. Therefore the number of remaining integrations is
+It sends \(z=0\) to \(-1\), \(z=\infty\) to \(+1\), and the imaginary axis
+to \(|w|=1\).  If \(z=ir\),
 \begin{equation}
-N_{\rm int}=n-3.
+  \left|\frac{ir-1}{ir+1}\right|=1.
 \end{equation}
-For four open-string external states this leaves a single nontrivial integration.
+Points with \(\operatorname{Re}z>0\) lie inside the circle; the left
+half-plane maps outside it.
+\editorialnote{During the live derivation the reciprocal
+\((z+1)/(z-1)\) is written while the interior-disc image is described.
+That reciprocal has the same unit-circle boundary but sends the right
+half-plane to the exterior.  Equation \eqref{eq:l08-cayley} is the
+interior-disc convention consistent with the stated geometry.}
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.95]
-\draw (-3,1.0) -- (-1.35,1.0);
-\draw (-1.35,1.0) .. controls (-0.55,1.0) and (-0.30,0.45) .. (0,0.24);
-\draw (0,0.24) .. controls (0.30,0.45) and (0.55,1.0) .. (1.35,1.0);
-\draw (1.35,1.0) -- (3,1.0);
-
-\draw (-3,-1.0) -- (-1.35,-1.0);
-\draw (-1.35,-1.0) .. controls (-0.55,-1.0) and (-0.30,-0.45) .. (0,-0.24);
-\draw (0,-0.24) .. controls (0.30,-0.45) and (0.55,-1.0) .. (1.35,-1.0);
-\draw (1.35,-1.0) -- (3,-1.0);
-
-\draw (-3,-1.0) -- (-3,1.0);
-\draw (3,-1.0) -- (3,1.0);
-\draw[->] (-2.5,1.35) -- (-1.0,1.35);
-\node at (-1.75,1.58) {time};
-\node at (0,-1.45) {sports band-aid picture};
-\end{tikzpicture}
-\hspace{0.9cm}
-\begin{tikzpicture}[scale=1.0]
-\draw (0,0) circle (1.6);
-\fill (1.6,0) circle (0.05);
-\fill (0,1.6) circle (0.05);
-\fill (-1.6,0) circle (0.05);
-\fill (0,-1.6) circle (0.05);
-\node at (1.95,0) {$z_1$};
-\node at (0,1.95) {$z_2$};
-\node at (-1.95,0) {$z_3$};
-\node at (0,-1.95) {$z_4$};
-\node at (0,-2.45) {disk picture};
-\end{tikzpicture}
-\caption{One worldsheet, two equivalent descriptions: the strip-like scattering surface and the disk with boundary insertions.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_10.png}
+  \caption{The linear-fractional construction of the unit-circle boundary.
+  The reciprocal convention visible on the board exchanges interior and
+  exterior.}
+  \lectureframe{00:58:38}
+  \label{fig:l08-cayley-board}
 \end{figure}
 
-Now comes the final unifying move. Because the action is quadratic, the path integrals are Gaussian. In the critical dimension one can do them, and the answer becomes a problem in electrostatics. Each field \(X^\mu\) behaves like an electrostatic potential on the disk. Each component \(k_i^\mu\) of the momentum behaves like a charge inserted at a boundary point. So in the bosonic theory one has \(26\) independent electrostatics problems running in parallel, one for each \(\mu\).
+Möbius maps send the generalized collection of circles and straight lines
+to circles and straight lines.  The radial and circular grid on the
+half-plane consequently becomes two orthogonal families of arcs on the
+disc.  A straight diameter is simply the limiting case of a circle whose
+center has gone to infinity.
 
-The lecture is slightly garbled at this point, but its intention is very clear. One imagines a disk, places charges on the boundary, solves for the potentials in the interior, computes the electric fields, and from them the electrostatic energies. The distinct \(\mu\)-sectors do not mix; their energies add. After summing those contributions, one exponentiates minus the total energy and integrates over the insertion positions. Schematically,
+\begin{classroomqa}
+\audiencequestion{Are the arcs drawn inside the disc really circles?
+\lecturetimestamp{01:00:55}}
+\lecturerresponse{Yes.  Their centers occur at different locations, often
+outside the visible disc.  The diameter is the infinite-radius limit of the
+same family.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the disc drawing mean that it is a sphere, and where
+does the other half-plane go? \lecturetimestamp{01:01:21}}
+\lecturerresponse{The drawing here is a flat disc, not a sphere.  The right
+half-plane maps inside its boundary and the left half-plane maps outside.
+If one adds the point at infinity to the entire complex plane, that extended
+plane can be represented as a sphere by stereographic projection; that is a
+different global statement.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Which disc curves correspond to the original radial
+spokes and constant-radius semicircles? \lecturetimestamp{01:02:59}}
+\lecturerresponse{The positive real axis becomes the diameter joining
+\(-1\) and \(+1\).  Other rays become circular arcs joining those same
+boundary points.  Semicircles of fixed radius become the orthogonal family
+that begins and ends on the unit circle.}
+\end{classroomqa}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_11.png}
+  \caption{Lines and semicircles in the half-plane become orthogonal
+  circle-and-line families in the disc.}
+  \lectureframe{01:03:48}
+  \label{fig:l08-circle-grid-board}
+\end{figure}
+
+\section{The Four-String Worldsheet}
+
+We can now return to scattering.  Two open strings enter, join into one
+string, propagate for an arbitrary interval, and split into two outgoing
+strings.  In strip coordinates the worldsheet looks like a long ribbon slit
+from each end---the "sports bandage" picture.  The intermediate lifetime
+is not chosen in advance.  It is one of the histories over which the
+amplitude is integrated.
+
+Let \((\sigma,\tau)\) be coordinates on the worldsheet and let
 \begin{equation}
-\mathcal{A}_n
-\sim
-\int d(\hbox{boundary positions})\,e^{-E_{\rm electrostatic}}.
+  X^\mu=X^\mu(\sigma,\tau)
+  \label{eq:l08-embedding}
 \end{equation}
-The lecture does not pause to supply a carefully normalized formula for \(E_{\rm electrostatic}\), and there is no reason to pretend otherwise. What matters is the structural identification: the string amplitude is the exponential of an electrostatic energy, integrated over the worldsheet moduli.
+give its position in spacetime.  The labels \(\sigma,\tau\) live on the
+two-dimensional parameter surface; the index \(\mu\) labels spacetime
+coordinates.  In the bosonic theory \(\mu=0,\ldots,25\); in the superstring
+case there are ten spacetime coordinates.
 
-There is one further clarification that the lecture makes explicitly. The \(i\) in the factor \(e^{ik\cdot X}\) is the ordinary imaginary unit. It is not the \(i\) removed by Wick rotation.
+After Wick rotation, the free embedding fields have Euclidean action
+\begin{equation}
+  S_E[X]
+  =\frac{1}{4\pi\alpha'}\int_\Sigma d\sigma\,d\tau\,
+  \left[
+    \partial_\tau X^\mu\partial_\tau X_\mu
+    +\partial_\sigma X^\mu\partial_\sigma X_\mu
+  \right].
+  \label{eq:l08-euclidean-action}
+\end{equation}
+The corresponding path integral sums over every embedding of the chosen
+worldsheet into spacetime:
+\begin{equation}
+  \int\mathcal D X\,e^{-S_E[X]}.
+  \label{eq:l08-bare-worldsheet-integral}
+\end{equation}
 
-\subsection{Question \& Answer}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_08_figure_12.png}
+  \caption{The completed positive Euclidean worldsheet weight.  The two
+  derivative terms are summed over all spacetime components.}
+  \lectureframe{01:11:34}
+  \label{fig:l08-action-board}
+\end{figure}
 
-\paragraph{Question.} If this prescription is so simple, why is the physical theory not finished?
+The slit strip has one connected boundary.  Conformal freedom therefore
+allows it to be represented as a disc.  Four remote ends of the strips
+become four marked points on the boundary.  Deforming the marked points
+changes the apparent separation between joining and splitting in strip
+coordinates, but it does not change the underlying surface or physics.
 
-\paragraph{Answer.} Because mathematical elegance is not yet physical realism. In the bosonic theory the path integral gives a sensible finite answer only in the critical dimension \(26\); outside the right dimension one gets infinities. But a \(26\)-dimensional bosonic string theory is plainly not a realistic theory of elementary particles. The extra dimensions must somehow be compactified, and that is where the enormous difficulty begins. Susskind is explicit about this: what has been described here is one simple version of string theory, not the final theory of nature.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_13.png}
+  \caption{The slit-strip worldsheet and its disc representation with
+  boundary points for the external strings.}
+  \lectureframe{01:15:18}
+  \label{fig:l08-bandage-disc-board}
+\end{figure}
 
-He also emphasizes that there are many possible constructions, tied to many possible compactifications. So the lecture ends on a deliberately double note: the formalism is beautiful and rigorous as mathematics, but physically it remains a work in progress. A final late remark fits naturally here as well. The momenta \(k_i\) are not quantized. They are continuous. What becomes quantized is the mass spectrum, built from sums of squares of momentum components.
+The detailed grid lines used to picture this conformal map carry no physical
+content.  What matters is the topology, the boundary, and the marked
+external points.  The same worldsheet can be stretched into different
+channel pictures without introducing a new interaction.
 
-\section{Summary}
+\section{External States as Boundary Insertions}
 
-The lecture opens by asking what electrostatics would look like if flux lines could not leave a plane, and it closes by telling us that open-string scattering is, in the end, just such a Laplace problem in disguise. Between those two ends the argument proceeds in a single chain: two-dimensional electrostatics leads to Laplace's equation; Laplace's equation leads to analytic functions; analytic functions are exactly the conformal maps; conformal freedom lets us redraw the worldsheet from strip to disk; and the resulting path integral turns into an electrostatics problem with many kinds of charge.
+The bare integral \eqref{eq:l08-bare-worldsheet-integral} does not yet say
+which momenta enter and leave.  For a scalar open-string state of momentum
+\(k_i^\mu\), insert on the boundary the vertex operator
+\begin{equation}
+  V_i(z_i)=e^{\,i k_i\cdot X(z_i)},
+  \qquad
+  k_i\cdot X=k_{i\mu}X^\mu.
+  \label{eq:l08-vertex}
+\end{equation}
+The point \(z_i\) is a position on the worldsheet boundary.  It is not a
+spacetime coordinate and not a direction of momentum.
 
-That is the mathematical core of the chapter. Conformal mapping is not an ornament placed on top of string theory. It is the symmetry that makes the worldsheet description manageable. The final prescription is remarkably simple when it works, and the lecture lets us enjoy that simplicity. But it also ends by narrowing the claim: the bosonic theory lives in the wrong number of dimensions, compactification is hard, and realism is not yet achieved. The mathematics has become clean; the physics is not yet complete.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_14.png}
+  \caption{The bulk Euclidean weight and the product of boundary momentum
+  insertions are displayed as distinct factors.}
+  \lectureframe{01:18:58}
+  \label{fig:l08-vertex-board}
+\end{figure}
+
+For \(n\) external open strings, the schematic prescription is
+\begin{equation}
+  \mathcal A_n(k_1,\ldots,k_n)
+  =
+  \int_{\mathcal M_{0,n}^{\partial}}\!d\mu(z_i)
+  \int\mathcal D X\,
+  e^{-S_E[X]}
+  \prod_{i=1}^{n}e^{\,i k_i\cdot X(z_i)}.
+  \label{eq:l08-open-string-prescription}
+\end{equation}
+The functional integral is over embeddings \(X^\mu\).  The finite-dimensional
+integral is over inequivalent boundary insertion positions.  Polarization
+factors and the gauge-fixing measure are suppressed at this stage, as they
+are in the lecture.
+\editorialnote{A complete gauge-fixed string amplitude also contains the
+appropriate ghost contribution, state-dependent vertex factors, coupling
+constants, and normalization.  Equation
+\eqref{eq:l08-open-string-prescription} records the embedding-field and
+position dependence developed in this lecture.}
+
+\begin{classroomqa}
+\audiencequestion{If the external momenta are fixed, why are they integrated
+over? \lecturetimestamp{01:20:42}}
+\lecturerresponse{They are not.  The \(k_i\) are fixed labels of the
+scattering amplitude.  What is integrated are the embedding fields and the
+worldsheet locations \(z_i\) at which those fixed momenta are inserted.
+The latter integral replaces the integral over the intermediate lifetime in
+the strip picture.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the product of vertex factors inside the path integral,
+and is it part of the action? \lecturetimestamp{01:21:39}}
+\lecturerresponse{It multiplies \(e^{-S_E}\) inside the functional
+integral.  One may equivalently exponentiate the factors and regard them as
+localized source terms added to the action, but they are conceptually vertex
+operators rather than part of the free bulk action.}
+\end{classroomqa}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_15.png}
+  \caption{The path integral written with separate factors
+  \(e^{ik_i\cdot X(z_i)}\) for successive external particles.}
+  \lectureframe{01:23:23}
+  \label{fig:l08-full-prescription-board}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why does \(e^{ik\cdot X}\) still contain \(i\) after the
+worldsheet Wick rotation? \lecturetimestamp{01:23:42}}
+\lecturerresponse{The rotation changes the worldsheet time and converts the
+bulk weight from \(e^{iS}\) to \(e^{-S_E}\).  The \(i\) in a momentum
+eigenfunction is the Fourier phase that labels spacetime momentum.  It has a
+different role and remains.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the position \(z_i\) determine the direction of the
+momentum vector? \lecturetimestamp{01:24:19}}
+\lecturerresponse{No.  Direction is encoded in the spacetime components
+\(k_i^\mu\).  The insertion point \(z_i\) says where that momentum enters
+the worldsheet description; \(X^\mu(z_i)\) is among the field values summed
+over by \(\mathcal D X\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Do the drawn angles of the bandage legs encode the
+directions of the physical momenta? \lecturetimestamp{01:25:07}}
+\lecturerresponse{No.  The bandage is parameter space, not an image of the
+string in physical spacetime.  Its legs may be drawn horizontally, tilted,
+or conformally bent.  Physical directions are carried by the components
+\(k^\mu\), while \(X^\mu(\sigma,\tau)\) is integrated over.}
+\end{classroomqa}
+
+\section{The Gaussian Integral as Electrostatics}
+
+The action \eqref{eq:l08-euclidean-action} is quadratic in every component
+\(X^\mu\), and the insertions are linear sources once their exponentials are
+combined with the action.  The functional integral is therefore Gaussian.
+At its saddle point, each spacetime component obeys a Poisson equation of
+the schematic form
+\begin{equation}
+  \nabla^2 X^\mu(z)
+  \propto
+  i\alpha'\sum_i k_i^\mu\,\delta(z-z_i),
+  \label{eq:l08-electrostatic-source}
+\end{equation}
+with the open-string boundary condition on the rim of the disc.  Each
+\(X^\mu\) behaves like an independent electrostatic potential, and each
+momentum component \(k_i^\mu\) behaves like the corresponding charge placed
+at \(z_i\).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_16.png}
+  \caption{The disc with boundary sources is interpreted as one independent
+  two-dimensional electrostatic problem for each spacetime component.}
+  \lectureframe{01:28:58}
+  \label{fig:l08-electrostatic-disc-board}
+\end{figure}
+
+Solve the electrostatic problem, evaluate its energy, exponentiate the
+negative energy, and finally integrate over the inequivalent charge
+positions.  In standard open-string normalization, the embedding-field
+correlator supplies the Koba--Nielsen factor
+\begin{equation}
+  \left\langle\prod_i e^{\,ik_i\cdot X(z_i)}\right\rangle
+  \propto
+  (2\pi)^D\delta^{(D)}\!\left(\sum_i k_i\right)
+  \prod_{i<j}|z_i-z_j|^{2\alpha' k_i\cdot k_j}.
+  \label{eq:l08-koba-nielsen}
+\end{equation}
+The delta function expresses momentum conservation.  The product contains
+the electrostatic pair energies.  For the four scalar boundary insertions
+used here, fixing three positions turns the remaining integral into the
+Euler beta integral encountered in the preceding lectures.
+
+\begin{classroomqa}
+\audiencequestion{Are there twenty-six electrostatic energies or only one?
+\lecturetimestamp{01:30:53}}
+\lecturerresponse{There is one independent potential and field for each
+spacetime component.  Their quadratic energies have no cross terms in an
+orthonormal target-space basis, and the contributions are added to one total
+action before exponentiation.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the angular coordinate of the disc the physical
+scattering angle? \lecturetimestamp{01:32:10}}
+\lecturerresponse{No.  It is a worldsheet position parameter.  Its
+inequivalent combination is related to the intermediate propagation
+interval and is integrated.  The physical scattering angle is encoded
+through Lorentz invariants built from the fixed momenta.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does this construction fail away from the critical
+dimension? \lecturetimestamp{01:32:35}}
+\lecturerresponse{The formal Gaussian integrals alone are not the whole
+consistency condition.  Gauge fixing introduces a conformal anomaly whose
+matter and ghost contributions cancel only at the critical dimension:
+\(D=26\) for the bosonic string and \(D=10\) for the superstring.  Without
+that cancellation the supposed conformal symmetry of the quantum
+worldsheet is lost.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Have we already assumed three large spatial dimensions
+and compact extra dimensions? \lecturetimestamp{01:33:38}}
+\lecturerresponse{No.  Compactification has not yet entered the
+construction.  At this stage the bosonic coordinates still range over all
+twenty-six target-space directions, or ten in the superstring case.  How a
+subset can remain macroscopically large is the subject of the next
+discussion.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the connection with electrostatics simply that the
+coordinates satisfy Laplace's equation? \lecturetimestamp{01:33:57}}
+\lecturerresponse{Exactly.  Away from the insertion points each
+\(X^\mu\) is harmonic; the vertex operators supply delta-function sources.
+That is mathematically the same boundary-value problem as a static
+two-dimensional potential with point charges, whether or not we use the
+electrostatic vocabulary.}
+\end{classroomqa}
+
+\subsection{Conformal Redundancy and the Number of Moduli}
+
+The disc has a three-real-parameter conformal automorphism group,
+\(\mathrm{PSL}(2,\mathbb R)\).  Three ordered boundary points may therefore
+be fixed at convenient locations.  For four external strings only the
+fourth position remains to be integrated; for \(n\) ordered boundary
+insertions there are
+\begin{equation}
+  n-3
+  \label{eq:l08-n-minus-three}
+\end{equation}
+real position integrals at tree level.
+
+\begin{classroomqa}
+\audiencequestion{Are there four independent angular positions around the
+disc? \lecturetimestamp{01:34:37}}
+\lecturerresponse{Not physically.  One initially writes four positions, but
+disc conformal symmetry can place any three wherever convenient.  Only the
+relative location of the fourth remains for the two-in/two-out amplitude.}
+\end{classroomqa}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_17.png}
+  \caption{Four boundary insertions on the disc.  Conformal freedom fixes
+  any three, leaving one four-point modulus.}
+  \lectureframe{01:35:18}
+  \label{fig:l08-fix-three-board}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What if the two split points do not occur at the same
+height in the strip drawing? \lecturetimestamp{01:35:24}}
+\lecturerresponse{A conformal map can move that apparent mismatch away.
+Different drawings are coordinate representatives of the same modulus.
+The invariant integration is the one over the remaining boundary position,
+equivalently over the propagation interval.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{For more external particles, how many position parameters
+remain? \lecturetimestamp{01:36:00}}
+\lecturerresponse{Fix three insertion points with conformal symmetry and
+integrate the other \(n-3\).  This is the boundary-moduli count for an
+ordered tree-level open-string amplitude.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How is this related to M-theory?
+\lecturetimestamp{01:36:37}}
+\lecturerresponse{Not yet.  The construction here is perturbative
+open-string scattering on a worldsheet.  Its relation to M-theory requires
+later duality and nonperturbative ideas, so the question is explicitly
+deferred.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is a different vertical or crossed strip picture a
+different calculation? \lecturetimestamp{01:36:49}}
+\lecturerresponse{No.  One may hold a convenient point fixed and let the
+remaining modulus range through its full interval.  The strip pictures and
+the boundary-point integral on the disc are different slicings of the same
+integral, which is why all external strings can be treated symmetrically.}
+\end{classroomqa}
+
+\section{What the Prescription Does Not Yet Solve}
+
+The disc formula extends immediately to more external strings: add more
+vertex operators and integrate their \(n-3\) inequivalent boundary
+positions.  It is a precise tree-level prescription for a consistent string
+model, but it is not yet a realistic model of observed particle physics.
+The simple bosonic theory has the wrong spacetime dimension and additional
+physical defects.  Superstrings improve the spectrum and lower the critical
+dimension to ten, but six spatial dimensions still have to be compactified.
+
+\begin{classroomqa}
+\audiencequestion{Does this simple model already agree with particle
+collision experiments? \lecturetimestamp{01:39:06}}
+\lecturerresponse{No.  The resonance structure historically resembles
+hadronic scattering, but the twenty-six-dimensional bosonic model cannot be
+a direct description of observed particles.  The formalism defines
+scattering amplitudes for the model; matching nature requires a realistic
+spectrum, compactification, interactions, and vacuum choice.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Will compactification reduce the extra dimensions and
+produce realistic particle data? \lecturetimestamp{01:41:10}}
+\lecturerresponse{It can reduce the effective macroscopic dimension and
+generate particle spectra and gauge groups.  It is also where much of the
+real mathematical difficulty enters.  Many consistent compactifications
+are known, and selecting a unique model of observed elementary particles
+remains unresolved.}
+\end{classroomqa}
+
+The lecture emphasizes this distinction rather than advertising a finished
+theory.  String constructions are mathematically definite and have produced
+deep information about gravity and geometry, yet their multiplicity is
+itself part of the physical problem.
+
+\begin{classroomqa}
+\audiencequestion{Is there a short way to remember why the bosonic critical
+dimension is twenty-six? \lecturetimestamp{01:43:19}}
+\lecturerresponse{The earlier oscillator calculation used the regularized
+zero-point sum \(1+2+3+\cdots=-1/12\).  The transverse oscillator
+contribution involves twenty-four directions, and restoring the two
+longitudinal spacetime coordinates gives \(24+2=26\).  This is a mnemonic
+for the earlier consistency argument, not a new derivation here.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Are the inserted momenta \(k_i\) themselves quantized?
+\lecturetimestamp{01:43:46}}
+\lecturerresponse{In noncompact spacetime their components are continuous.
+What is quantized is the oscillator level and hence the allowed mass-squared
+spectrum.  Compact dimensions may quantize the corresponding momentum and
+winding components, but that belongs to the next discussion.}
+\end{classroomqa}

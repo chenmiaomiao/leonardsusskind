@@ -1,70 +1,102 @@
 # Narrative Map
-## Opening Setup
-Susskind opens by widening the frame before narrowing it. He does not begin with string theory proper, but with the claim that conformal mappings are interesting in their own right and useful across mathematical physics. That choice matters: the lecture first gives the listener a physical problem class, two-dimensional electrostatics, so that conformal invariance will later feel like a necessity of the mathematics rather than a formal trick imported from nowhere.
 
-He then immediately adopts a blackboard-question style. What is the force law in two dimensions? What is the potential? What are the electrostatic equations? This opening establishes the lecture’s method: motivate with a concrete problem, write the equations, expose a local puzzle, then only afterward elevate the discussion to the more abstract language of complex analysis.
+## Lecture Arc
+
+The lecture earns conformal mapping twice. It first appears as the natural
+symmetry of two-dimensional electrostatics, then returns as the coordinate
+freedom that turns a complicated string-scattering worldsheet into a disc.
+Laplace's equation is the connecting thread: it governs the electrostatic
+potential, the real and imaginary parts of analytic functions, and the free
+worldsheet embedding fields.
 
 ## Beat Sequence
-1. **Electrostatics as the first real use-case for conformal mapping**  
-He is trying to make conformal mapping feel physically earned by starting with a genuinely two-dimensional Coulomb problem rather than an abstract complex-variable lecture. It appears first because he wants the audience to see Laplace’s equation in a setting they can reason about physically, and this leads directly into writing the electrostatic field equations in two dimensions.
 
-2. **From electric field to scalar potential to Laplace’s equation**  
-He establishes that the simpler object is the potential \(\phi\), rewrites the divergence equation in terms of \(\phi\), and expands the two-dimensional Laplacian explicitly as \(\partial_x^2+\partial_y^2\). This comes here because he needs a concrete invariant equation on the board before talking about conformal invariance, and it leads naturally into the claim that this equation is unchanged by conformal coordinate changes.  
-`Question & Answer`: `Why are these not wave equations?`
+1. **Begin with a physical Laplace problem.** A genuinely
+two-dimensional Coulomb field has \(F\sim 1/r\) and
+\(V\sim\log r\). Writing the field through a potential produces Poisson's
+equation and, away from charge, Laplace's equation. Questions about standing
+waves and two-dimensional curl establish what this equation does and does
+not mean.
 
-3. **Short clarifications before the main mathematical pivot**  
-He pauses for live objections and side questions: the standing-wave misunderstanding, the plus-sign issue, the status of curl in two dimensions, and the remark that conformal maps transport electrostatic solutions from one domain to another. This appears now to prevent a false mental model from hardening too early, and it clears the way for the real pivot from electrostatics to complex coordinates.
+2. **Make complex differentiability difficult before making it useful.**
+With \(z=x+iy\) and \(w=u+iv\), the derivative can be approached from any
+direction. Comparing the \(x\)- and \(y\)-directions produces the
+Cauchy--Riemann equations rather than presenting them as an unmotivated
+rule.
 
-4. **Complex coordinates introduced as the right language for planar mappings**  
-He sets up \(z=x+iy\), \(w=u+iv\), and treats a map of the plane to itself as a complex function \(w(z)\). This arrives exactly when the audience has accepted that the invariant object is a two-dimensional Laplace problem, and it leads into the new conceptual obstacle: what could a derivative mean when the variable is complex and can be approached from any direction?
+3. **Return from complex algebra to electrostatics.** Differentiating the
+Cauchy--Riemann equations shows that both \(u\) and \(v\) are harmonic.
+Their vector interpretation also recovers vanishing divergence and curl.
 
-5. **The derivative problem and the birth of the Cauchy-Riemann conditions**  
-He is trying to establish that complex differentiability is far more restrictive than ordinary differentiability, because the ratio \(\Delta w/\Delta z\) might depend on direction. He introduces the directional tension at this moment because the lecture needs a criterion for “good” maps, and the comparison of \(x\)-axis and \(y\)-axis approaches leads directly into the Cauchy-Riemann equations.  
-`Question & Answer`: `What condition makes \(dw/dz\) well defined?`
+4. **Prove the geometric payoff.** The phase of a ratio of two infinitesimal
+complex displacements is their relative angle. A direction-independent
+derivative multiplies both displacements by the same complex number, so
+their angle is preserved even though local scale and orientation may
+change.
 
-6. **Cauchy-Riemann reinterpreted as harmonic structure**  
-Once the equations are on the board, he does not leave them as formal conditions. He differentiates and combines them to show that both \(u\) and \(v\) satisfy Laplace’s equation, and briefly re-reads them as divergence/curl statements. This appears here because he wants to reconnect the new complex-analysis machinery back to the opening electrostatics problem, and that reconnection sets up the larger claim that analytic maps are exactly the conformal symmetries of the worldsheet equations.
+5. **Train the eye with examples.** The sequence
+\(z^2\), \(\bar z\), \(e^z\), and \(\log z\) moves from an analytic
+polynomial to a clean counterexample, then to maps with useful global
+geometry. The question about \(1/z\) distinguishes a pole from failure of
+analyticity.
 
-7. **Analyticity implies conformality by a local angle argument**  
-He shifts from algebra back to geometry, reminding the audience how phases of ratios encode differences of angles, then compares little intervals in the \(z\)- and \(w\)-planes. This beat appears only after analyticity has been made precise, because now he can cash out the original promise: these analytic maps preserve angles, and therefore they are exactly the transformations relevant to Laplace’s equation and string equations of motion.  
-`Question & Answer`: `Why does analyticity preserve angles?`
+6. **Turn domains into worldsheets.** The logarithm maps a half-plane to a
+strip and a punctured plane to a cylinder. These become the open- and
+closed-string worldsheet pictures. A linear-fractional map then turns the
+half-plane into a disc while preserving the orthogonal grid of rays and
+circles.
 
-8. **Examples first local, then global: \(z^2\), \(\bar z\), \(e^z\), \(\log z\), half-plane to disk**  
-He now trains intuition rather than proving a theorem. First come manageable algebraic examples, then a deliberate non-example, then exponential and logarithm, and finally geometrically meaningful global maps that convert half-plane, strip, cylinder, and disk descriptions into one another. This sequence appears here because the abstract equivalence has been proved and now needs usable geometric fluency, which in turn becomes the bridge back to string worldsheets.
+7. **Return to four-string scattering.** After the break, the slit-strip
+worldsheet is recalled and its Euclidean embedding action written. Conformal
+freedom replaces the bandage-like strip by a disc with four marked boundary
+points.
 
-9. **Return to string theory through worldsheet re-description**  
-After the break he recaps the earlier scattering picture, the slit strip or “sports band-aid,” reinstates the Euclidean path-integral weight, and then uses conformal freedom to move to the disk description. This appears now because the audience has finally earned the right to see why all that complex analysis mattered, and it leads directly into the operational question of how momenta enter the worldsheet path integral.  
-`Question & Answer`: `How do external momenta enter if the path integral is over all embeddings?`
+8. **Insert the external states.** Momentum eigenstates enter as boundary
+operators \(e^{ik_i\cdot X(z_i)}\). Several questions carefully separate
+fixed momenta from integrated insertion positions, worldsheet coordinates
+from spacetime directions, and Fourier phases from the worldsheet Wick
+rotation.
 
-10. **Vertex operators, moduli, electrostatics, and the late caution about realism**  
-He gives the insertion rule, explains that one integrates over insertion positions, identifies the remaining conformal freedom, and then delivers the striking electrostatics reinterpretation in terms of many kinds of charges. Only after presenting the beautiful simple answer does he qualify it with the critical-dimension issue, compactification, and experimental non-realism. This final ordering is crucial: the lecture first lets the formalism appear elegant and unified, then narrows its physical status.  
-`Question & Answer`: `If the prescription is so simple, why is the physical theory still incomplete?`
+9. **Read the Gaussian integral as electrostatics.** Each component
+\(X^\mu\) is a harmonic potential with delta-function sources whose charges
+are the corresponding momentum components. The electrostatic energies
+produce the pairwise Koba--Nielsen factor, and conformal symmetry removes
+three boundary positions.
 
-## Transition Cues
-- He often pivots by broadening and then narrowing: “this has many applications, but let’s take the most direct one.”
-- He uses question prompts to move the lecture forward: “what are the equations,” “what is simpler than a vector,” “what is the condition,” “why is this mapping interesting for string theory?”
-- He frequently promises a return: “we’ll come back to electrostatics,” “I’ll tell you in another picture,” “we’ll work that out another time.” Those promises help keep the lecture from feeling digressive.
-- He marks conceptual payoffs explicitly: “that was the whole point,” “that’s why in string theory…,” “that is what string theory is.”
-- He uses informal recaps before major turns: “let’s remind ourselves,” “I’ll remind you what you calculate,” “we’ve set up a lot of the mathematics.”
-- He regularly converts a side remark into a bridge: the curl discussion feeds the Cauchy-Riemann reinterpretation, and the strip geometry feeds the worldsheet description.
-- He likes to move from one picture to another with phrases like “another mapping,” “another form,” or “the same picture, the same physics, different pictures.” Those should survive in prose because they are doing structural work, not just rhetorical decoration.
+10. **Close with scope rather than triumph.** The prescription is elegant
+and extends to any number of external strings, but consistency selects the
+critical dimension and phenomenology still requires supersymmetry,
+compactification, and a realistic vacuum. The final questions distinguish
+continuous momenta from quantized oscillator levels and defer M-theory to
+later duality arguments.
 
 ## Recurring Motifs
-- Conformal mappings are introduced not as ornament but as the symmetry of equations we already care about.
-- Laplace’s equation keeps returning in new clothes: electrostatics, harmonic functions, analytic maps, worldsheet equations, and finally the electrostatic reinterpretation of string amplitudes.
-- He repeatedly alternates between local and global viewpoints: local derivatives and angles first, global maps of domains later.
-- The lecture runs on coordinate freedom as a unifying idea: different coordinate descriptions, same physics.
-- Student questions are not interruptions but load-bearing moments; they reveal exactly where misunderstanding is likely and where the notes should preserve tension.
-- He likes operational closure: after building abstract machinery, he asks what one actually calculates and what rule one actually uses.
-- The final motif is double-edged simplicity: the mathematics becomes cleaner and cleaner, then the lecture reminds us that physical realism is not yet secured.
 
-## Pacing Risks
-- A draft writer may compress the opening electrostatics discussion into a generic preface, but that would erase why Laplace’s equation matters before complex variables appear.
-- It is easy to jump too quickly from the derivative definition to the Cauchy-Riemann equations and lose the directional-approach problem that motivates them.
-- The uncoupling to Laplace’s equation for \(u\) and \(v\) can get flattened into a textbook lemma; in the lecture it functions as a return to the opening electrostatics thread.
-- The angle-preservation proof is vulnerable to over-compression. If one merely states “analytic implies conformal,” the chapter loses the local geometric argument that makes the statement feel inevitable.
-- The example sequence should not be merged into a generic catalogue of analytic functions. The order matters: easy example, failure mode, richer example, then geometrically consequential maps.
-- The move from strip to cylinder to disk must retain the worldsheet motivation. Otherwise the geometry reads like detached complex analysis instead of preparation for string theory.
-- The return to the “sports band-aid” picture needs a genuine recap tone. If the notes restart too abruptly with the path integral, the lecture’s sense of re-entry after the break is lost.
-- The electrostatics reinterpretation at the end should not be reduced to a cute analogy. In the lecture it is presented as the upshot of doing the Gaussian integrals in the critical dimension.
-- The closing realism caveat is easy to trim away because it looks like discussion. That would be a mistake: it governs how the whole formalism is to be read.
+- Laplace's equation appears successively as electrostatics, harmonic
+  analysis, conformal geometry, and the worldsheet field equation.
+- Local statements lead to global pictures: a direction-independent
+  derivative becomes a map between strips, cylinders, half-planes, and
+  discs.
+- Different drawings are coordinate descriptions of one physical
+  worldsheet; marked points and moduli carry the invariant information.
+- Audience questions are part of the derivation. They separate nearby but
+  inequivalent ideas before the formalism proceeds.
+
+## Source-Limited Passages
+
+- The terminology around analytic, entire, and meromorphic functions
+  contains live self-correction near 00:20:34-00:21:18.
+- The board writes the reciprocal Cayley map near
+  00:55:30-00:58:43; the reciprocal preserves the circle but exchanges
+  interior and exterior.
+- Repeated captions obscure a short mapping explanation near
+  00:59:50-01:00:30.
+- The Euclidean worldsheet action is corrected while being written near
+  01:10:50-01:11:08; the completed positive form controls the notes.
+- A short ASR corruption occurs near 01:27:58-01:28:00.
+- The alternate-channel exchange near 01:36:49-01:38:08 is partly
+  garbled, although its conclusion that the channel pictures belong to one
+  modulus integral is stable.
+- Closing metric shorthand near 01:44:04-01:44:18 is compressed; only
+  the stable distinction between continuous momentum and quantized mass
+  levels is retained.

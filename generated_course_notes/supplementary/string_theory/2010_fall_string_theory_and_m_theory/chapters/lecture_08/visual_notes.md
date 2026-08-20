@@ -1,47 +1,93 @@
 # Visual Evidence
-## Frame Inventory
-- `lecture_08_figure_02.png`: Left side of the board with a vertical electrostatics equation stack, partially cropped, while Susskind points toward the lower expanded line; this screenshot should remain in the final notes as evidence for the electrostatics-to-Laplace setup.
-- `lecture_08_figure_03.png`: Clean blackboard algebra for the example \(W=z^2\), including the expansion into real and imaginary parts; this screenshot should remain in the final notes because the equations are fully readable and note-worthy on their own.
-- `lecture_08_figure_04.png`: Mixed sketch-and-formula frame showing a narrow worldsheet strip labeled \(X^\mu(\sigma,\tau)\), a large Euclidean exponential, and the emerging \(d\sigma\,d\tau\) measure; this screenshot should remain in the final notes as visual evidence for both layout and notation.
-- `lecture_08_figure_05.png`: Blackboard formula layout with the Euclidean worldsheet weight across the top and the product of momentum-insertion factors below; this screenshot should remain in the final notes as the strongest visual evidence for the path-integral prescription with vertex operators.
 
-## Equation Extraction
-- `lecture_08_figure_02.png`: \(\nabla \cdot \mathbf{E}=\rho\) [partially visible]
-- `lecture_08_figure_02.png`: \(\nabla^2 \phi=\rho\) [partially visible]
-- `lecture_08_figure_02.png`: \(\nabla^2\phi=\dfrac{\partial^2\phi}{\partial x^2}+\dfrac{\partial^2\phi}{\partial y^2}\) [standard completion]
-- `lecture_08_figure_03.png`: \(W=z^2\) [visible]
-- `lecture_08_figure_03.png`: \((x+iy)^2=x^2-y^2+2ixy=u+iv\) [visible]
-- `lecture_08_figure_03.png`: \(u=x^2-y^2\) [visible]
-- `lecture_08_figure_03.png`: \(v=2xy\) [visible]
-- `lecture_08_figure_04.png`: \(X^\mu(\sigma,\tau)\) [visible]
-- `lecture_08_figure_04.png`: \(e^{-\,\cdots}\) [visible]
-- `lecture_08_figure_04.png`: \(\int \cdots\, d\sigma\, d\tau\) [partially visible]
-- `lecture_08_figure_04.png`: \(\exp\!\left[-\int d\sigma\,d\tau\left((\partial_\tau X^\mu)^2+(\partial_\sigma X^\mu)^2\right)\right]\) [standard completion]
-- `lecture_08_figure_05.png`: \(e^{-\int \cdots\, d\sigma\,d\tau}\) [partially visible]
-- `lecture_08_figure_05.png`: \(\prod e^{ikX(z)}\) [visible]
-- `lecture_08_figure_05.png`: \(\prod_i e^{i k_i\cdot X(z_i)}\) [standard completion]
+## Final Frame Inventory
 
-## Diagram Extraction
-- `lecture_08_figure_02.png`: This is not really a diagram but a left-hand equation column. It should be preserved as a screenshot, not redrawn as TikZ, because the main value is the lecturer’s stacking of electrostatics equations and the visual emphasis on the plus sign in the Laplacian.
-- `lecture_08_figure_03.png`: This is a pure algebra panel with no geometric drawing. It should be preserved as a screenshot and also reproduced as clean displayed equations nearby.
-- `lecture_08_figure_04.png`: The narrow strip/worldsheet sketch at left should be redrawn in TikZ, but the original screenshot should remain nearby because it also captures the board layout and the moment when the \(d\sigma\,d\tau\) measure is being written.
-- `lecture_08_figure_05.png`: The top-and-bottom formula layout should remain as a screenshot, while the mathematical content should also be typeset cleanly. No TikZ redraw is needed for the formulas themselves, but the frame is useful because it visually separates the bulk worldsheet weight from the external-particle insertions.
-- Across `lecture_08_figure_04.png` and `lecture_08_figure_05.png`: the worldsheet strip and the path-integral prescription should be shown both ways, with the screenshot as evidence and the clean reconstruction as the note-ready version.
+| Figure | Time | Blackboard content | Use |
+| --- | ---: | --- | --- |
+| lecture_08_figure_01.png | 00:03:48 | Poisson equation and expanded two-dimensional Laplacian | Preserve with clean equations |
+| lecture_08_figure_02.png | 00:19:48 | Completed Cauchy--Riemann pair | Preserve with clean equations |
+| lecture_08_figure_03.png | 00:23:09 | Mixed-derivative cancellation and Laplace equation | Preserve with derivation |
+| lecture_08_figure_04.png | 00:34:11 | Ratio proof of local angle preservation | Preserve and pair with TikZ |
+| lecture_08_figure_05.png | 00:36:45 | Expansion of \(w=z^2\) | Preserve with clean algebra |
+| lecture_08_figure_06.png | 00:38:38 | Complex conjugation counterexample | Preserve with clean algebra |
+| lecture_08_figure_07.png | 00:42:23 | Components of \(e^z\) | Preserve with clean algebra |
+| lecture_08_figure_08.png | 00:47:48 | Half-plane mapped to a strip by \(\log z\) | Preserve as geometric evidence |
+| lecture_08_figure_09.png | 00:54:23 | Open strip and closed cylinder identification | Preserve as worldsheet evidence |
+| lecture_08_figure_10.png | 00:58:38 | Linear-fractional map and unit circle | Preserve with correction note |
+| lecture_08_figure_11.png | 01:03:48 | Orthogonal circle families in the disc | Preserve as geometric evidence |
+| lecture_08_figure_12.png | 01:11:34 | Completed positive Euclidean action | Preserve with clean action |
+| lecture_08_figure_13.png | 01:15:18 | Slit strip mapped to a four-point disc | Preserve as worldsheet evidence |
+| lecture_08_figure_14.png | 01:18:58 | Bulk weight and first vertex insertion | Preserve with clean operator |
+| lecture_08_figure_15.png | 01:23:23 | Product of all momentum insertions | Preserve with amplitude formula |
+| lecture_08_figure_16.png | 01:28:58 | Disc sources as momentum-component charges | Preserve as conceptual evidence |
+| lecture_08_figure_17.png | 01:35:18 | Four points with three fixed conformally | Preserve as moduli evidence |
 
-## Reconstruction Guidance
-- For `lecture_08_figure_02.png`, typeset a clean progression from \(\nabla\cdot\mathbf{E}=\rho\) to \(\nabla^2\phi=\rho\), then unpack the two-dimensional Laplacian as \(\partial_x^2\phi+\partial_y^2\phi\). Keep the screenshot nearby because the board layout itself reinforces the lecture’s “these are not wave equations” moment.
-- For `lecture_08_figure_03.png`, reproduce the exact board order: first \(W=z^2\), then the expansion of \((x+iy)^2\), then the identifications of \(u\) and \(v\). This is readable enough that the typeset reconstruction can be nearly literal.
-- For `lecture_08_figure_04.png`, do not pretend the full action is fully legible from the frame. Use the screenshot to justify the presence of the Euclidean exponential, the measure, and the label \(X^\mu(\sigma,\tau)\), then supply a cautious standard completion of the action from the transcript and standard worldsheet notation.
-- For `lecture_08_figure_04.png`, redraw the strip in TikZ as a long narrow rectangle or ribbon-like patch labeled \(X^\mu(\sigma,\tau)\). Keep it simple; the frame only supports the strip geometry and labeling, not a more elaborate internal structure.
-- For `lecture_08_figure_05.png`, typeset the path-integral rule as a Euclidean worldsheet weight multiplied by a product of insertion factors. Use the screenshot as evidence for the separation between the action-like exponential and the lower row of vertex-operator factors.
-- For `lecture_08_figure_05.png`, normalize the lower formula to indexed notation such as \(\prod_i e^{i k_i\cdot X(z_i)}\), but make clear in internal drafting that the indices and dot product are transcript-supported cleanups rather than fully explicit chalk marks in the frame.
-- If only one clean Euclidean action formula is placed in the notes, let `lecture_08_figure_05.png` anchor that formula and let `lecture_08_figure_04.png` support the strip sketch and the measure-writing moment.
+## Equation Readings
+
+- Figure 01 supports
+  \(\nabla\!\cdot\!\mathbf E=\rho\),
+  \(\nabla^2\phi=\rho\), and
+  \(\nabla^2=\partial_x^2+\partial_y^2\).
+- Figure 02 supports
+  \(u_x=v_y\) and \(u_y=-v_x\).
+- Figure 03 supports
+  \(u_{xx}+u_{yy}=0\) after cancellation of mixed derivatives.
+- Figure 04 supports the equality of local displacement ratios used in the
+  angle-preservation proof.
+- Figure 05 supports
+  \((x+iy)^2=x^2-y^2+2ixy\),
+  \(u=x^2-y^2\), and \(v=2xy\).
+- Figure 06 supports
+  \(w=\bar z=x-iy\), which fails the Cauchy--Riemann test.
+- Figure 07 supports
+  \(e^{x+iy}=e^x(\cos y+i\sin y)\).
+- Figure 08 supports
+  \(w=\log z=\log r+i\theta\).
+- Figure 10 visibly uses the reciprocal fractional-map convention; the
+  chapter labels the interior/exterior correction rather than silently
+  changing the board.
+- Figure 12 supports the positive Euclidean combination
+  \((\partial_\tau X^\mu)^2+(\partial_\sigma X^\mu)^2\).
+- Figures 14 and 15 support boundary factors of the form
+  \(e^{ik_i\cdot X(z_i)}\) multiplying the bulk Euclidean weight.
+
+## Diagram Readings
+
+- Figure 04 is paired with one clean TikZ redraw. The redraw contains only
+  two infinitesimal directions and their angle before and after mapping; it
+  does not invent global geometry.
+- Figure 08 records the orthogonal ray/semicircle grid becoming a rectangular
+  strip grid.
+- Figure 09 records the periodic identification that closes a full-plane
+  strip into a cylinder.
+- Figures 10 and 11 record the unit-circle boundary and the two orthogonal
+  families of generalized circles.
+- Figure 13 records the topology of the four-open-string worldsheet and its
+  four marked boundary points after conformal mapping.
+- Figure 16 records the boundary-source interpretation, not a literal
+  spacetime scattering diagram.
+- Figure 17 records the moduli count: three boundary points may be fixed and
+  the fourth remains to be integrated.
+
+## Selection Checks
+
+- Every frame was taken after the relevant writing or drawing was complete.
+- No selected image is a title card, campus shot, audience shot, or unrelated
+  transition.
+- Captions distinguish worldsheet coordinates from physical spacetime.
+- Images with incomplete or convention-dependent chalk are paired with
+  clean equations and explicit notes.
+- The screenshots remain primary evidence; the single redraw is a
+  pedagogical companion rather than a replacement.
 
 ## Uncertainties
-- In `lecture_08_figure_02.png`, the left edge is cropped, so the divergence and Laplacian symbols are not completely visible.
-- In `lecture_08_figure_02.png`, the lower expanded line may continue to an equality with \(\rho\) or \(0\), but that continuation is not secure from the image alone.
-- In `lecture_08_figure_03.png`, the handwritten \(v\) resembles an uppercase \(V\); the intended meaning is still clearly the imaginary-part variable \(v\).
-- In `lecture_08_figure_04.png`, the integrand inside the exponential is mostly blocked by Susskind’s body, so the standard quadratic Euclidean completion should be treated as reconstruction, not direct transcription.
-- In `lecture_08_figure_05.png`, the upper integrand is only partially legible even though the overall structure is clear.
-- In `lecture_08_figure_05.png`, the lower line visibly shows a product and a factor of the form \(e^{ikX(z)}\), but the explicit indexing, the argument labels \(z_i\), and the contraction \(k_i\cdot X(z_i)\) are safer transcript-backed completions than raw visual reads.
-- The Wick-rotated Euclidean sign structure is supported by the lecture context and the frames, but the exact chalk-level placement of every minus sign and index is not fully reliable from the images alone.
+
+- The lecture uses \(\mathbf E=\nabla\phi\), opposite to a common
+  electrostatic sign convention. The source-free Laplace equation is
+  unaffected.
+- The fractional map visible in Figure 10 exchanges the right-half-plane
+  interior and exterior relative to the spoken description.
+- Exact normalization of the Euclidean action is not fully written on the
+  board; the chapter uses the standard \(1/(4\pi\alpha')\) normalization.
+- The full gauge-fixed measure, ghost sector, polarizations, couplings, and
+  state-dependent vertex factors are beyond the board-level prescription.
