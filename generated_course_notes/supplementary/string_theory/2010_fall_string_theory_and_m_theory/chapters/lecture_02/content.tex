@@ -1,492 +1,1247 @@
-\chapter{Lecture 2: String Theory and M-Theory}
+\chapter{From Boundary Conditions to the Open-String Spectrum}
 
-These notes follow Leonard Susskind's second lecture on string theory, curated in this archive by LazyingArt LLC. The lecture proceeds in a very deliberate order. First it stocks the blackboard with the interval calculus and Fourier facts that would otherwise interrupt the story later. Then it pauses over a conceptual question that matters more than it first appears to: in what sense can a string, made of many pieces, still count as a particle? Only after that does it return to the infinite-momentum or light-front point of view, build the open string as a chain of masses and springs, take the continuum limit, solve the endpoint puzzle, and quantize the resulting modes.
+\lectureoverview{Our aim is to quantize an open string and decide whether its
+states deserve to be called particles. The route is elementary but exacting.
+We first prepare the calculus and Fourier analysis of functions on
+\(0\leq\sigma\leq\pi\). We then replace pointlikeness by a spectral criterion
+for particle behavior, review the infinite-momentum description in which the
+transverse dynamics become nonrelativistic, and build the string from a chain
+of light masses and stiff springs. The continuum string is a wave system with
+free endpoints. Its Neumann modes decouple into harmonic oscillators with
+frequencies \(1,2,3,\ldots\); quantization therefore produces a discrete,
+gapped spectrum. String interactions finally force us beyond open strings:
+an open string can join its own endpoints and become closed.}
 
-\section{Mathematical Preliminaries on the Interval $[0,\pi]$}
+\section{Calculus on the open-string interval}
 
-Susskind begins by saying explicitly why he is doing this: if these preliminaries were not written down now, they would have to be inserted later in the middle of the string theory, and that would be a nuisance. So we begin with the reservoir of tools.
+The calculation will repeatedly turn discrete sums into integrals and
+nearest-neighbor differences into derivatives. It is better to put those
+facts in place before they interrupt the physics.
 
-Take a function \(x(\sigma)\) on the interval \(0\leq \sigma \leq \pi\). The choice of letters is not accidental. He uses \(x\) and \(\sigma\) because these are the notations string theory will keep returning to. The interval \([0,\pi]\) is likewise chosen in advance because it is the natural interval for the open string in this lecture.
+Let \(x(\sigma)\) be a function on
 
-We approximate the continuous function by values on a lattice of \(N\) points. If
 \begin{equation}
-\Delta \sigma=\frac{\pi}{N},
+  0\leq \sigma\leq \pi .
 \end{equation}
-then the standard replacements are
+
+The notation anticipates string theory: \(\sigma\) labels position along the
+string, while \(x\) will become one of its transverse coordinates. Divide the
+interval into \(N\) pieces,
+
+\begin{equation}
+  \Delta\sigma=\frac{\pi}{N},
+  \qquad
+  \sigma_i=i\,\Delta\sigma,
+  \qquad
+  x_i=x(\sigma_i).
+  \label{eq:l02-lattice}
+\end{equation}
+
+For a smooth limiting function,
+
+\begin{equation}
+  \Delta x_i\equiv x_i-x_{i-1}
+  =
+  \frac{\partial x}{\partial\sigma}\,\Delta\sigma
+  +O\!\left((\Delta\sigma)^2\right),
+  \label{eq:l02-difference}
+\end{equation}
+
+and the Riemann sum becomes
+
+\begin{equation}
+  \sum_i x_i\,\Delta\sigma
+  \longrightarrow
+  \int_0^\pi x(\sigma)\,d\sigma .
+  \label{eq:l02-riemann}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_02_figure_01.png}
+  \caption{The finite-difference and Riemann-sum rules kept on the board for
+  the later continuum limit.}
+  \lectureframe{00:04:20}
+  \label{fig:l02-calculus-board}
+\end{figure}
+
+These are definitions familiar from calculus. Their importance here is in
+the scaling: \(\Delta x_i\) brings one power of \(\Delta\sigma\), whereas a
+sum brings one inverse power when it becomes an integral.
+
+\subsection{Dirichlet and Neumann endpoints}
+
+Fourier analysis on a finite interval begins with a choice at the endpoints.
+Two choices will recur.
+
 \begin{align}
-x(\sigma) &\longrightarrow x_i, \\
-\Delta x_i \equiv x_i-x_{i-1} &\approx \frac{\partial x}{\partial \sigma}\,\Delta \sigma, \\
-\sum_i x_i\,\Delta \sigma &\longrightarrow \int_0^\pi x(\sigma)\,d\sigma .
+  \text{Dirichlet:}\qquad
+  &x(0)=x(\pi)=0,
+  \label{eq:l02-dirichlet}\\
+  \text{Neumann:}\qquad
+  &\left.\partial_\sigma x\right|_{\sigma=0}
+   =
+   \left.\partial_\sigma x\right|_{\sigma=\pi}
+   =0.
+  \label{eq:l02-neumann}
 \end{align}
-This is just calculus, but it is precisely the calculus we will soon use for the string.
 
-The next distinction is between endpoint behaviors. Here the lecture is still mathematical rather than physical, but the physical pictures are already visible.
+A violin string held at both ends gives the Dirichlet picture: its
+displacement vanishes at the boundaries. A Neumann function need not vanish
+there; it meets each boundary with zero slope. The two characteristic shapes
+are visible together on the board.
 
-\paragraph{Dirichlet boundary conditions.}
-These fix the value of the function at the endpoints:
-\begin{equation}
-x(0)=x(\pi)=0.
-\end{equation}
-A violin string with its ends pinned down is the elementary model.
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_02.png}
+    \par\smallskip\footnotesize (a) Pinned and flat endpoint profiles.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_03.png}
+    \par\smallskip\footnotesize (b) Light rings sliding on vertical poles.
+  \end{minipage}
+  \caption{Boundary conditions as shapes and as mechanics. The sliding-ring
+  construction gives a free endpoint an unambiguous transverse motion.}
+  \lectureframe{00:08:50 and 00:12:15}
+  \label{fig:l02-boundaries-board}
+\end{figure}
 
-\paragraph{Neumann boundary conditions.}
-These instead fix the slope at the endpoints:
-\begin{equation}
-\left.\frac{\partial x}{\partial \sigma}\right|_{\sigma=0}
-=
-\left.\frac{\partial x}{\partial \sigma}\right|_{\sigma=\pi}
-=0.
-\end{equation}
-The function need not vanish there; it is only required to be flat.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick,scale=0.92]
+    \begin{scope}
+      \draw[->] (0,0) -- (4.4,0) node[right] {\(\sigma\)};
+      \draw[->] (0,-1.25) -- (0,1.35) node[above] {\(x\)};
+      \draw[blue!70!black]
+        (0,0) .. controls (0.8,1.1) and (1.4,1.0) .. (2.0,0)
+        .. controls (2.7,-1.0) and (3.4,-0.8) .. (4.1,0);
+      \fill (0,0) circle (0.06);
+      \fill (4.1,0) circle (0.06);
+      \node at (2.05,-1.65) {Dirichlet: \(x=0\)};
+    \end{scope}
+    \begin{scope}[xshift=5.8cm]
+      \draw[->] (0,0) -- (4.4,0) node[right] {\(\sigma\)};
+      \draw[->] (0,-1.25) -- (0,1.35) node[above] {\(x\)};
+      \draw[orange!85!black]
+        (0,0.65) .. controls (0.8,0.65) and (1.1,-0.9) .. (2.0,-0.9)
+        .. controls (2.9,-0.9) and (3.2,0.55) .. (4.1,0.55);
+      \draw[orange!85!black] (0,0.65) -- (0.45,0.65);
+      \draw[orange!85!black] (3.65,0.55) -- (4.1,0.55);
+      \node at (2.05,-1.65) {Neumann: \(\partial_\sigma x=0\)};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{The value is fixed for Dirichlet data; the slope is fixed for
+  Neumann data.}
+  \label{fig:l02-boundaries-redraw}
+\end{figure}
 
-The lecture briefly wanders through organ pipes and other examples, but the moral is simple. Dirichlet means fixed endpoints. Neumann means free endpoints. Susskind even gives a mechanical picture of a string whose ends pass through very light rings sliding on poles: not held down, but free to move. That is the kind of system for which Neumann conditions are natural.
+\begin{classroomqa}
+\audiencequestion{Does an open or closed organ pipe supply a clean example of
+one of these boundary conditions?\lecturetimestamp{00:09:19}}
+\lecturerresponse{It can, but one must first say which acoustic variable is
+being expanded. Pressure perturbation and longitudinal displacement obey
+complementary idealized conditions at an open end. Rather than settle that
+side question at the board, use the sliding-ring model: nearly massless rings
+can move vertically on the poles, so the string endpoints are free and the
+Neumann picture is direct.}
+\end{classroomqa}
 
-There is also a small caution here. Piecewise continuous functions are allowed in Fourier analysis, but for the purposes of string theory we do not want jumps in the string itself: a jump would mean the string had broken.
+\begin{classroomqa}
+\audiencequestion{Can the graph rise vertically and contain a sharp
+jump?\lecturetimestamp{00:09:53}}
+\lecturerresponse{Fourier analysis can represent piecewise-continuous
+functions with isolated jumps. A physical string is more restrictive. A
+jump would disconnect neighboring points; in the continuum energy derived
+below it also makes \(\partial_\sigma x\) singular. For the string shapes of
+interest we therefore keep a continuous, differentiable profile.}
+\end{classroomqa}
 
-Once the endpoint behavior is fixed, the Fourier basis is fixed with it. On \([0,\pi]\) one writes
+\begin{classroomqa}
+\audiencequestion{Why should the open end of a pipe, or any free end, satisfy
+a boundary condition at all?\lecturetimestamp{00:11:14}}
+\lecturerresponse{The acoustic example depends on the chosen field and was
+left unresolved in the discussion. The mechanical example does not. A very
+light ring is free to slide but is still attached to the final string
+segment. We shall derive its condition from Newton's law rather than assume
+it: finite endpoint acceleration forces the slope to vanish.}
+\end{classroomqa}
+
+\subsection{The Fourier bases}
+
+Once the endpoint class is fixed, the corresponding Fourier basis is fixed.
+On \(0\leq\sigma\leq\pi\),
+
 \begin{align}
-x_D(\sigma) &= \sum_{n=1}^{\infty} x_n \sin n\sigma, \\
-x_N(\sigma) &= \sum_{n=0}^{\infty} x_n \cos n\sigma .
+  x_D(\sigma)
+  &=
+  \sum_{n=1}^{\infty}x_n\sin(n\sigma),
+  \label{eq:l02-dirichlet-series}\\
+  x_N(\sigma)
+  &=
+  \sum_{n=0}^{\infty}x_n\cos(n\sigma).
+  \label{eq:l02-neumann-series}
 \end{align}
-Sines vanish at the endpoints, which is why they go with Dirichlet. Cosines have zero derivative at the endpoints, which is why they go with Neumann. The lecture also emphasizes a fact we will use later without apology: differentiation swaps the two classes. The derivative of a Dirichlet function is Neumann; the derivative of a Neumann function is Dirichlet.
 
-To make these expansions useful, we need the orthogonality integrals. In the form relevant later,
+Every sine in \eqref{eq:l02-dirichlet-series} vanishes at both endpoints.
+Every cosine in \eqref{eq:l02-neumann-series} has zero endpoint derivative.
+The lower limits differ for a reason:
+\(\sin(0\sigma)=0\) contributes nothing, while
+\(\cos(0\sigma)=1\) is the constant, or zero, mode. It records the average
+value of a Neumann function.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_04.png}
+    \par\smallskip\footnotesize (a) Sine and cosine expansions.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_05.png}
+    \par\smallskip\footnotesize (b) Orthogonality and the exceptional
+    constant mode.
+  \end{minipage}
+  \caption{The Fourier facts used later to diagonalize the string.}
+  \lectureframe{00:16:15 and 00:20:30}
+  \label{fig:l02-fourier-board}
+\end{figure}
+
+Differentiation exchanges the two classes:
+
+\begin{equation}
+  \partial_\sigma\sin(n\sigma)=n\cos(n\sigma),
+  \qquad
+  \partial_\sigma\cos(n\sigma)=-n\sin(n\sigma).
+  \label{eq:l02-basis-derivatives}
+\end{equation}
+
+Thus the derivative of a Dirichlet series has Neumann behavior and the
+derivative of a Neumann series has Dirichlet behavior. Orthogonality then
+removes cross-terms between distinct modes:
+
 \begin{align}
-\int_0^\pi \cos n\sigma \cos m\sigma\,d\sigma &= 0 \qquad (n\neq m), \\
-\int_0^\pi \cos^2 n\sigma\,d\sigma &= \frac{\pi}{2} \qquad (n\geq 1), \\
-\int_0^\pi d\sigma &= \pi, \\
-\int_0^\pi \sin n\sigma \sin m\sigma\,d\sigma &= \frac{\pi}{2}\delta_{nm} \qquad (n,m\geq 1).
+  \int_0^\pi\cos(n\sigma)\cos(m\sigma)\,d\sigma
+  &=
+  \frac{\pi}{2}\delta_{nm},
+  && n,m\geq1,
+  \label{eq:l02-cos-orthogonality}\\
+  \int_0^\pi\sin(n\sigma)\sin(m\sigma)\,d\sigma
+  &=
+  \frac{\pi}{2}\delta_{nm},
+  && n,m\geq1,
+  \label{eq:l02-sin-orthogonality}\\
+  \int_0^\pi 1\,d\sigma&=\pi .
+  \label{eq:l02-zero-norm}
 \end{align}
 
-\begin{remark}
-The transcript becomes garbled around the exceptional \(n=0\) cosine mode, but the intended mathematics is clear. The nonzero cosine modes have norm \(\pi/2\), while the constant mode \(\cos 0\sigma=1\) integrates to \(\pi\).
-\end{remark}
+The last line is the exceptional \(n=m=0\) cosine norm. A constant is not
+normalized like a nonzero harmonic, and that factor of two will distinguish
+the string's center-of-mass mode from its internal modes.
 
-The last item placed on the board is the harmonic oscillator. After rescaling the coordinate so that the mass is one, the energy reads
-\begin{equation}
-E_{\mathrm{osc}}=\frac{1}{2}\dot x^{\,2}+\frac{1}{2}\omega^2 x^2,
-\end{equation}
-and the corresponding Lagrangian is
-\begin{equation}
-L_{\mathrm{osc}}=\frac{1}{2}\dot x^{\,2}-\frac{1}{2}\omega^2 x^2.
-\end{equation}
-The lecture contains a verbal slip here, but the mathematics is standard: the Lagrangian is \(T-V\), not ``kinetic energy squared minus potential energy squared.'' The quantum fact we keep in reserve is that oscillator levels come in steps of \(\omega\), up to the overall ground-state offset.
+\subsection{One oscillator formula to remember}
 
-\section{What Makes a String a Particle?}
+After rescaling a coordinate so that its mechanical mass is one, a
+Hooke-law oscillator has
 
-Now the lecture deliberately interrupts its own mathematical flow. Before building the string, it asks a question that could otherwise become a source of confusion for the rest of the course: what do we mean by a particle at all?
-
-A string, after all, is about to be modeled as a large number of pieces connected by springs. If that is so, why should it behave like a particle rather than like an ordinary extended object?
-
-The first part of the answer is negative. Pointlikeness is not the criterion. Electrons are surrounded by virtual clouds. Protons and neutrons are obviously composite. The lecture insists that what we call a particle need not be literally structureless.
-
-Nor is it enough merely to have a mass and a center-of-mass position. A box of gas has those. A cup of coffee has those. Yet no physicist would naturally call a cup of coffee a particle.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-When does a composite object count as a particle rather than ``mush''?
-
-\paragraph{Answer.}
-A composite object counts as a particle when the excitation spectrum above its ground state is discrete and well separated. If there are large enough gaps to the first few excited states, the object behaves as an isolated quantum species. If instead there are innumerable nearby states at arbitrarily small separations, the object behaves like continuum matter.
-
-This is the lesson of the lecture's coffee example. A cup of coffee can be excited by tiny disturbances: one can stir it slightly, excite a sound mode, disturb a molecule, or create a phonon with an absurdly small amount of energy. The nearby states are so dense that they practically form a continuum. That is mush.
-
-A proton is different. It certainly has excitations, but it takes a substantial amount of energy to get to them. The nearby spectrum is not continuous. An electron is more isolated still. One does not have a ladder of electron states lying immediately above the electron.
-
-So the criterion becomes spectral rather than ontological. The question for string theory is not whether the string is made of parts. Of course it is. The question is whether the internal excitations are separated by large enough gaps to make the lowest state behave as a particle. In the version of string theory under discussion, the gap is taken to be enormous, on the scale of the Planck mass, and that is why the string may still present itself as a particle in ordinary experiments.
-
-This detour is not philosophical ornament. It prepares the central claim of the lecture's last third: once the string is quantized, its spectrum comes out discrete enough to justify calling the resulting states particles.
-
-\section{Review of the Infinite-Momentum / Light-Front Trick}
-
-Only after that conceptual pause does Susskind return to the framework from the previous lecture. The question is this: how can an extended relativistic system ever be described by something as simple as nonrelativistic mechanics?
-
-He first emphasizes what does \emph{not} work. A rapidly spinning baton is not well described by nonrelativistic physics just because we happen to sit in the frame where its center of mass is simple. The issue is the relative motion of its parts. If the ends are moving relativistically relative to each other, then the ordinary nonrelativistic approximation fails.
-
-The trick is different. We boost the whole system to a very large momentum along some chosen axis, say the \(z\)-axis, and then examine only the motion in the transverse plane. In that description the transverse dynamics become exactly, not approximately, nonrelativistic in form.
-
-Start from the relativistic energy
-\begin{equation}
-E=\sqrt{P_z^2+p_x^2+p_y^2+M^2},
-\end{equation}
-where \(M\) is the rest mass of the full system and \(P_z\) is the large longitudinal momentum. When \(P_z\) is the dominant scale, we expand:
-\begin{equation}
-E \approx P_z+\frac{p_x^2+p_y^2+M^2}{2P_z}.
-\end{equation}
-The first term is the trivial boost energy. It depends on the conserved longitudinal momentum but not on the internal state, so for the questions at hand we subtract it and write
-\begin{equation}
-E-P_z=\frac{p_x^2+p_y^2+M^2}{2P_z}.
-\end{equation}
-
-The lecture then makes the crucial interpretive move. Energy is Hamiltonian. Hamiltonian governs time evolution. But if \(P_z\) becomes very large, the right-hand side tends to zero, which means that in the ordinary time variable the internal motion appears to freeze. This is just time dilation.
-
-We do not want to throw away the internal motion. We want to follow it. So we rescale time. Equivalently, up to a conventional overall normalization, we multiply by \(P_z\). Then the expression has a finite limit:
-\begin{equation}
-P_z(E-P_z)=\frac{1}{2}\left(p_x^2+p_y^2+M^2\right).
-\end{equation}
-This now looks like a two-dimensional nonrelativistic Hamiltonian: transverse momentum squared divided by two, plus an internal contribution. The only conceptual twist is that the internal contribution is proportional to \(M^2\), not \(M\).
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_02_figure_02.png}
-\caption{Hamiltonian form of the boosted energy. The board line beginning with \(H=\) marks the shift from the boosted-energy expansion to its Hamiltonian interpretation.}
-\label{fig:lecture02-lightfront}
-\end{figure}
-
-On the board, the line beginning with \(H=\) records exactly this reinterpretation. The board itself does not finish writing \(H=i\,d/dt\), but the lecture makes that identification in words: Hamiltonian is what governs time evolution.
-
-\begin{remark}
-Susskind briefly complains about the terminology ``light cone'' and says that ``light front'' would be better. We keep only the mathematical point. After the large boost and the time rescaling, the transverse dynamics are exactly nonrelativistic in form.
-\end{remark}
-
-There is one more feature he flags, without dwelling on it. For strings, the longitudinal internal motion is constrained by the transverse motion. That is part of what makes the method so powerful. In the present lecture, however, this remains background motivation; the active calculation now moves to the transverse coordinates alone.
-
-\section{A String as Mass Points and Springs}
-
-Now we come to strings themselves. In the boosted description the string moves only in two transverse directions, which we call \(X\) and \(Y\). The lecture begins with the discrete model: \(N\) mass points joined by \(N-1\) springs.
-
-The coordinate \(\sigma\) labels position along the string and runs from \(0\) to \(\pi\). This is not forced; it is chosen. Susskind even remarks that one could equally well choose \(0\) to \(1\) or \(0\) to \(2\). The reason for choosing \([0,\pi]\) is pedagogical. He wants to reserve \([0,2\pi]\) for the closed string later on.
-
-The discrete energy of the open string is
-\begin{equation}
-E=\sum_i\left[
-\frac{\mu}{2}\bigl(\dot X_i^2+\dot Y_i^2\bigr)
-+
-\frac{k}{2}\bigl((\Delta X_i)^2+(\Delta Y_i)^2\bigr)
-\right].
-\end{equation}
-The board writes the bead mass as \(m\), but the lecture itself later corrects this and introduces \(\mu\) as the nonrelativistic analog mass of each bead, so we use \(\mu\) from the start in the cleaned notes. Likewise, the spring constant is called both \(k\) and \(\kappa\) in speech; we write \(k\).
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_02_figure_03.png}
-\caption{Discrete string as mass points and springs. The lecture moves directly from the bead-chain sketch to the discrete energy formula.}
-\label{fig:lecture02-discrete-board}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0) -- (1.0,0.45) -- (2.0,0.10) -- (3.0,0.75) -- (4.0,0.20) -- (5.1,-0.25) -- (6.2,0.20) -- (7.2,-0.10);
-\foreach \x/\y in {0/0,1.0/0.45,2.0/0.10,3.0/0.75,4.0/0.20,5.1/-0.25,6.2/0.20,7.2/-0.10}
-{
-  \filldraw[white] (\x,\y) circle (0.09);
-  \draw (\x,\y) circle (0.09);
-}
-\node at (4.0,1.15) {$N$ mass points};
-\end{tikzpicture}
-\caption{A clean redraw of the bead-chain model used to take the continuum limit.}
-\label{fig:lecture02-discrete-tikz}
-\end{figure}
-
-When Susskind writes the formula first for \(X\), he immediately says: wherever I write \(X\), you must also add the same thing with \(Y\). That small spoken reminder matters. The string lives in two transverse directions, not one.
-
-The next task is to choose the large-\(N\) scaling correctly. If the number of beads grows while each bead keeps a fixed mass, then the total mass diverges. That is not the continuum limit we want. We therefore choose
-\begin{equation}
-\mu=\frac{1}{N},
-\end{equation}
-so that the total analog mass remains fixed.
-
-The spring constant must scale in the opposite direction. Springs in series make a long chain easier to stretch, so if the overall stiffness of the string is to stay finite, the microscopic springs must become stiffer as the chain is refined. Susskind chooses
-\begin{equation}
-k=\frac{N}{\pi^2}.
-\end{equation}
-The factor of \(\pi^2\) is a convention inserted only to simplify later formulas. The essential point is the \(k\sim N\) scaling.
-
-This is the real payoff of the opening calculus detour. We now have a discrete mechanical chain and a precise prescription for taking its continuum limit.
-
-\section{Continuum Energy, Lagrangian, and Wave Interpretation}
-
-At this point the lecture uses, almost verbatim, the formulas it put on the board at the beginning. We have \(\Delta \sigma=\pi/N\), we have sums, and we have nearest-neighbor differences. Now we turn them into integrals and derivatives.
-
-\paragraph{A worked derivation of the continuum limit.}
-For the \(X\)-sector kinetic term,
 \begin{align}
-\sum_i \frac{\mu}{2}\dot X_i^2
-&=
-\sum_i \frac{1}{2N}\dot X_i^2 \\
-&=
-\frac{1}{2\pi}\sum_i \dot X_i^2\,\Delta \sigma \\
-&\longrightarrow
-\frac{1}{2\pi}\int_0^\pi d\sigma
-\left(\frac{\partial X}{\partial \tau}\right)^2.
+  E_{\mathrm{osc}}
+  &=
+  \frac12\dot q^{\,2}
+  +\frac12\omega^2q^2,
+  \label{eq:l02-oscillator-energy}\\
+  L_{\mathrm{osc}}
+  &=
+  \frac12\dot q^{\,2}
+  -\frac12\omega^2q^2.
+  \label{eq:l02-oscillator-lagrangian}
 \end{align}
-For the spring term we use the continuum replacement
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_02_figure_06.png}
+  \caption{The oscillator energy, written so that the coefficient of
+  \(q^2\) immediately identifies \(\omega^2\).}
+  \lectureframe{00:24:00}
+  \label{fig:l02-oscillator-board}
+\end{figure}
+
+Classically, \(\omega=\sqrt{\kappa/m}\); the coordinate rescaling has set
+\(m=1\). Quantum mechanically,
+
 \begin{equation}
-\Delta X_i \approx \frac{\partial X}{\partial \sigma}\,\Delta \sigma.
+  E_Q=\hbar\omega\left(Q+\frac12\right),
+  \qquad Q=0,1,2,\ldots .
+  \label{eq:l02-oscillator-spectrum}
 \end{equation}
-Then
+
+For level spacings we may subtract the common ground-state term and say that
+each quantum costs \(\hbar\omega\). The string calculation will initially do
+exactly that and postpone the total zero-point energy.
+
+\begin{classroomqa}
+\audiencequestion{How is the oscillator frequency read from the energy
+formula?\lecturetimestamp{00:23:21}}
+\lecturerresponse{Before rescaling it is
+\(\omega=\sqrt{\kappa/m}\). With unit mass the potential term is
+\(\frac12\omega^2q^2\), so its quadratic coefficient is the square of the
+frequency.}
+\end{classroomqa}
+
+\section{What makes a composite system a particle?}
+
+A string is extended and will be modeled by many coupled pieces. In what
+sense can one of its quantum states nevertheless be a particle? Pointlikeness
+cannot be the decisive criterion. Protons and neutrons are composite.
+Electrons and photons are accompanied by quantum-field dressing even though
+no intrinsic substructure has been resolved. A classical geometric point
+surrounded by nothing is not the right image of a quantum excitation.
+
+Nor do mass and center-of-mass position suffice. A sealed box of gas has
+both. A cup of coffee has both. We do not normally call either one a
+particle. Indivisibility also fails because a proton is divisible, and spin
+does not distinguish microscopic particles from macroscopic bodies.
+
+The useful criterion is spectral isolation. Put the rest energy on a vertical
+axis and ask how much energy is required to reach another internal state. An
+electron has no experimentally accessible tower of electron excitations just
+above it. A proton does have resonances, but the first ones cost a few hundred
+MeV, a substantial fraction of the proton mass. Those states are separated
+enough to be individually identifiable.
+
+A cup of coffee is the opposite. One can add an arbitrarily small amount of
+energy to a long-wavelength sound mode, nudge a molecule, or produce a phonon.
+There are enormously many states packed into a tiny interval. On laboratory
+scales they form a continuum. This is the practical distinction between a
+particle and \emph{mush}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_02_figure_07.png}
+  \caption{The board's vertical energy axis during the comparison of an
+  isolated particle level with the dense excitations of ordinary matter.}
+  \lectureframe{00:31:10}
+  \label{fig:l02-spectrum-board}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick]
+    \begin{scope}
+      \draw[->] (0,0) -- (0,4.8) node[above] {energy};
+      \draw[blue!70!black,line width=1.2pt] (-1.0,0.65) -- (1.0,0.65);
+      \draw[blue!70!black,line width=1.2pt] (-1.0,3.65) -- (1.0,3.65);
+      \node[right] at (1.05,0.65) {ground state};
+      \node[right] at (1.05,3.65) {first internal excitation};
+      \draw[<->] (0.65,0.75) -- (0.65,3.55)
+        node[midway,right] {large gap};
+      \node at (0,-0.55) {particle-like};
+    \end{scope}
+    \begin{scope}[xshift=7.0cm]
+      \draw[->] (0,0) -- (0,4.8) node[above] {energy};
+      \foreach \y in {0.55,0.69,0.82,0.94,1.05,1.15,1.24,1.32,1.39,1.45,
+        1.51,1.57,1.63,1.70,1.78,1.87,1.97,2.09,2.22,2.36,2.51,2.67,2.84,
+        3.02,3.21,3.41,3.62,3.84,4.07}
+        \draw[orange!85!black] (-0.95,\y) -- (0.95,\y);
+      \node[right] at (1.05,2.25) {dense phonon and internal states};
+      \node at (0,-0.55) {macroscopic matter};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Spectral isolation, not literal pointlikeness, is the operational
+  particle criterion used in the lecture.}
+  \label{fig:l02-particle-redraw}
+\end{figure}
+
+This criterion turns the philosophical question into a calculation. Quantize
+the string, find its internal energy levels, and inspect their spacing. If
+the first excited string state lies near the Planck scale while the observed
+ground state is light, the gap exceeds present accelerator energies by more
+than twenty orders of magnitude. The string then behaves as an elementary
+particle throughout the accessible regime.
+
+\begin{classroomqa}
+\audiencequestion{Is particle behavior merely an issue of observational
+scale? If we zoom in far enough, do the levels cease to be
+separate?\lecturetimestamp{00:33:33}}
+\lecturerresponse{Zooming in may reveal that an object has many constituents,
+but it does not erase the spectrum. The relevant comparison is between the
+energy resolution of the experiment and the gap to the first internal
+excitation. A composite object can remain particle-like when that gap is
+enormous.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is an ordinary violin string not a
+particle?\lecturetimestamp{00:34:37}}
+\lecturerresponse{One vibrational quantum carries an immeasurably small
+energy compared with the rest energy of the macroscopic string. Many quantum
+states therefore fit into a tiny relative interval. It belongs on the dense
+side of the spectral comparison, not the isolated side.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Are photons and electrons point particles if quantum fields
+surround them with virtual fluctuations?\lecturetimestamp{00:35:40}}
+\lecturerresponse{The classical word \emph{point} is doing too much work. The
+physical electron and photon are dressed field excitations, yet experiments
+have found no intrinsic constituent structure or finite form factor for
+either. What matters for the present argument is that neither has a dense
+tower of almost-degenerate internal states.\editorialnote{The lecture
+associates the electron's anomalous magnetic moment with a measurable quantum
+fuzz. In modern terminology the anomalous moment is a radiative dressing
+effect, not evidence for a resolved finite electron radius. Pointlike
+conventionally means that no intrinsic substructure or form factor has been
+detected down to the tested scale.}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the size of a photon depend on its
+frequency?\lecturetimestamp{00:36:49}}
+\lecturerresponse{Its wavelength certainly does. That is distinct from an
+intrinsic constituent size. Changing the frequency changes the wave packet
+and wavelength, not a resolved internal radius of the photon.}
+\end{classroomqa}
+
+\section{Exact transverse mechanics at large momentum}
+
+We now return to the relativistic difficulty. A rapidly rotating baton cannot
+be treated nonrelativistically merely by putting its center of mass at rest.
+Its ends still move relativistically relative to one another. The
+nonrelativistic approximation fails because of internal relative motion.
+
+There is, however, a different limit. Choose a \(z\)-axis and boost the entire
+system to a very large positive longitudinal momentum \(P_z\). Keep its
+transverse momentum
+
+\begin{equation}
+  p_\perp^2=p_x^2+p_y^2
+\end{equation}
+
+finite. The transverse projection then admits an exactly nonrelativistic
+Hamiltonian form in the \(P_z\to\infty\) limit, even if the unboosted internal
+motion was relativistic.
+
+\begin{classroomqa}
+\audiencequestion{Does infinite momentum mean that the massive system
+actually reaches the speed of light?\lecturetimestamp{00:40:43}}
+\lecturerresponse{No finite boost reaches it. One constructs quantities with
+well-defined limits as \(P_z\) becomes arbitrarily large. The phrase names a
+limiting procedure, not a finite physical state with \(v=c\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Which axis must be chosen, and what if the object rotates
+about or across that axis?\lecturetimestamp{00:41:14}}
+\lecturerresponse{Any axis may be chosen and the whole system boosted along
+it. What remains as explicit mechanics is the projection onto the
+perpendicular plane. A rotating rod may look foreshortened or sweep through
+that plane, but its transverse projection has the nonrelativistic form.}
+\end{classroomqa}
+
+Strings have an additional property that makes this representation unusually
+powerful. In light-front gauge their longitudinal internal coordinates are
+not independent oscillators. The constraints determine them from the
+transverse motion. Knowing the transverse string is therefore enough to
+reconstruct the physical degrees of freedom.
+
+\begin{classroomqa}
+\audiencequestion{Does the absence of an independent longitudinal coordinate
+mean that the string is merely trapped in a thin
+sandwich?\lecturetimestamp{00:42:26}}
+\lecturerresponse{Lorentz contraction does make its longitudinal extent
+small in the boosted frame, but the statement is stronger. Any residual
+longitudinal motion is constrained by the transverse motion; it cannot be
+specified independently.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is this reduction to transverse data related to the
+holographic principle?\lecturetimestamp{00:43:12}}
+\lecturerresponse{It is closely connected to the line of thought that led to
+holographic ideas, although pursuing that connection would take us away from
+the present calculation. Here it serves only to justify working with the
+transverse string.}
+\end{classroomqa}
+
+\subsection{Subtracting the boost and rescaling time}
+
+Let \(M\) be the invariant mass of the complete system, including constituent
+masses, kinetic energy, and binding energy. In units \(c=1\),
+
+\begin{equation}
+  E=\sqrt{P_z^2+p_\perp^2+M^2}.
+  \label{eq:l02-relativistic-energy}
+\end{equation}
+
+For \(P_z\) much larger than \(p_\perp\) and \(M\),
+
+\begin{equation}
+  E
+  =
+  P_z+\frac{p_\perp^2+M^2}{2P_z}
+  +O(P_z^{-3}).
+  \label{eq:l02-large-pz}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_02_figure_08.png}
+  \caption{The completed large-\(P_z\) expansion, with transverse momentum
+  and invariant mass retained.}
+  \lectureframe{00:47:30}
+  \label{fig:l02-large-pz-board}
+\end{figure}
+
+The leading term is large, but it carries no information about the internal
+state. In a process that conserves \(P_z\), such as a boosted atom changing
+between internal levels without changing its total longitudinal momentum,
+that term cancels from every energy difference. We therefore study
+
+\begin{equation}
+  E-P_z=\frac{p_\perp^2+M^2}{2P_z}+O(P_z^{-3}).
+  \label{eq:l02-residual-energy}
+\end{equation}
+
+The denominator has a physical meaning. Since the Hamiltonian generates time
+evolution, the small residual energy says that internal evolution appears
+slow in laboratory time. This is time dilation. To retain the internal
+motion, introduce a rescaled evolution parameter \(\tau\), or equivalently
+multiply the residual Hamiltonian by \(P_z\):
+
+\begin{equation}
+  H_\perp
+  \equiv
+  \lim_{P_z\to\infty}P_z(E-P_z)
+  =
+  \frac12p_\perp^2+\frac12M^2.
+  \label{eq:l02-transverse-hamiltonian}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_09.png}
+    \par\smallskip\footnotesize (a) \(H=i\partial_t\) and the slowed internal
+    evolution.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_10.png}
+    \par\smallskip\footnotesize (b) The finite transverse Hamiltonian after
+    time rescaling.
+  \end{minipage}
+  \caption{From the time-dilated residual energy to a finite
+  two-dimensional Hamiltonian.}
+  \lectureframe{00:49:20 and 00:52:40}
+  \label{fig:l02-lightfront-board}
+\end{figure}
+
+This is precisely the form of a unit-mass particle moving in two dimensions:
+kinetic energy \(p_\perp^2/2\) plus an internal energy \(M^2/2\). The unusual
+feature is the square. In this description, the quantity playing the role of
+rest or binding energy is proportional to invariant mass
+squared.\editorialnote{With conventional light-front variables
+\(P^\pm=(E\pm P_z)/\sqrt2\), the exact mass-shell relation is
+\(2P^+P^-=p_\perp^2+M^2\). Equation
+\eqref{eq:l02-transverse-hamiltonian} is the lecture's large-\(P_z\)
+normalization of the same invariant relation.}
+
+\begin{classroomqa}
+\audiencequestion{What happened to the longitudinal momenta of the individual
+parts of a composite system?\lecturetimestamp{00:51:30}}
+\lecturerresponse{For a generic composite object one must retain the
+fractions of total \(P_z\) carried by its constituents. The formula above
+uses the total center-of-mass momentum. String theory is special because its
+constraints determine the relative longitudinal motion from the transverse
+degrees of freedom, so no independent longitudinal oscillator has to be
+added.}
+\end{classroomqa}
+
+\section{A discrete open string}
+
+The boosted string now moves explicitly only in the transverse plane. Label
+its two coordinates \(X\) and \(Y\), and first approximate it by \(N\) mass
+points joined by \(N-1\) springs. If \(\mu\) is the analog mass of each point
+and \(k\) the nearest-neighbor spring constant, the energy is
+
+\begin{equation}
+  E_N
+  =
+  \sum_i
+  \left[
+    \frac{\mu}{2}
+    \left(\dot X_i^2+\dot Y_i^2\right)
+    +
+    \frac{k}{2}
+    \left((\Delta X_i)^2+(\Delta Y_i)^2\right)
+  \right].
+  \label{eq:l02-discrete-energy}
+\end{equation}
+
+Every \(X\)-term has an identical \(Y\)-term because the transverse plane has
+two directions. The index \(i\) labels a point along the chain; it is not a
+spatial coordinate.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_11.png}
+    \par\smallskip\footnotesize (a) The bead chain and its discrete energy.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_12.png}
+    \par\smallskip\footnotesize (b) The large-\(N\) scaling of \(\mu\) and
+    \(k\).
+  \end{minipage}
+  \caption{The regulated open string before taking the continuum limit.}
+  \lectureframe{00:57:42 and 01:02:40}
+  \label{fig:l02-chain-board}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick]
+    \foreach \i in {0,...,8} {
+      \coordinate (p\i) at ({1.05*\i},{0.30*sin(55*\i)});
+      \filldraw[white] (p\i) circle (0.10);
+      \draw (p\i) circle (0.10);
+    }
+    \foreach \i in {0,...,7} {
+      \pgfmathtruncatemacro{\j}{\i+1}
+      \draw[decorate,decoration={zigzag,segment length=4pt,amplitude=2pt}]
+        (p\i) -- (p\j);
+    }
+    \node[above=0.35cm of p0] {\(i=0\)};
+    \node[above=0.35cm of p8] {\(i=N-1\)};
+    \draw[<->] (0,-1.15) -- (8.4,-1.15)
+      node[midway,below] {\(0\leq\sigma\leq\pi\)};
+    \node at (4.2,1.25)
+      {\(\mu=1/N,\quad k=N/\pi^2,\quad\Delta\sigma=\pi/N\)};
+  \end{tikzpicture}
+  \caption{A clean regulator picture. The points become lighter while the
+  microscopic springs become stiffer as the chain is refined.}
+  \label{fig:l02-chain-redraw}
+\end{figure}
+
+The parameter \(\sigma\) labels position along the chain. Choosing
+\(0\leq\sigma\leq\pi\) is a convention, not a physical length measurement.
+It reminds us that the string has two endpoints. Later a closed string will
+be labeled periodically over \(0\leq\sigma<2\pi\).
+
+The continuum limit must keep the collective mechanics finite. Fixed bead
+mass would make the total analog mass diverge, so choose
+
+\begin{equation}
+  \mu=\frac{1}{N}.
+  \label{eq:l02-mu-scaling}
+\end{equation}
+
+Then \(N\mu=1\). This is not the relativistic rest mass \(M\); it is the
+inertial coefficient in the transverse analog model.
+
+Springs in series become softer as their number increases. To preserve a
+finite stiffness for the whole chain, each microscopic spring must become
+stiffer:
+
+\begin{equation}
+  k=\frac{N}{\pi^2}
+  =\frac{1}{\pi\,\Delta\sigma}.
+  \label{eq:l02-k-scaling}
+\end{equation}
+
+Only \(k\propto N\) is essential. The factor of \(\pi^2\) is a normalization
+chosen to remove stray factors of \(\pi\) from the continuum formulas.
+
+\begin{classroomqa}
+\audiencequestion{Is \(\mu\) the physical rest mass of each string
+point?\lecturetimestamp{01:10:34}}
+\lecturerresponse{No. It is the nonrelativistic analog mass appearing in the
+transverse chain. Calling it \(M\) would confuse it with the invariant rest
+mass of the entire relativistic string state. Its only present role is to
+produce the correct continuum inertia.}
+\end{classroomqa}
+
+\section{The continuum wave system}
+
+Apply the rules prepared at the beginning. Since
+\(1/N=\Delta\sigma/\pi\),
+
 \begin{align}
-\sum_i \frac{k}{2}(\Delta X_i)^2
-&\approx
-\sum_i \frac{N}{2\pi^2}
-\left(\frac{\partial X}{\partial \sigma}\right)^2
-(\Delta \sigma)^2 \\
-&=
-\sum_i \frac{1}{2N}
-\left(\frac{\partial X}{\partial \sigma}\right)^2 \\
-&=
-\frac{1}{2\pi}\sum_i
-\left(\frac{\partial X}{\partial \sigma}\right)^2
-\Delta \sigma \\
-&\longrightarrow
-\frac{1}{2\pi}\int_0^\pi d\sigma
-\left(\frac{\partial X}{\partial \sigma}\right)^2.
+  \sum_i\frac{\mu}{2}\dot X_i^2
+  &=
+  \frac{1}{2\pi}
+  \sum_i\dot X_i^2\,\Delta\sigma
+  \longrightarrow
+  \frac{1}{2\pi}
+  \int_0^\pi
+  \left(\partial_\tau X\right)^2d\sigma ,
+  \label{eq:l02-kinetic-limit}\\
+  \sum_i\frac{k}{2}(\Delta X_i)^2
+  &\longrightarrow
+  \frac{1}{2\pi}
+  \int_0^\pi
+  \left(\partial_\sigma X\right)^2d\sigma .
+  \label{eq:l02-potential-limit}
 \end{align}
-Exactly the same steps apply to \(Y\).
 
-So the continuum energy becomes
-\begin{equation}
-E=
-\frac{1}{2\pi}\int_0^\pi d\sigma
-\left[
-\left(\frac{\partial X}{\partial \tau}\right)^2
-+
-\left(\frac{\partial Y}{\partial \tau}\right)^2
-+
-\left(\frac{\partial X}{\partial \sigma}\right)^2
-+
-\left(\frac{\partial Y}{\partial \sigma}\right)^2
-\right],
-\end{equation}
-and the continuum Lagrangian is
-\begin{equation}
-L=
-\frac{1}{2\pi}\int_0^\pi d\sigma
-\left[
-\left(\frac{\partial X}{\partial \tau}\right)^2
-+
-\left(\frac{\partial Y}{\partial \tau}\right)^2
--
-\left(\frac{\partial X}{\partial \sigma}\right)^2
--
-\left(\frac{\partial Y}{\partial \sigma}\right)^2
-\right].
-\end{equation}
+For the second line, use
+\(\Delta X_i=\partial_\sigma X\,\Delta\sigma\) together with
+\(k=1/(\pi\Delta\sigma)\). The same calculation applies to \(Y\).
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.76\textwidth]{lecture_02_figure_04.png}
-\caption{Continuum string Lagrangian. The board records the moment at which the minus sign of the potential term is being written.}
-\label{fig:lecture02-continuum}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_13.png}
+    \par\smallskip\footnotesize (a) Sum-to-integral and
+    difference-to-derivative replacements.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_14.png}
+    \par\smallskip\footnotesize (b) The completed continuum energy.
+  \end{minipage}
+  \caption{The discrete chain becoming a field on the \(\sigma\)-interval.}
+  \lectureframe{01:05:40 and 01:07:00}
+  \label{fig:l02-continuum-board}
 \end{figure}
 
-The lecture pauses here to make an illuminating comparison. If we rename \(\sigma\) as a spatial coordinate on a line and rename \(X\) as a field \(\phi\), then this is just the energy of an ordinary wave system. Waves move left and right along the interval. When they hit the boundary, they reflect.
+The resulting energy and Lagrangian are
 
-The boundary condition determines the character of the reflection. Under Dirichlet conditions the reflected wave flips sign. Under Neumann conditions it reflects without such inversion. Susskind says one could now write down the wave equation by varying the Lagrangian, but refuses to do so because the lecture will not need it. That refusal is part of the rhythm of the presentation, and we keep it. The wave viewpoint is useful; the full partial differential equation is not yet needed.
+\begin{align}
+  E
+  &=
+  \frac{1}{2\pi}
+  \int_0^\pi d\sigma\,
+  \left[
+    (\partial_\tau X)^2+(\partial_\tau Y)^2
+    +(\partial_\sigma X)^2+(\partial_\sigma Y)^2
+  \right],
+  \label{eq:l02-continuum-energy}\\
+  L
+  &=
+  \frac{1}{2\pi}
+  \int_0^\pi d\sigma\,
+  \left[
+    (\partial_\tau X)^2+(\partial_\tau Y)^2
+    -(\partial_\sigma X)^2-(\partial_\sigma Y)^2
+  \right].
+  \label{eq:l02-continuum-lagrangian}
+\end{align}
 
-One more spoken clarification belongs here. The time variable \(\tau\) is the rescaled time appropriate to the boosted description. Susskind loosely calls it proper time: the time carried along by the boosted clock so that we can continue to watch the internal motion instead of letting it freeze under time dilation.
-
-Finally, the lecture reminds us why this energy matters. In the light-front description, the internal energy of the string will be identified, up to the same overall normalization convention as before, with the square of the relativistic mass of the string state.
-
-\section{Endpoint Dynamics and the Boundary-Condition Puzzle}
-
-Now the lecture returns to a question it deliberately postponed earlier. We have seen both Dirichlet and Neumann conditions. We have heard that free string endpoints should obey Neumann conditions. Why?
-
-Here the lecture is at its cleanest. It raises the obstacle plainly and resolves it with a short Newton-law argument.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_02_figure_05.png}
-\caption{Discrete difference becomes derivative times spacing. This is the local step that converts the endpoint force into a boundary condition.}
-\label{fig:lecture02-endpoint-board}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_02_figure_15.png}
+  \caption{The continuum Lagrangian with kinetic and stretching terms
+  carrying opposite signs.}
+  \lectureframe{01:08:48}
+  \label{fig:l02-lagrangian-board}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thin] (-0.2,-0.8) -- (2.7,-0.8);
-\filldraw[white] (0,0.10) circle (0.10);
-\draw (0,0.10) circle (0.10);
-\filldraw[white] (1.9,0.60) circle (0.10);
-\draw (1.9,0.60) circle (0.10);
-\draw[thick]
-(0.10,0.13) -- (0.28,0.30) -- (0.46,-0.03) -- (0.64,0.30) -- (0.82,-0.03) -- (1.00,0.30) -- (1.18,-0.03) -- (1.36,0.30) -- (1.54,-0.03) -- (1.72,0.30) -- (1.80,0.57);
-\draw[dashed] (0,0.10) -- (0,-0.8);
-\draw[dashed] (1.9,0.60) -- (1.9,-0.8);
-\node[below] at (0,-0.8) {$n-1$};
-\node[below] at (1.9,-0.8) {$n$};
-\draw[<->] (2.2,0.10) -- (2.2,0.60);
-\node[right] at (2.2,0.35) {$\Delta X$};
-\draw[->,thick] (1.9,0.75) -- (2.55,0.75);
-\node[right] at (2.55,0.75) {$F_{\mathrm{end}}$};
-\end{tikzpicture}
-\caption{Endpoint geometry for the Newton-law argument. The last mass point feels a force from only one spring.}
-\label{fig:lecture02-endpoint-tikz}
+If we rename \(\sigma\) as an ordinary spatial coordinate and \(X\) as a
+field \(\phi\), these are the energy and Lagrangian of a one-dimensional wave
+field. Varying \eqref{eq:l02-continuum-lagrangian} gives
+
+\begin{equation}
+  \left(\partial_\tau^2-\partial_\sigma^2\right)X=0,
+  \qquad
+  \left(\partial_\tau^2-\partial_\sigma^2\right)Y=0.
+  \label{eq:l02-wave-equation}
+\end{equation}
+
+Nothing in the immediate argument requires us to solve these equations
+directly. The useful picture is simply that waves travel left and right along
+the string and reflect at the endpoints. A Dirichlet reflection reverses the
+sign of the displacement; a Neumann reflection preserves it.
+
+\begin{classroomqa}
+\audiencequestion{What exactly is the time variable
+\(\tau\)?\lecturetimestamp{01:08:54}}
+\lecturerresponse{It is the rescaled time used to follow the internal motion
+in the large-\(P_z\) description. A clock boosted with the system runs slowly
+relative to laboratory time; \(\tau\) removes that dilation so the internal
+oscillations retain a finite rate. For this transverse mechanics it can be
+treated simply as time.\editorialnote{The lecture informally calls \(\tau\)
+proper time. For an extended string, the precise light-front evolution
+parameter is a gauge-fixed rescaled time rather than a single invariant proper
+time shared by every point. The intended time-dilation argument is
+unchanged.}}
+\end{classroomqa}
+
+When the center of mass is at rest in the transverse plane, the internal
+part of \eqref{eq:l02-continuum-energy} is, in the normalization of
+\eqref{eq:l02-transverse-hamiltonian}, proportional to \(M^2\). That is why
+quantizing this apparently ordinary wave system will reveal the relativistic
+mass spectrum.
+
+\begin{classroomqa}
+\audiencequestion{Does \(P_z(E-P_z)\) have a
+name?\lecturetimestamp{01:11:00}}
+\lecturerresponse{It is commonly called a light-cone or light-front energy.
+Light front better describes the null plane used as the evolution surface;
+the traditional terminology is not important for the calculation.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the word cone referring to the usual spacetime light
+cone, and did Dirac introduce this terminology?\lecturetimestamp{01:11:17}}
+\lecturerresponse{The null-coordinate construction can be drawn with
+45-degree axes, but the evolution surface here is a light front rather than
+the full expanding cone. Dirac developed related forms of relativistic
+dynamics; the historical naming question was left open and does not affect
+the equations.}
+\end{classroomqa}
+
+\section{Why a free endpoint is Neumann}
+
+We can now derive rather than postulate the endpoint condition. Newton's law
+is legitimate because the boosted transverse mechanics has exactly the
+nonrelativistic form. An interior mass point is pulled by springs on both
+sides. The final point is pulled only by the spring joining it to its
+neighbor.
+
+\begin{classroomqa}
+\audiencequestion{Why are we allowed to use Newton's law while discussing a
+relativistic string?\lecturetimestamp{01:14:52}}
+\lecturerresponse{We are not applying Newtonian mechanics to the full
+unboosted spacetime motion. We are applying it to the transverse variables
+in the infinite-momentum description, whose Hamiltonian has exactly the
+nonrelativistic form.}
+\end{classroomqa}
+
+At the right endpoint, Hooke's law gives, up to orientation,
+
+\begin{equation}
+  F_{\mathrm{end}}
+  =
+  -k\,\Delta X
+  =
+  -\frac{1}{\pi\Delta\sigma}
+   \left(\partial_\sigma X\,\Delta\sigma\right)
+  =
+  -\frac{1}{\pi}\partial_\sigma X .
+  \label{eq:l02-endpoint-force}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_16.png}
+    \par\smallskip\footnotesize (a) Endpoint force proportional to the local
+    slope.
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{lecture_02_figure_17.png}
+    \par\smallskip\footnotesize (b) The finite-acceleration condition.
+  \end{minipage}
+  \caption{The Newton-law derivation of the free-end boundary condition.}
+  \lectureframe{01:18:20 and 01:20:10}
+  \label{fig:l02-neumann-board}
 \end{figure}
 
-\subsection{Question \& Answer}
+Newton's equation for the final point is
 
-\paragraph{Question.}
-Why must the open-string endpoint satisfy Neumann rather than Dirichlet boundary conditions?
-
-\paragraph{Answer.}
-Because the endpoint is free rather than pinned, and for a free endpoint Newton's law forces the local stretch to vanish in the continuum limit.
-
-Let the last bead be labeled \(n\), and the previous one \(n-1\). An interior bead is pulled from both sides. The endpoint is special: it feels only the force from the spring connecting it to the rest of the string. By Hooke's law,
 \begin{equation}
-F_{\mathrm{end}}\sim k\,\Delta X.
+  \mu\,\partial_\tau^2X=F_{\mathrm{end}},
+  \qquad
+  \mu=\frac1N=\frac{\Delta\sigma}{\pi}.
+  \label{eq:l02-endpoint-newton}
 \end{equation}
-Now we use the continuum replacement that the board is capturing:
+
+Combining \eqref{eq:l02-endpoint-force} and
+\eqref{eq:l02-endpoint-newton},
+
 \begin{equation}
-\Delta X=\frac{\partial X}{\partial \sigma}\,\Delta \sigma.
+  \partial_\sigma X
+  =
+  -\Delta\sigma\,\partial_\tau^2X
+  \quad\text{at the right endpoint},
+  \label{eq:l02-endpoint-scaling}
 \end{equation}
-Since \(k\sim N\) and \(\Delta \sigma\sim 1/N\), the \(N\)-dependence cancels, so
+
+with the force sign reversed at the left endpoint. If
+\(\partial_\sigma X\) approached a nonzero constant while
+\(\Delta\sigma\to0\), the endpoint acceleration would diverge like \(N\).
+A sensible continuum limit with finite acceleration therefore requires
+
 \begin{equation}
-F_{\mathrm{end}}\propto \frac{\partial X}{\partial \sigma}.
+  \left.\partial_\sigma X\right|_{0,\pi}=0,
+  \qquad
+  \left.\partial_\sigma Y\right|_{0,\pi}=0.
+  \label{eq:l02-open-neumann}
 \end{equation}
-That is already the key step: the endpoint force is proportional to the slope of the string at the endpoint.
 
-But Newton's law also says
-\begin{equation}
-F_{\mathrm{end}}=\mu\,\frac{\partial^2 X}{\partial \tau^2},
-\qquad
-\mu\sim \frac{1}{N}.
-\end{equation}
-So if \(\partial_\sigma X\) were nonzero at the endpoint, then the acceleration \(\partial_\tau^2 X\) would grow like \(N\) as the continuum limit is taken. The endpoint would acquire an infinite acceleration. That is exactly the pathology the lecture wants to exclude.
-
-The cure is immediate:
-\begin{equation}
-\left.\frac{\partial X}{\partial \sigma}\right|_{\sigma=0,\pi}=0.
-\end{equation}
-And the same argument applies to \(Y\). Thus the free open-string endpoint satisfies Neumann boundary conditions.
-
-This is a good example of the lecture's style. A boundary condition that could have been postulated as a formal rule is instead derived from a local mechanical argument. The mathematics is light, but the motivation is precise.
-
-\section{Fourier Modes, Harmonic Oscillators, and the First Quantum Spectrum}
-
-Now the system is finally ready to quantize. The first step is not yet quantum mechanics; it is a re-description of the classical string in terms of its harmonics.
-
-Because the open string obeys Neumann conditions, we expand in cosines:
-\begin{equation}
-X(\sigma,\tau)=\sum_{n=0}^{\infty} X_n(\tau)\cos n\sigma,
-\qquad
-Y(\sigma,\tau)=\sum_{n=0}^{\infty} Y_n(\tau)\cos n\sigma.
-\end{equation}
-The dependence on \(\sigma\) is carried by the cosines. The dependence on time \(\tau\) sits in the coefficients \(X_n(\tau)\) and \(Y_n(\tau)\). That is where the string wiggles.
-
-Differentiating with respect to time gives
-\begin{equation}
-\dot X(\sigma,\tau)=\sum_{n=0}^{\infty}\dot X_n(\tau)\cos n\sigma,
-\end{equation}
-while differentiating with respect to \(\sigma\) gives
-\begin{equation}
-\frac{\partial X}{\partial \sigma}
-=
--\sum_{n=1}^{\infty} n\,X_n(\tau)\sin n\sigma .
-\end{equation}
-The board image suggests a sum beginning at \(n=0\), but the cleaned expression must begin at \(n=1\), since the differentiated zero mode vanishes.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.70\textwidth]{lecture_02_figure_06.png}
-\caption{Mode expansion of the \(\sigma\)-derivative. The visible board evidence is the minus sign, the factor of \(n\), and the passage from cosines to sines.}
-\label{fig:lecture02-modes}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick,scale=1.0]
+    \coordinate (a) at (0,0);
+    \coordinate (b) at (4.5,0.75);
+    \filldraw[white] (a) circle (0.12);
+    \draw (a) circle (0.12);
+    \filldraw[white] (b) circle (0.12);
+    \draw (b) circle (0.12);
+    \draw[decorate,decoration={zigzag,segment length=6pt,amplitude=3pt}]
+      (a) -- (b);
+    \draw[dashed] (a) -- (0,-1.2);
+    \draw[dashed] (b) -- (4.5,-1.2);
+    \draw[<->] (4.85,0) -- (4.85,0.75)
+      node[midway,right] {\(\Delta X\)};
+    \draw[->,red!70!black] (b) -- (5.75,0.95)
+      node[right] {\(F_{\rm end}=-k\Delta X\)};
+    \node[below] at (0,-1.2) {\(N-1\)};
+    \node[below] at (4.5,-1.2) {\(N\)};
+    \node at (2.5,-2.0)
+      {\(\mu\ddot X=-k\Delta X
+      \ \Longrightarrow\
+      \partial_\sigma X=-\Delta\sigma\,\ddot X\to0\)};
+  \end{tikzpicture}
+  \caption{The last point has vanishing mass in the regulator limit. A finite
+  acceleration is possible only when the endpoint slope vanishes.}
+  \label{fig:l02-neumann-redraw}
 \end{figure}
 
-Now we insert the mode expansions into the energy. This is where the orthogonality formulas from the beginning of the lecture are harvested. All cross-terms with \(n\neq m\) vanish after integration over \(\sigma\). The double sums collapse to single sums. The \(n=0\) mode must be handled separately because its cosine norm is \(\pi\) rather than \(\pi/2\).
+The same argument at both ends and in both transverse directions produces
+Neumann boundary conditions for a free open string.
 
-For the kinetic piece of the \(X\)-sector we find
+\section{Normal modes of the open string}
+
+We now have a complete classical system: a Lagrangian and its boundary
+conditions. Quantization becomes simple after Fourier analysis. Because the
+endpoints are Neumann,
+
+\begin{align}
+  X(\sigma,\tau)
+  &=
+  \sum_{n=0}^{\infty}X_n(\tau)\cos(n\sigma),
+  \label{eq:l02-X-expansion}\\
+  Y(\sigma,\tau)
+  &=
+  \sum_{n=0}^{\infty}Y_n(\tau)\cos(n\sigma).
+  \label{eq:l02-Y-expansion}
+\end{align}
+
+The cosines contain all \(\sigma\)-dependence. The coefficients contain all
+time-dependence; the string wiggles because \(X_n(\tau)\) and \(Y_n(\tau)\)
+change.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_02_figure_18.png}
+  \caption{The Neumann mode expansion placed beside the orthogonality rule
+  that will collapse the double sums.}
+  \lectureframe{01:21:45}
+  \label{fig:l02-mode-expansion-board}
+\end{figure}
+
+\subsection{Kinetic term and the zero mode}
+
+Time differentiation gives
+
 \begin{equation}
-\frac{1}{2\pi}\int_0^\pi d\sigma\,\dot X^2
-=
-\frac{1}{2}\dot X_0^{\,2}
-+
-\frac{1}{4}\sum_{n=1}^{\infty}\dot X_n^{\,2},
-\end{equation}
-and for the stretching piece,
-\begin{equation}
-\frac{1}{2\pi}\int_0^\pi d\sigma
-\left(\frac{\partial X}{\partial \sigma}\right)^2
-=
-\frac{1}{4}\sum_{n=1}^{\infty}n^2X_n^{\,2}.
-\end{equation}
-So the full \(X\)-sector energy is
-\begin{equation}
-E_X=
-\frac{1}{2}\dot X_0^{\,2}
-+
-\frac{1}{4}\sum_{n=1}^{\infty}
-\left(
-\dot X_n^{\,2}+n^2X_n^{\,2}
-\right),
-\end{equation}
-and the corresponding \(X\)-sector Lagrangian is
-\begin{equation}
-L_X=
-\frac{1}{2}\dot X_0^{\,2}
-+
-\frac{1}{4}\sum_{n=1}^{\infty}
-\left(
-\dot X_n^{\,2}-n^2X_n^{\,2}
-\right).
-\end{equation}
-The \(Y\)-sector is identical:
-\begin{equation}
-L_Y=
-\frac{1}{2}\dot Y_0^{\,2}
-+
-\frac{1}{4}\sum_{n=1}^{\infty}
-\left(
-\dot Y_n^{\,2}-n^2Y_n^{\,2}
-\right).
+  \partial_\tau X
+  =
+  \sum_{n=0}^{\infty}\dot X_n(\tau)\cos(n\sigma).
+  \label{eq:l02-time-mode}
 \end{equation}
 
-Several things are now visible at once.
+Squaring produces a double sum over \(n\) and \(m\), but
+\eqref{eq:l02-cos-orthogonality} removes every term with \(n\neq m\).
+Treating the constant mode separately,
 
-First, \(X_0\) and \(Y_0\) are the average positions of the string, hence the center-of-mass coordinates. They have kinetic energy but no restoring force. The zero mode is a free particle mode, not an oscillator.
-
-Second, each mode with \(n\geq 1\) is an ordinary harmonic oscillator. Comparing with the earlier oscillator formula, we read off
 \begin{equation}
-\omega_n=n,
-\qquad
-n\geq 1.
+  \frac{1}{2\pi}\int_0^\pi
+  (\partial_\tau X)^2\,d\sigma
+  =
+  \frac12\dot X_0^{\,2}
+  +
+  \frac14\sum_{n=1}^{\infty}\dot X_n^{\,2}.
+  \label{eq:l02-mode-kinetic}
 \end{equation}
-So the open string is a countable infinity of independent oscillators in the \(X\)-direction, together with another countable infinity in the \(Y\)-direction. These are nothing but the harmonics of the string.
 
-Third, the internal vibrational energy is
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_02_figure_19.png}
+  \caption{The orthogonality integral reducing the kinetic double sum to the
+  zero mode plus a diagonal sum.}
+  \lectureframe{01:29:10}
+  \label{fig:l02-mode-kinetic-board}
+\end{figure}
+
+The constant coefficient is the average position,
+
 \begin{equation}
-E_{\mathrm{int}}
-=
-\frac{1}{4}\sum_{n=1}^{\infty}
-\left(
-\dot X_n^{\,2}+n^2X_n^{\,2}
-+
-\dot Y_n^{\,2}+n^2Y_n^{\,2}
-\right).
+  X_0(\tau)=\frac1\pi\int_0^\pi X(\sigma,\tau)\,d\sigma ,
+  \label{eq:l02-center-of-mass}
 \end{equation}
-Up to the same light-front normalization convention introduced earlier, this is the quantity that becomes the relativistic mass squared of the string state. That is the bridge from oscillator mathematics back to particle physics.
 
-Quantization is now easy. The lecture does not yet introduce creation and annihilation operators systematically; it merely uses the oscillator spectrum. For the \(n\)-th oscillator, if \(Q_n\) quanta are present and \(\hbar=1\), then the excitation energy above the unspecified ground-state offset is
+and similarly for \(Y_0\). With uniform analog mass density, these are the
+center-of-mass coordinates. They have kinetic energy but no restoring force:
+the entire string is free to move across the transverse plane.
+
+\subsection{Stretching term and oscillator frequencies}
+
+Spatial differentiation gives
+
 \begin{equation}
-\Delta E_n = Q_n\,\omega_n = Q_n\,n.
+  \partial_\sigma X
+  =
+  -\sum_{n=1}^{\infty}nX_n(\tau)\sin(n\sigma).
+  \label{eq:l02-spatial-mode}
 \end{equation}
-Susskind is careful to rename the occupation number \(Q\) so that it is not confused with the mode label \(n\).
 
-The lowest levels can then be counted directly.
+The zero mode disappears because a uniform translation does not stretch the
+string. Using sine orthogonality,
 
-\paragraph{Ground state.}
-All oscillators are in their lowest state. This is not empty space. It is one open string with no internal excitation.
+\begin{equation}
+  \frac{1}{2\pi}\int_0^\pi
+  (\partial_\sigma X)^2\,d\sigma
+  =
+  \frac14\sum_{n=1}^{\infty}n^2X_n^{\,2}.
+  \label{eq:l02-mode-potential}
+\end{equation}
 
-\paragraph{First excited level.}
-Excite the \(n=1\) oscillator once. One may do this in the \(X\)-tower or in the \(Y\)-tower, so the first excited level has multiplicity \(2\).
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_02_figure_20.png}
+  \caption{Differentiating the cosine series produces the sine double sum;
+  orthogonality again enforces \(n=m\).}
+  \lectureframe{01:31:40}
+  \label{fig:l02-mode-potential-board}
+\end{figure}
 
-\paragraph{Second excited level.}
-Now the total excitation energy is \(2\). There are five possibilities:
-\begin{itemize}
-\item two quanta in the \(n=1\) \(X\)-oscillator,
-\item two quanta in the \(n=1\) \(Y\)-oscillator,
-\item one quantum in each of the \(n=1\) \(X\)- and \(Y\)-oscillators,
-\item one quantum in the \(n=2\) \(X\)-oscillator,
-\item one quantum in the \(n=2\) \(Y\)-oscillator.
-\end{itemize}
-So the second excited level has multiplicity \(5\).
+The \(X\)-sector Lagrangian is therefore
 
-This is exactly the point the lecture wanted to set up from the beginning. The open string has a discrete spectrum with appreciable gaps. It therefore behaves like a particle in the precise spectral sense explained earlier.
+\begin{equation}
+  L_X
+  =
+  \frac12\dot X_0^{\,2}
+  +
+  \frac14\sum_{n=1}^{\infty}
+  \left(
+    \dot X_n^{\,2}-n^2X_n^{\,2}
+  \right),
+  \label{eq:l02-X-lagrangian}
+\end{equation}
 
-The final remarks of the lecture are a preview, not a full development. Open strings have endpoints, and once interactions are allowed, endpoints can join and split. A fluctuating open string may bring one of its endpoints into contact with another endpoint and thereby produce a closed string. So one may consistently have a theory of closed strings without open strings, but not a theory of open strings without closed strings. As a rough guide only, the lecture says that open strings often behave like photons, while closed strings behave like gravitons.
+with an identical expression for \(Y\). The corresponding energy has a plus
+sign in front of \(n^2X_n^2\). Every nonzero mode is an independent harmonic
+oscillator, and comparison with \eqref{eq:l02-oscillator-lagrangian} gives
 
-\section{Summary}
+\begin{equation}
+  \omega_n=n,
+  \qquad n=1,2,3,\ldots .
+  \label{eq:l02-mode-frequency}
+\end{equation}
 
-The lecture unfolds by preparation, obstacle, and payoff. It first stocks the blackboard with the mathematics of functions on \([0,\pi]\): discretization, boundary conditions, Fourier expansions, orthogonality, and the harmonic oscillator. It then sharpens the notion of a particle by replacing pointlikeness with spectral isolation. With that conceptual and mathematical groundwork in place, the infinite-momentum or light-front viewpoint recasts the relativistic string as an exact two-dimensional mechanical system. The open string is built as a chain of masses and springs, passed to a continuum description, fixed by a Neumann endpoint condition derived from Newton's law, and finally rewritten as an infinite collection of uncoupled harmonic oscillators. The resulting spectrum is discrete, gapped, and therefore particle-like. That is the central gain of the lecture, and it is the point from which the next step, the closed string, naturally begins.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_02_figure_21.png}
+  \caption{The decoupled oscillator Lagrangian and the conclusion
+  \(\omega_n=n\), with the identical \(Y\)-tower indicated below.}
+  \lectureframe{01:35:50}
+  \label{fig:l02-oscillator-modes-board}
+\end{figure}
+
+The normal modes are simply the harmonics of the string. The first bends
+slowly, the second has twice the frequency, the third three times, and so on.
+Orthogonality is what prevents one harmonic from coupling to another in the
+free theory.
+
+\begin{classroomqa}
+\audiencequestion{What happened to the \(n=0\)
+oscillator?\lecturetimestamp{01:34:49}}
+\lecturerresponse{It has zero frequency because it is not an internal
+oscillator at all. It translates the center of mass. No spring restores the
+whole string to a preferred transverse position, so the zero mode is a free
+particle coordinate.}
+\end{classroomqa}
+
+Dropping the center-of-mass kinetic term leaves the internal energy
+
+\begin{equation}
+  E_{\mathrm{int}}
+  =
+  \frac14
+  \sum_{n=1}^{\infty}
+  \left[
+    \dot X_n^{\,2}+n^2X_n^{\,2}
+    +\dot Y_n^{\,2}+n^2Y_n^{\,2}
+  \right].
+  \label{eq:l02-internal-energy}
+\end{equation}
+
+In the light-front normalization this is proportional to the invariant
+mass squared of the string state. We have thus converted the relativistic
+mass problem into the quantum mechanics of two countable oscillator towers.
+
+\section{Quantized levels and particle behavior}
+
+Let \(a_n^\dagger\) create one quantum in the \(X\)-oscillator of frequency
+\(n\), and \(b_n^\dagger\) do the same for \(Y\). The lecture postpones a
+systematic operator treatment, but this notation makes the level counting
+transparent. Relative to the ground-state offset,
+
+\begin{equation}
+  \Delta E_{\mathrm{int}}
+  =
+  \sum_{n=1}^{\infty}
+  n\left(Q_n^X+Q_n^Y\right),
+  \qquad
+  Q_n^X,Q_n^Y\in\{0,1,2,\ldots\},
+  \label{eq:l02-quantized-energy}
+\end{equation}
+
+where \(\hbar=1\). The integer \(n\) labels which oscillator is excited;
+\(Q_n\) counts how many quanta occupy it.\editorialnote{Each oscillator also
+contributes a zero-point energy. The
+infinite sum requires regularization and supplies the intercept of the string
+mass formula. The lecture deliberately leaves the ground-state offset
+unspecified here and counts only excitation levels.}
+
+The oscillator vacuum \(\ket{0}\) is not empty spacetime. It is one open
+string with no internal oscillator excited. It has energy, momentum, and a
+definite place in the string spectrum.
+
+At level one there are two states,
+
+\begin{equation}
+  a_1^\dagger\ket{0},
+  \qquad
+  b_1^\dagger\ket{0},
+  \label{eq:l02-level-one}
+\end{equation}
+
+corresponding to the lowest harmonic polarized along \(X\) or \(Y\).
+Linear combinations describe any transverse polarization.
+
+At level two there are five states:
+
+\begin{equation}
+  (a_1^\dagger)^2\ket{0},
+  \quad
+  a_1^\dagger b_1^\dagger\ket{0},
+  \quad
+  (b_1^\dagger)^2\ket{0},
+  \quad
+  a_2^\dagger\ket{0},
+  \quad
+  b_2^\dagger\ket{0}.
+  \label{eq:l02-level-two}
+\end{equation}
+
+Three use two quanta of the first harmonic; two use one quantum of the second
+harmonic. Both constructions cost two units.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_02_figure_22.png}
+  \caption{The five level-two states being recounted after an audience
+  challenge: two double excitations, one mixed excitation, and two
+  second-harmonic excitations.}
+  \lectureframe{01:44:00}
+  \label{fig:l02-levels-board}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick]
+    \draw[->] (0,0) -- (0,5.1) node[above] {\(\Delta E_{\rm int}\)};
+    \draw[blue!70!black] (-0.65,0.55) -- (0.65,0.55);
+    \node[right] at (0.85,0.55) {\(\ket{0}\) \quad multiplicity \(1\)};
+    \draw[blue!70!black] (-0.65,2.15) -- (0.65,2.15);
+    \node[right] at (0.85,2.15)
+      {\(a_1^\dagger\ket{0},\ b_1^\dagger\ket{0}\)
+      \quad multiplicity \(2\)};
+    \draw[blue!70!black] (-0.65,3.75) -- (0.65,3.75);
+    \node[right,text width=8.6cm] at (0.85,3.75)
+      {\((a_1^\dagger)^2\ket{0},
+      a_1^\dagger b_1^\dagger\ket{0},
+      (b_1^\dagger)^2\ket{0},
+      a_2^\dagger\ket{0},\ b_2^\dagger\ket{0}\)
+      \quad multiplicity \(5\)};
+    \node[left] at (-0.75,0.55) {\(0\)};
+    \node[left] at (-0.75,2.15) {\(1\)};
+    \node[left] at (-0.75,3.75) {\(2\)};
+  \end{tikzpicture}
+  \caption{The first three excitation levels of the two-transverse-direction
+  open string.}
+  \label{fig:l02-levels-redraw}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Are there four or five states at the second excited
+level?\lecturetimestamp{01:43:04}}
+\lecturerresponse{Five. Exciting \(X_1\) twice, exciting \(Y_1\) twice, and
+exciting each once give three states. Exciting \(X_2\) once or \(Y_2\) once
+gives two more. The proposed exercise is to count the next two levels.}
+\end{classroomqa}
+
+The essential conclusion is already visible. Successive levels are separated
+by finite gaps, and each has a finite multiplicity. The quantized string is
+therefore particle-like by the spectral criterion that distinguished it from
+coffee, gas, or an ordinary violin string. Later we shall determine which
+states are physically welcome and which pathologies must be removed.
+
+\section{Why open-string interactions produce closed strings}
+
+An open string has two endpoints. Its elementary interactions join and split
+strings. In the hadronic picture one may imagine a quark at one end and an
+antiquark at the other; their annihilation joins two string segments. The
+fundamental strings of interest later need not carry that literal hadronic
+endpoint interpretation, but the local joining rule remains.
+
+Now let one open string fluctuate until its own endpoints approach one
+another. Locally, an endpoint cannot know that the other endpoint belongs to
+the same string rather than a different one. If endpoints may join at all,
+they may join here, producing a closed loop.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_02_figure_23.png}
+  \caption{The board sketch of an open string fluctuating until its two
+  endpoints meet and form a closed loop.}
+  \lectureframe{01:47:00}
+  \label{fig:l02-closed-board}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=Latex,thick]
+    \begin{scope}
+      \draw[blue!70!black]
+        (0,0) .. controls (0.8,1.2) and (1.7,-1.0) .. (2.6,0.45)
+        .. controls (3.4,1.55) and (4.0,0.3) .. (4.7,0.85);
+      \fill (0,0) circle (0.09);
+      \fill (4.7,0.85) circle (0.09);
+      \node at (2.35,-1.25) {open string fluctuation};
+    \end{scope}
+    \draw[->,line width=1pt] (5.25,0.3) -- (6.65,0.3)
+      node[midway,above] {join};
+    \begin{scope}[xshift=8.1cm]
+      \draw[orange!85!black]
+        (0,0) .. controls (0.3,1.5) and (2.5,1.8) .. (3.1,0.3)
+        .. controls (3.5,-1.1) and (0.7,-1.5) .. (0,0);
+      \node at (1.55,-1.85) {closed string};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Once endpoint joining is allowed, an open string can close on
+  itself.}
+  \label{fig:l02-closed-redraw}
+\end{figure}
+
+Thus a theory may contain closed strings without open strings, but an
+interacting theory with open strings cannot consistently avoid closed
+strings. This asymmetry is the important prediction. The spectral
+identifications will be developed later, but the destination is already
+visible: massless open-string states often supply gauge particles such as
+photons, while the closed-string spectrum contains a massless spin-two state,
+the graviton. Closed strings, and therefore gravity, are not an optional
+decoration once string theory is interacting.
