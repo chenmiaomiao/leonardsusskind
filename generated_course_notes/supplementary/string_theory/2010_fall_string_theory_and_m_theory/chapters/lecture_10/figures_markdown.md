@@ -1,43 +1,34 @@
-# Figure Notes
-## Image Inventory
-- `lecture_10_figure_03.png`: A board-only mathematics frame with Susskind cropped to the far left edge. Two stacked integral expressions are visible. The lower line begins with `W =` and then a prefactor `1/r` multiplying an integral of `dY/d\sigma`. The upper line shows a left-hand fraction beginning with `n` over a horizontal bar, then an equals sign, then an integral of `dY/d\tau`. At the far right edge a partial circular compact-direction sketch is cropped into the frame.
-- `lecture_10_figure_04.png`: Susskind stands in front of the board while the Kaluza–Klein metric decomposition is visible. On the left one sees `g_{\mu 5}` with a downward arrow to `A_\mu`. Near the center one sees `g_{55}` and, below it, a scalar symbol drawn as `\Phi`. The ordinary `g_{\mu\nu}` part is not visible in this crop.
-- `lecture_10_figure_05.png`: A cylinder-style space sketch occupies the left side of the board. The circular cross-section is drawn at the left end, with `y` indicated around the compact direction and `x` along the long direction of the tube. Inside the cylinder a curved open-string-like line with endpoint dots is drawn. On the right Susskind is writing `\partial x / \partial \sigma =`, with the equals sign just being added.
+# Lecture 10 Figure Descriptions
 
-## Blackboard Equations
-- `lecture_10_figure_03.png`: `W = \frac{1}{r}\int \frac{dY}{d\sigma}` [visible]
-- `lecture_10_figure_03.png`: `\int \frac{dY}{d\tau}` [visible]
-- `lecture_10_figure_03.png`: `\frac{n}{\cdots} = \cdots \int \frac{dY}{d\tau}` [partially visible]
-- `lecture_10_figure_03.png`: `\frac{n}{r} \sim \int \frac{dY}{d\tau}` [standard reconstruction]
-- `lecture_10_figure_04.png`: `g_{\mu 5}` [visible]
-- `lecture_10_figure_04.png`: `A_\mu` [visible]
-- `lecture_10_figure_04.png`: `g_{55}` [visible]
-- `lecture_10_figure_04.png`: `\Phi` [visible]
-- `lecture_10_figure_04.png`: `g_{\mu 5} \mapsto A_\mu` [standard reconstruction]
-- `lecture_10_figure_04.png`: `g_{55} \mapsto \Phi` [standard reconstruction]
-- `lecture_10_figure_05.png`: `\frac{\partial x}{\partial \sigma} =` [visible]
-- `lecture_10_figure_05.png`: `\frac{\partial x}{\partial \sigma} = 0` [standard reconstruction]
+## Closed Strings And T-Duality
 
-## Diagram And Layout Reading
-- `lecture_10_figure_03.png` is organized as a pair of vertically stacked formulas, clearly separating momentum-like and winding-like quantities. The lower line is the cleaner one. The partial circle at the right edge is not a standalone diagram, but it confirms that the formulas are being discussed in the context of a compact circular direction.
-- `lecture_10_figure_04.png` is a component-reading board rather than a full derivation. The left side emphasizes the mixed metric component descending to a four-dimensional vector potential, while the center isolates the purely fifth-direction component as a scalar. The board layout itself supports a decomposition picture: vector on one side, scalar in the middle.
-- `lecture_10_figure_05.png` is a geometry-plus-boundary-condition board. The left sketch shows a compact direction wrapped into a cylinder and a long direction running along its axis. The internal curved line with endpoint dots reads as an open string drawn inside that ambient space. The equation on the right is spatially separated from the sketch and functions like a boundary-condition statement attached to the picture.
+1. **Oriented closed strings, 00:05:40.** Two loops carry arrows in opposite relative orientations. The frame supports the joining rule, not a winding assignment.
+2. **Opposite winding, 00:13:20.** The close board view shows compatible strands reconnecting. The adjacent redraw labels the conserved total as zero.
+3. **Same-sign winding, 00:16:40.** The compact-cylinder sketch shows the double passage that remains after joining. The redraw isolates the result $w=2$.
+4. **Compact momentum, 00:21:30.** The board writes the integer momentum schematically as an integral of compact velocity. Exact factors are supplied in TeX.
+5. **Large-radius spectrum, 00:25:30.** Dense momentum levels and sparse winding levels are compared.
+6. **Small-radius spectrum, 00:26:00.** The level densities reverse. A clean paired redraw makes the exchange explicit.
+7. **Worldsheet integrals, 00:33:25.** Both momentum and winding lines are complete. The TeX restores $2\pi$ and $\alpha'$ factors omitted in the lecture units.
+8. **Pair production, 00:36:15.** A stretched zero-net-winding string passes around the compact direction before reconnecting into opposite windings.
 
-## TeX Reconstruction Plan
-- `lecture_10_figure_03.png` should remain visible in the notes. It should be paired with clean displayed equations nearby. The lower winding-number formula can be typeset directly in standard form. The upper momentum formula should be reconstructed cautiously from the transcript and surrounding discussion rather than from the partially cropped pixels alone.
-- `lecture_10_figure_04.png` should remain visible in the notes. Nearby LaTeX should present a clean Kaluza–Klein-style decomposition of the five-dimensional metric into the ordinary metric, the vector component, and the scalar component. The screenshot is especially valuable as evidence for the board grouping `g_{\mu5} \to A_\mu` and `g_{55} \to \Phi`.
-- `lecture_10_figure_05.png` should remain visible in the notes. It should be paired with both a clean displayed boundary-condition equation and a TikZ redraw of the cylinder/open-string geometry. The equation in the screenshot is unfinished, so the final `=0` should come from the transcript, not from the pixels. The TikZ redraw should clarify the compact `y` direction, the long `x` direction, and the open string with endpoints.
+## Spacetime Fields
 
-## Caption Drafts
-- `lecture_10_figure_03.png`: Momentum and winding integrals on the board
-- `lecture_10_figure_04.png`: Five-dimensional metric components and their four-dimensional fields
-- `lecture_10_figure_05.png`: Cylinder sketch with open-string boundary condition
+9. **Metric decomposition, 00:44:05.** The board groups $G_{\mu\nu}$, $G_{\mu5}$, and $G_{55}$.
+10. **Vector and modulus, 00:47:40.** Arrows identify $G_{\mu5}$ with $A_\mu$ and $G_{55}$ with a scalar. The notes distinguish the radius modulus from the ten-dimensional string dilaton.
+11. **Mixed oscillator states, 00:58:20.** Left--right states with one compact index are visible. Symmetric and antisymmetric combinations are written cleanly in TeX.
+12. **T-duality dictionary, 01:02:20.** Momentum, winding, radius inversion, derivative exchange, and the lower field exchange are present, although the lecturer partly blocks the board.
 
-## Uncertainties
-- In `lecture_10_figure_03.png`, the upper left-hand fraction is not fully legible. The `n` is clear, but its denominator and any prefactor before the upper integral are too weak to trust from the image alone.
-- In `lecture_10_figure_03.png`, the variable in the numerator appears as `Y` or `y`; the transcript should determine the final case convention used in the notes.
-- In `lecture_10_figure_03.png`, the circular sketch at the far right is cropped and should not be used as the sole basis for a redraw.
-- In `lecture_10_figure_04.png`, the screenshot does not show the full list of five-dimensional metric components; it only shows the mixed and purely fifth-direction pieces. The ordinary `g_{\mu\nu}` part belongs in the notes only because the transcript supplies it.
-- In `lecture_10_figure_04.png`, the scalar symbol under `g_{55}` reads naturally as `\Phi`, but the board does not show a full sentence equating the two.
-- In `lecture_10_figure_05.png`, the equation is caught mid-writing. The equals sign is visible, but the final `0` is not yet present in the frame.
-- In `lecture_10_figure_05.png`, the internal curved line and dots strongly suggest an open string with endpoints, but the exact interpretation should still follow the transcript’s discussion of open-string boundary conditions rather than the sketch alone.
+## Open Strings And Branes
+
+13. **Neumann conditions, 01:09:20.** The open-string sketch and both endpoint derivatives are complete.
+14. **Dirichlet condition, 01:12:35.** The dual time derivative is zero at the endpoints. The redraw makes the Neumann-to-Dirichlet logic explicit.
+15. **D1-brane, 01:24:20.** A bendable line-like brane is distinguished from the fundamental string that can end on it.
+16. **D2-brane, 01:27:55.** A planar brane supplies the allowed locus for endpoint motion.
+17. **Joining on a brane, 01:29:55.** Two oriented open strings join through compatible endpoints, giving the low-energy field-theory vertex.
+18. **Parallel stack, 01:33:15.** Three branes are drawn separately. The redraw supplies Red, Green, and Blue endpoint labels without inventing geometry.
+19. **Color composition, 01:36:30.** Open-string endpoints join with the same ordered-index rule used in matrix multiplication.
+20. **D-string monopole, 01:41:30.** A string ends on a D3-brane. The redraw identifies its endpoint with magnetic worldvolume flux.
+
+## Caption Policy
+
+Every screenshot retains the source timestamp. Redraws explain only geometry already visible or stated in the surrounding lecture. Modern normalization, the radius-modulus distinction, and the $U(3)=SU(3)\times U(1)$ qualification are labeled in the prose rather than silently attributed to the blackboard.
