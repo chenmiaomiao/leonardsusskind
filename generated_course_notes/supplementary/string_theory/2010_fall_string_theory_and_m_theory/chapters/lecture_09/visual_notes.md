@@ -1,37 +1,57 @@
-# Visual Evidence
-## Frame Inventory
-- `lecture_09_figure_02.png`: A large red circular sphere sketch with the label `R` near the upper-left arc and a small marked point near the top; this screenshot should remain in the final notes.
-- `lecture_09_figure_03.png`: Susskind stands between two boards, with partial metric notation on the right board and leftover earlier material on the left; this screenshot should remain in the final notes.
-- `lecture_09_figure_04.png`: A clean board-only shot of the Einstein-tensor equation ending in the stress tensor; this screenshot should remain in the final notes.
-- `lecture_09_figure_05.png`: A live-writing frame showing `E=c|P|` near the top of the board, with the final absolute-value bar being completed; this screenshot should remain in the final notes.
+# Lecture 9 Visual Evidence
 
-## Equation Extraction
-- `lecture_09_figure_02.png`: `R` [visible]
-- `lecture_09_figure_03.png`: `g_{\mu\nu}(x)` [visible]
-- `lecture_09_figure_03.png`: `\delta g_{\mu\nu}(x)=` [partially visible]
-- `lecture_09_figure_03.png`: `\dfrac{L^2}{2I}` [partially visible]
-- `lecture_09_figure_04.png`: `G_{\mu\nu}=R_{\mu\nu}-\dfrac{1}{2}g_{\mu\nu}R^{\alpha}{}_{\alpha}=T_{\mu\nu}` [visible]
-- `lecture_09_figure_04.png`: `G_{\mu\nu}=R_{\mu\nu}-\dfrac{1}{2}g_{\mu\nu}R=T_{\mu\nu}` [standard completion]
-- `lecture_09_figure_05.png`: `E=c|P|` [visible]
+## Verified Frame Inventory
 
-## Diagram Extraction
-- `lecture_09_figure_02.png` should be shown both ways: keep the screenshot as visual evidence, and redraw the sphere cross-section in TikZ as a simple circle with the label `R` and, if useful, the small marked point near the top.
-- `lecture_09_figure_03.png` is mainly board-structure evidence rather than a complete mathematical diagram. Preserve it as a screenshot, but do not attempt a full redraw of the partial equation from pixels alone.
-- `lecture_09_figure_04.png` has no diagrammatic content; it should be preserved as a screenshot and paired with a clean typeset displayed equation.
-- `lecture_09_figure_05.png` also does not need TikZ; preserve it as a screenshot and pair it with a clean typeset equation.
-- No extracted frame here captures the later cylinder, torus, winding, or level-diagram sketches clearly enough to count as image-backed figures; any such diagrams in the notes would be transcript-backed reconstructions, not frame-backed redraws.
+| Figure | Time | Visible evidence | Use |
+|---|---:|---|---|
+| lecture_09_figure_01.png | 00:05:10 | Smooth and jagged paths on a curved surface | Intrinsic path-integral setup |
+| lecture_09_figure_02.png | 00:11:25 | \(p^2/(2m)=L^2/(2mR^2)=L^2/(2I)\) | Point-particle control equation |
+| lecture_09_figure_03.png | 00:15:20 | Oscillator expansion and double sum | Structural mode algebra |
+| lecture_09_figure_04.png | 00:20:10 | Surviving vacuum contraction | Collapse from two sums to one |
+| lecture_09_figure_05.png | 00:22:05 | \(\langle X^2\rangle\sim\frac12\sum 1/n\) | Logarithmic string spread |
+| lecture_09_figure_06.png | 00:35:15 | Tangled string over the sphere's cap | Effective-radius argument |
+| lecture_09_figure_07.png | 00:43:00 | Metric change, minus Ricci tensor, smoothing curve | Leading metric flow |
+| lecture_09_figure_08.png | 00:47:15 | Einstein tensor equals stress tensor | Vacuum Einstein reduction |
+| lecture_09_figure_09.png | 01:01:00 | Thin cylinder with winding trajectories | Hidden circular dimension |
+| lecture_09_figure_10.png | 01:04:40 | Slab used for periodic identifications | Cylinder and torus construction |
+| lecture_09_figure_11.png | 01:11:00 | Repeated straight segments in a rectangle | Torus geodesics |
+| lecture_09_figure_12.png | 01:23:00 | Fundamental-domain shape sketches | Area, aspect, and shear |
+| lecture_09_figure_13.png | 01:32:15 | \(2\pi R\) and \(p_c=n\hbar/R\) | Compact momentum |
+| lecture_09_figure_14.png | 01:33:45 | \(E=c|P|\) | Lower-dimensional mass reading |
+| lecture_09_figure_15.png | 01:39:45 | Closed string wrapped around a cylinder | Winding state |
+| lecture_09_figure_16.png | 01:43:00 | Sparse and dense mass ladders | T-duality comparison |
+| lecture_09_figure_17.png | 01:50:30 | Stretched zero-winding loop | Pair-production initial state |
+| lecture_09_figure_18.png | 01:51:30 | Separated wound loop | Winding and antiwinding result |
 
-## Reconstruction Guidance
-- Use `lecture_09_figure_02.png` to anchor the early sphere discussion visually. The TikZ redraw should stay minimal and faithful to the board: a circle, the radius label, and optionally the small top marker, but no invented radial segment or axis unless the transcript explicitly requires it nearby.
-- Use `lecture_09_figure_03.png` only to support the appearance of the metric notation and the beginning of a variation/change equation. The clean note-quality formula for the flow of the geometry should come from the transcript and standard notation, not from over-reading the cropped board.
-- Convert `lecture_09_figure_04.png` into a canonical displayed equation in the notes, with the screenshot nearby as evidence for board layout and emphasis. It is reasonable to simplify the traced curvature term from \(R^{\alpha}{}_{\alpha}\) to the standard scalar \(R\).
-- Convert `lecture_09_figure_05.png` into a clean displayed relation \(E=c|P|\), keeping the screenshot nearby because the lecture is visually stressing the absolute value. If later notes switch to units with \(c=1\), that change should be declared in prose rather than silently imposed here.
-- Treat the left-board material in `lecture_09_figure_03.png` as carry-over from the earlier sphere/moment-of-inertia discussion. It should not be merged into the Ricci-flow or metric-tensor argument.
+## Reconstruction Rules
 
-## Uncertainties
-- In `lecture_09_figure_02.png`, the label `R` is clear, but there is no drawn radial line, and the small point near the top is unlabeled.
-- In `lecture_09_figure_03.png`, the leading symbol before `g_{\mu\nu}(x)` is very likely a change symbol such as `\delta`, but it is not fully reliable from the frame alone.
-- In `lecture_09_figure_03.png`, the right-hand side of the partial equation is cut off, so the frame does not by itself justify a full flow equation.
-- In `lecture_09_figure_03.png`, the partial `L^2/(2I)` and the wavy sketch on the left board are residual earlier content, not part of the metric discussion.
-- In `lecture_09_figure_04.png`, the contraction on the scalar-curvature term is legible but chalk-rough; typesetting it as \(R\) is the safest clean normalization.
-- In `lecture_09_figure_05.png`, the final absolute-value bar is being drawn during the frame, so the screenshot is a live-writing witness rather than a perfectly settled final board state.
+The screenshots remain the primary visual evidence.  TikZ is used only to
+clarify geometry that is hard to read from a single frame:
+
+- Figure 1.6 adds a clean nested-sphere picture.  The inner circle denotes
+  an effective geometry, not a physical shell.
+- Figure 1.10 adds directional arrows to distinguish one and two periodic
+  edge pairs.
+- Figure 1.12 separates scale and aspect ratio from complex-structure
+  shear.
+- Figure 1.16 is a typeset spectral ladder derived from the two mass
+  formulas.
+- Figure 1.19 redraws the winding-pair process while preserving total
+  winding zero.
+
+## Equation Readings
+
+The rotor equation, harmonic sum, Einstein equation, compact momentum, and
+massless dispersion relation are complete enough to normalize directly in
+LaTeX.  The oscillator expansion is structurally legible but its numerical
+normalization is intentionally omitted.  The metric-flow frame supports
+the tensor and sign at schematic level only; its coefficient is not read
+from the pixels.
+
+## Known Limits
+
+The lecturer obscures parts of the shrinking-sphere, moduli, and winding
+boards.  Those frames were chosen because the relevant completed sketch is
+still visible and because nearby transcript intervals fix its meaning.
+No campus opening, generic lecturer portrait, or unrelated carry-over board
+was used as a mathematical figure.
