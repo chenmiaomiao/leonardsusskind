@@ -1,57 +1,49 @@
 # Figure Notes
-## Image Inventory
-- `lecture_03_figure_02.png`: Board close-up from the harmonic-oscillator review. Two stacked formulas are visible on the right side of the board: an upper quadratic expression with a plus sign, and a lower quadratic expression with a minus sign. Susskind stands at the left, gesturing toward the lower line. The rightmost labels appear cropped.
-- `lecture_03_figure_03.png`: Board close-up from the creation/annihilation-operator discussion. Three commutator relations are stacked at upper left, with a horizontal separator below them. Under the line, the beginning of a formula for \(a^-\) is visible. The far-right side of the board is cropped, and a small portion of an earlier boxed expression remains at the right edge.
 
-## Blackboard Equations
-- `lecture_03_figure_02.png`: \(\dfrac{\dot X_n^{\,2}}{4}+\dfrac{n^2 X_n^{\,2}}{4}\) [visible]
-- `lecture_03_figure_02.png`: \(\dfrac{\dot X^{\,2}}{4}-\dfrac{n^2 X^{2}}{4}\) [visible]
-- `lecture_03_figure_02.png`: \(\dfrac{\dot X_n^{\,2}}{4}+\dfrac{n^2 X_n^{\,2}}{4}=E\) [standard reconstruction]
-- `lecture_03_figure_02.png`: \(\dfrac{\dot X_n^{\,2}}{4}-\dfrac{n^2 X_n^{\,2}}{4}=L\) [standard reconstruction]
+## Verified Source Frames
 
-- `lecture_03_figure_03.png`: \(\left[a^-,a^+\right]=1\) [visible]
-- `lecture_03_figure_03.png`: \(\left[b^-,b^+\right]=1\) [visible]
-- `lecture_03_figure_03.png`: \([x\,p]=i\) [partially visible]
-- `lecture_03_figure_03.png`: \(\left[x,p\right]=i\) [standard reconstruction]
-- `lecture_03_figure_03.png`: \(a^-=\dfrac{\sqrt n\,x}{2}+\dfrac{i}{\sqrt n}\,p\) [partially visible]
-- `lecture_03_figure_03.png`: \(a^+=\dfrac{\sqrt n\,x}{2}-\dfrac{i}{\sqrt n}\,p\) [standard reconstruction]
+| Frame | Time | Blackboard content | Use in notes |
+|---|---:|---|---|
+| lecture_03_figure_01.png | 00:05:40 | Mode energy, momentum, and Hamiltonian | Original equation frame |
+| lecture_03_figure_02.png | 00:10:30 | Canonical commutator and factorization | Original equation frame |
+| lecture_03_figure_03.png | 00:12:00 | Normalized ladder operators | Original equation frame |
+| lecture_03_figure_04.png | 00:17:05 | Coordinate from ladder operators | Original equation frame |
+| lecture_03_figure_05.png | 00:20:35 | Neumann coordinate expansions | Paired operator frame |
+| lecture_03_figure_06.png | 00:21:05 | Operators inside the string field | Paired operator frame |
+| lecture_03_figure_07.png | 00:27:40 | Developing spin-state count | Original plus completed table |
+| lecture_03_figure_08.png | 00:37:45 | Circular photon polarizations | Original plus clean redraw |
+| lecture_03_figure_09.png | 00:45:20 | Ground-state annihilation conditions | Original equation frame |
+| lecture_03_figure_10.png | 00:49:25 | First excited state and mass shift | Original equation frame |
+| lecture_03_figure_11.png | 00:56:00 | First-level vector states | Original equation frame |
+| lecture_03_figure_12.png | 01:01:50 | Nonrelativistic group velocity | Paired dispersion frame |
+| lecture_03_figure_13.png | 01:03:15 | Relativistic group velocity | Paired dispersion frame |
+| lecture_03_figure_14.png | 01:06:40 | Klein--Gordon equation | Original equation frame |
+| lecture_03_figure_15.png | 01:08:10 | Scalar-field energy | Original equation frame |
+| lecture_03_figure_16.png | 01:10:40 | Coupled upright pendulums | Original plus clean redraw |
+| lecture_03_figure_17.png | 01:19:30 | Rotating open string | Original diagram frame |
+| lecture_03_figure_18.png | 01:24:05 | Open-string joining history | Original plus clean redraw |
+| lecture_03_figure_19.png | 01:27:20 | Open string meeting its own tail | Original plus clean redraw |
+| lecture_03_figure_20.png | 01:29:05 | Closed-string fusion | Original plus clean redraw |
+| lecture_03_figure_21.png | 01:33:10 | Local reconnection | Paired mixed-interaction frame |
+| lecture_03_figure_22.png | 01:34:35 | Closed loop attaching to open string | Original plus clean redraw |
 
-## Diagram And Layout Reading
-- `lecture_03_figure_02.png` is not a diagram in the geometric sense, but the board organization matters. The upper line and lower line are written one directly above the other to emphasize the sign change between energy and Lagrangian. The visual contrast is the pedagogical point: same quadratic pieces, but \(+\) for the energy and \(-\) for the Lagrangian.
-- In `lecture_03_figure_02.png`, the lecturer’s hand points toward the lower formula, reinforcing that the discussion has shifted from the energy to the derivative of the Lagrangian and the momentum construction.
-- `lecture_03_figure_03.png` has a clear two-tier layout. The upper tier is a compact list of operator and canonical commutators. A horizontal line then separates that reminder block from the lower tier, where the oscillator operators are being written in terms of \(x\) and \(p\).
-- In `lecture_03_figure_03.png`, the left side of the board is the important region. The right side is cropped and only preserves the edge of an earlier boxed derivation, so it should not be treated as primary evidence.
-- The lower portion of `lecture_03_figure_03.png` shows that the lecture is transitioning from abstract commutator relations to explicit formulas for the ladder operators, but the crop prevents a full board transcription from the image alone.
+## Reconstruction Decisions
 
-## TeX Reconstruction Plan
-- `lecture_03_figure_02.png` should remain visible in the notes. Pair it with a clean displayed reconstruction of the harmonic-oscillator energy and Lagrangian for the \(n\)th mode:
-  \[
-  E=\frac{\dot X_n^{\,2}}{4}+\frac{n^2 X_n^{\,2}}{4},
-  \qquad
-  L=\frac{\dot X_n^{\,2}}{4}-\frac{n^2 X_n^{\,2}}{4}.
-  \]
-  No TikZ redraw is needed; the screenshot already carries the board-comparison layout that matters.
-- `lecture_03_figure_03.png` should remain visible in the notes. Pair it with a clean displayed set of commutators,
-  \[
-  [a^-,a^+]=1,\qquad [b^-,b^+]=1,\qquad [x,p]=i,
-  \]
-  and, if the surrounding text needs it, with the typed operator definitions
-  \[
-  a^-=\frac{\sqrt n\,x}{2}+\frac{i}{\sqrt n}p,
-  \qquad
-  a^+=\frac{\sqrt n\,x}{2}-\frac{i}{\sqrt n}p,
-  \]
-  together with the \(b\)-sector analog in prose or display. No TikZ redraw is needed.
-- For both figures, the screenshots function best as blackboard evidence, while the typed equations nearby should carry the mathematically stable notation for the chapter.
+- Every retained board frame appears at the concept being discussed; no
+  campus opener, blank board, unrelated shot, or fully occluded formula was
+  retained.
+- The spin table completes a board list that is partly hidden while it is
+  written, but does not add spin content beyond the lecture.
+- Polarization, pendulum, joining, self-closing, closed-fusion, and
+  mixed-interaction redraws clarify geometry while preserving the original
+  source image beside them.
+- Rough interaction sketches are not treated as literal worldsheet
+  calculations. Their role is topological and qualitative.
 
-## Caption Drafts
-- `lecture_03_figure_02.png`: Harmonic oscillator energy and Lagrangian
-- `lecture_03_figure_03.png`: Commutators for the \(a\)- and \(b\)-oscillator modes
+## Source Limits
 
-## Uncertainties
-- In `lecture_03_figure_02.png`, the right-hand labels identifying the upper and lower expressions as \(E\) and \(L\) are cropped or only partly visible in this frame, so the full equalities should be stabilized from the lecture transcript.
-- In `lecture_03_figure_02.png`, the lower line appears to suppress the \(n\) subscript on \(X\) in the board shorthand, even though the lecture context is still the \(n\)th oscillator. The cleaned notes should restore the mode label consistently.
-- In `lecture_03_figure_03.png`, the bracketed \(x,p\) relation is legible as a canonical commutator, but the comma is not crisp in the image; \([x,p]=i\) is the safe completion.
-- In `lecture_03_figure_03.png`, only the beginning of the \(a^-\) definition is visible; the right side of the expression is cropped, so the full coefficient of \(p\) should be taken from the lecture rather than claimed as a direct full-frame transcription.
-- In `lecture_03_figure_03.png`, the \(a^+\) line is not fully visible in this crop and should be treated as a standard companion reconstruction rather than as fully image-secured text.
-- The far-right remnants in `lecture_03_figure_03.png` are too cropped to use reliably; they should not be treated as independent evidence for additional equations.
+The audio is briefly unrecoverable at 00:18:14--00:18:35,
+01:00:21--01:00:38, 01:27:18--01:27:23, and portions of
+01:31:20--01:32:25. No missing content is inferred except where the finished
+blackboard drawing and the clear resumed explanation identify the intended
+interaction.
