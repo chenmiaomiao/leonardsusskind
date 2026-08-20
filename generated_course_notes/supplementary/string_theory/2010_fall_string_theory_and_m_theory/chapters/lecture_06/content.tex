@@ -1,335 +1,613 @@
-\chapter{Scattering, Mandelstam Variables, and the Open-String Picture}
+\chapter{Scattering, Duality, and the Veneziano Amplitude}
 
-This lecture begins with a brief return to fermionic strings, but only in order to clear the stage. The real subject is scattering: how a theory takes incoming particles, passes them through an interaction region, and predicts the amplitudes for what comes out. From there the discussion narrows to relativistic kinematics, broadens into the puzzle of channel symmetry, and then deliberately rewinds to the string picture that produces the Veneziano amplitude. The whole chapter has a very definite rhythm: first reduce the kinematics to invariant data, then see why naive point-particle diagrams are not enough, and finally watch the string mechanism rebuild the answer from harmonic oscillators.
+\lectureoverview{Scattering reduces a collision to invariant data that can
+be compared with experiment. For four identical particles those data may be
+organized into the Mandelstam variables \(s,t,u\), only two of which are
+independent. Ordinary particle exchange then suggests separate direct and
+crossed channels. The Veneziano amplitude overturned that expectation: one
+function contains both channel descriptions. The second half of the lecture
+builds that function from two open strings that join, evolve as one
+oscillating chain, and split again.}
 
-\section{From Fermionic Strings Back to Scattering}
+\section{What a Theory Must Predict}
 
-Fermionic strings had been part of the subject almost from the beginning. Their role, as Susskind reminds us at the start, is very simple to state: they give us fermions, they remove the tachyons, and they reduce the critical dimension from twenty-six to ten. That still leaves the extra dimensions, but he immediately refuses to be diverted. Compactification is important, and it will come later; for the moment he wants to talk about scattering.
+Fermionic strings solve two defects of the purely bosonic model: they admit
+fermionic states and, after the appropriate projection, remove the tachyon.
+Their critical spacetime dimension is ten rather than twenty-six. Extra
+dimensions therefore remain, but their compactification is postponed. The
+immediate subject is scattering.
+\editorialnote{The tachyon-free statement refers to the consistent
+superstring spectrum after the required projection; merely adding
+world-sheet fermions is not by itself enough.}
 
-This is a pragmatic turn, and deliberately so. Elementary particle physics has always been driven by scattering experiments, not because scattering is the most profound phenomenon in nature, but because it is what experiment can most reliably access. We send particles in, observe what comes out, and try to reconstruct what happened inside the collision. So the natural question for a theorist is not simply, ``what particles does the theory contain?'' It is: if this is my theory of particles, what scattering amplitudes does it predict?
+Scattering is not necessarily the most interesting thing particles do. It is
+simply the operation that an experiment can repeat cleanly. Send specified
+particles toward one another, record the particles emerging from the
+collision, and infer the dynamics hidden inside the interaction region. A
+theory becomes quantitative when it supplies a complex amplitude
+\begin{equation}
+  \mathcal A(\hbox{incoming data}\to\hbox{outgoing data}),
+\end{equation}
+whose squared magnitude, together with the usual phase-space factors, gives
+the probability for that outcome.
 
-\section{Four-Momentum, Mass Shell, and the All-Incoming Trick}
-
-To answer that question we first need a language for the kinematics. Susskind starts with the simplest black-box picture: particles go in, something happens in an interaction region, and particles come out. He even changes the usual board convention and draws time horizontally for the evening. A scattering amplitude is then the complex number whose squared magnitude gives the probability for a specified process.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_06_figure_02.png}
-
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0) rectangle (1.2,1.2);
-\draw (0.12,0.10) -- (0.52,0.50);
-\draw (0.12,0.42) -- (0.83,1.13);
-\draw (0.12,0.72) -- (0.62,1.22);
-\draw (0.42,0.10) -- (1.10,0.78);
-\draw[->,thick] (1.2,0.98) -- (2.2,1.36);
-\draw[->,thick] (1.2,0.72) -- (2.45,0.72);
-\draw[->,thick] (1.2,0.46) -- (2.15,0.12);
-\draw[->,thick] (1.2,0.20) -- (2.00,-0.36);
-\end{tikzpicture}
-\caption{Scattering sketch and the start of four-momentum notation. The screenshot preserves the black-box board layout and the transition into new notation; the TikZ redraw keeps only the secure geometric content of the scattering sketch.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_06_figure_01.png}
+  \caption{Incoming particles enter a black-box interaction region and
+  outgoing particles emerge; time is drawn horizontally.}
+  \lectureframe{00:02:35}
+  \label{fig:l06-black-box}
 \end{figure}
 
-Each particle carries a relativistic four-momentum,
-\begin{equation}
-K^\mu=(K^0,\vec K),
-\end{equation}
-where \(K^0\) is the energy and \(\vec K\) is the spatial momentum. In the lecture the relativistic square is written in the mostly-minus convention
-\begin{equation}
-K^2 \equiv \vec K^{\,2}-(K^0)^2.
-\end{equation}
-Starting from the standard dispersion relation
-\begin{equation}
-E^2=\vec p^{\,2}+m^2,
-\end{equation}
-he rewrites it as
-\begin{equation}
-E^2-\vec p^{\,2}=m^2,
-\end{equation}
-and then flips the sign so that it matches long-standing particle-physics convention,
-\begin{equation}
-\vec p^{\,2}-E^2=-m^2.
-\end{equation}
-In terms of \(K^\mu\), that same statement is simply
-\begin{equation}
-K^2=-m^2.
-\end{equation}
-This is the first invariant constraint on a particle: one does not vary \(K^2\); rather, one varies the spatial momentum and the energy adjusts so that the mass shell is maintained.
+Particles also carry spin, charge, and species labels. To expose the
+kinematics first, let us temporarily suppress everything except momentum.
 
-For a \(2\to2\) process the incoming momenta may be called \(K_1\) and \(K_2\), and the outgoing momenta \(Q_3\) and \(Q_4\). Then energy-momentum conservation is
-\begin{equation}
-K_1+K_2=Q_3+Q_4.
-\end{equation}
-Susskind then introduces the standard but extremely useful trick of treating all momenta as incoming. One first rewrites conservation as
-\begin{equation}
-K_1+K_2-Q_3-Q_4=0,
-\end{equation}
-and then defines
-\begin{equation}
-K_3=-Q_3,\qquad K_4=-Q_4.
-\end{equation}
-With that relabeling,
-\begin{equation}
-K_1+K_2+K_3+K_4=0.
-\end{equation}
-This is only a bookkeeping device, but it is a very good one. It makes the kinematics symmetric in the four external legs, and because squaring a momentum is unchanged by a sign flip, each leg still satisfies the same mass-shell condition.
+\section{Four-Momentum and the All-Incoming Convention}
 
-Now we can say what the theorist wants. The amplitude is some function
+Write the four-momentum of one particle as
 \begin{equation}
-A=A(K_1,K_2,K_3,K_4),
+  k^\mu=(k^0,\mathbf k)=(E,\mathbf p).
 \end{equation}
-but of course this notation is misleading. It looks as if \(A\) depends on sixteen components, whereas most of that information is redundant.
-
-\section{Center-of-Mass Kinematics and Mandelstam Variables}
-
-Susskind pauses at this point and asks how many independent variables a \(2\to2\) amplitude really depends on. Naively there are four four-vectors, so sixteen components. But momentum conservation already imposes four conditions, and each external leg is on shell. More importantly, one can go to a much better frame.
-
-First move to the center-of-mass frame, where the incoming spatial momenta are equal and opposite. Then rotate the axes so that the collision takes place along a chosen direction. Once that has been done, and once we simplify further by taking all external particles to have the same mass, the initial state depends only on the total center-of-mass energy. The final state must have the same total energy and equal-and-opposite outgoing momenta. What is left for the scattering to know about is only the deflection angle. So the amplitude really depends on just two physical quantities:
+The lecture uses the mostly-plus metric, so
 \begin{equation}
-E_{\mathrm{cm}},\qquad \theta.
+  k^2\equiv \mathbf p^2-E^2.
 \end{equation}
-
-But we do not want quantities that are tied to one frame. We want relativistic invariants. The natural ones are the Mandelstam variables, defined here in a convention consistent with the lecture's choice of sign for \(K^2\):
+The relativistic dispersion relation is therefore
 \begin{equation}
-(K_1+K_2)^2=-s,\qquad (K_1+K_3)^2=-t,\qquad (K_1+K_4)^2=-u.
+  E^2-\mathbf p^2=m^2,
+  \qquad
+  k^2=-m^2.
+  \label{eq:l06-mass-shell}
 \end{equation}
-These are the Mandelstam variables. Susskind remarks on their beautiful symmetric definition, and that symmetry is already part of the story.
+Changing the spatial momentum changes the energy, but it does not move the
+particle off its mass shell.
 
-The meaning of \(s\) is immediate. In the center-of-mass frame the incoming spatial momenta cancel, so
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_06_figure_02.png}
+  \caption{The mass-shell condition in the metric convention used
+  throughout the lecture.}
+  \lectureframe{00:05:56}
+  \label{fig:l06-mass-shell}
+\end{figure}
+
+Consider two particles entering with momenta \(k_1,k_2\) and two leaving
+with physical momenta \(q_3,q_4\). Conservation of energy and momentum is
+one four-vector equation,
+\begin{equation}
+  k_1+k_2=q_3+q_4.
+  \label{eq:l06-physical-conservation}
+\end{equation}
+It is convenient to assign an incoming momentum to every external line:
+\begin{equation}
+  k_3\equiv-q_3,
+  \qquad
+  k_4\equiv-q_4.
+\end{equation}
+Then
+\begin{equation}
+  k_1+k_2+k_3+k_4=0,
+  \label{eq:l06-all-incoming}
+\end{equation}
+and every leg obeys \(k_i^2=-m_i^2\). The outgoing particles have negative
+energy only in this bookkeeping convention; their physical energies remain
+positive.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_06_figure_03.png}
+  \caption{Physical outgoing momenta are reversed so that all four external
+  momenta may be treated symmetrically as incoming.}
+  \lectureframe{00:09:10}
+  \label{fig:l06-all-incoming-board}
+\end{figure}
+
+At first the amplitude appears to be a function of sixteen components,
+\(\mathcal A(k_1,k_2,k_3,k_4)\). Most of them are redundant. Go to the
+center-of-mass frame, rotate the incoming momenta onto a chosen axis, and
+assume for simplicity that all four particles have the same mass. The
+incoming state is then fixed by one number, the center-of-mass energy. The
+outgoing spatial momenta must be equal and opposite and have the same
+magnitude as the incoming pair. Only their deflection angle \(\theta\)
+remains. The process therefore has two independent kinematic variables:
+\begin{equation}
+  E_{\mathrm{cm}},
+  \qquad
+  \theta.
+  \label{eq:l06-two-data}
+\end{equation}
+
+\section{Mandelstam Variables}
+
+The two physical quantities in \eqref{eq:l06-two-data} should be expressible
+without choosing a frame. With the all-incoming convention define
+\begin{equation}
+  -s=(k_1+k_2)^2,
+  \qquad
+  -t=(k_1+k_3)^2,
+  \qquad
+  -u=(k_1+k_4)^2.
+  \label{eq:l06-mandelstam}
+\end{equation}
+In the center-of-mass frame the spatial parts of \(k_1+k_2\) cancel, hence
+\begin{equation}
+  s=E_{\mathrm{cm}}^2.
+  \label{eq:l06-s-energy}
+\end{equation}
+
+For an outgoing physical momentum \(q_3=-k_3\),
+\begin{equation}
+  k_1+k_3=k_1-q_3
+\end{equation}
+is the momentum transferred from leg 1 to leg 3. For equal external masses,
+with incoming spatial momentum magnitude \(p\),
+\begin{equation}
+  -t=2p^2(1-\cos\theta),
+  \qquad
+  -u=2p^2(1+\cos\theta).
+  \label{eq:l06-tu-angle}
+\end{equation}
+Thus \(t\) and \(u\) carry the angular information measured by detectors.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_06_figure_04.png}
+  \caption{The symmetric definitions of \(s,t,u\) in the all-incoming
+  convention.}
+  \lectureframe{00:26:20}
+  \label{fig:l06-stu-board}
+\end{figure}
+
+Three symbols do not mean three independent data. Squaring
+\eqref{eq:l06-all-incoming} and using \(k_i^2=-m^2\) gives
+\begin{equation}
+  s+t+u=4m^2
+  \label{eq:l06-stu-constraint}
+\end{equation}
+for equal masses. Once \(s\) and \(t\) are known, \(u\) is fixed.
+
+\begin{classroomqa}
+\audiencequestion{Could the vacuum slow a freely moving particle, rather
+like friction? \lecturetimestamp{00:27:17}}
+\lecturerresponse{Not in a translation-invariant vacuum. There is nowhere
+for the missing momentum to go, so momentum conservation forbids such
+friction. One can imagine a medium or a different vacuum that selects a
+preferred rest frame, but that is not the vacuum being used here.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why must the two outgoing particles have equal
+energies? \lecturetimestamp{00:27:54}}
+\lecturerresponse{In the center-of-mass frame their spatial momenta must be
+equal and opposite. For the equal-mass process under discussion, equal
+momentum magnitudes give equal energies through
+\(E^2=p^2+m^2\). If the outgoing masses differed, that last conclusion
+would have to be modified.}
+\end{classroomqa}
+
+\section{Direct and Crossed Channels}
+
+A simple point-particle diagram lets particles 1 and 2 form an intermediate
+particle of mass \(M\), which then decays into 3 and 4. Up to numerator
+factors and the pole prescription, its characteristic dependence is
+\begin{equation}
+  \mathcal A_s\sim\frac{g^2}{s-M^2}.
+  \label{eq:l06-s-channel}
+\end{equation}
+This is the direct, or \(s\)-channel, process. Turning the connectivity
+sideways gives exchange between the two external lines,
+\begin{equation}
+  \mathcal A_t\sim\frac{g^2}{t-M^2},
+  \label{eq:l06-t-channel}
+\end{equation}
+the crossed, or \(t\)-channel, process. A third connectivity gives
+\begin{equation}
+  \mathcal A_u\sim\frac{g^2}{u-M^2}.
+  \label{eq:l06-u-channel}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_06_figure_05.png}
+  \caption{Direct production through an intermediate state and the
+  corresponding pole \(g^2/(s-M^2)\); the crossed connectivity is being
+  assembled on the same board.}
+  \lectureframe{00:30:50}
+  \label{fig:l06-channel-board}
+\end{figure}
+
+The distinction is physical. At this crude scalar level,
+\eqref{eq:l06-s-channel} depends on collision energy but not on angle. The
+compound state has forgotten the incident direction before it decays, so its
+decay is isotropic. The exchange amplitude depends on momentum transfer and
+therefore on angle; a light exchanged particle strongly favors small
+deflection. Spin would add further angular dependence, but the pole
+structure is already visible.
+
+\begin{classroomqa}
+\audiencequestion{Does the missing \(u\)-channel produce a third
+term? \lecturetimestamp{00:34:47}}
+\lecturerresponse{Yes, whenever the particle identities and couplings permit
+that connectivity. One then includes a term with a pole at \(u=M^2\). It is
+not a new independent kinematic variable, because
+\(s+t+u=4m^2\), but it is a distinct channel diagram.}
+\end{classroomqa}
+
+\section{One Function, Two Channel Descriptions}
+
+A single pole is a poor model of meson scattering. Two mesons can form many
+resonances, with a tower of masses and angular momenta. The first response in
+the 1960s was to add more \(s\)-channel poles, more \(t\)-channel poles, and
+the allowed \(u\)-channel poles. Then a much more economical function was
+found. In the lecture's units, where the linear Regge trajectory and its
+intercept have been absorbed into \(s\) and \(t\), it is
+\begin{equation}
+  \mathcal A_{\mathrm V}(s,t)
+  \propto
+  \frac{\Gamma(-s)\Gamma(-t)}{\Gamma(-s-t)}.
+  \label{eq:l06-veneziano}
+\end{equation}
+The gamma function continues the factorial:
+\begin{equation}
+  \Gamma(n)=(n-1)!
+\end{equation}
+at positive integers.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_06_figure_06.png}
+  \caption{The Veneziano amplitude written as a symmetric ratio of gamma
+  functions.}
+  \lectureframe{00:42:25}
+  \label{fig:l06-veneziano-board}
+\end{figure}
+
+The poles of \(\Gamma(-s)\) reproduce an infinite tower of direct-channel
+resonances. Yet the same expression is symmetric under \(s\leftrightarrow
+t\), so its \(\Gamma(-t)\) poles give a crossed-channel expansion. These are
+not two separately added contributions. One analytic function admits either
+description. This is the old idea of duality between direct-channel
+resonances and crossed-channel exchanges.
+
+\begin{classroomqa}
+\audiencequestion{How can one amplitude contain both channel sums without
+adding them? \lecturetimestamp{00:43:32}}
+\lecturerresponse{That is precisely the surprise. Expanding the function
+near its \(s\)-channel poles organizes it as direct resonances; expanding it
+near its \(t\)-channel poles organizes the same function as exchanges. A
+microscopic model is needed to explain why those two readings are the same,
+and the model is an interacting string.}
+\end{classroomqa}
+
+\section{A Strip Swept Out by an Open String}
+
+Parameterize an open string by
+\begin{equation}
+  0\leq\sigma\leq\pi.
+\end{equation}
+The label \(\sigma\) is not a spacetime position. The embedding
+\(X^\mu(\sigma,\tau)\) tells us where that labeled point lies in spacetime,
+while \(\tau\) measures evolution. A point particle sweeps out a worldline;
+the moving string sweeps out a two-dimensional worldsheet. In the free
+theory each embedding coordinate obeys
+\begin{equation}
+  \frac{\partial^2X^\mu}{\partial\tau^2}
+  -
+  \frac{\partial^2X^\mu}{\partial\sigma^2}
+  =0.
+  \label{eq:l06-wave-equation}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_06_figure_07.png}
+  \caption{The wave equation governing each free string coordinate on the
+  worldsheet strip.}
+  \lectureframe{00:49:10}
+  \label{fig:l06-wave-equation-board}
+\end{figure}
+
+For the scattering construction it is useful not to take the continuum
+limit too soon. Replace each string by \(n\) mass points joined by springs.
+The worldsheet becomes a dense collection of nearby worldlines, and its
+normal modes are ordinary harmonic oscillators. Two incoming chains can
+touch at their endpoints. At that event a new spring joins them, they evolve
+for a time \(\tau\) as one longer chain, and later a spring breaks so that two
+outgoing chains emerge.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_06_figure_08.png}
+  \medskip
+
+  \begin{tikzpicture}[x=0.85cm,y=0.70cm]
+    \draw[thick] (0,2.2) -- (2.1,2.2) -- (3.1,1.5);
+    \draw[thick] (0,0.8) -- (2.1,0.8) -- (3.1,1.5);
+    \draw[thick] (3.1,1.5) -- (5.5,1.5);
+    \draw[thick] (5.5,1.5) -- (6.5,2.2) -- (8.6,2.2);
+    \draw[thick] (5.5,1.5) -- (6.5,0.8) -- (8.6,0.8);
+    \draw[<->] (3.1,0.35) -- node[below] {\(\tau\)} (5.5,0.35);
+    \node[left] at (0,2.2) {1};
+    \node[left] at (0,0.8) {2};
+    \node[right] at (8.6,2.2) {3};
+    \node[right] at (8.6,0.8) {4};
+  \end{tikzpicture}
+  \caption{Two discretized open strings touch, form one intermediate string
+  for a duration \(\tau\), and split. The source frame preserves the
+  spring-and-worldline construction; the schematic isolates its
+  connectivity.}
+  \lectureframe{00:51:25}
+  \label{fig:l06-string-joining}
+\end{figure}
+
+The two strings are drawn adjacent in parameter space only. Their spacetime
+positions need not be adjacent until the endpoint coordinates actually
+coincide. Reparameterization freedom lets the joining and splitting events
+be placed at convenient positions on the diagram; this geometric freedom
+will become conformal symmetry in the next lecture.
+
+\section{The Oscillator Calculation in Slow Motion}
+
+Let the first chain have coordinates \(x_1,\ldots,x_n\), and the second
+\(x_{n+1},\ldots,x_{2n}\). Their center-of-mass coordinates are
+\begin{equation}
+  X_{\mathrm{cm}}^{(1)}
+  =\frac1n\sum_{a=1}^{n}x_a,
+  \qquad
+  X_{\mathrm{cm}}^{(2)}
+  =\frac1n\sum_{a=n+1}^{2n}x_a.
+  \label{eq:l06-chain-centers}
+\end{equation}
+A chain with definite momentum \(k_1\) has a center-of-mass plane wave
+multiplied by an internal oscillator ground state:
 \begin{align}
-(K_1+K_2)^2
-&=(\vec K_1+\vec K_2)^2-(K_1^0+K_2^0)^2 \\
-&= -E_{\mathrm{cm}}^2.
+  \Psi_1
+  &=
+  e^{ik_1\cdot X_{\mathrm{cm}}^{(1)}}
+  \psi_0(x_1,\ldots,x_n),
+  \\
+  \Psi_2
+  &=
+  e^{ik_2\cdot X_{\mathrm{cm}}^{(2)}}
+  \psi_0(x_{n+1},\ldots,x_{2n}).
+  \label{eq:l06-two-wavefunctions}
 \end{align}
-Therefore
+The factors \(\psi_0\) depend on relative coordinates, not on the common
+translation of an entire chain. Because the incoming strings are initially
+separate quantum systems,
 \begin{equation}
-s=E_{\mathrm{cm}}^2.
+  \Psi_{\mathrm{in}}=\Psi_1\Psi_2.
+  \label{eq:l06-product-state}
 \end{equation}
-This is the square of the total energy in the center-of-mass frame.
 
-The meaning of \(t\) is different. Because \(K_3=-Q_3\), we have
-\begin{equation}
-(K_1+K_3)^2=(K_1-Q_3)^2.
-\end{equation}
-So \(t\) is the momentum transfer from particle \(1\) to particle \(3\). In the center-of-mass frame, for equal masses and fixed incoming spatial momentum \(|\vec p|\), the clean reconstructed relations are
-\begin{equation}
--t = 2|\vec p|^2(1-\cos\theta),\qquad -u = 2|\vec p|^2(1+\cos\theta).
-\end{equation}
-The transcript is verbally messy on the exact prefactors, but the important physics is clear and reliable: \(t\) and \(u\) know about the scattering angle, whereas \(s\) knows only about the collision energy.
-
-\subsection{Question \& Answer}
-
-Question. If the process really depends only on energy and scattering angle, why do we suddenly introduce three quantities \(s\), \(t\), and \(u\)?
-
-Answer. Because the three Mandelstam variables are not independent. The symmetry of the notation is greater than the number of physical degrees of freedom. Using
-\begin{equation}
-K_1+K_2+K_3+K_4=0
-\end{equation}
-together with the on-shell conditions \(K_i^2=-m^2\) for equal external masses, one finds
-\begin{equation}
-s+t+u=4m^2.
-\end{equation}
-This is the cleaned form of the constraint that Susskind refers to on the fly. So we have three beautifully symmetric invariants, but only two independent combinations of them, exactly as the center-of-mass analysis demanded.
-
-\section{Channel Diagrams and Simple Pole Amplitudes}
-
-Now that the kinematic variables are in place, Susskind turns to simple Feynman diagrams and asks what kind of amplitudes they give. The first is the direct process: particles \(1\) and \(2\) come together, form an intermediate state of mass \(M\), and then that state decays into \(3\) and \(4\). This is the \(s\)-channel, or direct channel, and its amplitude has the characteristic form
-\begin{equation}
-A_s \sim \frac{g^2}{s-M^2}.
-\end{equation}
-The two factors of \(g\) come from the two vertices, and the denominator is the propagator of the intermediate particle.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_03.png}
-
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,1.85) circle (0.32);
-\draw[->,thick] (-1.20,2.48) -- (-0.23,2.04);
-\draw[->,thick] (-1.15,1.17) -- (-0.18,1.60);
-\draw[->,thick] (0.23,2.04) -- (1.22,2.47);
-\draw[->,thick] (0.18,1.60) -- (1.15,1.17);
-\node at (-1.34,2.56) {$k_2$};
-\node at (-1.18,1.00) {$k_1$};
-\node at (1.34,2.56) {$k_4$};
-\node at (1.18,1.00) {$k_3$};
-
-\draw[thick] (-0.95,-0.18) -- (-0.20,0.26);
-\draw[thick] (-0.95,-1.35) -- (-0.20,-0.90);
-\draw[thick] (0.20,0.26) -- (0.95,-0.18);
-\draw[thick] (0.20,-0.90) -- (0.95,-1.35);
-\draw[thick] (-0.22,-0.52) rectangle (0.22,-0.15);
-\draw (-0.20,-0.49) -- (-0.02,-0.15);
-\draw (-0.08,-0.52) -- (0.10,-0.15);
-\draw (0.04,-0.52) -- (0.22,-0.18);
-\node at (0,0.06) {$M$};
-\end{tikzpicture}
-\caption{Alternate channel diagram with intermediate mass \(M\). The screenshot preserves the two-tier blackboard layout; the redraw stabilizes the geometry and the momentum labels without using the cropped right-edge writing to fix signs.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_06_figure_09.png}
+  \caption{The two momentum plane waves and their internal oscillator
+  ground-state factors, written in separate colors.}
+  \lectureframe{00:58:05}
+  \label{fig:l06-wavefunctions-board}
 \end{figure}
 
-There is then a second diagram, obtained by turning the picture sideways in the sense of the invariants, so that the relevant quantity is \(t\) rather than \(s\). Its amplitude is
+Joining selects the part of this wavefunction for which the two endpoint
+coordinates agree:
 \begin{equation}
-A_t \sim \frac{g^2}{t-M^2}.
+  x_n=x_{n+1}.
+  \label{eq:l06-endpoint-contact}
 \end{equation}
-This is the \(t\)-channel, or crossed channel. One can also imagine a third possibility,
+At that instant the other coordinates are unchanged. The selected state is
+then evolved with the Hamiltonian \(H_{\mathrm{joined}}\) of the single
+longer chain:
 \begin{equation}
-A_u \sim \frac{g^2}{u-M^2},
+  \Psi(\tau)
+  =
+  e^{-iH_{\mathrm{joined}}\tau}\Psi(0).
+  \label{eq:l06-time-evolution}
 \end{equation}
-although Susskind explicitly declines to draw it carefully on the board because crossed lines are annoying to draw and add nothing essential at this point.
+Finally one takes its overlap with a product of outgoing string states
+carrying momenta \(q_3,q_4\).
 
-The lecture pauses here to interpret the two channel pictures physically. The \(s\)-channel amplitude depends only on the center-of-mass energy. It does not know about the scattering angle. In that sense every deflection angle is equally probable: the incoming particles form a compound state, and when that state decays it has forgotten the direction from which the particles originally came. The direct channel is therefore angle-blind at this crude level.
-
-The \(t\)-channel is different. Since \(t\) depends on the momentum transfer, it depends on the scattering angle. In fact, because small momentum transfer means small deflection angle, this channel favors small-angle scattering. The direct and crossed channels are therefore not only algebraically different; they describe genuinely different kinds of physical processes.
-
-\section{The Veneziano Puzzle}
-
-At this point Susskind takes a historical step back. Formulas like
-\begin{equation}
-\frac{g^2}{s-M^2}
-\end{equation}
-are too simple to describe the scattering of mesons. The reason is that when two mesons collide they can produce not just one intermediate particle, but whole towers of excited states with different masses and angular momenta. One therefore tries, at first, to repair the formulas by adding more and more channel contributions: more poles in the \(s\)-channel, more in the \(t\)-channel, and in principle also in the \(u\)-channel.
-
-Then comes the surprise. Instead of a sum of separate channel expansions, a single compact formula was discovered which had the right features of both at once. Susskind writes it partly for historical beauty and partly to set the puzzle as sharply as possible. In canonical modern notation it is
-\begin{equation}
-A_{\mathrm V}(s,t)\propto \frac{\Gamma(-s)\Gamma(-t)}{\Gamma(-s-t)}.
-\end{equation}
-He only pauses long enough to remind us what the gamma function is doing: it is the analytic continuation of the factorial, with \(\Gamma(n)=(n-1)!\) at positive integers.
-
-What matters here is not gamma-function technology, but the interpretation. The Veneziano amplitude looks like a sum over infinitely many resonances in the \(s\)-channel. But because it is symmetric in \(s\) and \(t\), it also looks like a sum over infinitely many exchanges in the crossed channel. And these are not two terms to be added. It is the same single function being read in two different ways.
-
-\subsection{Question \& Answer}
-
-Question. How can one symmetric amplitude replace separate \(s\)-channel and \(t\)-channel sums without adding them by hand?
-
-Answer. That is the whole historical puzzle. Prior to this, one would have expected to write down one contribution for direct production and another for exchange, and then add them. The Veneziano amplitude does something stranger: it already contains the analytic features of both channels in one object. The lecture now turns exactly to the question that this raises: what physical mechanism could possibly produce an amplitude of that sort?
-
-\section{Open Strings, Worldsheets, and the String Wave Equation}
-
-Susskind then explicitly rewinds the story. Instead of dwelling on the formula, he asks what sort of microscopic picture could give rise to it. The answer is the open string.
-
-An open string comes with a parameter \(\sigma\) running from one endpoint to the other,
-\begin{equation}
-0\leq \sigma \leq \pi.
-\end{equation}
-This is not an ordinary spatial coordinate in spacetime. It is simply a label along the string. The string itself moves through spacetime and, as it moves, sweeps out a two-dimensional surface.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_06_figure_04.png}
-
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0.45) -- (6.0,0.45);
-\draw[thick] (0,-0.25) -- (6.0,-0.25);
-\fill (0,0.45) circle (0.05);
-\fill (0,-0.25) circle (0.05);
-\node[above] at (0,0.45) {$\sigma=0$};
-\node[above] at (6.0,0.45) {$\sigma=\pi$};
-\end{tikzpicture}
-\caption{Open-string parameter interval and endpoint labeling. The board shot records the way the interval is introduced graphically before the notation is fully stabilized; the redraw supplies the endpoint labels stated clearly in the lecture.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_06_figure_10.png}
+  \caption{The two-chain wavefunction immediately before the endpoint
+  coincidence is imposed.}
+  \lectureframe{00:58:55}
+  \label{fig:l06-endpoint-board}
 \end{figure}
 
-The old world line of a point particle becomes a worldsheet. Each point on that worldsheet is labeled by two parameters, \(\sigma\) and \(\tau\): \(\sigma\) tells us where we are along the string, and \(\tau\) is the worldsheet time. The string embedding in spacetime is described by \(X(\sigma,\tau)\); the blackboard writes simply \(X\), suppressing the spacetime index. Its equation of motion is the ordinary wave equation on the strip,
-\begin{equation}
-\frac{\partial^2 X}{\partial \tau^2}-\frac{\partial^2 X}{\partial \sigma^2}=0.
-\end{equation}
+The calculation is lengthy but not mysterious. Every internal coordinate
+can be decomposed into oscillator modes, so the joining overlap, time
+evolution, and final projection reduce to Gaussian oscillator algebra.
+What remains unfixed is the lifetime \(\tau\) of the joined string.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_05.png}
-\caption{Worldsheet wave equation for the string coordinate. Here the board equation is fully legible, so the notes preserve the same uppercase \(X\) while typesetting it cleanly.}
+\begin{classroomqa}
+\audiencequestion{Are the black and red wavefunctions added or
+multiplied? \lecturetimestamp{01:02:26}}
+\lecturerresponse{Multiplied. The tensor-product state of two independent
+systems is represented in the coordinate basis by the product of their
+wavefunctions. Addition would describe a superposition of alternatives, not
+the simultaneous presence of both incoming strings.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why integrate over the intermediate time
+\(\tau\)? \lecturetimestamp{01:04:04}}
+\lecturerresponse{The joined string is not assigned a fixed lifetime.
+Feynman's rule is to sum amplitudes over all allowed histories. In this
+description the remaining continuous history parameter is the time between
+joining and splitting, so the sum becomes an integral over
+\(0\leq\tau<\infty\).}
+\end{classroomqa}
+
+\section{From Propagation Time to the Beta Function}
+
+After evaluating the oscillator overlaps, the result can be organized as
+\begin{equation}
+  \mathcal A(s,t)
+  \propto
+  \int_0^\infty d\tau\,
+  e^{\tau(s+1)}
+  \bigl(1-e^{-\tau}\bigr)^{-t-1}
+  e^{-\tau}.
+  \label{eq:l06-tau-integral}
+\end{equation}
+The final \(e^{-\tau}\) is kept visible because it is the Jacobian needed in
+the next step. Equivalently, the first and last exponentials combine to
+\(e^{s\tau}\).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_06_figure_11.png}
+  \caption{The propagation-time integrand after the oscillator calculation;
+  the separate \(e^{-\tau}\) factor supplies the change-of-variables
+  Jacobian.}
+  \lectureframe{01:06:45}
+  \label{fig:l06-tau-integral-board}
 \end{figure}
 
-At this point the lecture becomes intentionally pedestrian. Rather than launching into a polished continuum derivation, Susskind reduces the string to something we already understand: a large collection of mass points connected by springs. Then the worldsheet becomes a dense family of world lines, and the dynamics reduces to coupled harmonic oscillators. That is the strategic move. String theory becomes calculable not by magic, but because harmonic oscillators are calculable.
-
-\section{Two Strings Coalesce, Evolve, and Re-Separate}
-
-Now comes the constructive part of the lecture. We begin with two incoming open strings, each approximated by a chain of \(n\) constituents. The first string is described by coordinates \(x_1,\dots,x_n\), the second by \(x_{n+1},\dots,x_{2n}\). For the first chain the center-of-mass position is
+Now set
 \begin{equation}
-X_{\mathrm{cm}}^{(1)}=\frac{x_1+\cdots+x_n}{n},
+  z=e^{-\tau},
+  \qquad
+  dz=-e^{-\tau}\,d\tau.
+  \label{eq:l06-z-substitution}
 \end{equation}
-and for the second,
+As \(\tau\) runs from \(0\) to \(\infty\), \(z\) runs from \(1\) to \(0\).
+The minus sign reverses the limits, giving
 \begin{equation}
-X_{\mathrm{cm}}^{(2)}=\frac{x_{n+1}+\cdots+x_{2n}}{n}.
+  \mathcal A(s,t)
+  \propto
+  \int_0^1
+  z^{-s-1}(1-z)^{-t-1}\,dz.
+  \label{eq:l06-beta-integral}
 \end{equation}
 
-Because the first incoming string carries momentum \(k_1\), its wavefunction contains the plane-wave factor \(e^{ik_1\cdot X_{\mathrm{cm}}^{(1)}}\). The rest of the wavefunction depends only on relative positions along the chain and describes the internal ground state of the oscillators. Writing that ground-state factor as \(\psi_0\), the two incoming strings are represented schematically by
-\begin{align}
-\Psi_1 &= e^{ik_1\cdot X_{\mathrm{cm}}^{(1)}}\,\psi_0(x_1,\dots,x_n),\\
-\Psi_2 &= e^{ik_2\cdot X_{\mathrm{cm}}^{(2)}}\,\psi_0(x_{n+1},\dots,x_{2n}).
-\end{align}
-Since the two strings are initially separate systems, the combined incoming state is their product,
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_06_figure_12.png}
+  \caption{The substitution \(z=e^{-\tau}\) exposes the Euler beta
+  integral.}
+  \lectureframe{01:08:49}
+  \label{fig:l06-beta-integral-board}
+\end{figure}
+
+This integral is defined directly where its endpoints converge and
+elsewhere by analytic continuation. It is the Euler beta function:
 \begin{equation}
-\Psi_{\mathrm{in}}=\Psi_1\Psi_2.
+  B(-s,-t)
+  =
+  \frac{\Gamma(-s)\Gamma(-t)}{\Gamma(-s-t)}.
+  \label{eq:l06-beta-gamma}
 \end{equation}
-This is one of those moments where Susskind slows down to say something very elementary but essential: separate quantum systems combine by multiplication of wavefunctions.
 
-The next step is to ask for the amplitude that the endpoints of the two strings touch. In the discrete description that means imposing the condition
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_06_figure_13.png}
+  \caption{The board identifies the transformed integral with
+  \(B(-s,-t)\) and begins restoring its gamma-function form.}
+  \lectureframe{01:12:24}
+  \label{fig:l06-beta-gamma-board}
+\end{figure}
+
+The channel symmetry is now elementary. Under \(z\mapsto1-z\),
 \begin{equation}
-x_n=x_{n+1}.
+  \int_0^1 z^{-s-1}(1-z)^{-t-1}\,dz
+  =
+  \int_0^1 z^{-t-1}(1-z)^{-s-1}\,dz.
 \end{equation}
-We do not set this from the start; rather, we look inside the incoming wavefunction for the part in which these two endpoint coordinates coincide. Once that happens, the two strings are allowed to coalesce into a single chain. In the spring-and-mass picture, one simply says that a new spring appears between the last constituent of the first string and the first constituent of the second.
+Thus \(\mathcal A(s,t)=\mathcal A(t,s)\). A process constructed as two
+strings joining and later splitting automatically contains the crossed
+description as well.
+\editorialnote{The lecture suppresses the Regge slope and intercept in the
+arguments of the beta function. In standard notation one replaces \(s,t\)
+by the corresponding linear trajectories \(\alpha(s),\alpha(t)\). The
+duality and the change-of-variables argument are unchanged.}
 
-After that, the joined object evolves for some duration, which the lecture again calls \(\tau\). In cleaned notation we may represent that evolution by
-\begin{equation}
-\Psi(\tau)=e^{-iH\tau}\Psi(0),
-\end{equation}
-where \(H\) is the Hamiltonian of the single longer chain. The transcript is not stable on the sign convention in the exponential, so the expression above should be read as the standard Schr\"odinger form, not as a claim about the precise sign on the blackboard.
+\begin{classroomqa}
+\audiencequestion{The gamma-function ratio resembles factorial expressions
+in combinatorics. Is there a direct physical counting
+interpretation? \lecturetimestamp{01:13:22}}
+\lecturerresponse{At integer arguments the beta function is related to a
+ratio such as \(n!\,m!/(n+m)!\), but no combinatorial mechanism is being
+asserted here. The same special function happens to arise from the
+worldsheet integral; this resemblance was not the route by which the
+amplitude was found.}
+\end{classroomqa}
 
-The last step is to project the evolved joined state onto a final state consisting again of two separated strings carrying momenta \(k_3\) and \(k_4\). The logical order matters, and Susskind keeps repeating it:
-\begin{enumerate}
-\item begin with two incoming string ground states,
-\item multiply them to make the initial composite wavefunction,
-\item constrain the endpoints to be at the same point,
-\item evolve the joined string as a single dynamical system,
-\item project onto a final two-string state.
-\end{enumerate}
-That gives the amplitude for joining, propagating for a time \(\tau\), and splitting again.
+The still-hidden reason why one worldsheet can be read in both channels is
+conformal symmetry. It permits the sheet to be stretched like taffy without
+changing the amplitude, turning a long direct-channel propagation region
+into a crossed-channel exchange picture. That geometric explanation is
+deferred to the next lecture.
 
-\subsection{Question \& Answer}
+\section{What the Scattering Test Established}
+\enlargethispage{3\baselineskip}
+\begingroup
+\setlength{\medskipamount}{3pt plus 1pt minus 1pt}
 
-Question. Why do we integrate over the intermediate time \(\tau\), and what are we summing over?
+The discrete joining picture prompted a final cluster of questions.
 
-Answer. We integrate because the lifetime of the joined string is not fixed. Feynman's rule is to sum over all possibilities. In this setup the remaining continuous parameter is precisely the time for which the two strings stay fused before they separate again. So the sum over histories becomes an integral over all allowed \(\tau\).
+\begin{classroomqa}
+\audiencequestion{If two chains of \(n\) constituents join at their
+endpoints, is the result \(2n-1\), and could that change fermion
+parity? \lecturetimestamp{01:16:16}}
+\lecturerresponse{In the hadronic endpoint picture the touching endpoint
+pair may be regarded as a particle-antiparticle pair that annihilates, so
+the count is reduced by two, not one. In the continuum limit the finite
+difference between \(2n\) and \(2n-2\) is immaterial, but preserving fermion
+parity is not. The lattice constituents are only a regulator for the
+continuous string, not literal fundamental beads.}
+\end{classroomqa}
 
-The lecture then writes down the answer in a form that is corrected live as it is being discussed. Cleaning the signs into a consistent convention gives a representative integrand of the form
-\begin{equation}
-A(s,t)\propto \int_0^\infty d\tau\, e^{-\tau(s+1)}\bigl(1-e^{-\tau}\bigr)^{-t-1}.
-\end{equation}
-What matters is not the precise on-the-fly blackboard bookkeeping of every minus sign, but the structure: one factor carries the \(s\)-dependence, another carries the \(t\)-dependence, and the amplitude is obtained by integrating over the duration of the joined phase.
+\begin{classroomqa}
+\audiencequestion{Will the later discussion continue into the full
+mathematics of superstrings? \lecturetimestamp{01:18:05}}
+\lecturerresponse{Only selected consequences will be used. The immediate
+route is through worldsheet symmetry and compactification, followed by a
+different starting point developed in the mid-1990s: M-theory. Its purpose
+is to reach the same physics from a viewpoint in which several otherwise
+complicated features become transparent.}
+\end{classroomqa}
 
-Now comes the surprise. Let
-\begin{equation}
-z=e^{-\tau}.
-\end{equation}
-Then \(d z = -e^{-\tau}d\tau\), the range \(\tau\in[0,\infty)\) becomes \(z\in[1,0]\), and after reversing the limits one obtains
-\begin{equation}
-A(s,t)\propto \int_0^1 z^{-s-1}(1-z)^{-t-1}\,dz.
-\end{equation}
-This is the Euler beta function,
-\begin{equation}
-A(s,t)\propto B(-s,-t)=\frac{\Gamma(-s)\Gamma(-t)}{\Gamma(-s-t)}.
-\end{equation}
-So the joining-and-splitting of two open strings reproduces the Veneziano amplitude.
+\begin{classroomqa}
+\audiencequestion{Was this joining rule only a clue from meson
+collisions? \lecturetimestamp{01:20:02}}
+\lecturerresponse{Meson scattering supplied the historical clue, but the
+rule is general for open strings. The same topology describes collisions of
+open-string photons and other open-string states. Two closed strings join
+and split by an analogous construction, with a closed string in the
+intermediate region.}
+\end{classroomqa}
 
-The symmetry that looked so mysterious before is now visible directly in the integral. Under the change of variables \(z\mapsto 1-z\),
-\begin{align}
-A(s,t)
-&\propto \int_0^1 z^{-s-1}(1-z)^{-t-1}\,dz \\
-&= \int_0^1 z^{-t-1}(1-z)^{-s-1}\,dz \\
-&= A(t,s).
-\end{align}
-The astonishing thing, as Susskind stresses, is that the construction began in a way that looked very asymmetric between collision energy and momentum transfer. Yet the final answer is completely symmetric between \(s\) and \(t\). The deeper reason is deferred to the next lecture: conformal symmetry on the worldsheet, the symmetry that lets one stretch the sheet like Turkish taffy and reinterpret the same process in different channel pictures.
+\begin{classroomqa}
+\audiencequestion{Does the calculation apply only when the string states are
+fermions? \lecturetimestamp{01:20:56}}
+\lecturerresponse{No. The original Veneziano calculation belongs to the
+bosonic open string. Superstrings require additional fermionic degrees of
+freedom and modify details of the integrand, but the joining, propagation,
+projection, and worldsheet-duality logic remains closely analogous.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+Finding a spin-one or spin-two state in the oscillator spectrum was
+suggestive, but not decisive. Their scattering amplitudes supplied the
+stronger test. Photon amplitudes obey the identities associated with charge
+conservation and gauge invariance; graviton amplitudes obey the corresponding
+constraints of a massless spin-two field. The string states passed these
+tests in interactions with massive and massless states and with one another.
+That is why the photon and graviton labels became physical identifications
+rather than guesses based only on polarization counting.
+\editorialnote{In modern language these tests are encoded in decoupling of
+unphysical polarizations, gauge Ward identities, and the universal
+low-energy coupling of the massless spin-two state.}
 
-Question. In the discrete string picture, when two endpoint constituents meet, why do two disappear rather than one?
-
-Answer. This comes up as a late but genuine consistency check. The right way to think about it is that the touching endpoint of one chain and the touching endpoint of the other annihilate as a pair. The new spring then connects the next surviving constituents. In that discrete language one has \(2n-2\) constituents rather than \(2n-1\). For the continuum limit the difference is negligible, but conceptually it matters: one must not lose an odd number of fermionic degrees of freedom.
-
-Susskind then adds three closing clarifications. First, the same basic calculation was originally done for the bosonic string and changes only slightly for superstrings. Second, the analogous process for closed strings is very similar: two closed strings join into one closed string, propagate, and then split again. Third, and historically most important, once these amplitudes were calculated for the spin-one and spin-two states in the string spectrum, they behaved not like generic scalar amplitudes but like the distinctive amplitudes of photons and gravitons. That was one of the sharp signals that string theory had stumbled into something much deeper than a phenomenological model of hadrons.
-
-\section{Summary}
-
-The lecture unfolds in a very deliberate sequence. We begin with ordinary relativistic scattering, define four-momentum and the mass shell, and use the all-incoming convention to put the kinematics into a symmetric form. We then strip a \(2\to2\) process down to its invariant content and package that content into the Mandelstam variables. From there the direct and crossed channels acquire a clear physical meaning: one forms a compound state that forgets its incident direction, the other transmits momentum and remembers the scattering angle.
-
-The real surprise comes when those two channel pictures are no longer added separately, but are replaced by the single Veneziano amplitude. The second half of the lecture then rewinds from that formula to the mechanism behind it: two strings join, evolve as one, and split again. The resulting integral is the Euler beta function, and therefore the Veneziano amplitude itself. What still remains to be explained is why the answer is symmetric between \(s\) and \(t\). That deeper answer lies in conformal symmetry on the worldsheet, and it is left, quite deliberately, for next time.
+\begin{classroomqa}
+\audiencequestion{Where does electric charge itself come from in the string
+description? \lecturetimestamp{01:24:03}}
+\lecturerresponse{That question is left open at the end of the lecture. Its
+answer requires the internal and endpoint structure of the string theory,
+which has not yet been introduced, so it belongs to the discussion that
+follows rather than to this scattering derivation.}
+\end{classroomqa}
+\endgroup
