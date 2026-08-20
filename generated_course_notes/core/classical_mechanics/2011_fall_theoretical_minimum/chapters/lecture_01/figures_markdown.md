@@ -1,54 +1,51 @@
 # Figure Notes
+
 ## Image Inventory
-- `lecture_01_figure_02.png`: Blackboard frame from the coin example. At left there is a boxed two-state list reading `H, T`. In the center there is a two-node circular state diagram with `H` and `T` connected by arrows in both directions. Beneath it are the update rules `H \to T` and `T \to H`. A cropped right-hand column is present but not fully legible.
-- `lecture_01_figure_03.png`: Later blackboard frame from the same coin example. The two-node `H`/`T` state diagram remains visible, now with sigma labels above the nodes, and the update equation \(\sigma(t+1)=-\sigma(t)\) is written clearly across the board. Part of the earlier boxed state list remains at left but is partly occluded by the lecturer.
-- `lecture_01_figure_04.png`: Blackboard frame from the vector review. A triangle-like vector sketch shows vectors labeled \(A\), \(B\), and \(C\), with faint auxiliary construction lines above it. Below the sketch is a three-line derivation from \(\bar C\cdot\bar C\) to the law-of-cosines form. Some unrelated dot-product formulas are cropped at the far right.
-- `lecture_01_figure_05.png`: Blackboard frame from the transition to particle kinematics. On the left the component formula for velocity is written, and below it the acceleration line is partly visible. On the right the lecturer is in the act of writing the vector statement that velocity is the time derivative of the position vector.
 
-## Blackboard Equations
-- `lecture_01_figure_02.png`: \(H,\ T\) [visible]
-- `lecture_01_figure_02.png`: \(H \to T\) [visible]
-- `lecture_01_figure_02.png`: \(T \to H\) [visible]
+- lecture_01_figure_02.png (00:06:50): boxed \(H,T\) state set, directed flip cycle, and the rules \(H\to T\), \(T\to H\).
+- lecture_01_figure_03.png (00:08:58): sigma-labeled coin states and the completed equation \(\sigma(t+1)=-\sigma(t)\).
+- lecture_01_figure_06.png (00:12:40): one directed cycle through all six die states.
+- lecture_01_figure_07.png (00:18:40): a fixed point, a two-cycle, and a three-cycle during the conserved-quantity discussion.
+- lecture_01_figure_08.png (00:28:50): the nonreversible \(H,T,E\) graph and representative state histories.
+- lecture_01_figure_09.png (00:43:00): Cartesian axes, a point, and its three coordinate projections.
+- lecture_01_figure_10.png (00:53:00): triangle and parallelogram constructions for vector addition.
+- lecture_01_figure_11.png (00:58:30): projection geometry and the dot-product formula.
+- lecture_01_figure_04.png (01:04:29): vector-subtraction triangle and the law-of-cosines derivation.
+- lecture_01_figure_05.png (01:14:24): component and vector forms of velocity as a time derivative.
+- lecture_01_figure_12.png (01:24:30): circular position and velocity components with the vanishing dot product.
+- lecture_01_figure_13.png (01:26:30): circular-acceleration components proportional to \(-\omega^2\).
 
-- `lecture_01_figure_03.png`: \(\sigma = 1\) [visible]
-- `lecture_01_figure_03.png`: \(\sigma = -1\) [visible]
-- `lecture_01_figure_03.png`: \(\sigma(t+1) = -\sigma(t)\) [visible]
-- `lecture_01_figure_03.png`: \(H\) and \(T\) node labels [visible]
+## Blackboard Mathematics
 
-- `lecture_01_figure_04.png`: \(\bar C \cdot \bar C = (\bar A - \bar B)\cdot(\bar A - \bar B)\) [visible]
-- `lecture_01_figure_04.png`: \(A\cdot A + B\cdot B - 2A\cdot B\) [visible]
-- `lecture_01_figure_04.png`: \(|A|^2 + |B|^2 - 2|A||B|\cos\theta\) [visible]
+- lecture_01_figure_02.png: \(H\to T\), \(T\to H\).
+- lecture_01_figure_03.png: \(\sigma=1\) for \(H\), \(\sigma=-1\) for \(T\), and \(\sigma(t+1)=-\sigma(t)\).
+- lecture_01_figure_06.png: \(1\to2\to3\to4\to5\to6\to1\). One spoken slip says \(6\to6\), but the drawing and enumerated history establish \(6\to1\).
+- lecture_01_figure_07.png: disconnected cycles carrying constant orbit labels; the labels on individual nodes are not legible enough to transcribe.
+- lecture_01_figure_08.png: \(H\to T\), \(T\to E\), \(E\to T\), with \(H,T,E,T,E,\ldots\) and \(T,E,T,E,\ldots\).
+- lecture_01_figure_09.png: \(x,y,z\) axes and a point represented by \((x,y,z)\).
+- lecture_01_figure_10.png: \(\mathbf C=\mathbf A+\mathbf B\) by head-to-tail and parallelogram constructions.
+- lecture_01_figure_11.png: \(\mathbf A\cdot\mathbf B=\lvert\mathbf A\rvert\lvert\mathbf B\rvert\cos\theta\).
+- lecture_01_figure_04.png: \(\mathbf C=\mathbf A-\mathbf B\) and \(C^2=A^2+B^2-2AB\cos\theta\).
+- lecture_01_figure_05.png: \(v_i=d x_i/dt\) and the transcript-backed completion \(\mathbf v=d\mathbf r/dt\).
+- lecture_01_figure_12.png: \(x=\cos\omega t\), \(y=\sin\omega t\), \(v_x=-\omega\sin\omega t\), \(v_y=\omega\cos\omega t\), and \(\mathbf r\cdot\mathbf v=0\).
+- lecture_01_figure_13.png: \(a_x=-\omega^2\cos\omega t\), \(a_y=-\omega^2\sin\omega t\), hence \(\mathbf a=-\omega^2\mathbf r\).
 
-- `lecture_01_figure_05.png`: \(V_i = \dfrac{dX_i}{dt}\) [visible]
-- `lecture_01_figure_05.png`: \(a_i = \dot V_i\) [partially visible]
-- `lecture_01_figure_05.png`: \(\vec V = \dfrac{d}{dt}(\cdots)\) [partially visible]
-- `lecture_01_figure_05.png`: \(\vec V = \dfrac{d\vec r}{dt}\) [standard reconstruction]
+## Reconstruction Guidance
 
-## Diagram And Layout Reading
-- `lecture_01_figure_02.png` uses a three-part board layout: a boxed state list at left, the central dynamical picture as a two-node directed cycle, and explicit text-form update rules below. The right edge suggests a further column or table, but it is too cropped to carry independent weight.
-- `lecture_01_figure_03.png` preserves the same underlying two-state layout but upgrades it into sigma notation. The diagram now carries the identification \(H \leftrightarrow \sigma=1\) and \(T \leftrightarrow \sigma=-1\), while the main update rule is pulled out as a standalone equation beneath.
-- `lecture_01_figure_04.png` is both geometric and algebraic. The upper sketch is a vector-subtraction triangle: \(A\) and \(B\) share a tail, while \(C\) is the side connecting their tips. The lower half of the board is a vertical derivation block translating that sketch into dot-product algebra and then into the law of cosines.
-- `lecture_01_figure_04.png` also contains faint auxiliary lines above the triangle, likely from nearby board work; they help indicate board rhythm but are too light to force a literal redraw.
-- `lecture_01_figure_05.png` is an equation-board moment rather than a geometric diagram. The left side records the component-level formulas, while the right side shows the lecturer moving to the compact vector notation. The visible layout itself is useful because it shows the pedagogical sequence from components to vector form.
-
-## TeX Reconstruction Plan
-- `lecture_01_figure_02.png` should remain visible in the notes. It is the clearest documentary frame for the initial heads-tails configuration-space picture and the explicit rules \(H\to T\), \(T\to H\). Nearby, redraw the two-state transition diagram in TikZ and typeset the update rules cleanly.
-- `lecture_01_figure_03.png` should also remain visible. It captures the later, more mathematical version of the same coin system, now labeled by \(\sigma=\pm1\), and it cleanly displays the update equation \(\sigma(t+1)=-\sigma(t)\). Nearby, include the displayed equation and, if the chapter uses a polished schematic, a TikZ redraw of the two-state diagram with sigma labels.
-- `lecture_01_figure_04.png` should remain visible and should be paired with both a clean displayed derivation and a simple TikZ redraw of the vector triangle. The redraw should show only the robust visible geometry: vectors \(A\), \(B\), and the difference vector \(C\). The faint auxiliary lines should not be promoted into a strong geometric claim.
-- `lecture_01_figure_05.png` should remain visible, but it does not need TikZ. Its value is the board rhythm from the component formula \(V_i=dX_i/dt\) to the vector statement. Nearby, reconstruct the mathematics with clean displayed equations, especially \(\vec V = d\vec r/dt\), and, if useful in context, the accompanying component and acceleration formulas.
-
-## Caption Drafts
-- `lecture_01_figure_02.png`: Heads-tails transition diagram
-- `lecture_01_figure_03.png`: Sigma notation for the coin flip law
-- `lecture_01_figure_04.png`: Vector subtraction and the law of cosines
-- `lecture_01_figure_05.png`: Velocity as the time derivative of position
+- Keep every listed screenshot in the chapter. Each frame records a distinct stage of the argument and was checked against the corresponding transcript window.
+- Typeset complete equations beside the screenshots. Do not ask partially occluded chalk to carry an entire derivation.
+- Normalize mixed chalk bars and arrows to bold vector notation in the prose and equations.
+- Treat the state graphs as directed update maps. Arrow direction and cycle connectivity are the physically relevant features; node placement is not.
+- Preserve the law-of-cosines correction \(\mathbf C=\mathbf A-\mathbf B\), which is made explicitly during the lecture.
+- Preserve the period as \(T=2\pi/\omega\); a preceding spoken phrase is garbled, while the completed statement is unambiguous.
+- Describe \(\mathbf a=-\omega^2\mathbf r\) as centripetal acceleration. The lecture's inward direction and equation are clear even though one spoken word says “centrifugal.”
 
 ## Uncertainties
-- In `lecture_01_figure_02.png`, the sigma labels are not yet legible; this frame supports the state diagram and update arrows, not the full \(\sigma=\pm1\) identification.
-- In `lecture_01_figure_02.png`, the cropped right-hand column is too incomplete to read confidently and should not drive any reconstruction.
-- In `lecture_01_figure_03.png`, the left boxed state list is partly hidden by the lecturer, so the screenshot should not be used as primary evidence for its exact formatting.
-- In `lecture_01_figure_04.png`, the vector notation on the board appears with bars rather than carefully drawn arrows in places; the chapter may normalize that to a consistent vector notation, but the screenshot itself is slightly mixed.
-- In `lecture_01_figure_04.png`, the faint extra lines above the main triangle are not clear enough to reconstruct as definite additional vectors or a full parallelogram.
-- In `lecture_01_figure_05.png`, the right-hand vector formula is still being written, so \(\vec V = d\vec r/dt\) should be treated as a cautious transcript-backed completion rather than a fully legible board transcription.
-- In `lecture_01_figure_05.png`, the acceleration line below the component formula is only partly visible; it supports the presence of \(a_i=\dot V_i\), but not a fully finished multi-step line.
-- In `lecture_01_figure_05.png`, the board appears to use uppercase \(V_i\) and \(X_i\) at this moment; if the chapter later normalizes to lower-case notation, that normalization should come from the surrounding lecture context, not from the frame alone.
+
+- lecture_01_figure_02.png: the right edge contains cropped writing that is not used.
+- lecture_01_figure_03.png: the left state box is partly occluded, but the sigma equation is complete.
+- lecture_01_figure_07.png: the cycle topology is clear; individual state labels are not.
+- lecture_01_figure_09.png: perspective makes the third axis schematic rather than metrically exact.
+- lecture_01_figure_04.png: faint auxiliary chalk lines are not promoted into additional geometry.
+- lecture_01_figure_05.png: the vector equation is still being completed in the frame and is finished from the immediately surrounding transcript.
+- lecture_01_figure_13.png: the lecturer partly overlaps the far-right chalk, but both acceleration components and their common \(-\omega^2\) structure remain identifiable.

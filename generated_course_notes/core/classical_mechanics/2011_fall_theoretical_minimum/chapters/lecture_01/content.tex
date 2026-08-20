@@ -1,633 +1,738 @@
-\chapter{What Counts as a Law of Motion?}
+\chapter{States, Reversibility, and Kinematics}
 
-Classical mechanics begins here with a question that is broader than any one orbit, any one falling stone, or any one charged particle. We want to know not only the specific laws governing particular systems, but also the general framework within which an acceptable law of motion must lie. Leonard Susskind therefore begins, quite deliberately, with absurdly simple worlds. The simplicity is not a detour. It is what allows the notions of state, law, determinism, conservation, and reversibility to emerge cleanly before the familiar machinery of mechanics is brought in. The present notes follow that unfolding closely, and the preserved board frames from LazyingArt LLC and Video2Book are used only where they steady a visible equation or diagram already motivated in the lecture.
+Classical mechanics is not only a collection of equations for falling bodies,
+orbiting planets, or charged particles.  Before choosing any particular
+equation, we can ask a more general question: what must a law of motion look
+like in order to count as a classical law?  We shall begin with systems so
+simple that every possible history can be drawn on the blackboard.  Once the
+ideas of state, determinism, reversibility, and conservation are clear there,
+we shall return to particles moving in ordinary space.
 
-\section{Two Questions and a Minimal World}
+\section{Two Kinds of Question}
 
-The lecture opens by separating two questions that are easy to mix together.
+There are two kinds of question in mechanics.  One asks for the specific law
+that governs a particular system.  A planet moving in the gravitational field
+of a massive body obeys one law; an electrically charged particle moving in a
+magnetic field obeys another.  These are questions about the detailed laws of
+nature.
 
-The first question is concrete: what are the laws for particular kinds of systems? A planet moving in the field of a heavy mass has one kind of law; a charged particle moving in a magnetic field has another. These are the specific laws of nature.
+The other question concerns the framework common to all such examples.  Are
+there rules that every allowable law must satisfy?  Which features belong to
+classical mechanics itself, independently of the force or the object under
+study?  The specific examples will illustrate the answer, but it is this
+second question that organizes the subject.
 
-The second question is more structural: what counts as an allowable law at all? What must be true of a law of motion before we even begin to ask which particular system it describes? Susskind tells us immediately that this second question is the real target, while the first will merely supply illustrations.
-
-So we begin with the smallest world that is still nontrivial. Let us take a coin lying on an abstract table. The only feature of the coin that matters is whether it is heads or tails. Thus the world contains one object with two configurations,
-\[
-H \qquad \text{and} \qquad T.
-\]
-An initial condition is just the choice of one of these configurations at the initial time. A law of motion is then a rule that tells us what happens next.
-
-This order matters. First we decide what the possible configurations are. Only then do we ask how they evolve.
-
-\section{A Coin as a Dynamical System}
-
-For the coin, the configuration space is simply
-\[
-\mathcal{C}=\{H,T\}.
-\]
-Susskind first pauses over the vocabulary. This is our world. What is an initial condition? It is just the statement that the coin is heads or tails. What, then, is a law of motion? We are about to invent one.
-
-He briefly remarks that there is an even simpler world: a one-sided coin. But that world is too simple, because nothing can happen in it. The two-state coin is the first place where the question becomes interesting.
-
-Time is introduced in the simplest possible form. We imagine a stroboscopic world in which we look only at successive flashes, so the time variable is discrete:
-\[
-t\in\mathbb{Z}.
-\]
-
-\paragraph{The first law: nothing happens.}
-The first law is as boring as possible:
-\[
-H\to H,\qquad T\to T.
-\]
-Heads remains heads, tails remains tails. This is a trivial law, but it is already a powerful one. Once the initial condition is known, the entire future is fixed. If the world begins in \(H\), its history is
-\[
-H,H,H,H,\dots
-\]
-and if it begins in \(T\), its history is
-\[
-T,T,T,T,\dots
-\]
-
-\paragraph{The second law: flip every step.}
-There is only one other deterministic one-step law for a two-state system:
-\[
-H\to T,\qquad T\to H.
-\]
-At each flash of the stroboscope, the coin changes to the opposite state. Starting from heads, the history is
-\[
-H,T,H,T,\dots
-\]
-and starting from tails, it is
-\[
-T,H,T,H,\dots
-\]
-
-\begin{figure}
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_01_figure_02.png}
-\caption{The board layout for the two-state coin system: the boxed state set at left, the directed two-state cycle at center, and the explicit update rules beneath.}
-\end{figure}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw (0,0) rectangle (2.2,1.3);
-\node at (1.1,0.65) {$H,\ T$};
-
-\draw (4.3,0.0) circle (0.45);
-\draw (6.3,0.0) circle (0.45);
-\node at (4.3,0.0) {$H$};
-\node at (6.3,0.0) {$T$};
-
-\draw[->] (4.62,0.28) .. controls (5.25,1.15) and (5.35,1.15) .. (5.98,0.28);
-\draw[->] (5.98,-0.28) .. controls (5.35,-1.15) and (5.25,-1.15) .. (4.62,-0.28);
-
-\node at (5.3,-1.75) {$H\to T,\qquad T\to H$};
-\end{tikzpicture}
-\caption{A clean reconstruction of the flip law.}
-\end{figure}
-
-Only after the pictures are in place does Susskind introduce notation. Let
-\[
-\sigma=
-\begin{cases}
-1,& \text{for } H,\\[4pt]
--1,& \text{for } T.
-\end{cases}
-\]
-Then the two states are compressed into the two values of one variable. In that notation, the boring law becomes
+The most useful first example is an abstract coin on an abstract table.  We
+retain only one property of the coin: it can show heads or tails.  Its space of
+configurations is therefore
 \begin{equation}
-\sigma(t+1)=\sigma(t),
+  \mathcal C=\{H,T\}.
 \end{equation}
-and the flip law becomes
+The word \emph{configuration} means one of the possible ways the system can
+be.  An initial condition is a choice of one of them.  A one-sided coin would
+be still simpler, but it would have only one configuration and nothing could
+ever happen.  Two states are enough to make dynamics possible.
+
+\section{The Coin: State, Law, and History}
+
+Let time advance in integer steps, as if the world were illuminated by a
+stroboscope:
 \begin{equation}
-\sigma(t+1)=-\sigma(t).
+  t=\ldots,-2,-1,0,1,2,\ldots .
 \end{equation}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_01_figure_03.png}
-\caption{The same two-state system after the lecture upgrades it to sigma notation and writes the equation \(\sigma(t+1)=-\sigma(t)\).}
-\end{figure}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw (3.8,0.0) circle (0.45);
-\draw (6.2,0.0) circle (0.45);
-\node at (3.8,0.0) {$H$};
-\node at (6.2,0.0) {$T$};
-\node at (3.25,0.9) {$\sigma=1$};
-\node at (6.75,0.9) {$\sigma=-1$};
-
-\draw[->] (4.14,0.30) .. controls (4.85,1.25) and (5.15,1.25) .. (5.86,0.30);
-\draw[->] (5.86,-0.30) .. controls (5.15,-1.25) and (4.85,-1.25) .. (4.14,-0.30);
-\end{tikzpicture}
-\caption{A clean reconstruction of the sigma-labeled state diagram.}
-\end{figure}
-
-This is the first important rhythm of the lecture: concept first, notation second. The symbol \(\sigma\) does not create the physics; it merely packages what was already clear from the update rule and the graph.
-
-The coin itself is not the point. The point is that, for a closed system, a law of motion in classical mechanics is completely predictive. Once the law and the initial state are specified, the future is fixed.
-
-\section{From a Coin to a Die: Cycles, Relabeling, and Conservation}
-
-Now let us complicate the system, but not by much. Instead of a coin, take a die. The only fact about the die that matters for this discussion is that it has six possible states:
-\[
-1,2,3,4,5,6.
-\]
-An initial condition is again just a choice of one of these states.
-
-At this stage Susskind does not try to write equations. The graph is the right language. A law of motion is a directed graph on the state space, and the history of the system is found by iterating the arrows.
-
-The most boring law is again the one in which nothing happens: every state points to itself. More interesting is a single six-cycle,
+A law of motion is an update rule.  It assigns to the state at time \(t\) a
+state at time \(t+1\).  The simplest rule does nothing:
 \begin{equation}
-1\to 2\to 3\to 4\to 5\to 6\to 1.
+  H\longmapsto H,
+  \qquad
+  T\longmapsto T.
+  \label{eq:coin-identity}
 \end{equation}
-One spoken line in the lecture is slightly garbled at this point, but the intended six-cycle is clear from the surrounding exposition and from the histories he derives from it.
+Starting from \(H\), the entire history is \(H,H,H,\ldots\); starting from
+\(T\), it is \(T,T,T,\ldots\).  The rule is boring, but it is completely
+predictive.
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.05]
-\node[circle,draw] (1) at (90:1.7) {$1$};
-\node[circle,draw] (2) at (30:1.7) {$2$};
-\node[circle,draw] (3) at (-30:1.7) {$3$};
-\node[circle,draw] (4) at (-90:1.7) {$4$};
-\node[circle,draw] (5) at (-150:1.7) {$5$};
-\node[circle,draw] (6) at (150:1.7) {$6$};
+The other reversible rule exchanges the two states:
+\begin{equation}
+  H\longmapsto T,
+  \qquad
+  T\longmapsto H.
+  \label{eq:coin-flip}
+\end{equation}
+The histories now alternate:
+\begin{equation}
+  H,T,H,T,\ldots,
+  \qquad
+  T,H,T,H,\ldots .
+\end{equation}
+An arrow points from the state before the update to the state after it.  Thus
+the tail of an arrow says where the system starts and the arrowhead says where
+it goes.
 
-\draw[->] (1) to[bend left=12] (2);
-\draw[->] (2) to[bend left=12] (3);
-\draw[->] (3) to[bend left=12] (4);
-\draw[->] (4) to[bend left=12] (5);
-\draw[->] (5) to[bend left=12] (6);
-\draw[->] (6) to[bend left=12] (1);
-\end{tikzpicture}
-\caption{A law consisting of one six-cycle.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_02.png}
+  \caption{The two configurations of the coin and the directed flip law on
+  the lecture blackboard.  The clean update rule is given in
+  Eq.~\eqref{eq:coin-flip}.}
+  \lectureframe{00:06:50}
+  \label{fig:coin-board}
 \end{figure}
 
-He then writes down a more awkward-looking law,
-\[
-\begin{aligned}
-1&\to 2,\qquad 2\to 5,\qquad 5\to 3,\\
-3&\to 4,\qquad 4\to 6,\qquad 6\to 1,
-\end{aligned}
-\]
-but this is not really a new kind of law. It is still one cycle passing through every state. The difference is only a relabeling. If we were to redraw the nodes in a different order, the graph would look just like the first one.
+We can encode the faces by a two-valued variable,
+\begin{equation}
+  \sigma=
+  \begin{cases}
+    +1,&H,\\
+    -1,&T.
+  \end{cases}
+\end{equation}
+The letter \(\sigma\) is traditionally used for two-valued quantities in
+physics, especially in descriptions of spin, although no knowledge of spin is
+needed here.  In this notation the two rules become equations of motion:
+\begin{align}
+  \sigma(t+1)&=\sigma(t),
+  &&\text{identity law},\label{eq:sigma-identity}\\
+  \sigma(t+1)&=-\sigma(t),
+  &&\text{flip law}.\label{eq:sigma-flip}
+\end{align}
+The variable does not add new physics.  It gives a compact label for the
+configuration and turns a graph into an equation.
 
-So what genuinely distinguishes different laws? Not the names we assign the states, but the cycle structure.
-
-A genuinely new possibility is a graph with more than one disconnected cycle. For example,
-\[
-1\to 2\to 3\to 1,
-\qquad
-4\to 6\to 5\to 4.
-\]
-Now the die is still one system, but once the evolution begins, the state is trapped on one cycle or the other.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=0.95]
-\node[circle,draw] (1) at (-3.0,1.0) {$1$};
-\node[circle,draw] (2) at (-1.7,2.0) {$2$};
-\node[circle,draw] (3) at (-1.2,0.5) {$3$};
-
-\node[circle,draw] (4) at (1.2,0.5) {$4$};
-\node[circle,draw] (5) at (3.0,1.0) {$5$};
-\node[circle,draw] (6) at (2.2,2.2) {$6$};
-
-\draw[->] (1) to[bend left=15] (2);
-\draw[->] (2) to[bend left=15] (3);
-\draw[->] (3) to[bend left=15] (1);
-
-\draw[->] (4) to[bend left=15] (6);
-\draw[->] (6) to[bend left=15] (5);
-\draw[->] (5) to[bend left=15] (4);
-\end{tikzpicture}
-\caption{A law with two disconnected cycles.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_03.png}
+  \caption{The flip law written as
+  \(\sigma(t+1)=-\sigma(t)\).  The boxed values \(\sigma=\pm1\) label heads and
+  tails.}
+  \lectureframe{00:08:58}
+  \label{fig:sigma-board}
 \end{figure}
 
-This is where conservation first appears. We may assign one label to the upper cycle and another to the lower. That label remains fixed as the state moves around inside its cycle.
+For either rule, the initial state and the law determine the state at every
+later time.  This statement presumes that the system is \emph{closed}.  If
+someone reaches in and turns the coin, then the hand is an external influence
+not included in our description.  We have not disproved determinism; we have
+changed the system.  A classical law is intended to govern a closed system,
+with all influences relevant to its evolution included.
+
+There are four mathematical functions from a two-element set to itself.  The
+two not written above send both inputs to \(H\), or both inputs to \(T\).
+They are deterministic toward the future, but they erase the distinction
+between two possible pasts.  When reversibility is imposed below,
+Eqs.~\eqref{eq:coin-identity} and \eqref{eq:coin-flip} are exactly the two
+allowed maps.
+
+\section{A Die: Orbits and Conserved Quantities}
+
+Replace the coin by a die.  For present purposes, the only important fact
+about a die is that it has six configurations,
+\begin{equation}
+  \mathcal C=\{1,2,3,4,5,6\}.
+\end{equation}
+An initial condition is a choice of one number.  We could again let every
+state remain fixed, but directed graphs are more useful for less trivial
+rules.  Consider
+\begin{equation}
+  1\longmapsto2\longmapsto3\longmapsto4
+  \longmapsto5\longmapsto6\longmapsto1.
+  \label{eq:six-cycle}
+\end{equation}
+Starting at \(4\), for example, the history is
+
+\[
+  4,5,6,1,2,3,4,\ldots .
+\]
+The six states form one cycle.\footnote{Source note: during the first reading
+of the arrows, one spoken phrase says that \(6\) returns to \(6\).  The
+immediately following phrase, the drawn cycle, and the enumerated history all
+give the intended update \(6\mapsto1\).}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_06.png}
+  \caption{The single six-state cycle.  A state moves to the next state at
+  every stroboscopic step and returns after six updates.}
+  \lectureframe{00:12:40}
+  \label{fig:six-cycle-board}
+\end{figure}
+
+A rule can look more complicated without being structurally different.  For
+example,
+\begin{equation}
+  1\to2\to5\to3\to4\to6\to1
+  \label{eq:relabeled-cycle}
+\end{equation}
+is still a single six-cycle.  If the vertices are placed around the page in
+the order \(1,2,5,3,4,6\), it becomes the same picture as
+Eq.~\eqref{eq:six-cycle}.  Labels such as \(1\) and \(5\) are names; the cycle
+structure does not depend on them.
+
+A genuinely different law divides the six states into two cycles, for
+example
+\begin{equation}
+  1\to2\to3\to1,
+  \qquad
+  4\to6\to5\to4.
+  \label{eq:two-cycles}
+\end{equation}
+There is still one die and one law, but a trajectory that begins on one cycle
+can never reach the other.  We may attach a number \(Q\) to the cycles,
+\begin{equation}
+  Q=
+  \begin{cases}
+    0,&\text{on the cycle }\{1,2,3\},\\
+    1,&\text{on the cycle }\{4,5,6\}.
+  \end{cases}
+\end{equation}
+The state changes at every step while \(Q\) does not.
 
 \begin{definition}
-A conserved quantity is a label on the state space that remains constant under the evolution.
+A conserved quantity is a function of the state whose value is unchanged by
+the law of motion.
 \end{definition}
 
-In these finite examples, conserved quantities arise because the state space decomposes into disconnected pieces. Susskind then gives a further example with three cycles, including a fixed point, in order to emphasize that a conserved quantity need not specify the state completely. It may tell us only which orbit we belong to. The state changes; the conserved label does not.
+The same idea allows one fixed point, one two-cycle, and one three-cycle.  The
+conserved label says which orbit the system occupies; it need not identify the
+state within that orbit.  Thus conservation is compatible with motion.  What
+is preserved is not necessarily the complete configuration but some
+distinction among possible configurations.
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} What if the next step depends not only on the present configuration, but also on the previous one?
-
-\paragraph{Answer.} Then the present configuration alone was never the full state. The state must be enlarged until the law again becomes one-step deterministic.
-
-This is a crucial point, and Susskind does not let it pass too quickly. Suppose, for the coin, that what happens next depends on both the present face and the immediately preceding face. Then the correct state space is no longer \(\{H,T\}\). It is the four-element set
-\[
-\{HH,HT,TH,TT\},
-\]
-where, for example, \(HT\) means ``heads now, tails one step ago.''
-
-So the right definition is not merely ``what the system looks like now.'' It is sharper:
-
-\begin{definition}
-The state of a system consists of all the information that must be specified at one time in order to predict the future.
-\end{definition}
-
-This principle will return in a much more serious form when we discuss particles. For the moment, the toy example has already done its work.
-
-\section{Infinite State Spaces and the Meaning of an Allowed Law}
-
-There is nothing in the discussion so far that requires the state space to be finite. We can just as well consider a particle that occupies one point on the infinite integer lattice,
-\[
-n\in\mathbb{Z}.
-\]
-The particle is still only one object. It simply has infinitely many possible states.
-
-One possible law is
-\begin{equation}
-n(t+1)=n(t)+1.
-\end{equation}
-At each step the particle moves one unit to the right. If we think graphically, there is one endless orbit: going forward or backward, we pass through every integer.
-
-A second law is
-\begin{equation}
-n(t+1)=n(t)+2.
-\end{equation}
-Now the odd integers communicate only with odd integers, and the even integers only with even integers. So parity is conserved.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=0.9]
-\foreach \x/\lab in {0/{-2},1/{-1},2/{0},3/{1},4/{2},5/{3},6/{4}}{
-  \fill (\x,0) circle (1.4pt);
-  \node[below] at (\x,0) {$\lab$};
-}
-\foreach \x in {0,1,2,3,4,5}{
-  \draw[->] (\x,0.28) -- (\x+1,0.28);
-}
-\node at (3,0.9) {$n\mapsto n+1$};
-\node at (-0.45,0) {$\cdots$};
-\node at (6.45,0) {$\cdots$};
-\end{tikzpicture}
-
-\vspace{0.8cm}
-
-\begin{tikzpicture}[scale=0.9]
-\foreach \x/\lab in {0/{-2},1/{-1},2/{0},3/{1},4/{2},5/{3},6/{4}}{
-  \fill (\x,0) circle (1.4pt);
-  \node[below] at (\x,0) {$\lab$};
-}
-\foreach \x in {0,1,2,3,4}{
-  \draw[->] (\x,0.28) -- (\x+2,0.28);
-}
-\node at (3,0.9) {$n\mapsto n+2$};
-\node at (-0.45,0) {$\cdots$};
-\node at (6.45,0) {$\cdots$};
-\end{tikzpicture}
-\caption{Two infinite-state laws on the integer lattice. The second preserves parity.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_07.png}
+  \caption{Several disconnected cycles on the board: a fixed point, a
+  two-cycle, and a three-cycle.  The cycle label is conserved even while the
+  state moves around its cycle.}
+  \lectureframe{00:18:40}
+  \label{fig:conserved-cycles-board}
 \end{figure}
 
-A convenient encoding is
-\[
-Q_{\mathrm{parity}}(n)=
-\begin{cases}
-0,& n \text{ even},\\[4pt]
-1,& n \text{ odd}.
-\end{cases}
-\]
-Under \(n\mapsto n+2\), this quantity is unchanged. Thus the language of cycles, conserved quantities, and deterministic evolution survives the move from finite to infinite state spaces.
+For a finite reversible system, every trajectory is a cycle.  A single cycle
+has no nonconstant conserved label of this elementary kind, because the
+trajectory eventually visits every state.  Multiple cycles permit such a
+label because evolution never carries a state from one component to another.
 
-But now the lecture reaches its sharpest conceptual pivot. The laws we have written so far have all shared an additional feature: not only do they predict the future, they also determine the past. Susskind now draws a law that is deterministic forward but not backward.
+\section{What Must Be Included in a State?}
 
-Take a three-state system with states \(H\), \(T\), and \(E\) (for ``edge''). Let the arrows be
-\[
-H\to T,\qquad T\to E,\qquad E\to T.
-\]
-This law predicts the future perfectly. If we start at \(H\), we get
-\[
-H,T,E,T,E,\dots
-\]
-and if we start at \(T\), we get
-\[
-T,E,T,E,\dots
-\]
-But if all we know is that the present state is \(T\), we do not know where we came from. The previous state could have been \(H\) or \(E\).
+The coin examples used a one-step rule: the next face depended only on the
+present face.  A question from the audience tests whether that restriction is
+essential.
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\node[circle,draw] (H) at (-2,0) {$H$};
-\node[circle,draw] (T) at (0,0) {$T$};
-\node[circle,draw] (E) at (2,0) {$E$};
+\begin{classroomqa}
+\audiencequestion{Could one construct a sequence of heads and tails in which
+the next result depends on more than the immediately visible face, perhaps on
+one or several earlier results?\lecturetimestamp{00:19:27--00:21:23}}
 
-\draw[->] (H) -- (T);
-\draw[->] (T) -- (E);
-\draw[->] (E) to[bend left=45] (T);
-\end{tikzpicture}
-\caption{A future-deterministic law that is not reversible.}
-\end{figure}
+\lecturerresponse{Yes.  In that case \(H\) or \(T\) alone is not the complete
+state.  If one previous face is needed, enlarge the state space to
+\(
+  \{HH,HT,TH,TT\}.
+\)
+Each ordered pair records the present face and the preceding face.  The
+evolution can then again be written as a one-step rule on this four-state
+space.  If still more history is needed, include that information as well.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why is this law disallowed, if it still predicts the future?
-
-\paragraph{Answer.} Because classical mechanics demands more than forward predictability. It demands reversibility.
-
-Susskind's test is beautifully simple: reverse every arrow. In the reversed graph, if we stand at \(T\), we do not know which way to go next. There are two possibilities. So the reversed evolution is not predictive. The original law runs forward but cannot be run backward uniquely.
+This answer gives the operational meaning of state.
 
 \begin{definition}
-A law is reversible if the present state determines both the next state and the previous state. In the graph language, each state must have exactly one outgoing arrow and exactly one incoming arrow.
+The state of a system at one time consists of all the information needed,
+together with the law of motion, to predict its future.
 \end{definition}
 
-This is the real payoff of the first half of the lecture. A legal classical law is not merely deterministic into the future. It is deterministic into the past as well.
+State is therefore not merely a photograph.  It is whatever complete set of
+data makes the evolution definite.  Later, when we describe a Newtonian
+particle, its position alone will not be enough; velocity will also belong to
+the initial data.  The coin with memory is the simplest version of the same
+principle.
 
-Susskind briefly remarks that probabilistic laws also fall outside the classical framework as he is defining it here. That larger comparison is postponed. For the present lecture, the essential distinction is already on the board: future determinism is not enough.
+\section{Infinite State Spaces}
 
-\section{Exact Laws, Imperfect Initial Data, and the Pivot to Particles}
+An infinite number of states does not require infinitely many objects.  Take
+one particle constrained to the integer sites of an infinite line.  Its state
+is an integer
+\[
+  n\in\mathbb Z.
+\]
+One law moves it one site to the right at every step:
+\begin{equation}
+  n(t+1)=n(t)+1.
+  \label{eq:lattice-one}
+\end{equation}
+This orbit never closes, but it passes through every integer if it is followed
+through both future and past.  In that extended sense it plays the role of one
+endless cycle.
 
-At this point we might be tempted to say: classical mechanics predicts everything. Susskind immediately softens that slogan.
+Another law moves two sites at a time:
+\begin{equation}
+  n(t+1)=n(t)+2.
+  \label{eq:lattice-two}
+\end{equation}
+Now even sites evolve only through even sites, and odd sites only through odd
+sites.  Parity is conserved:
+\begin{equation}
+  Q_{\rm parity}(n)=n\bmod 2,
+  \qquad
+  Q_{\rm parity}(n(t+1))=Q_{\rm parity}(n(t)).
+\end{equation}
+The passage from finite to infinite configuration space permits histories
+that never repeat, but it does not change the meanings of state, orbit, or
+conservation.
 
-To predict the future we need two ingredients:
+\section{Determinism Is Not Yet Reversibility}
+
+We now draw a rule that predicts the future uniquely but fails a second
+classical requirement.  Give a three-sided coin the states heads, tails, and
+edge, and define
+\begin{equation}
+  H\to T,
+  \qquad
+  T\to E,
+  \qquad
+  E\to T.
+  \label{eq:nonreversible-map}
+\end{equation}
+Starting from \(H\), the history is
+\[
+  H,T,E,T,E,\ldots;
+\]
+starting from either \(T\) or \(E\), the subsequent alternation is equally
+unambiguous.  There is exactly one outgoing arrow at each state, so the rule
+is deterministic toward the future.
+
+The difficulty appears when we try to reconstruct the past.  If the present
+state is \(T\), the preceding state could have been \(H\) or \(E\).  Two
+histories have merged.  Reverse every arrow and the defect becomes immediate:
+from \(T\), the reversed graph offers two possible moves.  The reverse rule is
+not deterministic.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_08.png}
+  \caption{The nonreversible \(H,T,E\) law and representative histories.
+  Both \(H\) and \(E\) feed into \(T\), so the present does not determine a
+  unique past.}
+  \lectureframe{00:28:50}
+  \label{fig:nonreversible-board}
+\end{figure}
+
+\begin{definition}
+A discrete law is reversible when the present state determines both a unique
+next state and a unique previous state.  In a state graph, every state must
+have exactly one outgoing arrow and exactly one incoming arrow.
+\end{definition}
+
+For a finite state space, a reversible update is a permutation of the states.
+It never creates or destroys distinctions among states; it only rearranges
+them.  This is why its graph decomposes into cycles.  The map in
+Eq.~\eqref{eq:nonreversible-map} is a function, but not a one-to-one function,
+and therefore has no inverse.
+
+\begin{classroomqa}
+\audiencequestion{Could a rule of this kind be allowed if the states
+represented probabilities for a particle?\lecturetimestamp{00:29:46--00:31:17}}
+
+\lecturerresponse{That would be a different framework.  Fundamental
+classical mechanics, as formulated here, uses deterministic laws rather than
+probabilistic update rules.  One may certainly invent and study such a rule,
+but it is not a classical mechanical law in this sense.  Quantum mechanics is
+not deterministic in the same way and nevertheless has an analog of
+reversible evolution; that requires a later discussion.  Classical
+statistical mechanics also uses probabilities, but it begins with underlying
+mechanical laws and represents incomplete knowledge of their initial data.}
+\end{classroomqa}
+
+The distinction is important.  A probability distribution used because we
+do not know the exact classical state is not an indeterministic law of motion.
+It describes our information about a system whose microscopic evolution is
+still taken to be deterministic and reversible.
+
+\section{Exact Laws and Imperfect Knowledge}
+
+Prediction requires two ingredients:
+\begin{enumerate}
+  \item the law of motion;
+  \item the initial state.
+\end{enumerate}
+An exact law does not produce an exact forecast when the initial condition is
+known only approximately.  For the coin, it is easy to imagine looking at the
+table and learning the face perfectly.  Real mechanical variables are
+continuous.  Positions and velocities can take arbitrary real values, and no
+measurement supplies infinitely many decimal places.
+
+Suppose the true initial state lies within a small region of possible states.
+Under some dynamics that region remains small for a long time; under others,
+nearby initial states separate rapidly.  In a chaotic system, small initial
+uncertainties eventually grow into large differences.  The atmosphere is a
+familiar example.  Better measurements can extend the useful forecast, but
+for any fixed measurement accuracy there is a sufficiently distant time at
+which the forecast becomes unreliable.
+
+This practical limitation does not introduce ambiguity into the equations.
+If the initial conditions were known exactly, a classical reversible law
+would determine both future and past.  With finite precision, the quantitative
+question is instead: how accurately must the initial state be known to make a
+prediction for a specified length of time?
+
+The graphical test now has a compact conclusion.  A law represented by one
+incoming and one outgoing arrow at every state is deterministic and
+reversible.  The corresponding statements for particles will be less
+elementary, but they express the same classical structure.
+
+\section{From Abstract States to Points in Space}
+
+We next turn from coins and dies to point particles.  A particle may move in
+one, three, five, or any other number of dimensions, but ordinary space gives
+the immediate example.  To describe a point quantitatively, choose:
 \begin{itemize}
-\item the law of motion,
-\item the initial condition.
+  \item an origin;
+  \item three mutually perpendicular axes;
+  \item an orientation of those axes;
+  \item a unit of length.
 \end{itemize}
-A perfectly exact law is of no practical use if the initial condition is only imperfectly known.
+The origin is conventional.  It may be placed in Palo Alto or anywhere else,
+and physical conclusions should not depend on that choice.  The axes may be
+labeled \(x,y,z\), or \(x_1,x_2,x_3\).  After the \(x\)- and \(y\)-directions
+have been fixed, the \(z\)-axis can point in either of two perpendicular
+directions.  We choose the right-handed convention: with the thumb of the
+right hand along \(x\) and the index finger along \(y\), the middle finger
+points along \(z\).
 
-In the toy systems this problem seems mild. One can imagine simply looking at the coin and reading its initial state exactly. But the real world is different. The degrees of freedom are continuous. Positions and velocities are real numbers, and no matter how many decimal places we measure, we never know them perfectly.
+Equal marks along the axes require a unit, such as meters, feet, inches, or
+light-years.  Once these conventions are fixed, every point is labeled by
+three numbers,
+\begin{equation}
+  (x,y,z).
+\end{equation}
+One can reach the point from the origin by displacements along the three axes.
+A system of many particles requires one such triple for each particle.
 
-Thus there is a gap between exact determinism and practical predictability. Some systems magnify tiny initial errors. The weather is Susskind's example. If the atmospheric state is known only approximately, then after a long enough time the uncertainty blows up, and prediction fails in practice even though the underlying equations remain exact.
-
-So the right classical statement is more careful. If we knew the initial conditions perfectly, then a true classical system would determine both future and past forever. If we know them only approximately, then we must ask how long that approximation remains useful.
-
-This qualification does not undo determinism. It places it where it belongs: in the law itself, not in our practical ability to exploit it.
-
-Only after making that distinction does Susskind turn to the more realistic world of particles. We are now ready to ask what the configurations of a point particle are. But before we do so, he stops and says exactly what the lecture needs next: a little mathematical preliminary.
-
-\section{Coordinates, Vectors, and the Algebra We Need}
-
-A coordinate system is simply a quantitative way to describe space. For the moment we take space to be three-dimensional, so a point is described by three coordinates,
-\[
-(x,y,z),
-\qquad \text{or equivalently} \qquad
-(x_1,x_2,x_3).
-\]
-We choose an origin, three mutually perpendicular axes, an orientation, and a system of units. Once the \(x\)- and \(y\)-axes are fixed, there remains one discrete choice for the direction of the \(z\)-axis, and the lecture adopts the standard right-handed convention.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.15]
-\draw[->] (0,0) -- (2.5,0) node[right] {$x$};
-\draw[->] (0,0) -- (0,2.4) node[above] {$y$};
-\draw[->] (0,0) -- (-1.3,-0.9) node[below] {$z$};
-
-\fill (1.6,1.35) circle (1.2pt);
-\draw[->] (0,0) -- (1.6,1.35) node[midway, above left] {$\vec r$};
-\draw[dashed] (1.6,1.35) -- (1.6,0);
-\draw[dashed] (1.6,1.35) -- (0,1.35);
-\node[below] at (1.6,0) {$x$};
-\node[left] at (0,1.35) {$y$};
-\end{tikzpicture}
-\caption{A point in a right-handed Cartesian coordinate system, together with its position vector.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_09.png}
+  \caption{Cartesian axes and the three coordinates of a point.  The drawing
+  fixes a coordinate convention; the point itself does not depend on where we
+  choose to place the origin or axes.}
+  \lectureframe{00:43:00}
+  \label{fig:coordinates-board}
 \end{figure}
 
-Now let us recall what a vector is. A vector is an object with magnitude and direction. The first example is the position of a point relative to the origin, but Susskind is careful to say that the notion of vector is more general than that. It may represent position, velocity, acceleration, an electric field, or any other quantity with length and direction.
+\section{Vectors and Their Components}
 
-Equally important is what a vector is not. It is not, in the first instance, tied to a particular place in space. If we slide the arrow without changing its length or direction, we have the same vector.
+A vector is an object with magnitude and direction.  The displacement from
+the origin to a point is a vector, but vectors also describe velocity,
+acceleration, electric fields, and many other quantities.  We shall write a
+vector in boldface, such as \(\mathbf v\), and its magnitude as
+\(\lvert\mathbf v\rvert\).  The magnitude is nonnegative and vanishes only for
+the zero vector.
 
-If a vector has components \((v_x,v_y,v_z)\), then its magnitude is
+Geometrically, a vector is a free arrow.  Translating the arrow without
+changing its length or direction does not change the vector.  In a particular
+application a vector can be attached to a point, as when we specify the
+electric field at a given location, but attachment is extra information and
+not part of the abstract vector itself.
+
+Relative to Cartesian axes, a vector has components
 \begin{equation}
-|\vec v|=\sqrt{v_x^2+v_y^2+v_z^2}.
+  \mathbf v=(v_x,v_y,v_z).
 \end{equation}
-The direction is encoded in the ratios of the components.
-
-We can multiply a vector by an ordinary real number. If \(c>0\), the vector \(c\vec A\) has the same direction as \(\vec A\) and magnitude \(c|\vec A|\). If \(c<0\), the direction is reversed. In particular, \(-\vec A\) points opposite to \(\vec A\).
-
-We can also add vectors. The lecture presents three equivalent pictures:
-\begin{itemize}
-\item place the tail of \(\vec B\) at the head of \(\vec A\), and the third side of the triangle is \(\vec A+\vec B\);
-\item place the tails of \(\vec A\) and \(\vec B\) together, complete the parallelogram, and take the diagonal;
-\item add components:
-\[
-C_i=A_i+B_i.
-\]
-\end{itemize}
-This last form is often the most useful in calculation.
-
-Susskind then asks the natural next question. If vectors can be added, subtracted, and multiplied by numbers, can they be multiplied with each other? The answer is yes, but not in the ordinary scalar sense. The simplest such product is the dot product.
-
-Geometrically, \(\vec A\cdot\vec B\) is obtained by taking the component of \(\vec A\) along the axis defined by \(\vec B\), and multiplying by the magnitude of \(\vec B\). If \(\theta\) is the angle between them, this gives
+The components are ordinary signed numbers, obtained by projection on the
+axes.  They encode both magnitude and direction.  The three-dimensional
+Pythagorean theorem gives
 \begin{equation}
-\vec A\cdot \vec B = |\vec A|\,|\vec B|\cos\theta.
+  \lvert\mathbf v\rvert^2
+  =v_x^2+v_y^2+v_z^2,
+  \qquad
+  \lvert\mathbf v\rvert
+  =\sqrt{v_x^2+v_y^2+v_z^2}.
+  \label{eq:vector-magnitude}
 \end{equation}
-Because this formula is symmetric in \(\vec A\) and \(\vec B\), it makes manifest that
-\[
-\vec A\cdot\vec B=\vec B\cdot\vec A.
-\]
+The ratios of the components determine the direction.  A negative component
+means that the vector points partly along the negative direction of that
+axis.
 
-In components, the same quantity is
-\begin{equation}
-\vec A\cdot\vec B=A_xB_x+A_yB_y+A_zB_z.
-\end{equation}
-In particular,
-\begin{equation}
-\vec A\cdot\vec A=|\vec A|^2.
-\end{equation}
-This is precisely what makes the dot product useful. It lets us compute angles and test perpendicularity directly from components. If the dot product vanishes, the vectors are perpendicular. If it is negative, the angle between them is greater than \(90^\circ\).
+\subsection{Scalar multiplication and addition}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.70\textwidth]{lecture_01_figure_04.png}
-\caption{The lecture board at the vector-subtraction step leading to the law of cosines.}
+Multiplication by a real number changes a vector's length and, if the number
+is negative, reverses its direction.  For \(c>0\), \(c\mathbf A\) points in
+the direction of \(\mathbf A\) and has magnitude
+\(c\lvert\mathbf A\rvert\).  In particular, \(-\mathbf A\) has the same
+length as \(\mathbf A\) and points oppositely.
+
+There are three equivalent pictures of vector addition.  First, place the
+tail of \(\mathbf B\) at the head of \(\mathbf A\); the arrow from the tail of
+\(\mathbf A\) to the head of \(\mathbf B\) is \(\mathbf A+\mathbf B\).
+Second, place both tails together and complete a parallelogram; its diagonal
+is the sum.  This form makes commutativity visible:
+\begin{equation}
+  \mathbf A+\mathbf B=\mathbf B+\mathbf A.
+\end{equation}
+Third, add corresponding components:
+\begin{equation}
+  C_i=A_i+B_i,
+  \qquad i=x,y,z,
+  \label{eq:component-addition}
+\end{equation}
+where \(\mathbf C=\mathbf A+\mathbf B\).  These rules also define arbitrary
+linear combinations such as \(a\mathbf A+b\mathbf B\).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_10.png}
+  \caption{The triangle and parallelogram constructions for vector addition.
+  Both give the same vector \(\mathbf A+\mathbf B\).}
+  \lectureframe{00:53:00}
+  \label{fig:vector-addition-board}
 \end{figure}
 
-The law of cosines is then derived from the dot product. Here the live rhythm of the lecture matters: Susskind first says \(\vec C=\vec A+\vec B\), then stops, corrects himself, and says that for the side drawn in the sketch we need
-\[
-\vec C=\vec A-\vec B.
-\]
-That correction should be preserved, because it shows the argument unfolding rather than arriving fully polished from nowhere.
+There is no general operation of dividing one vector by another.  There are,
+however, two standard vector products.  The cross product will be left for a
+later lecture.  Here we need the dot product.
 
-Now we compute:
+\subsection{The dot product}
+
+Project \(\mathbf A\) on the axis defined by \(\mathbf B\).  If the angle
+between the vectors is \(\theta\), the signed component of \(\mathbf A\) along
+\(\mathbf B\) is \(\lvert\mathbf A\rvert\cos\theta\).  Multiplying this
+projection by \(\lvert\mathbf B\rvert\) defines
+\begin{equation}
+  \mathbf A\cdot\mathbf B
+  =\lvert\mathbf A\rvert\,\lvert\mathbf B\rvert\cos\theta.
+  \label{eq:dot-geometric}
+\end{equation}
+The result is a scalar, not another vector.  Equation~\eqref{eq:dot-geometric}
+is symmetric in \(\mathbf A\) and \(\mathbf B\), so
+\(\mathbf A\cdot\mathbf B=\mathbf B\cdot\mathbf A\).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_11.png}
+  \caption{The blackboard construction of the dot product by projection.
+  The typeset form is
+  \(\mathbf A\cdot\mathbf B=AB\cos\theta\).}
+  \lectureframe{00:58:30}
+  \label{fig:dot-product-board}
+\end{figure}
+
+The sign carries geometric information.  The dot product is positive for an
+acute angle, negative for an obtuse angle, and zero for perpendicular vectors.
+Thus
+\begin{equation}
+  \mathbf A\perp\mathbf B
+  \quad\Longleftrightarrow\quad
+  \mathbf A\cdot\mathbf B=0
+\end{equation}
+for nonzero vectors.
+
+In components,
+\begin{equation}
+  \mathbf A\cdot\mathbf B
+  =A_xB_x+A_yB_y+A_zB_z.
+  \label{eq:dot-components}
+\end{equation}
+This formula makes calculations immediate.  In particular,
+\begin{equation}
+  \mathbf A\cdot\mathbf A
+  =A_x^2+A_y^2+A_z^2
+  =\lvert\mathbf A\rvert^2.
+  \label{eq:self-dot}
+\end{equation}
+Given the components of two vectors, Eqs.~\eqref{eq:dot-geometric} and
+\eqref{eq:dot-components} determine the angle between them:
+\begin{equation}
+  \cos\theta
+  =\frac{\mathbf A\cdot\mathbf B}
+  {\lvert\mathbf A\rvert\,\lvert\mathbf B\rvert}.
+\end{equation}
+
+The law of cosines follows from the same algebra.  Let \(\mathbf A\) and
+\(\mathbf B\) run from a common vertex to the other two vertices of a
+triangle.  The third side is
+\(\mathbf C=\mathbf A-\mathbf B\), not \(\mathbf A+\mathbf B\).  Therefore
 \begin{align}
-|\vec C|^2
-  &= \vec C\cdot\vec C \\
-  &= (\vec A-\vec B)\cdot(\vec A-\vec B) \\
-  &= \vec A\cdot\vec A+\vec B\cdot\vec B-2\vec A\cdot\vec B \\
-  &= |\vec A|^2+|\vec B|^2-2|\vec A|\,|\vec B|\cos\theta.
+  C^2
+  &=(\mathbf A-\mathbf B)\cdot(\mathbf A-\mathbf B)\notag\\
+  &=A^2+B^2-2\mathbf A\cdot\mathbf B\notag\\
+  &=A^2+B^2-2AB\cos\theta.
+  \label{eq:law-of-cosines}
 \end{align}
-This is the law of cosines. The transcript momentarily garbles the last phrase as ``cosine of the length,'' but the mathematics is unambiguous: it is the cosine of the angle.
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.05]
-\coordinate (O) at (0,0);
-\coordinate (A) at (1.5,1.4);
-\coordinate (B) at (3.3,0);
-
-\draw[->] (O) -- (A) node[midway, above left] {$\vec A$};
-\draw[->] (O) -- (B) node[midway, below] {$\vec B$};
-\draw[->] (B) -- (A) node[midway, above right] {$\vec C=\vec A-\vec B$};
-
-\draw (0.65,0) arc (0:43:0.65);
-\node at (0.95,0.32) {$\theta$};
-\end{tikzpicture}
-\caption{A clean reconstruction of the vector-subtraction triangle used in the derivation.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_04.png}
+  \caption{The triangle used for the law of cosines.  The board correction
+  identifies the closing side as
+  \(\mathbf C=\mathbf A-\mathbf B\), leading to
+  Eq.~\eqref{eq:law-of-cosines}.}
+  \lectureframe{01:04:29}
+  \label{fig:law-cosines-board}
 \end{figure}
 
-By this point the lecture has done its mathematical preparation. We have coordinates, vectors, component notation, vector addition, scalar multiplication, and the dot product. Now we can use them.
+\section{Position, Velocity, and Acceleration}
 
-\section{Position, Velocity, Acceleration, and Two Motion Examples}
-
-The position of a particle relative to the chosen origin defines a distinguished vector,
-\[
-\vec r(t).
-\]
-Its components are just the coordinates of the particle:
-\[
-\vec r(t)=(x(t),y(t),z(t)).
-\]
-The notation \(r\) is traditional; Susskind remarks that it presumably comes from ``radius,'' though here it simply means position vector.
-
-Because classical mechanics concerns motion, \(\vec r\) is in general a function of time. Thus the motion of a particle in three-dimensional space is encoded by the three functions
-\[
-x(t),\qquad y(t),\qquad z(t).
-\]
-
-The next concept is velocity. It is also a vector, and it need not point in the same direction as \(\vec r\). Its definition is
+Choose an origin and let \(\mathbf r\) be the position vector from the origin
+to a particle.  Its components are the Cartesian coordinates:
 \begin{equation}
-v_i=\frac{dx_i}{dt}=\dot x_i,
+  \mathbf r=(x,y,z),
+  \qquad
+  \lvert\mathbf r\rvert=\sqrt{x^2+y^2+z^2}.
 \end{equation}
-or, in vector form,
+Changing the origin changes \(\mathbf r\), a question we shall postpone.  Once
+the origin is fixed, motion is described by a time-dependent position,
 \begin{equation}
-\vec v=\frac{d\vec r}{dt}=\dot{\vec r}.
+  \mathbf r(t)=\bigl(x(t),y(t),z(t)\bigr).
 \end{equation}
-The dot notation is introduced at this point as a special shorthand for differentiation with respect to time only.
+The trajectory is therefore encoded by three functions of time.
 
-Acceleration is the rate of change of velocity. It too is a vector:
+Velocity is the time derivative of position:
 \begin{equation}
-a_i=\frac{dv_i}{dt}=\dot v_i=\ddot x_i,
-\qquad
-\vec a=\frac{d\vec v}{dt}=\frac{d^2\vec r}{dt^2}=\ddot{\vec r}.
+  \mathbf v(t)=\frac{d\mathbf r}{dt}
+  =\dot{\mathbf r}(t),
+  \qquad
+  v_i=\frac{dx_i}{dt}=\dot x_i.
+  \label{eq:velocity}
 \end{equation}
+A dot always denotes a derivative with respect to time.  The magnitude
+\(\lvert\mathbf v\rvert\) is the speed.  Position and velocity are independent
+directions in general: a particle at one location may be moving in any
+direction allowed by the problem.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_01_figure_05.png}
-\caption{The lecture board moving from component notation to the compact vector statement \(\vec v=d\vec r/dt\).}
+Acceleration is the rate of change of velocity and hence the second time
+derivative of position:
+\begin{equation}
+  \mathbf a(t)=\frac{d\mathbf v}{dt}
+  =\dot{\mathbf v}(t)
+  =\frac{d^2\mathbf r}{dt^2}
+  =\ddot{\mathbf r}(t),
+  \qquad
+  a_i=\ddot x_i.
+  \label{eq:acceleration}
+\end{equation}
+Acceleration is also a vector.  If a particle moving in the positive
+\(x\)-direction speeds up, \(a_x>0\).  If it slows down, \(a_x<0\).  What is
+often called deceleration is simply acceleration opposite to the current
+velocity.  More generally, velocity can change by changing its direction even
+when its magnitude remains constant.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_05.png}
+  \caption{Velocity components written as time derivatives of the position
+  components.  In compact vector notation,
+  \(\mathbf v=d\mathbf r/dt\).}
+  \lectureframe{01:14:24}
+  \label{fig:velocity-board}
 \end{figure}
 
-The screenshot shows uppercase \(V_i\) and \(X_i\) on the board. The surrounding lecture, however, does not insist on that convention, and for consistency we normalize to lower-case component notation in the text.
+\subsection{Uniform acceleration on a line}
 
-Now that the concepts are in hand, the lecture does exactly what it promised: let us work out an example or two.
-
-\paragraph{First example: motion along a line.}
-If the particle moves only along the \(x\)-axis, then it is hardly worth speaking of vectors at all. We may simply write
+For one-dimensional motion, write
 \begin{equation}
-x(t)=a+bt+ct^2.
+  x(t)=a+bt+ct^2.
+  \label{eq:quadratic-motion}
 \end{equation}
-At \(t=0\), the particle is at \(x=a\). Differentiating once gives the velocity,
+At \(t=0\), the particle is at \(x=a\).  Differentiating once and then twice
+gives
+\begin{align}
+  v(t)=\dot x(t)&=b+2ct,\label{eq:line-velocity}\\
+  a(t)=\ddot x(t)&=2c.\label{eq:line-acceleration}
+\end{align}
+Thus \(b\) is the initial velocity and \(2c\) is a constant acceleration.  If
+\(c>0\), the velocity increases linearly; if \(c<0\), it decreases linearly.
+This quadratic position law is the form taken by motion under a constant
+acceleration, such as the idealized motion of a falling body near Earth's
+surface.
+
+\section{Uniform Circular Motion}
+
+For the final example, let a particle move in the \(x\)-\(y\) plane on the
+unit circle.  It begins on the positive \(x\)-axis at \(t=0\), and its angular
+coordinate increases uniformly:
 \begin{equation}
-\dot x(t)=b+2ct,
+  \theta(t)=\omega t.
 \end{equation}
-and differentiating again gives the acceleration,
+The constant \(\omega\) is the angular frequency.  One revolution corresponds
+to an increase \(2\pi\) in the angle, so the period is
 \begin{equation}
-\ddot x(t)=2c.
+  T=\frac{2\pi}{\omega}.
+  \label{eq:circular-period}
 \end{equation}
-So the acceleration is constant. This is uniformly accelerated motion, the prototype of motion in a constant gravitational field.
+The angle may be allowed to increase beyond \(2\pi\); the position repeats
+even though the continuously recorded angle does not reset.
 
-\paragraph{Second example: uniform circular motion.}
-The final example is more revealing. Consider a particle moving on the unit circle in the \(xy\)-plane. We ignore the \(z\)-direction. Let the angle grow linearly with time:
+On the unit circle,
 \begin{equation}
-\theta(t)=\omega t.
+  \mathbf r(t)
+  =\bigl(\cos\omega t,\,\sin\omega t\bigr).
+  \label{eq:circular-position}
 \end{equation}
-One full revolution corresponds to \(\theta=2\pi\), so the period is
+Differentiation gives
 \begin{equation}
-T=\frac{2\pi}{\omega}.
+  \mathbf v(t)
+  =\omega\bigl(-\sin\omega t,\,\cos\omega t\bigr).
+  \label{eq:circular-velocity}
 \end{equation}
-The transcript momentarily stumbles at the period formula, but the final expression is clear and standard.
+The velocity is tangent to the circle.  We can prove its perpendicularity to
+the radius without relying on the drawing:
+\begin{align}
+  \mathbf r\cdot\mathbf v
+  &=\cos\omega t\,(-\omega\sin\omega t)
+    +\sin\omega t\,(\omega\cos\omega t)\notag\\
+  &=0.
+  \label{eq:r-dot-v}
+\end{align}
 
-On the unit circle, the position components are
-\begin{equation}
-x(t)=\cos(\omega t),\qquad y(t)=\sin(\omega t).
-\end{equation}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.25]
-\draw[->] (-1.4,0) -- (1.6,0) node[right] {$x$};
-\draw[->] (0,-1.3) -- (0,1.5) node[above] {$y$};
-\draw (0,0) circle (1);
-
-\coordinate (P) at ({cos(35)},{sin(35)});
-\fill (P) circle (1.2pt);
-
-\draw[->] (0,0) -- (P) node[midway, above left] {$\vec r$};
-\draw[->] (P) -- ++({-0.45*sin(35)},{0.45*cos(35)}) node[above] {$\vec v$};
-\draw[->] (P) -- ++({-0.45*cos(35)},{-0.45*sin(35)}) node[right] {$\vec a$};
-
-\draw (0.35,0) arc (0:35:0.35);
-\node at (0.48,0.14) {$\theta$};
-\end{tikzpicture}
-\caption{Uniform circular motion on the unit circle. The velocity is tangent to the orbit, while the acceleration points inward.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_12.png}
+  \caption{Position and velocity components for motion on the unit circle.
+  The cancellation in \(\mathbf r\cdot\mathbf v\) verifies that the velocity
+  is tangent to the circle.}
+  \lectureframe{01:24:30}
+  \label{fig:circular-velocity-board}
 \end{figure}
 
-Differentiating once, we find the velocity components:
+Differentiating once more,
 \begin{equation}
-v_x(t)=-\omega\sin(\omega t),\qquad v_y(t)=\omega\cos(\omega t).
+  \mathbf a(t)
+  =-\omega^2
+  \bigl(\cos\omega t,\,\sin\omega t\bigr)
+  =-\omega^2\mathbf r(t).
+  \label{eq:centripetal-acceleration}
 \end{equation}
+The acceleration is parallel to the radius but points in the opposite
+direction, toward the center.  This is the centripetal acceleration.\footnote{Terminology
+note: the word ``centrifugal'' occurs at this point in the lecture, but the
+equation and accompanying description identify the standard centripetal
+acceleration, directed toward the center.}
 
-\subsection{Question \& Answer}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_13.png}
+  \caption{The component calculation of circular acceleration.  Each
+  component is \(-\omega^2\) times the corresponding position component, so
+  \(\mathbf a=-\omega^2\mathbf r\).}
+  \lectureframe{01:26:30}
+  \label{fig:circular-acceleration-board}
+\end{figure}
 
-\paragraph{Question.} It looks obvious that the velocity is perpendicular to the position vector. How do we prove it?
-
-\paragraph{Answer.} We prove it with the dot product:
-\begin{align}
-\vec r\cdot\vec v
-  &= x v_x + y v_y \\
-  &= \cos(\omega t)\bigl(-\omega\sin(\omega t)\bigr)
-   + \sin(\omega t)\bigl(\omega\cos(\omega t)\bigr) \\
-  &= 0.
-\end{align}
-Since the dot product vanishes, \(\vec r\) and \(\vec v\) are perpendicular.
-
-This is one of the lecture's nicest little moments. First we trust the geometry. Then we check it algebraically. The calculation does not replace the picture; it confirms it.
-
-Differentiating once more, we obtain the acceleration:
+Because the radius is one,
 \begin{equation}
-a_x(t)=-\omega^2\cos(\omega t),\qquad a_y(t)=-\omega^2\sin(\omega t).
+  \lvert\mathbf r\rvert=1,
+  \qquad
+  \lvert\mathbf v\rvert=\omega,
+  \qquad
+  \lvert\mathbf a\rvert=\omega^2.
 \end{equation}
-Therefore
-\begin{equation}
-\vec a=-\omega^2\vec r.
-\end{equation}
-So the acceleration is parallel to \(\vec r\) but points in the opposite direction. It is inward, toward the origin. The spoken phrase ``centrifugal acceleration'' in the lecture is evidently a slip; the mathematics is perfectly clear.
+Increasing \(\omega\) increases the speed linearly and the required inward
+acceleration quadratically.  For a circle of radius \(R\), the same calculation
+would give \(v=\omega R\) and
+\(\lvert\mathbf a\rvert=\omega^2R=v^2/R\); the lecture uses \(R=1\) to keep
+the first calculation uncluttered.
 
-Finally, the magnitudes are
-\begin{align}
-|\vec v|^2
-  &= v_x^2+v_y^2 \\
-  &= \omega^2\sin^2(\omega t)+\omega^2\cos^2(\omega t) \\
-  &= \omega^2,
-\end{align}
-hence
-\[
-|\vec v|=\omega.
-\]
-Likewise,
-\begin{align}
-|\vec a|^2
-  &= a_x^2+a_y^2 \\
-  &= \omega^4\cos^2(\omega t)+\omega^4\sin^2(\omega t) \\
-  &= \omega^4,
-\end{align}
-so
-\[
-|\vec a|=\omega^2.
-\]
-
-The closing example is not an afterthought. It is where the formalism becomes mechanics again: position, velocity, acceleration, orthogonality, inward acceleration, and the concrete role of \(\omega\).
-
-\section{Summary}
-
-The lecture begins by asking what an allowable law of motion must look like, and it answers that question before ever discussing a planet or a force. Coins, dice, and integer lattices are enough to reveal the structure: a state space, an initial condition, an update rule, deterministic evolution, conserved quantities, and, crucially, reversibility.
-
-Only after that conceptual warm-up does the lecture move to particles in space. There we build the coordinate and vector language that mechanics will need: components, magnitudes, vector addition, the dot product, and the law of cosines. With those tools in hand, position, velocity, and acceleration follow naturally, and the two final examples show the formalism at work. The next step, exactly as Susskind says at the end of the lecture, is to return to particles and ask the full dynamical question: what is the space of initial conditions, and what laws move a particle from one instant to the next?
+We now have the elementary language needed for particle mechanics: states and
+initial data, reversible evolution, coordinates, vectors, and the derivatives
+that define velocity and acceleration.  The next task is to decide exactly
+which initial data specify a particle and to find laws that carry those data
+from one instant to the next.
