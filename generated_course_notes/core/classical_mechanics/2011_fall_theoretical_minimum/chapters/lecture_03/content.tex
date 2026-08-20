@@ -1,409 +1,803 @@
 \chapter{Stationary Action and the Euler--Lagrange Equation}
 
-The lecture begins with a correction that is more than verbal. We are told that the phrase ``principle of least action'' is a misnomer: the essential word is not ``least'' but ``stationary.'' Susskind does not define the action at once. He first retreats to the simpler problem of equilibrium, where stationarity can be understood for an ordinary potential energy. Only after that does he move to whole trajectories, to the calculus of variations, and finally to the action itself. The order matters. We learn first what it means for a quantity not to change at first order, and only then do we ask for a whole path in spacetime to have that property.
+\lectureoverview{The familiar name \emph{principle of least action} hides the
+essential point: the physical trajectory makes the action stationary, but need
+not minimize it.  We shall build that statement from ordinary equilibrium,
+extend it from points to entire functions, derive the Euler--Lagrange equation
+by discretizing a path, and recover Newton's equations.  Rotating and polar
+coordinates will then show why the Lagrangian formulation is more than a
+change of notation.}
 
 \section{Stationary, Not Necessarily Least}
 
-Let us begin where the lecture begins: with equilibrium. If a system is at rest, then in the ordinary Newtonian language the force vanishes. When the force comes from a potential energy \(V\), the equilibrium condition can be written, for one coordinate \(x\), as
+The word \emph{least} is the unreliable part of the traditional name.  A
+classical trajectory does not always make the action a minimum.  It may instead
+give a maximum or a saddle in the space of possible trajectories.  The correct
+principle is that the action is \emph{stationary}: its first-order change
+vanishes.
+
+Begin with the simpler question of equilibrium.  A particle that remains at
+rest has no acceleration, so its net force must vanish.  For a force derived
+from a one-dimensional potential,
 \begin{equation}
-\frac{dV(x)}{dx}=0.
+  F(x)=-\frac{dV}{dx},
+  \label{eq:force-from-v}
+\end{equation}
+the equilibrium condition is
+\begin{equation}
+  \frac{dV}{dx}=0.
+  \label{eq:stationary-v-one}
 \end{equation}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_03_figure_02.png}
-\caption{Stationary point condition for the potential. The board is still open below the equation, anticipating the geometric discussion in terms of the graph of \(V(x)\).}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_03_figure_02.png}
+  \caption{The one-dimensional equilibrium condition: force vanishes where
+  the potential is stationary.}
+  \lectureframe{00:02:51}
 \end{figure}
 
-The point of the opening is that this does \emph{not} mean the potential must be minimal. A derivative can vanish at a minimum, at a maximum, or, in more than one dimension, at a saddle point. What stationarity means is simply that the first derivative vanishes.
-
-This is already visible if we think in terms of a small displacement. If we move the particle by a small amount \(\delta x\), then the first-order change in the potential is
+Now displace the particle by a small amount \(\delta x\).  To first order,
 \begin{equation}
-\delta V=\frac{dV}{dx}\,\delta x.
+  \delta V
+  =V(x+\delta x)-V(x)
+  =\frac{dV}{dx}\,\delta x+O(\delta x^2).
+  \label{eq:first-variation-one}
 \end{equation}
-At equilibrium this first-order change is zero:
+At equilibrium the linear term is zero for either sign of \(\delta x\):
 \begin{equation}
-\delta V=0.
+  \delta V=0
+  \qquad\hbox{to first order.}
+  \label{eq:delta-v-zero-one}
 \end{equation}
-That is the first appearance of the variational language, and it is worth pausing over it. The condition is not that the potential fails to change \emph{exactly}; it is that the change vanishes to first order in a small displacement.
+This does not say that \(V\) is exactly unchanged after a finite move.  It
+says that the leading change is quadratic or higher.  A minimum and a maximum
+both satisfy this condition.
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (0,-0.1) -- (3.3,-0.1);
-\draw[->] (0,-0.3) -- (0,2.0);
-\draw[smooth] plot coordinates {(0.2,1.5) (0.9,0.8) (1.6,0.3) (2.3,0.8) (3.0,1.6)};
-\fill (1.6,0.3) circle (1.3pt);
-\node at (1.6,-0.45) {minimum};
-
-\draw[->] (4.2,-0.1) -- (7.5,-0.1);
-\draw[->] (4.2,-0.3) -- (4.2,2.0);
-\draw[smooth] plot coordinates {(4.5,0.4) (5.2,1.1) (5.8,1.6) (6.4,1.1) (7.1,0.4)};
-\fill (5.8,1.6) circle (1.3pt);
-\node at (5.8,-0.45) {maximum};
-\end{tikzpicture}
-\caption{Two one-dimensional stationary points. In one dimension the derivative vanishes at minima and maxima alike.}
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=0.95,>=Latex]
+    \draw[->] (-0.2,0) -- (3.35,0) node[right] {$x$};
+    \draw[->] (0,-0.2) -- (0,2.25) node[above] {$V$};
+    \draw[blue!65!black,thick,smooth]
+      plot coordinates {(0.2,1.85) (0.75,0.85) (1.55,0.35)
+                        (2.35,0.85) (3.0,1.85)};
+    \fill[red!65!black] (1.55,0.35) circle (2pt);
+    \node at (1.55,-0.34) {minimum};
+    \begin{scope}[xshift=4.25cm]
+      \draw[->] (-0.2,0) -- (3.35,0) node[right] {$x$};
+      \draw[->] (0,-0.2) -- (0,2.25) node[above] {$V$};
+      \draw[blue!65!black,thick,smooth]
+        plot coordinates {(0.2,0.35) (0.75,1.25) (1.55,1.85)
+                          (2.35,1.25) (3.0,0.35)};
+      \fill[red!65!black] (1.55,1.85) circle (2pt);
+      \node at (1.55,-0.34) {maximum};
+    \end{scope}
+  \end{tikzpicture}
+  \caption{Stationarity fixes the first derivative, not whether the point is
+  a minimum or a maximum.}
+  \label{fig:min-max-stationary}
 \end{figure}
 
-In more than one coordinate the same logic remains, but now the geometry becomes richer. Suppose \(V\) depends on \(x\) and \(y\). Then the first-order change under an infinitesimal displacement \((\delta x,\delta y)\) is
+For many coordinates \(q_i\), the first variation is
 \begin{equation}
-\delta V=\frac{\partial V}{\partial x}\,\delta x+\frac{\partial V}{\partial y}\,\delta y.
+  \delta V
+  =\sum_i\frac{\partial V}{\partial q_i}\,\delta q_i.
+  \label{eq:first-variation-many}
 \end{equation}
-For many coordinates this becomes
+If this must vanish for every independent infinitesimal displacement
+\(\delta q_i\), then every coefficient vanishes:
 \begin{equation}
-\delta V=\sum_i \frac{\partial V}{\partial x_i}\,\delta x_i.
-\end{equation}
-If \(\delta V\) must vanish for \emph{every} infinitesimal displacement, then each coefficient must vanish:
-\begin{equation}
-\frac{\partial V}{\partial x_i}=0 \qquad \text{for every } i.
+  \frac{\partial V}{\partial q_i}=0
+  \qquad\hbox{for every }i.
+  \label{eq:stationary-v-many}
 \end{equation}
 
-Now we see why Susskind insists so strongly on the word stationary. In many dimensions the generic stationary point is often not a minimum and not a maximum, but a saddle. In one direction you climb uphill, in another you roll down. Yet precisely at the saddle the first-order change still vanishes in every direction. That is all stationarity means, and that is the idea we are going to transport from ordinary functions to whole trajectories.
+A two-dimensional potential is better imagined as hilly terrain than as a
+roller coaster.  A stationary point may be a valley bottom, a hilltop, or a
+saddle.  At a saddle, motion in one direction initially climbs while motion in
+another initially descends.  The restoring behavior can therefore be stable
+in one direction and unstable in another, even though all first derivatives
+vanish at the point itself.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_03_figure_06.png}
+  \caption{A saddle is stationary in every first-order direction, although
+  neighboring displacements rise along one axis and fall along another.}
+  \lectureframe{00:08:20}
+\end{figure}
+
+In a space with many coordinates, saddle points are more typical than pure
+maxima or minima.  This is why \emph{stationary} is the durable word.  The
+condition
+\begin{equation}
+  \delta V=0
+  \label{eq:equilibrium-variation}
+\end{equation}
+summarizes equilibrium without prejudging the second-order behavior.
 
 \section{From Points to Functions}
 
-Now of course we are not interested only in equilibrium. We are interested in whole motions, and before we get to mechanics Susskind wants the variational pattern to appear in simpler settings.
+Mechanics concerns whole motions, not isolated equilibrium points.  A
+trajectory is a function such as \(x(t)\), or a collection
+\((x(t),y(t),z(t))\).  The mathematical problem of making a quantity
+stationary by varying an entire function is the \emph{calculus of variations}.
+Before applying it to motion, consider three simpler examples.
 
-The simplest example is the shortest path between two fixed points in the plane. Let the path be given by a function \(y(x)\). If we move a short distance \(dx\) horizontally and \(dy\) vertically, the length of the little segment of the curve is
-\begin{equation}
-ds=\sqrt{dx^2+dy^2}=dx\,\sqrt{1+\left(\frac{dy}{dx}\right)^2}.
-\end{equation}
-Therefore the total length of the curve is
-\begin{equation}
-S[y]=\int ds=\int dx\,\sqrt{1+\left(\frac{dy}{dx}\right)^2}.
-\end{equation}
-The problem is not yet to solve the integral, but to understand the structure of the question: among all functions \(y(x)\) that pass through the two endpoints, which one makes this quantity stationary? In the language we have just learned,
-\begin{equation}
-\delta S=0.
-\end{equation}
+\subsection{Shortest curves and geodesics}
 
-Susskind immediately enlarges the example. On a curved surface the same question defines a geodesic. The shortest path is no longer a straight line, but the logic is unchanged: fixed endpoints, an integral built from little distance elements, and the requirement that the total be stationary.
-
-The same structure appears again in Fermat's principle. If light moves through a medium whose speed \(c(x,y)\) depends on position, then the time to travel along a small segment is the distance divided by the local speed. Thus
+Fix two points in the plane and represent a curve between them by \(y(x)\).
+Over a short segment,
 \begin{equation}
-T[y]=\int dx\,\frac{\sqrt{1+\left(\frac{dy}{dx}\right)^2}}{c(x,y)}.
+  ds=\sqrt{dx^2+dy^2}
+  =dx\sqrt{1+\left(\frac{dy}{dx}\right)^2},
+  \label{eq:line-element}
 \end{equation}
-Here too the path is chosen by a variational condition:
+where the last form assumes \(dx>0\).  The total length is the functional
 \begin{equation}
-\delta T=0.
+  S[y]=\int_{x_0}^{x_1}
+  \sqrt{1+y'(x)^2}\,dx.
+  \label{eq:arc-length-functional}
 \end{equation}
-If \(c\) is constant, least time reduces to least distance. But when the speed varies, the path of light is not determined by geometry alone; it is determined by the geometry \emph{and} the medium. That is an important warning for what will come later in mechanics: the integrand will generally depend not only on position but also on derivatives.
+Square brackets emphasize that \(S\) takes an entire function as input.  The
+straight line is selected by
+\begin{equation}
+  \delta S=0
+  \label{eq:stationary-length}
+\end{equation}
+under small changes of the curve that leave both endpoints fixed.
 
-Before turning to action, Susskind inserts one more example: the hanging chain. A chain pinned at two points settles into a shape that makes its potential energy stationary. Again, the endpoints are fixed, the shape is a function, and the quantity to be stationarized is an integral over the curve.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.70\textwidth]{lecture_03_figure_03.png}
-\caption{Suspended stationary curve between fixed endpoints. The figure is diagrammatic rather than symbolic; its value is to preserve the fixed-endpoint geometry on the board.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_03_figure_07.png}
+  \caption{A trial curve between two fixed endpoints.  Its length is the sum
+  of the infinitesimal hypotenuses \(ds\).}
+  \lectureframe{00:13:36}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.1]
-\fill (0,2.1) circle (1.5pt);
-\fill (4.6,2.2) circle (1.5pt);
-\draw[smooth] plot coordinates {(0,2.1) (0.9,1.2) (1.8,0.75) (2.8,0.85) (3.8,1.3) (4.6,2.2)};
-\end{tikzpicture}
-\caption{A cleaned schematic of the same fixed-endpoint variational problem. The lecture uses it as one last reminder that the basic pattern is: two fixed endpoints, one function in between, one integral to be made stationary.}
+The same question can be asked on a curved surface.  Pulling a string tight
+between two stakes gives a physical picture of the shortest constrained
+route.  Such a stationary-length curve is a \emph{geodesic}.  On a flat plane
+it is a straight line; on a sphere or hilly surface it generally is not.
+
+\subsection{Fermat's principle}
+
+A light ray in a medium with position-dependent speed \(c(x,y)\) need not
+follow the shortest spatial route.  The time required for a small segment is
+distance divided by local speed, so
+\begin{equation}
+  T[y]
+  =\int_{x_0}^{x_1}
+  \frac{\sqrt{1+y'(x)^2}}{c(x,y)}\,dx.
+  \label{eq:fermat-functional}
+\end{equation}
+Fermat's principle requires
+\begin{equation}
+  \delta T=0.
+  \label{eq:fermat-stationary}
+\end{equation}
+When \(c\) is constant this reduces to the shortest-distance problem.  In a
+variable refractive medium, however, the fastest path balances distance
+against local propagation speed.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_03_figure_08.png}
+  \caption{The least-time functional for a ray in a medium whose local light
+  speed depends on position.}
+  \lectureframe{00:22:50}
 \end{figure}
 
-By this point the recurring motif is unmistakable. We keep the endpoints fixed, we write down some integral quantity in between, and we ask for that quantity to be stationary under small changes of the curve. The only thing missing is mechanics itself.
+A topical joke invokes the then-recent claim that neutrinos moved unusually
+fast in Italy.  The physics argument immediately returns to the reliable
+example: ordinary light changes speed in material according to the index of
+refraction.
 
-\section{Mechanics Recast as a Problem of Whole Trajectories}
+\subsection{A hanging chain}
 
-We now turn from curves in space to curves in spacetime. A mechanical trajectory is a function such as \(x(t)\), or in more dimensions \(x(t)\), \(y(t)\), \(z(t)\). Susskind briefly contrasts two formulations of mechanics.
+A chain pinned at two points settles into a catenary.  Each small piece
+contributes gravitational potential energy, so the total potential is itself
+an integral over the chain.  Once again the endpoints are fixed, the unknown
+shape is a function, and an integral must be stationary.
 
-In the usual initial-value formulation we specify the initial position and the initial velocity, and Newton's equations build the orbit forward. But there is another way to pose the problem. We may specify the position at an initial time \(t_0\) and the position at a later time \(t_1\), and ask which path between them is the actual one. Then the initial velocity is not input data; it becomes part of the solution.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_03_figure_03.png}
+  \caption{A hanging chain between fixed supports.  Its stationary shape is
+  selected by the total gravitational potential energy.}
+  \lectureframe{00:30:41}
+\end{figure}
 
-This is the moment when the action enters. For a trajectory between fixed times \(t_0\) and \(t_1\), we define
+These examples have the same architecture: two fixed endpoints, a function
+between them, and an integral whose first variation vanishes.  Reducing such a
+global instruction to a differential equation is what it means to solve the
+variational problem.
+
+\section{Mechanics as a Boundary-Value Problem}
+
+A trajectory is often drawn with time horizontal because \(t\) is the
+independent variable.  There is nevertheless a strong convention in physics
+to draw time upward.  An aside recalls experiments in which people
+ordered pictures from youth to age in directions associated with their
+writing systems: left-to-right readers tended to arrange them left to right,
+right-to-left readers the opposite way, and vertically trained readers
+vertically.  Physicists, the joke concludes, are the people who insist that
+time flows upward.  We shall use the conventional horizontal \(t\)-axis here
+because it makes \(x(t)\) read naturally as a graph.
+
+In the initial-value formulation, the data at \(t_0\) are
 \begin{equation}
-A=\int_{t_0}^{t_1} L(x,\dot x,t)\,dt.
+  x(t_0)=x_0,
+  \qquad
+  \dot x(t_0)=v_0.
+  \label{eq:initial-value-data}
 \end{equation}
-The function \(L\) is the Lagrangian. Along the path it depends on position and on velocity, and in general it may depend on time as well. The mechanical question is now cast in the same language as the earlier variational problems: among all trajectories connecting the two endpoint events, which one makes the action stationary?
-
-This is not yet a differential equation. It is a global statement about an integral over a whole path. So the next question arises exactly where it should: how can such a statement possibly turn into something that looks like Newton's local equations of motion?
-
-\section{The Euler--Lagrange Equation from a Discretized Path}
-
-The lecture answers that question in a deliberately concrete way. We do not begin with a polished proof. We first approximate the curve by a broken line.
-
-To avoid an index collision with the later many-coordinate notation, let us label the discrete time-slices by \(n\). Divide the interval from \(t_0\) to \(t_1\) into steps of size \(\epsilon\), and let \(x_n\) be the position at the \(n\)-th time. Then the velocity on the interval from \(n\) to \(n+1\) is approximated by
+Newton's equation then determines the subsequent orbit.  A variational
+formulation poses a different problem: specify two endpoint events,
 \begin{equation}
-v_n \approx \frac{x_{n+1}-x_n}{\epsilon}.
+  x(t_0)=x_0,
+  \qquad
+  x(t_1)=x_1,
+  \label{eq:boundary-value-data}
 \end{equation}
-The action integral is then approximated by an ordinary sum,
+and determine the physical path between them.  The initial velocity is no
+longer supplied; it becomes part of the solution.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_03_figure_09.png}
+  \caption{A mechanical trajectory \(x(t)\).  One may prescribe position and
+  slope at one end, or positions at two endpoint times.}
+  \lectureframe{00:27:41}
+\end{figure}
+
+The quantity to be made stationary is the \emph{action},
 \begin{equation}
-A_\epsilon=\sum_{n=0}^{N-1}\epsilon\,L\!\left(x_n,\frac{x_{n+1}-x_n}{\epsilon}\right).
+  A[x]=\int_{t_0}^{t_1}L(x,\dot x,t)\,dt.
+  \label{eq:action-one}
 \end{equation}
+The integrand \(L\) is the \emph{Lagrangian}.  It may depend on position,
+velocity, and explicitly on time.  The action principle is
+\begin{equation}
+  \delta A=0
+  \label{eq:stationary-action}
+\end{equation}
+for all small path variations with
+\begin{equation}
+  \delta x(t_0)=\delta x(t_1)=0.
+  \label{eq:fixed-endpoint-variations}
+\end{equation}
+The endpoint condition is essential: we compare neighboring paths that connect
+the same two events.
 
-This is the bridge. We have replaced a functional of a curve by an ordinary function of finitely many variables \(x_0,x_1,\dots,x_N\). Stationarity can now be imposed by differentiating with respect to those variables.
+\section{A Discrete Derivation of the Euler--Lagrange Equation}
 
-Pick one interior point \(x_n\), and vary it while holding all the others fixed. Then only the two neighboring intervals change. That is the local mechanism behind the whole derivation. The action depends on \(x_n\) through the interval in front and the interval behind, and nowhere else. If we differentiate with respect to \(x_n\), we find
+The action is a functional of infinitely many path values.  To make its
+variation concrete, divide the time interval into steps of length
+\(\epsilon\),
+\begin{equation}
+  t_n=t_0+n\epsilon,
+  \qquad
+  x_n=x(t_n),
+  \label{eq:discrete-times}
+\end{equation}
+and approximate the velocity on the \(n\)-th interval by
+\begin{equation}
+  v_n=\frac{x_{n+1}-x_n}{\epsilon}.
+  \label{eq:discrete-velocity}
+\end{equation}
+The integral becomes the ordinary sum
+\begin{equation}
+  A_\epsilon
+  =\sum_{n=0}^{N-1}
+  \epsilon L\left(x_n,\frac{x_{n+1}-x_n}{\epsilon}\right).
+  \label{eq:discrete-action}
+\end{equation}
+We use \(n\) for the time-slice label so that \(i\) remains available later
+for spatial coordinates and particles.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_03_figure_10.png}
+  \caption{The trajectory replaced by a chain of time slices.  Varying one
+  interior height changes only its two neighboring segments.}
+  \lectureframe{00:38:30}
+\end{figure}
+
+Vary one interior point \(x_n\), holding every other \(x_k\) fixed.  Only two
+terms in the sum depend on \(x_n\):
 \begin{align}
-0
-&=\frac{\partial A_\epsilon}{\partial x_n} \\
-&=\epsilon\,\frac{\partial L_n}{\partial x_n}
--\frac{\partial L_n}{\partial v_n}
-+\frac{\partial L_{n-1}}{\partial v_{n-1}},
+  A_\epsilon\big|_{x_n}
+  &=
+  \epsilon L\left(x_n,\frac{x_{n+1}-x_n}{\epsilon}\right)
+  \notag\\
+  &\quad+
+  \epsilon L\left(x_{n-1},
+                  \frac{x_n-x_{n-1}}{\epsilon}\right).
+  \label{eq:two-neighbor-terms}
 \end{align}
-where \(L_n\) is shorthand for
-\[
-L_n=L\!\left(x_n,\frac{x_{n+1}-x_n}{\epsilon}\right).
-\]
-Rearranging,
-\begin{equation}
-\frac{1}{\epsilon}
-\left(
-\frac{\partial L_n}{\partial v_n}
--
-\frac{\partial L_{n-1}}{\partial v_{n-1}}
-\right)
-=
-\frac{\partial L_n}{\partial x_n}.
-\end{equation}
+Differentiating gives
+\begin{align}
+  0=\frac{\partial A_\epsilon}{\partial x_n}
+  &=
+  \epsilon\frac{\partial L_n}{\partial x_n}
+  -\frac{\partial L_n}{\partial v_n}
+  +\frac{\partial L_{n-1}}{\partial v_{n-1}}.
+  \label{eq:discrete-el-variation}
+\end{align}
+The opposite signs have a simple geometric origin.  Raising \(x_n\) increases
+the slope of the interval behind it and decreases the slope of the interval
+ahead of it.
 
-Now the crucial observation is exactly the one Susskind emphasizes aloud: the difference of two neighboring values of a function, divided by \(\epsilon\), becomes a derivative when \(\epsilon\) is small. Thus, in the continuum limit,
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_03_figure_04.png}
+  \caption{The direct position derivative and the two neighboring
+  velocity-derivative contributions in the discrete variation.}
+  \lectureframe{00:45:26}
+\end{figure}
+
+Rearrange Eq.~\eqref{eq:discrete-el-variation}:
 \begin{equation}
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot x}\right)=\frac{\partial L}{\partial x}.
+  \frac{1}{\epsilon}
+  \left(
+    \frac{\partial L_n}{\partial v_n}
+    -\frac{\partial L_{n-1}}{\partial v_{n-1}}
+  \right)
+  =
+  \frac{\partial L_n}{\partial x_n}.
+  \label{eq:discrete-el}
+\end{equation}
+The left side is a neighboring difference quotient.  As
+\(\epsilon\to0\), the broken line becomes a smooth path and the quotient
+becomes a time derivative:
+\begin{equation}
+  \boxed{
+  \frac{d}{dt}\left(\frac{\partial L}{\partial\dot x}\right)
+  =
+  \frac{\partial L}{\partial x}}
+  .
+  \label{eq:euler-lagrange-one}
 \end{equation}
 This is the Euler--Lagrange equation.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_03_figure_04.png}
-\caption{Derivative terms in the Euler--Lagrange construction. The board clearly separates the position derivative from the velocity-derivative structure, even though the intermediate finite-difference details are only partly legible.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_03_figure_11.png}
+  \caption{The completed Euler--Lagrange equation obtained from stationarity
+  at every interior time slice.}
+  \lectureframe{00:49:25}
 \end{figure}
 
-The board evidence at this stage is partial, so it is better to state the cleaned result than to pretend every intermediate symbol is readable. But the logic is faithful to the lecture: vary one interior point, watch only the two neighboring intervals change, and the time derivative emerges from a neighboring difference quotient.
+Once \(L\) is specified, Eq.~\eqref{eq:euler-lagrange-one} acts as a machine:
+differentiate the given function, and the machine returns a differential
+equation for the path.
 
-Susskind's next remark is pedagogically important. Once the Lagrangian is given, the Euler--Lagrange equation is a kind of machine. Feed in \(L\), and out comes the differential equation of motion.
+\begin{classroomqa}
+  \audiencequestion{Is the Euler--Lagrange result valid for any function of
+  \(x\) and \(\dot x\)?\lecturetimestamp{00:49:37--00:50:24}}
+  \lecturerresponse{Yes, subject to the regularity needed for the derivatives.
+  The arc-length example has exactly the same form after relabeling its
+  independent variable \(x\) as the role played by \(t\), and its unknown
+  function \(y(x)\) as the role played by \(x(t)\).  Its Euler--Lagrange
+  equation has straight-line solutions.}
+\end{classroomqa}
 
-\section{Recovering Newton's Equations}
+\section{Newton's Equations from the Lagrangian}
 
-A machine is only interesting if it reproduces something we already trust. So Susskind now tests it on the familiar case of a particle moving in a potential.
+For a particle on a line in a potential \(V(x)\), take
+\begin{equation}
+  L(x,\dot x)=T-V
+  =\frac12m\dot x^2-V(x).
+  \label{eq:lagrangian-tv-one}
+\end{equation}
+The minus sign may look strange because total energy is \(T+V\).  But the
+Lagrangian is not the energy.  Its test is whether the Euler--Lagrange machine
+returns the correct motion.  A mock vote about the sign is declined: the
+answer must be checked, not elected.
 
-For one coordinate, take
+First,
 \begin{equation}
-L=\frac{1}{2}m\dot x^2 - V(x).
+  \frac{\partial L}{\partial\dot x}=m\dot x.
+  \label{eq:conjugate-momentum-one}
 \end{equation}
-Then
+This is momentum.  More generally, the momentum conjugate to any coordinate
+\(q\) is defined by
 \begin{equation}
-\frac{\partial L}{\partial \dot x}=m\dot x,
+  p_q=\frac{\partial L}{\partial\dot q}.
+  \label{eq:conjugate-momentum-general}
 \end{equation}
-and therefore
+Taking the time derivative of Eq.~\eqref{eq:conjugate-momentum-one} gives
+\(m\ddot x\), while
 \begin{equation}
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot x}\right)=m\ddot x.
+  \frac{\partial L}{\partial x}
+  =-\frac{dV}{dx}.
+  \label{eq:lagrangian-position-derivative}
 \end{equation}
-On the other hand,
+The Euler--Lagrange equation is therefore
 \begin{equation}
-\frac{\partial L}{\partial x}=-\frac{dV}{dx}.
+  m\ddot x=-\frac{dV}{dx}=F(x),
+  \label{eq:newton-from-action}
 \end{equation}
-Putting these into the Euler--Lagrange equation gives
-\begin{equation}
-m\ddot x=-\frac{dV}{dx}.
-\end{equation}
-That is precisely Newton's law for a force derived from a potential:
-\begin{equation}
-F(x)=-\frac{dV}{dx}.
-\end{equation}
+which is Newton's second law.
 
-At this point Susskind also pauses over a definition that will recur throughout mechanics: \(\partial L/\partial \dot x\) is the momentum. Here it is just \(m\dot x\), but the important point is that this becomes the general Lagrangian definition of momentum.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.74\textwidth]{lecture_03_figure_05.png}
-\caption{Lagrangian as kinetic minus potential energy. The board mixes one-coordinate and indexed notation, but its summary structure is clear: potential energy, kinetic energy, \(L=T-V\), and Newton's force law in one view.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_03_figure_05.png}
+  \caption{Kinetic energy, potential energy, \(L=T-V\), and the recovered
+  component form of Newton's equation on one board.}
+  \lectureframe{00:57:52}
 \end{figure}
 
-For many particles and many coordinates, the extension is straightforward. If the kinetic energy is
+For many coordinates \(q_i\),
 \begin{equation}
-T=\sum_i \frac{m_i}{2}\dot x_i^{\,2},
+  L(\mathbf q,\dot{\mathbf q})
+  =\sum_i\frac12m_i\dot q_i^{\,2}-V(q_1,q_2,\ldots),
+  \label{eq:lagrangian-tv-many}
 \end{equation}
-and the potential is \(V(x_1,x_2,\dots)\), then
+and there is one equation for each coordinate:
 \begin{equation}
-L=T-V
+  \frac{d}{dt}\left(\frac{\partial L}{\partial\dot q_i}\right)
+  =\frac{\partial L}{\partial q_i}
+  \quad\Longrightarrow\quad
+  m_i\ddot q_i=-\frac{\partial V}{\partial q_i}=F_i.
+  \label{eq:euler-lagrange-many}
 \end{equation}
-leads to one Euler--Lagrange equation for each coordinate,
-\begin{equation}
-m_i\ddot x_i=-\frac{\partial V}{\partial x_i}=F_i.
-\end{equation}
-The trajectory through configuration space is still a single curve, but now the curve lives in a higher-dimensional space.
+The trajectory is still one curve, now through a high-dimensional
+configuration space.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+  \audiencequestion{Have we merely worked backward from Newton's law and
+  engineered a functional that reproduces the answer?\lecturetimestamp{00:58:07--01:00:04}}
+  \lecturerresponse{That is not the productive viewpoint.  The Lagrangian is
+  the compact specification of the physical system: one function of all
+  coordinates and velocities packages all its equations of motion.  In new
+  theories, physicists usually propose an action and derive the equations,
+  rather than guessing every equation separately.}
+\end{classroomqa}
 
-\paragraph{Question.} Why is the Lagrangian \(T-V\) rather than \(T+V\)?
+This packaging is one advantage.  Coordinate freedom is another.  The
+statement that a line is shortest does not depend on whether the plane is
+described by Cartesian, polar, or curvilinear coordinates.  In the same way,
+stationarity of the action is coordinate-independent, even though the formula
+for \(L\) and the resulting component equations change.
 
-\paragraph{Answer.} Because with the force convention already in place, \(F_i=-\partial V/\partial x_i\), the plus sign would give the wrong Newtonian equation. If we wrote \(L=T+V\), then the Euler--Lagrange equation would produce
-\[
-m_i\ddot x_i=+\frac{\partial V}{\partial x_i}=-F_i,
-\]
-so mass times acceleration would come out equal to minus the force. One could rescue that only by redefining force or redefining potential energy. With the standard definitions already used throughout mechanics, the Lagrangian must be kinetic energy minus potential energy.
+\section{A Free Particle Seen from a Carousel}
 
-There is a second point hidden inside the same question. The Lagrangian is not the total energy. That is why it need not be \(T+V\). It is a different object, chosen so that the stationarity of the action reproduces the equations of motion.
+Let \((x,y)\) be inertial Cartesian coordinates and let \((X,Y)\) rotate
+uniformly with angular velocity \(\omega\).  With the orientation used here,
+\begin{align}
+  x&=X\cos\omega t+Y\sin\omega t,
+  \notag\\
+  y&=-X\sin\omega t+Y\cos\omega t.
+  \label{eq:rotating-coordinate-map}
+\end{align}
+The angle between the frames is \(\omega t\).
 
-\section{The Lagrangian as Packaging}
-
-At this stage the lecture raises a natural resistance point. Have we merely worked backward from Newton's equations, selecting a convenient functional only because we already knew the answer?
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Does the action principle merely work backward from the answer?
-
-\paragraph{Answer.} Susskind's answer is no, and it is worth preserving the force of that answer. The useful point of view is not that we begin with Newton's equations and then engineer a Lagrangian to imitate them. The more powerful point of view is that the Lagrangian is itself the compact specification of the system. One function of all the coordinates and velocities packages the whole mechanics. From that one function the Euler--Lagrange equations extract the equations of motion.
-
-This is how physicists typically think when proposing new laws. One does not usually guess the equations of motion directly. One guesses the action or the Lagrangian, because it is a simpler and more economical object.
-
-That economy is the first reason the formalism is useful. The second is that the action principle is much friendlier to coordinate changes than Newton's equations written out component by component. A shortest path is shortest in any coordinate system. A straight line in the plane is still the shortest path whether we describe the plane by Cartesian coordinates, polar coordinates, or some more elaborate curvilinear system. The same is true of the action principle. The coordinate description changes, but the stationary character of the action does not.
-
-This is the hinge that opens the final part of the lecture. Once we take the Lagrangian seriously as the given object, changing coordinates becomes natural rather than painful.
-
-\section{Changing Coordinates: Rotating Frames and Polar Coordinates}
-
-\subsection{Rotating coordinates}
-
-Susskind's first example is a free particle, but viewed from a rotating coordinate system. In an inertial frame with Cartesian coordinates \((x,y)\), the Lagrangian is just
-\begin{equation}
-L_{\mathrm{inertial}}=\frac{m}{2}\left(\dot x^2+\dot y^2\right).
-\end{equation}
-Now introduce a second coordinate system \((X,Y)\) that rotates uniformly with angular velocity \(\omega\). The coordinate transformation used in the lecture is
-\begin{equation}
-\begin{aligned}
-x&=X\cos\omega t+Y\sin\omega t,\\
-y&=-X\sin\omega t+Y\cos\omega t.
-\end{aligned}
-\end{equation}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (0,0) -- (2.6,0) node[right] {$x$};
-\draw[->] (0,0) -- (0,2.6) node[above] {$y$};
-\draw[->,dashed] (0,0) -- (2.1,1.0) node[right] {$X$};
-\draw[->,dashed] (0,0) -- (-1.0,2.1) node[above] {$Y$};
-\draw (0.8,0) arc (0:25:0.8);
-\node at (1.0,0.28) {$\omega t$};
-\end{tikzpicture}
-\caption{A rotating coordinate frame. The lecture's point is that it is easier to transform the Lagrangian than to rewrite Newton's equations directly in these time-dependent coordinates.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_03_figure_12.png}
+  \caption{Inertial and uniformly rotating Cartesian axes.  The same point
+  receives time-dependent rotating coordinates.}
+  \lectureframe{01:06:05}
 \end{figure}
 
-One differentiates these relations, substitutes into \(\dot x^2+\dot y^2\), and simplifies. The lecture does not dwell on the algebra, and the transcript is noisy in the middle of it, so the clean thing to record is the standard reconstructed result:
+A free particle has inertial-frame Lagrangian
 \begin{equation}
-\begin{aligned}
-L_{\mathrm{rot}}
-&=
-\frac{m}{2}\left(\dot X^2+\dot Y^2\right)
-+
-\frac{m\omega^2}{2}\left(X^2+Y^2\right)\\
-&\qquad
-+ m\omega(\dot X\,Y-\dot Y\,X).
-\end{aligned}
+  L_{\mathrm{in}}
+  =\frac{m}{2}\left(\dot x^2+\dot y^2\right).
+  \label{eq:free-inertial-lagrangian}
 \end{equation}
+Differentiate Eq.~\eqref{eq:rotating-coordinate-map} and use
+\(\sin^2\omega t+\cos^2\omega t=1\).  The trigonometric terms combine to give
+\begin{align}
+  \dot x^2+\dot y^2
+  &=
+  \dot X^2+\dot Y^2
+  +\omega^2(X^2+Y^2)
+  +2\omega(Y\dot X-X\dot Y).
+  \label{eq:rotating-speed}
+\end{align}
+Thus
+\begin{align}
+  L_{\mathrm{rot}}
+  &=
+  \frac{m}{2}(\dot X^2+\dot Y^2)
+  +\frac{m\omega^2}{2}(X^2+Y^2)
+  +m\omega(Y\dot X-X\dot Y).
+  \label{eq:rotating-lagrangian}
+\end{align}
 
-The first term looks ordinary enough. The second has the form of minus a potential energy:
-\begin{equation}
-V_{\mathrm{fict}}=-\frac{m\omega^2}{2}\left(X^2+Y^2\right).
-\end{equation}
-Because this potential falls away outward from the origin, it produces an outward force. This is the centrifugal force.
-
-The third term is different. It is linear both in coordinates and in velocities. That is exactly the kind of term that produces a velocity-dependent force. In the present context that force is the Coriolis force. Cleaning up the lecture's board-level sign slips, the corresponding equations of motion take the standard form
-\begin{equation}
-m\ddot X=m\omega^2 X-2m\omega \dot Y,
-\qquad
-m\ddot Y=m\omega^2 Y+2m\omega \dot X.
-\end{equation}
-The terms proportional to \(\omega^2\) are centrifugal. The terms proportional to the transverse velocity are Coriolis.
-
-The conceptual point is more important than the algebraic details. A complicated transformation of Newton's equations is replaced by a comparatively painless transformation of the Lagrangian. Once the transformed Lagrangian is in hand, the Euler--Lagrange machine does the rest.
-
-Susskind also remarks that the mixed term is not peculiar to rotating systems. A charged particle in a magnetic field is described by a very similar velocity-dependent contribution to the Lagrangian. That observation is a hint of a broader pattern: linear-in-velocity terms are natural in the Lagrangian language even when they look unfamiliar from the Newtonian point of view.
-
-We also keep the energy discussion modest here, as the lecture does. The mixed linear term affects the equations of motion, but the fuller and more systematic treatment of energy is postponed to the Hamiltonian formulation.
-
-\subsection{Polar coordinates and cyclic coordinates}
-
-The next example is cleaner. Rewrite the same two-dimensional mechanics in ordinary polar coordinates:
-\begin{equation}
-x=r\cos\theta,
-\qquad
-y=r\sin\theta.
-\end{equation}
-Differentiating and squaring, one finds the familiar identity
-\begin{equation}
-\dot x^2+\dot y^2=\dot r^2+r^2\dot\theta^2.
-\end{equation}
-Thus the kinetic energy becomes
-\begin{equation}
-T=\frac{m}{2}\left(\dot r^2+r^2\dot\theta^2\right).
-\end{equation}
-For a central force, where the potential depends only on \(r\), the Lagrangian is
-\begin{equation}
-L=\frac{m}{2}\left(\dot r^2+r^2\dot\theta^2\right)-V(r).
-\end{equation}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-0.2,0) -- (3.2,0) node[right] {$x$};
-\draw[->] (0,-0.2) -- (0,2.6) node[above] {$y$};
-\draw[->,thick] (0,0) -- (2.4,1.6);
-\fill (2.4,1.6) circle (1.3pt);
-\draw (0.8,0) arc (0:34:0.8);
-\node at (1.05,0.25) {$\theta$};
-\node at (1.35,1.0) {$r$};
-\end{tikzpicture}
-\caption{Polar coordinates for a central-force problem. The geometry makes the radial and angular equations easy to read.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_03_figure_13.png}
+  \caption{The transformed free-particle Lagrangian: ordinary kinetic energy,
+  a quadratic centrifugal term, and a term linear in velocity.}
+  \lectureframe{01:12:16}
 \end{figure}
 
-Now the Euler--Lagrange equations are taken with respect to \(r\) and \(\theta\). For the radial coordinate,
+The quadratic coordinate term has the form \(-V_{\mathrm{fict}}\), where
 \begin{equation}
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot r}\right)=\frac{\partial L}{\partial r},
+  V_{\mathrm{fict}}
+  =-\frac{m\omega^2}{2}(X^2+Y^2).
+  \label{eq:centrifugal-potential}
 \end{equation}
-so
-\begin{equation}
-m\ddot r=mr\dot\theta^2-\frac{dV}{dr}.
-\end{equation}
-The first term on the right is the familiar outward centrifugal contribution; here it comes not from rotating coordinates, but from the particle's own angular motion.
+It decreases outward, so it produces the centrifugal force
+\(m\omega^2(X,Y)\).
 
-For the angular coordinate,
+The final term in Eq.~\eqref{eq:rotating-lagrangian} is linear in both
+coordinates and velocities.  Applying the Euler--Lagrange equation gives
+\begin{align}
+  m\ddot X&=m\omega^2X-2m\omega\dot Y,
+  \notag\\
+  m\ddot Y&=m\omega^2Y+2m\omega\dot X.
+  \label{eq:rotating-equations}
+\end{align}
+The terms proportional to \(\omega^2\) are centrifugal; those proportional to
+velocity are Coriolis.  In vector form within the rotating plane,
 \begin{equation}
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot\theta}\right)=\frac{\partial L}{\partial \theta}.
+  \mathbf F_{\mathrm{C}}
+  =-2m\,\boldsymbol\omega\times\mathbf v_{\mathrm{rot}},
+  \label{eq:coriolis-vector}
 \end{equation}
-But \(L\) does not depend explicitly on \(\theta\). Therefore
+with signs adjusted if the opposite orientation convention is chosen.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_03_figure_14.png}
+  \caption{The rotating-frame equations.  Coordinate-proportional terms give
+  centrifugal acceleration; cross-velocity terms give Coriolis acceleration.}
+  \lectureframe{01:20:20}
+\end{figure}
+
+The point is not that the algebra disappears.  It is that one coordinate
+transformation of a single scalar function generates both coupled equations
+and both fictitious forces.
+
+\begin{classroomqa}
+  \audiencequestion{Does this method work for arbitrarily curved
+  coordinates?\lecturetimestamp{01:22:01--01:22:17}}
+  \lecturerresponse{Yes.  The new coordinates may be curvilinear and may even
+  depend explicitly on time, as the rotating coordinates do.  Rewrite the
+  action in the new variables and apply the same Euler--Lagrange rule.}
+\end{classroomqa}
+
+\section{Polar Coordinates and a Cyclic Angle}
+
+For ordinary polar coordinates,
 \begin{equation}
-\frac{d}{dt}\!\left(mr^2\dot\theta\right)=0.
+  x=r\cos\theta,
+  \qquad
+  y=r\sin\theta.
+  \label{eq:polar-map}
 \end{equation}
-So the quantity \(mr^2\dot\theta\) is conserved. To avoid confusion with the Lagrangian, let us denote the conserved angular momentum by \(\ell\):
+Both \(r\) and \(\theta\) may vary with time.  Differentiating and adding the
+squares yields
 \begin{equation}
-mr^2\dot\theta=\ell.
+  \dot x^2+\dot y^2
+  =\dot r^2+r^2\dot\theta^2.
+  \label{eq:polar-speed}
 \end{equation}
-This gives
+For a central potential \(V(r)\),
 \begin{equation}
-\dot\theta=\frac{\ell}{mr^2}.
-\end{equation}
-Substituting back into the radial equation produces a single equation for \(r\):
-\begin{equation}
-m\ddot r=\frac{\ell^2}{mr^3}-\frac{dV}{dr}.
+  L
+  =\frac{m}{2}\left(\dot r^2+r^2\dot\theta^2\right)-V(r).
+  \label{eq:polar-lagrangian}
 \end{equation}
 
-Here the lecture arrives at one of its cleanest general lessons. If a coordinate \(q\) does not appear explicitly in the Lagrangian, then
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_03_figure_15.png}
+  \caption{Polar geometry and the decomposition of kinetic energy into radial
+  and angular motion.}
+  \lectureframe{01:23:30}
+\end{figure}
+
+The radial equation is
 \begin{equation}
-\frac{\partial L}{\partial q}=0
-\qquad \Longrightarrow \qquad
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q}\right)=0.
+  m\ddot r
+  =mr\dot\theta^2-\frac{dV}{dr}.
+  \label{eq:radial-equation}
 \end{equation}
-That is, the momentum conjugate to \(q\) is conserved. Such a coordinate is traditionally called a cyclic coordinate, even though there is nothing especially cyclic about it. The name is historical; the conservation law is the substance.
+The first term is the outward centrifugal contribution associated with the
+particle's own angular motion.
 
-\section{Summary}
+For the angle,
+\begin{equation}
+  \frac{d}{dt}\left(\frac{\partial L}{\partial\dot\theta}\right)
+  =\frac{\partial L}{\partial\theta}=0,
+  \label{eq:theta-el}
+\end{equation}
+because the central potential has no explicit \(\theta\)-dependence.  Hence
+\begin{equation}
+  \frac{d}{dt}\left(mr^2\dot\theta\right)=0,
+  \qquad
+  mr^2\dot\theta=\ell,
+  \label{eq:angular-momentum}
+\end{equation}
+where \(\ell\) is the conserved angular momentum.
 
-The lecture unfolds by teaching us first what stationary means, before asking us to make an action stationary. In equilibrium the first variation of the potential vanishes. In the calculus of variations the first variation of an integral over a curve vanishes. In mechanics the same idea is applied to a trajectory in spacetime:
-\[
-A=\int L\,dt.
-\]
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_03_figure_16.png}
+  \caption{The angular Euler--Lagrange equation has zero right-hand side,
+  exposing conservation of \(mr^2\dot\theta\).}
+  \lectureframe{01:29:25}
+\end{figure}
 
-The discretized derivation shows how a global stationarity condition becomes the local Euler--Lagrange equation,
-\[
-\frac{d}{dt}\!\left(\frac{\partial L}{\partial \dot q}\right)=\frac{\partial L}{\partial q}.
-\]
-Choosing \(L=T-V\) then reproduces Newton's equations. From there the lecture widens its scope. The Lagrangian is presented as a compact packaging of the laws of motion, as a practical tool for changing coordinates, and as the natural setting in which conserved quantities emerge when coordinates drop out of the Lagrangian.
+The angular equation gives
+\begin{equation}
+  \dot\theta=\frac{\ell}{mr^2}.
+  \label{eq:theta-dot-angular-momentum}
+\end{equation}
+Substitution into Eq.~\eqref{eq:radial-equation} leaves a single equation for
+\(r\):
+\begin{equation}
+  m\ddot r
+  =\frac{\ell^2}{mr^3}-\frac{dV}{dr}.
+  \label{eq:effective-radial-equation}
+\end{equation}
 
-The final impression is exactly the one Susskind wants to leave. This is not merely a clever reformulation of a few particle problems. It is a framework of extraordinary generality, one that reaches across classical physics and points beyond it. The deeper reason for that generality is deferred, for now, to quantum mechanics.
+A coordinate absent from \(L\) is traditionally called \emph{cyclic}, even
+when it is not an angle.  If \(q\) is cyclic, then
+\begin{equation}
+  \frac{\partial L}{\partial q}=0
+  \quad\Longrightarrow\quad
+  \frac{d}{dt}\left(\frac{\partial L}{\partial\dot q}\right)=0.
+  \label{eq:cyclic-conservation}
+\end{equation}
+Its conjugate momentum is conserved.  This is the first glimpse of a general
+link between symmetry and conservation law.
+
+\section{Questions About Meaning, Energy, and Scope}
+
+The questions that follow expose where the deeper content of the formalism
+lies.
+
+\begin{classroomqa}
+  \audiencequestion{Is there an independent reason to arrive at the
+  Lagrangian, beyond discovering that it gives the right classical
+  equations?\lecturetimestamp{01:33:25--01:35:07}}
+  \lecturerresponse{Historically, more than a century of classical mechanics
+  showed that particles, waves, and electromagnetic fields could all be cast
+  in this form.  At the classical level that accumulated success is an
+  empirical fact about how laws are organized.  The deeper explanation comes
+  from quantum mechanics and is deferred.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{In the rotating-frame Lagrangian, can the
+  velocity-linear term be assigned an ordinary kinetic or potential
+  energy?\lecturetimestamp{01:35:08--01:36:23}}
+  \lecturerresponse{No.  The conserved quantity associated with time
+  translation is obtained by the Hamiltonian construction, not by reading
+  every term in \(L\) as kinetic or potential energy.  For
+  Eq.~\eqref{eq:rotating-lagrangian}, the velocity-linear term cancels from
+  \(\sum_a\dot q_a\,\partial L/\partial\dot q_a-L\).  The Hamiltonian treatment
+  will organize this systematically.}
+\end{classroomqa}
+
+Indeed, because \(L_{\mathrm{rot}}\) has no explicit time dependence,
+\begin{equation}
+  H_{\mathrm{rot}}
+  =\dot X\frac{\partial L}{\partial\dot X}
+   +\dot Y\frac{\partial L}{\partial\dot Y}
+   -L
+  =\frac{m}{2}(\dot X^2+\dot Y^2)
+   -\frac{m\omega^2}{2}(X^2+Y^2)
+  \label{eq:rotating-hamiltonian-preview}
+\end{equation}
+is conserved.  It is the rotating-frame Jacobi integral, not the same
+numerical energy assigned by the inertial observer.  Time-dependent coordinate
+changes need not preserve the numerical form of energy.
+
+\begin{classroomqa}
+  \audiencequestion{What if a curved trajectory is caused by
+  gravity?\lecturetimestamp{01:36:30--01:37:10}}
+  \lecturerresponse{For Newtonian gravity, simply use
+  \(V(r)=-GMm/r\) in the central-force Lagrangian.  Curved spacetime belongs
+  to general relativity and is not assumed here.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Are the centrifugal potential and its energy merely
+  fictitious?\lecturetimestamp{01:37:13--01:40:14}}
+  \lecturerresponse{An observer on the rotating platform measures the
+  effective forces and can consistently use the rotating-frame conserved
+  quantity.  \emph{Fictitious} means that these terms arise from a noninertial
+  description, not that their observed effects are imaginary.  Energy itself
+  is not invariant under a general time-dependent change of coordinates.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What direction does the velocity-dependent Coriolis
+  force point?\lecturetimestamp{01:40:22--01:42:36}}
+  \lecturerresponse{It is perpendicular to the rotating-frame velocity, with
+  magnitude proportional to speed and to the frame's angular velocity.  In
+  the plane the components exchange \(\dot X\) and \(\dot Y\) with opposite
+  signs, as in Eq.~\eqref{eq:rotating-equations}.}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_03_figure_17.png}
+  \caption{The cross-velocity component pattern: the Coriolis force is
+  perpendicular to the rotating-frame velocity.}
+  \lectureframe{01:41:40}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Must the starting Lagrangian be written in an inertial
+  frame?\lecturetimestamp{01:42:37--01:44:00}}
+  \lecturerresponse{For an ordinary free particle, Newton's inertial-frame law
+  supplies the simple starting form \(m(\dot x^2+\dot y^2)/2\).  Once that
+  physical law is known, the action can be transformed to any other
+  coordinates.  One should not assume the same simple kinetic formula
+  independently in a rotating frame.}
+\end{classroomqa}
+
+The same type of velocity-linear term occurs for a charged particle in a
+magnetic field:
+\begin{equation}
+  L_{\mathrm{em}}
+  =\frac12m\mathbf v^2
+   +q\mathbf A(\mathbf r,t)\cdot\mathbf v
+   -q\phi(\mathbf r,t).
+  \label{eq:electromagnetic-lagrangian}
+\end{equation}
+For a uniform magnetic field perpendicular to the plane, the symmetric gauge
+\(\mathbf A=\tfrac12\mathbf B\times\mathbf r\) produces a term proportional to
+\(X\dot Y-Y\dot X\), the same algebraic structure as the Coriolis term.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_03_figure_18.png}
+  \caption{The velocity-linear rotating-frame term that motivates the
+  comparison with a charged particle in a uniform magnetic field.}
+  \lectureframe{01:44:40}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Are there constraints on what function may serve as a
+  Lagrangian, beyond smoothness?\lecturetimestamp{01:44:46--01:45:06}}
+  \lecturerresponse{Yes, but the relevant constraints require more structure
+  than has yet been developed and are deferred.  At this stage the central
+  lesson is how a proposed Lagrangian generates equations and conservation
+  laws.}
+\end{classroomqa}
+
+The rotating equations also admit circular motion: a point fixed in the
+inertial frame is seen from the carousel to circle the rotating origin.  The
+magnetic analogy then explains why a charged particle can execute circular
+cyclotron motion.
+
+\begin{classroomqa}
+  \audiencequestion{Would a charged particle remain on that circle, or would
+  radiation make the orbit collapse?\lecturetimestamp{01:46:11--01:47:21}}
+  \lecturerresponse{The particle-only equations being discussed omit
+  radiation.  Once coupling to the electromagnetic field and radiation
+  reaction are included, an accelerating classical charge can radiate.
+  Radiation is therefore a further physical effect, not a contradiction of
+  the orbit in the truncated equations.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Where do hurricanes enter this discussion?
+  \lecturetimestamp{01:47:30--01:47:50}}
+  \lecturerresponse{Their large-scale atmospheric motion occurs on the
+  rotating Earth, so Coriolis effects are important.  A proper derivation
+  belongs to meteorology and is not attempted here.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is the action framework expected to cover every physical
+  law, and what would a genuine exception mean?\lecturetimestamp{01:47:57--01:49:01}}
+  \lecturerresponse{Every known closed fundamental theory in the discussion's
+  scope can be organized by an action: Newtonian particles, Maxwell fields,
+  general relativity, and the Standard Model.  Apparent counterexamples such
+  as viscous drag arise when environmental degrees of freedom are omitted.
+  Enlarge the system to include the fluid or microscopic bath and the
+  fundamental description again fits the framework.  A truly fundamental
+  exception would therefore be a major discovery.}
+\end{classroomqa}
