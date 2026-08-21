@@ -86,11 +86,12 @@ Keep the end of the lecture as a short closing section rather than part of the m
 - `lecture_10_figure_03.png` must remain visible where the particle Lagrangian is first written, because the long one-line board layout shows that Susskind is unpacking \(\mathbf A\cdot\mathbf v\) component by component rather than treating it as a black-box interaction.
 - `lecture_10_figure_04.png` must remain visible in the section on canonical momentum and Euler–Lagrange setup. Its value is not just the formulas themselves but the board organization: definition, then evaluation, then expansion.
 - `lecture_10_figure_05.png` must remain visible in the Lorentz-force derivation section. It is the best evidence for the lecture’s core algebraic move from derivatives of \(A_i\) to components of \(\mathbf B\).
-- `lecture_10_figure_06.png` must remain visible at the Hamiltonian transition. The board is still mostly blank, which correctly records that the lecture is beginning the Hamiltonian construction rather than presenting a finished formula from nowhere.
+- `lecture_10_figure_06.png` is the replacement Hamiltonian frame. It must remain because it shows the canonical momenta and the completed minimally coupled squares rather than the inherited blank transition state.
+- `lecture_10_figure_07.png` and `lecture_10_figure_08.png` must remain around the two-gauge conservation-law calculation. Together they visually establish the lecture's main computational payoff.
+- `lecture_10_figure_09.png` must remain in the orbit section. It is the real blackboard circle and radius calculation after the missing factor of \(c\) is restored.
+- `lecture_10_figure_10.png` must remain in the monopole exchange. It records the narrow return-flux tube and apparent radial source.
 - No extracted-board equation should be redrawn in TikZ. For the board mathematics, use preserved screenshots plus clean displayed equations in LaTeX; that is more faithful than producing faux-board diagrams.
-- The only candidate for a supplemental TikZ schematic is the later geometric picture of uniform circular motion in the \(xy\)-plane, with \(\mathbf v\) tangent, \(\mathbf a\) inward, and \(\mathbf B\) along \(\hat z\). Even there, it should be treated as an editorial explanatory sketch rather than a board-faithful redraw, because the current frame set does not contain a matching chalk sketch to anchor it.
 - The different uniform-\(B\) gauges do not need TikZ. They are better presented as aligned displayed equations or a compact comparison table, since the lecture’s point is algebraic and symmetry-based rather than pictorial.
-- If a small circular-orbit schematic is eventually added, keep it visually secondary to the transcript-driven derivation; the chapter’s primary visual evidence remains the five extracted screenshots above.
 
 ## Caution Notes
 - The transcript around the first uniform-field example contains live self-corrections about the field direction. The final lecture intent is clear: the working example is \(\mathbf B=B\hat z\), with \(B_x=0\), \(B_y=0\), \(B_z=B\).
