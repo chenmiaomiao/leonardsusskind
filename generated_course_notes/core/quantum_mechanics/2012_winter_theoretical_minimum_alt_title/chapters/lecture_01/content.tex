@@ -1,443 +1,637 @@
-\chapter{Lecture 1: The Theoretical Minimum}
+\chapter{States, Measurements, and Complex Vector Spaces}
 
-These notes follow the first quantum-mechanics lecture as a guided unfolding rather than as a retrospective textbook summary. We begin where the lecture begins, with classical mechanics as the theory of states and deterministic updating. We then pass through a warning about visualization, into the simplest quantum experiment, and only afterward into the abstract mathematics of complex vector spaces. The lesson of the lecture is not yet the full formalism of quantum mechanics. It is the more primitive fact that the quantum notion of state is already unlike the classical one, and that the mathematics must be prepared before the physics can be represented properly.
+\lectureoverview{Quantum mechanics begins by changing what we mean by a state. We first isolate the classical pattern of states and deterministic updating, then use a two-outcome spin experiment to expose its failure. The mathematical response is a complex vector space equipped with dual vectors, an inner product, a norm, and orthogonality.}
 
-\section{From Classical Mechanics to Quantum Abstraction}
+\section{The Classical Pattern: State and Update}
 
-Last quarter's subject was classical mechanics, and the lecture begins by rebuilding its basic structure from the bottom up. First comes the notion of a \emph{system}: a closed, isolated thing whose history we want to predict. Next comes the notion of a \emph{state}: the information that must be specified at an instant in order to predict the future. Finally come the \emph{equations of motion}: the rules that update the state from one time to the next.
+Begin with a closed system, at least temporarily isolated from everything else. The word \emph{system} is primitive here: it means the object whose history we want to predict. A \emph{state} is everything that must be known at one instant in order to make that prediction. Classical mechanics supplies a law that updates one state into the next.
 
-For a toy system, the structure is almost embarrassingly simple. If the system is an abstract coin, one possible law of motion is that nothing happens:
-\begin{align}
-H &\longmapsto H,
-&
-T &\longmapsto T.
-\end{align}
-Another possible law is alternation:
-\begin{align}
-H &\longmapsto T,
-&
-T &\longmapsto H.
-\end{align}
-These examples are trivial, but they make the classical pattern explicit. Classical mechanics is a theory of updating:
+For the simplest abstract coin,
 \begin{equation}
-s(t)\longmapsto s(t+\Delta t),
+  \mathcal S_{\mathrm{coin}}=\{H,T\}.
 \end{equation}
-and, once the state \(s(t)\) is known, the update is deterministic.
+One possible law says that nothing happens:
+\begin{equation}
+  H\longmapsto H,
+  \qquad
+  T\longmapsto T.
+\end{equation}
+Another law alternates the two states:
+\begin{equation}
+  H\longmapsto T,
+  \qquad
+  T\longmapsto H.
+\end{equation}
+These examples are elementary, but they expose the architecture of a classical theory:
+\begin{equation}
+  s(t)\longmapsto s(t+\Delta t).
+\end{equation}
+Once \(s(t)\) is known, the update is deterministic.
 
-As we move from discrete examples to continuous motion, the state space becomes larger and more abstract, but the structure is unchanged. A particle moving on a line no longer has only two states, or six, or any finite number. Its state must be labeled by continuous data. Still, the theory remains predictive: give the state at one time, and the equations tell us what the state will be at the next.
+The same pattern survives when the state space is continuous. A particle moving on a line requires both its position and momentum,
+\begin{equation}
+  s=(q,p),
+\end{equation}
+so its state space is the phase plane. The number of possible states has become infinite, and the equations may be written in the elegant language of Lagrangians, Hamiltonians, and Poisson brackets, but the underlying idea has not changed. The state at one time contains what is needed to predict the state at another.
 
-At this point the lecture pauses for a warning that is not ornamental. Once physics moves beyond the range of ordinary experience, visualization becomes unreliable. We cannot picture the motion of an electron in any literal everyday sense. We cannot visualize four-dimensional spacetime, much less higher-dimensional spaces. Susskind's example is deliberately sharp: we cannot even truly visualize a two-dimensional curved space without sneaking in a three-dimensional embedding. If we try to understand quantum mechanics by picturing it as a slightly funny sort of classical mechanics, we will almost certainly get it wrong.
+\section{Abstraction Before Visualization}
 
-The cure is not better pictures. The cure is abstraction. We learn to manipulate the mathematics faithfully, and only afterward do we develop a more appropriate kind of intuition. This methodological warning is the hinge of the lecture. Without it, the later move to vector spaces would feel unmotivated; with it, the mathematics arrives exactly when it is needed.
+Classical motion is comparatively easy to picture because its concepts are drawn from ordinary experience. That advantage disappears when the relevant objects are too small, the velocities too large, or the dimension of the state space too high. No one literally visualizes the motion of an electron, four-dimensional spacetime, or a ten-dimensional space. This is not a deficiency peculiar to beginners. Human visual intuition was built for the everyday three-dimensional world.
+
+Even apparently simpler cases reveal the limitation. What we call a picture of a two-dimensional curved space is ordinarily a surface embedded in three dimensions. A one-dimensional line is pictured as a mark in a plane. The picture quietly imports the ambient space in which our visual system knows how to operate.
+
+The remedy is not to force a classical picture onto unfamiliar physics. It is to learn the abstract structure and let a new intuition grow from correct manipulations. Three-dimensional coordinates \((x,y,z)\) become four-dimensional coordinates \((x,y,z,w)\) by adding a symbol and extending the rules, not by acquiring a new organ of sight. Quantum mechanics demands the same discipline. Treating it as a strange mechanical model of little classical objects will repeatedly produce the wrong answer.
+
+\begin{remark}
+Mathematical intuition still develops. It is simply not the same as seeing a wave on the ocean or an arrow in ordinary space. The algebra becomes familiar because its relations are used consistently.
+\end{remark}
 
 \section{Classical State Spaces and Classical Logic}
 
-Armed with that warning, the lecture returns to a classical question: what kind of thing is a space of states? For classical systems, the answer is that the state space is a set.
+For a classical system, the state space is a set. An abstract die has
+\begin{equation}
+  \mathcal S_{\mathrm{die}}=\{1,2,3,4,5,6\}.
+\end{equation}
+A real die has continuously many orientations, but the idealized die used here has only these six labels. A particle on a line has the continuously infinite set
+\begin{equation}
+  \mathcal S_{\mathrm{particle}}
+  =
+  \{(q,p)\mid q,p\in\mathbb R\}.
+\end{equation}
+Finite or infinite, each classical state space is a collection of mutually distinct possibilities.
 
-For an abstract coin,
-\begin{equation}
-\mathcal{S}_{\mathrm{coin}}=\{H,T\}.
-\end{equation}
-For an abstract die,
-\begin{equation}
-\mathcal{S}_{\mathrm{die}}=\{1,2,3,4,5,6\}.
-\end{equation}
-For a point particle moving on a line, the state consists of position together with momentum; the appropriate classical state space is phase space,
-\begin{equation}
-\mathcal{S}_{\mathrm{particle}}=\{(q,p)\mid q,p\in\mathbb{R}\}.
-\end{equation}
-In the first two cases the state space is finite; in the third it is continuously infinite. But in every case it is still a set of possible states.
-
-Once the state space is a set, classical logic falls into place almost automatically. A proposition is represented by a subset of the state space, and logical operations become set-theoretic operations. If \(P\) and \(Q\) are propositions, then
-\begin{equation}
-P\wedge Q \leftrightarrow P\cap Q,
-\qquad
-P\vee Q \leftrightarrow P\cup Q,
-\end{equation}
-with \( \vee \) understood as the inclusive ``or.''
-
-The lecture uses the die to make this completely concrete. Let
+A proposition about the system selects a subset of those possibilities. For the die, let
 \begin{align}
-P_{\mathrm{odd}} &= \{1,3,5\},\\
-Q_{\leq 3} &= \{1,2,3\}.
+  P_{\mathrm{odd}}&=\{1,3,5\},\\
+  P_{\leq 3}&=\{1,2,3\}.
 \end{align}
-Then
-\begin{align}
-P_{\mathrm{odd}}\cap Q_{\leq 3} &= \{1,3\},\\
-P_{\mathrm{odd}}\cup Q_{\leq 3} &= \{1,2,3,5\}.
-\end{align}
-So ``odd and less than or equal to three'' is represented by intersection, while ``odd or less than or equal to three'' is represented by union. If two subsets do not overlap, the classical statement ``\(P\) and \(Q\)'' is simply false.
-
-This is the logic of set theory. It is not an extra layer placed on top of classical mechanics; it comes from the fact that a classical state space is a set. The lecture then makes the decisive claim: quantum mechanics does not inherit this logic in the same way. The space of quantum states is not a set of classical alternatives. Only in certain classical limits does it approximately reduce to that kind of picture. The lecture even tells us the replacement in advance: the quantum state space is a vector space.
-
-Before explaining that abstractly, however, Susskind turns to the simplest experiment.
-
-\section{The Qubit, Its Three Notations, and the Apparatus}
-
-The simplest possible quantum system is the quantum analogue of the coin. Susskind calls it a \emph{qubit}. The corresponding classical object would be a \emph{c-bit}, a classical bit, nothing more than an abstract two-state system.
-
-At first the qubit is labeled by the familiar language of heads and tails, but the lecture immediately introduces a more useful variable \(\sigma\):
+The statement \emph{odd and no greater than three} corresponds to their intersection:
 \begin{equation}
-\sigma\in\{+1,-1\}.
+  P_{\mathrm{odd}}\cap P_{\leq 3}=\{1,3\}.
 \end{equation}
-The three notational systems are then placed in parallel:
+The inclusive statement \emph{odd or no greater than three} corresponds to their union:
 \begin{equation}
-H \leftrightarrow \sigma=+1 \leftrightarrow \uparrow,
-\qquad
-T \leftrightarrow \sigma=-1 \leftrightarrow \downarrow.
+  P_{\mathrm{odd}}\cup P_{\leq 3}
+  =
+  \{1,2,3,5\}.
 \end{equation}
-The lecture is careful here. At this stage the arrows are only notation. They are not yet meant to imply that the qubit is literally an ordinary vector in three-dimensional space.
+Thus classical conjunction and disjunction have the set-theoretic form
+\begin{equation}
+  P\wedge Q\longleftrightarrow P\cap Q,
+  \qquad
+  P\vee Q\longleftrightarrow P\cup Q.
+\end{equation}
+If the subsets do not overlap, no state makes both propositions true.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_01_figure_02.png}
-\caption{Qubit labels \(\sigma=\pm1\) and up/down notation.}
+This logic is tied to the classical conception of state. Quantum mechanics replaces the set of classical alternatives by a different mathematical object: a vector space. Only in a suitable classical limit does the vector-space description behave approximately like a set of exclusive configurations. Before constructing that space, we need an experiment that makes the replacement unavoidable.
+
+\section{The Simplest Quantum System}
+
+The quantum analogue of the abstract coin is a two-outcome system called a \emph{qubit}. Its measured alternatives may first be labeled heads and tails, but a numerical label is more useful:
+\begin{equation}
+  \sigma\in\{+1,-1\}.
+\end{equation}
+Three notations will be used in parallel:
+\begin{equation}
+  H\longleftrightarrow \sigma=+1\longleftrightarrow\uparrow,
+  \qquad
+  T\longleftrightarrow \sigma=-1\longleftrightarrow\downarrow.
+\end{equation}
+At first the arrows are only names. No ordinary geometric vector has yet been assumed.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_01_figure_02.png}
+  \caption{The board introduces the equivalent labels \(H/T\), \(\sigma=\pm1\), and up/down arrows. The arrows begin as notation, not as a classical model.}
+  \lectureframe{00:22:44}
 \end{figure}
 
-One audience member asks what heads and tails have to do with the actual physics. The answer is: nothing. They are only a familiar way to emphasize that there are two alternatives. The variable \(\sigma\) is the mathematically more useful label.
+\begin{classroomqa}
+\audiencequestion{What do heads and tails have to do with the physical system?}
+\lecturerresponse{Nothing beyond providing two familiar names. The qubit has two possible outcomes for this measurement; heads and tails are placeholders. The labels \(\pm1\) are chosen because they can enter equations.}
+\end{classroomqa}
 
-Now the experiment enters. A quantum experiment involves not only the system but also an \emph{apparatus}, which the lecture denotes by \(A\). Unlike the qubit, the apparatus is treated for now as a black box. It has an orientation, a sensor, and a window in which a number can appear. In its neutral state the window is blank. When the apparatus interacts with the qubit, a faithful detector records one of only two outcomes:
+\subsection{The Apparatus as a Black Box}
+
+An experiment requires a second system, the apparatus \(A\). For now it is an abstract black box with three features:
+\begin{enumerate}
+  \item it has a spatial orientation, marked by \emph{this side up};
+  \item it has a sensor that can interact with the qubit;
+  \item it has a display that is initially blank and afterward reads \(+1\) or \(-1\).
+\end{enumerate}
+The details of the detector are deliberately postponed. A good detector is defined operationally by the reliable relation between the system and its record. The observer need not be watching when the interaction occurs; the apparatus can record the result and be read later.
+
+Suppose the display reports \(+1\). Reset the apparatus to its blank condition and repeat the same measurement immediately, before any independent evolution has time to act. A faithful detector reports \(+1\) again. If the first result is \(-1\), immediate repetitions likewise continue to report \(-1\):
 \begin{equation}
-\text{readout}\in\{+1,-1\}.
+  +1\longrightarrow +1\longrightarrow +1\longrightarrow\cdots,
+  \qquad
+  -1\longrightarrow -1\longrightarrow -1\longrightarrow\cdots.
 \end{equation}
-This is the operational starting point. We are not yet concerned with the detailed inner workings of the detector, only with the fact that such detectors exist and can record the state of the qubit.
+The first measurement can therefore be regarded as a \emph{preparation}. It leaves the qubit in a state for which an immediate repetition of the same measurement has a definite result.
 
-The lecture then insists on a crucial point. If the first measurement gives \(+1\), and we reset the apparatus and immediately repeat the measurement in the same orientation, we get \(+1\) again. Repeating the same measurement confirms the first one:
-\begin{equation}
-+1\to +1\to +1\to \cdots,
-\qquad
--1\to -1\to -1\to \cdots.
-\end{equation}
-Thus the measurement is not merely a readout. It is also a preparation.
-Once the qubit has been found in a given state, repeating the same experiment leaves that result fixed.
+This repeatability is not an optional philosophical gloss. Without it there would be no operational way to confirm a measurement. A defective device may fail to repeat its result, but then it is not carrying out the ideal measurement being defined.
 
-This is the first genuinely quantum lesson of the lecture, but it is phrased operationally rather than interpretively. The lecture does not yet speak in terms of wave-function collapse. It speaks in terms of what the apparatus does: the first measurement produces a result; the second, if done immediately in the same orientation, confirms it.
+\begin{classroomqa}
+\audiencequestion{Is this already the collapse of the wave function?}
+\lecturerresponse{That language can be introduced later. At this stage the operational statement is enough: a measurement produces a result and prepares a state in which the same immediate measurement reproduces that result. Naming the process does not yet explain it.}
+\end{classroomqa}
 
-Now the apparatus is turned upside down. A qubit prepared in the state \(\sigma=+1\), or \(\uparrow\), is measured again. The readout changes sign. Turn the detector upright again and the sign flips back. This already tells us something new. The up/down arrows were introduced as notation, but the experiment shows that there is genuine spatial directionality in the problem. That suggestion is exactly what the next step will sharpen and then partly destroy.
+\section{Orientation and the Failure of the Classical Pointer}
 
-\section{Detector Rotations and the Breakdown of the Classical Picture}
+Prepare the qubit so that the upright apparatus reads \(+1\). Turn the apparatus through \(180^\circ\) and repeat the measurement. The result is now \(-1\). Repeated measurements with the inverted apparatus confirm \(-1\), while turning the apparatus upright again restores \(+1\).
 
-Once the detector has an orientation, a classical guess presents itself immediately. Perhaps the qubit is really something like an ordinary pointer in space, and the apparatus simply measures its component along the detector axis. With the detector upright, the measured component is \(+1\). Turn the detector by \(180^\circ\), and the component changes sign to \(-1\). So far, the classical picture seems to fit.
+The result reveals genuine directionality. The up/down notation is not entirely arbitrary: reversing the detector reverses the sign. It is tempting to conclude that the qubit is simply a small vector and that the detector measures the component of that vector along its own axis. That temptation must be tested rather than trusted.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.79\textwidth]{lecture_01_figure_03.png}
-\caption{Prepared upward state together with upright and sideways analyzer sketches.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_01_figure_03.png}
+  \caption{An upward preparation and differently oriented analyzers on the board. The classroom later corrected the direction of one chalk arrow; only the analyzer axis matters in the argument.}
+  \lectureframe{00:36:21}
 \end{figure}
 
-But the lecture is setting a trap for that classical intuition. The qubit is prepared ``up,'' and then the detector is turned sideways by \(90^\circ\). If the qubit were an ordinary pointer, the horizontal component of a vertical vector would be zero. Classically we would expect
+\subsection{A Sideways Measurement}
+
+Turn the detector by \(90^\circ\). If the prepared qubit were an ordinary upward pointer, its component along the horizontal detector axis would be zero:
 \begin{equation}
-\text{horizontal component of an upward pointer}=0.
+  \hat{\mathbf x}\cdot\hat{\mathbf z}=0.
 \end{equation}
-What the apparatus actually returns is not \(0\). It returns, once again, only \(+1\) or \(-1\).
+The quantum apparatus never reports zero. Every individual trial reports either \(+1\) or \(-1\).
 
-\begin{figure}[ht]
-\centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[>=stealth,thick,scale=0.90]
-\draw[->] (0,0)--(0,1.8);
-\node at (0,-0.35) {\(\uparrow\)};
-\node at (0,-0.75) {prepared state};
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tikzpicture}[>=stealth,thick,scale=0.90]
+    \draw[->] (0,0)--(0,1.8);
+    \node at (0,-0.35) {\(\uparrow\)};
+    \node at (0,-0.75) {prepared};
 
-\draw (2.0,-0.15) rectangle (3.4,1.95);
-\draw (2.7,0.48) circle (0.34);
-\draw[->] (2.7,0.12)--(2.7,1.45);
-\node at (2.7,0.48) {\(+1\)};
-\node at (2.7,-0.55) {upright analyzer};
+    \draw (2.0,-0.15) rectangle (3.4,1.95);
+    \draw (2.7,0.48) circle (0.34);
+    \draw[->] (2.7,0.12)--(2.7,1.45);
+    \node at (2.7,0.48) {\(+1\)};
+    \node at (2.7,-0.55) {\(\theta=0\)};
 
-\draw (4.7,-0.15) rectangle (6.1,1.95);
-\draw (5.4,0.48) circle (0.34);
-\draw[->] (5.4,1.45)--(5.4,0.12);
-\node at (5.4,0.48) {\(-1\)};
-\node at (5.4,-0.55) {turned by \(180^\circ\)};
+    \draw (4.7,-0.15) rectangle (6.1,1.95);
+    \draw (5.4,0.48) circle (0.34);
+    \draw[->] (5.4,1.45)--(5.4,0.12);
+    \node at (5.4,0.48) {\(-1\)};
+    \node at (5.4,-0.55) {\(\theta=\pi\)};
 
-\draw (7.4,-0.15) rectangle (9.0,1.95);
-\draw (8.2,0.90) ellipse (0.42 and 0.28);
-\draw[->] (7.58,0.90)--(8.82,0.90);
-\node at (8.2,0.18) {\(\pm 1\)};
-\node at (8.2,-0.55) {turned by \(90^\circ\)};
+    \draw (7.4,-0.15) rectangle (9.0,1.95);
+    \draw (8.2,0.90) ellipse (0.42 and 0.28);
+    \draw[->] (7.58,0.90)--(8.82,0.90);
+    \node at (8.2,0.18) {\(\pm1\)};
+    \node at (8.2,-0.55) {\(\theta=\pi/2\)};
 
-\begin{scope}[shift={(11.7,0.90)},rotate=35]
-\draw (-0.72,-1.02) rectangle (0.72,1.02);
-\draw (0,-0.48) circle (0.30);
-\draw[->] (0,-0.82)--(0,0.60);
-\end{scope}
-\node at (11.7,0.18) {\(\pm 1\) each trial};
-\node at (11.7,-0.55) {average \(=\cos\theta\)};
-\node at (11.7,2.02) {\(\theta\)};
-\end{tikzpicture}
-}%
-\caption{Cleaned reconstruction of the detector-orientation experiments. The redraw follows the transcript's logic rather than every literal chalk arrow.}
+    \begin{scope}[shift={(11.7,0.90)},rotate=35]
+      \draw (-0.72,-1.02) rectangle (0.72,1.02);
+      \draw (0,-0.48) circle (0.30);
+      \draw[->] (0,-0.82)--(0,0.60);
+    \end{scope}
+    \node at (11.7,0.18) {\(\pm1\)};
+    \node at (11.7,-0.55) {\(\expect{\sigma}=\cos\theta\)};
+    \node at (11.7,2.02) {\(\theta\)};
+  \end{tikzpicture}
+  }%
+  \caption{Reconstruction of the analyzer sequence. A rotation changes the statistics, never the set of individual outcomes.}
 \end{figure}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} If the qubit has been prepared ``up,'' why does a sideways detector not read \(0\), the way a classical detector would read the horizontal component of an ordinary upward pointer?
-
-\paragraph{Answer.} Because the qubit is not behaving like an ordinary classical pointer. The sideways measurement still yields only the discrete outcomes \(+1\) and \(-1\). The first sideways result is random. If it happens to be \(+1\), then a repeated sideways measurement confirms that \(+1\) again and again. But if we now rotate the detector back to the original upright orientation, the result becomes random once more. The measurement has prepared the qubit relative to the new axis, not revealed a pre-existing classical component.
-
-This is the main conceptual shock of the lecture. Classical component language works for averages, but it fails at the level of individual experiments. A classical upward pointer has zero horizontal component. A quantum-mechanical ``up'' qubit does not yield \(0\) under a sideways measurement, ever. It yields only \(+1\) or \(-1\).
-
-\section{Ensembles, Rotated Detectors, and the \(\cos\theta\) Law}
-
-At this point the lecture makes a distinction that must not be blurred. There is a difference between confirming a measurement on one already measured qubit and determining statistics across many identically prepared qubits.
-
-For the sideways analyzer, a single run gives either \(+1\) or \(-1\). If we repeat the same sideways measurement on that same qubit, we only confirm the already established result. To see the underlying law, we must prepare many qubits in the same initial state and measure each one once.
-
-For the \(90^\circ\) case, the lecture's statement is:
+Prepare a large collection of qubits with the upright apparatus, retaining those for which the result is \(+1\). Measure each retained qubit once with the sideways apparatus. Half the trials give \(+1\), half give \(-1\), and the ensemble average is zero:
 \begin{equation}
-\text{each trial gives }+1\text{ or }-1,
-\qquad
-\text{but the ensemble average is }0.
+  \expect{\sigma}_{\pi/2}=0.
 \end{equation}
-This is not because the apparatus is secretly returning intermediate values.
-It never does.
-The average is zero only because, over many identically prepared trials, there are as many \(+1\)'s as \(-1\)'s.
+The average resembles the vanishing horizontal component of a classical pointer, but the individual records do not. The classical value \(0\) has been replaced by a statistical balance between two discrete outcomes.
 
-If we now rotate the detector by an arbitrary angle \(\theta\) relative to the preparation axis, the same pattern survives. Each single trial still gives only \(+1\) or \(-1\), but the average now depends smoothly on \(\theta\). As a convenient editorial shorthand, let
+\begin{classroomqa}
+\audiencequestion{What happens if the same qubit is kept instead of being discarded after the sideways measurement?}
+\lecturerresponse{Suppose its first sideways result is \(+1\). Repeating the sideways measurement on that same qubit gives \(+1\) again and again. The first sideways measurement has prepared it relative to the sideways axis. To obtain the fifty-fifty statistics, one must repeat the whole preparation-and-measurement experiment on many qubits, not repeatedly confirm one result.}
+\end{classroomqa}
+
+\subsection{Incompatible Preparations}
+
+The sequence of axes matters. Prepare \(+1\) vertically, then measure horizontally. The first horizontal result is random. Once a horizontal result has been obtained, immediate horizontal repetitions are definite. Now turn the detector back to the vertical axis. The vertical result is random again.
+
+In symbols, where \(M_z\) and \(M_x\) denote measurements along the two axes,
 \begin{equation}
-\overline{\sigma}(\theta)
+  M_z:+1,
+  \qquad
+  M_x:\pm1,
+  \qquad
+  M_x:\text{same result},
+  \qquad
+  M_z:\pm1.
 \end{equation}
-denote the ensemble average of the readout for an analyzer tilted by \(\theta\). Then the lecture's empirical rule is
+The intermediate \(x\)-measurement has not merely uncovered a horizontal component while preserving the original vertical state. It has prepared a new state, and the original vertical definiteness is gone.
+
+\begin{classroomqa}
+\audiencequestion{Does the detector remember the first answer? How can it know whether the same qubit or a new qubit has been presented?}
+\lecturerresponse{The repeatability is a property of the measured qubit, not a hidden memory comparison performed by the detector. After a measurement, the qubit is in a state that gives the same answer to the same immediate measurement. Present a differently prepared qubit and the result depends on that preparation. Keeping track of which physical system is being measured is ordinary laboratory bookkeeping.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{So the act of observing prepares the particular qubit?}
+\lecturerresponse{Yes. Once that measurement has prepared the qubit, the same measurement gives the same answer until some other evolution or incompatible measurement intervenes.}
+\end{classroomqa}
+
+\section{An Arbitrarily Rotated Analyzer}
+
+Let the detector axis make an angle \(\theta\) with the axis along which the ensemble was prepared. Every trial still yields
+\begin{equation}
+  \sigma=\pm1.
+\end{equation}
+The relative frequencies vary with the angle so that the mean is
+\begin{equation}
+  \expect{\sigma}_{\theta}=\cos\theta.
+  \label{eq:qml1-cosine-mean}
+\end{equation}
+The limiting cases are
 \begin{align}
-\overline{\sigma}(0) &= 1,\\
-\overline{\sigma}\!\left(\frac{\pi}{2}\right) &= 0,\\
-\overline{\sigma}(\pi) &= -1,\\
-\overline{\sigma}(\theta) &= \cos\theta.
+  \expect{\sigma}_{0}&=+1,\\
+  \expect{\sigma}_{\pi/2}&=0,\\
+  \expect{\sigma}_{\pi}&=-1.
 \end{align}
-The lecture does \emph{not} yet derive detailed probabilities for \(+1\) and \(-1\); it gives only the average. That restraint should be preserved here. The point of the experiment is already striking enough: the average behaves as though one were taking the component of a classical vector, but the individual measurements never do.
+Near \(\theta=0\), most outcomes are \(+1\), with an occasional \(-1\). Near \(\theta=\pi\), most are \(-1\), with an occasional \(+1\).
 
-In fact the lecture emphasizes the two sides together. If the detector is nearly upright, then mostly we see \(+1\), with an occasional \(-1\). If it is nearly upside down, then mostly we see \(-1\), with an occasional \(+1\). At no stage does the detector return a continuum of values. The continuum appears only after averaging.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_01_figure_04.png}
+  \caption{The actual board for the arbitrary-angle experiment: a vertically prepared ensemble enters an analyzer tilted by \(\theta\).}
+  \lectureframe{00:48:55}
+\end{figure}
 
-\subsection{Question \& Answer}
+The smooth vector-like quantity is the ensemble mean, not the single result. If \(p_+(\theta)\) and \(p_-(\theta)\) are the two probabilities, then
+\begin{equation}
+  p_+ + p_-=1,
+  \qquad
+  p_+-p_-=\cos\theta.
+\end{equation}
+Consequently,
+\begin{equation}
+  p_+(\theta)=\frac{1+\cos\theta}{2}
+  =\cos^2\frac{\theta}{2},
+  \qquad
+  p_-(\theta)=\frac{1-\cos\theta}{2}
+  =\sin^2\frac{\theta}{2}.
+  \label{eq:qml1-half-angle-probabilities}
+\end{equation}
+\editorialnote{The lecture states the two outcomes and their mean \(\cos\theta\). Equation~\eqref{eq:qml1-half-angle-probabilities} is the immediate algebraic consequence of those statements and makes the implied frequency law explicit.}
 
-\paragraph{Question.} Why do we need a collection of identically prepared qubits? If nothing happens between measurements, why can we not keep using the same qubit and recover the average from repeated measurements on it?
+\begin{classroomqa}
+\audiencequestion{Would an unprepared collection of qubits also show the \(\cos\theta\) mean?}
+\lecturerresponse{No particular direction has been selected in an unpolarized collection, so its mean is zero. The \(\theta\)-dependence refers to an ensemble first prepared along a definite axis.}
+\end{classroomqa}
 
-\paragraph{Answer.} Because repeated measurements with the same detector do not generate a distribution. They only confirm the outcome of the first measurement. Once a tilted analyzer has produced \(+1\) or \(-1\), the qubit has been prepared relative to that tilted axis, and repeating the same tilted measurement merely reproduces the same answer. To learn the statistical law, we need many qubits prepared in the same initial state and measured once each.
+\begin{classroomqa}
+\audiencequestion{Why is a whole ensemble necessary if the qubit has no intervening dynamics?}
+\lecturerresponse{The first tilted measurement on one qubit gives one sample. Every immediate repetition on that same qubit only confirms that sample. Independent trials require identically prepared qubits, each measured once with the tilted analyzer.}
+\end{classroomqa}
 
-The lecture later answers a related question about the sequence of outcomes. For the purposes of this first discussion, the trials are taken to be random and uncorrelated from one prepared qubit to the next. The interesting structure is in the mean, not in higher-order correlations.
+\begin{classroomqa}
+\audiencequestion{Are there patterns or higher-order correlations in the sequence of pluses and minuses?}
+\lecturerresponse{For this experiment the separate trials are taken to be independent and uncorrelated. Their one-trial probabilities depend on \(\theta\), but no additional ordering pattern is being asserted.}
+\end{classroomqa}
 
-This is also where Susskind explicitly postpones the more interpretive language. One can say, if one likes, that the measurement has collapsed the state, but the lecture refuses to lean on that vocabulary yet. Operationally, it is enough to say that the first measurement changes the system, and the second measurement, if carried out immediately in the same orientation, merely keeps what the first one has done.
+\subsection{What Has Been Idealized}
 
-The same kind of postponement applies to the apparatus itself. Strictly speaking, the detector is also a physical system and ought eventually to be treated quantum mechanically. The lecture acknowledges this point but sets it aside. For now, the world is provisionally divided into detectors and systems. The complication of combining them into a single quantum description is deferred to a later stage.
+For the moment the apparatus is treated as a classical object with a continuously adjustable orientation and a discrete readout. This division between \emph{system} and \emph{detector} is temporary. The detector is itself a physical system and must eventually obey quantum mechanics. A complete account will treat system and apparatus together, but that requires machinery not yet available.
 
-The lecture now leaves us with the puzzle in its clearest form. The average behavior looks vector-like. The single-shot outcomes do not. That is exactly the moment when the mathematics of vector spaces is brought onto the stage.
+\begin{classroomqa}
+\audiencequestion{Is the detector itself just another two-state system?}
+\lecturerresponse{It has physical states and must ultimately be included in the quantum description. For now we retain an operational split: the qubit is the object being described quantum mechanically, while the oriented detector supplies a stable classical record. Later the combined system must be analyzed as interacting quantum systems.}
+\end{classroomqa}
 
-\section{From Pointers to Complex Vector Spaces}
+\begin{classroomqa}
+\audiencequestion{Does changing the axis about which the detector is rotated introduce more structure than the single angle shown here?}
+\lecturerresponse{Yes, the full three-dimensional story is richer. The one-plane rotation is the simplest slice of it and is consistent with the more complete treatment to come.}
+\end{classroomqa}
 
-Susskind begins the mathematical interlude by separating two meanings of the word \emph{vector}. An ordinary arrow in physical space is something we can picture geometrically. To keep that meaning distinct, he gives it a private name: a \emph{pointer}. The vectors that quantum mechanics needs are more abstract. They are not necessarily arrows in ordinary three-dimensional space at all.
+\begin{classroomqa}
+\audiencequestion{Can the detector return a continuous value between \(-1\) and \(+1\)?}
+\lecturerresponse{Its orientation varies continuously, but each ideal qubit readout remains \(+1\) or \(-1\). Continuity appears in the probabilities and averages as the orientation changes, not in the individual outcomes.}
+\end{classroomqa}
+
+\section{Pointers and Abstract Vectors}
+
+The experimental facts are now separated from the mathematics for a while. An ordinary arrow in physical space will be called a \emph{pointer}. A mathematical vector is more general: it is an element of a vector space and need not point anywhere in ordinary space.
 
 \begin{definition}
-A vector space is a collection of mathematical objects with the following basic properties:
-
-\begin{enumerate}
-\item vectors can be added, and the sum stays in the same space;
-\item vectors can be multiplied by scalars, and the result stays in the same space;
-\item there is a zero vector;
-\item addition is commutative.
-\end{enumerate}
+A complex vector space \(V\) is a collection of vectors for which vector addition and multiplication by complex scalars are defined and satisfy the usual linearity rules. In particular, for \(u,v,w\in V\) and \(a,b\in\mathbb C\),
+\begin{align}
+  u+v&=v+u,\\
+  (u+v)+w&=u+(v+w),\\
+  a(u+v)&=au+av,\\
+  (a+b)u&=au+bu,\\
+  (ab)u&=a(bu),\\
+  1u&=u.
+\end{align}
+There is a zero vector \(0\) and an additive inverse \(-u\) for every \(u\).
 \end{definition}
 
-The lecture stresses closure under addition and scalar multiplication, and then fills in the zero vector and commutativity when asked. Real numbers provide a real vector space: they are closed under addition and multiplication by real numbers. Complex numbers provide a complex vector space: they are closed under addition and multiplication by complex numbers. The lecture also remarks, briefly, that complex-valued functions of a real variable form a vector space as well. That is an important enlargement of the idea, but here it is only a signpost. The main concrete model of the lecture is simpler.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.86\textwidth]{lecture_01_figure_05.png}
-\caption{Two-component complex column-vector operations.}
-\end{figure}
-
-We consider pairs of complex numbers arranged in a column:
+The classroom discussion initially emphasizes only the operations and closure:
 \begin{equation}
-|\alpha\rangle
-\leftrightarrow
-\begin{pmatrix}
-\alpha_1\\
-\alpha_2
-\end{pmatrix},
-\qquad
-\alpha_1,\alpha_2\in\mathbb{C}.
+  u,v\in V\Longrightarrow u+v\in V,
+  \qquad
+  a\in\mathbb C,\ u\in V\Longrightarrow au\in V.
+\end{equation}
+The zero vector and commutativity are then supplied in response to questions. The remaining familiar axioms state explicitly what is already used when the concrete column-vector model is introduced.
+
+Real numbers form a one-dimensional vector space over \(\mathbb R\). Complex numbers form a one-dimensional vector space over \(\mathbb C\), and a two-dimensional vector space over \(\mathbb R\). Complex-valued functions \(\psi(x)\) also form a complex vector space because
+\begin{equation}
+  (\psi+\phi)(x)=\psi(x)+\phi(x),
+  \qquad
+  (z\psi)(x)=z\psi(x).
+\end{equation}
+This function-space example will later become central, but finite columns make the structure easier to see first.
+
+\begin{classroomqa}
+\audiencequestion{What is the distinction between a vector and a vector space?}
+\lecturerresponse{A vector is one element. A vector space is the collection of all such elements together with the rules for adding them and multiplying them by scalars, just as a number is one object while the number system is a collection with operations.}
+\end{classroomqa}
+
+\section{Two-Component Complex Columns}
+
+Write an abstract vector in Dirac notation as \(\ket{\alpha}\). A concrete representation is
+\begin{equation}
+  \ket{\alpha}
+  \longleftrightarrow
+  \begin{pmatrix}
+    \alpha_1\\
+    \alpha_2
+  \end{pmatrix},
+  \qquad
+  \alpha_1,\alpha_2\in\mathbb C.
 \end{equation}
 If
-\[
-|\beta\rangle
-\leftrightarrow
-\begin{pmatrix}
-\beta_1\\
-\beta_2
-\end{pmatrix},
-\]
-then the board gives the rules
+\begin{equation}
+  \ket{\beta}
+  \longleftrightarrow
+  \begin{pmatrix}
+    \beta_1\\
+    \beta_2
+  \end{pmatrix},
+\end{equation}
+then addition and scalar multiplication are defined component by component:
 \begin{align}
-\begin{pmatrix}
-\alpha_1\\
-\alpha_2
-\end{pmatrix}
-+
-\begin{pmatrix}
-\beta_1\\
-\beta_2
-\end{pmatrix}
-&=
-\begin{pmatrix}
-\alpha_1+\beta_1\\
-\alpha_2+\beta_2
-\end{pmatrix},\\
-z
-\begin{pmatrix}
-\alpha_1\\
-\alpha_2
-\end{pmatrix}
-&=
-\begin{pmatrix}
-z\alpha_1\\
-z\alpha_2
-\end{pmatrix},
-\qquad
-z\in\mathbb{C}.
+  \ket{\alpha}+\ket{\beta}
+  &\longleftrightarrow
+  \begin{pmatrix}
+    \alpha_1+\beta_1\\
+    \alpha_2+\beta_2
+  \end{pmatrix},\\
+  z\ket{\alpha}
+  &\longleftrightarrow
+  \begin{pmatrix}
+    z\alpha_1\\
+    z\alpha_2
+  \end{pmatrix},
+  \qquad z\in\mathbb C.
 \end{align}
-This is the concrete realization that the lecture wants us to hold on to. Columns of length two form one vector space. Columns of length three form another. One does not add a two-entry column to a three-entry column, because there is no rule for doing so.
 
-The zero vector is simply
-\begin{equation}
-|0\rangle=
-\begin{pmatrix}
-0\\
-0
-\end{pmatrix},
-\qquad
-|\alpha\rangle+|0\rangle=|\alpha\rangle,
-\end{equation}
-and commutativity follows because the entries are ordinary complex numbers:
-\begin{equation}
-|\alpha\rangle+|\beta\rangle=|\beta\rangle+|\alpha\rangle.
-\end{equation}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_01_figure_05.png}
+  \caption{The component rules for adding two complex columns and multiplying a column by a complex scalar.}
+  \lectureframe{01:14:28}
+\end{figure}
 
-Now Dirac notation enters more seriously. The abstract vectors are \emph{kets}, written \( |A\rangle \). For each ket there is a corresponding element in the dual vector space, written \( \langle A| \), and called a \emph{bra}. The correspondence preserves addition and conjugates scalars:
+The zero vector is
+\begin{equation}
+  \ket{0}
+  =
+  \begin{pmatrix}
+    0\\
+    0
+  \end{pmatrix},
+  \qquad
+  \ket{\alpha}+\ket{0}=\ket{\alpha}.
+\end{equation}
+Columns of length three form another vector space, and similarly for any fixed length. A two-component column cannot be added to a three-component column because the two belong to different spaces and no componentwise rule relates them.
+
+\begin{classroomqa}
+\audiencequestion{Is a column vector a matrix?}
+\lecturerresponse{In general terminology it is a matrix with one column. In this course, the word \emph{matrix} will usually mean a square array, while a one-column array will be called a column vector. The distinction is terminological, not a disagreement about the algebra.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the order of vector addition matter?}
+\lecturerresponse{No. Componentwise addition inherits commutativity from complex numbers:
+\[
+  \ket{\alpha}+\ket{\beta}
+  =
+  \ket{\beta}+\ket{\alpha}.
+\]
+This is one of the vector-space axioms.}
+\end{classroomqa}
+
+\section{Dual Vectors: Bras and Kets}
+
+For every ket \(\ket{A}\) there is a corresponding vector in the dual space, written \(\bra{A}\). The map from ket to bra is additive but conjugates complex scalars:
 \begin{align}
-\langle A+B| &= \langle A|+\langle B|,\\
-\langle zA| &= z^*\langle A|.
+  \ket{A}+\ket{B}
+  &\longleftrightarrow
+  \bra{A}+\bra{B},\\
+  z\ket{A}
+  &\longleftrightarrow
+  z^*\bra{A}.
+  \label{eq:qml1-antilinear-dual}
 \end{align}
-For the concrete two-component column,
+This second rule is the essential complex feature. The dual of a scalar multiple is multiplied by the complex conjugate scalar.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_01_figure_06.png}
+  \caption{The ket-to-bra correspondence and its two rules: sums map to sums, while scalar multiplication is complex conjugated.}
+  \lectureframe{01:23:15}
+\end{figure}
+
+For the two-component realization,
 \begin{equation}
-|\alpha\rangle
-\leftrightarrow
-\begin{pmatrix}
-\alpha_1\\
-\alpha_2
-\end{pmatrix}
-\qquad\Longrightarrow\qquad
-\langle \alpha|
-\leftrightarrow
-\begin{pmatrix}
-\alpha_1^* & \alpha_2^*
-\end{pmatrix}.
+  \ket{\alpha}
+  =
+  \begin{pmatrix}
+    \alpha_1\\
+    \alpha_2
+  \end{pmatrix}
+  \qquad\Longrightarrow\qquad
+  \bra{\alpha}
+  =
+  \begin{pmatrix}
+    \alpha_1^*&\alpha_2^*
+  \end{pmatrix}.
+  \label{eq:qml1-bra-from-ket}
 \end{equation}
-The row form is only a device for keeping track of which space the object lives in, but it is a very convenient one.
+Complex conjugation implements the dual correspondence, and the row notation keeps the two kinds of object visibly distinct. Equation~\eqref{eq:qml1-bra-from-ket} also verifies Equation~\eqref{eq:qml1-antilinear-dual} directly.
 
-With bras and kets in hand, the lecture defines the inner product. If
-\[
-\langle\beta|
-\leftrightarrow
-\begin{pmatrix}
-\beta_1^* & \beta_2^*
-\end{pmatrix},
-\qquad
-|\alpha\rangle
-\leftrightarrow
-\begin{pmatrix}
-\alpha_1\\
-\alpha_2
-\end{pmatrix},
-\]
-then
+\section{The Inner Product}
+
+Given \(\ket{\alpha}\) and \(\ket{\beta}\), combine the bra associated with \(\beta\) and the ket \(\alpha\):
 \begin{equation}
-\langle\beta|\alpha\rangle
-=
-\beta_1^*\alpha_1+\beta_2^*\alpha_2.
+  \braket{\beta}{\alpha}
+  =
+  \begin{pmatrix}
+    \beta_1^*&\beta_2^*
+  \end{pmatrix}
+  \begin{pmatrix}
+    \alpha_1\\
+    \alpha_2
+  \end{pmatrix}
+  =
+  \beta_1^*\alpha_1+\beta_2^*\alpha_2.
+  \label{eq:qml1-inner-product}
 \end{equation}
-This is the complex analogue of the dot product for pointers: multiply corresponding components and add, except that the bra contributes complex-conjugated components.
+The word \emph{bracket} is literally assembled from \emph{bra} and \emph{ket}. This is the complex analogue of a dot product: multiply corresponding components and add, with complex conjugation on the bra.
 
-\begin{proposition}
-For the two-component complex column model,
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_01_figure_07.png}
+  \caption{The board evaluates the inner product \(\braket{\beta}{\alpha}\) as \(\beta_1^*\alpha_1+\beta_2^*\alpha_2\).}
+  \lectureframe{01:31:25}
+\end{figure}
+
+Interchanging the vectors gives
 \begin{equation}
-\langle A|B\rangle=\langle B|A\rangle^*.
+  \braket{\alpha}{\beta}
+  =
+  \alpha_1^*\beta_1+\alpha_2^*\beta_2
+  =
+  \braket{\beta}{\alpha}^{*}.
+  \label{eq:qml1-conjugate-symmetry}
 \end{equation}
-Moreover,
+The order therefore matters in general, but only by complex conjugation.
+
+\begin{classroomqa}
+\audiencequestion{Could one define a product of complex vectors without conjugating one side?}
+\lecturerresponse{One can invent such a bilinear expression, but then the product of a vector with itself need not be real or positive. That structure is not the useful one for quantum mechanics. The conjugated, or Hermitian, inner product gives the norm and probability structure that will be needed.}
+\end{classroomqa}
+
+\subsection{Norm and Positivity}
+
+Set \(\beta=\alpha\) in Equation~\eqref{eq:qml1-inner-product}:
 \begin{equation}
-\langle \alpha|\alpha\rangle
-=
-|\alpha_1|^2+|\alpha_2|^2,
+  \braket{\alpha}{\alpha}
+  =
+  \alpha_1^*\alpha_1+\alpha_2^*\alpha_2
+  =
+  |\alpha_1|^2+|\alpha_2|^2.
+  \label{eq:qml1-norm-square}
 \end{equation}
-which is real and nonnegative.
-\end{proposition}
-
-\begin{proof}
-Write
-\[
-\langle\beta|\alpha\rangle=\beta_1^*\alpha_1+\beta_2^*\alpha_2.
-\]
-Interchanging \(\alpha\) and \(\beta\) gives
-\[
-\langle\alpha|\beta\rangle=\alpha_1^*\beta_1+\alpha_2^*\beta_2,
-\]
-which is the complex conjugate of the previous expression. Hence
-\[
-\langle\beta|\alpha\rangle=\langle\alpha|\beta\rangle^*.
-\]
-Now set \(\beta=\alpha\). Then
-\[
-\langle\alpha|\alpha\rangle
-=
-\alpha_1^*\alpha_1+\alpha_2^*\alpha_2
-=
-|\alpha_1|^2+|\alpha_2|^2.
-\]
-Each term is real and nonnegative, so the whole expression is real and nonnegative.
-\end{proof}
-
-The lecture interprets \(\langle A|A\rangle\) as the square of the length of the vector. Thus even though the components are complex, the length is real and positive.
-
-Orthogonality is then defined in the expected way.
-
-\begin{definition}
-Two vectors are orthogonal if their inner product vanishes:
+This number equals its own complex conjugate, so it is real. It is nonnegative, and it vanishes only for the zero vector. The length is defined by
 \begin{equation}
-\langle A|B\rangle=0.
+  \|\alpha\|
+  =
+  \sqrt{\braket{\alpha}{\alpha}}.
 \end{equation}
-\end{definition}
+Complex components therefore produce an ordinary nonnegative real length.
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_01_figure_08.png}
+  \caption{The self-inner-product on the board: \(\braket{\alpha}{\alpha}=|\alpha_1|^2+|\alpha_2|^2\), the squared norm.}
+  \lectureframe{01:34:40}
+\end{figure}
 
-\paragraph{Question.} Does the order matter? Is \(\langle B|A\rangle\) the same as \(\langle A|B\rangle\)?
+\section{Orthogonality and Dimension}
 
-\paragraph{Answer.} No. In a complex vector space the two expressions are not generally equal; they are complex conjugates of one another:
-\[
-\langle A|B\rangle=\langle B|A\rangle^*.
-\]
-But this is enough to make orthogonality symmetric. If \(\langle A|B\rangle=0\), then \(\langle B|A\rangle=0^*=0\). So orthogonality does not depend on order, even though the inner product itself does.
-
-Finally the lecture turns to dimension. Rather than taking dimension to mean ``number of components'' from the outset, it defines it abstractly as the maximal number of mutually orthogonal nonzero vectors in the space. In the concrete two-component model, a simple orthogonal pair is
+Two vectors are orthogonal when their inner product vanishes:
 \begin{equation}
-|e_1\rangle=
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix},
-\qquad
-|e_2\rangle=
-\begin{pmatrix}
-0\\
-1
-\end{pmatrix},
-\qquad
-\langle e_1|e_2\rangle=0.
+  \braket{\beta}{\alpha}=0.
+  \label{eq:qml1-orthogonality}
 \end{equation}
-Once we have found two mutually orthogonal nonzero vectors in this space, there is no third nonzero vector orthogonal to both. Thus the space is two-dimensional. In this example, the abstract definition agrees with the obvious concrete one: the dimension equals the number of components in the column.
+Conjugate symmetry makes this relation independent of order:
+\begin{equation}
+  \braket{\beta}{\alpha}=0
+  \quad\Longrightarrow\quad
+  \braket{\alpha}{\beta}
+  =
+  \braket{\beta}{\alpha}^{*}
+  =0.
+\end{equation}
 
-The lecture closes the mathematical interlude by hinting that there is still more structure to come. There will be other products of vectors, including outer products that produce matrices, and the general ideas will later be extended to vector spaces of functions. But the central point of tonight's interlude is already in place: the space of states is a complex vector space, not a set.
+In the two-component space, the simplest orthogonal pair is
+\begin{equation}
+  \ket{e_1}
+  =
+  \begin{pmatrix}
+    1\\
+    0
+  \end{pmatrix},
+  \qquad
+  \ket{e_2}
+  =
+  \begin{pmatrix}
+    0\\
+    1
+  \end{pmatrix},
+  \qquad
+  \braket{e_1}{e_2}=0.
+  \label{eq:qml1-standard-basis}
+\end{equation}
 
-\section{Summary}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_01_figure_09.png}
+  \caption{The board constructs the standard orthogonal columns \((1,0)^{\mathsf T}\) and \((0,1)^{\mathsf T}\).}
+  \lectureframe{01:39:50}
+\end{figure}
 
-This first lecture places two blackboards side by side. On one blackboard are the experiments. A qubit yields only the two outcomes \(+1\) and \(-1\). A repeated measurement in the same orientation confirms and therefore prepares a state. Turning the analyzer by \(180^\circ\) flips the sign. Turning it by \(90^\circ\) destroys classical definiteness and gives random \(\pm1\) outcomes with zero mean. Turning it by an arbitrary angle \(\theta\) produces an ensemble average \(\cos\theta\).
+The dimension can be characterized as the largest number of mutually orthogonal nonzero vectors. In a two-dimensional space there can be two such vectors but no third. To see this concretely, let
+\begin{equation}
+  \ket{v}
+  =
+  \begin{pmatrix}
+    v_1\\
+    v_2
+  \end{pmatrix}
+\end{equation}
+be orthogonal to both vectors in Equation~\eqref{eq:qml1-standard-basis}. Then
+\begin{equation}
+  \braket{e_1}{v}=v_1=0,
+  \qquad
+  \braket{e_2}{v}=v_2=0,
+\end{equation}
+so \(\ket{v}=\ket{0}\). There is no third nonzero vector orthogonal to both.
 
-On the other blackboard is the mathematics. Classical state spaces are sets, and classical logical operations are set-theoretic operations on subsets. Quantum state spaces are different. They are complex vector spaces, with kets, bras, inner products, norms, orthogonality, and dimension. The lecture does not yet weld these two stories together completely. It prepares them. Next time the abstract vector-space machinery will be brought back to the qubit experiments and made to represent their strange logic directly.
+\begin{classroomqa}
+\audiencequestion{Is not the zero vector orthogonal to every vector, providing an extra one?}
+\lecturerresponse{Yes, which is why the definition must say \emph{nonzero} mutually orthogonal vectors. The zero vector carries no independent direction and is excluded when counting dimension.}
+\end{classroomqa}
+
+\begin{remark}
+In the column representation, dimension equals the number of components. The orthogonality definition is more abstract and does not depend on already having chosen coordinates.
+\end{remark}
+
+\section{Further Questions at the Blackboard}
+
+\begin{classroomqa}
+\audiencequestion{Does the same structure apply to a vector space of functions?}
+\lecturerresponse{Yes. A function may be regarded as a column with a continuously indexed family of entries \(\psi(x)\). Addition and scalar multiplication are pointwise. The corresponding inner product will become an integral rather than a finite sum; that construction will be developed later.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does multiplying a ket by a bra produce a matrix?}
+\lecturerresponse{Yes. The inner product \(\bra{\beta}\ket{\alpha}\) contracts a row with a column and produces a number. Reversing the order, \(\ket{\alpha}\bra{\beta}\), produces an outer product, a square matrix. Inner and outer products will both become important.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does measurement actually affect the qubit, rather than merely reveal it?}
+\lecturerresponse{Yes. The first measurement along a new axis prepares a new state, which is why repeating that measurement confirms the answer while returning to the old axis restores uncertainty. This unavoidable disturbance distinguishes the quantum experiment from an idealized classical measurement that can, in principle, be made arbitrarily gentle.}
+\end{classroomqa}
+
+\section{The Two Halves of the Construction}
+
+We now have two halves that have not yet been joined. The experimental half says:
+\begin{enumerate}
+  \item an ideal qubit measurement has only the outcomes \(\pm1\);
+  \item repeating the same immediate measurement confirms the result;
+  \item changing the detector axis changes the state prepared by measurement;
+  \item for a prepared ensemble, an analyzer tilted by \(\theta\) has mean \(\cos\theta\).
+\end{enumerate}
+The mathematical half says:
+\begin{enumerate}
+  \item quantum states will be represented by vectors rather than classical points;
+  \item the relevant vectors form a complex vector space;
+  \item kets have dual bras, and bras act antilinearly under complex scaling;
+  \item the Hermitian inner product defines length, orthogonality, and dimension.
+\end{enumerate}
+
+The next task is to connect these halves. The two-dimensional complex state space of a qubit must reproduce the repeatability, randomness, and angle-dependent statistics of the analyzer experiment. That connection, rather than any hidden classical picture, is where quantum mechanics begins.

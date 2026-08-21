@@ -37,7 +37,8 @@
 - [transcript-backed] Flipping the detector by `180^\circ` changes the sign of the result, suggesting genuine spatial directionality for this qubit.
 - [frame-backed] For a qubit prepared “up,” a sideways detector does not yield `0`; it yields `+1` or `-1` on each trial, with equal frequencies and hence zero average over many trials.
 - [transcript-backed] For a detector rotated by an arbitrary angle `\theta` relative to the preparation axis, each trial still gives only `+1` or `-1`, but the average value is `\cos\theta`.
-- [standard reconstruction] The average-value statement should be written cautiously in canonical form, for example as “the ensemble average of the rotated measurement equals `\cos\theta`,” without importing later Pauli-matrix notation that the lecture has not yet introduced.
+- [standard reconstruction] The average-value statement should be written cautiously as “the ensemble average of the rotated measurement equals `\cos\theta`,” without importing later Pauli-matrix notation.
+- [editorial clarification] Since the only outcomes are `\pm1`, normalization and the stated mean imply `p_\pm=(1\pm\cos\theta)/2`. The equivalent half-angle form may be shown only with an explicit editorial note.
 - [transcript-backed] A vector space is a collection of objects closed under addition and multiplication by scalars; Susskind also explicitly brings in the zero vector and commutativity of addition when questioned.
 - [transcript-backed] Real numbers form a real vector space; complex numbers form a complex vector space; complex-valued functions are mentioned as a more general example, but only briefly.
 - [frame-backed] The concrete two-component complex column-vector representation:
@@ -61,20 +62,22 @@
 
 ## Diagram And Figure Plan
 - `lecture_01_figure_02.png` must remain visible in the final notes near the first introduction of qubit notation. It is the best visual evidence for the correspondence between heads/tails, `\sigma=\pm1`, and up/down arrows.
-- `lecture_01_figure_02.png` does not need a TikZ redraw of its own; the nearby print material should instead use a clean displayed equivalence of the three notational systems.
 - `lecture_01_figure_03.png` must remain visible in the final notes near the detector-orientation experiments. It is the strongest blackboard evidence for the prepared upward state, the upright apparatus, and the sideways-apparatus layout.
-- The ideas in `lecture_01_figure_03.png` should also be redrawn in TikZ, and the screenshot should stay nearby as evidence. The redraw should include: an upright detector giving `+1`, an upside-down detector giving `-1`, a sideways detector for the “horizontal component” discussion, and a cautious arbitrary-angle `\theta` version for the `\cos\theta` average.
-- Because the lecture later corrects the sideways-board arrows verbally, the TikZ redraw for the `lecture_01_figure_03.png` material should follow the transcript’s logic rather than copying the chalk arrows literally.
+- The detector sequence should also be redrawn in TikZ. Because the lecture corrects the sideways arrows verbally, the redraw follows the experiment rather than copying every chalk stroke.
+- `lecture_01_figure_04.png` must remain beside the arbitrary-angle experiment; it verifies the prepared axis, tilted analyzer, and angle `\theta`.
 - `lecture_01_figure_05.png` must remain visible in the final notes at the point where the lecture pivots from abstraction to a concrete two-dimensional complex vector space.
-- `lecture_01_figure_05.png` should not be redrawn in TikZ; instead, the addition and scalar-multiplication rules should be typeset as clean displayed equations immediately beside or below the screenshot.
-- If a small comparison sketch is used to contrast a classical upward pointer with a horizontal axis giving zero component, it should be a simple TikZ support figure placed near `lecture_01_figure_03.png`, not a standalone replacement for the screenshot.
+- `lecture_01_figure_06.png` verifies the antilinear ket-to-bra rules and belongs in the dual-vector section.
+- `lecture_01_figure_07.png` verifies the two-component Hermitian inner product.
+- `lecture_01_figure_08.png` verifies the self-inner-product and norm-squared.
+- `lecture_01_figure_09.png` verifies the standard orthogonal basis columns.
+- Blackboard equations are typeset cleanly near each screenshot. The original frames remain visible as source evidence rather than being replaced by reconstructions.
 
 ## Caution Notes
 - The long opening warning about visualization is structurally important and should not be stripped away as mere rhetoric; it is the explicit motivation for the later turn to vector spaces.
-- The transcript around the function-space discussion near `01:43` to `01:44` is badly garbled. Keep only the high-level point that complex-valued functions can form a vector space, and do not build a detailed derivation from that passage.
+- The transcript around the function-space discussion near `01:43` to `01:44` is garbled. Retain the high-level point that complex-valued functions form a vector space and the standard pointwise operations, but postpone the integral inner product as the lecture does.
 - `lecture_01_figure_03.png` contains a sideways apparatus sketch whose arrow directions are not fully reliable as final evidence, because the lecture itself includes an audience correction. Redraw that material from the transcript, not from the chalk marks alone.
 - `lecture_01_figure_05.png` contains a blurry chalk note about complex entries; normalize this in print to the standard statement that the components and scalar are complex numbers.
-- The lecture does not yet develop the later book notation of named spin basis states such as `|u\rangle` and `|d\rangle`, nor does it introduce Pauli matrices formally. Do not import that later formalism into this chapter.
+- The lecture does not yet develop named spin basis states or Pauli matrices formally. Do not import that later formalism into this chapter.
 - The spoken statement of the bra-ket symmetry law is loose and partly tangled in the transcript. Use standard Hermitian notation only as a careful cleanup, not as an opportunity to add theory beyond what is explained.
 - The detector-as-quantum-system issue is explicitly postponed by the lecture. Mention it only as a deferred complication, not as a full subsection.
 - The chapter should close where the lecture closes: with the promise that next time the abstract vector-space machinery will be connected back to the strange measurement logic of qubits.

@@ -11,6 +11,9 @@
 - `\text{readout}\in\{+1,-1\}` [transcript-backed]
 - `\text{average horizontal readout}=0` [transcript-backed]
 - `\text{average readout at angle }\theta=\cos\theta` [transcript-backed]
+- `p_+(\theta)+p_-(\theta)=1` [editorial clarification from the two-outcome experiment]
+- `p_+(\theta)-p_-(\theta)=\cos\theta` [editorial clarification from the stated mean]
+- `p_+(\theta)=\cos^2(\theta/2),\quad p_-(\theta)=\sin^2(\theta/2)` [editorial consequence]
 - `\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}+\begin{pmatrix}\beta_1\\ \beta_2\end{pmatrix}=\begin{pmatrix}\alpha_1+\beta_1\\ \alpha_2+\beta_2\end{pmatrix}` [visible]
 - `z\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}=\begin{pmatrix}z\alpha_1\\ z\alpha_2\end{pmatrix}` [visible]
 - `\alpha_1,\alpha_2,\beta_1,\beta_2,z\in\mathbb C` [standard reconstruction]
@@ -59,13 +62,14 @@
 5. `Ensemble average at `90^\circ``: repeat the sideways experiment on many identically prepared “up” qubits; get random `+1/-1`; count equal frequencies; conclude that the average horizontal readout is zero.
 6. `Why one qubit is not enough`: measure a rotated detector on one prepared qubit; obtain one definite `+1` or `-1`; repeat on the same qubit with the same detector orientation; only confirm the previous result; therefore a distribution requires many identically prepared qubits.
 7. `Arbitrary-angle law`: rotate the detector by angle `\theta`; each trial still yields only `+1` or `-1`; over many identically prepared qubits, the average readout becomes `\cos\theta`.
-8. `Column vectors form a complex vector space`: take two columns of the same length; define addition entrywise; multiply a column by a complex scalar entrywise; closure under both operations gives the concrete example.
-9. `Dual vector from the concrete column`: start with `\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}`; complex-conjugate the entries; rewrite them as a row `\begin{pmatrix}\alpha_1^* & \alpha_2^*\end{pmatrix}` to mark that the object lives in the dual space.
-10. `Inner product construction`: pair the bra `\begin{pmatrix}\beta_1^* & \beta_2^*\end{pmatrix}` with the ket `\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}`; multiply matching components; sum the products; obtain `\beta_1^*\alpha_1+\beta_2^*\alpha_2`.
-11. `Hermitian symmetry`: interchange `A` and `B` in the inner product; the expression becomes `\alpha_1^*\beta_1+\alpha_2^*\beta_2`; recognize this as the complex conjugate of the original; conclude `\langle A|B\rangle=\langle B|A\rangle^*`.
-12. `Norm positivity`: set `B=A`; then the inner product equals its own complex conjugate, so it is real; in the concrete column model it becomes `\alpha_1^*\alpha_1+\alpha_2^*\alpha_2`; each term is nonnegative; conclude the norm-squared is real and positive.
-13. `Order-independence of orthogonality`: if `\langle A|B\rangle=0`, then `\langle B|A\rangle=0^*=0`; therefore orthogonality does not depend on order even though the inner product does.
-14. `Dimension from orthogonal vectors`: exhibit `\begin{pmatrix}1\\0\end{pmatrix}` and `\begin{pmatrix}0\\1\end{pmatrix}` as orthogonal; observe there is no third nonzero vector orthogonal to both in this two-component space; identify the dimension as two.
+8. `Two-outcome probability law`: combine `p_++p_-=1` with `p_+-p_-=\cos\theta`; solve for `p_\pm`; use the half-angle identities. Mark this as an editorial clarification rather than a blackboard derivation.
+9. `Column vectors form a complex vector space`: take two columns of the same length; define addition entrywise; multiply a column by a complex scalar entrywise; closure under both operations gives the concrete example.
+10. `Dual vector from the concrete column`: start with `\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}`; complex-conjugate the entries; rewrite them as a row `\begin{pmatrix}\alpha_1^* & \alpha_2^*\end{pmatrix}` to mark that the object lives in the dual space.
+11. `Inner product construction`: pair the bra `\begin{pmatrix}\beta_1^* & \beta_2^*\end{pmatrix}` with the ket `\begin{pmatrix}\alpha_1\\ \alpha_2\end{pmatrix}`; multiply matching components; sum the products; obtain `\beta_1^*\alpha_1+\beta_2^*\alpha_2`.
+12. `Hermitian symmetry`: interchange `A` and `B` in the inner product; the expression becomes `\alpha_1^*\beta_1+\alpha_2^*\beta_2`; recognize this as the complex conjugate of the original; conclude `\langle A|B\rangle=\langle B|A\rangle^*`.
+13. `Norm positivity`: set `B=A`; then the inner product equals its own complex conjugate, so it is real; in the concrete column model it becomes `\alpha_1^*\alpha_1+\alpha_2^*\alpha_2`; each term is nonnegative; conclude the norm-squared is real and positive.
+14. `Order-independence of orthogonality`: if `\langle A|B\rangle=0`, then `\langle B|A\rangle=0^*=0`; therefore orthogonality does not depend on order even though the inner product does.
+15. `Dimension from orthogonal vectors`: exhibit `\begin{pmatrix}1\\0\end{pmatrix}` and `\begin{pmatrix}0\\1\end{pmatrix}` as orthogonal; observe there is no third nonzero vector orthogonal to both in this two-component space; identify the dimension as two.
 
 ## Notation Choices
 - Use `\sigma` for the qubit’s two-valued degree of freedom, with values `+1` and `-1`.
@@ -83,10 +87,10 @@
 
 ## Uncertain Mathematics
 - No explicit board notation is available for “average value”; symbolic forms such as `\overline{\sigma(\theta)}` should be introduced only as editorial cleanup.
-- The transcript explicitly gives the average readout as `\cos\theta`, but it does not derive probability formulas such as `P(+1)=\cos^2(\theta/2)` or `P(-1)=\sin^2(\theta/2)`; do not add those here.
+- The transcript explicitly gives the two outcomes and average `\cos\theta`, but it does not write the probability formulas. They may appear only as a clearly labeled editorial consequence of those two statements.
 - The lecture strongly suggests vector-like behavior for averages, but it does not formalize rotated observables with operator notation; keep that language cautious.
 - The symmetry law for the inner product is spoken somewhat loosely; the clean Hermitian form should be presented as a standard reconstruction.
 - The function-space discussion near `01:43` to `01:44` is garbled; retain only the claim that complex-valued functions can form a vector space.
-- The late audience question about outer products only announces that they exist and give matrices; no explicit construction should be imported into this lecture’s core mathematics.
+- The late audience question announces that reversed bra-ket order gives an outer product and a matrix. Keep that distinction concise; do not develop operator algebra here.
 - The detector-as-quantum-system issue is postponed; do not introduce tensor-product or composite-system formalism here.
 - The sideways detector sketch in the frame is visually imperfect and later corrected in discussion; no mathematical inference should depend on its literal chalk-arrow directions.
