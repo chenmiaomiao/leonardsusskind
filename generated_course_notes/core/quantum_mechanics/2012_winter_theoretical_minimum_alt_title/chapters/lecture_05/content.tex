@@ -1,579 +1,560 @@
-\chapter{Uncertainty, Time Evolution, and Spin Precession}
+\chapter{Commuting Observables, Energy Phases, and Spin Precession}
 
-Susskind opens this lecture with a crowded agenda: uncertainty, more Schr\"odinger equation, time evolution, and finally the promised return to the single spin. He also pauses to remind us why the subject still feels abstract. Classical mechanics got from states to motion almost at once; quantum mechanics has taken a long preliminary climb. But the point of this lecture is that the climb is beginning to pay off. We first ask what it means for two observables to be sharp together, then we rebuild the logic of time evolution, and only after that do we let the formalism loose on a spin in a magnetic field. These notes follow that order and preserve the lecture's visual record through Leonard Susskind, LazyingArt LLC, and Video2Book.
+\lectureoverview{We begin with the qualitative meaning of uncertainty. Two observables can be definite together only when they possess a complete common eigenbasis, and this is equivalent to their operators commuting. We then review unitary evolution and the Schr\"odinger equation, compare commutators with classical Poisson brackets, solve the time-dependent equation in the energy basis, and apply the result to a spin in a magnetic field. The final calculation gives precession of the spin expectation values, the two energy levels of a general spin Hamiltonian, and the distinction between a sideways expectation value and a photon of half the energy gap.}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_05_figure_01.png}
-\caption{Opening title card. It carries no mathematics, but it is the lecture's first visual beat.}
-\end{figure}
+The two-state spin remains our simplest quantum system. A three-state Hilbert space would be the next simplest abstract possibility; two spins already have four orthogonal basis states. We will not yet compose two spins, although that step is close and will bring entanglement with it. First we should finish the one-spin problem and put the ideas of uncertainty and time evolution on firmer ground.
 
-\section{Simultaneous Measurement, Common Eigenvectors, and Commutativity}
+\section{When Two Quantities Can Be Definite Together}
 
-Susskind does not begin with the quantitative uncertainty principle. He begins with the more primitive question: what does it mean to measure something well? A good measurement must leave the system, at least momentarily, in a state for which the measured quantity is definite. Otherwise one could not immediately repeat the measurement and confirm the result.
+A good measurement is repeatable. If an observable is measured and the value \(l\) is obtained, an immediate repetition should return the same value. The first measurement must therefore leave the system, at least momentarily, in an eigenstate of the corresponding operator:
+\begin{equation}
+L\ket{l}=l\ket{l}.
+\end{equation}
+This operational statement is enough to expose the qualitative origin of uncertainty.
 
-\begin{definition}
-An observable is represented by a Hermitian operator. Its possible measurement outcomes are its eigenvalues, and a state in which the observable has a definite value is an eigenvector of that operator.
-\end{definition}
-
-Now suppose that two observables can be simultaneously measured. Then a successful simultaneous measurement must leave the system in a state that is definite for both of them. That is the whole conceptual core of the argument.
+Suppose two observables \(L\) and \(M\) can be measured simultaneously. A joint measurement must leave both reported values definite. Its possible post-measurement states must consequently be simultaneous eigenvectors of both operators. In the finite-dimensional setting used here, we may choose a complete orthonormal set \(\{\ket{i}\}\) satisfying
+\begin{equation}
+L\ket{i}=l_i\ket{i},
+\qquad
+M\ket{i}=m_i\ket{i}.
+\label{eq:l5-common-eigenvectors}
+\end{equation}
 
 \begin{remark}
-Throughout this lecture Susskind uses the word basis in the physicist's sense: a complete orthonormal basis. He remarks that mathematicians use a broader notion, but orthonormality is the relevant notion here. If degeneracies occur, the eigenvectors are not unique, but they may be chosen orthonormal.
+The word \emph{basis} will mean a complete orthonormal basis. Linear algebra permits nonorthogonal bases, but the orthonormal convention is especially natural for quantum states. Degenerate eigenvalues leave freedom inside an eigenspace; within that space the eigenvectors can be chosen orthonormally.
 \end{remark}
 
-Let us call the two observables \(L\) and \(M\). If they are simultaneously measurable, there must exist a complete orthonormal basis \(\{|i\rangle\}\) of simultaneous eigenvectors:
-\begin{equation}
-L|i\rangle = l_i|i\rangle,
-\qquad
-M|i\rangle = m_i|i\rangle.
-\end{equation}
-The lecture then proves the theorem in the most concrete possible way, by acting on a basis vector and comparing the two possible orders.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_02.png}
-\caption{\(ML\) and \(LM\) acting the same on the basis.}
-\end{figure}
-
 \begin{theorem}
-If two observables can be simultaneously measured, then the corresponding Hermitian operators commute.
+Two finite-dimensional Hermitian observables are simultaneously measurable precisely when they admit a complete common eigenbasis, equivalently when they commute.
 \end{theorem}
 
-\begin{proof}
-Act first with \(L\) and then with \(M\):
+The forward direction is immediate from Equation~\eqref{eq:l5-common-eigenvectors}. Acting in one order gives
 \begin{align}
-ML|i\rangle
-&= M\bigl(l_i|i\rangle\bigr) \\
-&= l_i\,M|i\rangle \\
-&= l_i m_i |i\rangle.
+ML\ket{i}
+&=M\bigl(l_i\ket{i}\bigr)\\
+&=l_i m_i\ket{i},
 \end{align}
-Now reverse the order:
+while the reverse order gives
 \begin{align}
-LM|i\rangle
-&= L\bigl(m_i|i\rangle\bigr) \\
-&= m_i\,L|i\rangle \\
-&= m_i l_i |i\rangle \\
-&= l_i m_i |i\rangle.
+LM\ket{i}
+&=L\bigl(m_i\ket{i}\bigr)\\
+&=m_i l_i\ket{i}.
 \end{align}
-Thus \(ML\) and \(LM\) have the same action on every basis vector. Since any vector is a superposition of basis vectors, they have the same action on any vector. Therefore
+The eigenvalues are ordinary numbers, so \(l_i m_i=m_i l_i\). Thus \(ML\) and \(LM\) act identically on every member of a basis and hence on every state:
 \begin{equation}
 [L,M]\equiv LM-ML=0.
+\label{eq:l5-commuting-condition}
 \end{equation}
-\end{proof}
 
-The converse statement is also quoted in the lecture: if two Hermitian operators commute, then one can find a complete basis of simultaneous eigenvectors. That stronger direction is not reproved here, but it is the other half of the same theorem. In practice this is what makes simultaneously measurable quantities possible in the first place.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_02.png}
+\caption{The common-eigenvector argument reaches \(LM-ML=[L,M]=0\).}
+\lectureframe{00:10:30}
+\end{figure}
 
-This abstract discussion immediately becomes concrete for spin. The operators \(\sigma_x\), \(\sigma_y\), and \(\sigma_z\) do not commute pairwise, so they cannot be simultaneously sharp. The eigenvectors of \(\sigma_z\) are up and down, the eigenvectors of \(\sigma_x\) are left and right, and they are not the same states. That is the qualitative content of uncertainty before any inequality is written down.
+The converse is also true: commuting Hermitian operators can be simultaneously diagonalized. If one operator has a degenerate eigenspace, the other preserves that eigenspace, and it can be diagonalized within it. Repeating this in every eigenspace produces a complete common eigenbasis.
 
-It is also worth keeping in mind one class of easy examples. When a system is composed of two independent subsystems, observables of one subsystem commute with observables of the other. That is why, for example, one may simultaneously measure the \(z\)-component of the first spin and the \(z\)-component of the second spin in a two-spin system.
+The Pauli operators give the first important counterexample. No two of \(\sigma_x,\sigma_y,\sigma_z\) commute. The eigenstates of \(\sigma_z\) are up and down, while those of \(\sigma_x\) are right and left. One may prepare either component sharply and repeat its measurement, but one cannot prepare both components sharply at once. This is uncertainty before any numerical inequality has been introduced.
 
-\subsection{Question \& Answer}
+Later we will quantify how the uncertainties of two noncommuting observables constrain one another. No numerical uncertainty principle is being proved here. The present point is prior to the inequality: noncommutation prevents a state from assigning simultaneous definite values to both quantities.
 
-\paragraph{Why must simultaneous measurements leave a common eigenbasis?}
-A student asks for this point again, and Susskind's answer is operational. A measurement leaves the system in a state of definite thatness, meaning a state in which the measured quantity has a definite value. In our language, that means an eigenvector. If two observables can be measured simultaneously and both yield definite values, then the post-measurement state must be an eigenvector of both. Repeating this for the full set of possible outcomes leads to a complete common eigenbasis.
+\begin{classroomqa}
+\audiencequestion{Why does a simultaneous measurement require common eigenvectors?}
+\lecturerresponse{A repeatable measurement leaves a state with the measured value definite, which means an eigenstate of the measured operator. If two values are obtained together and both remain repeatable, the resulting state must be an eigenstate of both operators. The complete set of joint outcomes therefore supplies a common eigenbasis.}
+\end{classroomqa}
 
-For a noncommuting pair such as \(\sigma_x\) and \(\sigma_z\), this cannot happen. One may measure either one, and after the measurement one may immediately repeat that same measurement and obtain the same answer. But one cannot make both quantities simultaneously definite. That is the first structural reason uncertainty exists at all.
+\begin{classroomqa}
+\audiencequestion{Does this involve two different particles?}
+\lecturerresponse{It need not, as \(\sigma_x\) and \(\sigma_z\) already act on one spin. For two distinct subsystems, however, observables acting on different factors do commute: \(A\otimes I\) commutes with \(I\otimes B\). That is why a component of one spin and a component of another can be measured together. Composing such systems will later lead to entanglement.}
+\end{classroomqa}
 
-\section{Recap of Time Evolution and the Emergence of the Hamiltonian}
+\section{Unitary Evolution and Its Generator}
 
-Having made uncertainty concrete, Susskind deliberately resets the lecture. This is review, he says, but review with a purpose. He jokes that quantum mechanics has taken many pages to reach the point where classical mechanics had already started discussing motion. The good news is that once the state concept is in place, the rest begins to compress.
-
-If the state at time \(0\) is \(|\psi(0)\rangle\), then the state at time \(t\) is obtained by a linear operator \(U(t)\):
+Quantum mechanics took considerably longer than classical mechanics to define a state, but once the state space is established the rule for motion is compact. Let
 \begin{equation}
-|\psi(t)\rangle = U(t)|\psi(0)\rangle.
+\ket{\psi(t)}=U(t)\ket{\psi(0)}.
+\label{eq:l5-propagator}
 \end{equation}
-The basic physical principle is conservation of distinctions: orthogonal states remain orthogonal under time evolution. If \(|i\rangle\) and \(|j\rangle\) are members of an orthonormal basis, then
+Time evolution must preserve distinguishability. More strongly, it preserves all inner products. For an orthonormal basis,
 \begin{equation}
-\langle j|U^\dagger(t)U(t)|i\rangle = \delta_{ji}.
+\bra{j}U^\dagger(t)U(t)\ket{i}=\delta_{ji},
 \end{equation}
-Because this is true for every pair of basis vectors, it follows that
+and therefore
 \begin{equation}
 U^\dagger(t)U(t)=I.
+\label{eq:l5-unitarity}
 \end{equation}
-Thus the time-evolution operator is unitary.
+The evolution operator is unitary.
 
-Now take an infinitesimal time step \(\epsilon\). Continuity says that in a very short time the evolution operator should be very close to the identity. We therefore write
+At zero elapsed time \(U(0)=I\). Continuity then says that evolution through a small time \(\epsilon\) differs only slightly from the identity. In units with \(\hbar=1\), write
 \begin{equation}
-U(\epsilon)=I-i\epsilon H,
+U(\epsilon)=I-i\epsilon H+O(\epsilon^2),
 \qquad
-U^\dagger(\epsilon)=I+i\epsilon H^\dagger.
+U^\dagger(\epsilon)=I+i\epsilon H^\dagger+O(\epsilon^2).
 \end{equation}
-Susskind emphasizes that the factors of \(i\), \(\epsilon\), and even \(\hbar\) are partly a matter of convention at this stage; one could absorb them into the definition of \(H\). What matters is what unitarity then forces upon us. Substituting these expressions into \(U^\dagger U=I\) and keeping terms only through first order in \(\epsilon\), we find
+Substitution into Equation~\eqref{eq:l5-unitarity} gives
 \begin{equation}
 H^\dagger=H.
 \end{equation}
+The generator of time evolution is Hermitian and is therefore an observable. It is the Hamiltonian.
 
-That is the decisive point. The generator of time evolution is Hermitian, and therefore it is an observable. This is why we identify \(H\) with the Hamiltonian, or energy operator.
+Applying the infinitesimal propagator to a state gives
+\begin{equation}
+\ket{\psi(\epsilon)}
+=\ket{\psi(0)}-i\epsilon H\ket{\psi(0)}+O(\epsilon^2).
+\end{equation}
+Rearranging produces the difference quotient displayed on the board:
+\begin{equation}
+\frac{\ket{\psi(\epsilon)}-\ket{\psi(0)}}{\epsilon}
+=-iH\ket{\psi(0)}+O(\epsilon).
+\end{equation}
 
-One student asks whether orthogonality preservation is merely an empirical input. Susskind's answer is that it is empirical, but also extraordinarily rigid. In his language, quantum mechanics is brittle: if one tries to deform the rules slightly, positivity of probabilities or locality or some other essential feature quickly breaks. For present purposes, we simply take unitarity as the correct dynamical principle.
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_03.png}
-\caption{Difference quotient for state evolution.}
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_03.png}
+\caption{The infinitesimal update written as a difference quotient.}
+\lectureframe{00:23:33}
 \end{figure}
 
-Now apply \(U(\epsilon)\) to the state:
+Taking \(\epsilon\to0\) yields the time-dependent Schr\"odinger equation:
 \begin{equation}
-|\psi(\epsilon)\rangle = |\psi(0)\rangle - i\epsilon H|\psi(0)\rangle.
+\frac{d}{dt}\ket{\psi(t)}=-iH\ket{\psi(t)}.
+\label{eq:l5-schrodinger}
 \end{equation}
-Move the initial state to the left and divide by \(\epsilon\). The board writes this as the visible difference quotient
+With constants restored, this is \(i\hbar\,d\ket{\psi}/dt=H\ket{\psi}\).
+
+Schr\"odinger's original equation concerned the wavefunction of a moving particle. The operator statement above was once called the generalized Schr\"odinger equation because it applies equally to a spin, a three-state system, two spins, or a system of arbitrary complexity. The adjective has largely been dropped; this is now simply the general form of the equation.
+
+Equation~\eqref{eq:l5-schrodinger} gives a definite evolution of the state when the system is left undisturbed. This does not make every experimental outcome definite. A quantum state determines probabilities for possible measurements, and the equation updates those probabilities through the changing amplitudes. Measurement generally changes the state and interrupts this isolated evolution.
+
+\begin{classroomqa}
+\audiencequestion{Does every measurement disturb the system?}
+\lecturerresponse{Generically, yes, but there is an important special case. If the state is already an eigenstate of the observable, an ideal repeatable measurement can confirm its value without changing that state. What fails in general is the possibility of measuring an arbitrary observable without disturbing other, incompatible properties.}
+\end{classroomqa}
+
+\section{Energy and the Time-Independent Equation}
+
+Because \(H\) is Hermitian, its eigenvalues are real and its eigenvectors can be chosen as a complete orthonormal basis:
 \begin{equation}
-\frac{|\psi(\epsilon)\rangle-|\psi(0)\rangle}{\epsilon}=-\,i\,H|\psi(0)\rangle.
+H\ket{E_i}=E_i\ket{E_i}.
+\label{eq:l5-time-independent}
 \end{equation}
-In the limit \(\epsilon\to 0\), the left-hand side becomes the time derivative of the state vector:
+This eigenvalue problem is called the time-independent Schr\"odinger equation. It does not describe change with time; it asks which energy values the system can have and which states have those values sharply.
+
+The spectrum depends on the system. Bound atomic motion and the harmonic oscillator have countable energy levels. An unbound particle may have a continuous spectrum. Energy can be measured in many ways; in principle even a sufficiently precise mass measurement could use \(E=mc^2\), although that is rarely the practical method. A real system already has its Hamiltonian; the physicist does not dictate it but tries to discover it. Once that operator is known, finding its eigenvalues and eigenvectors is the mathematical task.
+
+Adding a constant \(cI\) to \(H\) shifts every energy by \(c\). It multiplies the whole state by one common phase \(e^{-ict}\), which does not change probabilities or expectation values. Only energy differences affect the dynamics considered here.
+
+\section{How Expectation Values Move}
+
+The standard phrase \emph{expectation value} means a statistical average. For an observable \(L\),
 \begin{equation}
-\frac{d}{dt}|\psi\rangle=-\,i\,H|\psi\rangle.
+\expect{L}(t)=\bra{\psi(t)}L\ket{\psi(t)}.
 \end{equation}
-This is the time-dependent Schr\"odinger equation.
-
-Susskind pauses over its meaning. It sounds deterministic, and in one sense it is: if the system is left alone, the state evolves in a definite way. But that does not mean that the outcomes of all measurements are determined. The state tells us probabilities, not a list of pre-existing answers. So the Schr\"odinger equation is best understood as a rule for updating the state's probability content.
-
-There is also a familiar caveat. This is the evolution of an undisturbed system. A measurement generally disturbs the system. The special exception is the case in which the system was already in an eigenstate of the observable being measured.
-
-\section{Energy Eigenstates and the General Solution of Schr\"odinger Evolution}
-
-At this point the lecture distinguishes the time-dependent Schr\"odinger equation from the time-independent one. Since \(H\) is Hermitian, it is itself an observable, and its eigenvalues are the possible outcomes of an energy measurement:
+Only the state vectors carry time dependence at this stage. Differentiating both sides and using Equation~\eqref{eq:l5-schrodinger} together with its Hermitian conjugate,
 \begin{equation}
-H|E_i\rangle = E_i|E_i\rangle.
-\end{equation}
-This is the time-independent Schr\"odinger equation.
-
-The actual spectrum depends on the system: atoms have discrete levels, unbound motion may have a continuous spectrum, and so on. But the task is always the same. If we know \(H\), we solve its eigenvalue problem. Susskind then says: let us suppose that part has already been done. We know the eigenvectors and eigenvalues. The next question is how an arbitrary state evolves in time.
-
-The board returns to the energy basis and identifies the generic basis vector \(|i\rangle\) with an energy eigenvector \(|E_i\rangle\).
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_05.png}
-\caption{State expanded in energy eigenvectors.}
-\end{figure}
-
-The lower line in the screenshot is partly obscured, so here we use the standard reconstruction that matches the transcript:
-\begin{equation}
-|i\rangle = |E_i\rangle,
+\frac{d}{dt}\ket{\psi}=-iH\ket{\psi},
 \qquad
-|\psi(t)\rangle = \sum_j \alpha_j(t)\,|j\rangle.
+\frac{d}{dt}\bra{\psi}=i\bra{\psi}H,
 \end{equation}
-The states \(|j\rangle\) are fixed. The time dependence lies entirely in the coefficients \(\alpha_j(t)\).
-
-The board derivation briefly gets tangled in its indices, and Susskind corrects himself in public. The cleaned calculation is straightforward. Differentiate the expansion:
-\begin{equation}
-\frac{d}{dt}|\psi(t)\rangle = \sum_j \dot{\alpha}_j(t)\,|j\rangle.
-\end{equation}
-On the other hand, Schr\"odinger's equation gives
+gives
 \begin{align}
--\,iH|\psi(t)\rangle
-&= -\,i \sum_j \alpha_j(t)\,H|j\rangle \\
-&= -\,i \sum_j E_j\alpha_j(t)\,|j\rangle.
-\end{align}
-Since the same basis vectors appear on both sides, the corresponding coefficients must agree:
-\begin{equation}
-\dot{\alpha}_j(t)=-\,i\,E_j\,\alpha_j(t).
-\end{equation}
-Here \(j\) is fixed; there is no sum on \(j\) in this differential equation. For each energy eigencomponent we get a separate first-order equation, whose solution is
-\begin{equation}
-\alpha_j(t)=\alpha_j(0)e^{-iE_j t}.
-\end{equation}
-Substituting back into the expansion, we obtain the general solution of Schr\"odinger evolution:
-\begin{equation}
-|\psi(t)\rangle = \sum_j \alpha_j(0)e^{-iE_j t}|j\rangle.
-\end{equation}
-
-This is exactly the form Susskind wants us to remember. Take the initial state, decompose it into energy eigenvectors, and then let each component pick up its own phase. If the initial state happens already to be a single energy eigenstate, then only an overall phase appears:
-\begin{equation}
-|\psi(t)\rangle = e^{-iEt}|E\rangle.
-\end{equation}
-No measurable probability changes. The interesting time dependence arises only when more than one energy eigenstate is present.
-
-Susskind also asks where \(\hbar\) would go if we restored it. The answer is in the denominator of the phase:
-\begin{equation}
-\alpha_j(t)=\alpha_j(0)e^{-iE_j t/\hbar}.
-\end{equation}
-This is the lecture's first direct connection between energy and oscillation. The magnitudes of the coefficients remain fixed:
-\begin{equation}
-|\alpha_j(t)|=|\alpha_j(0)|,
-\end{equation}
-and all the evolution is carried by relative phases.
-
-\section{Expectation Values, Heisenberg Equations, and the Classical Analogy}
-
-The next step is to shift attention from the state vector itself to averages of observables. Susskind complains, as he often does, that expectation value is not the best name; average would be better. But he uses the standard terminology anyway.
-
-For an observable \(L\), the expectation value is
-\begin{equation}
-\langle L\rangle = \langle \psi|L|\psi\rangle.
-\end{equation}
-The state changes with time, so the expectation value changes with time. Differentiate:
-\begin{align}
-\frac{d}{dt}\langle L\rangle
-&=
-\frac{d}{dt}\langle \psi|L|\psi\rangle \\
-&=
-\langle \dot{\psi}|L|\psi\rangle + \langle \psi|L|\dot{\psi}\rangle.
-\end{align}
-Using the Schr\"odinger equation on the ket,
-\begin{equation}
-|\dot{\psi}\rangle = -iH|\psi\rangle,
-\end{equation}
-and the Hermitian-conjugate equation on the bra,
-\begin{equation}
-\langle \dot{\psi}| = i\langle \psi|H,
-\end{equation}
-we obtain
-\begin{align}
-\frac{d}{dt}\langle L\rangle
-&=
-i\langle \psi|HL|\psi\rangle - i\langle \psi|LH|\psi\rangle \\
-&=
--\,i\,\langle \psi|(LH-HL)|\psi\rangle.
+\frac{d}{dt}\expect{L}
+&=i\bra{\psi}HL\ket{\psi}
+  -i\bra{\psi}LH\ket{\psi}\\
+&=-i\expect{[L,H]}.
+\label{eq:l5-expectation-motion}
 \end{align}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_04.png}
-\caption{Expectation values evolve by a commutator.}
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_04.png}
+\caption{The expectation-value equation of motion in commutator form.}
+\lectureframe{00:35:35}
 \end{figure}
 
-Thus the clean final equation is
+The factor \(i\) is not a threat to the reality of \(\expect{L}\). For Hermitian \(L\) and \(H\), the commutator is anti-Hermitian:
 \begin{equation}
-\frac{d}{dt}\langle L\rangle = -\,i\,\langle [L,H]\rangle.
+[L,H]^\dagger=-[L,H].
 \end{equation}
-Susskind sometimes abbreviates this as
+Its expectation value is therefore purely imaginary, so multiplying by \(-i\) gives a real derivative.
+
+One sometimes writes the shorthand
 \begin{equation}
-\dot L = -\,i[L,H],
+\dot L=-i[L,H].
 \end{equation}
-but he is careful to warn that, at this stage, one should read this as shorthand for an equation about expectation values. The full Heisenberg-picture interpretation comes later.
+At this point it should be read as an abbreviation for Equation~\eqref{eq:l5-expectation-motion}, an equation about averages. A full change of picture in which operators themselves carry the time dependence will come later.
 
-We can also derive an explicit time-dependent matrix formula by inserting the energy-basis solution for the bra and ket:
-\begin{align}
-\langle L\rangle(t)
-&=
-\left(
-\sum_k \alpha_k^*(0)e^{iE_k t}\langle k|
-\right)
-L
-\left(
-\sum_j \alpha_j(0)e^{-iE_j t}|j\rangle
-\right) \\
-&=
-\sum_{k,j}\alpha_k^*(0)\alpha_j(0)e^{i(E_k-E_j)t}\langle k|L|j\rangle.
-\end{align}
-Defining the matrix elements
-\begin{equation}
-L_{kj}\equiv \langle k|L|j\rangle,
-\end{equation}
-this becomes
-\begin{equation}
-\langle L\rangle(t)=\sum_{k,j}\alpha_k^*(0)\alpha_j(0)e^{i(E_k-E_j)t}L_{kj}.
-\end{equation}
-This is the formula Susskind identifies with Heisenberg's matrix point of view: every matrix element carries a frequency difference \(E_k-E_j\).
+\subsection{The Algebra of Commutators}
 
-\subsection{Question \& Answer}
-
-\paragraph{Why does the factor \(i\) not make the time derivative imaginary?}
-Susskind explicitly pauses over this. If \(\langle L\rangle\) is real, how can its time derivative be \(-i\) times something? His answer is not an abstract theorem first, but a promise: once we compute actual commutators of Hermitian observables, we will find that they come with explicit factors of \(i\). The extra \(i\) is waiting inside the commutator, so the final equation for real expectation values is itself real.
-
-With that obstacle identified, the lecture steps back and studies the algebra of commutators. First, the commutator is odd:
+Commutators are antisymmetric:
 \begin{equation}
 [A,B]=-[B,A].
 \end{equation}
-Second, it satisfies the same product rule as the Poisson bracket.
-
-\begin{proposition}
-For operators \(A\), \(B\), and \(C\),
+They also obey a product rule analogous to the Leibniz rule for derivatives:
 \begin{equation}
 [AB,C]=A[B,C]+[A,C]B.
+\label{eq:l5-product-rule}
 \end{equation}
-\end{proposition}
-
-\begin{proof}
-Write out the commutator directly:
+To verify it, preserve the order of every factor:
 \begin{align}
-[AB,C]
-&=ABC-CAB.
+A[B,C]+[A,C]B
+&=A(BC-CB)+(AC-CA)B\\
+&=ABC-ACB+ACB-CAB\\
+&=ABC-CAB\\
+&=[AB,C].
 \end{align}
-Now add and subtract \(ACB\):
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_05.png}
+\caption{The commutator product rule checked by expanding both sides.}
+\lectureframe{00:43:10}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does the right side of the product rule accidentally count the left side twice?}
+\lecturerresponse{No. On expansion, \(ABC\) and \(-CAB\) are the two desired terms. The two inserted terms are \(-ACB\) and \(+ACB\), which cancel exactly. The apparent extra copy is the temporary term needed to factor the expression in the two required ways.}
+\end{classroomqa}
+
+The same antisymmetry and product rule hold for classical Poisson brackets. This structural resemblance is not accidental. The classical correspondence is
+\begin{equation}
+\{A,B\}
+\quad\longleftrightarrow\quad
+\frac{1}{i\hbar}[A,B]
+=-\frac{i}{\hbar}[A,B].
+\label{eq:l5-poisson-correspondence}
+\end{equation}
+In \(\hbar=1\) units, the classical equation
+\begin{equation}
+\frac{dL}{dt}=\{L,H\}
+\end{equation}
+has the same form as Equation~\eqref{eq:l5-expectation-motion}. In ordinary macroscopic units \(\hbar\) is tiny, and commutators become negligible in the appropriate classical limit. This is the essential check that identifies the quantum generator \(H\) with the Hamiltonian of classical mechanics.
+
+The factor of \(\hbar\) is required dimensionally. A Poisson bracket differentiates with respect to conjugate coordinates and momenta, whereas an operator commutator is built directly from products. Planck's constant supplies the conversion between those dimensions.
+
+Set \(L=H\). Since every operator commutes with itself,
+\begin{equation}
+\frac{d}{dt}\expect{H}
+=-i\expect{[H,H]}=0.
+\end{equation}
+For the time-independent Hamiltonians under discussion, the average energy is conserved. A stronger statement about the full energy distribution is possible, but the average is all that is needed here.
+
+\begin{classroomqa}
+\audiencequestion{What is \(L\) in these equations? Is it angular momentum?}
+\lecturerresponse{Here \(L\) is a generic Hermitian linear operator, hence any observable. It may be a spin component, a position, or even \(H\) itself. The letter was chosen for \emph{linear operator} and should not be read as angular momentum unless that meaning is stated separately.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does the factor \(i\) not make a real average develop an imaginary derivative?}
+\lecturerresponse{The commutator of two Hermitian operators is anti-Hermitian, so its expectation value is imaginary. The Pauli-matrix calculation below makes this concrete: their commutators contain an explicit factor \(2i\), which cancels the \(-i\) in the equation of motion.}
+\end{classroomqa}
+
+\section{Solving the Schr\"odinger Equation in the Energy Basis}
+
+Assume the energy eigenvalue problem has been solved. Expand an arbitrary state in the fixed energy basis:
+\begin{equation}
+\ket{\psi(t)}=\sum_j\alpha_j(t)\ket{E_j}.
+\label{eq:l5-energy-expansion}
+\end{equation}
+The basis vectors do not change in this description; all time dependence lies in the coefficients. Substituting Equation~\eqref{eq:l5-energy-expansion} into Equation~\eqref{eq:l5-schrodinger} gives
 \begin{align}
-[AB,C]
-&=ABC-ACB+ACB-CAB \\
-&=A(BC-CB)+(AC-CA)B \\
-&=A[B,C]+[A,C]B.
+\sum_j\dot\alpha_j(t)\ket{E_j}
+&=-i\sum_j\alpha_j(t)H\ket{E_j}\\
+&=-i\sum_j E_j\alpha_j(t)\ket{E_j}.
 \end{align}
-\end{proof}
-
-This is exactly the kind of algebraic rule that Poisson brackets satisfy in classical mechanics. That is not an accident. In the units used through most of the lecture, \(\hbar=1\), and the structural correspondence is
+Uniqueness of the expansion in a basis implies, for each fixed \(j\),
 \begin{equation}
-\{L,H\}\leftrightarrow -\,i[L,H].
+\dot\alpha_j(t)=-iE_j\alpha_j(t),
+\qquad\text{no sum on \(j\)}.
 \end{equation}
-If we restore \(\hbar\), then the dimensionful form is
+The solution is
 \begin{equation}
-\{L,H\}\leftrightarrow -\,\frac{i}{\hbar}[L,H].
+\alpha_j(t)=\alpha_j(0)e^{-iE_jt}.
+\label{eq:l5-energy-phase}
 \end{equation}
-This is why \(H\) deserves the name Hamiltonian. In classical mechanics one writes
-\begin{equation}
-\frac{dL}{dt}=\{L,H\},
-\end{equation}
-and in quantum mechanics, in the sense of averages, the corresponding rule is
-\begin{equation}
-\frac{d}{dt}\langle L\rangle=-\,i\,\langle [L,H]\rangle.
-\end{equation}
-Here \(L\) is any observable, not specifically angular momentum.
 
-The simplest application is to take \(L=H\):
-\begin{equation}
-\frac{d}{dt}\langle H\rangle = -\,i\,\langle [H,H]\rangle = 0.
-\end{equation}
-So the average energy is conserved. Susskind remarks that quantum mechanics says something even stronger, but not tonight.
-
-\section{A Single Spin in a Magnetic Field}
-
-Only now, after all this apparatus, does the lecture return to the single spin. A student asks: what is \(H\) for a spin? Susskind's answer is that a free isolated spin has no interesting Hamiltonian, at least up to an additive constant. The dynamics becomes nontrivial only when the spin interacts with something, and the simplest interaction is with a magnetic field.
-
-Take the magnetic field along the \(z\)-axis.
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{lecture_05_figure_06.png}
-\caption{Magnetic field along \(z\) and spin Hamiltonian setup.}
+\caption{Each energy-basis coefficient satisfies its own exponential phase equation.}
+\lectureframe{01:03:25}
 \end{figure}
 
-\begin{figure}[ht]
+Thus the general solution is
+\begin{equation}
+\ket{\psi(t)}
+=\sum_j\alpha_j(0)e^{-iE_jt}\ket{E_j}.
+\label{eq:l5-general-solution}
+\end{equation}
+Restoring units replaces \(E_jt\) by \(E_jt/\hbar\). The magnitude of every coefficient stays fixed:
+\begin{equation}
+|\alpha_j(t)|=|\alpha_j(0)|.
+\end{equation}
+Time evolution changes relative phases. A single energy eigenstate acquires only one common phase and therefore has time-independent measurement probabilities.
+
+The expectation value of \(L\) can now be written explicitly. Define its matrix elements in the energy basis by
+\begin{equation}
+L_{kj}=\bra{E_k}L\ket{E_j}.
+\end{equation}
+Then
+\begin{align}
+\expect{L}(t)
+&=\sum_{k,j}
+\alpha_k^*(0)\alpha_j(0)
+e^{i(E_k-E_j)t}
+L_{kj}.
+\label{eq:l5-heisenberg-matrix}
+\end{align}
+
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.15]
-\draw[->] (0,0) -- (0,2.7) node[above] {$B_z$};
-\draw[->] (0.3,0.3) -- (1.7,1.6);
-\draw (3.3,1.35) node {$H=\dfrac{\omega}{2}\sigma_z$};
-\end{tikzpicture}
-\caption{A clean redraw of the board sketch: field along \(z\), with a tilted spin direction shown only as a mnemonic.}
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_07.png}
+\caption{The energy-basis matrix formula: every entry carries a transition-frequency phase.}
+\lectureframe{01:10:45}
 \end{figure}
 
-Susskind is careful here. The sketch is suggestive, but it must not be taken literally. A spin is not really a little arrow that one can draw in classical space. In fact he jokes that this is why quantum books have fewer figures than classical mechanics books: the things we are talking about cannot all be made simultaneously pictorial. Still, the sketch helps us remember the direction of the field.
+The diagonal terms \(k=j\) are constant. An off-diagonal matrix element oscillates with the energy difference \(E_k-E_j\). In the historical account given here, Heisenberg recognized this matrix organization before the modern state-vector derivation was available; Dirac's notation later made its meaning transparent.
 
-The physical guess is familiar from classical magnetism. A magnetic dipole in a magnetic field has an energy proportional to the dot product of the dipole with the field. If the field is along \(z\), the Hamiltonian should therefore be proportional to the \(z\)-component of spin:
+\begin{classroomqa}
+\audiencequestion{Do the magnitudes of the \(\alpha_j\) coefficients remain fixed?}
+\lecturerresponse{Yes. Each coefficient is multiplied by a complex phase of unit magnitude. Only relative phases change, and those phases are what allow expectation values containing off-diagonal matrix elements to vary with time.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Should the Schr\"odinger equation use a partial derivative or a total derivative?}
+\lecturerresponse{For the abstract state \(\ket{\psi(t)}\) used here, time is the only displayed variable, so either notation carries the same content. Later a wavefunction such as \(\psi(x,t)\) will depend on both position and time, and the partial derivative notation will then be natural.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is preservation of orthogonality merely an empirical assumption?}
+\lecturerresponse{It is supported by experiment, but it is also unusually rigid. Attempts to deform unitary quantum mechanics tend to destroy positivity or conservation of probability, causal locality, or the consistent treatment of composite systems. David Finkelstein described deformable theories as undergoing plastic flow and rigid ones as brittle cracking. Quantum mechanics is brittle in this sense: small arbitrary changes do not usually leave a nearby consistent theory.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why are the energy eigenvalues \(E_j\) real?}
+\lecturerresponse{Unitarity implies that the infinitesimal generator \(H\) is Hermitian, and every eigenvalue of a Hermitian operator is real. The chain is therefore orthogonality preservation, unitarity, Hermiticity of \(H\), and reality of the energy spectrum.}
+\end{classroomqa}
+
+\section{A Spin in a Magnetic Field}
+
+What Hamiltonian should be assigned to one spin? An isolated spin in otherwise empty space has no nontrivial preferred direction, so its Hamiltonian is proportional to the identity and produces no observable motion. A magnetic field supplies both an interaction energy and an axis.
+
+Take the field along \(z\). A charged particle with spin carries a magnetic moment, and the familiar dipole energy is proportional to the alignment of that moment with the field. Absorb the field strength, magnetic moment, sign convention, and \(\hbar\) into one constant \(\omega\):
 \begin{equation}
 H=\frac{\omega}{2}\sigma_z.
+\label{eq:l5-z-hamiltonian}
 \end{equation}
-The coefficient \(\omega/2\) absorbs the magnetic moment, the field strength, and the other constants. Susskind says explicitly that the reason for both the symbol \(\omega\) and the factor of \(2\) will become clear shortly.
+The factor of \(1/2\) is convenient because Pauli commutators contain a factor of \(2\).
 
-The spin components are represented by the Pauli matrices,
+The classical arrow picture must be handled with care. A quantum spin does not possess simultaneously definite \(x\), \(y\), and \(z\) components, so no ordinary arrow can represent all of its properties at once. The useful three-dimensional object will be the vector of expectation values, not the two-component state vector itself.
+
+\subsection{Pauli Commutators}
+
+Use the matrix representations
 \begin{equation}
 \sigma_x=
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix},
+\begin{pmatrix}0&1\\1&0\end{pmatrix},
 \qquad
 \sigma_y=
-\begin{pmatrix}
-0&-i\\
-i&0
-\end{pmatrix},
+\begin{pmatrix}0&-i\\i&0\end{pmatrix},
 \qquad
 \sigma_z=
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}.
+\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
 \end{equation}
-What we want are the equations of motion for the averages of \(\sigma_x\), \(\sigma_y\), and \(\sigma_z\):
-\begin{align}
-\frac{d}{dt}\langle \sigma_x\rangle
-&=
--\,i\left\langle\left[\sigma_x,\frac{\omega}{2}\sigma_z\right]\right\rangle, \\
-\frac{d}{dt}\langle \sigma_y\rangle
-&=
--\,i\left\langle\left[\sigma_y,\frac{\omega}{2}\sigma_z\right]\right\rangle, \\
-\frac{d}{dt}\langle \sigma_z\rangle
-&=
--\,i\left\langle\left[\sigma_z,\frac{\omega}{2}\sigma_z\right]\right\rangle.
-\end{align}
-The last equation is immediate:
-\begin{equation}
-\frac{d}{dt}\langle \sigma_z\rangle = 0.
-\end{equation}
-So the component of spin along the field is conserved.
-
-To go further we need the commutation relations of the Pauli matrices. Susskind computes them by matrix multiplication. For example,
+For example,
 \begin{align}
 [\sigma_z,\sigma_x]
 &=
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix}
+\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+\begin{pmatrix}0&1\\1&0\end{pmatrix}
 -
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix}
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix} \\
+\begin{pmatrix}0&1\\1&0\end{pmatrix}
+\begin{pmatrix}1&0\\0&-1\end{pmatrix}\\
 &=
-\begin{pmatrix}
-0&1\\
--1&0
-\end{pmatrix}
+\begin{pmatrix}0&1\\-1&0\end{pmatrix}
 -
-\begin{pmatrix}
-0&-1\\
-1&0
-\end{pmatrix} \\
-&=
-2
-\begin{pmatrix}
-0&1\\
--1&0
-\end{pmatrix}
-=
-2i\sigma_y.
+\begin{pmatrix}0&-1\\1&0\end{pmatrix}\\
+&=2
+\begin{pmatrix}0&1\\-1&0\end{pmatrix}
+=2i\sigma_y.
 \end{align}
-The other commutators follow by cyclic permutation:
+The cyclic relations are
 \begin{equation}
 [\sigma_z,\sigma_x]=2i\sigma_y,
 \qquad
 [\sigma_x,\sigma_y]=2i\sigma_z,
 \qquad
 [\sigma_y,\sigma_z]=2i\sigma_x.
+\label{eq:l5-pauli-commutators}
 \end{equation}
-If we reverse the order of any commutator, the sign changes. Thus
-\begin{equation}
-[\sigma_x,\sigma_z]=-2i\sigma_y.
-\end{equation}
+Reversing either entry reverses the sign.
 
-Now the earlier puzzle about the factor of \(i\) resolves itself exactly as promised:
-\begin{align}
-\frac{d}{dt}\langle \sigma_x\rangle
-&=
--\,i\,\frac{\omega}{2}\langle[\sigma_x,\sigma_z]\rangle \\
-&=
--\,i\,\frac{\omega}{2}\langle-2i\sigma_y\rangle \\
-&=
--\omega\langle \sigma_y\rangle,
-\end{align}
-and similarly,
-\begin{align}
-\frac{d}{dt}\langle \sigma_y\rangle
-&=
--\,i\,\frac{\omega}{2}\langle[\sigma_y,\sigma_z]\rangle \\
-&=
--\,i\,\frac{\omega}{2}\langle 2i\sigma_x\rangle \\
-&=
-+\omega\langle \sigma_x\rangle.
-\end{align}
-Collecting the three equations, we have
-\begin{equation}
-\dot{\langle \sigma_x\rangle}=-\omega\langle \sigma_y\rangle,
-\qquad
-\dot{\langle \sigma_y\rangle}=+\omega\langle \sigma_x\rangle,
-\qquad
-\dot{\langle \sigma_z\rangle}=0.
-\end{equation}
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[scale=1.15]
-\draw[->] (0,0) -- (0,2.8) node[above] {$z$};
-\draw[dashed] (0,1.7) ellipse (1.35 and 0.4);
-\draw[->] (0,0) -- (0.95,1.7);
-\draw[->] (0.95,1.52) arc[start angle=18,end angle=315,x radius=1.35,y radius=0.4];
-\draw (1.7,1.95) node {$\langle \sigma\rangle$};
-\end{tikzpicture}
-\caption{The mathematical consequence of the equations of motion: the expectation-value vector precesses about the field axis.}
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_08.png}
+\caption{The three Pauli commutators close cyclically on the Pauli matrices themselves.}
+\lectureframe{01:33:30}
 \end{figure}
 
-These are exactly the equations of circular motion. In the sense of expectation values, the spin precesses about the \(z\)-axis, just as a classical rotor or gyroscope would in a magnetic field. Susskind is very explicit about the sense in which this is true. The operators themselves do not literally move in space. What changes with time is the state, and therefore the expectation values of the spin components.
+These relations have the same cyclic structure as the classical Poisson brackets of angular momentum. They also close on the original three operators, which makes the equations of motion especially simple.
 
-\section{General Field Direction and Closing Clarifications}
+\begin{classroomqa}
+\audiencequestion{Must the commutators be calculated with bra-ket brackets?}
+\lecturerresponse{No. Operator multiplication is represented by matrix multiplication, so the \(2\times2\) matrices provide a convenient direct calculation. One could instead apply the operators successively to up and down basis states and obtain the same result.}
+\end{classroomqa}
 
-A natural question now arises: why was \(H=\omega\sigma_z/2\) the right guess? Susskind answers by pointing out how little room there is in a two-dimensional state space. The most general Hermitian \(2\times2\) operator is
+\subsection{Precession of the Expectation Values}
+
+Apply Equation~\eqref{eq:l5-expectation-motion} with the Hamiltonian in Equation~\eqref{eq:l5-z-hamiltonian}:
+\begin{align}
+\frac{d}{dt}\expect{\sigma_x}
+&=-i\frac{\omega}{2}\expect{[\sigma_x,\sigma_z]}
+=-\omega\expect{\sigma_y},\\
+\frac{d}{dt}\expect{\sigma_y}
+&=-i\frac{\omega}{2}\expect{[\sigma_y,\sigma_z]}
+=+\omega\expect{\sigma_x},\\
+\frac{d}{dt}\expect{\sigma_z}
+&=-i\frac{\omega}{2}\expect{[\sigma_z,\sigma_z]}
+=0.
+\label{eq:l5-spin-motion}
+\end{align}
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[c]{0.62\textwidth}
+\centering
+\includegraphics[width=\textwidth]{lecture_05_figure_09.png}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.31\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.78,>=Latex]
+  \draw[->,thick] (0,0) -- (0,3.0) node[above] {\(z\parallel\bm B\)};
+  \draw[dashed] (0,1.8) ellipse (1.45 and 0.42);
+  \draw[->,very thick] (0,0) -- (1.05,1.8)
+    node[right] {\(\expect{\bm\sigma}\)};
+  \draw[->,thick] (1.38,1.67)
+    arc[start angle=-12,end angle=245,x radius=1.45,y radius=0.42];
+\end{tikzpicture}
+\end{minipage}
+\caption{The board equations and their geometric consequence: the transverse averages rotate while the field-parallel component remains fixed. The arrow depicts the three expectation values, not a hidden classical spin.}
+\lectureframe{01:35:28}
+\end{figure}
+
+The first two equations describe circular motion in the transverse plane:
+\begin{align}
+\expect{\sigma_x}(t)
+&=\expect{\sigma_x}(0)\cos\omega t
+-\expect{\sigma_y}(0)\sin\omega t,\\
+\expect{\sigma_y}(t)
+&=\expect{\sigma_x}(0)\sin\omega t
++\expect{\sigma_y}(0)\cos\omega t.
+\end{align}
+Meanwhile \(\expect{\sigma_z}\) is constant. The expectation-value vector therefore precesses around the magnetic-field axis with angular frequency \(\omega\).
+
+The operators in this Schr\"odinger-picture calculation are fixed matrices. It is the state that changes, and hence the averages that execute the familiar gyroscopic motion.
+
+\begin{classroomqa}
+\audiencequestion{How can a two-dimensional state space produce a three-dimensional precession picture?}
+\lecturerresponse{The state vector has two complex components, up to normalization and overall phase. The plotted real-space vector is instead \(\bigl(\expect{\sigma_x},\expect{\sigma_y},\expect{\sigma_z}\bigr)\). These expectation values are determined by the state and form the Bloch-vector picture, but they are not the state vector itself.}
+\end{classroomqa}
+
+\section{The Most General One-Spin Hamiltonian}
+
+Every Hermitian \(2\times2\) matrix can be expanded as
 \begin{equation}
-H=aI+b_x\sigma_x+b_y\sigma_y+b_z\sigma_z.
+H=aI+b_x\sigma_x+b_y\sigma_y+b_z\sigma_z,
 \end{equation}
-The identity term is dynamically uninteresting. It merely adds a constant to the energy, and constants commute with everything. So the nontrivial part of the Hamiltonian is always some linear combination of the three Pauli matrices.
-
-That is exactly what one would expect for a magnetic field pointing in a general direction. If the field points along a unit vector \(n\), then the natural Hamiltonian is
+with real coefficients. The identity term changes only the overall phase. The three remaining coefficients can be regarded as the components of a vector. Writing their magnitude as \(\omega/2\) and their direction as a unit vector \(\bm n\), the nontrivial Hamiltonian becomes
 \begin{equation}
-H=\frac{\omega}{2}\,\sigma\cdot n,
+H=\frac{\omega}{2}\,\bm\sigma\cdot\bm n,
 \qquad
-\sigma\cdot n \equiv n_x\sigma_x+n_y\sigma_y+n_z\sigma_z.
+\bm\sigma\cdot\bm n
+=n_x\sigma_x+n_y\sigma_y+n_z\sigma_z.
+\label{eq:l5-general-spin-h}
 \end{equation}
-Here \(\sigma\cdot n\) is matrix shorthand. It is not literally a classical vector dot product, but a compact way of naming a single \(2\times2\) matrix. If we write out that matrix, we get
+If \(\bm B=B\bm n\), then \(\bm n\) carries the direction of the field while \(\omega\) carries its magnitude together with the magnetic coupling. It is \(\bm n\), not \(\omega\), that records orientation.
+
+The equation of motion takes the compact form
 \begin{equation}
-\sigma\cdot n=
+\frac{d}{dt}\expect{\bm\sigma}
+=\omega\,\bm n\times\expect{\bm\sigma}.
+\end{equation}
+The component along \(\bm n\) commutes with \(H\) and remains fixed; the perpendicular components precess around \(\bm n\).
+
+\begin{classroomqa}
+\audiencequestion{Why is this the correct form of the Hamiltonian?}
+\lecturerresponse{There are only four independent Hermitian \(2\times2\) matrices: \(I,\sigma_x,\sigma_y,\sigma_z\). The identity contributes no observable one-spin motion, so every nontrivial time-independent one-spin Hamiltonian is a real linear combination of the three Pauli matrices. A magnetic field packages those three coefficients into a magnitude and a direction.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What exactly does \(\omega\) represent?}
+\lecturerresponse{It is a scalar proportional to the field magnitude times the magnetic moment, with conventional constants absorbed into it. It fixes both the precession rate and the energy splitting. The unit vector \(\bm n\) specifies the field direction.}
+\end{classroomqa}
+
+\subsection{The Two Energy Levels}
+
+Writing Equation~\eqref{eq:l5-general-spin-h} as a matrix gives
+\begin{equation}
+\bm\sigma\cdot\bm n
+=
 \begin{pmatrix}
-n_z & n_x-i n_y \\
-n_x+i n_y & -n_z
+n_z & n_x-in_y\\
+n_x+in_y & -n_z
 \end{pmatrix}.
 \end{equation}
-The relation to the magnetic field is
-\begin{equation}
-\mathbf{B}=B\,\mathbf{n},
-\end{equation}
-so \(n\) carries the direction and \(\omega\) carries the overall scale.
-
-Susskind then asks for the eigenvalues of \(\sigma\cdot n\). If \(n\) is a unit vector, then
-\begin{equation}
-n_x^2+n_y^2+n_z^2=1.
-\end{equation}
-Let the two eigenvalues be \(\lambda_1\) and \(\lambda_2\). The trace is zero, so
+Let its eigenvalues be \(\lambda_1,\lambda_2\). Its trace is zero:
 \begin{equation}
 \lambda_1+\lambda_2=0.
 \end{equation}
-The determinant is
+For a unit vector \(n_x^2+n_y^2+n_z^2=1\), its determinant is
+\begin{align}
+\lambda_1\lambda_2
+&=\det(\bm\sigma\cdot\bm n)\\
+&=-n_z^2-(n_x-in_y)(n_x+in_y)\\
+&=-(n_x^2+n_y^2+n_z^2)\\
+&=-1.
+\end{align}
+The two eigenvalues are therefore
 \begin{equation}
-\det(\sigma\cdot n)=-(n_x^2+n_y^2+n_z^2)=-1,
+\lambda_\pm=\pm1.
 \end{equation}
-so
-\begin{equation}
-\lambda_1\lambda_2=-1.
-\end{equation}
-The only pair of numbers satisfying both conditions is
-\begin{equation}
-\lambda_\pm=\pm 1.
-\end{equation}
-Therefore the energies of the Hamiltonian \(H=\frac{\omega}{2}\sigma\cdot n\) are always
-\begin{equation}
-E_\pm=\pm \frac{\omega}{2},
-\end{equation}
-and the energy gap is
-\begin{equation}
-\Delta E=\omega.
-\end{equation}
-This is independent of the direction of the field. What changes with the direction is which component of spin is conserved. For a field along \(n\), the component of spin along \(n\) stays fixed, while the perpendicular components precess around that axis.
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_10.png}
+\caption{Trace and determinant fix the eigenvalues of \(\bm\sigma\cdot\bm n\) to \(+1\) and \(-1\).}
+\lectureframe{01:59:20}
+\end{figure}
 
-\paragraph{How can a two-dimensional state space give a three-dimensional precession picture?}
-The lecture lingers on this because it is exactly where classical intuition starts to mislead. The space of states for a single spin is two-dimensional. The three-dimensional object we draw or talk about is not the state vector itself; it is the triple of expectation values \((\langle \sigma_x\rangle,\langle \sigma_y\rangle,\langle \sigma_z\rangle)\). These live in ordinary space and behave like the components of a real vector. They are related to the state, but they are not the same thing.
-
-\paragraph{Why is the magnetic field not treated as an operator?}
-Because, for the purposes of this lecture, the magnet is regarded as part of a heavy apparatus. If we included the magnet as part of the full quantum system, then the field would arise from a larger quantum-mechanical problem. But when a system is large, heavy, and only weakly affected by the electron, its fluctuations are negligible and we treat it as classical. Susskind stresses that this division between quantum system and classical apparatus is only provisional. One must eventually justify it. But not tonight.
-
-\paragraph{Are these equations exact for a single run, or only for averages?}
-Only for averages. The equations
+Consequently,
 \begin{equation}
-\dot{\langle \sigma_x\rangle}=-\omega\langle \sigma_y\rangle,
+E_\pm=\pm\frac{\omega}{2},
 \qquad
-\dot{\langle \sigma_y\rangle}=+\omega\langle \sigma_x\rangle,
-\qquad
-\dot{\langle \sigma_z\rangle}=0
+\Delta E=E_+-E_-=\omega.
+\label{eq:l5-spin-gap}
 \end{equation}
-describe what repeated experiments average to. A single trial need not follow this smooth precessional story. Susskind says quite plainly that the bridge from probability distributions to laboratory averages is a basic postulate of statistical reasoning, not something he intends to justify here.
+The direction of the field changes the energy eigenvectors but not these two eigenvalues.
 
-\paragraph{What happens for a sideways spin? Does it emit half a photon?}
-No. This is the lecture's last important clarification. A spin whose expectation value points sideways is not in a single energy eigenstate. It is in a superposition of the up and down energy states. Therefore it does not emit half the energy gap. Instead there is some probability that it emits a full photon of energy \(\omega\), and some probability that it emits nothing. In the symmetric case, the probability to emit is one half, so the average emitted energy is half of \(\omega\), but each individual emission event still carries the full quantum \(\omega\).
+\begin{classroomqa}
+\audiencequestion{How is photon emission related to these levels?}
+\lecturerresponse{With the radiation field included, the higher spin level can decay to the lower level by emitting a photon of energy \(\Delta E=\omega\) in the present \(\hbar=1\) convention. The spin then flips between the two opposite orientations along the field axis. The precession calculation omitted this weak radiative coupling, so a spin may precess many times before emitting.}
+\end{classroomqa}
 
-\paragraph{What does \(\omega\) measure?}
-\(\omega\) is just a number. Up to the lecture's conventions, it is proportional to the magnitude of the magnetic field times the magnetic moment of the spin. It does not know the direction of the field. The direction is carried by \(n\), while \(\omega\) sets the energy splitting and therefore the precession frequency.
+\begin{classroomqa}
+\audiencequestion{Why is the magnetic field treated as a number rather than a quantum operator?}
+\lecturerresponse{The magnet is provisionally treated as a heavy classical apparatus whose fluctuations and recoil are negligible. A complete description would include it in a larger quantum system. The practical system-apparatus split is justified when the apparatus has many degrees of freedom and its relevant variables fluctuate so little that the electron cannot appreciably change them.}
+\end{classroomqa}
 
-\section{Summary}
+\begin{classroomqa}
+\audiencequestion{Do the smooth precession equations describe each individual trial?}
+\lecturerresponse{They describe expectation values, hence averages over identically prepared trials. Individual measurements remain probabilistic. Repeated samples tend to approximate the theoretical average, but probability theory does not guarantee one exact result for every finite sequence, just as a million coin tosses need not contain exactly half heads.}
+\end{classroomqa}
 
-This lecture turns abstract principles into motion. A good measurement leaves a system in an eigenstate, and from that simple idea we learned why simultaneous measurability leads to commuting observables. The noncommutation of the Pauli matrices then gave the first qualitative glimpse of uncertainty. From there Susskind deliberately reset the story and rebuilt the dynamics: unitarity implied a Hermitian generator \(H\), infinitesimal evolution produced the time-dependent Schr\"odinger equation, and diagonalizing \(H\) gave the general solution in the energy basis. Expectation values were then shown to evolve by commutators, revealing the quantum analog of Hamilton's equations. Finally, when the Hamiltonian was chosen for a spin in a magnetic field, all the formalism paid off at once: the expectation values of the spin components precess about the field direction, the component along the field remains fixed, and the general Hamiltonian \(\frac{\omega}{2}\sigma\cdot n\) makes clear that this is the most general nontrivial dynamics a single spin can have.
+\begin{classroomqa}
+\audiencequestion{If the spin points sideways, does a transition emit half a photon?}
+\lecturerresponse{No. A sideways spin state is a superposition of the two energy eigenstates. In the symmetric case it has one-half probability in the upper level and one-half in the lower. It may therefore emit one full photon of energy \(\omega\), or emit none. Its average emitted energy can be \(\omega/2\), but no individual photon carries half the level spacing.}
+\end{classroomqa}
+
+We have now exhausted the nontrivial time-independent dynamics of a single spin. The same algebra that first signaled uncertainty also generates its motion: noncommuting Pauli matrices turn the Hamiltonian into precession, while the component commuting with the Hamiltonian remains conserved. The next increase in complexity is not another one-spin Hamiltonian but a larger state space, where independent systems can be composed and entangled.
