@@ -1,34 +1,36 @@
-# Figure Notes
-## Image Inventory
-- `lecture_07_figure_02.png`: Susskind stands at the left edge while the board shows a clean abstract Hamiltonian setup: canonical-variable labels at the top, the Hamiltonian written as a function of those variables, and the momentum-side Hamilton equation below.
-- `lecture_07_figure_03.png`: Susskind stands left of a sparse worked-example board showing the specific Hamiltonian \(H=pq\) and the first equation for the \(p\)-component of the phase-space flow.
+# Figure Review: Lecture 7
 
-## Blackboard Equations
-- `lecture_07_figure_02.png`: \(q_i,\ p_i\) [visible]
-- `lecture_07_figure_02.png`: \(H(q,p)\) [partially visible]
-- `lecture_07_figure_02.png`: \(\dot p_i=-\frac{\partial H}{\partial q_i}\) [visible]
-- `lecture_07_figure_03.png`: \(H=pq\) [visible]
-- `lecture_07_figure_03.png`: \(v_p=\dot p=-\frac{\partial H}{\partial q}\) [visible]
+## Selected Frames
 
-## Diagram And Layout Reading
-- Neither screenshot contains a true geometric diagram, axis system, or flow sketch; both are equation-first blackboard states.
-- `lecture_07_figure_02.png` has a clear vertical organization: canonical variables at the top, the Hamiltonian in the middle, and one Hamilton equation underneath. The surrounding blank board matters because it shows this is still the abstract recap stage.
-- `lecture_07_figure_03.png` has the same sparse layout but now specialized to the example \(H=pq\). The board records the transition from a named Hamiltonian to the first component of the resulting phase-space velocity field.
-- In both images, the large unused whiteboard area is useful evidence of pacing: these are unfolding steps, not crowded summary boards.
+| Time | Asset | Mathematical role |
+| --- | --- | --- |
+| 00:07:29 | lecture_07_figure_02.png | Canonical variables and Hamilton's momentum equation |
+| 00:15:20 | lecture_07_figure_04.png | Constant-energy surfaces and oscillator circles |
+| 00:24:50 | lecture_07_figure_05.png | Oscillator velocity field |
+| 00:30:20 | lecture_07_figure_06.png | One-dimensional stretching rate |
+| 00:35:30 | lecture_07_figure_07.png | Higher-dimensional divergence |
+| 00:40:15 | lecture_07_figure_08.png | Discrete irreversible sink |
+| 00:47:30 | lecture_07_figure_09.png | Finite-difference rectangle for mixed partials |
+| 00:50:20 | lecture_07_figure_10.png | Liouville mixed-partial cancellation |
+| 01:00:11 | lecture_07_figure_03.png | Beginning of the H=pq example |
+| 01:02:10 | lecture_07_figure_11.png | Shape change at fixed area |
+| 01:04:55 | lecture_07_figure_12.png | Blob, neck, and topology sketches |
+| 01:13:30 | lecture_07_figure_13.png | Damped-oscillator spiral sink |
+| 01:16:05 | lecture_07_figure_14.png | Damped flow components |
+| 01:42:40 | lecture_07_figure_15.png | Chain rule for a general phase-space function |
+| 01:44:15 | lecture_07_figure_16.png | Poisson-bracket derivative combination |
 
-## TeX Reconstruction Plan
-- Both screenshots should remain visible in the notes. They are legible and they preserve the lecture’s board layout and pacing.
-- Near `lecture_07_figure_02.png`, reconstruct the visible mathematics as displayed equations, especially \(\dot p_i=-\frac{\partial H}{\partial q_i}\), and mention in prose that the Hamiltonian is being treated as a function of the canonical pairs \((q_i,p_i)\).
-- Near `lecture_07_figure_03.png`, reconstruct the visible equations \(H=pq\) and \(v_p=\dot p=-\frac{\partial H}{\partial q}\) as clean displayed mathematics.
-- Do not force later steps into the figure itself. The substitutions \(\dot p=-p\) and \(\dot q=q\) belong in the surrounding text or in subsequent displayed equations, not as claims about what is already written in these screenshots.
-- No TikZ redraw is needed for these particular figures, since the useful content is the board writing itself rather than a geometric sketch.
+## Reading Decisions
 
-## Caption Drafts
-- `lecture_07_figure_02.png`: Generic Hamilton equation for the momentum variable
-- `lecture_07_figure_03.png`: Beginning the \(H=pq\) phase-space flow example
+Typeset mathematics is authoritative where the board is incomplete. The
+H=pq example is written as H=lambda pq in the chapter to restore physical
+dimensions, while the screenshot preserves the lecture's unit choice. The
+mixed-partial rectangle is explained with a clean finite-difference formula,
+and the damped flow is explicitly identified as a reduced subsystem.
 
-## Uncertainties
-- In `lecture_07_figure_02.png`, the middle notation is best read as \(H(q,p)\), but the punctuation between \(q\) and \(p\) is not perfectly clear.
-- The handwritten \(p\) can momentarily resemble an uppercase \(P\); standard typesetting should normalize to lowercase canonical variables unless the surrounding chapter fixes another convention.
-- In `lecture_07_figure_03.png`, the leftmost symbol is best read as \(v_p\), though the handwritten form is slightly ambiguous.
-- Neither screenshot yet shows the second Hamilton equation \(\dot q_i=\frac{\partial H}{\partial p_i}\) or the completed example-specific substitutions; those should be added only from the transcript-backed lecture flow, not attributed directly to the images.
+The oscillator phase portrait is also redrawn in TikZ because direction and
+constant-energy geometry are easier to distinguish in a clean diagram. The
+original frame remains nearby as visual evidence.
+
+Every selected frame was read at its recorded time and checked against the
+adjacent argument. No title card, campus shot, or unrelated transition is used.

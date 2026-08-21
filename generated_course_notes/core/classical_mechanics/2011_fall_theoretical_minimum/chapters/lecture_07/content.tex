@@ -1,546 +1,922 @@
 \chapter{Liouville's Theorem and Hamiltonian Flow}
 
-This lecture is built around a single promise. In the first lecture we drew reversible laws as arrows going in and arrows going out, and we were told that classical mechanics has a real analog of that picture. Liouville's theorem is that analog. But the theorem is not dropped on the page as a freestanding result. We first back up, recover the Hamiltonian language, turn conservation of energy into a geometric statement about phase space, replace one orbit by a moving cloud of orbits, and only then ask whether Hamiltonian flow compresses. In that order the lecture acquires its natural rhythm: we discover Liouville's theorem by learning how to ask the right question.
+\lectureoverview{Hamilton's equations do more than repackage the equations of
+motion.  They define a velocity field on phase space whose divergence vanishes.
+That simple cancellation is Liouville's theorem: Hamiltonian evolution
+preserves phase-space volume.  We shall reach it in the order in which its
+meaning becomes visible---first energy conservation, then constant-energy
+surfaces, then a fluid of possible initial conditions, and finally the contrast
+between volume-preserving flow and a dissipative sink.  The same language leads
+naturally to Poisson brackets.}
 
-\section{Reversibility, Liouville, and a Historical Prelude}
+\section{Why Another Form of Mechanics?}
 
-The lecture opens by naming Liouville's theorem as the classical-mechanical analog of reversibility. The earlier discrete pictures were simple: at every state a good law had one arrow in and one arrow out. One knew unambiguously where the system would go next, and one also knew where it had come from. In the continuous setting the language will change, but the real question remains the same. Do distinct initial conditions preserve their identity under time evolution, or do they get squashed together so that information is lost?
+The theorem we want is the continuous classical counterpart of the reversible
+state diagrams introduced at the beginning of the course.  In a reversible
+discrete law, every state has one arrow entering and one arrow leaving.  The
+present is enough to determine both the next state and the preceding one.  A
+bad law sends many states into one sink: the future may be determined, but the
+past is no longer recoverable.
 
-Susskind does not go directly to the theorem. He first pauses over the historical fact that Hamilton, Lagrange, Jacobi, and Poisson created extraordinarily elegant mathematical structures before quantum mechanics existed. We now often explain these structures by reasoning backward from quantum mechanics, but historically the traffic went the other way. Hamiltonian mechanics was built first, not as a minor notation change, but as a formal reshaping of mechanics itself.
+Liouville's theorem says what becomes of that distinction when the set of
+states is a continuous phase space.  The phrase replacing one arrow in and one
+arrow out will be \emph{as much flow in as flow out}.  Before that phrase can be
+made mathematical, however, we need to reconstruct the flow from Hamilton's
+equations.
 
-That historical pause matters here. Liouville's theorem is not a theorem about a particular pendulum or a particular planet. It is a theorem about the formal structure of Hamiltonian evolution. Newton wrote equations to explain the world. The later tradition tried to package those equations into a deeper and more unified form. Even energy, in its modern sense, belongs more naturally to that later conceptual world than to Newton's original one. So before proving anything about reversibility, we first reassemble the Hamiltonian framework in which the theorem lives.
+There is a historical puzzle in doing so.  Hamilton, Jacobi, Lagrange, and
+Poisson built elaborate and beautiful forms of classical mechanics without
+knowing the quantum theory in which those forms would become indispensable.
+Newton had a direct target: planetary motion.  Lagrange and Hamilton also had
+physical problems before them, but they pursued analogies and structures far
+beyond any one orbit.  Stationary action in mechanics resembled least-time
+principles in optics; ray motion and particle motion could be put into parallel
+mathematical forms.  They simplified, rearranged, and unified the equations
+because the structures themselves appeared to contain physics.
 
-\section{Hamilton's Equations and Conservation of the Hamiltonian}
+We now know that this instinct was extraordinarily productive.  Logically,
+many features of classical mechanics can be understood as limits of quantum
+mechanics.  Historically, the order was reversed: the classical structures
+were found first, and only much later did their deeper use become clear.  A
+provocative joke attributed to Feynman made the point by contrasting
+mathematics pursued internally with physics constrained by an external partner,
+the physical world.  The joke is not an argument, but the distinction is useful:
+formal beauty matters here because nature repeatedly selects these formal
+structures.
 
-But first, in the spirit of the lecture, we remind ourselves of Hamilton's equations. We describe the system by canonical pairs
+\begin{classroomqa}
+  \audiencequestion{Did Newton have the modern concept of kinetic energy, and
+  where did the concept of energy begin?
+  \lecturetimestamp{00:04:24--00:05:50}}
+  \lecturerresponse{Newton's mechanics was organized around force and motion,
+  not around a mature general energy principle.  The exact historical priority
+  is not settled in the discussion.  Leibniz's \emph{vis viva},
+  \(\sum_i m_i v_i^2\), was an important predecessor and equals twice the
+  modern kinetic energy.  Later work on heat made the conversion between heat
+  and mechanical work central.  Early caloric theories treated heat as a
+  conserved substance, so the modern idea of interchangeable forms of energy
+  emerged only gradually.}
+\end{classroomqa}
+
+\section{Hamilton's Equations and Energy Conservation}
+
+Let a system have \(n\) canonical pairs,
 \begin{equation}
-(q_i,p_i), \qquad i=1,\dots,n,
+  (q_i,p_i),\qquad i=1,\ldots,n.
+  \label{eq:l7-canonical-pairs}
 \end{equation}
-with one coordinate for each conjugate momentum and one momentum for each coordinate. The basic object is the Hamiltonian
+There is one momentum for each coordinate and one coordinate for each momentum.
+The law of motion is packaged in one function,
 \begin{equation}
-H(q,p),
+  H=H(q_1,\ldots,q_n,p_1,\ldots,p_n,t),
+  \label{eq:l7-hamiltonian}
 \end{equation}
-a function of all the canonical variables, and possibly of time explicitly as well.
+and Hamilton's equations are
+\begin{equation}
+  \boxed{
+  \dot q_i=\frac{\partial H}{\partial p_i},
+  \qquad
+  \dot p_i=-\frac{\partial H}{\partial q_i}.}
+  \label{eq:l7-hamilton-equations}
+\end{equation}
+The sign is part of the canonical structure.  The \(q\)-equation carries the
+plus sign; the \(p\)-equation carries the minus sign.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_07_figure_02.png}
-\caption{The board at the beginning of the recap: canonical labels, the Hamiltonian \(H(q,p)\), and the momentum-side Hamilton equation.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_07_figure_02.png}
+  \caption{Canonical variables, the function \(H(q,p)\), and the
+  momentum-side Hamilton equation at the beginning of the recap.}
+  \lectureframe{00:07:29}
 \end{figure}
 
-The board first shows the momentum equation, and the lecture then immediately adds its partner:
+Although the equations come in indexed pairs, the dynamics need not separate
+pair by pair.  The Hamiltonian may couple every \(q_i\) and \(p_i\), so
+\(\dot p_1\), for example, may depend on the state of the entire system.
+
+\begin{classroomqa}
+  \audiencequestion{Is the presentation now axiomatic?  What relation between
+  \(p\) and \(q\) has been assumed?
+  \lecturetimestamp{00:17:08--00:18:18}}
+  \lecturerresponse{Hamilton's equations define the formal theory once
+  \(H(q,p)\) and the canonical pairs are specified.  There is no universal
+  extra assumption \(p=m\dot q\).  That relation holds for an ordinary
+  Cartesian particle with quadratic kinetic energy, but other coordinates and
+  other Hamiltonians give other momentum--velocity relations.  The equations
+  themselves supply the relation through
+  \(\dot q_i=\partial H/\partial p_i\).  Whether a proposed Hamiltonian is
+  realized in nature is a further physical question.}
+\end{classroomqa}
+
+We can now recover energy conservation in one line of reasoning.  Along a
+trajectory, the total derivative of \(H\) is
+\begin{equation}
+  \frac{dH}{dt}
+  =
+  \sum_i\left(
+    \frac{\partial H}{\partial q_i}\dot q_i
+    +\frac{\partial H}{\partial p_i}\dot p_i
+  \right)
+  +\frac{\partial H}{\partial t}.
+  \label{eq:l7-total-h-derivative}
+\end{equation}
+The last term means explicit time dependence at fixed \(q\) and \(p\), perhaps
+because an externally prescribed parameter is changing.  Substituting
+Eq.~\eqref{eq:l7-hamilton-equations},
 \begin{align}
-\dot p_i &= -\frac{\partial H}{\partial q_i}, \\
-\dot q_i &= \frac{\partial H}{\partial p_i}.
+  \frac{dH}{dt}
+  &=
+  \sum_i\left[
+    \frac{\partial H}{\partial q_i}
+    \frac{\partial H}{\partial p_i}
+    -\frac{\partial H}{\partial p_i}
+    \frac{\partial H}{\partial q_i}
+  \right]
+  +\frac{\partial H}{\partial t}\\
+  &=\frac{\partial H}{\partial t}.
+  \label{eq:l7-h-energy-rate}
 \end{align}
-These equations come in \(q_i,p_i\) pairs. The right-hand side of a single equation need not depend only on the corresponding index, because \(H\) is in general a function of all the \(q_j\) and all the \(p_j\).
-
-At this point the lecture insists on something conceptually important: the theory is now rather axiomatic. There is no automatic assumption that \(p_i=m\dot q_i\). In many familiar examples the Hamiltonian can indeed be written as kinetic term plus potential term, but the formalism is broader. One can write many other Hamiltonians and then ask whether they describe anything in nature.
-
-With that setup in hand, we re-derive conservation of the Hamiltonian. Taking the total derivative gives
+Every term in the sum cancels its partner.  Consequently,
 \begin{equation}
-\frac{dH}{dt}
-=
-\sum_i \frac{\partial H}{\partial p_i}\dot p_i
-+
-\sum_i \frac{\partial H}{\partial q_i}\dot q_i
-+
-\frac{\partial H}{\partial t}.
+  \frac{\partial H}{\partial t}=0
+  \quad\Longrightarrow\quad
+  \frac{dH}{dt}=0.
+  \label{eq:l7-energy-conservation}
 \end{equation}
-The first two terms record the fact that \(H\) changes because the canonical variables move; the final term records any explicit time dependence coming from parameters of the problem itself.
+For a closed, time-translation-invariant system, the Hamiltonian is conserved
+and is the energy.
 
-Substituting Hamilton's equations,
-\begin{align}
-\frac{dH}{dt}
-&=
-\sum_i \frac{\partial H}{\partial p_i}\left(-\frac{\partial H}{\partial q_i}\right)
-+
-\sum_i \frac{\partial H}{\partial q_i}\left(\frac{\partial H}{\partial p_i}\right)
-+
-\frac{\partial H}{\partial t} \\
-&= \frac{\partial H}{\partial t}.
-\end{align}
-The first two sums are the same expression written twice, once with a minus sign, and so they cancel. Thus
+\begin{classroomqa}
+  \audiencequestion{What changes if the Hamiltonian depends explicitly on
+  time? \lecturetimestamp{00:10:32--00:12:33}}
+  \lecturerresponse{Then Eq.~\eqref{eq:l7-h-energy-rate} still holds, but the
+  subsystem energy need not be constant.  An explicit time dependence usually
+  represents an omitted driver exchanging energy with the system.  If that
+  driver is promoted to a dynamical part of a larger closed system, the larger
+  Hamiltonian can again be time independent and its total energy conserved.}
+\end{classroomqa}
+
+\section{Energy as Geometry in Phase Space}
+
+Suppose now that \(H\) has no explicit time dependence.  The initial condition
+fixes a number \(E\), and the phase point remains on
 \begin{equation}
-\frac{dH}{dt}=\frac{\partial H}{\partial t}.
+  H(q,p)=E.
+  \label{eq:l7-energy-surface}
 \end{equation}
-If the Hamiltonian does not depend explicitly on time, then
+Phase space has \(2n\) dimensions.  At regular points, one equation among its
+coordinates defines a \((2n-1)\)-dimensional hypersurface.  Different values
+of \(E\) give different hypersurfaces.  They need not be closed or compact;
+energy conservation says only that a trajectory beginning on one of them
+never leaves it.
+
+For the adapted harmonic oscillator from the preceding lecture,
 \begin{equation}
-\frac{\partial H}{\partial t}=0
-\qquad \Longrightarrow \qquad
-\frac{dH}{dt}=0.
+  H=\frac{\omega}{2}(p^2+q^2).
+  \label{eq:l7-oscillator-hamiltonian}
 \end{equation}
-That is conservation of the Hamiltonian, and in the situations at hand it is conservation of energy.
-
-The lecture also makes clear what \(\partial H/\partial t\neq 0\) usually means. It means that we have not enclosed the whole world inside the Hamiltonian. Some other system is changing in time and exchanging energy with the system under discussion. That interpretation will matter later, but for the moment we keep the time-translation-invariant case in the foreground.
-
-\section{Constant-Energy Surfaces in Phase Space}
-
-Another way to say the same thing is geometric. If \(H\) is conserved, then the motion lies on
+Thus each constant-energy set is a circle,
 \begin{equation}
-H(q,p)=E,
+  p^2+q^2=\frac{2E}{\omega}.
+  \label{eq:l7-oscillator-circle}
 \end{equation}
-where \(E\) is fixed by the initial condition.
 
-If there are \(n\) coordinates \(q_i\), then phase space has \(2n\) dimensions. One equation among the \(2n\) phase-space coordinates defines a hypersurface of one lower dimension. Thus \(H=E\) defines a \((2n-1)\)-dimensional surface in phase space, and the phase point stays on that surface as time goes on.
-
-The harmonic oscillator gives the picture immediately. The normalization is loose in the lecture, but the geometric point is sharp:
-\begin{equation}
-H_{\text{osc}} \propto p^2+q^2.
-\end{equation}
-Therefore a constant-energy orbit satisfies
-\begin{equation}
-p^2+q^2=\text{const},
-\end{equation}
-which is a circle in the \(p\)-\(q\) plane.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-2.8,0) -- (2.8,0) node[right] {$q$};
-\draw[->] (0,-2.8) -- (0,2.8) node[above] {$p$};
-
-\draw[thick] (0,0) circle (0.8);
-\draw[thick] (0,0) circle (1.5);
-\draw[thick] (0,0) circle (2.2);
-
-\draw[->,thick] (0.8,0) arc[start angle=0,end angle=-40,radius=0.8];
-\draw[->,thick] (0,1.5) arc[start angle=90,end angle=45,radius=1.5];
-\draw[->,thick] (-2.2,0) arc[start angle=180,end angle=140,radius=2.2];
-\draw[->,thick] (0,-2.2) arc[start angle=-90,end angle=-135,radius=2.2];
-\end{tikzpicture}
-\caption{For the harmonic oscillator, constant energy means concentric circles in the \(p\)-\(q\) plane. The flow runs tangentially along the circles.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_07_figure_04.png}
+  \caption{The \(2n\)-dimensional phase-space sketch and the harmonic
+  oscillator Hamiltonian used to introduce constant-energy surfaces.}
+  \lectureframe{00:15:20}
 \end{figure}
 
-Here the geometry and the motion are especially simple. A point started on one circle stays on that circle forever. The phase portrait rotates rigidly, and because the oscillator has one fixed frequency, the whole picture has the character of a carousel.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How do the equations of motion differ from the constant-energy surface?
-
-\paragraph{Answer.} The distinction is essential. The equation
+The equations of motion,
 \begin{equation}
-H(q,p)=E
+  \dot q=\omega p,\qquad \dot p=-\omega q,
+  \label{eq:l7-oscillator-flow}
 \end{equation}
-defines a locus of allowed points in phase space. It is one equation among the phase-space coordinates. The equations of motion, by contrast, specify the velocity vector at each point:
-\begin{equation}
-(\dot q_i,\dot p_i).
-\end{equation}
-The constant-energy surface tells us where the motion must live. Hamilton's equations tell us how it moves along that surface.
+make the point move clockwise around its circle.  The energy equation tells us
+which curve contains the motion; Hamilton's equations tell us the direction
+and speed along that curve.
 
-The lecture makes this distinction explicit because the two ideas are easily conflated. For the harmonic oscillator, the circles are the constant-energy surfaces. The Hamiltonian flow is the motion around those circles. One is a constraint on position in phase space; the other is a law of motion.
-
-\section{From One Phase Point to a Fluid of Phase Points}
-
-Now the lecture makes a crucial change of scale. Instead of choosing one initial condition and following one phase point, we imagine all possible initial conditions at once. The phase plane is sprinkled with points. Every point is a possible state of the system, and every point moves according to the same Hamiltonian rules.
-
-To visualize that, Susskind asks us to think of an imaginary fluid, or better, a dust so fine that it may as well be a fluid. This is not a real material fluid. It is a picture of the collection of states. One starts the clock, and the whole dust moves through phase space.
-
-\begin{definition}
-The phase-space velocity field is the vector field whose components are all the phase-space time derivatives:
-\begin{equation}
-\mathbf V
-=
-(\dot q_1,\dots,\dot q_n,\dot p_1,\dots,\dot p_n).
-\end{equation}
-For a single canonical pair we write
-\begin{equation}
-V_q=\dot q, \qquad V_p=\dot p.
-\end{equation}
-\end{definition}
-
-The important point is that these components are determined entirely by the Hamiltonian. Once \(H\) is known, every point in phase space has an assigned velocity. In the time-independent case this is a stationary flow: what happens next depends only on where the point is, not on the absolute time at which it gets there.
-
-For the harmonic oscillator the picture is especially simple. The entire sprinkling rotates rigidly. Points at smaller radius move more slowly in magnitude, but they go around in the same period, because the oscillator's frequency is independent of amplitude.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-2.8,0) -- (2.8,0) node[right] {$q$};
-\draw[->] (0,-2.0) -- (0,2.0) node[above] {$p$};
-
-\filldraw[fill=gray!20,draw=black] (-2.1,-0.55) rectangle (-1.25,0.15);
-\filldraw[fill=gray!20,draw=black,rotate around={18:(1.45,0.45)}] (1.0,0.0) rectangle (1.9,0.8);
-
-\foreach \x/\y/\u/\v in {-2.4/-0.15/0.55/0.35,-1.65/0.35/0.55/0.18,-0.55/-0.75/0.65/0.42,0.65/0.65/0.75/0.10,1.85/1.05/0.55/0.00}
-{
-\draw[->,thick] (\x,\y) -- ++(\u,\v);
-}
-
-\draw[->,very thick] (-0.8,-0.1) -- (0.6,0.25);
-\end{tikzpicture}
-\caption{A patch of phase space transported by the phase-space velocity field. The picture is mnemonic only: the points are states of the system, not material particles in ordinary space.}
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=0.95]
+    \draw[->] (-2.7,0) -- (2.7,0) node[right] {\(q\)};
+    \draw[->] (0,-2.7) -- (0,2.7) node[above] {\(p\)};
+    \draw[thick] (0,0) circle (0.8);
+    \draw[thick] (0,0) circle (1.5);
+    \draw[thick] (0,0) circle (2.2);
+    \draw[->,very thick] (0,2.2) arc[start angle=90,end angle=40,radius=2.2];
+    \draw[->,very thick] (1.5,0) arc[start angle=0,end angle=-50,radius=1.5];
+    \draw[->,very thick] (0,-0.8) arc[start angle=-90,end angle=-140,radius=0.8];
+  \end{tikzpicture}
+  \caption{Constant energy gives the circles; the oscillator equations give
+  the clockwise tangent flow.}
 \end{figure}
 
-We have now arrived at the right object. Liouville's theorem is not merely a statement about one orbit staying on one energy contour. It is a statement about the motion of an extended patch of phase space under the Hamiltonian flow.
+\begin{classroomqa}
+  \audiencequestion{Are Hamilton's two equations and \(H=E\) several versions
+  of the same equation?
+  \lecturetimestamp{00:15:53--00:17:06}}
+  \lecturerresponse{No.  Hamilton's equations are the two first-order laws of
+  motion for one canonical pair.  They imply \(dH/dt=0\), from which
+  \(H=E\) follows.  The value of \(E\) is selected by the initial condition.
+  The equation \(H=E\) identifies a surface; it does not by itself specify the
+  velocity along that surface.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\section{From One State to a Flow of States}
 
-\paragraph{Question.} What is this fluid, exactly?
+Instead of following one initial condition, sprinkle phase space with every
+possible initial condition and start the clock.  Each point is a complete
+possible state, and each state moves according to Hamilton's equations.  The
+sprinkling can be imagined as a dust or an imaginary fluid.  Nothing material
+is being poured into phase space; the fluid is a way to see all trajectories
+at once.
 
-\paragraph{Answer.} It is only a visualization. Each point is a state of the system, not a particle of the original mechanical model. If the language of fluid helps, we use it. If it does not, we can forget the fluid and phrase everything directly in terms of regions of phase space: take a patch, evolve every point in it, and ask whether its phase-space volume changes.
-
-This is exactly how the lecture resolves the question. The fluid picture is useful, but the actual content of the theorem is about states and regions in phase space.
-
-\section{Compressibility, Divergence, and the Setup for Liouville}
-
-The question is now sharpened: is the phase-space flow compressible or incompressible?
-
-The lecture builds the answer slowly, beginning with one dimension. A one-dimensional fluid has a velocity \(v(x)\). If \(v\) gets larger as we move to the right, neighboring points separate. If \(v\) gets smaller, neighboring points bunch together. Thus in one dimension the incompressible condition is simply
+The phase-space velocity field is
 \begin{equation}
-\frac{dv}{dx}=0.
+  \mathbf V(q,p,t)
+  =
+  (\dot q_1,\ldots,\dot q_n,\dot p_1,\ldots,\dot p_n).
+  \label{eq:l7-phase-velocity}
 \end{equation}
-Positive \(dv/dx\) means stretching; negative \(dv/dx\) means compression.
+For one canonical pair we write
+\begin{equation}
+  V_q=\dot q=\frac{\partial H}{\partial p},
+  \qquad
+  V_p=\dot p=-\frac{\partial H}{\partial q}.
+  \label{eq:l7-phase-components}
+\end{equation}
+At each point the Hamiltonian assigns a vector telling the phase point where
+to go next.  If \(H\) is time independent, the vector field is stationary:
+returning to the same phase point gives the same velocity.  If \(H\) depends
+on time, the vector field itself changes with time, but it is still defined at
+each instant.
 
-There are two equivalent ways to think about this. We may follow a moving little segment of the fluid and ask whether its length changes. Or we may stand still and watch fluid pass through a fixed region, demanding that as much enters as leaves. The lecture insists on both pictures, because the second one will connect directly to the old reversible arrow diagrams.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.85]
-\draw[->] (-2.4,0) -- (2.4,0) node[right] {$x$};
-
-\draw[->,thick] (-2.0,0.45) -- (-1.3,0.45);
-\draw[->,thick] (-0.8,0.45) -- (-0.1,0.45);
-\draw[->,thick] (0.4,0.45) -- (1.8,0.45);
-\node at (0,-0.25) {$dv/dx>0$: stretching};
-
-\draw[->,thick] (-2.0,-1.1) -- (-1.2,-1.1);
-\draw[->,thick] (-0.8,-1.1) -- (0.0,-1.1);
-\draw[->,thick] (0.4,-1.1) -- (1.2,-1.1);
-\node at (0,-1.8) {$dv/dx=0$: incompressible};
-\end{tikzpicture}
-\hspace{1.0cm}
-\begin{tikzpicture}[scale=0.85]
-\draw[thick] (0,0) rectangle (2.0,2.0);
-
-\draw[->,thick] (-0.9,0.6) -- (0,0.6);
-\draw[->,thick] (-0.9,1.4) -- (0,1.4);
-
-\draw[->,thick] (2.0,0.5) -- (2.9,0.5);
-\draw[->,thick] (2.0,1.5) -- (2.9,1.5);
-
-\draw[->,thick] (0.7,-0.9) -- (0.7,0);
-\draw[->,thick] (1.3,2.0) -- (1.3,2.9);
-
-\node at (1.0,-1.35) {as much in as out};
-\end{tikzpicture}
-\caption{Two equivalent pictures of incompressibility. Left: in one dimension a varying velocity field stretches or compresses neighboring points. Right: in higher dimensions one asks whether a fixed box has equal inflow and outflow.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_07_figure_05.png}
+  \caption{The harmonic-oscillator velocity field.  The vectors are tangent
+  to the circles and become shorter toward the origin.}
+  \lectureframe{00:24:50}
 \end{figure}
 
-In higher dimensions one must be more careful. A region may stretch in one direction and compress in another while preserving total volume. So we do not require
-\(\partial V_x/\partial x=0\) by itself. We require instead that the sum of the same-coordinate derivatives vanish.
+For the harmonic oscillator every radius turns with angular speed \(\omega\).
+Points near the origin have smaller linear speed because they travel a shorter
+circle in the same period.  The entire dust therefore rotates as a rigid
+carousel.
 
-\begin{definition}
-For a vector field \(\mathbf V=(V_x,V_y,V_z)\), the divergence is
+\begin{classroomqa}
+  \audiencequestion{Does rigid rotation mean that all oscillator trajectories
+  have the same period? \lecturetimestamp{00:21:10--00:21:42}}
+  \lecturerresponse{Yes.  That amplitude independence is the defining special
+  property of the harmonic oscillator.  Every circle is traversed with the
+  same angular frequency \(\omega\), even though the magnitude of the
+  phase-space velocity is smaller on a smaller circle.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is the phase-space velocity the same at every point?
+  \lecturetimestamp{00:24:29--00:25:37}}
+  \lecturerresponse{No.  Both its direction and magnitude generally vary with
+  position.  For the oscillator the vector is tangent to the local circle and
+  has magnitude \(\omega\sqrt{p^2+q^2}\).  A vector field means one assigned
+  vector at every point, not one identical vector copied everywhere.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What exactly are the particles and density of this
+  imaginary fluid? \lecturetimestamp{00:56:03--00:58:40}}
+  \lecturerresponse{Each point is one complete state of the whole mechanical
+  system.  It is not one physical particle.  Five particles moving in one
+  spatial dimension require five positions and five momenta, hence a
+  ten-dimensional phase space; in three dimensions they require thirty
+  dimensions.  The dust is an ensemble of alternative states.  If the fluid
+  picture is distracting, simply take a region of initial conditions, evolve
+  every point in it, and compare its phase-space volume before and after.}
+\end{classroomqa}
+
+\section{Compression and Divergence}
+
+To ask whether this imaginary fluid loses volume, begin in one dimension.
+Let points on a line move with velocity \(v(x)\).  Two nearby points separated
+by \(\delta x\) have a velocity difference
 \begin{equation}
-\nabla\cdot\mathbf V
-=
-\frac{\partial V_x}{\partial x}
-+
-\frac{\partial V_y}{\partial y}
-+
-\frac{\partial V_z}{\partial z}.
+  \delta v \simeq \frac{dv}{dx}\,\delta x.
+  \label{eq:l7-one-dimensional-strain}
 \end{equation}
-Incompressibility means
+If \(dv/dx>0\), the point ahead moves faster and the interval stretches.  If
+\(dv/dx<0\), it compresses.  A stationary one-dimensional incompressible flow
+therefore obeys
 \begin{equation}
-\nabla\cdot\mathbf V=0.
+  \frac{dv}{dx}=0.
+  \label{eq:l7-one-dimensional-incompressible}
 \end{equation}
-\end{definition}
 
-The lecture then translates this directly to phase space. For one canonical pair \((q,p)\) the relevant divergence is
-\begin{equation}
-\frac{\partial V_p}{\partial p}+\frac{\partial V_q}{\partial q}.
-\end{equation}
-The first term tells us about bunching in the \(p\)-direction; the second tells us about bunching in the \(q\)-direction.
-
-At this point Susskind deliberately abandons the fluid notation for a moment and returns to the very first lecture. There the reversible discrete laws had one arrow in and one arrow out at each state. The irreversible laws had sinks. The new claim is that incompressibility of the phase-space flow is the continuous version of the first picture.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.85]
-\foreach \x/\y/\name in {0/1.6/1,1.4/0.8/2,1.4/-0.8/3,0/-1.6/4,-1.4/-0.8/5,-1.4/0.8/6}
-{
-\node[circle,draw,minimum size=0.65cm] (\name) at (\x,\y) {\name};
-}
-\draw[->,thick] (1) -- (2);
-\draw[->,thick] (2) -- (3);
-\draw[->,thick] (3) -- (4);
-\draw[->,thick] (4) -- (5);
-\draw[->,thick] (5) -- (6);
-\draw[->,thick] (6) -- (1);
-\node at (0,-2.5) {reversible cycle};
-\end{tikzpicture}
-\hspace{1.2cm}
-\begin{tikzpicture}[scale=0.85]
-\node[circle,draw,minimum size=0.7cm] (c) at (0,0) {0};
-\foreach \x/\y/\name in {1.7/1.1/A,1.9/0/B,1.7/-1.1/C,-1.7/1.1/D,-1.9/0/E,-1.7/-1.1/F}
-{
-\node[circle,draw,minimum size=0.65cm] (\name) at (\x,\y) {\name};
-\draw[->,thick] (\name) -- (c);
-}
-\node at (0,-2.5) {irreversible sink};
-\end{tikzpicture}
-\caption{The old discrete pictures reappear in continuous form. Liouville's theorem will say that Hamiltonian flow is the analog of the reversible case, not the sink.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_07_figure_06.png}
+  \caption{The one-dimensional construction leading to \(dv/dx\) as the
+  local stretching or compression rate.}
+  \lectureframe{00:30:20}
 \end{figure}
 
-Now the question can be asked cleanly. If the velocity field in phase space is built from Hamilton's equations, is its divergence zero? Equivalently: if we take a small volume of phase space and follow it in time, does it keep the same volume?
+There are two equivalent viewpoints.  We may follow a material interval and
+ask whether its length changes.  Or we may hold a small interval fixed and
+ask whether the amount entering per unit time equals the amount leaving.
+The first follows the fluid; the second watches it pass.
+
+In more than one dimension a region may stretch along one axis and compress
+along another without changing total volume.  For a velocity field
+\(\mathbf V=(V_x,V_y,V_z)\), the relevant local rate is the divergence,
+\begin{equation}
+  \nabla\cdot\mathbf V
+  =
+  \frac{\partial V_x}{\partial x}
+  +\frac{\partial V_y}{\partial y}
+  +\frac{\partial V_z}{\partial z}.
+  \label{eq:l7-spatial-divergence}
+\end{equation}
+Positive divergence is local expansion, negative divergence is local
+contraction, and incompressibility is
+\begin{equation}
+  \nabla\cdot\mathbf V=0.
+  \label{eq:l7-zero-divergence}
+\end{equation}
+Equal inflow and outflow through a fixed small box is the same local statement
+as preservation of the volume of a moving small box.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_07_figure_07.png}
+  \caption{A two-dimensional box, its flow components, and the sum of
+  same-coordinate derivatives that defines divergence.}
+  \lectureframe{00:35:30}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Are we discussing a fluid in ordinary space or a flow in
+  phase space? \lecturetimestamp{00:34:27--00:34:40}}
+  \lecturerresponse{The divergence argument is first a general fluid argument.
+  We shall apply it to the even-dimensional phase space, where the coordinate
+  directions are the \(q_i\) and \(p_i\), and the velocity components are
+  \(\dot q_i\) and \(\dot p_i\).}
+\end{classroomqa}
+
+Now return to the discrete state maps.  In a reversible cycle, every node has
+one arrow in and one arrow out, and a chosen collection of states retains the
+same number of members as it evolves.  In a sink, many arrows enter and too
+few leave; several alternatives become indistinguishable.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_07_figure_08.png}
+  \caption{The discrete sink used to reconnect divergence with the
+  first-lecture test for reversible laws.}
+  \lectureframe{00:40:15}
+\end{figure}
+
+The continuous question is now exact: does Hamiltonian flow have zero
+divergence, so that a small region of distinguishable states never gets
+squashed into a smaller phase-space volume?
 
 \section{Liouville's Theorem}
 
-Only after all of that preparation does the theorem itself appear.
-
 \begin{theorem}[Liouville's theorem]
-For Hamiltonian motion, the phase-space velocity field is incompressible. Equivalently, the divergence of the phase-space flow vanishes, and any patch of phase space preserves its volume under time evolution.
+For a smooth Hamiltonian system, the canonical phase-space velocity field has
+zero divergence:
+\begin{equation}
+  \sum_i\left(
+    \frac{\partial\dot q_i}{\partial q_i}
+    +\frac{\partial\dot p_i}{\partial p_i}
+  \right)=0.
+  \label{eq:l7-liouville-divergence}
+\end{equation}
+Equivalently, Hamiltonian evolution preserves the canonical phase-space volume
+\(dq_1\cdots dq_n\,dp_1\cdots dp_n\).
 \end{theorem}
 
-\begin{proof}
-Let us begin with one canonical pair \((q,p)\). Define the phase-space velocity components by
+\begin{classroomqa}
+  \audiencequestion{Are the components called \(V\) simply the \(p\)-dots and
+  \(q\)-dots? \lecturetimestamp{00:42:20--00:43:22}}
+  \lecturerresponse{Yes.  For one pair,
+  \(V_q=\dot q\) and \(V_p=\dot p\).  Lining up all such derivatives gives the
+  velocity vector of the flow in the full phase space.}
+\end{classroomqa}
+
+For one canonical pair, Hamilton's equations give
 \begin{equation}
-V_p=\dot p, \qquad V_q=\dot q.
+  V_p=-\frac{\partial H}{\partial q},
+  \qquad
+  V_q=\frac{\partial H}{\partial p}.
+  \label{eq:l7-liouville-components}
 \end{equation}
-Then the divergence is
-\begin{equation}
-\frac{\partial V_p}{\partial p}+\frac{\partial V_q}{\partial q}.
-\end{equation}
-Now substitute Hamilton's equations:
-\begin{equation}
-V_p=-\frac{\partial H}{\partial q}, \qquad V_q=\frac{\partial H}{\partial p}.
-\end{equation}
-Therefore
+The divergence is therefore
 \begin{align}
-\frac{\partial V_p}{\partial p}+\frac{\partial V_q}{\partial q}
-&=
-\frac{\partial}{\partial p}\!\left(-\frac{\partial H}{\partial q}\right)
-+
-\frac{\partial}{\partial q}\!\left(\frac{\partial H}{\partial p}\right) \\
-&=
--\frac{\partial^2 H}{\partial p\,\partial q}
-+
-\frac{\partial^2 H}{\partial q\,\partial p}.
+  \frac{\partial V_p}{\partial p}
+  +\frac{\partial V_q}{\partial q}
+  &=
+  -\frac{\partial}{\partial p}
+    \left(\frac{\partial H}{\partial q}\right)
+  +\frac{\partial}{\partial q}
+    \left(\frac{\partial H}{\partial p}\right)\\
+  &=
+  -\frac{\partial^2H}{\partial p\,\partial q}
+  +\frac{\partial^2H}{\partial q\,\partial p}
+  =0.
+  \label{eq:l7-liouville-proof}
 \end{align}
-For a smooth function of independent variables, the mixed partial derivatives commute:
-\begin{equation}
-\frac{\partial^2 H}{\partial p\,\partial q}
-=
-\frac{\partial^2 H}{\partial q\,\partial p}.
-\end{equation}
-Hence
-\begin{equation}
-\frac{\partial V_p}{\partial p}+\frac{\partial V_q}{\partial q}=0.
-\end{equation}
 
-For many degrees of freedom, exactly the same cancellation occurs pair by pair:
-\begin{equation}
-\sum_i\left(
-\frac{\partial \dot p_i}{\partial p_i}
-+
-\frac{\partial \dot q_i}{\partial q_i}
-\right)=0.
-\end{equation}
-So the full Hamiltonian flow is incompressible.
-\end{proof}
-
-The lecture does not treat the commutation of mixed partial derivatives as a mere black-box theorem. It pauses to give the rectangle argument: the mixed second derivative is a difference of horizontal differences or a difference of vertical differences, and the two constructions lead to the same combination.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.05]
-\draw[->] (-0.4,0) -- (3.2,0) node[right] {$q$};
-\draw[->] (0,-0.4) -- (0,2.4) node[above] {$p$};
-\draw[thick] (0.8,0.6) rectangle (2.5,1.8);
-\node[above left] at (0.8,1.8) {$A$};
-\node[above right] at (2.5,1.8) {$B$};
-\node[below right] at (2.5,0.6) {$C$};
-\node[below left] at (0.8,0.6) {$D$};
-\end{tikzpicture}
-\caption{The finite-difference rectangle behind the lecture's side-proof. The combination \(F(B)+F(D)-F(A)-F(C)\) appears whichever order of differentiation is taken.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_07_figure_09.png}
+  \caption{The finite-difference rectangle used to explain why smooth mixed
+  partial derivatives commute.}
+  \lectureframe{00:47:30}
 \end{figure}
 
-The theorem is often summarized as conservation of phase-space volume, but the lecture phrases it both ways. We may follow a patch and say its volume does not change, or we may fix a small region and say that as much flow enters as leaves. The two statements are equivalent.
-
-\begin{remark}
-The cancellation happens pairwise in each canonical pair. In that sense Hamiltonian flow is not merely incompressible in some accidental way; it is a special kind of incompressible flow built out of conjugate directions.
-\end{remark}
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why does Liouville's theorem survive even when the Hamiltonian depends explicitly on time, whereas conservation of energy did not?
-
-\paragraph{Answer.} The two questions are different. Conservation of energy asks whether \(H\) itself remains constant along the motion, and that is why \(\partial H/\partial t\) appears in
+The equality of mixed partial derivatives can be seen with four nearby points
+\(A,B,C,D\) at the corners of a small rectangle in the \(q\)-\(p\) plane.
+Taking a \(q\)-difference and then a \(p\)-difference produces, apart from the
+two small side lengths,
 \begin{equation}
-\frac{dH}{dt}=\frac{\partial H}{\partial t}.
+  F(B)+F(D)-F(A)-F(C).
+  \label{eq:l7-finite-difference-combination}
 \end{equation}
-Liouville's theorem asks instead about the divergence of the velocity field. In the one-pair case the relevant combination is
-\begin{equation}
-\frac{\partial}{\partial p}\!\left(-\frac{\partial H}{\partial q}\right)
-+
-\frac{\partial}{\partial q}\!\left(\frac{\partial H}{\partial p}\right),
-\end{equation}
-and those terms still cancel even if \(H\) also depends on \(t\). The theorem is about the geometry of Hamiltonian flow in phase space, not about whether the Hamiltonian is numerically constant along that flow.
+Taking the differences in the opposite order produces the same combination.
+In the small-rectangle limit this is
+\(\partial_p\partial_qF=\partial_q\partial_pF\), provided the required
+derivatives are continuous.
 
-\section{Consequences, Counterexamples, and Outlook}
-
-Now we interpret the theorem, and here the lecture becomes careful. There are really two different statements on the table. One is that a single orbit remains on a constant-energy surface. The other is that a finite patch of phase space preserves its volume. These are not the same statement. A patch may cut across many different energy surfaces and still evolve with fixed volume.
-
-The harmonic oscillator is deceptive because it does both things in the cleanest possible way. An orbit stays on a circle, and a small region rotates rigidly, preserving both area and shape. But Liouville's theorem promises only the first part of that second statement: it preserves volume, not shape. The lecture is emphatic on this point.
-
-It also draws broader consequences. Distinct phase points do not coalesce. A region may be stretched into a long filament, but it does not collapse into a smaller-volume set. The lecture goes further and treats topology preservation as an informal companion claim: a blob may become extraordinarily thin, but it does not pinch off into disconnected pieces, because each phase point has a unique forward direction determined by the Hamiltonian.
-
-\begin{remark}
-The lecture also stresses what Liouville's theorem does \emph{not} preserve. In general it does not preserve shape, and it certainly does not preserve angles. The harmonic oscillator is exceptional in that its flow is a rigid rotation.
-\end{remark}
-
-A brief application then appears. If a gas expands in ordinary \(q\)-space, the phase-space volume can remain constant only if the momentum distribution contracts. That is why the momenta move toward zero and the gas cools. The lecture mentions the expanding universe as an analogy, but keeps the real point local: expansion in one set of directions must be balanced by contraction in the conjugate directions if the total phase-space volume is to stay fixed.
-
-Now comes the lecture's main stress test.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.58\textwidth]{lecture_07_figure_03.png}
-\caption{The board at the start of the \(H=pq\) example: the Hamiltonian is written, and the first component of the phase-space velocity field is extracted from it.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_07_figure_10.png}
+  \caption{The canonical divergence after Hamilton's equations have reduced
+  it to two mixed derivatives with opposite signs.}
+  \lectureframe{00:50:20}
 \end{figure}
 
-Take
-\begin{equation}
-H=pq.
-\end{equation}
-The first visible board equation is
-\begin{equation}
-V_p=\dot p=-\frac{\partial H}{\partial q}.
-\end{equation}
-Completing the calculation gives
-\begin{equation}
-\dot p=-p,
-\qquad
-\dot q=\frac{\partial H}{\partial p}=q.
-\end{equation}
-So the motion contracts exponentially in the \(p\)-direction and expands exponentially in the \(q\)-direction. Indeed,
-\begin{equation}
-p(t)=p_0 e^{-t},
-\qquad
-q(t)=q_0 e^{t}.
-\end{equation}
-A small square patch is squeezed one way and stretched the other way. The result is dramatic shape change with no loss of area.
+For many degrees of freedom, the same cancellation occurs for every canonical
+pair:
+\begin{align}
+  \sum_i\left(
+    \frac{\partial\dot p_i}{\partial p_i}
+    +\frac{\partial\dot q_i}{\partial q_i}
+  \right)
+  &=
+  \sum_i\left(
+    -\frac{\partial^2H}{\partial p_i\,\partial q_i}
+    +\frac{\partial^2H}{\partial q_i\,\partial p_i}
+  \right)\\
+  &=0.
+  \label{eq:l7-many-pair-proof}
+\end{align}
+Stretching in one canonical direction is balanced by compression in its
+conjugate direction.  This pairwise cancellation is stronger structure than a
+coincidental cancellation among unrelated axes.
 
-The lecture insists on checking the divergence explicitly:
+\begin{classroomqa}
+  \audiencequestion{Is the summation over all canonical pairs understood?
+  \lecturetimestamp{00:52:00--00:52:36}}
+  \lecturerresponse{Yes.  Equation~\eqref{eq:l7-many-pair-proof} is summed over
+  \(i\), and the two mixed derivatives cancel separately within each
+  \(q_i,p_i\) pair.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{The displayed divergence looks Cartesian.  Does the
+  theorem survive a change of coordinates?
+  \lecturetimestamp{00:52:50--00:53:22, 00:58:18--00:58:40}}
+  \lecturerresponse{The natural statement is made in canonical coordinates
+  and with the canonical volume element
+  \(dq_1\cdots dq_n\,dp_1\cdots dp_n\).  A canonical, or symplectic,
+  transformation changes coordinates and momenta together and preserves that
+  volume.  In arbitrary noncanonical coordinates, a Jacobian factor belongs
+  in the volume measure; the naive product of coordinate increments need not
+  be invariant.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Does Liouville's theorem require a time-independent
+  Hamiltonian? \lecturetimestamp{00:53:43--00:55:51}}
+  \lecturerresponse{No.  Energy conservation required
+  \(\partial H/\partial t=0\), but the divergence proof differentiates only
+  with respect to \(q_i\) and \(p_i\) at a fixed time.  The mixed partials still
+  cancel for \(H(q,p,t)\).  A time-dependent Hamiltonian therefore generates a
+  time-dependent but instantaneously volume-preserving canonical flow.}
+\end{classroomqa}
+
+\section{What Volume Preservation Does and Does Not Mean}
+
+Take any small region \(R_0\) of initial conditions and evolve every point for
+a time \(t\).  Liouville's theorem says
 \begin{equation}
-\frac{\partial V_p}{\partial p}+\frac{\partial V_q}{\partial q}
-=
-(-1)+(1)=0.
+  \operatorname{Vol}(R_t)=\operatorname{Vol}(R_0).
+  \label{eq:l7-volume-preservation}
 \end{equation}
-So the area is preserved even while the shape changes violently.
+The region may move, rotate, shear, and stretch into a long filament.  Its
+volume, not its shape, is protected.  Distinct phase points cannot coalesce in
+a finite smooth Hamiltonian evolution.
 
-\begin{remark}
-The product \(pq\) has the units of action, and so does a phase-space area element. But Liouville's theorem is not the conservation of action. The theorem is about conservation of phase-space volume.
-\end{remark}
+For finite times, a smooth Hamiltonian flow is an invertible map with a smooth
+inverse obtained by evolving backward.  This also explains the classroom
+claim that a connected blob cannot pinch into disconnected pieces: the flow
+deforms the region continuously and preserves its topology, even though an
+extremely thin neck may make two lobes look separated at finite resolution.
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-0.2,0) -- (2.6,0) node[right] {$q$};
-\draw[->] (0,-0.2) -- (0,2.6) node[above] {$p$};
-\draw[thick] (0.6,0.8) rectangle (1.3,1.5);
-\draw[thick] (0.6,0.8) -- (1.3,1.5);
-\draw[thick] (0.6,1.5) -- (1.3,0.8);
-\node at (1.0,0.35) {initial patch};
-\end{tikzpicture}
-\hspace{1.0cm}
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-0.2,0) -- (4.0,0) node[right] {$q$};
-\draw[->] (0,-0.2) -- (0,2.6) node[above] {$p$};
-\draw[thick] (0.8,1.02) rectangle (3.2,1.28);
-\draw[thick] (0.8,1.02) -- (3.2,1.28);
-\draw[thick] (0.8,1.28) -- (3.2,1.02);
-\node at (2.0,0.35) {later under \(H=pq\)};
-\end{tikzpicture}
-
-\vspace{0.8cm}
-
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (-2.8,0) -- (2.8,0) node[right] {$x$};
-\draw[->] (0,-2.8) -- (0,2.8) node[above] {$p$};
-\draw[->,thick] (2.2,0) arc[start angle=0,end angle=-250,radius=2.2];
-\draw[->,thick] (-0.9,1.55) arc[start angle=120,end angle=-145,radius=1.8];
-\draw[->,thick] (-0.65,-0.95) arc[start angle=210,end angle=-35,radius=1.15];
-\draw[->,thick] (0.55,0.45) arc[start angle=40,end angle=-205,radius=0.72];
-\filldraw (0,0) circle (1.3pt);
-\node at (0,-3.25) {damped oscillator: spiral sink};
-\end{tikzpicture}
-\caption{Top: under \(H=pq\), a patch of phase space is stretched in \(q\) and squeezed in \(p\), preserving area while changing both shape and angles. Bottom: the damped oscillator contracts toward the origin and therefore fails to satisfy Liouville's theorem.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_07_figure_12.png}
+  \caption{Possible deformations of one phase-space region.  A smooth
+  Hamiltonian flow may produce a thin neck, but not a genuine finite-time
+  break into independently evolved pieces.}
+  \lectureframe{01:04:55}
 \end{figure}
 
-To see what fails outside Hamiltonian mechanics, the lecture turns to the damped harmonic oscillator,
+\begin{classroomqa}
+  \audiencequestion{Can a phase-space region pinch off and split into two
+  pieces? \lecturetimestamp{01:04:10--01:05:49}}
+  \lecturerresponse{Not under a smooth deterministic Hamiltonian flow for a
+  finite time.  At a hypothetical pinch point there is still one phase-space
+  point and one assigned velocity, not two incompatible directions.  The
+  region can develop a very long, narrow connecting filament, but the
+  evolution remains one-to-one and does not tear it.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Are two widely separated lobes of a stretched blob
+  physically connected or quantum-entangled?
+  \lecturetimestamp{01:08:01--01:09:16}}
+  \lecturerresponse{No such physical connection is implied.  The blob is a set
+  of alternative initial conditions, not one material object.  Calling it one
+  region records the common set from which those states evolved; it says
+  nothing about forces or quantum entanglement between them.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What happens near the upright unstable equilibrium of a
+  rigid pendulum?  Do clockwise and counterclockwise trajectories overlap?
+  \lecturetimestamp{01:07:07--01:07:47}}
+  \lecturerresponse{Nearby initial conditions can separate onto very different
+  trajectories, producing the thin filaments just described.  They do not
+  become the same phase point: the sign of the infinitesimal displacement or
+  momentum distinguishes the two sides.  The exactly balanced state has its
+  own uniquely determined motion, namely remaining at equilibrium in the ideal
+  model.}
+\end{classroomqa}
+
+\subsection{Expansion in Position Space and Contraction in Momentum Space}
+
+If a canonical transformation expands a range of positions by a factor \(a\),
+the conjugate momentum scale contracts by the reciprocal factor:
 \begin{equation}
-m\ddot x=-kx-c\dot x.
+  q\longrightarrow aq,
+  \qquad
+  p\longrightarrow \frac{p}{a},
+  \qquad
+  dq\,dp\longrightarrow dq\,dp.
+  \label{eq:l7-canonical-scaling}
 \end{equation}
-If we define
+This is the clean phase-space content behind the gas-expansion example.  In an
+adiabatic expansion, the accessible ordinary-space region grows while typical
+momenta fall and the gas cools.  A detailed thermodynamic relation depends on
+dimension, the expansion protocol, and interactions; Liouville's theorem
+supplies the volume constraint, not every thermodynamic coefficient.
+
+\begin{classroomqa}
+  \audiencequestion{Does the same reasoning apply to an expanding universe,
+  even for a sudden expansion? \lecturetimestamp{00:53:23--00:56:00}}
+  \lecturerresponse{Liouville's theorem applies whenever the complete dynamics
+  is Hamiltonian, including explicitly time-dependent canonical variables.
+  Expansion in position directions must be accompanied by the corresponding
+  contraction in canonical-momentum directions.  A cosmological scale factor,
+  a controlled expansion of a gas, and a freely exploding cloud are not the
+  same physical process, however.  A Hubble-like correlation between distance
+  and recession speed can arise because faster objects travel farther, whereas
+  adiabatic cooling concerns contraction of the local momentum distribution.
+  The theorem constrains the full phase-space map in either case.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What practical use does Liouville's theorem have?
+  \lecturetimestamp{01:06:16--01:07:04}}
+  \lecturerresponse{It is central to statistical mechanics.  It controls how
+  ensembles of microscopic states evolve and underlies the relation between
+  phase-space volume and entropy.  The expansion and cooling of a gas is one
+  immediate illustration; later it becomes a basic tool for equilibrium and
+  nonequilibrium reasoning.}
+\end{classroomqa}
+
+\section{A Flow That Changes Shape Violently}
+
+The harmonic oscillator preserves both area and shape because its flow is a
+rigid rotation.  That is exceptional.  To separate volume preservation from
+rigidity, take
 \begin{equation}
-p=m\dot x,
+  H=\lambda pq,
+  \label{eq:l7-pq-hamiltonian}
 \end{equation}
-then the phase-space equations become
+where \(\lambda\) has units of inverse time.  The lecture sets
+\(\lambda=1\); retaining it makes the dimensions explicit.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_07_figure_03.png}
+  \caption{The beginning of the \(H=pq\) example and the first phase-space
+  velocity component.}
+  \lectureframe{01:00:11}
+\end{figure}
+
+Hamilton's equations are
 \begin{equation}
-\dot x=\frac{p}{m},
-\qquad
-\dot p=-kx-\frac{c}{m}p.
+  \dot p=-\lambda p,
+  \qquad
+  \dot q=\lambda q,
+  \label{eq:l7-pq-flow}
 \end{equation}
-The divergence is now
+with solutions
 \begin{equation}
-\frac{\partial \dot x}{\partial x}+\frac{\partial \dot p}{\partial p}
-=
-0-\frac{c}{m}<0.
+  p(t)=p_0e^{-\lambda t},
+  \qquad
+  q(t)=q_0e^{\lambda t}.
+  \label{eq:l7-pq-solutions}
 \end{equation}
-So the phase-space flow converges. A patch shrinks toward the origin, and the origin acts as a sink.
-
-This example also clarifies a point made explicitly in the lecture: Newton's equation \(F=ma\) is broader than Hamiltonian mechanics. Dissipative forces such as viscous drag can certainly appear in Newtonian form, but they do not come from a potential, and therefore they do not fit into the Hamiltonian structure used here.
-
-The damped oscillator is then described as the closest classical continuous analog of information loss. Strictly speaking, in a continuum one can still imagine infinite precision and integrate the equations backward. But what is no longer preserved is the finite phase-space volume carried by a little cell of initial conditions. Those cells lose their integrity and are compressed into smaller and smaller regions.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Can divergence vanish without a Hamiltonian?
-
-\paragraph{Answer.} Yes. Hamiltonian flow is sufficient for zero divergence, but not necessary. The lecture gives the example of an ordinary incompressible fluid in three spatial dimensions. Its velocity field can have zero divergence, but it does not come from a Hamiltonian of the present kind, because Hamiltonian phase space is always even-dimensional. Thus the logic is one-way:
+A square patch is exponentially squeezed in \(p\) and stretched by the same
+factor in \(q\):
 \begin{equation}
-\text{Hamiltonian flow}
-\Longrightarrow
-\text{incompressible phase-space flow},
+  \Delta p(t)\Delta q(t)
+  =
+  \Delta p(0)\Delta q(0).
+  \label{eq:l7-pq-area}
 \end{equation}
-but not conversely.
-
-The lecture closes with a bridge to the next formal repackaging. If \(F(q,p)\) is any function on phase space, then
+Its divergence verifies the result locally,
 \begin{equation}
-\frac{dF}{dt}
-=
-\sum_i\left(
-\frac{\partial F}{\partial q_i}\dot q_i
-+
-\frac{\partial F}{\partial p_i}\dot p_i
-\right)
-=
-\sum_i\left(
-\frac{\partial F}{\partial q_i}\frac{\partial H}{\partial p_i}
--
-\frac{\partial F}{\partial p_i}\frac{\partial H}{\partial q_i}
-\right).
+  \frac{\partial\dot p}{\partial p}
+  +\frac{\partial\dot q}{\partial q}
+  =-\lambda+\lambda=0.
+  \label{eq:l7-pq-divergence}
 \end{equation}
-Poisson gives a name to that antisymmetric combination:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_07_figure_11.png}
+  \caption{A compact patch stretched into a long thin strip while preserving
+  area under the \(H=pq\) flow.}
+  \lectureframe{01:02:10}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Since \(pq\) has units of action, is Liouville's theorem
+  conservation of action? \lecturetimestamp{01:03:00--01:04:09}}
+  \lecturerresponse{No.  The theorem conserves phase-space volume.  In one
+  canonical pair, \(dq\,dp\) has units of action, and that dimensional fact
+  foreshadows quantum mechanics, where phase-space cells are measured in units
+  set by \(\hbar\).  But the product \(pq\) is not itself Hamilton's action
+  functional, nor is it automatically angular momentum merely because the
+  dimensions agree.}
+\end{classroomqa}
+
+The example also shows that angles need not be preserved.  A right-angle cross
+with unequal components under the scaling in
+Eq.~\eqref{eq:l7-pq-solutions} is sheared in its metric appearance, while area
+remains unchanged.  Liouville's theorem is an area or volume theorem, not an
+ordinary Euclidean rigidity theorem.
+
+\section{Damping Produces a Sink}
+
+To see what the theorem excludes, consider the reduced equation for a damped
+oscillator,
 \begin{equation}
-\{f,g\}
-=
-\sum_i\left(
-\frac{\partial f}{\partial q_i}\frac{\partial g}{\partial p_i}
--
-\frac{\partial f}{\partial p_i}\frac{\partial g}{\partial q_i}
-\right),
+  m\ddot x=-kx-c\dot x,
+  \qquad c>0.
+  \label{eq:l7-damped-newton}
 \end{equation}
-so that, in particular,
+Let \(p=m\dot x\).  Then
 \begin{equation}
-\frac{dF}{dt}=\{F,H\}.
+  \dot x=\frac{p}{m},
+  \qquad
+  \dot p=-kx-\frac{c}{m}p.
+  \label{eq:l7-damped-first-order}
 \end{equation}
-The lecture does not develop the bracket further here. It is only a bridge. The real work of this chapter was to build the language in which Liouville's theorem becomes visible.
+Without damping, the phase point circles the origin.  With damping, energy is
+transferred into the microscopic degrees of freedom of the surrounding medium,
+and the orbit spirals inward.
 
-\section{Summary}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_07_figure_13.png}
+  \caption{The damped oscillator equation and its inward spiral in the
+  \(x\)-\(p\) plane.}
+  \lectureframe{01:13:30}
+\end{figure}
 
-Liouville's theorem is the classical-mechanical statement that Hamiltonian flow preserves phase-space volume. The lecture reaches it deliberately: first Hamilton's equations, then conservation of the Hamiltonian, then constant-energy surfaces, then the fluid picture in phase space, then divergence, and only then the proof. The theorem is the continuous counterpart of the old reversible arrow diagrams: as much flows in as flows out.
+The divergence of this reduced two-dimensional flow is
+\begin{equation}
+  \frac{\partial\dot x}{\partial x}
+  +\frac{\partial\dot p}{\partial p}
+  =
+  0-\frac{c}{m}<0.
+  \label{eq:l7-damped-divergence}
+\end{equation}
+Every finite patch contracts.  The origin is a sink, the continuous analogue
+of the many-arrows-in state map.
 
-The interpretation matters as much as the proof. A single orbit staying on a fixed energy surface is one statement. A whole patch of phase space preserving its volume is another. The harmonic oscillator makes both statements look rigid and simple, but the \(H=pq\) example shows the more general truth: volume is preserved while shape may change drastically. The damped oscillator, by contrast, produces a genuine sink and lies outside Hamiltonian mechanics. That is the boundary the lecture wanted us to see.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_07_figure_14.png}
+  \caption{The damped phase-space velocity components used to obtain the
+  negative divergence \(-c/m\).}
+  \lectureframe{01:16:05}
+\end{figure}
+
+This does not mean that microscopic mechanics violates Liouville's theorem.
+The two variables \(x,p\) omit the enormous number of environmental degrees of
+freedom that receive the oscillator's energy.  The enlarged oscillator-plus-
+environment system can be Hamiltonian and volume preserving even though its
+reduced \(x,p\) description contracts.
+
+\begin{classroomqa}
+  \audiencequestion{Is the damped oscillator still described by Newton's
+  equation, even though it is not Hamiltonian in this reduced phase space?
+  \lecturetimestamp{01:20:09--01:21:12}}
+  \lecturerresponse{Yes.  Newton's \(F=ma\) can include an empirically supplied
+  drag force.  The elementary \(L=T-V\) and Hamiltonian description applies
+  directly to conservative forces, and more general Lagrangians also handle
+  some velocity-dependent forces.  A Markovian friction term for an isolated
+  pair \(x,p\), however, is reduced dissipative dynamics, not a closed
+  canonical Hamiltonian system.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{If the damped equations can be integrated backward with
+  infinite precision, is information really lost?
+  \lecturetimestamp{01:25:16--01:27:17}}
+  \lecturerresponse{For any finite time the ideal differential equation still
+  has an inverse, so exact data can be run backward.  The precise statement is
+  that finite phase-space cells contract exponentially.  Recovering their past
+  then requires exponentially increasing precision, and at infinite time all
+  trajectories approach the sink.  This is the closest continuous classical
+  analogue of the discrete loss-of-alternatives picture, not an assertion that
+  two exact finite-time solutions literally become one.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Can a vector field have zero divergence without coming
+  from a Hamiltonian? \lecturetimestamp{01:18:21--01:22:34}}
+  \lecturerresponse{Certainly.  Hamiltonian form is sufficient for zero
+  divergence, not necessary.  An arbitrary incompressible velocity field can
+  have zero divergence without being a canonical Hamiltonian field on that
+  same space.  A three-dimensional incompressible fluid velocity field is the
+  classroom example: three coordinates cannot themselves form canonical
+  pairs.  Full fluid mechanics may possess more sophisticated
+  infinite-dimensional Hamiltonian formulations, but that does not reverse
+  the one-way implication being made here.}
+\end{classroomqa}
+
+\section{Further Distinctions Exposed by Questions}
+
+\begin{classroomqa}
+  \audiencequestion{How is motion on a constant-energy surface related to
+  preservation of a whole phase-space volume?
+  \lecturetimestamp{01:28:47--01:30:41}}
+  \lecturerresponse{They are independent consequences of the Hamiltonian
+  structure.  If \(H\) is time independent, each trajectory remains on its own
+  energy surface.  A finite patch may cross many such surfaces; Liouville's
+  theorem says that the volume of that entire patch is preserved.  For the
+  harmonic oscillator the patch also keeps its shape because the flow is a
+  rigid rotation.  The \(H=pq\) patch keeps only its area, not its shape.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Where does mechanical work fit into the Hamiltonian
+  account? \lecturetimestamp{01:30:44--01:32:57}}
+  \lecturerresponse{Work describes energy transferred across a chosen system
+  boundary.  An external agent can raise a weight or change a parameter and
+  thereby change the subsystem energy; the energy it supplies is lost by the
+  agent.  If both sides are included in one closed model, the emphasis returns
+  to total energy conservation and exchange between subsystems.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Does volume preservation also preserve topology and
+  angles? \lecturetimestamp{01:33:00--01:33:37}}
+  \lecturerresponse{A smooth finite-time Hamiltonian flow preserves topology
+  because it is an invertible continuous deformation.  It does not generally
+  preserve Euclidean angles or shape.  The oscillator's rigid rotation does,
+  but the \(H=pq\) stretching demonstrates why that is a special case.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Was the Legendre transformation omitted because it has no
+  physical significance? \lecturetimestamp{01:33:43--01:34:48}}
+  \lecturerresponse{No.  It is the useful transformation that exchanges the
+  velocity description for the momentum description and produces
+  \(H=\sum_i p_i\dot q_i-L\) when the map is regular.  The construction has
+  already been used repeatedly even when its formal name was not emphasized;
+  the detailed general theory is simply not needed for the present theorem.}
+\end{classroomqa}
+
+\section{Poisson Brackets: The Next Compression}
+
+The final minutes return to the historical theme.  Nineteenth-century
+mechanics repeatedly searched for compact structures linking apparently
+different systems---mechanics and geometrical optics, particles and rays,
+classical trajectories and wave-like descriptions.  Poisson brackets are
+another such structure, and they become especially important in quantum
+mechanics.
+
+Let \(F(q,p)\) be any function on phase space.  It might be a coordinate, a
+momentum, the product \(qp\), or angular momentum.  Along the motion,
+\begin{equation}
+  \frac{dF}{dt}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}\dot q_i
+    +\frac{\partial F}{\partial p_i}\dot p_i
+  \right).
+  \label{eq:l7-f-time-derivative}
+\end{equation}
+Substitute Hamilton's equations:
+\begin{equation}
+  \frac{dF}{dt}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}
+    \frac{\partial H}{\partial p_i}
+    -
+    \frac{\partial F}{\partial p_i}
+    \frac{\partial H}{\partial q_i}
+  \right).
+  \label{eq:l7-f-hamiltonian-derivative}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_07_figure_15.png}
+  \caption{The chain rule for the time derivative of a general phase-space
+  function \(F(q,p)\).}
+  \lectureframe{01:42:40}
+\end{figure}
+
+The repeated antisymmetric combination deserves a name.  For any two
+functions \(F\) and \(G\), define their Poisson bracket by
+\begin{equation}
+  \boxed{
+  \{F,G\}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}
+    \frac{\partial G}{\partial p_i}
+    -
+    \frac{\partial F}{\partial p_i}
+    \frac{\partial G}{\partial q_i}
+  \right).}
+  \label{eq:l7-poisson-bracket}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_07_figure_16.png}
+  \caption{The two-function derivative combination as it is promoted to the
+  Poisson bracket.}
+  \lectureframe{01:44:15}
+\end{figure}
+
+Equation~\eqref{eq:l7-f-hamiltonian-derivative} becomes
+\begin{equation}
+  \boxed{\frac{dF}{dt}=\{F,H\}.}
+  \label{eq:l7-hamiltonian-poisson-evolution}
+\end{equation}
+If \(F\) also depends explicitly on time, one adds
+\(\partial F/\partial t\).  Taking \(F=q_i\) or \(F=p_i\) recovers Hamilton's
+two equations, so Eq.~\eqref{eq:l7-hamiltonian-poisson-evolution} is a compact
+form of the complete dynamics.
+
+Notation can always be compressed artificially---one could square many
+equations, add them, and call the result one equation.  That would hide rather
+than reveal structure.  The Poisson bracket is useful for the opposite reason:
+its algebra organizes time evolution, conserved quantities, and symmetry.
+The next step is to develop that algebra and then use it for angular momentum,
+whose structure will be central both in classical mechanics and in quantum
+theory.
+
+\section{The Continuous Meaning of Reversibility}
+
+We can now state the chain of ideas without shortening it.  Hamilton's
+equations conserve \(H\) when the Hamiltonian has no explicit time dependence,
+so individual trajectories remain on constant-energy hypersurfaces.  The same
+equations assign a velocity to every point of phase space.  The divergence of
+that velocity vanishes because mixed partial derivatives cancel pairwise.
+Consequently, a whole region of possible states preserves its canonical
+volume.
+
+That is the continuous version of one arrow in and one arrow out.  Shape can
+change, angles can change, and neighboring trajectories can separate
+enormously.  What cannot happen in a smooth closed Hamiltonian description is
+the compression of a finite collection of alternatives into a smaller
+phase-space volume.  The \(H=pq\) flow demonstrates the freedom to stretch;
+the reduced damped oscillator demonstrates the sink that appears once the
+Hamiltonian conditions are abandoned.  Poisson brackets then condense the same
+dynamics into the statement that the Hamiltonian generates every time
+derivative.
