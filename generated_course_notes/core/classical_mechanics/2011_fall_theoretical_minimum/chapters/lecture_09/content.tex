@@ -1,312 +1,569 @@
 \chapter{Magnetic Forces, Vector Potentials, and the Action Principle}
 
-In this lecture the subject shifts quite sharply. We have just been discussing angular momentum, gyroscopes, and Poisson brackets; now we turn to electric and magnetic forces on charged particles. The essential point is not ``electromagnetism in general,'' but something narrower and more revealing: electrostatic forces still fit the old conservative pattern, magnetic forces do not, and that mismatch is what drives us toward vector calculus, the vector potential, and finally the action principle. These notes follow Leonard Susskind's lecture closely, with transcript and frame support assembled through LazyingArt LLC and Video2Book.
+\lectureoverview{Electrostatic forces fit the familiar conservative pattern, but magnetic forces depend on velocity. To place them inside Lagrangian mechanics, we first develop the needed vector calculus, use the source-free character of the magnetic field to introduce a vector potential, examine its gauge freedom, and then construct the magnetic term in the action.}
 
-\section{From Earlier Mechanics to the New Problem}
+\section{A New Kind of Force}
 
-Susskind begins by reminding us where we are coming from. The previous lectures developed angular momentum and gyroscopic motion, and then reformulated classical mechanics in the elegant language of Poisson brackets. In the written notes he also rephrased part of that story in terms of a rotating sphere of charge, whose motion in a magnetic field resembles the motion of a gyroscope. That whole discussion is now behind us. Today the subject is the force exerted by electric and magnetic fields on charged particles.
+The preceding discussion of angular momentum, gyroscopes, and Poisson brackets brought several themes together. In particular, a rotating charged body in a magnetic field precesses in much the same way as a gyroscope. We now turn from that analogy to the motion of an individual charged particle.
 
-Electrostatic forces are still ``garden variety'' forces in the sense used throughout the course: they come from a potential energy. If \(U(\mathbf x)\) is the potential energy, then
+Electrostatic forces require no new mechanics. If \(U(\mathbf x)\) is a potential energy, then
 \begin{equation}
-\mathbf F=-\nabla U(\mathbf x).
+  \mathbf F=-\nabla U(\mathbf x),
 \end{equation}
-For a particle of charge \(e\) in an electrostatic potential \(V(\mathbf x)\), the potential energy is
+and the usual argument gives conservation of kinetic plus potential energy. For a particle of charge \(e\) in an electrostatic potential \(V(\mathbf x)\),
 \begin{equation}
-U(\mathbf x)=e\,V(\mathbf x).
+  U(\mathbf x)=eV(\mathbf x),
+  \qquad
+  \mathbf F_{\mathrm{el}}=-e\nabla V.
 \end{equation}
-Nothing fundamentally new happens here. Electrostatics still belongs to the conservative framework we already understand, and that framework is tied to energy conservation.
+Magnetic forces have a different form. They depend on the particle's velocity, so they cannot be introduced merely by adding another ordinary potential energy. Nevertheless, they do follow from an action principle and admit both Lagrangian and Hamiltonian descriptions. Reaching that description requires a short but essential interlude in vector calculus.
 
-What is new is the magnetic force. Once magnetic fields are present, the equations of motion are no longer of the type we have been studying so far. The lecture says this plainly: if we want to understand magnetic forces, we are going to need the language of least action, Lagrangians, and Hamiltonians. Before we do that, however, we need a mathematical interlude.
+\section{Fields and Local Operations}
 
-\section{Vector Calculus as the Needed Interlude}
+\subsection{What a field records}
 
-Susskind is explicit about why he slows down here. For some of the audience this material is familiar, for some it is not, and the whole spirit of the course is to spell out the steps carefully. So before the physics resumes, we stop and build the vector-calculus machinery that the rest of the lecture will actually use.
+A field assigns a physical quantity to every point of space and, in general, to every time. Temperature and pressure are scalar fields. Wind velocity is a vector field. Electric and magnetic fields are vector fields. Other theories contain scalar fields even at microscopic scales, while gravitation is described by a tensor field. For the present discussion we suppress any time dependence and write fields as functions of \(\mathbf x\).
 
-\paragraph{Fields and locality.}
-A field is simply a physical quantity that depends on space and time. Temperature and pressure are scalar fields. Wind velocity is a vector field. Electric and magnetic fields are also vector fields. What makes them fields is not that they are fundamental, but that they vary from place to place and, in general, from time to time.
+The operational point of a field is locality. Imagine that a certain region is hidden inside a bag. To measure the electric field in that region, put a small test charge there and observe its acceleration. The force is determined by the field where the charge is located, not by a separate consultation with every distant source. The same statement applies to a magnetic field and a moving test charge. Later, the vector potential will force us to qualify this simple picture, but it is the right place to begin.
 
-An important feature of the field concept is locality. If we want to know the electric field in some region, we perform an experiment in that region. In the lecture the example is concrete: if the field is in the bag, we test it in the bag. A charged particle placed there accelerates according to the field there. We do not need to look outside the bag to determine the local field. That is the operational meaning of locality.
+\subsection{The derivative operator}
 
-\paragraph{The operator \(\nabla\).}
-If derivatives of ordinary functions are again functions, then derivatives of fields are again fields. This is the starting point of vector calculus. To implement it we introduce the operator
+Derivatives turn fields into other fields. We collect the three spatial derivatives into
 \begin{equation}
-\nabla=(\partial_x,\partial_y,\partial_z).
+  \nabla
+  =
+  \left(
+    \frac{\partial}{\partial x},
+    \frac{\partial}{\partial y},
+    \frac{\partial}{\partial z}
+  \right).
 \end{equation}
-Susskind calls \(\nabla\) a ``fake vector,'' and that is exactly right. We are not talking about phase space or an \(N\)-particle configuration space here, but ordinary three-dimensional physical space. The components of \(\nabla\) are derivative operators, not lengths or directions. It never stands by itself; it acts on something.
+The symbol is read \emph{del} or \emph{nabla}. Its upside-down-triangle appearance is memorable, but its real significance is that it behaves formally like a vector whose components are differential operators.
 
-If \(s(\mathbf x)\) is a scalar field, then \(\nabla s\) is the gradient of \(s\):
+This is ordinary three-dimensional physical space, not phase space and not a many-particle configuration space. Moreover, \(\nabla\) is not a vector field that can stand alone. It must act on something. If \(T(\mathbf x)\) is a scalar temperature field, then
 \begin{equation}
-\nabla s=(\partial_x s,\partial_y s,\partial_z s).
+  \nabla T
+  =
+  \left(
+    \frac{\partial T}{\partial x},
+    \frac{\partial T}{\partial y},
+    \frac{\partial T}{\partial z}
+  \right)
 \end{equation}
-This is now a genuine vector field. One begins with a scalar and ends with something that has direction. That is the first basic operation.
+is its gradient, a genuine vector field.
 
-A scalar, in the lecture's sense, is not merely ``something with one component.'' It is something whose value does not depend on how we look at it. The temperature at a point does not care whether we approach the point from north or south. Likewise, from a vector field one may build a scalar locally by taking an inner product with itself, for example \(\mathbf E\cdot\mathbf E\).
-
-\paragraph{Divergence.}
-Now let \(\mathbf A=(A_x,A_y,A_z)\) be a vector field. If we take the dot product of \(\nabla\) with \(\mathbf A\), we obtain a scalar:
-\begin{equation}
-\nabla\cdot \mathbf A=\partial_x A_x+\partial_y A_y+\partial_z A_z.
-\end{equation}
-This is the divergence. The lecture interprets it in fluid-mechanical language: divergence measures the tendency of a field to spread outward from a point, or inward if the divergence is negative. That picture is only approximate, but it is useful and Susskind returns to it repeatedly.
-
-\section{Cross Products, Curl, and the Three-Dimensional Special Case}
-
-Now we review the cross product itself, first for ordinary vectors and only afterward for \(\nabla\). The lecture deliberately takes this slowly. One remembers one component and then cycles.
-
-For vectors \(\mathbf V\) and \(\mathbf A\),
-\begin{equation}
-(\mathbf V\times \mathbf A)_x=V_yA_z-V_zA_y,
-\end{equation}
-and the \(y\)- and \(z\)-components are obtained by cycling \(x\to y\to z\to x\).
-
-It is convenient to let \(1,2,3\) stand for \(x,y,z\), and to use the summation convention: repeated indices are summed. The Kronecker delta is
-\begin{equation}
-\delta_{ij}=
-\left\{
-\begin{array}{ll}
-1,& i=j,\\
-0,& i\neq j.
-\end{array}
-\right.
-\end{equation}
-and the Levi-Civita symbol \(\epsilon_{ijk}\) is defined so that it vanishes whenever two indices are equal, takes the value \(+1\) on cyclic permutations of \((1,2,3)\), and \(-1\) on anticyclic ones. With this notation the cross product is compressed into
-\begin{equation}
-(\mathbf V\times \mathbf A)_i=\epsilon_{ijk}V_jA_k.
-\end{equation}
-
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_09_figure_02.png}
-\caption{Cross-product component and antisymmetric matrix sketch.}
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_01.png}
+\caption{The board introduces \(\nabla\) as a vector of spatial derivative operators and begins applying it to a scalar field \(T(\mathbf x)\).}
+\lectureframe{00:11:30}
 \end{figure}
 
-At this point the lecture adds a second way of looking at the cross product. Instead of thinking first of a new vector, we may think of an antisymmetric two-index object. In clean notation,
+A scalar is not merely a quantity written with one component. It is a quantity whose value is independent of the orientation of the coordinate axes. Temperature is the standard example. Given a vector field \(\mathbf E\), the local expression \(\mathbf E\cdot\mathbf E\) is also a scalar. By contrast, constructing a potential by integrating a field is a nonlocal operation; it uses values along a path.
+
+\subsection{Divergence}
+
+For a vector field \(\mathbf A=(A_x,A_y,A_z)\), the scalar
 \begin{equation}
-V_iA_j-V_jA_i=\epsilon_{ijk}(\mathbf V\times \mathbf A)_k,
+  \nabla\cdot\mathbf A
+  =
+  \frac{\partial A_x}{\partial x}
+  +\frac{\partial A_y}{\partial y}
+  +\frac{\partial A_z}{\partial z}
 \end{equation}
-so the cross product is tied to an antisymmetric matrix. The essential algebraic property is
+is its divergence. In fluid language, positive divergence measures a local tendency to flow outward, while negative divergence measures a tendency to converge inward. A source of fluid produces positive divergence; a sink produces negative divergence. This picture is qualitative, but it will make the source-free character of the magnetic field transparent.
+
+\section{Cross Products, Epsilon Symbols, and Curl}
+
+\subsection{The cross product in components}
+
+For two vectors \(\mathbf V\) and \(\mathbf A\), one component of the cross product is
 \begin{equation}
-M_{ij}=-M_{ji}.
+  (\mathbf V\times\mathbf A)_x
+  =
+  V_yA_z-V_zA_y.
 \end{equation}
-In three dimensions such an object has the form
+The other two follow by cycling \(x\to y\to z\to x\). It is useful to replace \(x,y,z\) by the indices \(1,2,3\). The Kronecker symbol is
 \begin{equation}
-M=
-\left(
-\begin{array}{ccc}
-0 & M_{12} & M_{13}\\
--M_{12} & 0 & M_{23}\\
--M_{13} & -M_{23} & 0
-\end{array}
-\right).
+  \delta_{ij}
+  =
+  \begin{cases}
+    1,&i=j,\\
+    0,&i\ne j,
+  \end{cases}
 \end{equation}
-The board sketch makes exactly this point: zeros on the diagonal, opposite entries across the diagonal, and therefore only three independent components.
-
-Now we can let \(\nabla\) take the place of the first vector. Then \(\nabla\times\mathbf A\) is the curl of \(\mathbf A\), again a vector field. Its \(x\)-component is
+and the Levi--Civita symbol is defined by
 \begin{equation}
-(\nabla\times \mathbf A)_x=\partial_yA_z-\partial_zA_y,
+  \epsilon_{123}=\epsilon_{231}=\epsilon_{312}=1,
+  \qquad
+  \epsilon_{132}=\epsilon_{321}=\epsilon_{213}=-1,
 \end{equation}
-and more compactly
+with \(\epsilon_{ijk}=0\) whenever any two indices coincide. A cyclic ordering around a three-hour clock gives the plus signs; reversing the direction gives the minus signs. Interchanging any pair of indices reverses the sign, so \(\epsilon_{ijk}\) is completely antisymmetric.
+
+We also use the summation convention: an index repeated in a term is summed from \(1\) to \(3\). The three cross-product equations then become
 \begin{equation}
-(\nabla\times \mathbf A)_i=\epsilon_{ijk}\partial_jA_k.
+  (\mathbf V\times\mathbf A)_i
+  =
+  \epsilon_{ijk}V_jA_k.
 \end{equation}
-The lecture pairs this with the fluid picture again: divergence measures spreading, while curl measures circulation, the local tendency to swirl around a point.
-
-\subsection{Question \& Answer}
-
-Why can the cross product be identified with an antisymmetric matrix only in three dimensions?
-
-Because in three dimensions the numbers line up. A vector has three components. An antisymmetric \(3\times 3\) matrix also has exactly three independent components, one in each position above the diagonal. That matching is what allows one to identify the two descriptions.
-
-In four dimensions the identification breaks. A vector has four components, but an antisymmetric \(4\times 4\) matrix has six independent components. The antisymmetric object still exists; indeed it exists in every dimension. But it is no longer the same kind of thing as a vector. This is why the cross product, understood as ``another vector,'' is special to three dimensions. More generally one is dealing with antisymmetric tensor fields, or forms.
-
-\section{Magnetic Fields, Divergence-Free Structure, and the Vector Potential}
-
-Once the operations are on the table, the lecture pauses to state two structural facts:
+For example, setting \(i=1\) leaves only \((j,k)=(2,3)\) and \((3,2)\):
 \begin{equation}
-\nabla\cdot(\nabla\times\mathbf A)=0,
-\qquad
-\nabla\times(\nabla s)=0.
+  (\mathbf V\times\mathbf A)_1
+  =
+  \epsilon_{123}V_2A_3
+  +\epsilon_{132}V_3A_2
+  =
+  V_2A_3-V_3A_2.
 \end{equation}
-These are the easy directions. One writes out the components and the terms cancel. Susskind then states the converse directions as well. Mathematically, one should read them locally, or on a suitably simple domain:
-\begin{equation}
-\nabla\cdot \mathbf F=0 \Longrightarrow \mathbf F=\nabla\times\mathbf A,
-\qquad
-\nabla\times \mathbf F=0 \Longrightarrow \mathbf F=\nabla s.
-\end{equation}
-The easy part is immediate; the converse part is the harder theorem. The lecture suppresses the topological subtleties, but the structural message is exactly the one it needs.
+The compact notation therefore contains exactly the familiar component rule.
 
-Now we are finally ready to return to magnetic fields. A magnetic field \(\mathbf B\) is a vector field, and in ordinary electromagnetism it has a distinctive property:
-\begin{equation}
-\nabla\cdot \mathbf B=0.
-\end{equation}
-Electric fields have sources: electric charge density. Magnetic fields, at least in the theory without monopoles, do not. The lecture gives the familiar magnet picture to make this vivid: the field lines that seem to emerge from one pole re-enter through the other, so there is no net source.
+\subsection{A vector disguised as an antisymmetric matrix}
 
-This is the first payoff of the vector-calculus interlude. Since \(\mathbf B\) is divergence-free, we can write it as a curl:
+There is a second representation:
 \begin{equation}
-\mathbf B=\nabla\times \mathbf A.
+  V_iA_j-V_jA_i
+  =
+  \epsilon_{ijk}(\mathbf V\times\mathbf A)_k.
 \end{equation}
-The field \(\mathbf A\) is called the vector potential. At this stage the lecture quite deliberately leaves the obvious question hanging: why would we want to do this? For the moment it looks like a mathematical trick whose purpose is not yet visible.
+The left side has two indices and is antisymmetric under \(i\leftrightarrow j\). As a matrix it has the pattern
+\begin{equation}
+  M_{ij}
+  =
+  \begin{pmatrix}
+    0&M_{12}&M_{13}\\
+    -M_{12}&0&M_{23}\\
+    -M_{13}&-M_{23}&0
+  \end{pmatrix}.
+\end{equation}
+The diagonal entries vanish, and the lower triangle is fixed by the upper triangle. There are therefore three independent components.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_09_figure_03.png}
-\caption{Magnetic field as curl and gauge shift of the vector potential.}
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_02.png}
+\caption{One cross-product component and the schematic \(3\times3\) antisymmetric array used to count its independent entries. The marks in the cells are mnemonic rather than additional symbols.}
+\lectureframe{00:34:20}
 \end{figure}
 
-The next beat is the glitch. \(\mathbf A\) is not unique. If we define
+\begin{classroomqa}
+\audiencequestion{Does the cross product, or the identification with another vector, make sense outside three dimensions?}
+\lecturerresponse{The antisymmetric two-index object makes sense in any dimension, but its identification with a vector is special to three dimensions. A vector in three dimensions has three components, and an antisymmetric \(3\times3\) matrix has three independent components. In four dimensions the corresponding counts are four and six, since \(4(4-1)/2=6\). The antisymmetric object still exists and is naturally regarded as a two-form, but it is not another four-vector.}
+\end{classroomqa}
+
+\subsection{Curl}
+
+Replacing \(\mathbf V\) by \(\nabla\) defines the curl:
 \begin{equation}
-\mathbf A'=\mathbf A+\nabla s,
+  (\nabla\times\mathbf A)_i
+  =
+  \epsilon_{ijk}\frac{\partial A_k}{\partial x_j}.
 \end{equation}
-then
+In ordinary components,
 \begin{align}
-\nabla\times \mathbf A'
-&=\nabla\times \mathbf A+\nabla\times(\nabla s)\\
-&=\nabla\times \mathbf A\\
-&=\mathbf B.
+  (\nabla\times\mathbf A)_x
+  &=
+  \frac{\partial A_z}{\partial y}
+  -\frac{\partial A_y}{\partial z},\\
+  (\nabla\times\mathbf A)_y
+  &=
+  \frac{\partial A_x}{\partial z}
+  -\frac{\partial A_z}{\partial x},\\
+  (\nabla\times\mathbf A)_z
+  &=
+  \frac{\partial A_y}{\partial x}
+  -\frac{\partial A_x}{\partial y}.
 \end{align}
-So changing \(\mathbf A\) by the gradient of a scalar function does not change the magnetic field at all. This is the gauge transformation. The magnetic field is gauge invariant, and whatever the physics is, it had better not depend on which representative \(\mathbf A\) we chose.
+Where divergence measures local spreading, curl measures local circulation. A fluid rotating around an axis has nonzero curl along that axis. The picture is particularly vivid for velocity fields, though the definition applies to any vector field.
 
-The lecture then lingers on this ambiguity with a concrete example. Take a uniform magnetic field pointing in the \(z\)-direction:
+\section{Two Structural Identities}
+
+Two facts will do nearly all of the mathematical work:
 \begin{equation}
-\mathbf B=B\,\hat{\mathbf z}.
+  \nabla\cdot(\nabla\times\mathbf A)=0,
+  \qquad
+  \nabla\times(\nabla s)=0.
 \end{equation}
-One possible vector potential is
+The first follows because the second derivatives are symmetric while \(\epsilon_{ijk}\) is antisymmetric:
 \begin{equation}
-\mathbf A=(0,Bx,0).
+  \nabla\cdot(\nabla\times\mathbf A)
+  =
+  \epsilon_{ijk}\partial_i\partial_j A_k
+  =0.
 \end{equation}
-Its curl is
+The second follows from equality of mixed partial derivatives:
 \begin{equation}
-B_z=\partial_xA_y-\partial_yA_x=\partial_x(Bx)-0=B,
+  \bigl[\nabla\times(\nabla s)\bigr]_i
+  =
+  \epsilon_{ijk}\partial_j\partial_k s
+  =0.
 \end{equation}
-and the other components vanish.
 
-But that expression visibly picks out the \(y\)-direction, whereas a uniform field along \(z\) looks rotationally symmetric in the \(x\)-\(y\) plane. This is precisely why Susskind writes down a second choice:
-\begin{equation}
-\mathbf A=(-By,0,0).
-\end{equation}
-Now
-\begin{equation}
-B_z=\partial_xA_y-\partial_yA_x=0-\partial_y(-By)=B,
-\end{equation}
-again with the remaining components zero. So the same magnetic field has at least these two different vector potentials. Their difference is a gradient, and more generally one can generate infinitely many such choices.
-
-This is also a good place to notice the milder ambiguity of the electrostatic potential. If \(\mathbf E=-\nabla V\), then adding a constant to \(V\) changes nothing physical. The vector potential is a more elaborate version of the same theme: one may add something whose derivative structure does not affect the physical field.
-
-\subsection{Question \& Answer}
-
-If \(\mathbf A\) is not unique and is not locally measurable the way \(\mathbf B\) is, why introduce it at all?
-
-Because without \(\mathbf A\) we would not be able to describe magnetic forces in the language of least action, Lagrangians, and Hamiltonians. This is exactly the answer Susskind gives when the question is asked in class. There is a deeper physical story behind the gauge freedom, and he deliberately postpones it. For the purposes of this lecture, the right answer is pragmatic and structural: the action principle needs \(\mathbf A\), even though \(\mathbf B\) is the locally measurable field.
-
-\section{The Lorentz Force and the Coriolis Analogy}
-
-Now the lecture finally writes down the force law. In a sense, Susskind says, this is the target. We want a Lagrangian formulation whose equations of motion reproduce exactly this force law.
-
-For a charged particle,
-\begin{equation}
-\mathbf F=-e\,\nabla V+\frac{e}{c}\,\mathbf v\times \mathbf B.
-\end{equation}
-The first term is the familiar electrostatic force. If we define the electric field by
-\begin{equation}
-\mathbf E=-\nabla V,
-\end{equation}
-then the electrostatic part is simply \(e\mathbf E\). This is ordinary conservative mechanics in the guise appropriate to charged particles. The notation, however, is treacherous: \(V\) is the scalar potential, while \(\mathbf v\) is the velocity. The lecture warns us explicitly not to confuse them.
-
-The magnetic term is the genuinely new part. It depends on the particle's velocity, but not in the manner of a viscous drag force. A drag force acts along the velocity. The magnetic force is perpendicular both to \(\mathbf v\) and to \(\mathbf B\). The factor \(1/c\) also matters physically: unless the particle is moving rapidly, magnetic forces are typically weaker than electric forces of comparable field strength.
-
-This full force law is usually called the Lorentz force law, although in the lecture Susskind notes that only the magnetic term is historically the surprising piece. The electrostatic term was already expected.
-
-At this point he asks whether we have ever seen a force of the form ``velocity crossed with another vector.'' The answer is yes: the Coriolis force,
-\begin{equation}
-\mathbf F_{\mathrm{Cor}}=2m\,\mathbf v\times \boldsymbol\omega.
-\end{equation}
-This is the same algebraic structure, with the charge \(e\) replaced by the mass \(m\), the magnetic field \(\mathbf B\) replaced by the angular velocity \(\boldsymbol\omega\), and no factor of \(1/c\). So magnetic forces are new in the course, but not utterly foreign in form. The Coriolis analogy softens the novelty.
-
-The rotating-turntable aside that follows is partly garbled in the transcript, but one point is clear and worth retaining. With a suitable electric field and a suitable magnetic field one can cancel the fictitious forces in a rotating frame for one chosen value of the electric charge. That is only a side remark, but it makes vivid again how closely the magnetic and Coriolis structures are related.
-
-Now the real question comes into focus: can a force of this form come from an action principle?
-
-\section{Building the Action for a Charged Particle in a Magnetic Field}
-
-The lecture's answer is sharp: yes, but at a cost. The cost is the vector potential. One cannot build the magnetic part of the action out of \(\mathbf B\) alone.
-
-\paragraph{Action, Lagrangian, and fixed endpoints.}
-Before constructing the new term, Susskind briefly reminds us of the action principle. One considers trajectories between two fixed endpoints, varies the path in between, and asks for the trajectory that makes the action stationary. He continues to say ``least action,'' but he also says plainly that stationary action is the more accurate phrase.
-
-At this point he apologizes for a notational collision: on the blackboard he writes the action itself as \(A\), even though \(A\) already denotes the vector potential. In the written notes it is better to avoid this ambiguity, so we write
-\begin{equation}
-S=\int L\,dt.
-\end{equation}
-The Lagrangian depends on positions and velocities,
-\begin{equation}
-L=L(\mathbf x,\dot{\mathbf x}),
-\end{equation}
-and the endpoints are held fixed when the trajectory is varied.
-
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.70\textwidth]{lecture_09_figure_05.png}
-\caption{Action written as an integral of the Lagrangian.}
+\includegraphics[width=0.80\textwidth]{lecture_09_figure_03.png}
+\caption{The first identity on the board: the divergence of every curl vanishes.}
+\lectureframe{00:38:26}
 \end{figure}
 
-\paragraph{What can the magnetic term be?}
-If all fields are turned off, the Lagrangian should reduce to the kinetic energy:
-\begin{equation}
-L_0=\frac{m}{2}\dot{\mathbf x}^{\,2}.
-\end{equation}
-The electrostatic part is standard and need not detain us: one simply subtracts the electrostatic potential energy \(eV\). The lecture therefore concentrates entirely on the magnetic term.
-
-Here the construction is almost forced. The new term should be proportional to the charge \(e\). In the Lorentz force law the magnetic part always carries \(e/c\), so we expect that factor. It should involve the velocity, because the magnetic force vanishes for a particle at rest. And the Lagrangian must be a scalar. One might therefore be tempted to try a term involving \(\mathbf B\cdot\dot{\mathbf x}\). Susskind explicitly says this is worth trying, and explicitly says it is wrong. The right answer is
-\begin{equation}
-L_{\mathrm{mag}}=\frac{e}{c}\,\mathbf A(\mathbf x)\cdot \dot{\mathbf x}.
-\end{equation}
-Thus, suppressing the electrostatic term and focusing only on the nonstandard magnetic piece, we are led to
-\begin{equation}
-L=\frac{m}{2}\dot{\mathbf x}^{\,2}+\frac{e}{c}\,\mathbf A(\mathbf x)\cdot \dot{\mathbf x}.
-\end{equation}
-That is the first action-principle construction of the lecture.
-
-\paragraph{The line integral.}
-The magnetic contribution to the action is then
-\begin{equation}
-S_{\mathrm{mag}}=\frac{e}{c}\int A_i(\mathbf x)\,\dot x^i\,dt.
-\end{equation}
-Since \(\dot x^i=dx^i/dt\), we can rewrite it as
-\begin{equation}
-S_{\mathrm{mag}}=\frac{e}{c}\int A_i(\mathbf x)\,dx^i.
-\end{equation}
-This is the line integral of the vector potential along the trajectory. The lecture is quite pictorial here: break the path into little segments, dot each segment into the vector potential, and add the pieces. That is the new term in the action.
-
-\subsection{Question \& Answer}
-
-If a gauge transformation changes the action, why do the equations of motion stay the same?
-
-Because the change is only an endpoint term. Under
-\[
-\mathbf A\mapsto \mathbf A+\nabla s,
-\]
-the magnetic part of the action changes by
+These are the easy directions, suitable for the lecture's promised homework or pop quiz. The converse statements require more care. Locally, or globally on an appropriate simply connected or contractible domain,
 \begin{align}
-\Delta S
-&=\frac{e}{c}\int \partial_i s\,dx^i\\
-&=\frac{e}{c}\int ds\\
-&=\frac{e}{c}\Bigl[s(\mathrm{final})-s(\mathrm{initial})\Bigr].
+  \nabla\cdot\mathbf F=0
+  &\quad\Longrightarrow\quad
+  \mathbf F=\nabla\times\mathbf A,\\
+  \nabla\times\mathbf F=0
+  &\quad\Longrightarrow\quad
+  \mathbf F=\nabla s.
 \end{align}
-This is the essential computation near the end of the lecture. The transcript becomes garbled in the middle of the boardwork, but the surrounding mathematical point is perfectly clear: the integral of a gradient reduces to the difference of the scalar at the endpoints.
+Without the domain qualification, holes and other global topological features can obstruct these conclusions. The lecture uses the local form, which is exactly what is needed below.
 
-Now we return to the action principle itself. In varying the path, the endpoints are held fixed. Therefore the added term does not change as we wiggle the interior of the trajectory. It contributes to the numerical value of the action, but not to the Euler--Lagrange equations. So the action is not strictly gauge invariant, yet the equations of motion and the physical trajectory are gauge invariant. Susskind underlines this point strongly: the physics is gauge invariant.
+\section{Why the Magnetic Field Is a Curl}
 
-And this is where Lecture 9 ends. The next lecture will take this Lagrangian, derive the equations of motion explicitly, recover the Lorentz force law, and then move on to canonical momentum, the Hamiltonian, and conservation laws.
+\subsection{No observed magnetic sources}
 
-\section{Summary}
+A magnetic field \(\mathbf B\) is defined operationally through its effect on charged particles and currents. In ordinary electromagnetism without magnetic monopoles,
+\begin{equation}
+  \nabla\cdot\mathbf B=0.
+\end{equation}
+This differs from the electric field, whose divergence is proportional to electric charge density. Electric charges are sources and sinks of electric flux. No isolated source or sink of magnetic flux has been observed.
 
-The lecture unfolds in a very definite order. We begin with the old conservative-force template and see why it still covers electrostatics but not magnetism. Before touching magnetic forces directly, we build the necessary vector-calculus machinery: fields, locality, \(\nabla\), gradient, divergence, cross products, the Levi-Civita symbol, and curl. Only then do the structural identities become available, and only then does the statement \(\nabla\cdot\mathbf B=0\) naturally lead to
-\[
-\mathbf B=\nabla\times\mathbf A.
-\]
+Magnetic monopoles would change this equation. Unified field theories often provide theoretical reasons to expect such objects, but if they exist they may be too massive to produce in available experiments. The present theory therefore proceeds with zero magnetic charge density.
 
-From there the central tension of the lecture is the ambiguity of \(\mathbf A\). It is not unique, it is not locally measurable in the same direct sense as \(\mathbf B\), and yet it is exactly what the action principle requires. That is why the lecture lingers on gauge transformations and on concrete uniform-field examples before writing the Lorentz force law. The final payoff is the construction
-\[
-L=\frac{m}{2}\dot{\mathbf x}^{\,2}+\frac{e}{c}\,\mathbf A\cdot\dot{\mathbf x},
-\]
-together with its line-integral interpretation and the argument that gauge transformations change the action only by endpoint terms. That is the mathematical achievement of Lecture 9, and it prepares the ground for the full variational derivation that follows in the next lecture.
+\begin{classroomqa}
+\audiencequestion{What would a magnetic monopole be? Ordinary magnets already have north and south poles.}
+\lecturerresponse{An isolated monopole would be a genuine source or sink of magnetic field, analogous to an electric charge. An ordinary bar magnet is different. Field lines that emerge near its north pole curve through space and return through the south pole, continuing through the material of the magnet. What appears externally to be a source and a sink is connected, like fluid moving through a hidden pipe. There is no net creation or destruction of magnetic flux.}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\textwidth]{lecture_09_figure_04.png}
+\caption{The board contrasts apparent north and south sources while joining their field lines through the magnet, emphasizing that the magnetic flux does not begin or end there.}
+\lectureframe{00:44:56}
+\end{figure}
+
+Since \(\mathbf B\) is divergence-free, the converse theorem lets us write, at least locally,
+\begin{equation}
+  \boxed{\mathbf B=\nabla\times\mathbf A}.
+\end{equation}
+The field \(\mathbf A\) is the vector potential. At first this may look like an unnecessary re-description of the measurable field \(\mathbf B\). Its purpose will become clear only when we construct the action.
+
+\subsection{The vector potential is not unique}
+
+If \(\mathbf A\) is one vector potential, then
+\begin{equation}
+  \mathbf A'=\mathbf A+\nabla s
+\end{equation}
+is another, because
+\begin{equation}
+  \nabla\times\mathbf A'
+  =
+  \nabla\times\mathbf A+\nabla\times(\nabla s)
+  =
+  \mathbf B.
+\end{equation}
+This replacement is a \emph{gauge transformation}. The magnetic field is gauge invariant.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth]{lecture_09_figure_05.png}
+\caption{The defining relation \(\mathbf B=\nabla\times\mathbf A\) and the gauge shift \(\mathbf A'=\mathbf A+\nabla s\) appear together on the board.}
+\lectureframe{01:03:01}
+\end{figure}
+
+It is pronounced \emph{gauge}, not \emph{gouache} or \emph{gouge}--a distinction the lecture enforces with mock severity. The word itself is historical. It arose from an early attempt to connect the freedom with comparisons of length standards at different locations; that original interpretation did not survive, but the name did.
+
+\begin{classroomqa}
+\audiencequestion{In this discussion, does a gauge transformation mean specifically \(\mathbf A\mapsto\mathbf A+\nabla s\)?}
+\lecturerresponse{Yes. That is the complete electromagnetic transformation being used here. Gauge transformations in Yang--Mills theory and other field theories generalize the same idea, but electromagnetism needs only the addition of a scalar gradient.}
+\end{classroomqa}
+
+The nonuniqueness also clarifies what is directly measurable. A charged particle in a small region responds to the local \(\mathbf B\), and all vector potentials related by a gauge transformation predict the same force there. There is no local experiment of this classical kind that assigns a unique value to \(\mathbf A\).
+
+\begin{classroomqa}
+\audiencequestion{Is adding a gradient the complete description of the nonuniqueness?}
+\lecturerresponse{Locally on a simple domain, yes. If \(\nabla\times\mathbf A'=\nabla\times\mathbf A\), then \(\nabla\times(\mathbf A'-\mathbf A)=0\), so the difference is a gradient. Globally, a multiply connected domain can carry additional subtleties. Adding a constant vector is already included, since a constant vector is the gradient of a linear scalar function. Adding a constant to \(s\) itself changes nothing because its gradient vanishes.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If gauge freedom has an underlying physical reason, what is it?}
+\lecturerresponse{The lecture postpones that deeper interpretation. The useful first step is to work with the freedom and see how it enters the action. Once the formalism is familiar, the reason gauge descriptions are indispensable becomes easier to recognize.}
+\end{classroomqa}
+
+\section{One Magnetic Field, Many Potentials}
+
+Consider the simplest possible example,
+\begin{equation}
+  \mathbf B=b\,\hat{\mathbf z},
+  \qquad
+  B_x=B_y=0,
+  \qquad
+  B_z=b,
+\end{equation}
+where \(b\) is constant. One vector potential is
+\begin{equation}
+  \mathbf A^{(1)}=(0,bx,0).
+\end{equation}
+Indeed,
+\begin{equation}
+  (\nabla\times\mathbf A^{(1)})_z
+  =
+  \frac{\partial A_y^{(1)}}{\partial x}
+  -\frac{\partial A_x^{(1)}}{\partial y}
+  =b,
+\end{equation}
+and the other curl components vanish.
+
+This choice seems to single out the \(y\)-direction even though the physical field is rotationally symmetric in the \(x\)-\(y\) plane. A second choice makes the arbitrariness explicit:
+\begin{equation}
+  \mathbf A^{(2)}=(-by,0,0).
+\end{equation}
+It gives
+\begin{equation}
+  (\nabla\times\mathbf A^{(2)})_z
+  =
+  0-\frac{\partial(-by)}{\partial y}
+  =b.
+\end{equation}
+The two potentials differ by
+\begin{equation}
+  \mathbf A^{(2)}-\mathbf A^{(1)}
+  =
+  (-by,-bx,0)
+  =
+  \nabla(-bxy).
+\end{equation}
+They are therefore gauge equivalent. A rotationally symmetric choice,
+\begin{equation}
+  \mathbf A^{(\mathrm{sym})}
+  =
+  \frac12\,\mathbf B\times\mathbf r
+  =
+  \left(-\frac{by}{2},\frac{bx}{2},0\right),
+\end{equation}
+is another member of the same family.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth]{lecture_09_figure_06.png}
+\caption{Two board panels hold the choices \(A_y=bx\) and \(A_x=-by\), both producing the same uniform field \(B_z=b\).}
+\lectureframe{01:07:20}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is this the same ambiguity as arranging the current-carrying coils in different ways to produce a field?}
+\lecturerresponse{No. Different arrangements of current are different physical sources and may produce different fields elsewhere, even if they agree in one region. Gauge freedom remains after the magnetic field has been specified everywhere: the same physical \(\mathbf B\) still has many vector potentials.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can one picture adding a gradient as stretching or compressing without adding a twist?}
+\lecturerresponse{That is a useful geometric intuition. Curl detects the local twisting part, and a pure gradient has zero curl. The statement is encoded exactly in \(\nabla\times\nabla s=0\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is there a fixed relation between the direction of \(\mathbf A\) and the direction of \(\mathbf B\)?}
+\lecturerresponse{No gauge-independent relation exists. The examples above happen to have \(A_z=0\), but a constant \(A_z\) could be added without changing any derivative. Then \(\mathbf A\) would no longer be perpendicular to \(\mathbf B\). Only the curl has invariant physical content in this classical discussion.}
+\end{classroomqa}
+
+There is a milder analogue in electrostatics. Since \(\mathbf E=-\nabla V\), replacing \(V\) by \(V+C\) does not change \(\mathbf E\). The term \emph{vector potential} was chosen partly by analogy with this freedom in the ordinary scalar potential: one may change the potential in a way that leaves the physical field unchanged.
+
+\section{The Lorentz Force}
+
+We can now state the force law that the action principle must reproduce. In the conventions used here,
+\begin{equation}
+  \boxed{
+  \mathbf F
+  =
+  e\left(
+    \mathbf E+\frac{\mathbf v}{c}\times\mathbf B
+  \right)
+  =
+  -e\nabla V+\frac{e}{c}\mathbf v\times\mathbf B
+  }.
+\end{equation}
+The symbol \(e\) is the particle's electric charge, \(\mathbf v=\dot{\mathbf x}\) is its velocity, and \(V\) is the scalar potential. The notation must not tempt us to confuse \(V\) with \(\mathbf v\). In SI language \(V\) is measured in volts and \(e\) in coulombs; the displayed \(1/c\) belongs to the unit convention used in the lecture. The structural point is independent of units.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_07.png}
+\caption{The electric and magnetic terms of the Lorentz force are displayed together. The magnetic contribution is proportional to \(\mathbf v\times\mathbf B\).}
+\lectureframe{00:58:54}
+\end{figure}
+
+The electric term is conservative and already familiar. The magnetic term is new. It vanishes for a stationary particle and is perpendicular to both \(\mathbf v\) and \(\mathbf B\). Consequently,
+\begin{equation}
+  \mathbf v\cdot\mathbf F_{\mathrm{mag}}
+  =
+  \frac{e}{c}\mathbf v\cdot(\mathbf v\times\mathbf B)
+  =0.
+\end{equation}
+A static magnetic field bends a trajectory but does no work on the particle. This is unlike viscous drag, which is directed opposite the velocity and removes kinetic energy.
+
+The factor \(v/c\) also indicates why, for comparable field scales in these conventions, magnetic effects are often smaller than electric effects for slowly moving particles. Electrons are light enough to reach large speeds, so magnetic deflection remains easy to observe.
+
+Historically, forces on current-carrying wires were known before the force on an individual charge was isolated. Lorentz recognized that the wire force could be understood by assigning the velocity-dependent term to each moving charge. The complete electric-plus-magnetic expression is now called the Lorentz force law, although the magnetic piece is the novel part in the present discussion.
+
+\begin{classroomqa}
+\audiencequestion{Does the whole expression have a separate symbol, or is only the magnetic piece the Lorentz force?}
+\lecturerresponse{The whole expression is simply the force \(\mathbf F=m\mathbf a\), and it is commonly called the Lorentz force. The magnetic term is the part historically associated most directly with Lorentz. Electric and magnetic fields are deeply related by relativity, but that unification is not needed for the present mechanical problem.}
+\end{classroomqa}
+
+\subsection{The Coriolis analogy}
+
+We have seen a velocity crossed with a fixed vector before. In a frame rotating with angular velocity \(\boldsymbol\omega\), the Coriolis force can be written
+\begin{equation}
+  \mathbf F_{\mathrm{Cor}}
+  =
+  2m\,\mathbf v\times\boldsymbol\omega.
+\end{equation}
+It has the same algebraic form as the magnetic force:
+\begin{equation}
+  2m\boldsymbol\omega
+  \quad\longleftrightarrow\quad
+  \frac{e}{c}\mathbf B.
+\end{equation}
+A uniform magnetic field perpendicular to a plane therefore bends charged-particle trajectories in much the same way that a rotating frame deflects moving bodies.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_08.png}
+\caption{The Lorentz force remains on the left while the board adds the corresponding Coriolis form \(2m\,\mathbf v\times\boldsymbol\omega\).}
+\lectureframe{01:02:08}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{The Coriolis force is called fictitious. Is it less real than the magnetic force because it depends on velocity?}
+\lecturerresponse{Velocity dependence is not the issue. A person on a rotating platform can hold a moving object and feel the Coriolis force. It is called fictitious because it disappears in an inertial frame, while the rotating frame is defined precisely by the presence of such inertial terms. The word \emph{real} is often less useful than stating which frame and which equation are being used.}
+\end{classroomqa}
+
+The analogy can be pushed into a small thought experiment. On a rotating platform, a suitable electrostatic field can cancel the centrifugal term for a chosen particle, while a suitable uniform magnetic field can cancel the Coriolis term. The cancellation works only for a chosen charge-to-mass ratio: electric and magnetic forces scale with \(e\), whereas the inertial forces scale with \(m\). A field arrangement tuned for electrons would not cancel the same terms for particles with a different \(e/m\).
+
+\section{Constructing the Charged-Particle Action}
+
+\subsection{Stationary action with fixed endpoints}
+
+We now ask the central question: can the Lorentz force be derived from an action principle? The answer is yes, but the vector potential is indispensable. A Lagrangian built locally from the particle and \(\mathbf B\) alone does not produce the required magnetic force. Rather than prove that negative statement, we construct the successful action directly.
+
+For a trajectory \(\mathbf x(t)\), write
+\begin{equation}
+  S[\mathbf x]
+  =
+  \int_{t_i}^{t_f}L(\mathbf x,\dot{\mathbf x},t)\,dt.
+\end{equation}
+The lecture uses the same handwritten letter for the action and the vector potential, but we use \(S\) for the action and \(\mathbf A\) for the vector potential. The physical path makes \(S\) stationary under variations that hold both endpoints fixed. The traditional phrase \emph{least action} is convenient, though stationary action is more accurate because the extremum need not be a minimum.
+
+The fixed endpoints matter. One may picture the ends of the path nailed to the board while the interior is wiggled. This is a trajectory in ordinary mechanics, not a string-theory object; the string image is only a way to visualize the variation.
+
+\subsection{What may enter the Lagrangian?}
+
+With all fields turned off, the Lagrangian is the kinetic energy,
+\begin{equation}
+  L_0=\frac{m}{2}\dot{\mathbf x}^{\,2}.
+\end{equation}
+The electrostatic term is also standard:
+\begin{equation}
+  L_{\mathrm{el}}=-eV(\mathbf x).
+\end{equation}
+The magnetic term must satisfy several clues:
+\begin{enumerate}
+  \item it must be proportional to the charge \(e\);
+  \item it must contain the factor \(1/c\) in the lecture's units;
+  \item it must involve the velocity;
+  \item it must be a rotational scalar.
+\end{enumerate}
+
+The tempting trial \(\mathbf B\cdot\dot{\mathbf x}\) is a scalar and contains a velocity, but it gives the wrong equation of motion. The correct term uses the vector potential:
+\begin{equation}
+  L_{\mathrm{mag}}
+  =
+  \frac{e}{c}\mathbf A(\mathbf x)\cdot\dot{\mathbf x}
+  =
+  \frac{e}{c}A_i(\mathbf x)\dot x_i.
+\end{equation}
+Thus the full time-independent electromagnetic Lagrangian is
+\begin{equation}
+  \boxed{
+  L
+  =
+  \frac{m}{2}\dot{\mathbf x}^{\,2}
+  +\frac{e}{c}\mathbf A(\mathbf x)\cdot\dot{\mathbf x}
+  -eV(\mathbf x)
+  }.
+\end{equation}
+Lecture 10 will apply the Euler--Lagrange equations and show explicitly that this expression produces the Lorentz force.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_09.png}
+\caption{The completed board construction of the action: a free kinetic term plus \((e/c)A_i\dot x_i\).}
+\lectureframe{01:26:36}
+\end{figure}
+
+\section{Gauge Transformations Change Only the Endpoints}
+
+The magnetic contribution to the action is
+\begin{equation}
+  S_{\mathrm{mag}}
+  =
+  \frac{e}{c}
+  \int_{t_i}^{t_f}A_i(\mathbf x)\dot x_i\,dt.
+\end{equation}
+Since \(\dot x_i\,dt=dx_i\), it is a line integral along the particle's path \(\gamma\):
+\begin{equation}
+  S_{\mathrm{mag}}
+  =
+  \frac{e}{c}\int_\gamma A_i\,dx_i
+  =
+  \frac{e}{c}\int_\gamma\mathbf A\cdot d\mathbf x.
+\end{equation}
+Break the path into short segments, take the component of \(\mathbf A\) along each segment, multiply by the segment length, and add. That is the geometric meaning of the integral.
+
+Now perform the gauge transformation
+\begin{equation}
+  A_i\longmapsto A_i+\partial_i s.
+\end{equation}
+The action changes by
+\begin{align}
+  \Delta S
+  &=
+  \frac{e}{c}\int_\gamma \partial_i s\,dx_i\\
+  &=
+  \frac{e}{c}\int_\gamma ds\\
+  &=
+  \frac{e}{c}
+  \left[
+    s(\mathbf x_f)-s(\mathbf x_i)
+  \right].
+\end{align}
+Each infinitesimal segment contributes the value of \(s\) at one end minus its value at the other. On summing, all interior contributions cancel telescopically, leaving only the two endpoints.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_09_figure_10.png}
+\caption{The line integral, its division into small path segments, and the endpoint result \(s(\mathbf x_f)-s(\mathbf x_i)\).}
+\lectureframe{01:32:31}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{If the action changes under a gauge transformation, why does the trajectory not change?}
+\lecturerresponse{The action principle compares paths with fixed initial and final points. The added quantity depends only on those endpoints, so it has the same value for every path in the comparison. Its variation is zero. The numerical action is not strictly invariant, but the Euler--Lagrange equations and the physical trajectory are gauge invariant.}
+\end{classroomqa}
+
+This distinction is the main conceptual result of the lecture:
+\begin{equation}
+  S\ \hbox{may shift by an endpoint term},
+  \qquad
+  \delta S\ \hbox{and the equations of motion do not}.
+\end{equation}
+Gauge freedom is therefore compatible with the action principle. The vector potential can enter the Lagrangian even though no unique \(\mathbf A\) is selected by the magnetic field.
+
+\section{Where the Argument Continues}
+
+The present lecture has assembled the machinery and the action, but it deliberately stops before varying that action. The next steps are now fixed:
+\begin{enumerate}
+  \item apply the Euler--Lagrange equations and recover
+  \(\mathbf F_{\mathrm{mag}}=(e/c)\mathbf v\times\mathbf B\);
+  \item compute the canonical momentum, which will differ from \(m\mathbf v\);
+  \item construct the Hamiltonian;
+  \item identify the conservation laws;
+  \item solve the motion of a charged particle in a uniform magnetic field.
+\end{enumerate}
+
+The route to those results explains why the vector potential was introduced. The magnetic field is the locally measurable curl, but the vector potential is the object that couples naturally to a particle's path. Gauge transformations alter that coupling only at the fixed endpoints, leaving the mechanics unchanged.
