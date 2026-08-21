@@ -1,496 +1,781 @@
-\chapter{Entanglement, Density Matrices, and Locality}
+\chapter{Wave Functions, Density Matrices, and Locality}
 
-This lecture opens in a deliberately corrective mood. Susskind had considered doing Bell's theorem immediately, but he backs off: Bell's theorem is lovely, but more important than the theorem itself is what it says. He wants first to get at what entanglement says about systems, and he even resists the temptation to call that ``the nature of reality.'' The first target is more precise. People say that entanglement means that two systems ``share a state.'' But a composite system always has a state. The real issue is whether the state of the whole is a product state.
+\lectureoverview{Bell's theorem is postponed for one essential reason: before asking what Bell forbids, we must say precisely what entanglement is. A bipartite state is entangled when it cannot be factored into one state for Alice and one for Bob. Wave functions make that criterion concrete, correlations reveal its consequences, and the singlet supplies the decisive example. The reduced density matrix then becomes the complete local description of one part of an entangled whole. With that machinery in hand, measurement appears as an entangling interaction, the system--observer boundary can be moved without changing predictions, and the apparent tension between entanglement and locality can be stated sharply: distant choices change conditional correlations, but not the unconditioned statistics available for signaling.}
 
-That is why the lecture first turns to wave functions and then to density matrices. Once the state has been written in components, factorization becomes a meaningful statement; once one asks what Alice can know locally when the whole state is entangled, the density matrix becomes unavoidable. From there the lecture returns to the singlet, to measurement as entanglement, and finally to locality and Bell.
+\section{What Entanglement Actually Means}
 
-\section{Wave Functions As Coordinates In Hilbert Space}
+It is tempting to proceed directly to Bell's theorem. The theorem is beautiful, but its significance cannot be separated from the structure it tests. The more urgent question is therefore not yet whether quantum mechanics violates a Bell inequality, but what an entangled state says about a composite system.
 
-The lecture begins by clearing away a possible confusion. A wave function may or may not have anything to do with literal waves. Historically the idea came from particles and wave motion, but logically it is much broader. A wave function is simply the coefficient of a state vector in a chosen basis.
+A common phrase is that two entangled systems \emph{share a state}. That phrase does not distinguish anything. Every composite system has a state, whether entangled or not. The distinction is factorization. If \(A\) and \(B\) have Hilbert spaces \(\mathcal H_A\) and \(\mathcal H_B\), the state of the pair lies in
+\begin{equation}
+\mathcal H_{AB}=\mathcal H_A\otimes\mathcal H_B.
+\end{equation}
+A pure state is a product state when it can be written
+\begin{equation}
+\ket{\Psi}_{AB}=\ket{\psi}_A\otimes\ket{\phi}_B.
+\label{eq:l7-product-state}
+\end{equation}
+If no such pair of factors exists, \(\ket{\Psi}_{AB}\) is entangled.
 
-Let us call the state of the system
-\[
-|\Psi\rangle.
-\]
-A basis is labeled by a complete set of commuting observables. We write those labels schematically as
-\[
-a,b,c,\ldots
-\]
-with the understanding that a single system may require one label or many. For a particle in ordinary space one may use the commuting coordinates $x,y,z$; for a single spin one convenient label is the value of $\sigma_z$; for two spins one needs two labels.
+\begin{classroomqa}
+\audiencequestion{Does entanglement simply mean that both systems occur in one state vector?}
+\lecturerresponse{No. A product state also belongs to the Hilbert space of the whole pair. Entanglement is the stronger, basis-independent statement that the vector of the whole cannot be written as one vector for Alice times one vector for Bob.}
+\end{classroomqa}
 
-\begin{figure}[ht]
+\begin{classroomqa}
+\audiencequestion{Could a clever change of basis turn an entangled state into a product state?}
+\lecturerresponse{Not if the change of basis is local, meaning one basis change for Alice and another for Bob. Local basis changes alter the coordinates of each factor but do not alter whether the state factors. A completely arbitrary basis of the joint Hilbert space can hide the tensor-product structure, but it does not change which physical degrees of freedom belong to Alice and Bob.}
+\end{classroomqa}
+
+\section{Wave Functions as Coordinates in Hilbert Space}
+
+The word \emph{wave function} carries historical imagery that is not part of its mathematical definition. A wave function is the coordinate representation of a state vector in a chosen basis. Let a complete set of commuting observables have simultaneous eigenvectors
+\begin{equation}
+\ket{a,b,c,\ldots}.
+\end{equation}
+The labels must be complete: taken together, they distinguish every vector in the basis. Then
+\begin{align}
+\ket{\Psi}
+&=\sum_{a,b,c,\ldots}
+\ket{a,b,c,\ldots}
+\braket{a,b,c,\ldots}{\Psi} \\
+&=\sum_{a,b,c,\ldots}
+\psi(a,b,c,\ldots)\ket{a,b,c,\ldots},
+\label{eq:l7-wavefunction-expansion}
+\end{align}
+where
+\begin{equation}
+\psi(a,b,c,\ldots)
+=\braket{a,b,c,\ldots}{\Psi}.
+\label{eq:l7-wavefunction-definition}
+\end{equation}
+For continuous labels the corresponding sums become integrals.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_07_figure_02.png}
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_01.png}
+\caption{The wave function as the set of coefficients of a state in a complete basis.}
+\lectureframe{00:07:00}
 \end{figure}
 
-The board is partly obscured in this frame, but the structure is clear: first the abstract basis expansion, then the identification of the coefficient with the wave function. In standard form one writes
+For a particle in three-dimensional space, the commuting labels may be \(x,y,z\), and
 \begin{equation}
-|\Psi\rangle
-=
-\sum_{a,b,c,\ldots}
-\langle a,b,c,\ldots|\Psi\rangle\,
-|a,b,c,\ldots\rangle.
+\psi(x,y,z)=\braket{x,y,z}{\Psi}
 \end{equation}
-The coefficient is, by definition, the wave function. The board seems to write a capital $\Psi(a,b,c,\ldots)$ for this object; to keep the notation from fighting itself, we normalize the coefficient to lowercase and reserve $|\Psi\rangle$ for the state vector:
+is Schr\"odinger's familiar position-space wave function. For one spin in the \(\sigma_z\) basis, the wave function is only the pair
 \begin{equation}
-\psi(a,b,c,\ldots)=\langle a,b,c,\ldots|\Psi\rangle.
-\end{equation}
-Then the state may be rewritten as
-\begin{equation}
-|\Psi\rangle
-=
-\sum_{a,b,c,\ldots}
-\psi(a,b,c,\ldots)\,
-|a,b,c,\ldots\rangle.
-\end{equation}
-
-This is the whole point. The wave function is the set of expansion coefficients of the state vector in a basis, or equivalently the set of inner products of the state with the basis vectors. For a single spin in the $\sigma_z$ basis, $\psi$ is just the pair of amplitudes for up and down. For two spins, it is a function of two labels. The phrase ``wave function'' sounds special; the construction is not special at all.
-
-A student remarks that this looks like a Fourier transform. Susskind answers carefully: changing basis is the analog of a Fourier transform. If we replace the $\sigma_z$ basis by the $\sigma_x$ basis, the state vector is the same but the coordinate description changes. In that sense the wave function is basis-dependent data attached to a basis-independent state.
-
-\section{Expectation Values And Composite Systems}
-
-At this point Susskind says he wants to introduce density matrices, and then immediately interrupts himself: first let us talk about expectation values. That pause matters. The algebra has to earn its keep before the later discussion of entanglement can become sharp.
-
-Take an observable $L$. Its matrix elements in the basis $|a\rangle$ are
-\begin{equation}
-L_{a'a}=\langle a'|L|a\rangle.
-\end{equation}
-If
-\[
-|\Psi\rangle=\sum_a \psi(a)\,|a\rangle,
+\psi(u)=\braket{u}{\Psi},
 \qquad
-\langle\Psi|=\sum_{a'} \psi^*(a')\,\langle a'|,
-\]
-then
+\psi(d)=\braket{d}{\Psi}.
+\end{equation}
+For two spins, two labels are needed:
+\begin{equation}
+\Psi(a,b)=\braket{a,b}{\Psi},
+\qquad
+a,b\in\{u,d\}.
+\label{eq:l7-two-spin-wavefunction}
+\end{equation}
+Nothing in this definition requires a literal wave in space.
+
+\begin{classroomqa}
+\audiencequestion{Is changing the wave-function basis a Fourier transform?}
+\lecturerresponse{A Fourier transform is the particular basis change between position and momentum representations. More generally, every change of orthonormal basis is a unitary transformation of the coordinates. Passing from the \(\sigma_z\) basis to the \(\sigma_x\) basis is analogous to a Fourier transform, though it is a finite-dimensional unitary matrix rather than the position--momentum integral transform.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If the wave function changes under a basis change, has the physical state changed?}
+\lecturerresponse{No. The ket \(\ket{\Psi}\) is the abstract state. The numbers \(\psi(a,b,c,\ldots)\) are its coordinates in a selected basis. Changing coordinates changes those numbers while leaving the vector and all physical predictions unchanged.}
+\end{classroomqa}
+
+\section{Expectation Values in Components}
+
+Before introducing density matrices, expose the component structure of an expectation value. Let \(L\) be an observable, with matrix elements
+\begin{equation}
+L_{a'a}=\bra{a'}L\ket{a}.
+\label{eq:l7-matrix-elements}
+\end{equation}
+If \(\ket{\Psi}=\sum_a\psi(a)\ket{a}\), then
 \begin{align}
-\langle L\rangle
-&=\langle\Psi|L|\Psi\rangle \\
-&=\left(\sum_{a'}\psi^*(a')\langle a'|\right)
-L
-\left(\sum_a \psi(a)|a\rangle\right) \\
-&=\sum_{a',a}\psi^*(a')\,\langle a'|L|a\rangle\,\psi(a) \\
-&=\sum_{a',a}\psi^*(a')\,L_{a'a}\,\psi(a).
+\expect{L}
+&=\bra{\Psi}L\ket{\Psi} \\
+&=\sum_{a',a}
+\psi^*(a')\bra{a'}L\ket{a}\psi(a) \\
+&=\sum_{a',a}\psi^*(a')L_{a'a}\psi(a).
+\label{eq:l7-expectation-components}
 \end{align}
-This is one of the central formulas of the lecture. Expectation values reduce to wave functions, their complex conjugates, and matrix elements of observables.
 
-Now let us enlarge the system. Suppose there are two subsystems, Alice's and Bob's. Let $a$ denote a complete set of labels for Alice and $b$ a complete set of labels for Bob. The basis of the combined system is then labeled by the pair $(a,b)$.
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.56\textwidth]{lecture_07_figure_03.png}
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_02.png}
+\caption{The expectation-value sandwich expanded into wave-function coefficients and matrix elements.}
+\lectureframe{00:14:08}
 \end{figure}
 
-The board here is doing something pedagogical rather than algebraic: it is teaching the reader to climb from single-subsystem notation to composite notation. In clean form the same ladder is
-\begin{align}
-|a\rangle \\
-|b\rangle \\
-|a,b\rangle \\
-|\Psi\rangle.
-\end{align}
-The point is that $(a,b)$ should be thought of as one compound label for one basis vector of the tensor-product space.
-
-To keep close to the board, let us write the composite wave function as
+Now divide the system into Alice's part and Bob's part. Let \(a\) be a complete basis label for Alice and \(b\) one for Bob:
 \begin{equation}
-\Psi(a,b)=\langle a,b|\Psi\rangle,
+\ket{\Psi}_{AB}
+=\sum_{a,b}\Psi(a,b)\ket{a,b}.
+\label{eq:l7-composite-expansion}
 \end{equation}
-so that
+An observable belonging only to Alice is represented on the composite space by
 \begin{equation}
-|\Psi\rangle=\sum_{a,b}\Psi(a,b)\,|a,b\rangle.
+L_A=L\otimes I_B,
 \end{equation}
-
-Now suppose $L$ is an observable belonging to Alice and $M$ an observable belonging to Bob. In the composite space, Alice's observable acts on Alice's factor and leaves Bob's untouched:
+so its matrix elements are
 \begin{equation}
-L_{a'b';ab}=L_{a'a}\,\delta_{b'b}.
+\bra{a',b'}L_A\ket{a,b}
+=L_{a'a}\delta_{b'b}.
+\label{eq:l7-alice-local-matrix}
 \end{equation}
-Likewise Bob's observable acts trivially on Alice's factor:
+Likewise an observable local to Bob has the form
 \begin{equation}
-M_{a'b';ab}=\delta_{a'a}\,M_{b'b}.
-\end{equation}
-This is the tensor-product structure in component form. Alice uses the same matrix she would have used if Bob did not exist, and the identity operator on Bob's Hilbert space records the fact that nothing happens on Bob's side.
-
-From this, the expectation value of an Alice observable in a general composite state becomes
-\begin{align}
-\langle L_A\rangle
-&=
-\sum_{a',a,b',b}
-\Psi^*(a',b')\,
-L_{a'b';ab}\,
-\Psi(a,b) \\
-&=
-\sum_{a',a,b}
-\Psi^*(a',b)\,
-L_{a'a}\,
-\Psi(a,b).
-\end{align}
-This formula will later collapse into the reduced density matrix. But first it tells us how product states behave.
-
-\section{Product States, Correlations, And The First Test For Entanglement}
-
-A product state is now easy to define.
-
-\begin{definition}
-A composite state is a product state if its wave function factorizes:
-\begin{equation}
-\Psi(a,b)=\psi_A(a)\,\phi_B(b).
-\end{equation}
-\end{definition}
-
-The lecture insists on the plainness of this. A product state is not mysterious. It simply means that Alice has a wave function of her own, Bob has a wave function of his own, and there is no additional joint structure.
-
-Now let us prove the first useful fact. If the state is a product state, then Alice's local expectation values are exactly what they would have been if Bob were not present at all:
-\begin{align}
-\langle L_A\rangle
-&=
-\sum_{a',a,b}
-\Psi^*(a',b)\,
-L_{a'a}\,
-\Psi(a,b) \\
-&=
-\sum_{a',a,b}
-\psi_A^*(a')\,\phi_B^*(b)\,
-L_{a'a}\,
-\psi_A(a)\,\phi_B(b) \\
-&=
-\left(
-\sum_{a',a}\psi_A^*(a')\,L_{a'a}\,\psi_A(a)
-\right)
-\left(
-\sum_b \phi_B^*(b)\phi_B(b)
-\right) \\
-&=
-\sum_{a',a}\psi_A^*(a')\,L_{a'a}\,\psi_A(a),
-\end{align}
-since Bob's wave function is normalized:
-\[
-\sum_b \phi_B^*(b)\phi_B(b)=1.
-\]
-Thus Bob drops out completely. In a product state Alice's statistics are Alice's statistics.
-
-The same argument gives Bob's formula:
-\begin{equation}
-\langle M_B\rangle
-=
-\sum_{b',b}\phi_B^*(b')\,M_{b'b}\,\phi_B(b).
-\end{equation}
-So product states really are what they sound like: as far as local measurements are concerned, neither party knows anything about the other.
-
-The next step is to look at the product of an Alice observable and a Bob observable. For a product state,
-\begin{align}
-\langle L_A M_B\rangle
-&=
-\sum_{a',a,b',b}
-\psi_A^*(a')\,\phi_B^*(b')\,
-L_{a'a}M_{b'b}\,
-\psi_A(a)\,\phi_B(b) \\
-&=
-\left(
-\sum_{a',a}\psi_A^*(a')\,L_{a'a}\,\psi_A(a)
-\right)
-\left(
-\sum_{b',b}\phi_B^*(b')\,M_{b'b}\,\phi_B(b)
-\right) \\
-&=
-\langle L_A\rangle\,\langle M_B\rangle.
-\end{align}
-
-This is the quantum version of an entirely familiar classical statement: the average of a product equals the product of averages only when the variables are independent. That suggests the first operational test for entanglement. Define the correlation
-\begin{equation}
-C(L,M)=\langle LM\rangle-\langle L\rangle\langle M\rangle.
-\end{equation}
-Within the pure-state discussion of this lecture, if one can find an Alice observable $L$ and a Bob observable $M$ such that $C(L,M)\neq 0$, then the state is not a product state. That is the first clear sign of entanglement.
-
-\subsection{Question \& Answer}
-
-What does $LM$ mean here? It does not mean ``measure $M$ and then measure $L$.'' This is one of the local obstacles in the room, and Susskind pauses to remove it. $LM$ is the product of operators. It means: first let $M$ act on the vector, then let $L$ act on the result. That is a mathematical operation in the space of states, not the physical act of measurement.
-
-In the present setup, $L$ belongs to Alice and $M$ belongs to Bob, so they act on different tensor factors and therefore commute:
-\begin{equation}
-[L,M]=0.
-\end{equation}
-That is true whether or not the state is entangled. The order of the operator product does not matter, but that still does not turn $LM$ into a time-ordered sequence of measurements. Detectors and apparatuses measure. Operators act on vectors.
-
-\section{The Singlet State And Knowing The Whole But Not The Parts}
-
-The abstract correlation criterion now needs a state with some bite. The lecture returns to the singlet:
-\begin{equation}
-|\Psi_{\mathrm{sing}}\rangle
-=
-\frac{1}{\sqrt2}
-\left(
-|\uparrow\downarrow\rangle
--
-|\downarrow\uparrow\rangle
-\right).
-\end{equation}
-We keep the lecture's slot order: Bob first, Alice second. This is not a product state.
-
-In the $z$ basis, the local expectation values are obvious. Bob is up half the time and down half the time, and so is Alice:
-\begin{equation}
-\langle \sigma_z\rangle=0,
+M_B=I_A\otimes M,
 \qquad
-\langle \tau_z\rangle=0.
+\bra{a',b'}M_B\ket{a,b}
+=\delta_{a'a}M_{b'b}.
+\label{eq:l7-bob-local-matrix}
 \end{equation}
-But the product is definite:
+The identity in the untouched factor is the mathematical statement that Alice's operation acts on Alice and Bob's operation acts on Bob.
+
+Substituting Equation~\eqref{eq:l7-alice-local-matrix} into the expectation value gives
 \begin{equation}
-\langle \sigma_z\tau_z\rangle=-1.
+\expect{L_A}
+=\sum_{a',a,b}
+\Psi^*(a',b)L_{a'a}\Psi(a,b).
+\label{eq:l7-local-expectation}
 \end{equation}
-Each term in the singlet has opposite spins, so the product is always $-1$.
+This formula already contains the reduced density matrix; we will reorganize it after first seeing what factorization does.
 
-The lecture then recalls the less obvious but equally important fact that the same thing is true in the $x$ and $y$ directions. One finds
+\begin{classroomqa}
+\audiencequestion{Why is there only one Bob index left in Equation~\eqref{eq:l7-local-expectation}?}
+\lecturerresponse{The identity on Bob's space contributes \(\delta_{b'b}\). It sets the bra and ket labels on Bob's side equal, so the double sum over \(b',b\) collapses to one sum over \(b\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does Alice need to know which basis Bob uses?}
+\lecturerresponse{No physical prediction depends on Bob's basis. The sum over a complete Bob basis is a resolution of the identity. A different Bob basis changes the individual components \(\Psi(a,b)\), but not Alice's expectation value.}
+\end{classroomqa}
+
+\section{Product States and Correlations}
+
+In a product state the joint wave function factorizes:
 \begin{equation}
-\langle \sigma_i\rangle=\langle \tau_i\rangle=0,
-\qquad
-\langle \sigma_i\tau_i\rangle=-1,
-\qquad
-i=x,y,z.
+\Psi(a,b)=\psi_A(a)\phi_B(b).
+\label{eq:l7-wavefunction-factorization}
 \end{equation}
-Thus each spin by itself is maximally uncertain, while the joint products are perfectly fixed.
-
-This is the real punchline. For an ordinary pure state of a single spin, there is always some axis along which the spin is definite. The singlet destroys that possibility locally. No matter what direction Bob measures, his average spin is zero; the same is true for Alice. And yet the combined system is as definite as quantum mechanics allows it to be. We know the whole and know nothing definite about the parts. That is the oddity of entanglement in its sharpest form.
-
-The lecture reformulates the same fact with the operator
-\begin{equation}
-\sigma\!\cdot\!\tau
-=
-\sigma_x\tau_x+\sigma_y\tau_y+\sigma_z\tau_z.
-\end{equation}
-The singlet is an eigenvector of each separate product with eigenvalue $-1$:
-\begin{equation}
-\sigma_x\tau_x\,|\Psi_{\mathrm{sing}}\rangle
-=
-\sigma_y\tau_y\,|\Psi_{\mathrm{sing}}\rangle
-=
-\sigma_z\tau_z\,|\Psi_{\mathrm{sing}}\rangle
-=
--|\Psi_{\mathrm{sing}}\rangle,
-\end{equation}
-and therefore
-\begin{equation}
-(\sigma\!\cdot\!\tau)\,|\Psi_{\mathrm{sing}}\rangle
-=
--3\,|\Psi_{\mathrm{sing}}\rangle.
-\end{equation}
-
-There is an instructive subtlety here. The operator $\sigma\!\cdot\!\tau$ is a perfectly good Hermitian operator, but it cannot be measured merely by having Alice measure $\tau_x,\tau_y,\tau_z$ and Bob measure $\sigma_x,\sigma_y,\sigma_z$ separately, because Alice cannot simultaneously measure $\tau_x,\tau_y,\tau_z$. So this operator exists cleanly in Hilbert space, but measuring it requires a genuinely different joint apparatus.
-
-The lecture then answers the natural laboratory question: how would one prepare the singlet? The answer is by energy. When two spins are brought together, $\sigma\!\cdot\!\tau$ appears as part of the Hamiltonian. The singlet is the lower-energy state; the three triplet states lie above it. If the system can lose energy by emitting a photon, a phonon, or by any other relaxation mechanism, it tends toward the singlet. One may therefore prepare the state by bringing the spins together, waiting until the higher components have decayed away, and then separating the spins again without twisting them. This is not a side story. It is the physical route by which the abstract singlet becomes an actual state in the laboratory.
-
-\section{Density Matrices As Alice's Complete Local Description}
-
-At this stage the lecture reaches the limit of wave functions as local descriptions. If the whole state is entangled, Alice cannot in general peel off a wave function for her subsystem alone. What, then, can she know? The answer is: not a local wave function, but a local density matrix.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_07_figure_04.png}
-\end{figure}
-
-The transcript is garbled just before this point, but once the definition appears the argument is perfectly clear. Start from the general expectation value of an Alice observable:
+Insert this into Equation~\eqref{eq:l7-local-expectation}:
 \begin{align}
-\langle L_A\rangle
-&=
-\sum_{a',a,b}
-\Psi^*(a',b)\,
-L_{a'a}\,
-\Psi(a,b) \\
-&=
-\sum_{a',a}
-\left[
-\sum_b \Psi^*(a',b)\Psi(a,b)
+\expect{L_A}
+&=\sum_{a',a,b}
+\psi_A^*(a')\phi_B^*(b)
+L_{a'a}
+\psi_A(a)\phi_B(b) \\
+&=\left[
+\sum_{a',a}\psi_A^*(a')L_{a'a}\psi_A(a)
 \right]
-L_{a'a}.
+\left[
+\sum_b|\phi_B(b)|^2
+\right] \\
+&=\bra{\psi_A}L\ket{\psi_A}.
+\label{eq:l7-product-local-expectation}
 \end{align}
-The bracketed quantity depends only on Alice's labels. That is the reduced density matrix:
-\begin{equation}
-\rho_A(a',a)=\sum_b \Psi^*(a',b)\,\Psi(a,b).
-\end{equation}
-With that definition,
-\begin{equation}
-\langle L_A\rangle
-=
-\sum_{a',a}\rho_A(a',a)\,L_{a'a}.
-\end{equation}
-The spoken lecture remarks that one of the indices may have been written backward on the board. That is not the essential point. The essential point is that once $\rho_A$ is known, Alice can forget Bob completely for the purpose of predicting all of her local measurement statistics.
+Bob's normalization makes his factor equal to one. Alice therefore has exactly the same local statistics she would have had if Bob's system had never been introduced.
 
-If the total state happens to be a product state,
-\[
-\Psi(a,b)=\psi_A(a)\phi_B(b),
-\]
-then the reduced density matrix simplifies immediately:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_03.png}
+\caption{Factorization of the joint wave function and the corresponding separation of local expectation values.}
+\lectureframe{00:29:18}
+\end{figure}
+
+The product of one Alice observable and one Bob observable has matrix elements
+\begin{equation}
+\bra{a',b'}L_A M_B\ket{a,b}
+=L_{a'a}M_{b'b}.
+\end{equation}
+For a product state its expectation value separates:
+\begin{equation}
+\expect{L_A M_B}
+=\expect{L_A}\expect{M_B}.
+\label{eq:l7-product-correlation-factorization}
+\end{equation}
+It is therefore natural to define the connected correlation
+\begin{equation}
+C(L,M)
+=\expect{L_A M_B}
+-\expect{L_A}\expect{M_B}.
+\label{eq:l7-connected-correlation}
+\end{equation}
+Every product state has \(C(L,M)=0\) for every pair of local observables. Conversely, for a pure bipartite state, entanglement guarantees that some pair of local observables has a nonzero connected correlation.
+
+\begin{classroomqa}
+\audiencequestion{Does \(L_A M_B\) mean that Bob is measured first and Alice second?}
+\lecturerresponse{No. Operators act on state vectors; apparatuses perform measurements. The product means that \(M_B\) acts and then \(L_A\) acts. Since the operators occupy different tensor factors, \([L_A,M_B]=0\), so their mathematical order is immaterial. A laboratory protocol for estimating the joint expectation is a separate matter.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the state be entangled even when one chosen correlation vanishes?}
+\lecturerresponse{Certainly. One vanishing \(C(L,M)\) says only that this particular pair of observables is uncorrelated. To establish factorization for a pure state, all local cross-correlations must factorize. Partial correlation also need not mean partial entanglement in any simple one-number sense; the full reduced-density spectrum carries that information.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is every correlated state entangled?}
+\lecturerresponse{For the pure states under discussion, nonfactorizing correlations reveal entanglement. For mixed states, ordinary classical correlations can also make \(C(L,M)\neq0\). The later density-matrix criterion must therefore be qualified by whether the state of the whole is known to be pure.}
+\end{classroomqa}
+
+\section{The Singlet: A Definite Whole with Indefinite Parts}
+
+Let \(\boldsymbol{\sigma}\) act on Bob's spin and \(\boldsymbol{\tau}\) on Alice's. Their singlet state is
+\begin{equation}
+\ket{S}
+=\frac{1}{\sqrt2}
+\left(\ket{u d}-\ket{d u}\right),
+\label{eq:l7-singlet}
+\end{equation}
+where the first slot is Bob's and the second is Alice's. Neither spin has a definite \(z\)-component:
+\begin{equation}
+\expect{\sigma_z}=0,
+\qquad
+\expect{\tau_z}=0.
+\label{eq:l7-singlet-local-z}
+\end{equation}
+Yet their product is certain:
+\begin{equation}
+\expect{\sigma_z\tau_z}=-1.
+\label{eq:l7-singlet-product-z}
+\end{equation}
+Every \(z\)-measurement produces opposite results.
+
+Rotational invariance makes the statement independent of direction. For any unit vector \(\mathbf n\),
+\begin{equation}
+\expect{\boldsymbol{\sigma}\cdot\mathbf n}
+=\expect{\boldsymbol{\tau}\cdot\mathbf n}=0,
+\qquad
+\expect{
+(\boldsymbol{\sigma}\cdot\mathbf n)
+(\boldsymbol{\tau}\cdot\mathbf n)
+}=-1.
+\label{eq:l7-singlet-any-axis}
+\end{equation}
+More generally,
+\begin{equation}
+\expect{\sigma_i\tau_j}=-\delta_{ij}.
+\label{eq:l7-singlet-correlation-tensor}
+\end{equation}
+Each part is completely unpolarized, while equal-axis outcomes are perfectly anticorrelated.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_04.png}
+\caption{For the singlet, each local spin average vanishes while equal components have product \(-1\).}
+\lectureframe{00:38:28}
+\end{figure}
+
+This is the characteristic reversal produced by entanglement. For an isolated spin in a pure state there is some direction along which its spin is definite. In the singlet, no direction makes either local spin definite. Nevertheless the composite state is pure and completely specified. We know as much as quantum mechanics permits about the whole and still cannot assign a pure state to either part.
+
+\begin{classroomqa}
+\audiencequestion{If the state of the whole is known exactly, why can we not infer a definite state for each spin?}
+\lecturerresponse{Because the singlet is not a product. Its coefficients do not split into a Bob amplitude times an Alice amplitude. The information resides in relations between the parts rather than in two independently existing local wave functions.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is an operator such as \(\sigma_z\) itself a possible state of the spin?}
+\lecturerresponse{No. A state is a vector or, more generally, a density operator; \(\sigma_z\) is an observable acting on states. An eigenvector of \(\sigma_z\) is a state with a definite \(z\)-component, but the observable and its eigenvectors are different kinds of objects.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{When we write \(\sigma_z\tau_z\ket{S}=-\ket{S}\), have we performed a measurement?}
+\lecturerresponse{No. The equation records how an operator acts on a vector. It tells us that a measurement of the corresponding joint observable would be certain to return \(-1\), but no detector has been included merely by writing the eigenvalue equation.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can an entangled pair be only partially correlated?}
+\lecturerresponse{Yes. Perfect anticorrelation is a special property of the singlet for equal axes. Other entangled states can have weaker correlations, and even the singlet gives \(-\mathbf a\cdot\mathbf b\) rather than \(-1\) when the two axes differ. Entanglement concerns nonfactorization, not perfect agreement or disagreement in every chosen measurement.}
+\end{classroomqa}
+
+\section{Preparing the Singlet by Energy Relaxation}
+
+The rotationally invariant two-spin operator
+\begin{equation}
+\boldsymbol{\sigma}\cdot\boldsymbol{\tau}
+=\sigma_x\tau_x+\sigma_y\tau_y+\sigma_z\tau_z
+\label{eq:l7-spin-dot-spin}
+\end{equation}
+organizes the four-dimensional state space. On the singlet,
+\begin{equation}
+(\boldsymbol{\sigma}\cdot\boldsymbol{\tau})\ket{S}
+=-3\ket{S},
+\label{eq:l7-singlet-dot-eigenvalue}
+\end{equation}
+while each of the three triplet states has eigenvalue \(+1\).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_05.png}
+\caption{The rotationally invariant coupling \(\boldsymbol{\sigma}\cdot\boldsymbol{\tau}\) and its role in separating singlet and triplet sectors.}
+\lectureframe{00:52:33}
+\end{figure}
+
+Suppose the interaction Hamiltonian contains
+\begin{equation}
+H_{\mathrm{int}}
+=J\,\boldsymbol{\sigma}\cdot\boldsymbol{\tau}.
+\label{eq:l7-exchange-hamiltonian}
+\end{equation}
+For antiferromagnetic coupling \(J>0\), the singlet lies below the triplet by
+\begin{equation}
+\Delta E=4J.
+\end{equation}
+Bring the spins together, allow the higher-energy components to decay by emitting a photon, a phonon, or some other excitation, and the pair relaxes toward the singlet. The spins may then be separated while preserving their joint state, provided the separation does not introduce uncontrolled spin rotations or close the energy gap too abruptly.
+
+The same energy logic appears in atomic systems. In positronium, for example, the electron and positron spin coupling splits singlet and triplet configurations. An energy difference is also a mass difference through \(E=mc^2\), though spectroscopy usually reports the splitting as an energy or frequency.
+
+\begin{classroomqa}
+\audiencequestion{Is the singlet always the ground state of two interacting spins?}
+\lecturerresponse{No. It is the ground state for the sign \(J>0\) in Equation~\eqref{eq:l7-exchange-hamiltonian}. Reversing the sign makes the triplet lower. The preparation argument depends on the actual interaction and its energy ordering, not merely on the existence of two spins.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can \(\boldsymbol{\sigma}\cdot\boldsymbol{\tau}\) be measured by separately measuring all three components?}
+\lecturerresponse{Not on one pair by three simultaneous local spin measurements: \(\sigma_x,\sigma_y,\sigma_z\) are incompatible, and so are the three \(\tau\) components. Its expectation value can be reconstructed from three subensembles measured along \(x,y,z\), or the singlet--triplet observable can be measured directly by a suitable joint apparatus.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{After the spins separate, must they continue interacting to remain entangled?}
+\lecturerresponse{No. Interaction is needed to prepare or alter the state, but once the singlet has been prepared, unitary evolution can preserve its entanglement without a continuing force between the particles. Local magnetic fields may rotate the two factors, yet local unitary rotations do not by themselves destroy entanglement.}
+\end{classroomqa}
+
+\section{The Reduced Density Matrix}
+
+Return to Alice's local expectation value:
+\begin{equation}
+\expect{L_A}
+=\sum_{a',a,b}
+\Psi^*(a',b)L_{a'a}\Psi(a,b).
+\end{equation}
+Regroup the factors that do not belong to \(L\):
+\begin{equation}
+\expect{L_A}
+=\sum_{a',a}
+\left[
+\sum_b\Psi(a,b)\Psi^*(a',b)
+\right]L_{a'a}.
+\label{eq:l7-regrouped-expectation}
+\end{equation}
+The expression in brackets is Alice's reduced density matrix,
+\begin{equation}
+(\rho_A)_{aa'}
+=\sum_b\Psi(a,b)\Psi^*(a',b).
+\label{eq:l7-reduced-density-components}
+\end{equation}
+In basis-independent notation,
+\begin{equation}
+\rho_A
+=\operatorname{Tr}_B\ket{\Psi}\bra{\Psi},
+\label{eq:l7-partial-trace}
+\end{equation}
+and every Alice-local expectation value is
+\begin{equation}
+\expect{L_A}
+=\operatorname{Tr}_A(\rho_A L).
+\label{eq:l7-density-expectation}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_06.png}
+\caption{Alice's density matrix obtained by summing the joint amplitudes over Bob's basis label.}
+\lectureframe{01:02:33}
+\end{figure}
+
+The reduced density matrix is Hermitian, positive, and normalized:
+\begin{equation}
+\rho_A^\dagger=\rho_A,
+\qquad
+\bra{\chi}\rho_A\ket{\chi}\geq0,
+\qquad
+\operatorname{Tr}\rho_A=1.
+\label{eq:l7-density-properties}
+\end{equation}
+It contains exactly the information needed for all measurements confined to Alice. If two global states produce the same \(\rho_A\), no Alice-only experiment can distinguish them.
+
+\begin{classroomqa}
+\audiencequestion{Does Alice measure the density matrix as one observable?}
+\lecturerresponse{Not in a single shot. The density matrix is the object from which all local measurement probabilities are computed. Given many identically prepared systems, Alice can reconstruct it by tomography: she measures a sufficient set of observables and infers the matrix from their expectation values.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why sum over Bob rather than select one of Bob's states?}
+\lecturerresponse{Because Alice has no outcome information from Bob. The partial trace sums over a complete Bob basis and gives the unconditioned local state. Selecting one Bob outcome instead would produce a conditional state, which is a different operation and requires knowing that outcome.}
+\end{classroomqa}
+
+For a product state \(\Psi(a,b)=\psi_A(a)\phi_B(b)\),
 \begin{align}
-\rho_A(a',a)
-&=
-\sum_b \psi_A^*(a')\phi_B^*(b)\,\psi_A(a)\phi_B(b) \\
-&=
-\psi_A^*(a')\psi_A(a)\sum_b |\phi_B(b)|^2 \\
-&=
-\psi_A^*(a')\psi_A(a).
+(\rho_A)_{aa'}
+&=\sum_b
+\psi_A(a)\phi_B(b)
+\psi_A^*(a')\phi_B^*(b) \\
+&=\psi_A(a)\psi_A^*(a')
+\sum_b|\phi_B(b)|^2 \\
+&=\psi_A(a)\psi_A^*(a').
 \end{align}
-So for a product state the density matrix is built entirely out of Alice's own wave function.
-
-To make the matrix action transparent, it is convenient to regard the same object in ordinary row-column form. Then the entries are
+Thus
 \begin{equation}
-\rho_{aa'}=\psi_A(a)\psi_A^*(a'),
+\rho_A=\ket{\psi_A}\bra{\psi_A}.
+\label{eq:l7-pure-projector}
 \end{equation}
-and the matrix-times-column-vector step visible on the board becomes
+This is a rank-one projector. Acting on \(\ket{\psi_A}\) gives
 \begin{equation}
-\sum_{a'}\rho_{aa'}\,\psi_A(a')=\psi_A(a).
+\rho_A\ket{\psi_A}
+=\ket{\psi_A}\braket{\psi_A}{\psi_A}
+=\ket{\psi_A},
+\label{eq:l7-density-on-state}
 \end{equation}
-
-\begin{proposition}
-If the composite state is a product pure state, then Alice's reduced density matrix has one and only one nonzero eigenvalue, equal to $1$. Every vector orthogonal to Alice's wave function is an eigenvector with eigenvalue $0$.
-\end{proposition}
-
-\begin{proof}
-For a product state,
-\[
-\rho_{aa'}=\psi_A(a)\psi_A^*(a').
-\]
-Act on the column vector $\psi_A(a')$:
-\begin{align}
-\sum_{a'}\rho_{aa'}\,\psi_A(a')
-&=
-\sum_{a'}\psi_A(a)\psi_A^*(a')\psi_A(a') \\
-&=
-\psi_A(a)\sum_{a'}|\psi_A(a')|^2 \\
-&=
-\psi_A(a),
-\end{align}
-using normalization. Thus $|\psi_A\rangle$ is an eigenvector with eigenvalue $1$.
-
-Now take any vector $|\widetilde\psi\rangle$ orthogonal to $|\psi_A\rangle$. Then
-\[
-\sum_{a'}\psi_A^*(a')\widetilde\psi(a')=0,
-\]
-and therefore
-\begin{align}
-\sum_{a'}\rho_{aa'}\,\widetilde\psi(a')
-&=
-\sum_{a'}\psi_A(a)\psi_A^*(a')\widetilde\psi(a') \\
-&=
-\psi_A(a)\sum_{a'}\psi_A^*(a')\widetilde\psi(a') \\
-&=
-0.
-\end{align}
-So every vector orthogonal to $|\psi_A\rangle$ has eigenvalue $0$. There is one eigenvalue $1$ and all the rest vanish.
-\end{proof}
-
-This gives the lecture's practical criterion. A product pure state has exactly one nonzero eigenvalue. An entangled state has more than one nonzero eigenvalue. The maximally entangled case is the one in which the nonzero eigenvalues are all equal; if Alice's Hilbert space has dimension $n$, that means
+while for every \(\ket{\chi}\) orthogonal to \(\ket{\psi_A}\),
 \begin{equation}
-\lambda_i=\frac{1}{n}.
+\rho_A\ket{\chi}
+=\ket{\psi_A}\braket{\psi_A}{\chi}
+=0.
+\label{eq:l7-density-on-orthogonal}
 \end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_07.png}
+\caption{A product-state density matrix acting as a projector: eigenvalue \(1\) along \(\ket{\psi_A}\) and \(0\) on orthogonal vectors.}
+\lectureframe{01:09:43}
+\end{figure}
+
+\section{The Density-Matrix Spectrum and Entanglement}
+
+The eigenvalues of \(\rho_A\) are nonnegative and sum to one. For a pure state of the whole:
+\begin{itemize}
+\item exactly one nonzero eigenvalue, equal to \(1\), means the state is a product;
+\item more than one nonzero eigenvalue means the state is entangled;
+\item equal eigenvalues across the full available local support give maximal entanglement.
+\end{itemize}
+The statement is most transparent from a Schmidt decomposition,
+\begin{equation}
+\ket{\Psi}_{AB}
+=\sum_{r=1}^{R}\sqrt{\lambda_r}
+\ket{r}_A\ket{r}_B,
+\qquad
+\lambda_r\geq0,
+\qquad
+\sum_r\lambda_r=1,
+\label{eq:l7-schmidt}
+\end{equation}
+for which
+\begin{equation}
+\rho_A=\sum_{r=1}^{R}\lambda_r\ket{r}_A\bra{r}.
+\label{eq:l7-schmidt-density}
+\end{equation}
+The Schmidt rank \(R\) is one for a product state and exceeds one for an entangled pure state.
+
 For the singlet,
 \begin{equation}
 \rho_A
-=
-\frac12
-\begin{pmatrix}
-1 & 0 \\
-0 & 1
-\end{pmatrix},
+=\operatorname{Tr}_B\ket{S}\bra{S}
+=\frac12\ket{u}\bra{u}
++\frac12\ket{d}\bra{d}
+=\frac12 I.
+\label{eq:l7-singlet-reduced-density}
 \end{equation}
-so
+Its eigenvalues are
 \begin{equation}
-\operatorname{spec}(\rho_A)=\left\{\frac12,\frac12\right\}.
+\operatorname{spec}(\rho_A)
+=\left\{\frac12,\frac12\right\}.
 \end{equation}
-That is maximal entanglement for a two-dimensional subsystem.
+Alice's local state is maximally mixed even though the state of the pair is pure.
 
-The lecture states the criterion in a deliberately rough way: one nonzero eigenvalue means no entanglement, several nonzero eigenvalues mean entanglement, and equal eigenvalues mean maximal entanglement. That is the operational content. One should not overread the casual remark that ``in general'' all eigenvalues are nonzero; the real test is that more than one nonzero eigenvalue has appeared.
-
-\section{Measurement As Entanglement, Then Locality And Bell}
-
-Having finished the density-matrix calculation, Susskind says, in effect, let us do it again. This time the composite system will not be Alice and Bob, but a system and an apparatus. The point is to show that measurement is not something added on top of entanglement. Measurement is an entangling process.
-
-Take a detector with two states, $|0\rangle$ and $|1\rangle$. The detector begins in a known neutral state, $|0\rangle$; otherwise it is not ready to measure anything. Let the system be a spin with states $|u\rangle$ and $|d\rangle$. The interaction is idealized by the rule
+The spectrum suggests a quantitative measure. The von Neumann entropy
 \begin{equation}
-|u,0\rangle\to|u,1\rangle,
-\qquad
-|d,0\rangle\to|d,0\rangle.
+S(\rho_A)
+=-\operatorname{Tr}(\rho_A\log\rho_A)
+=-\sum_r\lambda_r\log\lambda_r
+\label{eq:l7-entanglement-entropy}
 \end{equation}
-The up spin activates the detector, the down spin does not.
+vanishes for a product pure state and reaches \(\log d_A\) for a maximally entangled state when \(d_A\leq d_B\). The detailed use of entropy can be deferred; the spectrum already supplies the essential distinction.
 
-Now feed in a superposed spin:
+\begin{classroomqa}
+\audiencequestion{Must every eigenvalue of an entangled reduced density matrix be nonzero?}
+\lecturerresponse{No. More than one nonzero eigenvalue is enough. If Alice's space is large, an entangled state may occupy only a lower-dimensional Schmidt subspace, leaving additional zero eigenvalues. Maximal entanglement means equal eigenvalues over the entire smaller subsystem, not merely equality among an arbitrarily chosen subset.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does a mixed reduced density matrix by itself prove that Alice is entangled with Bob?}
+\lecturerresponse{Only if the global state is known to be pure. A mixed local state can also arise from an ordinary classical mixture in a mixed global state. For a pure bipartite state, however, local mixedness is exactly equivalent to entanglement across the bipartition.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can all moments of Alice's observables determine her probability distributions?}
+\lecturerresponse{In a finite-dimensional system, expectation values of an operator basis determine \(\rho_A\), and \(\rho_A\) determines every local outcome distribution through the Born rule. The reconstruction requires an ensemble of identically prepared copies; one isolated event cannot reveal a density matrix.}
+\end{classroomqa}
+
+\section{Measurement as an Entangling Interaction}
+
+Replace Alice and Bob by a spin and a measuring apparatus. Let the apparatus have a ready state \(\ket{0}_D\) and a triggered state \(\ket{1}_D\). An ideal interaction that records whether the spin is up can be represented by
+\begin{align}
+\ket{u}\ket{0}_D&\longrightarrow\ket{u}\ket{1}_D,\\
+\ket{d}\ket{0}_D&\longrightarrow\ket{d}\ket{0}_D.
+\label{eq:l7-measurement-basis-map}
+\end{align}
+The detector must begin in a known ready state; otherwise its final state would not provide an unambiguous record.
+
+Linearity fixes the evolution of a superposition:
 \begin{equation}
-(\alpha|u\rangle+\beta|d\rangle)\otimes|0\rangle
-\to
-\alpha|u,1\rangle+\beta|d,0\rangle.
+\left(\alpha\ket{u}+\beta\ket{d}\right)\ket{0}_D
+\longrightarrow
+\alpha\ket{u}\ket{1}_D
++\beta\ket{d}\ket{0}_D.
+\label{eq:l7-measurement-entanglement}
 \end{equation}
-The final state is not a product state. It is entangled. By looking at the apparatus one can tell what the spin did. That is exactly what a measurement is supposed to accomplish.
+Unless one coefficient vanishes, the final state is entangled. The apparatus has acquired information precisely because its pointer state is correlated with the spin.
 
-From one point of view, this is familiar laboratory language: the apparatus stores a record. From another point of view, it is just the unitary quantum mechanics of a larger system. If we talk only about the spin, we say the wave function has collapsed to the branch recorded by the apparatus. If we include the apparatus in the system, then no collapse has yet occurred; there is only the growth of entanglement.
-
-The lecture then keeps enlarging the system. After apparatus comes eye, then brain, then Wigner looking at Schr\"odinger. The world becomes an onion: system inside apparatus inside observer inside a larger observer. Wherever one chooses to stop enlarging the system, one may speak of collapse outside that line; inside the line, the description is again ordinary quantum mechanics and entanglement. Susskind does not try to settle the interpretation. His point is more disciplined: wherever one draws the line, the predictions remain consistent.
-
-This is also where weak measurement enters naturally. If the coupling between system and apparatus is too weak, the entanglement is only partial and the apparatus stores only partial information. Or the apparatus may record the information well while the later chain from eye to brain is noisy. Those are different failures. In one case the entangling interaction itself is weak; in the other case the record exists but is not cleanly transmitted onward.
-
-Now the lecture turns to locality. Einstein's complaint was not foolishness; it was that quantum mechanics allows one to know everything about a composite system and yet nothing definite about its parts. But the phrase ``spooky action at a distance'' easily misleads. In ordinary physics, action at a distance means something concrete: the ability to affect distant outcomes immediately, in other words the ability to send a signal.
-
-Entanglement does not do that. If Alice and Bob separate to distant locations and Bob performs any local experiment on his subsystem, Alice's local statistics do not suddenly change. In density-matrix language, the claim is that Bob-only interventions leave Alice's unconditioned local state unchanged:
-\begin{equation}
-\rho_A'=\rho_A.
-\end{equation}
-This equation is schematic rather than fully derived here, but it captures the lecture's claim: until classical information reaches Alice, Bob's local action does not alter the probabilities Alice assigns to her own outcomes.
-
-The lecture makes this concrete by imagining many entangled pairs. Bob may measure $\sigma_z$ on one pair, $\sigma_x$ on a second, and $\sigma_y$ on a third. Unless he communicates the results, Alice's own ensemble remains statistically unchanged.
-
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_07_figure_06.png}
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_08.png}
+\caption{An ideal measurement correlates spin alternatives with distinct pointer states and thereby creates entanglement.}
+\lectureframe{01:20:20}
 \end{figure}
 
-The board sketch is documentary rather than polished, and it is worth keeping for exactly that reason. A modest redraw clarifies the stable structure without pretending to replace the original evidence:
+If the spin alone is retained and the detector is ignored, its reduced state is
+\begin{equation}
+\rho_{\mathrm{spin}}
+=|\alpha|^2\ket{u}\bra{u}
++|\beta|^2\ket{d}\bra{d},
+\label{eq:l7-postmeasurement-reduced-state}
+\end{equation}
+assuming orthogonal pointer records. The interference terms have disappeared from the local description because they are stored in correlations with the apparatus.
 
-\begin{figure}[ht]
+There are now two complementary descriptions. If the detector outcome is read and one conditions on the record, the spin is assigned the corresponding branch: \(\ket{u}\) after a trigger or \(\ket{d}\) after no trigger. This is the collapse description. If detector and spin are treated as one closed system, Equation~\eqref{eq:l7-measurement-entanglement} is ordinary unitary evolution and no branch has been removed from the joint state.
+
+\begin{classroomqa}
+\audiencequestion{Is measurement something beyond entanglement?}
+\lecturerresponse{At the level of system--apparatus dynamics, measurement is an interaction that establishes a reliable correlation. Collapse is the conditional description used after a definite record is selected. Whether one regards that update as fundamental or as relative to a chosen cut is an interpretive question; the operational predictions agree.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does an ideal measurement leave the spin eigenstate unchanged?}
+\lecturerresponse{That is the repeatability requirement for this model. If the input is already an eigenstate of the measured observable, the apparatus should record its value without changing that value. Real measurements can be destructive, but then their interaction must be modeled differently.}
+\end{classroomqa}
+
+\section{The Observer Hierarchy}
+
+Once the apparatus is admitted as a quantum system, there is no natural reason to stop there. Light from the pointer interacts with an eye; signals from the eye become correlated with a brain; an observer may be watched by another observer. Schr\"odinger's cat and Wigner's friend dramatize the same nested structure:
+\begin{equation}
+\text{spin}
+\longrightarrow
+\text{apparatus}
+\longrightarrow
+\text{cat}
+\longrightarrow
+\text{Schr\"odinger}
+\longrightarrow
+\text{Wigner}.
+\label{eq:l7-observer-chain}
+\end{equation}
+Inside any chosen boundary, one may describe the chain by unitary evolution and increasing entanglement. Outside the boundary, one uses the outcome-conditioned language of collapse.
+
+The crucial consistency condition is that the boundary may be moved. If the cat records spin up, Schr\"odinger must later record a cat that saw spin up, and Wigner must record Schr\"odinger recording that same history. Quantum mechanics does not identify a unique sharp line at which an objective event must be declared. Cats, eyes, and brains are made of physical degrees of freedom; exempting one of them from quantum mechanics would require an additional law.
+
+Feynman's attitude toward the resulting discomfort was pragmatic. The conceptual problem may be so large that it is difficult even to state whether there is one, while the calculational rules continue to predict every experiment to which they apply. The purpose of the formalism is not to force one interpretation, but to make the source of the discomfort precise: complete knowledge of a whole can coexist with the absence of any pure-state description of its parts.
+
+\begin{classroomqa}
+\audiencequestion{If I am the cat, do I have to draw the line at myself?}
+\lecturerresponse{You may use a collapse description for the definite record available to you. Another observer who includes you in a larger isolated system may use an entangled-state description. The demand is not that everyone draw the same line, but that all descriptions give consistent records whenever the observers later compare results.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Where does the objective event happen: at the atom, the cat, Schr\"odinger, or Wigner?}
+\lecturerresponse{The unitary formalism does not select one of those locations as a privileged boundary. Perhaps ordinary words such as \emph{happen} are being pushed beyond the context in which they are precise. The formal tools tell us how correlations propagate and what each observer can predict; deciding how to interpret the final boundary is a separate task.}
+\end{classroomqa}
+
+\subsection{Weak coupling and imperfect readout}
+
+The ideal mapping in Equation~\eqref{eq:l7-measurement-basis-map} produces perfectly distinguishable records. A weaker interaction may leave the apparatus states only partially distinguishable:
+\begin{equation}
+\alpha\ket{u}\ket{D_u}
++\beta\ket{d}\ket{D_d},
+\qquad
+0<|\braket{D_d}{D_u}|<1.
+\label{eq:l7-weak-measurement}
+\end{equation}
+Then the apparatus receives only partial information and the entanglement is incomplete. This is the setting of a weak or unsharp measurement.
+
+That situation must be distinguished from a bad downstream readout. The detector may have become fully correlated with the spin while the eye, cable, amplifier, or brain fails to transmit the record cleanly. In the first case the system--detector interaction is weak; in the second, a good record exists at the detector but later information transfer is inefficient. Detector efficiency can involve either stage, so the physical coupling must be identified before assigning the cause.
+
+\begin{classroomqa}
+\audiencequestion{If poor vision makes the pointer uncertain, was the quantum measurement weak?}
+\lecturerresponse{Not necessarily. The spin may have been strongly and completely correlated with the apparatus, while the apparatus-to-eye or eye-to-brain channel was poor. A genuinely weak measurement means that the initial system--apparatus coupling itself produced only partially distinguishable records.}
+\end{classroomqa}
+
+\section{Locality and No Signaling}
+
+The phrase \emph{action at a distance} should be given an operational meaning. In ordinary physics, a distant action changes what can be observed here. If the Sun vanished and Earth's motion changed immediately, rather than after a light-travel time, one could use the change to transmit information faster than light. That would be genuine nonlocal signaling.
+
+Entanglement does not permit such signaling. Let Bob perform a local quantum operation represented by Kraus operators \(K_\mu\), with
+\begin{equation}
+\sum_\mu K_\mu^\dagger K_\mu=I_B.
+\end{equation}
+If Alice does not learn Bob's outcome, the final joint state is
+\begin{equation}
+\rho'_{AB}
+=\sum_\mu
+(I_A\otimes K_\mu)\rho_{AB}
+(I_A\otimes K_\mu^\dagger).
+\end{equation}
+Taking the partial trace over Bob gives
+\begin{equation}
+\rho'_A
+=\operatorname{Tr}_B\rho'_{AB}
+=\operatorname{Tr}_B\rho_{AB}
+=\rho_A.
+\label{eq:l7-no-signaling}
+\end{equation}
+Every unconditioned Alice-local probability is therefore unchanged by Bob's choice of a trace-preserving local operation.
+
+Conditioned states are different. If Bob measures and obtains outcome \(\mu\), Alice may assign
+\begin{equation}
+\rho_{A|\mu}
+=\frac{
+\operatorname{Tr}_B\!\left[
+(I_A\otimes K_\mu)\rho_{AB}
+(I_A\otimes K_\mu^\dagger)
+\right]
+}{p_\mu}.
+\label{eq:l7-conditioned-state}
+\end{equation}
+But Alice cannot know which \(\rho_{A|\mu}\) applies until Bob communicates \(\mu\) by an ordinary signal. Before the message arrives, she must average over outcomes:
+\begin{equation}
+\sum_\mu p_\mu\rho_{A|\mu}=\rho_A.
+\label{eq:l7-conditioned-average}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{When does Alice's density matrix change if Bob measures first?}
+\lecturerresponse{Her unconditioned density matrix does not change. Once Bob's result reaches her, she may replace it with the corresponding conditional density matrix. That update reflects newly available information and cannot be used before the classical message arrives.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does Bob's measurement physically collapse Alice's state at the same instant?}
+\lecturerresponse{Different interpretations describe the conditional update differently, but all agree on the testable statement: Alice's local outcome probabilities remain unchanged until information from Bob becomes available. No controllable instantaneous signal is produced.}
+\end{classroomqa}
+
+Imagine many singlet pairs distributed in numbered rows. On one member Bob measures \(z\), on another \(x\), on another \(y\), and so forth. Alice's local results remain an unbiased sequence for every row:
+\begin{equation}
+P_A(+|\mathbf a)=P_A(-|\mathbf a)=\frac12.
+\label{eq:l7-alice-marginal}
+\end{equation}
+Nothing in her notebook reveals which axes Bob chose or which outcomes he obtained.
+
+\begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[x=1.2cm,y=1cm]
-\draw (0,0) circle (0.22) node {1};
-\draw (0,-1.2) circle (0.22) node {2};
-\draw (0,-2.4) circle (0.22) node {3};
-
-\draw (0.22,0) -- (4.8,0);
-\draw (0.22,-1.2) -- (4.8,-1.2);
-\draw (0.22,-2.4) -- (4.8,-2.4);
-
-\node at (2.45,0.28) {$E$};
-
-\draw (5.1,0) circle (0.22) node {1};
-\draw (5.1,-1.2) circle (0.22) node {2};
-\draw (5.1,-2.4) circle (0.22) node {3};
-
-\node[anchor=west] at (5.45,0) {$\sigma_z=+1$};
-\node[anchor=west] at (5.45,-1.2) {$\sigma_x=-1$};
-\node[anchor=west] at (5.45,-2.4) {$\sigma_y=+1$};
-\end{tikzpicture}
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_09.png}
+\caption{Many independently prepared pairs allow different measurement axes to be assigned to different rows; Alice's marginal statistics remain unchanged.}
+\lectureframe{01:49:00}
 \end{figure}
 
-The lower label $\sigma_y=+1$ is supported by the aligned subtitle window rather than by a fully legible handwritten board line. That is enough to complete the logic of the example. Bob's different axis choices do nothing to Alice's statistics until the ordinary message arrives. Once it does arrive, Alice may choose to measure along the same axes and she will find the opposite answers, pair by pair.
+After a light-speed-limited telegram arrives listing Bob's axis and result for each row, Alice can sort her records. Equal-axis singlet measurements will then be opposite pair by pair. The message reveals correlations already present in the joint statistics; it does not retroactively alter Alice's earlier local frequency distribution.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Could Alice infer Bob's choice from sufficiently many moments of her own data?}
+\lecturerresponse{No. All Alice-local moments are fixed by \(\rho_A\), and Equation~\eqref{eq:l7-no-signaling} leaves that matrix unchanged. More copies improve her estimate of the same local density matrix; they do not reveal Bob's basis or outcome.}
+\end{classroomqa}
 
-If Bob measures first, when does Alice's density matrix actually change?
+\begin{classroomqa}
+\audiencequestion{What if Bob chooses a different axis on every member of the ensemble?}
+\lecturerresponse{Alice still sees the same local distribution. Once Bob sends the row-by-row settings and results, the two parties can compare conditional correlations for each pair of axes. The setting dependence appears in joint statistics, not in Alice's marginal statistics.}
+\end{classroomqa}
 
-As far as Alice is concerned, it changes when Alice receives information that Bob obtained a result. Before that, her density matrix encodes only the probabilities locally available to her, and those probabilities have not changed. After the telegram arrives, she updates her state assignment. That update can be described in the language of collapse if one likes, but it is not an instantaneous physical influence reaching across space. It occurs only after enough time has passed for the message to get there.
+\section{Bell's Question as a Simulation Game}
 
-That settles no-signaling, but it does not settle Bell. What, then, is Bell's issue? The lecture answers with a game about classical computers.
-
-A single classical computer can simulate a single spin. It stores the amplitudes
+The distinction between no signaling and Bell nonlocality becomes clearer as a problem in classical simulation. Begin with one spin,
 \begin{equation}
-|\psi\rangle=\alpha_u|u\rangle+\alpha_d|d\rangle,
+\ket{\psi}=\alpha_u\ket{u}+\alpha_d\ket{d},
 \qquad
-|\alpha_u|^2+|\alpha_d|^2=1,
+|\alpha_u|^2+|\alpha_d|^2=1.
 \end{equation}
-updates them by solving the Schr\"odinger equation, converts them into probabilities when the measure button is pressed, uses a random number generator to produce an outcome, and then updates the stored state so that it agrees with the outcome just recorded. For one spin, this is a perfectly good classical simulation. The difference between classical and quantum mechanics is not randomness by itself.
+A classical program can store the two complex amplitudes, evolve them with the Schr\"odinger equation, and accept a user-selected measurement direction. When the measure command is issued, the program computes the Born probabilities, uses a pseudorandom number generator to select an outcome, displays that outcome, and updates its stored state to the corresponding eigenstate. Repeating the process reproduces the statistics of one spin.
 
-If the two-spin state is a product state, then two separated classical computers can simulate it as well: one keeps track of Alice, the other of Bob, and the two do not need to talk to each other. But if the state is entangled, Bell's point is that this no longer works. One may bring the computers together to prepare correlated data, but after separation that is still not enough. Synchronizing the random number generators in advance is not enough. To reproduce entangled quantum statistics, the separated classical machines would have to keep communicating. Hidden wires would have to continue to connect them.
+Randomness alone is therefore not the dividing line between classical and quantum mechanics. Classical computers can generate sequences that are operationally random enough for a simulation, even if their pseudorandom algorithms are deterministic underneath.
 
-That, in Susskind's language, is what Bell's theorem really says. An entangled quantum system cannot be simulated by genuinely separated classical bookkeeping. A single classical computer can do the job because all its parts can talk to all other parts. Two separated classical computers cannot, unless one secretly lets them continue exchanging information. The nonclassicality lies there.
+For two spins in a product state, two separated computers also suffice. Alice's computer stores and evolves \(\ket{\psi_A}\); Bob's stores and evolves \(\ket{\phi_B}\). Each responds only to its local setting. Because the joint probabilities factorize, no communication is needed after the computers separate.
 
-And yet even that is not the same as faster-than-light signaling by Alice and Bob themselves. If one restricts oneself to the operations that quantum mechanics actually allows, one still cannot exploit the entangled setup to send arbitrary messages instantaneously. Bell does not restore ordinary action at a distance in the old sense. It says instead that the classical separated simulation picture is too small.
+An entangled pair changes the problem. One may bring the two machines together before the experiment, load correlated hidden data, synchronize their clocks, and even give them identical random seeds. After separation, however, each output must depend only on its local measurement setting and the shared information supplied in advance. Bell's theorem shows that no such local hidden-variable scheme reproduces all quantum correlations for freely chosen settings.
 
-The lecture closes with an ensemble-level diagnostic that fits the entire chapter. Bob by himself cannot diagnose entanglement from one pair. But if he is given many identically prepared copies, he can search over directions in space. For a product state, some axis will eventually reveal a definite local polarization: measure enough copies along that axis and the same answer keeps returning. For an entangled state like the singlet, no such axis exists. Every direction remains locally random. That is the local face of the statement that Bob does not possess a pure local wave function, only a reduced density matrix.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_07_figure_10.png}
+\caption{The separated-computer model: local programs may share preparation data, but after separation they cannot communicate measurement settings.}
+\lectureframe{02:00:00}
+\end{figure}
 
-\section{Summary}
+If wires remain between the computers so that settings and outcomes can be exchanged, the simulation can reproduce the correlations. But then the pair is no longer a genuinely separated local model; it functions as one connected computer. The obstruction is not classical computation in the abstract. A single global classical machine can simulate finite quantum systems by storing the complete joint wave function, although the required memory generally grows exponentially with the number of subsystems. Bell's obstruction concerns a decomposition into independently operating local machines.
 
-The lecture unfolds in a very specific order. First, entanglement is not the vague statement that two systems ``share a state.'' A composite system always has a state; the real issue is whether it is a product state. Second, wave functions make that question explicit by turning states into coefficients in a basis. Third, product states force local expectation values to decouple, and the failure of that decoupling is the first operational sign of entanglement. Fourth, the singlet shows the extreme case: each part is maximally indefinite, while the whole has sharp joint structure.
+\begin{classroomqa}
+\audiencequestion{Why can the two computers not simply use the same random-number sequence?}
+\lecturerresponse{Shared randomness is already allowed in a local hidden-variable model. It can predetermine correlated answers, but each answer must work for every measurement setting that might later be chosen on that side. Bell inequalities express the constraints obeyed by all such prearranged local strategies; the quantum correlations violate those constraints.}
+\end{classroomqa}
 
-Fifth, the reduced density matrix is the right local object when the whole state is entangled. For a product pure state it has one nonzero eigenvalue, equal to $1$; for the singlet it has two equal eigenvalues, $\frac12$ and $\frac12$. Sixth, measurement itself is an entangling interaction between system and apparatus, and one may push that logic outward through apparatus, eye, brain, and observer without finding a sharp boundary. Finally, locality survives in the operational sense that Bob cannot change Alice's statistics faster than light, but Bell still tells us that entangled systems refuse to be reproduced by genuinely separated classical simulations. The oddity remains exactly where Susskind wants it: quantum mechanics can allow full knowledge of a whole while withholding any definite local story about the parts.
+\begin{classroomqa}
+\audiencequestion{Do the random numbers have to depend on the measurement directions?}
+\lecturerresponse{A local output may depend on its own local direction and the shared hidden data, but not on the distant direction chosen after separation. Allowing dependence on both settings requires communication, retrocausality, or a failure of the usual measurement-independence assumption. Bell's theorem makes these assumptions explicit rather than hiding them in the word \emph{random}.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Would two separated quantum computers succeed where the classical programs fail?}
+\lecturerresponse{They can succeed if they share entangled quantum degrees of freedom. In that case the computers are not simulating entanglement with local classical records; they physically possess it. Their local outcomes still cannot transmit a controllable faster-than-light message.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can one ordinary classical computer simulate the entire pair?}
+\lecturerresponse{Yes. It can store the four joint amplitudes and compute all measurement probabilities in one place. For many particles this direct simulation becomes expensive because the Hilbert-space dimension grows exponentially, but there is no Bell contradiction when all information is globally available inside one machine.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does Bell's theorem therefore prove ordinary action at a distance?}
+\lecturerresponse{It proves that local hidden-variable explanations satisfying Bell's assumptions cannot reproduce the observed correlations. It does not provide Alice or Bob with a superluminal signaling channel. Bell nonlocality and operational faster-than-light communication are distinct claims.}
+\end{classroomqa}
+
+\section{What Can Be Learned Locally?}
+
+Local and joint observables must not be conflated. Bob can measure \(\sigma_x\) and Alice can measure \(\tau_x\); by later comparing records they estimate
+\begin{equation}
+\expect{\sigma_x\tau_x}.
+\end{equation}
+Neither local apparatus alone measures that product. The rotational scalar
+\begin{equation}
+\boldsymbol{\sigma}\cdot\boldsymbol{\tau}
+=\sigma_x\tau_x+\sigma_y\tau_y+\sigma_z\tau_z
+\end{equation}
+requires either different subensembles for the three terms or a new joint apparatus that resolves the singlet and triplet sectors. One cannot obtain all three incompatible component products from one pair using the original local spin meters.
+
+\begin{classroomqa}
+\audiencequestion{Are there observables of the whole that Alice's and Bob's original apparatuses cannot measure separately?}
+\lecturerresponse{Yes. A single product such as \(\sigma_x\tau_x\) can be estimated by two local \(x\)-measurements followed by comparison. The sum \(\boldsymbol{\sigma}\cdot\boldsymbol{\tau}\) cannot be assembled from simultaneous \(x,y,z\) readings on one pair. It needs a genuinely joint singlet--triplet measurement or separate ensembles for the incompatible terms.}
+\end{classroomqa}
+
+Bob cannot infer entanglement from one event. With many identically prepared copies, however, he can reconstruct his reduced density matrix. For a qubit,
+\begin{equation}
+\rho_B
+=\frac12\left(
+I+\mathbf r\cdot\boldsymbol{\sigma}
+\right),
+\label{eq:l7-bloch-density}
+\end{equation}
+and measurements along several axes determine the Bloch vector \(\mathbf r\). If \(|\mathbf r|=1\), Bob's local state is pure; if \(|\mathbf r|<1\), it is mixed. In the special case where the global preparation is known to be the same pure state on every trial, local mixedness proves that Bob is entangled with something outside his subsystem.
+
+For a product of two pure spins, Bob can search for the polarization direction \(\mathbf n=\mathbf r/|\mathbf r|\). Along that axis, repeated measurements return one definite answer. For the singlet, \(\mathbf r=0\), so every axis remains locally random. The search never finds a polarization direction.
+
+\begin{classroomqa}
+\audiencequestion{Can Bob discover entanglement without speaking to Alice?}
+\lecturerresponse{From an ensemble he can discover that his own reduced state is mixed. If he also knows that every pair was prepared in the same global pure state, he can infer entanglement across the boundary. Without that purity assumption, his mixed state could instead come from a classical preparation mixture, and local data alone would not settle the distinction.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why are many identically prepared systems necessary?}
+\lecturerresponse{Each spin measurement yields only one outcome and generally disturbs that copy. Tomography therefore distributes incompatible measurements across an ensemble prepared by the same procedure. The density matrix and its spectrum are statistical properties inferred from those repeated trials, not labels revealed by one particle.}
+\end{classroomqa}
+
+The logic now closes where it began. Entanglement is not the vague sharing of a state. It is the failure of a pure joint state to factor, visible locally as a non-projector reduced density matrix and jointly as correlations that cannot be reproduced by separated classical bookkeeping. The whole may be perfectly known while each part remains mixed. That fact makes measurement possible, preserves no signaling, and supplies the structure that Bell's theorem will test.
