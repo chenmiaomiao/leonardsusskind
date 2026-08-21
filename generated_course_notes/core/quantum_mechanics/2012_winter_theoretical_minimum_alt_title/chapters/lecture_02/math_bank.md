@@ -149,12 +149,12 @@ Phase redundancy and parameter count
 
 ## Uncertain Mathematics
 - The board formula `\langle \sigma_m\rangle=n\cdot m` is visually strong but the first handwritten symbol can be misread; transcript support for `n` is strong.
-- The lecture speaks about unit vectors with hats, but the surviving board writing omits them; final notes should be explicit about when hats are being added editorially.
+- The lecture speaks about unit vectors with hats, while the board often uses unhatted shorthand. The chapter uses hats for spatial unit vectors and preserves the shorthand only beside the frame.
 - The transcript around the average/expected-value exchange is noisy and philosophically loose; preserve only the safe content that `\langle\cdot\rangle` is an ordinary average over repeated outcomes.
 - The Born-rule wording in the transcript is garbled; the clean statement `P=|\alpha|^2` is a cautious standard reconstruction, not a verbatim transcript rendering.
 - The live derivation of the in/out expansion into the left/right basis is messy and interrupted; do not rely on the spoken algebra there unless it is re-derived cleanly.
-- The board shows `\sigma_z=1` and `\sigma_z=-1` without always visibly writing the plus sign; use `+1` and `-1` consistently in final notes.
+- The board sometimes omits the visible plus sign in `\sigma_z=+1`; the normalized notation keeps `+1` and `-1` explicit.
 - The brief statement that propositions correspond to projection operators is accurate but undeveloped; treat it as a forward pointer, not a full operator section.
-- The lecture temporarily treats “orthogonal” and “perpendicular” as synonymous in ordinary space, but later insists that orthogonality in state space must not be confused with spatial geometry; final notes must separate those senses clearly.
-- The ket column in the board frames is only partial; full bra-ket notation should be treated as transcript-backed, not frame-proven.
+- The lecture temporarily treats orthogonal and perpendicular as synonymous in ordinary space, then insists that state-space orthogonality must not be confused with spatial geometry.
+- The later board frames show the complete column representatives for all six named spin states.
 - The final third is heuristic by design; do not recast the `r,l,i,o` constructions as fully rigorous consequences of already-developed operator theory.
