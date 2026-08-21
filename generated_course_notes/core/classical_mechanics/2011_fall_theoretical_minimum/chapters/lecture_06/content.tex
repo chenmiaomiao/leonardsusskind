@@ -1,455 +1,718 @@
-\chapter{Lagrangian Examples and Hamiltonian Motion}
+\chapter{Constrained Systems and Hamiltonian Motion}
 
-This lecture begins in a practical register. Leonard Susskind does not first advertise elegance; he wants to show that the Lagrangian method turns awkward constrained systems into a disciplined procedure. We choose coordinates, write \(L=T-V\), and then let the equations of motion and conservation laws emerge. These notes follow that movement closely, from two concrete examples to the Hamiltonian formulation and finally to the harmonic oscillator in phase space. The selected board captures kept in this chapter were curated for this edition by LazyingArt LLC and Video2Book.
+\lectureoverview{Two constrained systems show why Lagrangian mechanics is so
+effective: once suitable coordinates have been chosen, the equations of motion
+and their conservation laws follow without an explicit calculation of the
+constraint forces.  The same examples then lead to Hamiltonian mechanics, in
+which coordinates and momenta form phase space, the harmonic oscillator becomes
+a rigid rotation, and Hamilton's two first-order equations replace each
+second-order Euler--Lagrange equation.}
 
-\section{Why Lagrangians Are Powerful}
+\section{What It Means to Solve a Mechanical Problem}
 
-The first claim is deliberately modest, but it is the right claim. To solve a mechanics problem, for the purposes of this lecture, does not necessarily mean to integrate the motion in closed form. It means to write down the equations of motion. Once those are known, one can always turn them over to numerical methods. What is difficult, and what the Lagrangian formalism simplifies, is the act of setting the problem up correctly.
+The immediate purpose of the Lagrangian method is practical.  A wedge sliding
+on a floor and a double pendulum can both be treated with Newton's laws, but the
+unknown contact forces and tensions quickly make the bookkeeping unpleasant.
+Once the rules of Lagrangian mechanics are known, the same problems become a
+sequence of controlled steps:
+\begin{enumerate}
+  \item choose independent coordinates that label an instantaneous
+  configuration;
+  \item express the kinetic and potential energies in those coordinates;
+  \item form \(L=T-V\) and apply the Euler--Lagrange equations.
+\end{enumerate}
 
-That is why Susskind likes these examples. By Newton's laws one could certainly solve them, but one would have to follow the internal forces and the constraints in detail. By the Lagrangian method the calculation becomes almost algorithmic. Once the rules are known, much of the work is mechanical.
+For the present purpose, a problem is already \emph{solved} when its equations
+of motion have been written down correctly.  One may still want a closed-form
+trajectory, but that is a separate question.  Nonlinear differential equations
+can be integrated numerically once the mechanical setup is complete.  The hard
+part is often not the integration; it is finding variables that incorporate the
+constraints without introducing redundant unknown forces.
 
-There is, however, one non-mechanical step at the beginning: we must choose coordinates. And the lecture immediately reminds us what coordinates are for. They do not describe the whole motion. They label an instantaneous configuration.
+\section{A Particle Sliding on a Moving Wedge}
 
-\subsection{Question \& Answer}
+Consider a wedge of mass \(M\) constrained to slide without friction along a
+horizontal plane.  A point particle of mass \(m\) is constrained to remain on
+the inclined face.  There are two degrees of freedom: one tells us where the
+wedge is, and one tells us where the particle is on the wedge.
 
-\paragraph{Question.} What does it mean, here, to solve a mechanics problem?
-
-\paragraph{Answer.} It means to find the equations of motion. If those equations have been written down correctly, then the mechanical problem is already under control, even if the later integration is numerical rather than explicit.
-
-\section{Sliding Wedge: Coordinates, \(T-V\), and Conserved Momentum}
-
-The first example is a wedge of mass \(M\) sliding without friction along a horizontal surface, together with a point particle of mass \(m\) constrained to move along the face of the wedge. The whole point of the example is to make the workflow visible.
-
-We first choose coordinates. The lecture emphasizes that this choice is not unique. One needs only enough coordinates to label the instantaneous configuration, and they should not be redundant. Susskind chooses
+Let
 \begin{equation}
-\begin{aligned}
-X&=\text{horizontal position of the wedge corner},\\
-x&=\text{particle's horizontal position relative to that corner}.
-\end{aligned}
+  \begin{aligned}
+    X&=\text{horizontal position of the wedge corner},\\
+    x&=\text{horizontal displacement of the particle from that corner}.
+  \end{aligned}
+  \label{eq:l6-wedge-coordinates}
 \end{equation}
-For a wedge of fixed slope one has, in general,
-\begin{equation}
-\frac{y}{x}=\tan\beta,
-\end{equation}
-where \(\beta\) is the wedge angle. To keep the example clean, the lecture specializes to \(\beta=45^\circ\), so that
-\begin{equation}
-y=x,\qquad \dot y=\dot x.
-\end{equation}
+The particle's absolute horizontal coordinate is therefore \(X+x\).  The
+choice is not unique.  We could instead use distance along the slope or the
+particle's absolute horizontal coordinate.  Any nonredundant pair that labels
+the same configurations is legitimate, though some pairs expose the structure
+more clearly than others.
 
-Now we write \(T-V\). The wedge moves only horizontally, so its kinetic energy is
+For a fixed slope angle \(\beta\), the vertical displacement \(y\) is not an
+independent coordinate:
 \begin{equation}
-T_{\text{wedge}}=\frac12 M\dot X^2.
+  y=x\tan\beta,
+  \qquad
+  \dot y=\dot x\tan\beta.
+  \label{eq:l6-wedge-constraint}
 \end{equation}
-The particle has two velocity components. Its horizontal component is \(\dot X+\dot x\), because the wedge itself is moving, and in the \(45^\circ\) example its vertical component is \(\dot x\). Therefore
-\begin{equation}
-T_{\text{particle}}=\frac m2\Big[(\dot X+\dot x)^2+\dot x^2\Big].
-\end{equation}
-The potential energy comes only from the particle, and in this special geometry its height is just \(x\):
-\begin{equation}
-V=mgx.
-\end{equation}
-So the Lagrangian is
-\begin{equation}
-L=\frac12 M\dot X^2+\frac m2\Big[(\dot X+\dot x)^2+\dot x^2\Big]-mgx.
-\end{equation}
-
-At this point the lecture does not push hard on solving both equations of motion. Instead it turns to canonical momentum, because this is where the formalism begins to show its real power. By definition,
-\begin{align}
-p_X&=\frac{\partial L}{\partial \dot X}
-   =M\dot X+m(\dot X+\dot x),\\
-p_x&=\frac{\partial L}{\partial \dot x}
-   =m(\dot X+\dot x)+m\dot x.
-\end{align}
-This is where one must resist ordinary intuition. Canonical momentum is not simply whichever \(mv\) one might first guess. It is defined by
-\begin{equation}
-p_i=\frac{\partial L}{\partial \dot q_i}.
-\end{equation}
-In constrained systems that distinction matters.
-
-Now the symmetry is easy to see. A horizontal translation of the whole system acts by
-\begin{equation}
-\delta X=\epsilon,\qquad \delta x=0.
-\end{equation}
-More generally, if a symmetry acts as
-\begin{equation}
-\delta q_i=\epsilon f_i,
-\end{equation}
-then the corresponding conserved quantity is
-\begin{equation}
-Q=\sum_i p_i f_i.
-\end{equation}
-Here \(f_X=1\) and \(f_x=0\), so the Noether quantity is simply
-\begin{equation}
-Q=p_X.
-\end{equation}
-Equivalently, \(X\) is a cyclic coordinate, so
-\begin{equation}
-\dot p_X=\frac{\partial L}{\partial X}=0.
-\end{equation}
-This is the conservation law the lecture wants us to notice. We never had to solve for the constraint forces between wedge and particle.
-
-For completeness, the other Euler--Lagrange equation is
-\begin{equation}
-\dot p_x=\frac{\partial L}{\partial x}=-mg.
-\end{equation}
-The lecture hesitates over the sign and then fixes it. The safe statement is the canonical one: since \(L=T-V\), the explicit \(x\)-dependence comes from \(-V\), so \(\partial L/\partial x=-\,\partial V/\partial x\).
-
-There is no analogous vertical conservation law. The wedge is not free to translate vertically, and motion in that direction changes the potential energy. The horizontal symmetry survives; the vertical one does not.
-
-\section{Double Pendulum: Choosing the Right Angles}
-
-The second example is the double pendulum, and here the lecture slows down at exactly the right place. The issue is not yet algebra. The issue is how to choose coordinates so that the structure of the problem is visible.
-
-We take both rods to have unit length and both bobs to have unit mass. The first angle is naturally called \(\theta\). For the second rod there are two natural choices. One could measure its angle from the vertical and call it, say, \(\phi\). Or one could measure it relative to the first rod and call that relative angle \(\alpha\).
-
-Susskind chooses \(\alpha\), the relative angle, and he tells us why before calculating anything. Forget gravity for a moment. Then the whole double pendulum has an obvious rotational symmetry. If we rotate the entire apparatus rigidly, the relative angle between the rods does not change. In that coordinate system the symmetry acts simply:
-\begin{equation}
-\theta\to \theta+\epsilon,\qquad \alpha\to \alpha.
-\end{equation}
-That is the advantage. The symmetry shifts one coordinate and leaves the other fixed.
-
-This is one of the places where the lecture is careful about the role of cleverness. If our only goal were to write down equations of motion and put them on a computer, almost any reasonable coordinates would do. But if we want the symmetry to announce itself immediately, then the coordinate choice matters.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why is the second angle measured relative to the first rod rather than relative to the vertical?
-
-\paragraph{Answer.} Because in the no-gravity problem the rotational symmetry then acts only on \(\theta\) and leaves \(\alpha\) fixed. That makes \(\theta\) the cyclic coordinate. With the vertical-angle choice both coordinates would transform under the symmetry, and the conserved quantity would be less transparent even though the physics would be the same.
-
-\section{Double Pendulum: Kinematics, Cyclic Coordinates, and Gravity}
-
-Having chosen \((\theta,\alpha)\), Susskind computes the kinetic energy by a useful detour through Cartesian coordinates. The first bob has coordinates
-\begin{equation}
-x=\sin\theta,\qquad y=\cos\theta,
-\end{equation}
-with \(y\) measured downward. Differentiating,
-\begin{equation}
-\dot x=\dot\theta\cos\theta,\qquad \dot y=-\dot\theta\sin\theta.
-\end{equation}
-So the first bob contributes
-\begin{equation}
-\dot x^{\,2}+\dot y^{\,2}=\dot\theta^{\,2}
-\end{equation}
-to the kinetic-energy algebra.
-
-For the second bob we introduce
-\begin{equation}
-x'=\sin\theta+\sin(\theta+\alpha),\qquad
-y'=\cos\theta+\cos(\theta+\alpha).
-\end{equation}
-A representative velocity component is
-\begin{equation}
-\dot x'=\dot\theta\cos\theta+(\dot\theta+\dot\alpha)\cos(\theta+\alpha),
-\end{equation}
-and similarly for \(\dot y'\). One then adds \(x'^2\)- and \(y'^2\)-type terms, simplifies with trigonometric identities, and rewrites the result in angular variables.
-
-This is where the lecture becomes intentionally informal. The algebra is straightforward but messy, and the sign convention in the mixed \(\dot\theta\)--\(\dot\alpha\) terms is explicitly challenged from the audience. A late board state preserves one lecture-local line,
-\begin{equation}
-T-V=\dot\theta^{\,2}+\frac{(\dot\theta-\dot\alpha)^2}{2}
-+\dot\theta(\dot\theta-\dot\alpha)\cos\alpha,
-\end{equation}
-but this should be read cautiously. The lecture itself admits that one of the \(\dot\theta\pm\dot\alpha\) signs may be wrong depending on how the positive direction of \(\alpha\) was chosen. The important point is not that exact local sign, but the symmetry structure.
+We specialize to \(\beta=45^\circ\), so that \(y=x\) and
+\(\dot y=\dot x\).  This simplification removes trigonometric factors without
+changing the point of the example.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_06_figure_02.png}
-\caption{Double-pendulum board work: a lecture-local \(T-V\) line above and the \(\theta\)-equation below. The board writes \(P_\theta\); in the notes we use the standard lowercase \(p_\theta\).}
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_06_figure_06.png}
+  \caption{The moving wedge, the constrained particle, and the horizontal and
+  vertical velocity components used in the \(45^\circ\) example.}
+  \lectureframe{00:10:25}
 \end{figure}
 
-The clean statement is the Euler--Lagrange one:
+The wedge has kinetic energy
 \begin{equation}
-\dot p_\theta=\frac{\partial L}{\partial \theta}.
+  T_{M}=\frac{M}{2}\dot X^2.
+  \label{eq:l6-wedge-kinetic}
 \end{equation}
-Now comes the payoff of the coordinate choice. In the absence of gravity, \(\theta\) does not appear explicitly in the Lagrangian. Therefore
+The particle's horizontal velocity is \(\dot X+\dot x\), while its vertical
+velocity is \(\dot x\).  Its kinetic energy is consequently
 \begin{equation}
-\frac{\partial L}{\partial \theta}=0,
+  T_m=\frac{m}{2}\left[(\dot X+\dot x)^2+\dot x^2\right].
+  \label{eq:l6-particle-kinetic}
+\end{equation}
+Taking the zero of gravitational potential at \(x=0\), we have \(V=mgx\).
+Thus
+\begin{equation}
+  L=\frac{M}{2}\dot X^2
+    +\frac{m}{2}\left[(\dot X+\dot x)^2+\dot x^2\right]
+    -mgx.
+  \label{eq:l6-wedge-lagrangian}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_07.png}
+  \caption{The wedge geometry, \(V=mgx\), and the two kinetic-energy
+  contributions assembled on the board.}
+  \lectureframe{00:14:15}
+\end{figure}
+
+\subsection{Canonical Momentum Is Defined by the Lagrangian}
+
+The canonical momenta are defined by the Lagrangian, not by a guess based on a
+single particle velocity:
+\begin{align}
+  p_X&=\frac{\partial L}{\partial\dot X}
+      =M\dot X+m(\dot X+\dot x),
+      \label{eq:l6-wedge-pX}\\
+  p_x&=\frac{\partial L}{\partial\dot x}
+      =m(\dot X+\dot x)+m\dot x.
+      \label{eq:l6-wedge-px}
+\end{align}
+The first expression is the ordinary total horizontal momentum:
+the wedge contributes \(M\dot X\), and the particle contributes
+\(m(\dot X+\dot x)\).  It appears here as the momentum conjugate to the
+coordinate \(X\).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_08.png}
+  \caption{The canonical momenta conjugate to the wedge coordinate \(X\) and
+  the relative particle coordinate \(x\).}
+  \lectureframe{00:18:05}
+\end{figure}
+
+The Lagrangian has no explicit dependence on \(X\).  A horizontal translation
+of the whole apparatus acts as
+\begin{equation}
+  \delta X=\epsilon,
+  \qquad
+  \delta x=0.
+  \label{eq:l6-wedge-translation}
+\end{equation}
+The general infinitesimal symmetry rule
+\begin{equation}
+  \delta q_i=\epsilon f_i(q),
+  \qquad
+  Q=\sum_i p_i f_i
+  \label{eq:l6-noether-rule}
+\end{equation}
+therefore gives \(Q=p_X\).  Equivalently, \(X\) is cyclic and
+\begin{equation}
+  \dot p_X=\frac{\partial L}{\partial X}=0.
+  \label{eq:l6-wedge-conservation}
+\end{equation}
+
+There is no corresponding vertical translation symmetry.  The wedge is not
+allowed to move vertically, and changing the particle's height changes the
+gravitational potential.  Horizontal momentum is conserved; vertical momentum
+of this constrained subsystem is not.
+
+For the relative coordinate, the Euler--Lagrange equation is
+\begin{equation}
+  \dot p_x=\frac{\partial L}{\partial x}=-mg.
+  \label{eq:l6-wedge-force}
+\end{equation}
+This line required a sign correction at the board.  The dependable route is
+to begin with \(L=T-V\): since \(V=mgx\), the derivative of the Lagrangian is
+\(-mg\).  The fact that \(x\) was introduced as a horizontal displacement does
+not remove gravity from its equation, because the constraint ties that
+horizontal displacement to the vertical height \(y=x\).
+
+No normal force or reaction force has appeared.  Such forces are whatever
+they must be to maintain the constraints.  Newton's method would introduce
+them and solve for them along with the accelerations; the generalized
+coordinates have made them unnecessary.
+
+\section{The Double Pendulum and the Art of Coordinates}
+
+Now suspend two unit masses from two massless rods of unit length.  The first
+rod makes an angle \(\theta\) with the downward vertical.  For the second
+degree of freedom we have a choice.  We could use a second absolute angle
+\(\phi\), or we could use the relative angle \(\alpha\) between the rods.
+
+The relative angle is the more revealing choice.  Temporarily turn gravity
+off.  A rigid rotation of the complete apparatus changes the absolute
+orientation but not the angle between the rods:
+\begin{equation}
+  \theta\longrightarrow\theta+\epsilon,
+  \qquad
+  \alpha\longrightarrow\alpha.
+  \label{eq:l6-double-rotation}
+\end{equation}
+With this choice the rotational symmetry acts on one coordinate only.  This
+does not make other coordinate systems wrong.  It makes the symmetry, and
+therefore the conserved quantity, easier to see.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_06_figure_09.png}
+  \caption{The double pendulum with \(\theta\) as the first absolute angle and
+  \(\alpha\) as the second rod's angle relative to the first.}
+  \lectureframe{00:29:20}
+\end{figure}
+
+To obtain the kinetic energy, use Cartesian coordinates as temporary
+bookkeeping devices.  With the vertical coordinate measured downward, the
+first bob is at
+\begin{equation}
+  x_1=\sin\theta,
+  \qquad
+  y_1=\cos\theta,
+  \label{eq:l6-bob-one-position}
 \end{equation}
 and hence
 \begin{equation}
-\dot p_\theta=0.
+  \dot x_1=\dot\theta\cos\theta,
+  \qquad
+  \dot y_1=-\dot\theta\sin\theta,
+  \qquad
+  \dot x_1^2+\dot y_1^2=\dot\theta^2.
+  \label{eq:l6-bob-one-velocity}
 \end{equation}
-The conserved quantity is the total angular momentum of the two-bob system.
-
-This is also where the lecture answers a natural misconception. The conservation of \(p_\theta\) does not mean that \(\dot\theta\) and \(\dot\alpha\) are separately constant. The two bobs exchange angular momentum through the rods, exactly as two masses on a spring exchange ordinary momentum. What is conserved is one particular combination, not the individual angular velocities.
-
-With gravity restored, the rotational symmetry is broken. The potential energy is built from the heights of both bobs, and in this coordinate system it takes the schematic form
-\begin{equation}
-V_{\text{grav}}\propto \cos\theta+\cos(\theta+\alpha),
-\end{equation}
-up to overall sign and normalization conventions that depend on whether one measures \(y\) upward or downward and whether one is writing \(V\) or \(L=T-V\). The lecture does not polish this point into a canonical formula; it only wants the physical lesson: once gravity is present, \(\theta\) is no longer cyclic, so the free-rotation conservation law is lost.
-
-At this stage Susskind also remarks on a separate audience question: chaos is not something one usually sees at a glance from the equations themselves. One may change parameters and pass from non-chaotic to chaotic behavior, but there is no simple visual criterion sitting in the raw formulas.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Is \(\dot p_i=0\) in every conservative system?
-
-\paragraph{Answer.} No. In general the Euler--Lagrange equation says
-\begin{equation}
-\dot p_i=\frac{\partial L}{\partial q_i}.
-\end{equation}
-Only when the coordinate \(q_i\) is cyclic, so that \(L\) has no explicit dependence on it, does the right-hand side vanish. If \(L=T-V\) and \(T\) has no explicit \(q_i\)-dependence, then one gets the more familiar form
-\begin{equation}
-\dot p_i=-\frac{\partial V}{\partial q_i}.
-\end{equation}
-So \(\dot p_i=0\) is a special case, not a universal one.
-
-\section{Hamiltonian Mechanics as a New Formulation}
-
-Only after these two examples does the lecture turn to the Hamiltonian. The Hamiltonian is first introduced in its familiar role: it is the conserved energy. But Susskind immediately broadens the point. The Hamiltonian is also the basis of a third formulation of mechanics, alongside Newton's equations and the Euler--Lagrange form of the principle of least action.
-
-The change of viewpoint is decisive. In the Lagrangian language we think in terms of \(q_i\) and \(\dot q_i\). In the Hamiltonian language we think in terms of \(q_i\) and \(p_i\). The momenta are no longer odd derivatives that sit off to the side. They stand on almost the same footing as the coordinates themselves.
-
-The defining formula is
-\begin{equation}
-H=\sum_i \dot q_i p_i-L.
-\end{equation}
-For a good mechanical system one should be able to solve the momentum-velocity relations and write the \(\dot q_i\) as functions of \(q_i\) and \(p_i\). Then the Hamiltonian is properly regarded as a function \(H(q,p)\).
-
-At this point Susskind reaches back to the first lecture and recalls a geometric moral. A reversible law of motion cannot have many states collapsing into one future state, nor one state branching into many futures. In the language that Hamiltonian mechanics will make precise, the flow in phase space should have neither convergence into sinks nor divergence out of sources. He does not prove that yet, but he wants us to keep the picture in mind.
-
-Before deriving the general equations, he does what he usually does when a formalism threatens to become abstract: he turns immediately to an example.
-
-\section{A First Look at the Oscillator Hamiltonian and Phase Space}
-
-The example is the harmonic oscillator. Susskind chooses to write its Lagrangian in the rescaled form
-\begin{equation}
-L=\frac{1}{2\omega}\dot q^{\,2}-\frac{\omega}{2}q^2,
-\end{equation}
-where \(\omega\) is the oscillator frequency. This is not the most familiar form, but it is chosen for a reason.
-
-We may begin from the ordinary oscillator,
-\begin{equation}
-L=\frac12 m\dot x^2-\frac12 kx^2,\qquad \omega=\sqrt{\frac{k}{m}}.
-\end{equation}
-Now define a new coordinate \(q\) so that the potential term becomes symmetric with the eventual momentum term:
-\begin{equation}
-\frac{\omega}{2}q^2=\frac{k}{2}x^2.
-\end{equation}
-Hence
-\begin{equation}
-q^2=\sqrt{km}\,x^2.
-\end{equation}
-One consistent choice is \(q=(km)^{1/4}x\), and then
-\begin{equation}
-\dot q^{\,2}=\sqrt{km}\,\dot x^{\,2}.
-\end{equation}
-With that substitution the kinetic term also takes the desired form, and the oscillator Lagrangian becomes
-\begin{equation}
-L=\frac{1}{2\omega}\dot q^{\,2}-\frac{\omega}{2}q^2.
-\end{equation}
-
-The price is that \(q\) is no longer a literal length. This is an explicit theme in the lecture's later discussion of units. The reward is that the Hamiltonian becomes symmetric in \(q\) and \(p\).
-
-The momentum conjugate to the rescaled coordinate is
-\begin{equation}
-p=\frac{\partial L}{\partial \dot q}=\frac{\dot q}{\omega},
-\end{equation}
-so
-\begin{equation}
-\dot q=\omega p.
-\end{equation}
-Now compute the Hamiltonian:
+The second bob is at
 \begin{align}
-H(q,p)
-&=\dot q\,p-L \\
-&=(\omega p)p-\left[\frac{1}{2\omega}(\omega^2p^2)-\frac{\omega}{2}q^2\right] \\
-&=\frac{\omega}{2}(p^2+q^2).
+  x_2&=\sin\theta+\sin(\theta+\alpha),\\
+  y_2&=\cos\theta+\cos(\theta+\alpha),
+  \label{eq:l6-bob-two-position}
 \end{align}
-That is the crucial simplification. The rescaling was chosen precisely so that the same \(\omega/2\) multiplies both \(p^2\) and \(q^2\).
-
-Constant energy therefore means
+so, for example,
 \begin{equation}
-p^2+q^2=\frac{2H}{\omega},
+  \dot x_2=\dot\theta\cos\theta
+  +(\dot\theta+\dot\alpha)\cos(\theta+\alpha),
+  \label{eq:l6-bob-two-xvelocity}
 \end{equation}
-so the constant-energy curves in the \((q,p)\) plane are circles. That is the first real geometric payoff of the Hamiltonian viewpoint.
+with an analogous expression for \(\dot y_2\).
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.74\textwidth]{lecture_06_figure_04.png}
-\caption{The late phase-space board sketch: nested closed trajectories, a marked point on an outer orbit, and a cloud of sample points filling part of the annular region.}
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_06_figure_10.png}
+  \caption{Auxiliary Cartesian coordinates for the two bobs.  They are used
+  to compute the velocities, not introduced as additional degrees of freedom.}
+  \lectureframe{00:35:25}
 \end{figure}
+
+Adding the two kinetic energies and using
+\(\cos A\cos B+\sin A\sin B=\cos(A-B)\) gives the consistent result
+\begin{equation}
+  T=\dot\theta^2
+    +\frac12(\dot\theta+\dot\alpha)^2
+    +\dot\theta(\dot\theta+\dot\alpha)\cos\alpha.
+  \label{eq:l6-double-kinetic}
+\end{equation}
+
+\begin{classroomqa}
+  \audiencequestion{Does this expression already include the kinetic energy
+  of both bobs, and has a factor of one half been lost?
+  \lecturetimestamp{00:38:06--00:38:27}}
+  \lecturerresponse{It includes both.  It comes from
+  \(\tfrac12(\dot x_1^2+\dot y_1^2+\dot x_2^2+\dot y_2^2)\).
+  Two equal contributions combine to produce the first term
+  \(\dot\theta^2\); no factor is missing.}
+\end{classroomqa}
+
+Without gravity, \(L=T\) has no explicit \(\theta\).  Thus
+\begin{equation}
+  \dot p_\theta=\frac{\partial L}{\partial\theta}=0,
+  \label{eq:l6-double-angular-conservation}
+\end{equation}
+and \(p_\theta\) is the total angular momentum.  Notice the precise meaning of
+the statement that \(\theta\) does not appear: \(\dot\theta\) certainly
+appears, but the undifferentiated coordinate does not.
+
+Restoring gravity breaks the global rotational symmetry.  For the downward
+vertical convention above, one convenient choice of zero gives
+\begin{equation}
+  V=-g(y_1+y_2)
+   =-g\left[2\cos\theta+\cos(\theta+\alpha)\right].
+  \label{eq:l6-double-potential}
+\end{equation}
+An additive constant would change nothing.  The important point is that
+\(\theta\) now appears explicitly, so its conjugate momentum is no longer
+conserved.  Energy remains conserved because the Lagrangian has no explicit
+time dependence.
+
+\begin{classroomqa}
+  \audiencequestion{Should the board's
+  \(\dot\theta-\dot\alpha\) be
+  \(\dot\theta+\dot\alpha\)?
+  \lecturetimestamp{00:43:00--00:43:54}}
+  \lecturerresponse{For the orientation used in
+  Eqs.~\eqref{eq:l6-bob-two-position}--\eqref{eq:l6-double-kinetic}, it must be
+  the plus sign.  Reversing the definition of positive \(\alpha\) changes the
+  corresponding signs, but every occurrence must then be changed
+  consistently.  The board mixed the two conventions.}
+\end{classroomqa}
 
 \begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.35]
-\draw[->] (-2.4,0) -- (2.4,0) node[right] {$q$};
-\draw[->] (0,-2.2) -- (0,2.2) node[above] {$p$};
-\draw (0,0) circle (0.75);
-\draw (0,0) ellipse (1.25 and 0.95);
-\draw (0,0) ellipse (1.9 and 1.5);
-\draw[thick] (1.45,0.2)
-  to[out=130,in=10] (0.2,1.05)
-  to[out=190,in=70] (-1.15,0.15)
-  to[out=-110,in=175] (-0.15,-0.95)
-  to[out=-5,in=-130] (1.55,-0.25)
-  to[out=50,in=-20] (1.45,0.2);
-\fill (0,0) circle (1.3pt);
-\fill (1.82,1.03) circle (1.3pt);
-\fill (-1.25,1.20) circle (0.9pt);
-\fill (-1.55,0.55) circle (0.9pt);
-\fill (-0.95,1.35) circle (0.9pt);
-\fill (-0.65,1.05) circle (0.9pt);
-\fill (-0.20,1.25) circle (0.9pt);
-\fill (0.20,1.15) circle (0.9pt);
-\fill (0.60,1.00) circle (0.9pt);
-\fill (1.00,0.80) circle (0.9pt);
-\fill (1.20,0.35) circle (0.9pt);
-\fill (0.95,-0.55) circle (0.9pt);
-\fill (0.40,-1.00) circle (0.9pt);
-\fill (-0.15,-1.15) circle (0.9pt);
-\fill (-0.70,-0.95) circle (0.9pt);
-\fill (-1.10,-0.45) circle (0.9pt);
-\fill (-1.35,0.10) circle (0.9pt);
-\fill (-0.40,0.55) circle (0.9pt);
-\fill (0.35,0.35) circle (0.9pt);
-\fill (0.55,-0.10) circle (0.9pt);
-\end{tikzpicture}
-\caption{A cleaned phase-space redraw based on the board sketch. The lecture's point is not the exact shape of the hand-drawn curves but the existence of closed energy shells and a whole cloud of initial conditions transported by the same flow.}
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_06_figure_02.png}
+  \caption{The no-gravity pendulum calculation and
+  \(\dot p_\theta=\partial L/\partial\theta\).  The upper board line preserves
+  the sign-inconsistent local notation discussed in the question; the
+  normalized formula is Eq.~\eqref{eq:l6-double-kinetic}.}
+  \lectureframe{00:45:50}
 \end{figure}
 
-If we had stayed with the original variables \((x,p_x)\), we would instead have
+Once \(T\) and \(V\) are known, the remaining equations are obtained by
+differentiation.  Rod tensions and the forces that enforce fixed lengths have
+again disappeared into the choice of coordinates.
+
+\subsection{What conservation does and does not imply}
+
+\begin{classroomqa}
+  \audiencequestion{Can one see directly from the equations whether the
+  double pendulum is chaotic?
+  \lecturetimestamp{00:44:57--00:45:25}}
+  \lecturerresponse{Usually not by simple inspection.  As parameters or
+  energies vary, a system may pass from regular to chaotic behavior.  The
+  subject requires more structure than the raw appearance of the equations,
+  and it will be taken up later.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{In a conservative system, is every \(\dot p_i\) equal to
+  zero?
+  \lecturetimestamp{00:45:25--00:46:24}}
+  \lecturerresponse{No.  The general equation is
+  \(\dot p_i=\partial L/\partial q_i\).  It vanishes only when \(q_i\) is
+  cyclic.  A cyclic coordinate is the especially simple case in which a
+  symmetry has been made to shift one coordinate while leaving the others
+  fixed.}
+\end{classroomqa}
+
+If the only objective is numerical evolution, an inconvenient coordinate
+system still works; it merely produces longer equations.  The reward for a
+clever system is conceptual: the conserved momentum is visible before the
+equations are solved.
+
+\begin{classroomqa}
+  \audiencequestion{Without gravity, does a double pendulum behave as simply
+  as a single free pendulum?
+  \lecturetimestamp{00:47:02--00:47:35}}
+  \lecturerresponse{A single free rotor turns uniformly because its one
+  angular momentum fixes its motion.  A double pendulum can execute very
+  complicated relative motion while preserving the total angular momentum.
+  If both angular velocities initially vanish it remains at rest; otherwise
+  the two parts interact.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Are \(\dot\theta\) and \(\dot\alpha\) individually
+  constant when gravity is absent?
+  \lecturetimestamp{00:47:36--00:52:42}}
+  \lecturerresponse{No.  Conservation says \(\dot p_\theta=0\), not
+  \(\ddot\theta=0\) or \(\ddot\alpha=0\).  The expression for
+  \(p_\theta=\partial L/\partial\dot\theta\) contains both angular velocities
+  and depends on \(\alpha\).  The rods transmit torques, allowing the two bobs
+  to exchange angular momentum and energy.  This is analogous to two masses
+  joined by a spring: total momentum and center-of-mass velocity are constant,
+  while the individual velocities oscillate.  The rotational analogue is a
+  particular collective combination, not either angle by itself.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Are the forces that exchange angular momentum carried
+  through the rods?
+  \lecturetimestamp{00:52:43--00:53:34}}
+  \lecturerresponse{Yes.  A force transmitted along a rod need not point
+  through the pivot of the other motion, so it can exert a torque.  A torque
+  is simply the rotational tendency of a force, and here it produces the
+  nonzero individual angular accelerations.}
+\end{classroomqa}
+
+\section{The Hamiltonian as a Third Formulation}
+
+The Hamiltonian is energy, but that is only its first significance.  It is
+also the basis of a third formulation of mechanics.  Newton's equations use
+forces and accelerations.  The principle of stationary action gives the
+Euler--Lagrange equations.  Hamiltonian mechanics is equivalent to the latter
+for regular systems, but its variables and geometry look different.
+
+Instead of \(q_i\) and \(\dot q_i\), use \(q_i\) and their conjugate momenta
+\(p_i\).  A state of a system with \(n\) degrees of freedom requires \(2n\)
+numbers in either description: positions and velocities, or positions and
+momenta.  The bridge between them is
 \begin{equation}
-H(x,p_x)=\frac{p_x^2}{2m}+\frac{k}{2}x^2,
+  p_i=\frac{\partial L}{\partial\dot q_i}.
+  \label{eq:l6-legendre-map}
 \end{equation}
-so the constant-energy curves would be ellipses. The change of variables is therefore not cosmetic. It is chosen to make the symmetry between coordinate and momentum visible. This is also where the units discussion comes from: the rescaled \(q\) is an abstract coordinate, and the conjugate \(p\) is not the same object as the ordinary mechanical momentum \(p_x\).
-
-Already, before any general derivation, we see the Hamiltonian way of thinking. Motion is not merely back and forth in \(q\). It is motion in the \((q,p)\) plane, trapped on a circle by energy conservation.
-
-\section{Deriving Hamilton's Equations and Returning to the Oscillator}
-
-After that geometric preview, Susskind returns to the formal question: what are the equations of motion in the Hamiltonian formulation?
-
-He begins with the standard trick from multivariable calculus. If \(F\) is a function of the variables \(q_i\) and \(p_i\), then a small change in those variables produces
+When these relations can be inverted for the velocities
+\(\dot q_i(q,p)\), define
 \begin{equation}
-\delta F=\sum_i\left(\frac{\partial F}{\partial q_i}\delta q_i+\frac{\partial F}{\partial p_i}\delta p_i\right).
+  H(q,p)=\sum_i p_i\dot q_i-L(q,\dot q).
+  \label{eq:l6-hamiltonian-definition}
 \end{equation}
-Conversely, if we can write \(\delta F\) in the form \(A_i\delta q_i+B_i\delta p_i\), then the coefficients must be the partial derivatives.
+The velocities on the right are then eliminated in favor of \(q\) and \(p\).
+This invertibility is the regular Legendre-transform assumption.  Singular
+Lagrangians require the more general theory of constraints; they are not
+handled by this elementary construction.
 
-Now apply that idea directly to the Hamiltonian
+\subsection{Reversibility before calculus}
+
+Recall a finite collection of abstract states connected by arrows.  A
+deterministic rule may still fail to be reversible if two earlier states flow
+into one later state.  The future is unique, but the past is not.  Reversing
+all the arrows gives the opposite defect: one state branches into several
+futures.  In the first picture arrows converge; in the second they diverge.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_11.png}
+  \caption{Abstract state maps used to contrast reversible cycles with
+  forbidden convergence and divergence.}
+  \lectureframe{00:56:20}
+\end{figure}
+
+Hamiltonian flow will supply the continuous version of this statement.  A
+cloud of phase-space points may move and deform, but it cannot acquire a sink
+that destroys distinctions between states or a source that manufactures
+several futures from one state.  The proof is deferred; for now the diagrams
+motivate the geometry.
+
+\begin{classroomqa}
+  \audiencequestion{Should the abstract state diagram be interpreted as an
+  object moving in a gravitational field?
+  \lecturetimestamp{00:58:02--00:58:35}}
+  \lecturerresponse{No.  The dots are merely abstract states and the arrows
+  specify a rule for changing state.  No spatial or gravitational meaning has
+  been assigned to the drawing.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{How is a forbidden convergent state map distinguished
+  from a black hole?
+  \lecturetimestamp{00:58:40--00:59:28}}
+  \lecturerresponse{Only with difficulty and subtlety.  It is a fair question,
+  but a correct answer requires a careful account of the complete state and
+  its quantum-gravitational evolution.  The elementary diagram is not enough
+  to settle it.}
+\end{classroomqa}
+
+\section{An Oscillator Adapted to Phase Space}
+
+Before deriving the general equations, consider a harmonic oscillator written
+in deliberately adapted variables:
 \begin{equation}
-H=\sum_i \dot q_i p_i-L.
+  L=\frac{1}{2\omega}\dot q^2-\frac{\omega}{2}q^2.
+  \label{eq:l6-rescaled-lagrangian}
 \end{equation}
-We vary everything that can vary:
+Its conjugate momentum is
+\begin{equation}
+  p=\frac{\partial L}{\partial\dot q}=\frac{\dot q}{\omega},
+  \qquad
+  \dot q=\omega p.
+  \label{eq:l6-rescaled-momentum}
+\end{equation}
+Substitution in Eq.~\eqref{eq:l6-hamiltonian-definition} gives
 \begin{align}
-\delta H
-&=\sum_i\big(\dot q_i\,\delta p_i+p_i\,\delta\dot q_i\big)
--\sum_i\left(\frac{\partial L}{\partial \dot q_i}\delta\dot q_i+\frac{\partial L}{\partial q_i}\delta q_i\right).
+  H&=p\dot q-L\\
+   &=\omega p^2-\frac{\omega p^2}{2}+\frac{\omega q^2}{2}
+    =\frac{\omega}{2}(p^2+q^2).
+  \label{eq:l6-oscillator-hamiltonian}
 \end{align}
-But by definition,
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_12.png}
+  \caption{The Legendre transform of the adapted oscillator and the symmetric
+  Hamiltonian \(H=\tfrac{\omega}{2}(p^2+q^2)\).}
+  \lectureframe{01:08:20}
+\end{figure}
+
+The space of \(q\) and \(p\) is phase space.  One degree of freedom gives a
+two-dimensional plane; two degrees of freedom give a four-dimensional phase
+space.  At fixed oscillator energy,
 \begin{equation}
-\frac{\partial L}{\partial \dot q_i}=p_i,
+  p^2+q^2=\frac{2H}{\omega},
+  \label{eq:l6-energy-circle}
 \end{equation}
-so the \(p_i\,\delta\dot q_i\) terms cancel. Then Euler--Lagrange gives
+so the trajectory remains on a circle.  Energy conservation confines the
+motion to one such curve.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_06_figure_13.png}
+  \caption{Nested constant-energy circles in the oscillator phase plane,
+  with \(q\) horizontal and \(p\) vertical.}
+  \lectureframe{01:13:20}
+\end{figure}
+
+\section{Deriving Hamilton's Equations}
+
+The derivation is an exercise in the differential of a function of several
+variables.  For \(F(q,p)\),
 \begin{equation}
-\frac{\partial L}{\partial q_i}=\dot p_i.
+  \delta F=\sum_i\left(
+  \frac{\partial F}{\partial q_i}\delta q_i
+  +\frac{\partial F}{\partial p_i}\delta p_i\right).
+  \label{eq:l6-total-differential}
 \end{equation}
-Therefore
+The coefficients can be read in either direction: the coefficient of
+\(\delta q_i\) is \(\partial F/\partial q_i\), and the coefficient of
+\(\delta p_i\) is \(\partial F/\partial p_i\).
+
+Now vary the defining expression for \(H\):
+\begin{align}
+  \delta H
+  &=\sum_i\left(\dot q_i\,\delta p_i
+       +p_i\,\delta\dot q_i\right)-\delta L\\
+  &=\sum_i\left(\dot q_i\,\delta p_i
+       +p_i\,\delta\dot q_i
+       -\frac{\partial L}{\partial q_i}\delta q_i
+       -\frac{\partial L}{\partial\dot q_i}\delta\dot q_i\right).
+  \label{eq:l6-vary-hamiltonian}
+\end{align}
+Because \(\partial L/\partial\dot q_i=p_i\), the two
+\(\delta\dot q_i\) terms cancel.  The Euler--Lagrange equations give
+\(\partial L/\partial q_i=\dot p_i\), leaving
 \begin{equation}
-\delta H=\sum_i \dot q_i\,\delta p_i-\dot p_i\,\delta q_i.
-\end{equation}
-Comparing with the general variation formula, we read off Hamilton's equations:
-\begin{equation}
-\frac{\partial H}{\partial p_i}=\dot q_i,\qquad
-\frac{\partial H}{\partial q_i}=-\dot p_i.
+  \delta H=\sum_i\left(\dot q_i\,\delta p_i
+                     -\dot p_i\,\delta q_i\right).
+  \label{eq:l6-reduced-variation}
 \end{equation}
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_06_figure_03.png}
-\caption{The board layout for the Hamiltonian derivation: the defining relation above, the variation line in the middle, and the boxed canonical equations below.}
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_14.png}
+  \caption{The product-rule expansion of \(\delta H\) before the
+  \(p_i\,\delta\dot q_i\) terms cancel.}
+  \lectureframe{01:18:40}
 \end{figure}
 
-This is the formal center of the lecture. The Hamiltonian equations are first order in time. For \(n\) degrees of freedom there are \(2n\) of them. By contrast, the Euler--Lagrange equations are second order, and there are only \(n\). The two descriptions carry the same information, but they distribute it differently.
-
-Now we return to the oscillator. With
+Comparing Eq.~\eqref{eq:l6-reduced-variation} with the general differential
+in Eq.~\eqref{eq:l6-total-differential}, the independent coefficients give
+Hamilton's equations:
 \begin{equation}
-H=\frac{\omega}{2}(p^2+q^2),
+  \boxed{
+  \dot q_i=\frac{\partial H}{\partial p_i},
+  \qquad
+  \dot p_i=-\frac{\partial H}{\partial q_i}.}
+  \label{eq:l6-hamilton-equations}
 \end{equation}
-Hamilton's equations immediately give
-\begin{equation}
-\dot q=\frac{\partial H}{\partial p}=\omega p,
-\end{equation}
-and
-\begin{equation}
-\dot p=-\frac{\partial H}{\partial q}=-\omega q.
-\end{equation}
-One may almost regard the first as defining \(p\) in terms of the velocity, while the second tells us how that momentum changes.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How can two first-order Hamilton equations be equivalent to one second-order Euler--Lagrange equation?
-
-\paragraph{Answer.} Simply differentiate one and substitute into the other. From
-\begin{equation}
-\dot q=\omega p
-\end{equation}
-we get
-\begin{equation}
-\ddot q=\omega \dot p.
-\end{equation}
-Using the second Hamilton equation,
-\begin{equation}
-\dot p=-\omega q,
-\end{equation}
-we obtain
-\begin{equation}
-\ddot q=-\omega^2 q.
-\end{equation}
-That is precisely the standard harmonic-oscillator equation.
-
-The lecture then goes back and writes the same thing in Euler--Lagrange form, without introducing \(p\) at all:
-\begin{equation}
-\frac{d}{dt}\!\left(\frac{\dot q}{\omega}\right)=-\omega q,
-\end{equation}
-or
-\begin{equation}
-\frac{\ddot q}{\omega}=-\omega q.
-\end{equation}
-Multiply by \(\omega\), and one is back to
-\begin{equation}
-\ddot q=-\omega^2 q.
-\end{equation}
-So the Lagrangian description gives one second-order equation for each coordinate, while the Hamiltonian description gives one first-order equation for each coordinate and one for each momentum.
 
 \begin{figure}[htbp]
-\centering
-\includegraphics[width=0.92\textwidth]{lecture_06_figure_05.png}
-\caption{The board state that juxtaposes geometry and equations: phase-space motion on the left, the rescaled oscillator Lagrangian and second-order form on the right.}
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_06_figure_03.png}
+  \caption{The Hamiltonian definition, its variation, and the boxed canonical
+  equations.}
+  \lectureframe{01:22:18}
+\end{figure}
+
+For \(n\) coordinates these are \(2n\) first-order equations.  The
+Euler--Lagrange formulation instead supplies \(n\) second-order equations.
+The amount of initial data and the physical content are identical.
+
+\section{Oscillator Motion as a Rigid Rotation}
+
+Applying Eq.~\eqref{eq:l6-hamilton-equations} to
+Eq.~\eqref{eq:l6-oscillator-hamiltonian} gives
+\begin{equation}
+  \dot q=\omega p,
+  \qquad
+  \dot p=-\omega q.
+  \label{eq:l6-oscillator-first-order}
+\end{equation}
+Differentiating the first equation and using the second,
+\begin{equation}
+  \ddot q=\omega\dot p=-\omega^2q.
+  \label{eq:l6-oscillator-second-order}
+\end{equation}
+Thus the two first-order equations are exactly the usual second-order
+oscillator equation, together with the definition of momentum.
+
+In phase space the velocity vector at \((q,p)\) is
+\((\dot q,\dot p)=(\omega p,-\omega q)\), tangent to the energy circle.
+Every radius rotates with the same angular speed \(\omega\).  The entire plane
+may be imagined as a rigid pinwheel or as an incompressible fictitious fluid.
+Its points circulate; they do not squeeze into a sink or fly apart from a
+source.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_04.png}
+  \caption{A cloud of initial points distributed over nested phase-space
+  trajectories.  Hamiltonian evolution moves the cloud rather than collapsing
+  it into a preferred state.}
+  \lectureframe{01:39:27}
 \end{figure}
 
 \begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1.35]
-\draw[->] (-2.3,0) -- (2.3,0) node[right] {$q$};
-\draw[->] (0,-2.3) -- (0,2.3) node[above] {$p$};
-\draw (0,0) circle (0.75);
-\draw (0,0) circle (1.35);
-\draw (0,0) circle (1.95);
-\draw[thick] (1.95,0) arc[start angle=0,end angle=230,radius=1.95];
-\draw[->,thick] (1.10,1.28) arc[start angle=50,end angle=20,radius=1.7];
-\fill (0,0) circle (1.3pt);
-\fill (1.95,0) circle (1.3pt);
-\end{tikzpicture}
-\caption{A cleaned oscillator phase portrait. The safe content is uniform circular motion at angular speed \(\omega\); the lecture itself wavers over whether to draw the orbit clockwise or counterclockwise.}
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_05.png}
+  \caption{The oscillator phase portrait beside the equivalent
+  Euler--Lagrange equation
+  \(\ddot q/\omega=-\omega q\).}
+  \lectureframe{01:42:10}
 \end{figure}
 
-This is where the geometric interpretation becomes vivid. Every point in phase space rotates with the same angular speed \(\omega\). One may think of the whole picture as a rigid pinwheel. Or, as Susskind suggests, one may think of it as a fictitious fluid filling the plane. The fluid rotates without squeezing together and without flying apart. That is the phase-space way of seeing the absence of convergence and divergence.
+The next step will be to turn the fluid analogy into a theorem: Hamiltonian
+flow has no local convergence or divergence.  That result reconnects the
+continuous mechanics with the reversible state maps considered at the
+beginning of the course.
 
-At this point the lecture also answers a broader question about phase space. Is it a better representation than configuration space? Not absolutely. It serves different purposes. In phase space one sees cycles, conserved quantities, and the geometric character of the flow with unusual clarity. That is part of the power of the Hamiltonian description.
+\section{Questions That Expose the Coordinate Choice}
 
-\section{Summary and Outlook}
+\begin{classroomqa}
+  \audiencequestion{Is the assumption that velocities can be solved in terms
+  of \(q\) and \(p\) a theorem or an empirical property of physical systems?
+  \lecturetimestamp{01:29:08--01:29:45}}
+  \lecturerresponse{Within this elementary development it is an empirical
+  regularity, with a deeper motivation from quantum mechanics.  More
+  precisely, Eq.~\eqref{eq:l6-legendre-map} must have a nonsingular Jacobian
+  with respect to the velocities.  Modern mechanics also contains important
+  singular Lagrangians, especially constrained and gauge systems, but their
+  Hamiltonian formulation needs additional constraint machinery.}
+\end{classroomqa}
 
-The lecture begins with the power of the Lagrangian formalism in its most practical form. The sliding wedge shows the basic procedure: choose coordinates, write \(T-V\), compute canonical momenta, and read off the conserved quantity associated with a symmetry. The double pendulum then sharpens the lesson. Coordinate choice is partly an art, because the right coordinates make symmetry visible. In the no-gravity problem that means choosing \(\alpha\) relative to the first rod, so that \(\theta\) becomes cyclic and the conserved quantity is immediately apparent.
-
-From there the lecture broadens into Hamiltonian mechanics. The Hamiltonian is not only the conserved energy; it is a new formulation of dynamics in terms of \(q_i\) and \(p_i\). In the harmonic oscillator, after a deliberate rescaling of variables, it becomes
+An objection about units explains why the oscillator was written in the
+unfamiliar form of Eq.~\eqref{eq:l6-rescaled-lagrangian}.  Begin instead with
+the ordinary coordinate \(x\):
 \begin{equation}
-H=\frac{\omega}{2}(p^2+q^2),
+  L=\frac{m}{2}\dot x^2-\frac{k}{2}x^2,
+  \qquad
+  \omega=\sqrt{\frac{k}{m}}.
+  \label{eq:l6-ordinary-oscillator}
 \end{equation}
-and that makes the phase-space motion almost embarrassingly transparent: the orbits are circles, and the whole flow is a rigid rotation.
-
-The last widening of perspective is also characteristic. The real importance of the Hamiltonian is not merely that it gives beautiful classical equations. It is that the Hamiltonian becomes central in quantum mechanics. That is why the course is going this way. And in the same spirit the lecture ends by putting potential energy ahead of force. For conservative systems it is better to think of force as derived:
+Choose
 \begin{equation}
-\dot p_i=\frac{\partial L}{\partial q_i}=-\frac{\partial V}{\partial q_i},
+  q=(km)^{1/4}x.
+  \label{eq:l6-oscillator-rescaling}
 \end{equation}
-when \(L=T-V\) and the kinetic term carries no explicit coordinate dependence. Potential energy is the primary object; force is its derivative. That is exactly the kind of shift in viewpoint these notes have been building toward.
+Then \(q^2=\sqrt{km}\,x^2\) and
+\(\dot q^2=\sqrt{km}\,\dot x^2\), which converts
+Eq.~\eqref{eq:l6-ordinary-oscillator} precisely into
+Eq.~\eqref{eq:l6-rescaled-lagrangian}.  The new \(q\) is an adapted generalized
+coordinate, not a length, and its conjugate \(p\) is not the ordinary
+mechanical momentum \(p_x=m\dot x\).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_15.png}
+  \caption{The dimensional rescaling from the usual oscillator coordinate
+  \(x\) to the adapted coordinate \(q=(km)^{1/4}x\).}
+  \lectureframe{01:36:10}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{How can \(\omega p=\dot q\) be dimensionally consistent,
+  and why were these variables chosen?
+  \lecturetimestamp{01:29:46--01:39:22}}
+  \lecturerresponse{The symbol \(q\) is not required to have dimensions of
+  length, and its conjugate \(p\) is not required to have the dimensions of
+  \(m\dot x\).  The rescaling in Eq.~\eqref{eq:l6-oscillator-rescaling}
+  preserves the dimensions of the Lagrangian and makes \(q\) and \(p\) enter
+  \(H\) symmetrically.  In the original variables,
+  \[
+    H=\frac{p_x^2}{2m}+\frac{kx^2}{2},
+  \]
+  so constant-energy curves in the \((x,p_x)\) plane are ellipses.  In the
+  adapted \((q,p)\) plane they are circles.  The rescaling was chosen to make
+  that symmetry visible.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{How can \(2n\) first-order Hamilton equations be
+  equivalent to \(n\) second-order Lagrange equations?
+  \lecturetimestamp{01:39:24--01:42:30}}
+  \lecturerresponse{For the oscillator, differentiate
+  \(\dot q=\omega p\) and substitute \(\dot p=-\omega q\); the pair becomes
+  \(\ddot q=-\omega^2q\).  Starting directly from the Lagrangian gives
+  \[
+    \frac{d}{dt}\left(\frac{\dot q}{\omega}\right)
+      =-\omega q,
+  \]
+  which is the same second-order equation.  One Hamilton equation can be
+  viewed as defining momentum from velocity, while the other evolves that
+  momentum.}
+\end{classroomqa}
+
+\section{Why Phase Space and Potential Energy Matter}
+
+\begin{classroomqa}
+  \audiencequestion{Does the power of the Hamiltonian mean that phase space
+  is a better geometrical representation than configuration space?
+  \lecturetimestamp{01:42:33--01:44:38}}
+  \lecturerresponse{They serve different purposes.  Phase space makes cycles,
+  constant-energy surfaces, and the absence of convergence or divergence
+  unusually transparent.  Configuration space may be better for other
+  questions.  The deeper reason for emphasizing \(H\) is that it becomes a
+  central and more intuitive object in quantum mechanics, one of the modern
+  subjects toward which this mechanics is directed.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Should potential energy be regarded as the integral of
+  force?
+  \lecturetimestamp{01:44:40--01:45:45}}
+  \lecturerresponse{For conservative forces that statement is valid, up to a
+  constant and with the appropriate sign.  The more useful direction is to
+  regard the potential as primary and derive the generalized force from it:
+  \[
+    F_i=-\frac{\partial V}{\partial q_i}.
+  \]
+  This is exactly the term that appears in
+  \(\dot p_i=\partial L/\partial q_i\) when \(L=T-V\) and the kinetic energy
+  has no explicit dependence on \(q_i\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Which frontier problems is this path toward modern
+  physics meant to illuminate?
+  \lecturetimestamp{01:45:46--01:47:47}}
+  \lecturerresponse{Quantum gravity, cosmology, elementary-particle physics,
+  the Higgs sector, neutrinos and relativity, string theory, and quantum field
+  theory all lie along that path.  The enduring theoretical problem is to fit
+  the different pieces into one coherent structure, especially quantum
+  mechanics with gravity and cosmology with particle physics.  This was a
+  statement of the frontier as it appeared in 2011, not a claim that its
+  solution was already known.}
+\end{classroomqa}
+
+The two constrained examples and the oscillator now fit into one picture.
+Generalized coordinates remove unnecessary forces.  Symmetry selects
+conserved canonical momenta.  The Legendre transform exchanges velocities for
+momenta, and Hamilton's equations turn dynamics into a flow on phase space.
+For the oscillator that flow is a rigid rotation; for a general system its
+geometry will provide the precise continuous meaning of reversible motion.
