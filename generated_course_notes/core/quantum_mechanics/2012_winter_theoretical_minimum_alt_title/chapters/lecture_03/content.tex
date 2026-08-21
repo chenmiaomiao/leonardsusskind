@@ -1,564 +1,674 @@
-\chapter{Linear Operators, Hermitian Matrices, and Spin}
+\chapter{Operators, Observables, and the Pauli Matrices}
 
-This lecture is a deliberate mathematical interlude. Before we return to observables as the things we measure, we slow down and earn the notation that quantum mechanics will require. The point is not to decorate the subject with bra-ket symbols. The point is to acquire a compact language in which vectors, operators, matrix elements, and probabilities can be unfolded step by step without losing the thread of the physics.
+Good notation is not decoration. In a subject built from abstract vectors and complex numbers, a notation that lets us move symbols without repeatedly translating them into words is part of the machinery. Dirac's bra--ket notation is valuable for precisely this reason: it keeps the geometry of the state space visible while allowing us to calculate with components and matrices.
 
-\section{Good Notation, Bases, and Components}
+Our immediate task is mathematical. We shall introduce linear operators, learn how they act on bras as well as kets, and isolate the special class called Hermitian operators. Only then shall we attach the physical words \emph{observable}, \emph{measurement result}, and \emph{probability}. The reward is that the three spin observables emerge as the Pauli matrices rather than being handed to us as objects to memorize.
 
-We begin with the space of states, a complex vector space. Its elements are abstract vectors: we may add them, and we may multiply them by complex numbers. In Dirac's notation these vectors come in two related forms, kets and bras, with the bra obtained from the ket by the usual conjugation-and-transposition operation.
+\section{Orthonormal Bases and Components}
 
-The first order of business is to choose an orthonormal basis. If \(\{|i\rangle\}\) is such a basis, then
+The states form a complex linear vector space. Its ket vectors can be added and multiplied by complex numbers. Associated with every ket \(\ket{A}\) is a bra \(\bra{A}\), obtained by the conjugate-dual operation. A basis is not unique, but once one has been chosen every vector can be described by its components in that basis.
+
+Let
+\[
+\bigl\{\ket{1},\ket{2},\ldots,\ket{N}\bigr\}
+\]
+be an orthonormal basis. Orthogonality and normalization are summarized by
 \begin{equation}
-\langle j|i\rangle=\delta_{ji}.
+\braket{j}{i}=\delta_{ji}.
+\label{eq:orthonormal-basis}
 \end{equation}
-The dimension of the space is the maximum number of mutually orthogonal vectors that can be found in it, and an orthonormal basis contains exactly that many vectors.
+Here \(\delta_{ji}\) is one when \(j=i\) and zero otherwise. The dimension \(N\) is the maximum number of mutually orthogonal directions in the space; a complete orthonormal basis contains exactly that many vectors.
 
-Once the basis has been chosen, any ket may be expanded as
+Expand an arbitrary ket as
 \begin{equation}
-|A\rangle=\sum_i \alpha_i |i\rangle.
+\ket{A}=\sum_i \alpha_i\ket{i}.
+\label{eq:ket-expansion}
 \end{equation}
-At first this is only a formal expansion. The next step is to identify the coefficients \(\alpha_i\). We project onto the basis bra \(\langle j|\):
+The coefficients are not mysterious. Multiply from the left by \(\bra{j}\):
 \begin{align}
-\langle j|A\rangle
-  &= \sum_i \alpha_i \langle j|i\rangle \\
-  &= \sum_i \alpha_i \delta_{ji} \\
-  &= \alpha_j.
+\braket{j}{A}
+ &=\sum_i\alpha_i\braket{j}{i} \\
+ &=\sum_i\alpha_i\delta_{ji}
+ =\alpha_j.
 \end{align}
-So the coefficients are themselves inner products,
+Thus
 \begin{equation}
-\alpha_i=\langle i|A\rangle.
+\alpha_i=\braket{i}{A}.
+\label{eq:components-inner-products}
 \end{equation}
-Substituting this back into the expansion gives the useful identity
-\begin{equation}
-|A\rangle=\sum_i |i\rangle\langle i|A\rangle.
-\end{equation}
-This is one of the lecture's central notational payoffs. It says that a vector can always be reconstructed from its components along a complete set of basis directions.
+The \(i\)-th component is the projection of \(\ket{A}\) onto the \(i\)-th basis direction.
 
-The same statement holds for bra vectors. If \(\langle A|\) is the bra corresponding to \(|A\rangle\), then
+Substitution of Equation~\eqref{eq:components-inner-products} back into Equation~\eqref{eq:ket-expansion} gives the especially useful form
 \begin{equation}
-\langle A|=\sum_i \langle A|i\rangle \langle i|.
+\ket{A}=\sum_i\ket{i}\braket{i}{A}.
+\label{eq:ket-completeness-action}
 \end{equation}
-In the lecture this move is later named: we are inserting a complete set of states. For now we simply notice that it is the mechanism that will let us pass from abstract operator equations to concrete formulas for matrix elements.
-
-\section{Linear Operators and the Passage to Matrices}
-
-We now turn to operators. The physical interpretation is postponed. At this stage we are still building the mathematical machinery.
-
-A linear operator \(M\) is a rule that takes an input ket to an output ket. Wheeler's metaphor is a good one: it is a machine. One inserts a vector into one port, turns the wheel, and another vector comes out. The word \emph{linear} means exactly the following two rules:
-\begin{align}
-M\bigl(z|A\rangle\bigr) &= z\,M|A\rangle, \\
-M\bigl(|A\rangle+|B\rangle\bigr) &= M|A\rangle+M|B\rangle.
-\end{align}
-That is all. A complex number comes through unchanged, and the machine acts on sums term by term.
-
-Now comes the second major step of the lecture: we make the machine concrete. Suppose that
+The sum has done nothing to the vector; it has only resolved the vector into its basis directions and then rebuilt it. We shall use this operation repeatedly. It is usually described as \emph{inserting a complete set of states}, because
 \begin{equation}
-M|A\rangle=|B\rangle.
-\end{equation}
-We want the components of the output vector. So we project onto the \(i\)-th basis bra:
-\begin{equation}
-\langle i|M|A\rangle=\langle i|B\rangle=\beta_i.
-\end{equation}
-The quantity \(\beta_i\) is the \(i\)-th component of the output vector \(|B\rangle\).
-
-At this point we use the expansion formula for \(|A\rangle\):
-\begin{equation}
-|A\rangle=\sum_j |j\rangle\langle j|A\rangle=\sum_j \alpha_j |j\rangle.
-\end{equation}
-Substituting this into the projected equation gives
-\begin{align}
-\langle i|M|A\rangle
-  &= \sum_j \langle i|M|j\rangle \langle j|A\rangle \\
-  &= \sum_j \langle i|M|j\rangle \alpha_j \\
-  &= \beta_i.
-\end{align}
-The blackboard at this point is slightly noisy, but the intended reading is clear, and the two preserved frames support exactly this chain of reasoning. We now define the matrix elements of the operator \(M\) by
-\begin{equation}
-m_{ij}=\langle i|M|j\rangle.
-\end{equation}
-Then the operator equation becomes the component equation
-\begin{equation}
-\sum_j m_{ij}\alpha_j=\beta_i.
+\sum_i\ket{i}\bra{i}=\mathbf 1.
+\label{eq:resolution-identity}
 \end{equation}
 
-\begin{figure}[h]
+The corresponding bra expansion is
+\begin{equation}
+\bra{A}=\sum_i\braket{A}{i}\bra{i}
+       =\sum_i\alpha_i^*\bra{i}.
+\label{eq:bra-expansion}
+\end{equation}
+The complex conjugate on \(\alpha_i\) is essential. Reversing a ket into a bra conjugates every numerical coefficient.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_03_figure_02.png}
-\caption{Operator action rewritten in component form.}
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_04.png}
+\caption{The two defining rules of a linear operator, written after the basis review.}
+\lectureframe{00:12:44}
 \end{figure}
 
-It is helpful to collect the blackboard sequence in one place:
-\begin{align}
-M|A\rangle &= |B\rangle, \\
-\langle i|M|A\rangle &= \langle i|B\rangle=\beta_i, \\
-\sum_j \langle i|M|j\rangle \alpha_j &= \beta_i, \\
-\sum_j m_{ij}\alpha_j &= \beta_i.
-\end{align}
-The middle line is a cleaned standard reconstruction of what is written on the board: the visual evidence is strong, but the handwriting is not crisp enough to justify reproducing every symbol exactly as it appears.
+\section{Linear Operators as Machines}
 
-Once we write the result this way, the familiar matrix rule emerges immediately:
+A linear operator \(M\) is a rule that takes an input ket to a unique output ket. A useful picture, due to John Wheeler, is a machine with an input port and an output port: insert \(\ket{A}\), turn the wheel, and receive \(M\ket{A}\). The output is fixed by the input. The reverse need not be unique; two inputs may produce the same output, and an inverse machine need not exist.
+
+The adjective \emph{linear} consists of two rules. For a complex number \(z\),
+\begin{align}
+M\bigl(z\ket{A}\bigr)&=z\,M\ket{A}, \label{eq:operator-homogeneous}\\
+M\bigl(\ket{A}+\ket{B}\bigr)&=M\ket{A}+M\ket{B}.
+\label{eq:operator-additive}
+\end{align}
+A scalar passes through the machine unchanged, and a sum may be processed one term at a time. These rules also imply linearity for any finite complex linear combination.
+
+The same idea applies to ordinary three-dimensional vectors. Quantum mechanics does not invent linear maps. It makes them indispensable because the state space is abstract and complex, and because measurable quantities will be represented by a distinguished family of such maps.
+
+\section{From an Operator to Its Matrix}
+
+Suppose the machine sends \(\ket{A}\) to \(\ket{B}\):
+\begin{equation}
+M\ket{A}=\ket{B}.
+\label{eq:operator-action}
+\end{equation}
+Choose the same orthonormal basis for input and output and write
+\[
+\ket{A}=\sum_j\alpha_j\ket{j},
+\qquad
+\ket{B}=\sum_i\beta_i\ket{i}.
+\]
+To find the \(i\)-th output component, project Equation~\eqref{eq:operator-action} with \(\bra{i}\):
+\begin{equation}
+\bra{i}M\ket{A}=\braket{i}{B}=\beta_i.
+\end{equation}
+Now insert the expansion of \(\ket{A}\):
+\begin{align}
+\bra{i}M\ket{A}
+ &=\sum_j\bra{i}M\ket{j}\braket{j}{A}\\
+ &=\sum_j\bra{i}M\ket{j}\alpha_j
+ =\beta_i.
+\end{align}
+The numbers
+\begin{equation}
+m_{ij}\equiv\bra{i}M\ket{j}
+\label{eq:matrix-elements}
+\end{equation}
+are the \emph{matrix elements} of \(M\) in the chosen basis. Consequently,
+\begin{equation}
+\boxed{\sum_jm_{ij}\alpha_j=\beta_i.}
+\label{eq:component-action}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_03_figure_02.png}
+\caption{The abstract equation \(M\ket{A}=\ket{B}\), projected and resolved into the component rule \(\sum_jm_{ij}\alpha_j=\beta_i\).}
+\lectureframe{00:18:30}
+\end{figure}
+
+If the space has dimension \(N\), the \(N^2\) numbers \(m_{ij}\) form an \(N\times N\) square matrix. Equation~\eqref{eq:component-action} is precisely
 \begin{equation}
 \begin{pmatrix}
-m_{11} & m_{12} & m_{13} & \cdots \\
-m_{21} & m_{22} & m_{23} & \cdots \\
-\vdots & \vdots & \vdots & \ddots \\
-m_{N1} & m_{N2} & m_{N3} & \cdots
+m_{11}&m_{12}&\cdots&m_{1N}\\
+m_{21}&m_{22}&\cdots&m_{2N}\\
+\vdots&\vdots&\ddots&\vdots\\
+m_{N1}&m_{N2}&\cdots&m_{NN}
 \end{pmatrix}
 \begin{pmatrix}
-\alpha_1 \\
-\alpha_2 \\
-\vdots \\
+\alpha_1\\
+\alpha_2\\
+\vdots\\
 \alpha_N
 \end{pmatrix}
 =
 \begin{pmatrix}
-\beta_1 \\
-\beta_2 \\
-\vdots \\
+\beta_1\\
+\beta_2\\
+\vdots\\
 \beta_N
 \end{pmatrix}.
+\label{eq:matrix-vector-action}
 \end{equation}
-So the same action of the operator has three equivalent descriptions: an abstract operator equation, a component formula, and ordinary matrix multiplication.
+To obtain \(\beta_1\), multiply the first row by the input column and add; repeat with the second row for \(\beta_2\), and so on. The matrix is the concrete version of Wheeler's machine.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_03_figure_03.png}
-\caption{Matrix multiplying the coefficient column.}
+\includegraphics[width=0.84\textwidth]{lecture_03_figure_03.png}
+\caption{The same operator action displayed as a square matrix multiplying the input coefficient column.}
+\lectureframe{00:20:01}
 \end{figure}
 
-This is the gain of the matrix description. We lose the basis-independent geometric relation between input and output, but we gain an explicit computational algorithm. In Susskind's language, the matrix itself becomes the machine.
+We have gained an algorithm and lost some visible geometry. The abstract statement \(M\ket{A}=\ket{B}\) does not depend on coordinates. The particular entries \(m_{ij}\), \(\alpha_j\), and \(\beta_i\) do depend on the chosen basis. A different orthonormal basis changes all three arrays while leaving the underlying map and its physical predictions unchanged.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Can the choice of basis determine whether a problem can be solved?}
+\lecturerresponse{It can determine whether the solution is easy to see. A well-chosen basis may make an operator diagonal and the calculation almost immediate; a poor basis may hide the structure under unpleasant algebra. It cannot change the result of an experiment. If two bases lead to different physical answers, the calculation is wrong.}
+\end{classroomqa}
 
-Does the choice of basis affect the physics, or only the calculation?
+\section{Bras, Kets, and Anti-Linearity}
 
-It can certainly affect the ease of calculation. A convenient basis can make the computation almost trivial; an inconvenient basis can leave us badly confused. But it must not change the physical answer. The matrix entries depend on the chosen basis, and the column of components depends on the chosen basis, but the result of the experiment does not. If two different bases produced two different physical predictions, we would not have discovered a subtle feature of quantum mechanics. We would have made a mistake.
+\begin{classroomqa}
+\audiencequestion{May a linear operator turn a ket into a bra, or a bra into a ket?}
+\lecturerresponse{Not an ordinary linear operator of the kind just defined. It maps kets to kets, with complex scalars passing through unchanged. The operation that exchanges kets and bras also complex conjugates their coefficients, so it belongs to a different class.}
+\end{classroomqa}
 
-\section{Bras, Anti-Linearity, and the Dagger Operation}
+Multiplication by a fixed complex number is a simple linear operator. Complex conjugation is not. If \(K\) denotes conjugation, then
+\[
+K\bigl(z\ket{A}\bigr)=z^*K\ket{A},
+\]
+not \(zK\ket{A}\). Such a map is called \emph{anti-linear}. The name does not mean the opposite of linear; it records the conjugation of scalars. Its deeper relation to antiparticles lies beyond the present discussion.
 
-Having learned to let operators act on kets, we must now ask what it means for them to act on bras. This is the lecture's next local obstacle, and it is a real one. Expressions such as
+Linear operators can nevertheless be made to act on bras. By convention the operator is written on the right:
 \begin{equation}
-\langle A|M|B\rangle
+\bra{A}M.
 \end{equation}
-appear everywhere, and one wants the notation to be arranged so that it does not matter where one mentally places the brackets.
-
-The first rule is purely notational, but in this subject notation is already half the mathematics: when an operator acts on a bra, it sits on the right,
+The definition is chosen so that a matrix element has no bracket ambiguity:
 \begin{equation}
-\langle A|M.
-\end{equation}
-We would like the expression \(\langle A|M|B\rangle\) to be readable either as \(\langle A|(M|B\rangle)\) or as \((\langle A|M)|B\rangle\), with the same answer either way.
-
-To see how this works, we expand both bra and ket in the chosen basis:
-\begin{equation}
-|A\rangle=\sum_i \alpha_i |i\rangle,
-\qquad
-|B\rangle=\sum_j \beta_j |j\rangle,
-\qquad
-\langle A|=\sum_i \alpha_i^* \langle i|.
-\end{equation}
-Then the matrix element becomes
-\begin{equation}
-\langle A|M|B\rangle
+\bra{A}\bigl(M\ket{B}\bigr)
 =
-\sum_{ij}\alpha_i^*\,m_{ij}\,\beta_j.
+\bigl(\bra{A}M\bigr)\ket{B}
+\equiv
+\bra{A}M\ket{B}.
+\label{eq:bracket-independence}
 \end{equation}
-This is just a double sum. One may sum over \(j\) first and think of \(M\) as acting on the ket \(|B\rangle\), or sum over \(i\) first and think of the corresponding action on the bra \(\langle A|\). That is exactly why the notation is chosen as it is.
 
-The lecture now raises a sharper question. Suppose
-\begin{equation}
-M|A\rangle=|B\rangle.
-\end{equation}
-Is there a corresponding bra-side relation? Yes. But the operator that acts on bras is not, in general, the same operator. If \(M\) were just multiplication by a complex number \(z\), then on bras the corresponding action would be multiplication by \(z^*\), not by \(z\). This is the first sign that a new symbol is needed.
+To see why this is possible, expand both vectors:
+\begin{align}
+\bra{A}M\ket{B}
+ &=\left(\sum_i\alpha_i^*\bra{i}\right)
+   M
+   \left(\sum_j\beta_j\ket{j}\right)\\
+ &=\sum_{ij}\alpha_i^*m_{ij}\beta_j.
+\label{eq:matrix-element-double-sum}
+\end{align}
+This is an ordinary double sum. We may sum over \(j\) first and regard \(M\) as acting on the ket, or sum over \(i\) first and regard it as acting on the bra. The answer is the same. The notation was arranged this way precisely so that unnecessary brackets can be removed.
 
-That symbol is \(M^\dagger\). It is defined so that the bra-side relation corresponding to \(M|A\rangle=|B\rangle\) is
-\begin{equation}
-\langle A|M^\dagger=\langle B|.
-\end{equation}
-The dagger is the operator version of complex conjugation. At the matrix level it becomes conjugation together with interchange of rows and columns.
+\section{The Dagger Operation}
 
-Let us derive the rule. Suppose
+There is a second and different bra-side question. Suppose
+\[
+M\ket{A}=\ket{B}.
+\]
+What operator turns the corresponding bra \(\bra{A}\) into \(\bra{B}\)? It is not generally \(M\) itself. If \(M\) were multiplication by a complex number \(z\), the ket equation would be \(\ket{B}=z\ket{A}\), while the bra equation would be \(\bra{B}=z^*\bra{A}\).
+
+The required operator is denoted \(M^\dagger\), the \emph{Hermitian conjugate} of \(M\), and is defined by
 \begin{equation}
-M|i\rangle=|i'\rangle.
+M\ket{A}=\ket{B}
+\quad\Longleftrightarrow\quad
+\bra{A}M^\dagger=\bra{B}.
+\label{eq:dagger-definition}
 \end{equation}
-Then the matrix element of \(M\) is
+The dagger is the operator analogue of complex conjugation.
+
+Its matrix rule follows directly. Let
+\[
+M\ket{i}=\ket{i'}.
+\]
+Then
+\[
+m_{ji}=\bra{j}M\ket{i}=\braket{j}{i'}.
+\]
+The daggered bra relation is \(\bra{i}M^\dagger=\bra{i'}\), so
+\[
+(m^\dagger)_{ij}
+=\bra{i}M^\dagger\ket{j}
+=\braket{i'}{j}.
+\]
+Reversing an inner product complex conjugates it:
+\[
+\braket{i'}{j}=\braket{j}{i'}^*.
+\]
+Therefore
 \begin{equation}
-m_{ji}=\langle j|M|i\rangle=\langle j|i'\rangle.
+\boxed{(m^\dagger)_{ij}=m_{ji}^*.}
+\label{eq:dagger-matrix-elements}
 \end{equation}
-On the bra side, by definition,
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_03_figure_05.png}
+\caption{The completed board relation for Hermitian conjugation: interchange the indices and complex conjugate.}
+\lectureframe{00:42:23}
+\end{figure}
+
+In matrix language we transpose and then complex conjugate:
 \begin{equation}
-\langle i|M^\dagger=\langle i'|.
-\end{equation}
-Therefore the matrix elements of the daggered operator satisfy
-\begin{equation}
-(m^\dagger)_{ij}=\langle i|M^\dagger|j\rangle=\langle i'|j\rangle.
-\end{equation}
-But reversing the order of bra and ket gives complex conjugation, and so
-\begin{equation}
-(m^\dagger)_{ij}=(m_{ji})^*.
-\end{equation}
-This is the concrete rule: take the transpose and then complex conjugate. In matrix form,
-\begin{equation}
-m=
 \begin{pmatrix}
-a & b \\
-c & d
-\end{pmatrix}
-\qquad \Longrightarrow \qquad
-m^\dagger=
+a&b\\
+c&d
+\end{pmatrix}^{\!\dagger}
+=
 \begin{pmatrix}
-a^* & c^* \\
-b^* & d^*
+a^*&c^*\\
+b^*&d^*
 \end{pmatrix}.
+\label{eq:dagger-two-by-two}
 \end{equation}
-The lecture gives a numerical example at this stage, but the transcription is damaged. The symbolic rule is entirely clear and is the safer object to preserve.
+Transposition reflects the entries across the main diagonal; conjugation replaces every \(i\) by \(-i\). For example,
+\begin{equation}
+\begin{pmatrix}
+2&6+7i\\
+4-i&9+i
+\end{pmatrix}^{\!\dagger}
+=
+\begin{pmatrix}
+2&4+i\\
+6-7i&9-i
+\end{pmatrix}.
+\label{eq:dagger-numerical-example}
+\end{equation}
+The diagonal entries remain in their positions but are conjugated, while the two off-diagonal entries exchange positions and are conjugated.
 
-\subsection{Question \& Answer}
+\section{Hermitian Operators}
 
-Is complex conjugation a linear operator?
-
-No. A linear operator acts on ket vectors and keeps them as ket vectors, while letting complex numbers pass through in the usual way. Complex conjugation does not do this. It conjugates the coefficients, and in doing so it takes a ket to a bra or a bra to a ket. Susskind calls it anti-linear, then immediately jokes about the terminology. The essential content is simpler: complex conjugation is a different kind of machine.
-
-\section{Hermitian Operators and the Basic Theorems}
-
-We are now ready for the class of operators that quantum mechanics singles out.
+A complex number is real precisely when it equals its own complex conjugate. The operator analogue is immediate.
 
 \begin{definition}
-An operator \(M\) is Hermitian if
+An operator \(M\) is \emph{Hermitian} when
 \begin{equation}
 M=M^\dagger.
+\label{eq:hermitian-definition}
 \end{equation}
-In terms of matrix elements in any orthonormal basis, this means
+Equivalently, in every orthonormal basis,
 \begin{equation}
 m_{ij}=m_{ji}^*.
+\label{eq:hermitian-components}
 \end{equation}
 \end{definition}
 
-This is the operator analogue of a real number. A real number is equal to its complex conjugate. A Hermitian operator is equal to its Hermitian conjugate.
-
-The first immediate consequence is that the diagonal elements are real. Indeed, when \(i=j\),
-\begin{equation}
+Set \(i=j\) in Equation~\eqref{eq:hermitian-components}. Then
+\[
 m_{ii}=m_{ii}^*,
-\end{equation}
-and that is exactly the statement that \(m_{ii}\) is real. The transcript briefly stumbles at this point, but the lecture's intended meaning is unmistakable: the diagonal entries of a Hermitian matrix are real, while the off-diagonal ones are related by reflection and complex conjugation.
+\]
+so every diagonal entry is real. Away from the diagonal the entries occur in conjugate-reflected pairs. If one entry is \(4-i\), its reflected partner is \(4+i\); if one is the real number \(5\), so is its partner.
 
-Now we introduce eigenvectors and eigenvalues. In general, when an operator acts on a vector, the vector changes direction. But special directions may exist for which the operator sends the vector back into itself up to a scalar factor. These are the eigenvectors:
-\begin{equation}
-M|i\rangle=\lambda_i |i\rangle.
-\end{equation}
-The scalar \(\lambda_i\) is the corresponding eigenvalue. The eigenvector is not unique as a vector of definite length. If \(z\neq 0\), then
-\begin{equation}
-M(z|i\rangle)=z\,M|i\rangle=z\,\lambda_i |i\rangle=\lambda_i(z|i\rangle),
-\end{equation}
-so any nonzero complex multiple of an eigenvector is again an eigenvector with the same eigenvalue. One should really think in terms of eigendirections.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_03_figure_06.png}
+\caption{A completed Hermitian-matrix example: real entries on the diagonal and complex-conjugate pairs reflected across it.}
+\lectureframe{00:45:43}
+\end{figure}
 
-For Hermitian operators there is a powerful theorem: their eigenvectors form a complete orthonormal basis. In the lecture Susskind proves the reality of eigenvalues and the orthogonality of eigenvectors with different eigenvalues, and then takes the full completeness statement as the larger structural fact on which quantum mechanics rests. We follow the same order.
+Hermitian operators matter because they will represent measurable quantities. Before making that identification, we need to understand their eigendirections.
 
-\begin{proposition}
-If \(M\) is Hermitian and
-\begin{equation}
-M|i\rangle=\lambda_i |i\rangle,
-\end{equation}
-then \(\lambda_i\) is real.
-\end{proposition}
+\section{Eigenvectors and Eigendirections}
 
-\begin{proof}
-Start from the eigenvalue equation
+A first encounter with eigenvectors can make this part feel faster than the physics around it. The ideas are standard linear algebra rather than a new physical hypothesis; if they are unfamiliar, it is worth reviewing the definitions quietly and then returning to the argument.
+
+A general operator changes the direction of a vector. A rotation in ordinary three-dimensional space, for example, turns almost every vector away from itself. The rotation axis is exceptional: a vector along that axis returns in the same direction. This is the model for an eigenvector.
+
+A nontrivial rotation of a real two-dimensional plane illustrates the opposite possibility: there is no real direction left fixed up to a real scale. Thus a generic operator on a restricted real space need not have a real eigenvector. The Hermitian operators on the complex state spaces used in quantum mechanics have much stronger properties.
+
+An eigenvector of \(M\) satisfies
 \begin{equation}
-M|i\rangle=\lambda_i |i\rangle.
+M\ket{i}=\lambda_i\ket{i}.
+\label{eq:eigenvalue-equation}
 \end{equation}
-Flip it into a bra equation. The ket becomes a bra, the operator becomes its dagger, and the scalar is complex conjugated:
+The number \(\lambda_i\) is its eigenvalue. The eigenvector belongs to the operator; one does not speak of an eigenvector without specifying the map whose direction it preserves.
+
+Its length and phase are not fixed by Equation~\eqref{eq:eigenvalue-equation}. For every nonzero complex number \(z\),
+\[
+M\bigl(z\ket{i}\bigr)
+=zM\ket{i}
+=\lambda_i\bigl(z\ket{i}\bigr).
+\]
+It is therefore more accurate to speak of an \emph{eigendirection}: every nonzero multiple of \(\ket{i}\) describes the same direction and carries the same eigenvalue. We usually choose a normalized representative.
+
+The central spectral fact is this: a Hermitian operator on an \(N\)-dimensional complex vector space has a complete orthonormal basis of \(N\) eigenvectors. Two parts of that statement can be seen with very little algebra.
+
+\subsection{Hermitian Eigenvalues Are Real}
+
+Assume \(M=M^\dagger\) and
+\[
+M\ket{i}=\lambda_i\ket{i}.
+\]
+Take the Hermitian conjugate of the whole equation:
 \begin{equation}
-\langle i|M^\dagger=\lambda_i^*\langle i|.
+\bra{i}M^\dagger=\lambda_i^*\bra{i}.
+\label{eq:eigen-bra-equation}
 \end{equation}
-Since \(M\) is Hermitian, \(M^\dagger=M\). Now multiply the original equation on the left by \(\langle i|\), and the bra equation on the right by \(|i\rangle\). This gives
-\begin{equation}
-\langle i|M|i\rangle=\lambda_i \langle i|i\rangle
-\end{equation}
-and also
-\begin{equation}
-\langle i|M|i\rangle=\lambda_i^* \langle i|i\rangle.
-\end{equation}
-Because \(\langle i|i\rangle\neq 0\), the two right-hand sides must be equal, and hence
+Since \(M^\dagger=M\), multiply the ket equation by \(\bra{i}\) and the bra equation by \(\ket{i}\):
+\begin{align}
+\bra{i}M\ket{i}&=\lambda_i\braket{i}{i},\\
+\bra{i}M\ket{i}&=\lambda_i^*\braket{i}{i}.
+\end{align}
+The same nonzero norm multiplies both numbers, so
 \begin{equation}
 \lambda_i=\lambda_i^*.
 \end{equation}
-So the eigenvalue is real.
-\end{proof}
+Every eigenvalue of a Hermitian operator is real. This is the first hint that such an operator can represent the real number displayed by a measuring apparatus.
 
-\begin{proposition}
-If \(M\) is Hermitian and
-\begin{equation}
-M|i\rangle=\lambda_i |i\rangle,
+\subsection{Different Eigenvalues Give Orthogonal Eigenvectors}
+
+Let
+\[
+M\ket{i}=\lambda_i\ket{i},
 \qquad
-M|j\rangle=\lambda_j |j\rangle,
-\end{equation}
-with \(\lambda_i\neq\lambda_j\), then the two eigenvectors are orthogonal.
-\end{proposition}
-
-\begin{proof}
-Flip the second equation into bra form:
+M\ket{j}=\lambda_j\ket{j},
+\]
+where \(M\) is Hermitian. Dagger the second equation. Its eigenvalue is already known to be real:
+\[
+\bra{j}M=\lambda_j\bra{j}.
+\]
+Now multiply the first equation by \(\bra{j}\) and the bra equation by \(\ket{i}\):
+\begin{align}
+\bra{j}M\ket{i}&=\lambda_i\braket{j}{i},\\
+\bra{j}M\ket{i}&=\lambda_j\braket{j}{i}.
+\end{align}
+Subtracting gives
 \begin{equation}
-\langle j|M^\dagger=\lambda_j^*\langle j|.
+\boxed{(\lambda_i-\lambda_j)\braket{j}{i}=0.}
+\label{eq:hermitian-orthogonality}
 \end{equation}
-Since \(M\) is Hermitian and its eigenvalues are real, this becomes
-\begin{equation}
-\langle j|M=\lambda_j \langle j|.
-\end{equation}
-Now multiply the first equation on the left by \(\langle j|\):
-\begin{equation}
-\langle j|M|i\rangle=\lambda_i \langle j|i\rangle.
-\end{equation}
-Multiply the bra equation on the right by \(|i\rangle\):
-\begin{equation}
-\langle j|M|i\rangle=\lambda_j \langle j|i\rangle.
-\end{equation}
-The left-hand sides are identical, so
-\begin{equation}
-(\lambda_i-\lambda_j)\langle j|i\rangle=0.
-\end{equation}
-If \(\lambda_i\neq\lambda_j\), then necessarily
-\begin{equation}
-\langle j|i\rangle=0.
-\end{equation}
-Thus the eigenvectors are orthogonal.
-\end{proof}
+If \(\lambda_i\ne\lambda_j\), then
+\[
+\braket{j}{i}=0.
+\]
+The eigendirections are orthogonal.
 
-This orthogonality is not only algebraic. In the lecture Susskind pauses to give it a physical reading: states corresponding to different eigenvalues are physically distinguishable. Orthogonality is the mathematical expression of that sharp distinguishability.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_07.png}
+\caption{The decisive line in the orthogonality proof: unequal eigenvalues force the inner product to vanish.}
+\lectureframe{00:59:00}
+\end{figure}
 
-The larger structural claim now comes into view: Hermitian operators do not merely have some eigenvectors. They have enough of them to form a basis. That is the mathematical backbone of the formalism we are about to interpret physically.
+When two eigenvalues happen to be equal, Equation~\eqref{eq:hermitian-orthogonality} imposes no condition within that degenerate eigenspace. One may choose an orthonormal basis there. Together with the remaining eigendirections, those vectors form the complete orthonormal eigenbasis promised by the spectral theorem.
 
-\section{From the Mathematics to Quantum Mechanics}
+Orthogonality also has a physical reading. Two orthogonal states can be distinguished without ambiguity by a suitable measurement. Eigenstates with different eigenvalues must be distinguishable because the apparatus reports different real numbers for them. The algebra and the operational meaning are already pointing to the same correspondence.
 
-At this point the lecture pivots very explicitly: we are now prepared to state the principles of quantum mechanics. Susskind even warns us not to expect the physical meaning to feel natural at first hearing. The formalism comes first; the examples will make it intelligible only afterward.
+\section{The Measurement Postulates}
 
-The basic correspondences are these:
+We now have enough formalism to state the basic quantum-mechanical correspondences. They may sound foreign when first encountered. Their meaning becomes concrete only after they are used, so let us state them cleanly and then return at once to the spin experiment.
+
+A single measurement produces a real number. One may package two compatible real readings into a complex number, but that package still contains two measurements. The elementary output of one detector is real. Hermitian operators are therefore the natural candidates: their eigenvalues are real, and their eigenvectors form a complete orthonormal basis.
+
 \begin{enumerate}
-\item Observables are represented by Hermitian operators.
-\item The possible values obtained in a measurement are the eigenvalues of the corresponding Hermitian operator.
-\item The states in which that observable has a definite, unambiguous value are the corresponding eigenvectors.
-\item If the system is in a general state \(|A\rangle\), the probability of obtaining the eigenvalue \(\lambda_i\) is
+\item A measurable quantity, or \emph{observable}, is represented by a Hermitian operator \(M\).
+\item The possible results of measuring \(M\) are its eigenvalues \(\lambda_i\).
+\item A state in which \(M\) has the definite value \(\lambda_i\) is an eigenstate \(\ket{i}\) satisfying
+\[
+M\ket{i}=\lambda_i\ket{i}.
+\]
+\item If the system is in a general normalized state \(\ket{A}\), then the probability of obtaining \(\lambda_i\) is
 \begin{equation}
-P(\lambda_i\,|\,|A\rangle)=|\langle i|A\rangle|^2.
+P(\lambda_i\mid A)
+=\left|\braket{i}{A}\right|^2
+=\braket{i}{A}\braket{A}{i}.
+\label{eq:born-rule}
 \end{equation}
 \end{enumerate}
 
-The fourth statement is the point at which amplitudes enter. The quantity \(\langle i|A\rangle\) is, in general, a complex number. It is not a probability. It is a probability amplitude. One multiplies it by its complex conjugate to obtain a real positive probability.
+This list is a convenient starting point, not necessarily a minimal independent axiom system; with a more economical formulation, some statements can be derived from others. Keeping the correspondences separate makes their physical roles easier to see.
 
-Once the probabilities are introduced, normalization follows at once. If the possible outcomes form a complete set, then total probability must be one:
+The complex number \(\braket{i}{A}\) is a \emph{probability amplitude}, not a probability. Multiplication by its complex conjugate produces a real, nonnegative number. For a spin component, the spectrum has only two values, \(+1\) and \(-1\); a more general observable may have many eigenvalues.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_08.png}
+\caption{The board connects definite-result states with eigenvectors and the probability of \(\lambda_i\) with the squared projection onto \(\ket{i}\).}
+\lectureframe{01:11:29}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What exactly is written next to \(P\) in the probability rule?}
+\lecturerresponse{It is \(\lambda_i\): \(P(\lambda_i\mid A)\) means the probability that a measurement of \(M\), when the system is prepared in \(\ket{A}\), returns the particular eigenvalue \(\lambda_i\). The right-hand side is the squared magnitude of the projection onto that eigenvector.}
+\end{classroomqa}
+
+\subsection{Normalization and Completeness}
+
+The probabilities of all mutually exclusive outcomes must add to one:
 \begin{equation}
-\sum_i |\langle i|A\rangle|^2=1.
+\sum_i\left|\braket{i}{A}\right|^2=1.
+\label{eq:probability-normalization}
 \end{equation}
-Using the completeness relation,
-\begin{equation}
-\sum_i |i\rangle\langle i|=1,
-\end{equation}
-this becomes
-\begin{equation}
-\langle A|A\rangle=1.
-\end{equation}
-If \(|A\rangle=\sum_i \alpha_i |i\rangle\), then equivalently
-\begin{equation}
-\sum_i \alpha_i^*\alpha_i=1.
-\end{equation}
-
-There is also a redundancy in the description of a state. If we multiply the entire state by an overall phase,
-\begin{equation}
-|A\rangle \mapsto e^{i\theta}|A\rangle,
-\end{equation}
-then every amplitude changes by the same phase factor, but every probability remains unchanged. Physical predictions do not respond to the overall phase.
-
-Finally, the lecture appends in words a further postulate about measurement. Susskind does not write it on the board because, as he says, it takes too many words. But it matters: if a measurement yields a particular eigenvalue, then after the measurement the system is left in the corresponding eigenstate. The apparatus not only reports a value; it prepares the system in a state of definite value for the observable that was just measured.
-
-\section{Spin-\(\frac{1}{2}\) as the First Test Case}
-
-We now return to the spin system. The lecture has deliberately arranged things so that the formalism does not remain suspended in abstraction. We built the machinery in order to bring it back to something concrete.
-
-The observables are the components of spin:
-\(\sigma_z\), \(\sigma_x\), and \(\sigma_y\).
-
-\subsection{\(\sigma_z\) in the up/down basis}
-
-We begin with the \(z\)-axis, and we choose the basis adapted to that measurement, namely \(|u\rangle\) and \(|d\rangle\). The experiments discussed earlier tell us that the only possible results are \(+1\) and \(-1\). Therefore
-\begin{equation}
-\sigma_z|u\rangle=+|u\rangle,
-\qquad
-\sigma_z|d\rangle=-|d\rangle.
-\end{equation}
-These are already eigenvalue equations. Since \(\sigma_z\) is an observable, it is represented by a Hermitian operator, and therefore \(|u\rangle\) and \(|d\rangle\) must be orthogonal.
-
-Now compute its matrix elements in this basis:
+Insert the complete eigenbasis:
 \begin{align}
-\langle u|\sigma_z|u\rangle &= 1, \\
-\langle u|\sigma_z|d\rangle &= 0, \\
-\langle d|\sigma_z|u\rangle &= 0, \\
-\langle d|\sigma_z|d\rangle &= -1.
+\sum_i\left|\braket{i}{A}\right|^2
+ &=\sum_i\braket{A}{i}\braket{i}{A}\\
+ &=\bra{A}\left(\sum_i\ket{i}\bra{i}\right)\ket{A}\\
+ &=\braket{A}{A}.
 \end{align}
-Thus
+Hence an allowable state vector is normalized,
 \begin{equation}
-\sigma_z=
-\begin{pmatrix}
-1 & 0 \\
-0 & -1
-\end{pmatrix}.
+\braket{A}{A}=1.
+\label{eq:state-normalization}
 \end{equation}
-In the chosen basis, the column vector for \(|u\rangle\) is \(\begin{pmatrix}1\\0\end{pmatrix}\), and the matrix sends it back to itself, exactly as the eigenvalue equation requires.
-
-\subsection{\(\sigma_x\) in the same basis}
-
-The lecture now turns to \(\sigma_x\), but in a very specific way. If we used the left/right basis, \(\sigma_x\) would already be diagonal. That would be easy, but it would miss the point. We keep the up/down basis and ask what the same observable looks like there.
-
-The eigenvectors of \(\sigma_x\) are the right and left states:
+If \(\ket{A}=\sum_i\alpha_i\ket{i}\), the same condition is
 \begin{equation}
-\sigma_x|r\rangle=+|r\rangle,
+\sum_i\alpha_i^*\alpha_i=1.
+\label{eq:component-normalization}
+\end{equation}
+This is one real constraint on the complex components.
+
+\begin{classroomqa}
+\audiencequestion{Must every probability be positive?}
+\lecturerresponse{Yes. Each probability is a number times its own complex conjugate, so it is nonnegative. Normalization then makes the sum of all such numbers equal to one.}
+\end{classroomqa}
+
+There is another redundancy. Multiplying every component by the same phase,
+\begin{equation}
+\ket{A}\longmapsto e^{i\theta}\ket{A},
+\label{eq:global-phase}
+\end{equation}
+multiplies every amplitude by \(e^{i\theta}\) and leaves every squared magnitude unchanged. No measurement can detect that common phase. Relative phases between components remain physical; only a phase multiplying the whole state is redundant.
+
+Thus two real parameters in an arbitrary complex vector do not specify the physical state: its magnitude is fixed by normalization, and its overall phase is unobservable. This is the same parameter count encountered for a single spin, now derived from the general probability rule.
+
+\subsection{Measurement Also Prepares}
+
+One further postulate is easier to say than to compress into a short blackboard line. If a measurement returns \(\lambda_i\), then immediately afterward the system is in the corresponding eigenstate \(\ket{i}\). The apparatus both records a result and prepares a state in which a repetition of the same measurement has that definite result.
+
+\begin{classroomqa}
+\audiencequestion{Could that measurement-preparation statement be said once more?}
+\lecturerresponse{Before the measurement, several eigenvalues may occur with the probabilities in Equation~\eqref{eq:born-rule}. Once the apparatus actually reports \(\lambda_i\), the system is left in the eigenstate belonging to \(\lambda_i\). A second immediate measurement of the same observable therefore returns the same value.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Do these principles already tell us how the state evolves with time?}
+\lecturerresponse{Not yet. We have specified what a state is, how observables are represented, and what a measurement does. The law governing change with time is additional structure and will be introduced later. This is analogous to first defining classical phase space before writing equations of motion.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Earlier the average spin along a tilted axis involved \(\cos\theta\). Should the new squared-amplitude rule make that \(\cos^2\theta\)?}
+\lecturerresponse{The probability and the average are different quantities. The average combines the probabilities of the \(+1\) and \(-1\) outcomes with their signs. Once the arbitrary-direction spinor is constructed, the squared amplitudes reproduce the earlier cosine average. That calculation is the next application, not something to guess by changing the old formula.}
+\end{classroomqa}
+
+\section{Spin as the First Application}
+
+The three measurable spin components are represented by Hermitian operators
+\[
+\sigma_x,\qquad \sigma_y,\qquad \sigma_z.
+\]
+The analyzer experiments already supplied their possible values and their definite-value states:
+\[
+\begin{array}{c|c|c}
+\text{observable}&\text{eigenvalue }+1&\text{eigenvalue }-1\\ \hline
+\sigma_z&\ket{u}&\ket{d}\\
+\sigma_x&\ket{r}&\ket{l}\\
+\sigma_y&\ket{\mathrm{in}}&\ket{\mathrm{out}}
+\end{array}
+\]
+This information is enough to reconstruct the operators as matrices.
+
+\subsection{The z Component in Its Eigenbasis}
+
+Choose the up--down basis. Definite \(z\)-spin means
+\begin{equation}
+\sigma_z\ket{u}=+\ket{u},
 \qquad
-\sigma_x|l\rangle=-|l\rangle.
+\sigma_z\ket{d}=-\ket{d}.
+\label{eq:sigma-z-eigenvectors}
 \end{equation}
-We use the canonical relations
-\begin{equation}
-|r\rangle=\frac{|u\rangle+|d\rangle}{\sqrt2},
-\qquad
-|l\rangle=\frac{|u\rangle-|d\rangle}{\sqrt2},
-\end{equation}
-or, solving the other way,
-\begin{equation}
-|u\rangle=\frac{|l\rangle+|r\rangle}{\sqrt2},
-\qquad
-|d\rangle=\frac{|r\rangle-|l\rangle}{\sqrt2}.
-\end{equation}
+The two eigenvalues are different, so Hermiticity implies \(\braket{u}{d}=0\).
 
-Now compute the matrix elements one by one. First the diagonal entries:
+Compute the four matrix elements:
 \begin{align}
-\langle u|\sigma_x|u\rangle
-  &= \frac{1}{2}(\langle l|+\langle r|)\sigma_x(|l\rangle+|r\rangle) \\
-  &= \frac{1}{2}(\langle l|+\langle r|)(-|l\rangle+|r\rangle) \\
-  &= 0,
+\bra{u}\sigma_z\ket{u}&=+1,&
+\bra{u}\sigma_z\ket{d}&=-\braket{u}{d}=0,\\
+\bra{d}\sigma_z\ket{u}&=\braket{d}{u}=0,&
+\bra{d}\sigma_z\ket{d}&=-1.
 \end{align}
-and similarly
-\begin{align}
-\langle d|\sigma_x|d\rangle
-  &= \frac{1}{2}(\langle r|-\langle l|)\sigma_x(|r\rangle-|l\rangle) \\
-  &= \frac{1}{2}(\langle r|-\langle l|)(|r\rangle+|l\rangle) \\
-  &= 0.
-\end{align}
-For a moment it looks as though every entry might vanish, and the lecture pauses exactly there to note that this cannot possibly be right. So we turn to the off-diagonal entries:
-\begin{align}
-\langle u|\sigma_x|d\rangle
-  &= \frac{1}{2}(\langle l|+\langle r|)\sigma_x(|r\rangle-|l\rangle) \\
-  &= \frac{1}{2}(\langle l|+\langle r|)(|r\rangle+|l\rangle) \\
-  &= 1,
-\end{align}
-and likewise
-\begin{equation}
-\langle d|\sigma_x|u\rangle=1.
-\end{equation}
 Therefore
 \begin{equation}
-\sigma_x=
-\begin{pmatrix}
-0 & 1 \\
-1 & 0
-\end{pmatrix}.
-\end{equation}
-This is a good example of the basis-dependent look of an operator. In its own eigenbasis \(\sigma_x\) would be diagonal. In the up/down basis it is off-diagonal.
-
-\subsection{\(\sigma_y\), the in/out states, and a late caution}
-
-The final Pauli matrix is handled more loosely in the lecture. Susskind says outright that he may have the sign convention wrong and that he is going to fake it. So here we stabilize the notation in the standard form that matches the intended discussion.
-
-Let the eigenvectors of \(\sigma_y\) be the in/out states:
-\begin{equation}
-\sigma_y|\mathrm{in}\rangle=+|\mathrm{in}\rangle,
-\qquad
-\sigma_y|\mathrm{out}\rangle=-|\mathrm{out}\rangle.
-\end{equation}
-In canonical normalized form,
-\begin{equation}
-|\mathrm{in}\rangle=\frac{|u\rangle+i|d\rangle}{\sqrt2},
-\qquad
-|\mathrm{out}\rangle=\frac{|u\rangle-i|d\rangle}{\sqrt2}.
-\end{equation}
-The lecture does not work through all the matrix elements this time. Instead it states the result and asks us to check it:
-\begin{equation}
-\sigma_y=
-\begin{pmatrix}
-0 & -i \\
-i & 0
-\end{pmatrix}.
-\end{equation}
-Indeed,
-\begin{equation}
-\begin{pmatrix}
-0 & -i \\
-i & 0
-\end{pmatrix}
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1 \\
-i
-\end{pmatrix}
-=
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1 \\
-i
-\end{pmatrix},
-\qquad
-\begin{pmatrix}
-0 & -i \\
-i & 0
-\end{pmatrix}
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1 \\
--i
-\end{pmatrix}
-=
--
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1 \\
--i
-\end{pmatrix}.
-\end{equation}
-
-The lecture ends with a useful correction from a student question. If we compute the inner product of the in and out states, we must remember to complex conjugate when passing from ket to bra:
-\begin{equation}
-\langle \mathrm{in}|=\frac{\langle u|-i\langle d|}{\sqrt2}.
-\end{equation}
-Then
-\begin{align}
-\langle \mathrm{in}|\mathrm{out}\rangle
-  &= \frac{1}{2}\bigl(\langle u|-i\langle d|\bigr)\bigl(|u\rangle-i|d\rangle\bigr) \\
-  &= \frac{1}{2}(1-1) \\
-  &= 0.
-\end{align}
-This is a small computation, but it is exactly the kind of mistake the notation is supposed to prevent.
-
-We have therefore recovered the three Pauli matrices:
-\begin{equation}
-\sigma_x=
-\begin{pmatrix}
-0 & 1 \\
-1 & 0
-\end{pmatrix},
-\qquad
-\sigma_y=
-\begin{pmatrix}
-0 & -i \\
-i & 0
-\end{pmatrix},
-\qquad
+\boxed{
 \sigma_z=
 \begin{pmatrix}
-1 & 0 \\
-0 & -1
-\end{pmatrix}.
+1&0\\
+0&-1
+\end{pmatrix}_{\{u,d\}}.}
+\label{eq:sigma-z}
 \end{equation}
-They are not introduced as mysterious matrices to be memorized. They are reconstructed from the physical meaning of spin measurements together with the general correspondence between observables and Hermitian operators.
+The coordinate columns are
+\[
+\ket{u}\widehat{=}\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+\ket{d}\widehat{=}\begin{pmatrix}0\\1\end{pmatrix}.
+\]
+Multiplication by Equation~\eqref{eq:sigma-z} returns the first column unchanged and the second with a minus sign, exactly as the eigenvalue equations require.
 
-And the lecture closes by pointing beyond itself. If we know the spin component along an arbitrary direction, can we use this formalism to compute the probabilities for measuring \(\sigma_z=\pm1\)? The answer should be yes; the calculation is deferred to the next lecture.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_09.png}
+\caption{The \(\sigma_z\) eigenvalue equations and the resulting diagonal matrix in the up--down basis.}
+\lectureframe{01:26:56}
+\end{figure}
 
-\section{Summary}
+\subsection{The x Component Without Changing Basis}
 
-The lecture began by insisting that good notation is not cosmetic, and everything that followed justified the claim. We expanded vectors in orthonormal bases, extracted their coefficients as inner products, and learned to insert complete sets of states. We then introduced linear operators as machines, converted the abstract action \(M|A\rangle=|B\rangle\) into the component rule \(\sum_j m_{ij}\alpha_j=\beta_i\), and recognized matrix multiplication as the concrete form of operator action.
+In the right--left basis, \(\sigma_x\) would have the same diagonal form. That would be easy but uninformative. Keep the up--down basis and use
+\begin{equation}
+\sigma_x\ket{r}=+\ket{r},
+\qquad
+\sigma_x\ket{l}=-\ket{l}.
+\label{eq:sigma-x-eigenvectors}
+\end{equation}
+The two bases are related by
+\begin{align}
+\ket{r}&=\frac{\ket{u}+\ket{d}}{\sqrt2},&
+\ket{l}&=\frac{\ket{u}-\ket{d}}{\sqrt2},\\
+\ket{u}&=\frac{\ket{r}+\ket{l}}{\sqrt2},&
+\ket{d}&=\frac{\ket{r}-\ket{l}}{\sqrt2}.
+\label{eq:x-z-basis-relations}
+\end{align}
 
-From there we confronted the bra-ket obstacle, distinguished linear operators from complex conjugation, and introduced the dagger operation. Hermitian operators then emerged as the operator analogue of real numbers, with real eigenvalues and orthogonal eigenvectors belonging to distinct eigenvalues. Only after that mathematical spine was in place did the lecture pivot to physics: observables are represented by Hermitian operators, possible measurement results are eigenvalues, definite-value states are eigenvectors, and probabilities are squared amplitudes. The chapter then returned to spin, where \(\sigma_z\), \(\sigma_x\), and \(\sigma_y\) appeared not as prepackaged objects but as the first concrete test of the general formalism.
+Begin with the upper diagonal entry:
+\begin{align}
+\bra{u}\sigma_x\ket{u}
+ &=\frac12(\bra{r}+\bra{l})\sigma_x(\ket{r}+\ket{l})\\
+ &=\frac12(\bra{r}+\bra{l})(\ket{r}-\ket{l})\\
+ &=0.
+\end{align}
+The right and left states are orthonormal, so the two diagonal terms cancel and the cross terms vanish. The same calculation with \(\ket{d}\) gives
+\[
+\bra{d}\sigma_x\ket{d}=0.
+\]
+At this point two zeros do not mean the operator vanishes; they tell us to look off the diagonal.
+
+For the upper-right entry,
+\begin{align}
+\bra{u}\sigma_x\ket{d}
+ &=\frac12(\bra{r}+\bra{l})\sigma_x(\ket{r}-\ket{l})\\
+ &=\frac12(\bra{r}+\bra{l})(\ket{r}+\ket{l})\\
+ &=1.
+\end{align}
+Hermiticity, or a direct repetition of the calculation, gives
+\[
+\bra{d}\sigma_x\ket{u}=1.
+\]
+Thus
+\begin{equation}
+\boxed{
+\sigma_x=
+\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}_{\{u,d\}}.}
+\label{eq:sigma-x}
+\end{equation}
+The same abstract operator is diagonal in its own eigenbasis and off-diagonal in the \(z\)-basis. This is a concrete instance of basis dependence without physical ambiguity.
+
+\subsection{The y Component and the Relative Phase}
+
+Choose the normalized in--out convention
+\begin{equation}
+\ket{\mathrm{in}}=\frac{\ket{u}+i\ket{d}}{\sqrt2},
+\qquad
+\ket{\mathrm{out}}=\frac{\ket{u}-i\ket{d}}{\sqrt2},
+\label{eq:in-out-states}
+\end{equation}
+with
+\[
+\sigma_y\ket{\mathrm{in}}=+\ket{\mathrm{in}},
+\qquad
+\sigma_y\ket{\mathrm{out}}=-\ket{\mathrm{out}}.
+\]
+Interchanging the labels or reversing the \(y\)-axis changes a sign convention, not the underlying construction. With Equation~\eqref{eq:in-out-states}, the unique Hermitian matrix with these eigenvectors and eigenvalues is
+\begin{equation}
+\boxed{
+\sigma_y=
+\begin{pmatrix}
+0&-i\\
+i&0
+\end{pmatrix}_{\{u,d\}}.}
+\label{eq:sigma-y}
+\end{equation}
+It is easy to verify rather than rederive:
+\begin{align}
+\begin{pmatrix}0&-i\\i&0\end{pmatrix}
+\frac1{\sqrt2}\begin{pmatrix}1\\i\end{pmatrix}
+&=\frac1{\sqrt2}\begin{pmatrix}1\\i\end{pmatrix},\\
+\begin{pmatrix}0&-i\\i&0\end{pmatrix}
+\frac1{\sqrt2}\begin{pmatrix}1\\-i\end{pmatrix}
+&=-\frac1{\sqrt2}\begin{pmatrix}1\\-i\end{pmatrix}.
+\end{align}
+The factors of \(1/\sqrt2\) normalize the eigenvectors but do not affect their eigendirections.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_10.png}
+\caption{The completed board set of Pauli matrices in the up--down basis.}
+\lectureframe{01:38:11}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Should one sign in the in--out vectors be changed to make them orthogonal?}
+\lecturerresponse{No. The missing step is complex conjugation when the ket is turned into a bra:
+\[
+\bra{\mathrm{in}}=\frac{\bra{u}-i\bra{d}}{\sqrt2}.
+\]
+Therefore
+\[
+\braket{\mathrm{in}}{\mathrm{out}}
+=\frac12(\bra{u}-i\bra{d})(\ket{u}-i\ket{d})
+=\frac12\bigl(1+(-i)(-i)\bigr)=0.
+\]
+Forgetting that conjugation is precisely the common mistake that bra--ket notation is meant to expose.}
+\end{classroomqa}
+
+We have obtained
+\begin{equation}
+\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},
+\qquad
+\sigma_y=\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+\qquad
+\sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\label{eq:pauli-triple}
+\end{equation}
+They are Hermitian, have eigenvalues \(\pm1\), and possess exactly the definite-spin eigenvectors demanded by the analyzer experiments.
+
+The next problem is now well posed. Given a spin prepared along an arbitrary direction, construct the corresponding state and use squared amplitudes to calculate the probabilities for \(\sigma_z=+1\) and \(\sigma_z=-1\). The formalism already contains enough information; carrying out that calculation is the natural next step.
