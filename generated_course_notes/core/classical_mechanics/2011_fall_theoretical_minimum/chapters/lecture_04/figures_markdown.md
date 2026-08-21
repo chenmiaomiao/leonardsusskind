@@ -1,47 +1,41 @@
 # Figure Notes
+
 ## Image Inventory
-- `lecture_04_figure_02.png`: a clean whiteboard close-up showing the one-dimensional kinetic-minus-potential Lagrangian. No lecturer or hand blocks the writing. Most of the board is blank, with the formula centered toward the upper right.
-- `lecture_04_figure_03.png`: a later board state for the two-coordinate example. The full top-line Lagrangian is visible, and a lower line begins the equation of motion with `\dot P_1 =`. Susskind is partly visible at the left edge, holding a sheet.
-- `lecture_04_figure_04.png`: the same two-coordinate example at a more advanced step. The top-line Lagrangian remains visible, and the lower line now reads `\dot P_1 = -V'(q_1-q_2)`. Susskind’s hand points near the prime on `V'`, and the start of a lower `\dot P_2` line is barely visible at the bottom left.
 
-## Blackboard Equations
-- `lecture_04_figure_02.png`: [visible] \(\frac{m\dot{x}^{2}}{2}-V(x)\)
-- `lecture_04_figure_02.png`: [standard reconstruction] \(L=\frac{m\dot{x}^{2}}{2}-V(x)\)
+| Frame | Time | Blackboard content | Use |
+|---|---:|---|---|
+| `lecture_04_figure_05.png` | 00:09:00 | Euler--Lagrange equation | Opening variational recap |
+| `lecture_04_figure_02.png` | 00:14:48 | (m\dot x^2/2-V(x)) | Canonical momentum example |
+| `lecture_04_figure_03.png` | 00:18:56 | (L(\dot q_1,\dot q_2,q_1-q_2)) | Coupled system setup |
+| `lecture_04_figure_04.png` | 00:20:41 | First momentum equation | Sign of (V'(q_1-q_2)) |
+| `lecture_04_figure_06.png` | 00:24:20 | Weighted momentum equations | Conservation of (Bp_1-Ap_2) |
+| `lecture_04_figure_07.png` | 00:28:40 | Unequal masses and rescaled coordinates | Origin of the weights |
+| `lecture_04_figure_08.png` | 00:35:30 | Common coordinate translation | Active translation symmetry |
+| `lecture_04_figure_09.png` | 00:40:20 | Asymmetric coordinate shifts | Symmetry of (V(Aq_1+Bq_2)) |
+| `lecture_04_figure_10.png` | 00:45:40 | Central Lagrangian and rotated axes | Finite rotations |
+| `lecture_04_figure_11.png` | 00:49:50 | Infinitesimal rotation formulas | Rotation generator |
+| `lecture_04_figure_12.png` | 00:53:20 | Variation of (x^2+y^2) | Radius invariance |
+| `lecture_04_figure_13.png` | 00:56:00 | (delta q_i=\epsilon f_i(q)) | General point symmetry |
+| `lecture_04_figure_14.png` | 01:02:30 | Coordinate and velocity terms in (delta L) | First variation |
+| `lecture_04_figure_15.png` | 01:05:00 | Product-rule rearrangement | Noether charge proof |
+| `lecture_04_figure_16.png` | 01:11:00 | Rotational charge | Planar angular momentum |
+| `lecture_04_figure_17.png` | 01:25:30 | Oscillator equations and phase circle | Continuous phase flow |
+| `lecture_04_figure_18.png` | 01:29:30 | Even potential and (q\mapsto-q) | Discrete reflection |
+| `lecture_04_figure_19.png` | 01:44:30 | Viscous-drag equation | Open-system counterexample |
+| `lecture_04_figure_20.png` | 01:50:20 | Neighboring oscillator path | Stationary action as a saddle |
 
-- `lecture_04_figure_03.png`: [visible] \(\frac{\dot q_1^{\,2}+\dot q_2^{\,2}}{2}-V(q_1-q_2)\)
-- `lecture_04_figure_03.png`: [partially visible] \(\dot P_1=\)
-- `lecture_04_figure_03.png`: [standard reconstruction] \(L=\frac{\dot q_1^{\,2}+\dot q_2^{\,2}}{2}-V(q_1-q_2)\)
+## Reconstruction Guidance
 
-- `lecture_04_figure_04.png`: [visible] \(\frac{\dot q_1^{\,2}+\dot q_2^{\,2}}{2}-V(q_1-q_2)\)
-- `lecture_04_figure_04.png`: [visible] \(\dot P_1=-V'(q_1-q_2)\)
-- `lecture_04_figure_04.png`: [partially visible] \(\dot P_2=\)
-- `lecture_04_figure_04.png`: [standard reconstruction] \(\dot P_2=+V'(q_1-q_2)\)
-
-## Diagram And Layout Reading
-- These images contain no geometric diagram or axes; they are equation-board frames.
-- `lecture_04_figure_02.png` is an isolated, single-line board presentation. It works as a clean visual marker for the simple one-coordinate example where momentum is identified as \(\partial L/\partial \dot x\).
-- `lecture_04_figure_03.png` and `lecture_04_figure_04.png` use a stacked layout: the Lagrangian is written across the upper part of the board, and the lower part begins the equations of motion for the canonical momenta.
-- The board organization matters in the two-coordinate example: the top line gives the full coupled system, while the lower lines unpack the force terms coordinate by coordinate.
-- In `lecture_04_figure_04.png`, the pointing hand near \(V'(q_1-q_2)\) visually emphasizes that the derivative is with respect to the argument \(q_1-q_2\), and that the sign is the subtle point under discussion.
-
-## TeX Reconstruction Plan
-- `lecture_04_figure_02.png` should remain visible. It is the cleanest board evidence for the simple Lagrangian example. Nearby, the notes should typeset the displayed equation \(L=\frac{m\dot x^2}{2}-V(x)\), and then state in prose or display that \(\partial L/\partial \dot x=m\dot x\).
-- `lecture_04_figure_03.png` should remain visible as an intermediate board-state figure. Its value is not a finished equation but the transition from the coupled Lagrangian to the momentum equation. Nearby, the notes should typeset the full displayed Lagrangian \(L=\frac{\dot q_1^2+\dot q_2^2}{2}-V(q_1-q_2)\).
-- `lecture_04_figure_04.png` should remain visible and should be paired with a displayed reconstruction of the derivative step:
-  \[
-  \dot P_1=-V'(q_1-q_2), \qquad \dot P_2=+V'(q_1-q_2).
-  \]
-  The second equation is not fully visible in the image, so it should be presented as a transcript-supported completion rather than as direct visual transcription.
-- No TikZ reconstruction is needed for this set. The right companion material is displayed equations plus brief explanatory prose about the sign coming from differentiating \(q_1-q_2\) with respect to \(q_1\) and \(q_2\).
-
-## Caption Drafts
-- `lecture_04_figure_02.png`: One-dimensional Lagrangian in kinetic-minus-potential form.
-- `lecture_04_figure_03.png`: Two-coordinate Lagrangian with interaction \(V(q_1-q_2)\) and the start of the \(P_1\) equation.
-- `lecture_04_figure_04.png`: The \(q_1\) equation of motion and the derivative \(V'(q_1-q_2)\).
+- Keep every frame beside the derivation or example shown at its timestamp. No frame is decorative, and no campus or introductory footage is used.
+- Treat the typeset equations as the complete mathematical record. Several boards contain intermediate steps, cropped equals signs, or notation written over older chalk.
+- In Figures 3 and 4, complete the second momentum equation from the lecture derivation rather than claiming it is fully visible.
+- Normalize the rotation convention consistently in the prose. Reversing the orientation changes the sign of the displayed Noether charge but not its identification with angular momentum.
+- Preserve the original phase-space circle and neighboring-path sketches as visual evidence; the surrounding TeX supplies the precise equations they represent.
 
 ## Uncertainties
-- In `lecture_04_figure_02.png`, the leading \(L=\) is not visible; it is inferred from context, not written in the cropped frame.
-- In `lecture_04_figure_03.png`, the lower line is unfinished. Only \(\dot P_1=\) is directly visible.
-- In `lecture_04_figure_04.png`, the hand partly overlaps the prime on \(V'\), though the intended notation is still readable.
-- In `lecture_04_figure_04.png`, the lower \(\dot P_2\) line is cropped and not legible enough to transcribe directly; its completion comes from the transcript and surrounding derivation, not from the image alone.
-- The two-coordinate kinetic term is written without explicit masses; the transcript explains that the mass has been set to \(1\), but that convention is not stated on the board in these frames.
+
+- Figure 2 omits the leading (L=) in the crop.
+- Figure 3 ends at the beginning of the first momentum equation, while Figure 4 only partly shows the second.
+- Some coefficients and signs in the weighted-coordinate and rotation boards are faint. They have been checked against the spoken derivation.
+- The viscous-drag board is shorthand for the reduced particle equation; momentum conservation is restored only when the environment is included.
+- The final path drawing is schematic. It illustrates a neighboring variation, not a quantitatively scaled trajectory.
