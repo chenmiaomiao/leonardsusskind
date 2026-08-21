@@ -1,406 +1,787 @@
 \chapter{Poisson Brackets, Generators, and Angular Momentum}
 
-We return in this lecture to Poisson brackets, but not as a separate ornament attached to Hamiltonian mechanics. The point, as Leonard Susskind keeps insisting, is that the same bracket that gives us time derivatives also packages rotations, translations, and the relation between symmetry and conservation. These notes follow that unfolding closely; this companion-note edition also carries credit to LazyingArt LLC and Video2Book. The route is deliberate: we begin with a recap, test the formalism on the harmonic oscillator, then turn to angular momentum, where Poisson brackets stop looking redundant and begin to show real power.
+\lectureoverview{The Poisson bracket is more than a compact way to rewrite
+Hamilton's equations.  It is an algebraic operation that generates
+transformations.  Bracketing with the Hamiltonian generates time evolution;
+bracketing with momentum generates translations; bracketing with angular
+momentum generates rotations.  In this language, symmetry and conservation
+become the two readings of one vanishing bracket.  We shall develop that idea
+from the harmonic oscillator and then use the angular-momentum algebra to
+obtain gyroscopic precession without introducing Euler angles.}
 
-\section{From Hamilton's Equations to the Poisson Bracket}
+\section{A Function Along a Hamiltonian Trajectory}
 
-The lecture opens by going back to a simple question. Suppose \(f(p,q)\) is any sufficiently smooth function on phase space. We may think of it as a quantity assigned to each point of phase space, but we may also think of it along a trajectory: as the system moves, the coordinates \(q_i\) and momenta \(p_i\) change, and therefore \(f\) changes too. What is its time derivative?
-
-By the chain rule,
-\begin{equation}
-\dot f=\sum_i \frac{\partial f}{\partial q_i}\dot q_i+\sum_i \frac{\partial f}{\partial p_i}\dot p_i.
-\end{equation}
-Now substitute Hamilton's equations,
-\begin{equation}
-\dot q_i=\frac{\partial H}{\partial p_i},\qquad \dot p_i=-\frac{\partial H}{\partial q_i},
-\end{equation}
-and obtain
-\begin{equation}
-\dot f=\sum_i \frac{\partial f}{\partial q_i}\frac{\partial H}{\partial p_i}
--\sum_i \frac{\partial f}{\partial p_i}\frac{\partial H}{\partial q_i}.
-\end{equation}
-
-This combination occurs so often that it is natural to define it once and for all. For any two phase-space functions \(F\) and \(G\),
-\begin{equation}
-\{F,G\}=\sum_i \frac{\partial F}{\partial q_i}\frac{\partial G}{\partial p_i}
--\sum_i \frac{\partial F}{\partial p_i}\frac{\partial G}{\partial q_i}.
-\end{equation}
-With this notation,
-\begin{equation}
-\dot f=\{f,H\}.
-\end{equation}
-
-The important point is already visible. The bracket itself is defined for any pair \(F,G\). Only when the second entry is the Hamiltonian does it become a time derivative. The lecture will make repeated use of that distinction.
-
-\section{The Algebra of Poisson Brackets and the Harmonic Oscillator}
-
-Once the bracket has been isolated, Susskind pauses to treat it as a calculus. The rules are not arbitrary; they follow directly from the definition. The basic ones are
-\begin{align}
-\{A,B\}&=-\{B,A\},\\
-\{A+B,C\}&=\{A,C\}+\{B,C\},\\
-\{\lambda A,B\}&=\lambda\{A,B\},\\
-\{AB,C\}&=A\{B,C\}+\{A,C\}B.
-\end{align}
-From antisymmetry we immediately have
-\begin{equation}
-\{A,A\}=0.
-\end{equation}
-And the canonical special cases are
-\begin{equation}
-\{q_i,q_j\}=0,\qquad \{p_i,p_j\}=0,\qquad \{q_i,p_j\}=\delta_{ij}.
-\end{equation}
-
-The lecture now insists on a concrete example. Let us use the bracket rules alone, together with the dynamical rule \(\dot A=\{A,H\}\), and recover the motion of the harmonic oscillator. Take
-\begin{equation}
-H=\frac{p^2}{2m}+\frac{k}{2}q^2.
-\end{equation}
-Then
-\begin{align}
-\dot q
-&=\{q,H\}\\
-&=\left\{q,\frac{p^2}{2m}+\frac{k}{2}q^2\right\}\\
-&=\frac{1}{2m}\{q,p^2\},
-\end{align}
-because \(q\) has zero Poisson bracket with any function of \(q\). Using the Leibniz rule,
-\begin{align}
-\{q,p^2\}&=\{q,pp\}=p\{q,p\}+\{q,p\}p=2p,
-\end{align}
-and therefore
-\begin{equation}
-\dot q=\frac{p}{m}.
-\end{equation}
-
-Now do the same for \(p\):
-\begin{align}
-\dot p
-&=\{p,H\}\\
-&=\left\{p,\frac{p^2}{2m}+\frac{k}{2}q^2\right\}\\
-&=\frac{k}{2}\{p,q^2\},
-\end{align}
-because \(p\) has zero Poisson bracket with any function of \(p\). Again,
-\begin{align}
-\{p,q^2\}&=\{p,qq\}=q\{p,q\}+\{p,q\}q=-2q,
-\end{align}
-so that
-\begin{equation}
-\dot p=-kq.
-\end{equation}
-Combining the two,
-\begin{equation}
-m\ddot q=-kq.
-\end{equation}
-
-The oscillator is the lecture's first full test case. It shows that Poisson brackets do reproduce the equations of motion. But Susskind immediately marks the limitation: so far the method has mostly repackaged Hamilton's equations. The next move is the essential one. The real power appears when we Poisson bracket with a conserved quantity other than the Hamiltonian.
-
-\section{Angular Momentum From Rotational Symmetry}
-
-The lecture now pivots. Angular momentum is recalled not as a memorized formula, but as the conserved quantity associated with rotational symmetry. For an infinitesimal symmetry of the form
-\begin{equation}
-\delta q_i=F_i(q)\,\epsilon,
-\end{equation}
-the conserved quantity is
-\begin{equation}
-Q=\sum_i p_i F_i(q).
-\end{equation}
-As in the lecture, we suppress the overall factor of \(\epsilon\), since multiplying a conserved quantity by a fixed constant changes nothing essential.
-
-For a rotation about the \(z\)-axis,
-\begin{equation}
-\delta x=-y\,\epsilon,\qquad \delta y=x\,\epsilon,\qquad \delta z=0.
-\end{equation}
-Substituting these variations gives
-\begin{equation}
-L_z=p_x(-y)+p_yx=xp_y-yp_x.
-\end{equation}
-This is angular momentum in the plane, but it is more naturally read as the \(z\)-component of a three-dimensional vector.
-
-Cycling the coordinates yields the other components:
-\begin{equation}
-L_x=yp_z-zp_y,\qquad
-L_y=zp_x-xp_z,\qquad
-L_z=xp_y-yp_x.
-\end{equation}
-Equivalently,
-\begin{equation}
-\mathbf L=\mathbf r\times\mathbf p.
-\end{equation}
-If we want the conserved quantity associated with rotation about an arbitrary axis \(\hat n\), we take
-\begin{equation}
-L_{\hat n}=\hat n\cdot \mathbf L.
-\end{equation}
-
-This finishes one part of the story. We have reconstructed angular momentum from symmetry. The lecture now asks the sharper question: once we have \(L_z\), what does Poisson bracketing with \(L_z\) actually do?
-
-\section{Angular Momentum as Generator of Rotations}
-
-Before bracketing angular momentum with itself, Susskind deliberately explores what happens when we bracket \(L_z\) with ordinary phase-space variables. The mood here is not theorem-proof-corollary. It is exploratory: let us see what the bracket knows.
-
-Using
+Let
 \[
-L_z=xp_y-yp_x,
+  F=F(q_1,\ldots,q_n,p_1,\ldots,p_n)
 \]
-we find
+be a sufficiently differentiable function on phase space.  It can be viewed
+in two ways.  First, it assigns a number to every point of phase space.
+Second, once a Hamiltonian trajectory has been chosen, it becomes a function
+of time because the point \((q(t),p(t))\) moves.  Along that trajectory,
+\begin{equation}
+  \frac{dF}{dt}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}\dot q_i
+    +\frac{\partial F}{\partial p_i}\dot p_i
+  \right).
+  \label{eq:l8-chain-rule}
+\end{equation}
+Hamilton's equations,
+\begin{equation}
+  \dot q_i=\frac{\partial H}{\partial p_i},
+  \qquad
+  \dot p_i=-\frac{\partial H}{\partial q_i},
+  \label{eq:l8-hamilton-equations}
+\end{equation}
+turn this into
+\begin{equation}
+  \frac{dF}{dt}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}
+    \frac{\partial H}{\partial p_i}
+    -
+    \frac{\partial F}{\partial p_i}
+    \frac{\partial H}{\partial q_i}
+  \right).
+  \label{eq:l8-fdot-expanded}
+\end{equation}
+The combination on the right occurs throughout classical mechanics, even when
+neither of its entries is the Hamiltonian.  This motivates the definition
+\begin{equation}
+  \boxed{
+  \{F,G\}
+  =
+  \sum_i\left(
+    \frac{\partial F}{\partial q_i}
+    \frac{\partial G}{\partial p_i}
+    -
+    \frac{\partial F}{\partial p_i}
+    \frac{\partial G}{\partial q_i}
+  \right).}
+  \label{eq:l8-poisson-definition}
+\end{equation}
+Equation~\eqref{eq:l8-fdot-expanded} is therefore
+\begin{equation}
+  \boxed{\dot F=\{F,H\}.}
+  \label{eq:l8-time-generator}
+\end{equation}
+
+\begin{classroomqa}
+  \audiencequestion{If the second entry is changed from \(H\) to an arbitrary
+  function \(G\), is the bracket still the time derivative of \(F\)?
+  \lecturetimestamp{00:05:45--00:06:15}}
+  \lecturerresponse{No.  The audience catches an important point while the
+  notation is being generalized.  Equation~\eqref{eq:l8-poisson-definition}
+  defines \(\{F,G\}\) for any two phase-space functions, but
+  \(\dot F=\{F,G\}\) holds only when \(G\) is the Hamiltonian.  A general
+  \(G\) will generate a different infinitesimal transformation.}
+\end{classroomqa}
+
+It is useful to write a small change in time as
+\begin{equation}
+  \delta_t F=\epsilon\,\{F,H\}.
+  \label{eq:l8-small-time-step}
+\end{equation}
+This form anticipates what comes later.  Time evolution is one member of a
+larger family of transformations generated by Poisson brackets.
+
+\section{The Algebra of Brackets}
+
+The bracket can now be used as a calculus of its own.  Its rules follow from
+ordinary differentiation:
 \begin{align}
-\{x,L_z\}&=-y,\\
-\{y,L_z\}&=x,\\
-\{z,L_z\}&=0.
+  \{A,B\}&=-\{B,A\},
+    &&\text{antisymmetry}, \label{eq:l8-antisymmetry}\\
+  \{A+B,C\}&=\{A,C\}+\{B,C\},
+    &&\text{additivity}, \label{eq:l8-additivity}\\
+  \{\lambda A,B\}&=\lambda\{A,B\},
+    &&\lambda\ \text{constant}, \label{eq:l8-scalar-rule}\\
+  \{AB,C\}&=A\{B,C\}+\{A,C\}B,
+    &&\text{Leibniz rule}. \label{eq:l8-leibniz}
 \end{align}
-These are exactly the infinitesimal rotation formulas we started from. For instance, \(\{x,L_z\}\) gets a contribution only from the \(p_x\) term inside \(L_z\), and that contribution is \(-y\). Likewise \(\{y,L_z\}=x\), and \(z\) is unchanged.
+Classical phase-space functions multiply commutatively, so the placement of
+the ordinary factors \(A\) and \(B\) in the last line is immaterial.  That
+will no longer be true for operators in quantum mechanics.  Antisymmetry also
+implies
+\begin{equation}
+  \{A,A\}=0.
+  \label{eq:l8-self-bracket}
+\end{equation}
 
-The same pattern holds for momentum:
+For canonical coordinates the elementary brackets are
+\begin{equation}
+  \boxed{
+  \{q_i,q_j\}=0,\qquad
+  \{p_i,p_j\}=0,\qquad
+  \{q_i,p_j\}=\delta_{ij}.}
+  \label{eq:l8-canonical-brackets}
+\end{equation}
+Any function only of the \(q_i\) has zero bracket with any other function only
+of the \(q_i\); the analogous statement holds for functions only of the
+\(p_i\).  A nonzero bracket requires a canonical coordinate to meet its
+conjugate momentum.  The Kronecker delta in
+Eq.~\eqref{eq:l8-canonical-brackets} records that only matching indices meet.
+
+\subsection{The harmonic oscillator as a test}
+
+Consider
+\begin{equation}
+  H=\frac{p^2}{2m}+\frac{kq^2}{2}.
+  \label{eq:l8-oscillator-hamiltonian}
+\end{equation}
+We now deliberately use only the bracket rules and
+Eq.~\eqref{eq:l8-time-generator}.  First,
 \begin{align}
-\{p_x,L_z\}&=-p_y,\\
-\{p_y,L_z\}&=p_x,\\
-\{p_z,L_z\}&=0.
+  \dot q
+  &=\{q,H\}\\
+  &=\frac{1}{2m}\{q,p^2\}\\
+  &=\frac{1}{2m}\left(p\{q,p\}+\{q,p\}p\right)\\
+  &=\frac{p}{m}.
+  \label{eq:l8-qdot-oscillator}
 \end{align}
-This is not an accident. Momentum is a vector, and the bracket with \(L_z\) rotates its components in the same way that it rotates the position vector.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} What does Poisson bracketing with angular momentum actually do?
-
-\paragraph{Answer.} It gives the infinitesimal change of a quantity under rotation. In the present case,
-\begin{equation}
-\delta A=\epsilon\,\{A,L_z\}
-\end{equation}
-is the infinitesimal transformation of any phase-space function \(A\) under a small rotation about the \(z\)-axis. Thus
-\[
-\delta x=-y\,\epsilon,\qquad \delta y=x\,\epsilon,\qquad \delta z=0,
-\]
-and similarly for the momentum components.
-
-At this level, the lecture treats this almost as a definition in Hamiltonian language: given a quantity \(G\), we can associate to it an infinitesimal transformation by Poisson bracketing with \(G\). Whether that transformation is a symmetry is a separate question, one that will be tied to conservation shortly. But the transformation itself is already sitting in the bracket.
-
-This is the first place where the analogy with the Hamiltonian becomes fully visible. The Hamiltonian generates small shifts in time through
-\[
-\dot A=\{A,H\}.
-\]
-Angular momentum generates small rotations through the same structure.
-
-\section{Momentum, Translation, and the General Generator Idea}
-
-Once the rotational case is understood, the lecture immediately tries another one. If momentum is the conserved quantity associated with translation invariance, does Poisson bracketing with momentum generate translation in the same way that Poisson bracketing with angular momentum generated rotation?
-
-For a one-dimensional translation,
-\begin{equation}
-\delta q=\epsilon.
-\end{equation}
-In the symmetry formula \(\delta q=F(q)\epsilon\), this corresponds to \(F=1\), so the conserved quantity is simply
-\begin{equation}
-Q=p.
-\end{equation}
-The suggestion now hanging in the air is clear: for a function \(f(q)\), does \(\{f(q),p\}\) give \(df/dq\), the small change of \(f\) under a shift of \(q\)?
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Does Poisson bracketing with momentum really give the infinitesimal translation?
-
-\paragraph{Answer.} Yes. The lecture proves it first for powers of \(q\), by induction, because that is the cleanest place to see the mechanism.
-
-\begin{proof}
-For \(n=1\),
-\[
-\{q,p\}=1,
-\]
-so the statement holds.
-
-Assume now that
-\[
-\{q^{n-1},p\}=(n-1)q^{n-2}.
-\]
-Then
+The potential term disappears because \(\{q,q^2\}=0\).  Similarly,
 \begin{align}
-\{q^n,p\}
-&=\{q\,q^{n-1},p\}\\
-&=q\{q^{n-1},p\}+\{q,p\}q^{n-1}\\
-&=q\bigl((n-1)q^{n-2}\bigr)+q^{n-1}\\
-&=nq^{n-1}.
+  \dot p
+  &=\{p,H\}\\
+  &=\frac{k}{2}\{p,q^2\}\\
+  &=\frac{k}{2}\left(q\{p,q\}+\{p,q\}q\right)\\
+  &=-kq.
+  \label{eq:l8-pdot-oscillator}
 \end{align}
-Thus, if the claim holds for \(n-1\), it holds for \(n\), and since it holds for \(n=1\), it holds for all positive integers \(n\).
-\end{proof}
-
-Therefore
+The minus sign is precisely the antisymmetry
+\(\{p,q\}=-\{q,p\}=-1\).  Combining the two first-order equations gives
 \begin{equation}
-\{q^n,p\}=nq^{n-1}.
-\end{equation}
-By linearity, constant extraction, and the usual extension from polynomials to smooth functions, we obtain the local general rule
-\begin{equation}
-\{f(q),p\}=\frac{df}{dq}.
+  m\ddot q=-kq.
+  \label{eq:l8-hooke-equation}
 \end{equation}
 
-This is the second nontrivial example, and it seals the pattern. Momentum generates translations. Angular momentum generates rotations. The Hamiltonian generates time translations. Susskind jokes that we need a verb and proposes ``Poissonate.'' The joke is only in the name. The idea itself is exact: Poisson bracketing with the appropriate generator gives the infinitesimal change under the associated transformation.
-
-\section{Conservation and Symmetry in One Equation}
-
-Having built the generator idea from examples, the lecture now turns to the relation between generators, symmetries, and conserved quantities. Let \(G(q,p)\) be any phase-space function. In Hamiltonian language, we may associate to it the infinitesimal transformation
-\begin{equation}
-\delta_G A=\epsilon\,\{A,G\}.
-\end{equation}
-By itself this does not yet say that the transformation is a symmetry. It simply says that every phase-space function \(G\) defines an infinitesimal transformation rule.
-
-Now add the extra condition that \(G\) is conserved. Since time evolution is generated by \(H\), that condition is
-\begin{equation}
-\dot G=\{G,H\}=0.
-\end{equation}
-Using antisymmetry, we may write the same statement as
-\begin{equation}
-\{H,G\}=0.
-\end{equation}
-The content of the lecture lies in reading these two lines differently. The first says that \(G\) does not change in time. The second says that the Hamiltonian does not change under the transformation generated by \(G\). One and the same vanishing bracket therefore says two things at once: conservation of \(G\), and symmetry of \(H\).
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.66\textwidth]{lecture_08_figure_02.png}
-\caption{The lecture isolates the two orders of the same vanishing Poisson bracket so that the two readings are impossible to miss: \(G\) is conserved, and \(H\) is invariant under the transformation generated by \(G\).}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_01.png}
+  \caption{The oscillator Hamiltonian and the two bracket calculations
+  yielding \(\dot q=p/m\) and \(\dot p=-kq\).}
+  \lectureframe{00:23:20}
 \end{figure}
 
-This is why the board frame matters. The lecture does not bury the two equations in a derivation. It writes them one above the other, with almost nothing else on the board:
+During the calculation the class looks for a verb meaning
+\emph{take a Poisson bracket} and settles, provisionally, on
+\emph{Poissonate}.  The joke marks a real change of viewpoint: once the
+algebra is known, one can work with it directly instead of re-deriving every
+result from the definition.
+
+\begin{classroomqa}
+  \audiencequestion{Is this mathematical structure a group, or an algebra?
+  Does it have inverses? \lecturetimestamp{00:23:48--00:24:16}}
+  \lecturerresponse{It is not a group: the bracket operation does not provide
+  the required identity and inverses.  The phase-space functions form a
+  Poisson algebra: they have ordinary commutative multiplication and addition,
+  together with an antisymmetric bracket obeying the Leibniz rule.  A further
+  identity, the Jacobi identity, completes the usual abstract definition,
+  although it is not developed in this lecture.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What is the connection between Poisson brackets and
+  quantum commutators? \lecturetimestamp{00:24:18--00:25:00}}
+  \lecturerresponse{The lecture gives only a preview.  In the passage to
+  quantum mechanics, the classical bracket is replaced schematically by
+  \[
+    \{A,B\}_{\mathrm{PB}}
+    \longleftrightarrow
+    \frac{1}{i\hbar}[\widehat A,\widehat B].
+  \]
+  This correspondence requires qualifications about operator ordering and
+  quantization; it is not being used as a theorem here.}
+\end{classroomqa}
+
+For the oscillator, the bracket has merely reconstructed Hamilton's equations.
+Its real economy appears when the generator is a conserved quantity other than
+\(H\).
+
+\section{Angular Momentum Recovered from Rotational Symmetry}
+
+Recall the infinitesimal form of Noether's construction used earlier in the
+course.  If a continuous symmetry changes the coordinates by
+\begin{equation}
+  \delta q_i=\epsilon F_i(q),
+  \label{eq:l8-noether-variation}
+\end{equation}
+then, in the setting considered here, its conserved quantity is
+\begin{equation}
+  G=\sum_i p_iF_i(q).
+  \label{eq:l8-noether-charge}
+\end{equation}
+The overall factor \(\epsilon\) may be omitted: multiplying a conserved
+quantity by a fixed number does not change the conservation law.
+
+Take one particle and rotate it infinitesimally about the \(z\)-axis.  With the
+orientation used in the lecture,
+\begin{equation}
+  \delta x=-\epsilon y,\qquad
+  \delta y=\epsilon x,\qquad
+  \delta z=0.
+  \label{eq:l8-z-rotation}
+\end{equation}
+Equation~\eqref{eq:l8-noether-charge} gives
+\begin{equation}
+  L_z=-p_xy+p_yx=xp_y-yp_x.
+  \label{eq:l8-lz}
+\end{equation}
+Cycling \(x\), \(y\), and \(z\),
+\begin{equation}
+  \boxed{
+  L_x=yp_z-zp_y,\qquad
+  L_y=zp_x-xp_z,\qquad
+  L_z=xp_y-yp_x.}
+  \label{eq:l8-angular-components}
+\end{equation}
+These are the components of
+\begin{equation}
+  \boldsymbol L=\boldsymbol r\times\boldsymbol p.
+  \label{eq:l8-cross-product}
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_02.png}
+  \caption{The three Cartesian components of angular momentum and their
+  compact cross-product form.}
+  \lectureframe{00:34:00}
+\end{figure}
+
+Rotation about an arbitrary unit vector \(\boldsymbol n\) is generated by
+\begin{equation}
+  L_{\boldsymbol n}=\boldsymbol n\cdot\boldsymbol L.
+  \label{eq:l8-arbitrary-axis}
+\end{equation}
+For an isolated rotationally invariant system, all three components are
+conserved.  If only rotations around one axis remain a symmetry, only the
+component along that axis is guaranteed to be conserved.
+
+\section{Angular Momentum Generates Rotations}
+
+Instead of immediately solving a rotational dynamics problem, let us explore
+what \(L_z\) does under the bracket.  Using
+Eq.~\eqref{eq:l8-lz},
 \begin{align}
-\{G,H\}&=0,\\
-\{H,G\}&=0.
+  \{x,L_z\}
+  &=\{x,xp_y-yp_x\}
+   =-y\{x,p_x\}
+   =-y,\\
+  \{y,L_z\}
+  &=\{y,xp_y-yp_x\}
+   =x\{y,p_y\}
+   =x,\\
+  \{z,L_z\}&=0.
+  \label{eq:l8-position-rotation-brackets}
 \end{align}
+These are exactly the coefficients in
+Eq.~\eqref{eq:l8-z-rotation}.
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_03.png}
+  \caption{The coordinate brackets with \(L_z\): the bracket reproduces the
+  infinitesimal rotation of \((x,y,z)\).}
+  \lectureframe{00:38:41}
+\end{figure}
 
-\paragraph{Question.} If we know what is conserved, can we recover the symmetry?
+Momentum is also a vector, and the same calculation gives
+\begin{equation}
+  \{p_x,L_z\}=-p_y,\qquad
+  \{p_y,L_z\}=p_x,\qquad
+  \{p_z,L_z\}=0.
+  \label{eq:l8-momentum-rotation-brackets}
+\end{equation}
 
-\paragraph{Answer.} Yes. If a quantity \(G\) is conserved, then we bracket everything in sight with \(G\), and those brackets tell us how the variables transform:
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_04.png}
+  \caption{Position and momentum transform with the same vector pattern under
+  the rotation generated by \(L_z\).}
+  \lectureframe{00:42:08}
+\end{figure}
+
+The general Hamiltonian statement is therefore
+\begin{equation}
+  \boxed{\delta_G A=\epsilon\{A,G\}.}
+  \label{eq:l8-generator-rule}
+\end{equation}
+Every phase-space function \(G\) defines such an infinitesimal canonical
+transformation.  If \(G=L_z\), it is a rotation.  If \(G=H\), it is a small
+step in time.
+
+\begin{classroomqa}
+  \audiencequestion{The lecture sometimes speaks of rotating the system and
+  sometimes of rotating coordinates.  Which convention is used in the bracket
+  equations? \lecturetimestamp{00:28:22--00:29:35}}
+  \lecturerresponse{Equation~\eqref{eq:l8-z-rotation} fixes the convention:
+  it is the infinitesimal active rotation
+  \((x,y)\mapsto(x-\epsilon y,y+\epsilon x)\).  A passive rotation of the axes
+  carries the opposite sign.  Once the convention is fixed, the bracket
+  formulas are unambiguous.}
+\end{classroomqa}
+
+\section{Momentum Generates Translations}
+
+A translation in one coordinate has
+\begin{equation}
+  \delta q=\epsilon.
+  \label{eq:l8-q-translation}
+\end{equation}
+Here \(F(q)=1\) in Eq.~\eqref{eq:l8-noether-variation}, so the corresponding
+conserved quantity is \(p\).  The generator claim predicts
+\begin{equation}
+  \{f(q),p\}=\frac{df}{dq}.
+  \label{eq:l8-translation-derivative}
+\end{equation}
+The lecture proves this first for powers by induction.  The base case is
+\(\{q,p\}=1\).  Suppose
+\begin{equation}
+  \{q^{n-1},p\}=(n-1)q^{n-2}.
+  \label{eq:l8-induction-hypothesis}
+\end{equation}
+Then the product rule gives
+\begin{align}
+  \{q^n,p\}
+  &=\{q\,q^{n-1},p\}\\
+  &=q\{q^{n-1},p\}+\{q,p\}q^{n-1}\\
+  &=(n-1)q^{n-1}+q^{n-1}\\
+  &=nq^{n-1}.
+  \label{eq:l8-power-translation}
+\end{align}
+Linearity extends the result to polynomials and to convergent power-series
+representations.  More directly, the definition of the bracket gives
+Eq.~\eqref{eq:l8-translation-derivative} for every differentiable \(f(q)\):
+\begin{equation}
+  \{f(q),p\}
+  =
+  \frac{\partial f}{\partial q}
+  \frac{\partial p}{\partial p}
+  =f'(q).
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_05.png}
+  \caption{The translation result after the induction argument:
+  \(\{F(q),p\}=dF/dq\).}
+  \lectureframe{00:53:18}
+\end{figure}
+
+We have now seen three versions of one idea:
+\begin{center}
+  \begin{tabular}{lll}
+    \toprule
+    Generator & Transformation & Infinitesimal action\\
+    \midrule
+    \(H\) & time translation & \(\delta_tA=\epsilon\{A,H\}\)\\
+    \(p_i\) & spatial translation & \(\delta A=\epsilon\{A,p_i\}\)\\
+    \(L_i\) & rotation & \(\delta A=\epsilon\{A,L_i\}\)\\
+    \bottomrule
+  \end{tabular}
+\end{center}
+The conserved quantity associated with a continuous symmetry is also the
+generator of that symmetry.
+
+\section{One Bracket, Two Readings}
+
+Let \(G(q,p)\) be a proposed generator.  If it is conserved and has no explicit
+time dependence, then
+\begin{equation}
+  \dot G=\{G,H\}=0.
+  \label{eq:l8-g-conserved}
+\end{equation}
+By antisymmetry,
+\begin{equation}
+  \{H,G\}=0.
+  \label{eq:l8-h-invariant}
+\end{equation}
+The equations are mathematically equivalent, but their physical readings are
+different:
+\begin{itemize}
+  \item \(\{G,H\}=0\) says that \(G\) does not change under time evolution
+  generated by \(H\).
+  \item \(\{H,G\}=0\) says that \(H\) does not change under the transformation
+  generated by \(G\).
+\end{itemize}
+The first is a conservation law; the second is a symmetry of the Hamiltonian.
+Noether's connection has been compressed into one zero.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_06.png}
+  \caption{The two orders of the same vanishing bracket: conservation of
+  \(G\) and invariance of \(H\) under the \(G\)-generated transformation.}
+  \lectureframe{01:03:05}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{If a conserved quantity is known, can the associated
+  symmetry always be recovered? \lecturetimestamp{01:01:42--01:02:15}}
+  \lecturerresponse{Within this Hamiltonian setting, yes: bracket every
+  phase-space variable with \(G\).  The collection
+  \(\delta_GA=\epsilon\{A,G\}\) tells how the variables transform.  For
+  example, the brackets with \(L_z\) reveal a rotation even if that
+  interpretation was not known in advance.  Global and boundary subtleties
+  can arise in more advanced settings, but the local infinitesimal statement
+  is the one used here.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Do those bracket equations tell us the physical motion
+  responsible for the conservation law?
+  \lecturetimestamp{00:56:01--00:58:13}}
+  \lecturerresponse{No.  They identify the symmetry transformation, not the
+  actual trajectory.  Conservation of \(L_z\) indicates rotational symmetry;
+  it does not say that the particle moves in a circle.  Actual time evolution
+  is generated by \(H\).  A bracket with another generator describes another
+  direction of transformation in phase space.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is there a general transformation statement that does not
+  already assume conservation? \lecturetimestamp{01:02:40--01:04:45}}
+  \lecturerresponse{Yes.  Equation~\eqref{eq:l8-generator-rule} defines an
+  infinitesimal transformation for every function \(G\), whether or not it is
+  conserved.  It becomes a symmetry only when the Hamiltonian is invariant:
+  \(\{H,G\}=0\).  The same condition, read in the opposite order, then says
+  that \(G\) is conserved.}
+\end{classroomqa}
+
+\section{The Angular-Momentum Algebra}
+
+The next calculation lets us stop dragging the particle coordinates through
+every rotational problem.  Begin with
 \[
-\delta_G A=\epsilon\,\{A,G\}.
+  L_x=yp_z-zp_y,\qquad
+  L_z=xp_y-yp_x.
 \]
-That is precisely what the lecture says. If we did not already know that angular momentum corresponds to rotation, the brackets with \(L_z\) would tell us. If we did not already know that momentum corresponds to translation, the brackets with \(p\) would tell us.
-
-But there is an important clarification, and the lecture spends time on it. These are not, by themselves, equations of motion. They become equations of motion only when the distinguished quantity inside the bracket is the Hamiltonian. Otherwise they describe symmetry transformations, not the actual time development of the system.
-
-This is where the chapter must not become too textbook-like. The live discussion matters. The student question is exactly the right one: does a conserved quantity tell us how things move? The answer is no, not directly. It tells us what symmetry operation is associated with the conservation law. Dynamics still comes from \(H\).
-
-\section{Angular-Momentum Algebra and the Gyroscope}
-
-Now that we have seen angular momentum acting on coordinates and momenta, the lecture returns to angular momentum itself. The next step is to compute the Poisson brackets of one component of \(\mathbf L\) with another and to use that algebra as a stand-alone dynamical structure.
-
-Let us compute one example explicitly:
+In \(\{L_x,L_z\}\), most cross terms vanish because their indices do not form
+canonical pairs.  The surviving contractions give
 \begin{align}
-\{L_x,L_z\}
-&=\{yp_z-zp_y,\;xp_y-yp_x\}\\
-&=\{yp_z,\;xp_y\}+\{-zp_y,\;-yp_x\}\\
-&=xp_z-zp_x\\
-&=-(zp_x-xp_z)\\
-&=-L_y.
+  \{L_x,L_z\}
+  &=\{yp_z-zp_y,xp_y-yp_x\}\\
+  &=xp_z-zp_x\\
+  &=-L_y.
+  \label{eq:l8-lx-lz}
 \end{align}
-The lecture then reverses the order to remove the minus sign and cycles the coordinates. In the familiar cyclic form we have
+Reversing the order removes the minus sign.  Cycling the coordinates produces
 \begin{equation}
-\{L_x,L_y\}=L_z,\qquad
-\{L_y,L_z\}=L_x,\qquad
-\{L_z,L_x\}=L_y.
+  \boxed{
+  \{L_x,L_y\}=L_z,\qquad
+  \{L_y,L_z\}=L_x,\qquad
+  \{L_z,L_x\}=L_y.}
+  \label{eq:l8-angular-algebra}
+\end{equation}
+In index notation,
+\begin{equation}
+  \{L_i,L_j\}=\varepsilon_{ijk}L_k.
+  \label{eq:l8-angular-algebra-index}
 \end{equation}
 
-This is already the algebra we want. It is the classical Poisson-bracket precursor of the angular-momentum commutation relations of quantum mechanics, though the lecture deliberately does not go further into that story here. More importantly for the present course, it means we can solve problems using the \(L_i\) directly, without dragging ourselves back through the underlying particle coordinates each time.
-
-\subsection{The Gyroscope}
-
-The payoff example is the gyroscope. We imagine a rapidly spinning flywheel whose center remains at a fixed distance from a pivot. The lecture is careful, if somewhat notationally unstable, about what this means. The slanted direction drawn on the board is best understood not as a mysterious axis with many names, but as the position vector \(\mathbf r\) from the pivot to the center of the wheel. The crucial approximation is that the dominant angular momentum stays aligned with that direction.
-
-In a clean reconstruction, we write
-\begin{equation}
-\mathbf L=\ell\,\mathbf r,
-\end{equation}
-where \(\ell\) is approximately constant because the spin is assumed very large. In particular,
-\begin{equation}
-L_z=\ell z.
-\end{equation}
-This is not an exact identity for a general rigid body. It is the lecture's fast-gyroscope approximation. The later student questions make clear why the fixed-length assumption matters: without it, the proportionality between height and \(L_z\) would fail.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.60\textwidth]{lecture_08_figure_03.png}
-\caption{The first clear appearance of the gyroscope geometry on the board: vertical \(z\)-axis, pivot, slanted position direction, and the tilted flywheel.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_07.png}
+  \caption{The cyclic Poisson-bracket algebra of the three angular-momentum
+  components.}
+  \lectureframe{01:10:52}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (0,0) -- (0,4.2) node[above] {$z$};
-\fill (0,3.2) circle (1.6pt);
-\coordinate (C) at (3.5,1.8);
-\draw (0,3.2) -- (C);
-\fill (C) circle (1.6pt);
-\draw (0,3.2) -- (0,1.8);
-\draw (0,1.8) -- (C);
-\begin{scope}[shift={(C)}, rotate=-25]
-\draw (0,0) ellipse (0.75 and 1.65);
-\draw (0,0) ellipse (0.48 and 1.10);
-\end{scope}
-\draw[->] (1.9,2.7) arc[start angle=135,end angle=35,radius=1.7];
-\draw[->] (C) -- +(1.2,-0.75);
-\end{tikzpicture}
-\caption{A cleaned redraw of the geometric picture. The point on the vertical axis is the pivot, the slanted line is the position direction \(\mathbf r\), and the fast-spin approximation keeps \(\mathbf L\) aligned with that direction.}
+The result could also have been anticipated.  Since \(\boldsymbol L\) is a
+vector, bracketing its \(x\)-component with \(L_z\) must give the infinitesimal
+change of that component under a \(z\)-rotation, namely \(-L_y\).  The explicit
+calculation confirms that geometric argument.  These equations are also the
+classical precursors of the quantum angular-momentum commutation relations.
+
+\section{A Fast Gyroscope}
+
+The payoff is a gyroscope: a rapidly spinning flywheel whose center is a fixed
+distance \(R\) from a pivot.  Let \(\boldsymbol r\) point from the pivot to the
+wheel center.  The flywheel spins so rapidly about its axle that its dominant
+angular momentum remains aligned with that direction.  In the approximation
+used in the lecture,
+\begin{equation}
+  \boldsymbol L=\ell\,\boldsymbol r,
+  \qquad
+  L_z=\ell z,
+  \label{eq:l8-L-parallel-r}
+\end{equation}
+where \(\ell=L/R\) is treated as constant.  Smaller angular momenta associated
+with nutation or motion of the axle are neglected at first.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[scale=0.95,>=Latex]
+    \coordinate (P) at (0,3.2);
+    \coordinate (C) at (3.7,1.55);
+    \draw[->] (0,-0.2) -- (0,4.35) node[above] {\(z\)};
+    \fill (P) circle (1.7pt) node[left] {pivot};
+    \draw[very thick,->] (P) -- (C)
+      node[midway,above right] {\(\boldsymbol r\parallel\boldsymbol L\)};
+    \fill (C) circle (1.7pt);
+    \draw[dashed] (P) -- (0,1.55);
+    \draw[dashed] (0,1.55) -- (C);
+    \node[left] at (0,1.55) {\(z\)};
+    \begin{scope}[shift={(C)},rotate=-24]
+      \draw[very thick] (0,0) ellipse (0.65 and 1.35);
+      \draw[thick] (0,0) ellipse (0.42 and 0.9);
+    \end{scope}
+    \draw[->,thick] (2.15,2.85)
+      arc[start angle=140,end angle=35,radius=1.65];
+  \end{tikzpicture}
+  \caption{Fast-gyroscope approximation.  The pivot-to-center distance is
+  fixed, and the dominant spin angular momentum remains aligned with the axle
+  and \(\boldsymbol r\).}
 \end{figure}
 
-The first contribution to the Hamiltonian is the rotational energy,
-\begin{equation}
-H_{\mathrm{rot}}=\frac{1}{2I}\left(L_x^2+L_y^2+L_z^2\right),
-\end{equation}
-with the corrected coefficient \(1/(2I)\). Susskind briefly says the wrong coefficient and then fixes it on the fly; the corrected form is the one we keep.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_08.png}
+  \caption{The board sketch of the flywheel together with
+  \(H_{\rm rot}=L^2/(2I)\) and the cancellation proving torque-free
+  conservation of \(\boldsymbol L\).}
+  \lectureframe{01:18:54}
+\end{figure}
 
-Before adding gravity, the lecture asks us to ignore it altogether. No torque, no potential, just a spinning gyroscope in free space. Then
+\subsection{No gravity: why every component stays fixed}
+
+For the simplified axially symmetric rotor,
+\begin{equation}
+  H_{\mathrm{rot}}
+  =\frac{1}{2I}
+  \left(L_x^2+L_y^2+L_z^2\right)
+  =\frac{L^2}{2I}.
+  \label{eq:l8-rotational-hamiltonian}
+\end{equation}
+The coefficient is \(1/(2I)\), not \(I/2\); that slip is made and corrected
+at the board.  Using Eq.~\eqref{eq:l8-angular-algebra},
 \begin{align}
-\dot L_x
-&=\{L_x,H_{\mathrm{rot}}\}\\
-&=\frac{1}{2I}\Bigl(\{L_x,L_x^2\}+\{L_x,L_y^2\}+\{L_x,L_z^2\}\Bigr)\\
-&=\frac{1}{2I}\Bigl(0+2L_y\{L_x,L_y\}+2L_z\{L_x,L_z\}\Bigr)\\
-&=\frac{1}{I}\bigl(L_yL_z-L_zL_y\bigr)=0.
+  \dot L_x
+  &=\{L_x,H_{\mathrm{rot}}\}\\
+  &=\frac{1}{2I}\left(
+    2L_y\{L_x,L_y\}
+    +2L_z\{L_x,L_z\}
+  \right)\\
+  &=\frac{1}{I}\left(L_yL_z-L_zL_y\right)=0.
+  \label{eq:l8-free-lx}
 \end{align}
-The same reasoning gives
+Cyclically,
 \begin{equation}
-\dot L_y=0,\qquad \dot L_z=0.
+  \dot L_x=\dot L_y=\dot L_z=0.
+  \label{eq:l8-free-angular-momentum}
 \end{equation}
-So in the torque-free case the angular momentum vector remains fixed, just as it should.
+The scalar \(L^2\) has zero bracket with each component \(L_i\); in the
+language of this algebra, it is a Casimir.  Thus a torque-free gyroscope keeps
+both the magnitude and direction of its angular momentum.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+  \audiencequestion{Is the moment of inertia just a number here?
+  \lecturetimestamp{01:14:23--01:15:05}}
+  \lecturerresponse{For this reduced model, yes.  It encodes the mass
+  distribution of the wheel about its spin axis.  A general rigid body has a
+  moment-of-inertia tensor and a rotational Hamiltonian
+  \(\sum_i L_i^2/(2I_i)\) in principal axes.  The lecture chooses the simpler
+  fast, symmetric rotor because the aim is to display the Poisson-bracket
+  method rather than develop full rigid-body dynamics.}
+\end{classroomqa}
 
-\paragraph{Question.} Why is the gravitational potential proportional to \(L_z\)?
+\subsection{Gravity and the sign of the potential}
 
-\paragraph{Answer.} Because the gravitational potential is proportional to the height of the wheel center, and in the fast-spin approximation the height changes exactly as the \(z\)-component of \(\mathbf L\) changes. If we choose the vertical axis to be \(z\), and if \(z\) increases upward, then
+Take the vertical coordinate \(z\) positive upward and put the pivot at the
+origin.  The gravitational potential energy of the wheel center is
 \begin{equation}
-V=Mg\,z.
+  V=Mgz.
+  \label{eq:l8-mgz}
 \end{equation}
-But since \(\mathbf L=\ell\,\mathbf r\), we also have \(L_z=\ell z\). Therefore
+Since \(L_z=\ell z\),
 \begin{equation}
-V=cL_z,\qquad c=\frac{Mg}{\ell}>0.
+  V=cL_z,
+  \qquad
+  c=\frac{Mg}{\ell}=\frac{MgR}{L}.
+  \label{eq:l8-potential-lz}
 \end{equation}
+Here \(c>0\) when \(\boldsymbol L\) is chosen parallel to
+\(\boldsymbol r\).  If the flywheel spins in the opposite sense, the signed
+relation between \(\boldsymbol L\) and \(\boldsymbol r\) reverses and so does
+the corresponding signed precession frequency.
 
-The fixed-distance assumption is essential here. One of the students asks exactly the right question: what if the wheel center were free to move radially? Then the simple proportionality between height and \(L_z\) would fail. The lecture's argument is not a generic rigid-body theorem; it is a controlled approximation for a rapidly spinning gyroscope whose axle direction and position direction stay locked together.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_09.png}
+  \caption{The fixed-length geometry behind
+  \(\boldsymbol L=\ell\boldsymbol r\) and \(L_z=\ell z\).}
+  \lectureframe{01:25:38}
+\end{figure}
 
-\begin{remark}
-The clean board frame reproduced below still shows an earlier sign,
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_10.png}
+  \caption{An intermediate board state shows \(V=-cL_z\).  The sign is
+  corrected later after \(z\) is fixed as upward: with
+  \(\boldsymbol L=\ell\boldsymbol r\) and \(\ell>0\), the consistent result is
+  \(V=+cL_z\).}
+  \lectureframe{01:22:43}
+\end{figure}
+
+\begin{classroomqa}
+  \audiencequestion{Why may height be replaced by a component of angular
+  momentum?  Is the slanted line an axle or a position vector?
+  \lecturetimestamp{01:22:20--01:25:43}}
+  \lecturerresponse{The slanted line is best labeled
+  \(\boldsymbol r\), the vector from the fixed pivot to the wheel center.  A
+  physical axle may lie along it, but the relation used in the calculation is
+  the fast-spin approximation
+  \(\boldsymbol L=\ell\boldsymbol r\).  Their \(z\)-components are therefore
+  proportional.  The live discussion changes labels several times before
+  settling on this distinction.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{What assumptions make \(\ell\) constant, and what fails if
+  the wheel center can slide radially?
+  \lecturetimestamp{01:25:43--01:26:38, 01:34:22--01:35:00}}
+  \lecturerresponse{The dominant spin is assumed much larger than the angular
+  momentum associated with the slow motion, and the pivot-to-center distance
+  is fixed.  Then the spin magnitude changes little and
+  \(\boldsymbol L\) rotates with \(\boldsymbol r\).  If the center could slide
+  radially, \(z\) would no longer be proportional to \(L_z\) with one constant
+  coefficient, so the reduced Hamiltonian \(V=cL_z\) would not describe the
+  motion.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Why does the board first show a minus sign and later a
+  plus sign?  Does the spin direction matter?
+  \lecturetimestamp{01:27:13--01:28:15, 01:33:09--01:33:21}}
+  \lecturerresponse{The initial sign is a live-board error mixed with an
+  unsettled axis convention.  Once \(z\) is defined upward,
+  \(V=Mgz\) increases with height.  If
+  \(\boldsymbol L=\ell\boldsymbol r\) with \(\ell>0\), this gives
+  \(V=+cL_z\).  Reversing the spin reverses the signed proportionality and the
+  direction of precession, but it does not restore an arbitrary sign choice.}
+\end{classroomqa}
+
+\subsection{Precession from three short equations}
+
+The full reduced Hamiltonian is
+\begin{equation}
+  H=
+  \frac{1}{2I}\left(L_x^2+L_y^2+L_z^2\right)+cL_z.
+  \label{eq:l8-full-gyro-hamiltonian}
+\end{equation}
+We have already shown that \(L^2\) has zero bracket with every \(L_i\).  Only
+the linear term contributes:
+\begin{align}
+  \dot L_z&=\{L_z,H\}=0,\\
+  \dot L_x&=\{L_x,H\}=c\{L_x,L_z\}=-cL_y,\\
+  \dot L_y&=\{L_y,H\}=c\{L_y,L_z\}=cL_x.
+  \label{eq:l8-precession-equations}
+\end{align}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_08_figure_11.png}
+  \caption{The final component equations: \(L_z\) is constant while
+  \(L_x\) and \(L_y\) rotate into one another.}
+  \lectureframe{01:30:35}
+\end{figure}
+
+The vertical component and the horizontal magnitude are constant:
+\begin{equation}
+  \frac{d}{dt}(L_x^2+L_y^2)
+  =2L_x(-cL_y)+2L_y(cL_x)=0.
+\end{equation}
+Combining the horizontal components,
+\begin{equation}
+  L_+=L_x+iL_y,
+  \qquad
+  \dot L_+=icL_+,
+\end{equation}
+so
+\begin{equation}
+  L_+(t)=L_+(0)e^{ict}.
+  \label{eq:l8-precession-solution}
+\end{equation}
+The angular-momentum vector therefore precesses around the vertical axis with
+angular speed \(|c|=MgR/L\).  Its tilt remains fixed in this idealized steady
+motion.
+
+\begin{classroomqa}
+  \audiencequestion{Was the rotational-energy term neglected when the
+  precession equations were written?
+  \lecturetimestamp{01:35:01--01:35:49}}
+  \lecturerresponse{No.  It belongs in the full Hamiltonian as in
+  Eq.~\eqref{eq:l8-full-gyro-hamiltonian}.  It simply contributes zero to
+  \(\dot L_i\) because \(\{L_i,L^2\}=0\), a cancellation already proved in the
+  torque-free calculation.  The student question makes this implicit step
+  explicit.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is uniform precession an equilibrium?  What happens after
+  a small kick? \lecturetimestamp{01:32:38--01:33:08}}
+  \lecturerresponse{It is better called a steady or stationary motion than a
+  static equilibrium.  A small kick generally adds nutation, an oscillation of
+  the tilt angle.  For a very rapidly spinning wheel that oscillation is small,
+  which is why the reduced treatment keeps only nearly uniform precession.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Does precession require a support or a real axle?
+  \lecturetimestamp{01:31:49--01:32:38, 01:33:49--01:35:00}}
+  \lecturerresponse{This mechanical model assumes a fixed pivot-to-center
+  distance, so some constraint supplies the support.  The deeper algebraic
+  result is broader: whenever an angular momentum has a Hamiltonian term
+  linear in one component, the same bracket algebra produces precession.
+  The microscopic source of the angular momentum need not be a literal wheel
+  on an axle.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is this the same precession as electron or nuclear spin in
+  a magnetic field, or as a planet's orbit precessing?
+  \lecturetimestamp{01:35:50--01:37:00}}
+  \lecturerresponse{A magnetic moment coupled to a magnetic field has a
+  Hamiltonian linear in a spin component and therefore obeys the same
+  angular-momentum algebra.  Nuclear-spin precession underlies nuclear magnetic
+  resonance.  The precession of a planetary orbit's perihelion is a different
+  phenomenon that happens to share the word \emph{precession}; it is not the
+  same calculation.}
+\end{classroomqa}
+
+\begin{classroomqa}
+  \audiencequestion{Is the side-mounted gyroscope essentially the same object
+  as a spinning top? \lecturetimestamp{01:37:02--01:37:23}}
+  \lecturerresponse{Yes.  The distinction is mostly geometric language: when
+  the spinning axis extends sideways from its support one usually says
+  gyroscope; when it is nearly vertical one says top.  The angular-momentum
+  and torque structure is the same.}
+\end{classroomqa}
+
+\section{What the Calculation Accomplished}
+
+No Euler angles were introduced, and no coordinates for every piece of the
+wheel were followed.  Once
 \[
-V=-cL_z,
+  \{L_i,L_j\}=\varepsilon_{ijk}L_k
 \]
-which the lecture later revisits and corrects after the choice of \(z\)-axis and height convention is clarified. In these notes we take \(z\) upward, so larger \(z\) means larger potential energy, and the cleaned formula is \(V=+cL_z\).
-\end{remark}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_04.png}
-\caption{The board view that combines the gyroscope geometry, the rotational-energy term, and an earlier-sign version of the potential. The screenshot is kept as evidence of the live board staging; the text adopts the corrected sign convention.}
-\end{figure}
-
-The full Hamiltonian is therefore
-\begin{equation}
-H=\frac{1}{2I}\left(L_x^2+L_y^2+L_z^2\right)+cL_z.
-\end{equation}
-Now the useful simplification from a few moments ago becomes decisive. The bracket of any \(L_i\) with \(L_x^2+L_y^2+L_z^2\) vanishes, so the only term that drives the dynamics is the linear \(cL_z\) term:
-\begin{align}
-\dot L_z&=\{L_z,H\}=c\{L_z,L_z\}=0,\\
-\dot L_x&=\{L_x,H\}=c\{L_x,L_z\}=-cL_y,\\
-\dot L_y&=\{L_y,H\}=c\{L_y,L_z\}=cL_x.
-\end{align}
-Thus the vertical component remains fixed, while the horizontal components rotate into one another. The tilt angle stays essentially fixed in the fast-spin approximation, and the vector \(\mathbf L\) precesses about the \(z\)-axis.
-
-The lecture is candid at this point: Susskind says he is tired and may have lost a sign. The sign convention adopted here is consistent with the choice \(V=+cL_z\). The physical point is the more important one, and it is exactly the point he wants to leave us with. We have not solved for Euler angles. We have not developed the full rigid-body formalism. We have jumped directly to the angular-momentum components and written their equations of motion almost immediately.
-
-This is also why the lecture ends by comparing the result to spin precession in a magnetic field. The source of the torque may be gravity, magnetism, or something else entirely; once the Hamiltonian contains a term linear in a component of angular momentum, the Poisson algebra forces the same precessional structure.
-
-\section{Summary}
-
-The lecture begins by returning to the time derivative of an arbitrary phase-space function and identifying the Poisson bracket as the combination that keeps reappearing. It then turns that combination into a working calculus, tests it on the harmonic oscillator, and pivots to angular momentum, where the formalism finally reveals its real point. Bracketing with \(L_z\) generates infinitesimal rotations, bracketing with \(p\) generates infinitesimal translations, and bracketing with \(H\) generates time evolution. The same vanishing bracket \(\{G,H\}=0\) can be read as conservation of \(G\) or invariance of \(H\) under the \(G\)-generated transformation, and the angular-momentum algebra then makes the gyroscope almost immediate. The lecture stops there on purpose. It does not become a full treatment of rigid-body dynamics. Its message is sharper: once the right Poisson-bracket structure is in hand, mechanics can often be done directly in the variables that matter.
+was known, the equations for the variables of interest followed directly.
+That is the intended demonstration of power.  The oscillator showed that
+Poisson brackets can reproduce familiar dynamics.  Angular momentum showed
+that they do much more:
+\begin{itemize}
+  \item a conserved quantity generates its associated infinitesimal symmetry;
+  \item conservation of \(G\) and invariance of \(H\) are the two readings of
+  \(\{G,H\}=0\);
+  \item the algebra of observables can close on itself, allowing dynamics to be
+  solved without returning to microscopic coordinates;
+  \item a Hamiltonian linear in one angular-momentum component produces
+  precession around that axis.
+\end{itemize}
+The lecture stops before the full Euler equations for a general rigid body.
+Its narrower conclusion is already complete: the right generators and their
+Poisson algebra expose both symmetry and motion with remarkable economy.

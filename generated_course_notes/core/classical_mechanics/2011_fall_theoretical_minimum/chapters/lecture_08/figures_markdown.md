@@ -1,79 +1,50 @@
 # Figure Notes
-## Image Inventory
-- `lecture_08_figure_01.png`: a black Stanford University title card with no lecturer, no board, and no mathematical content.
-- `lecture_08_figure_02.png`: Susskind stands beside a sparse board with two stacked Poisson-bracket statements; the board is otherwise largely blank, which makes the local equivalence especially clear.
-- `lecture_08_figure_03.png`: Susskind points toward a right-board gyroscope sketch: a vertical axis labeled \(z\), a marked point on that axis, a slanted line toward a dark central point, and a tilted elliptical disc or wheel drawn around the center.
-- `lecture_08_figure_04.png`: a cleaner board-only view of the same gyroscope setup, now with the geometric sketch, the visible potential-energy line \(V=-cL_z\), and partial rotational-energy notation at upper right.
-- `lecture_08_figure_05.png`: Susskind stands in front of a larger left-board version of the gyroscope geometry, with a vertical \(z\)-axis, a slanted vector toward the wheel center, a curved motion arrow, and partially visible angular-momentum notation.
-- `lecture_08_figure_06.png`: Susskind points at right-hand board writing while the gyroscope sketch and the potential-energy formula remain visible behind him; this is more a gesture-and-emphasis frame than a clean board-only frame.
 
-## Blackboard Equations
-- `lecture_08_figure_01.png`: no blackboard equations.
-- `lecture_08_figure_02.png`: \(\{G,H\}=0\) [visible]
-- `lecture_08_figure_02.png`: \(\{H,G\}=0\) [visible]
-- `lecture_08_figure_03.png`: \(z\) [visible]
-- `lecture_08_figure_03.png`: \(\dot P_z=0\) or a close variant [partially visible]
-- `lecture_08_figure_04.png`: \(z\) [visible]
-- `lecture_08_figure_04.png`: \(V=-cL_z\) [visible]
-- `lecture_08_figure_04.png`: \(\frac{1}{2I}\left(L_x^2+L_y^2+L_z^2\right)\) [partially visible]
-- `lecture_08_figure_04.png`: \(\dot L_x=\{\cdots\}\) or closely related evolution notation [partially visible]
-- `lecture_08_figure_05.png`: \(z\) [visible]
-- `lecture_08_figure_05.png`: \(\vec L\) or \(\vec r\) labeling near the slanted line [partially visible]
-- `lecture_08_figure_05.png`: \(L_z\) [partially visible]
-- `lecture_08_figure_05.png`: \(\mathbf L=\ell\,\mathbf r\) [standard reconstruction]
-- `lecture_08_figure_05.png`: \(L_z=\ell z\) [standard reconstruction]
-- `lecture_08_figure_06.png`: \(V=-cL_z\) [partially visible]
-- `lecture_08_figure_06.png`: Poisson-bracket or time-derivative notation for angular-momentum components on the right board [partially visible]
+## Verified Inventory
 
-## Diagram And Layout Reading
-- `lecture_08_figure_02.png` is not a diagram frame; its value is the board layout itself. The two equations are stacked one above the other with large blank space around them, which visually reinforces the lecture’s point that the same zero Poisson bracket can be read two ways.
-- `lecture_08_figure_03.png`, `lecture_08_figure_04.png`, `lecture_08_figure_05.png`, and `lecture_08_figure_06.png` all belong to the gyroscope discussion, not to a central-force orbit sketch. The recurring geometry is:
-  - a vertical axis labeled \(z\),
-  - a marked point on that axis,
-  - a slanted line from that point toward the center of the flywheel,
-  - a tilted oval or nested ovals representing the wheel or its face,
-  - one or more arrows indicating motion or precession.
-- In `lecture_08_figure_04.png` the board organization is especially useful: the gyroscope sketch is on the left-middle of the active board, the potential-energy line \(V=-cL_z\) is written beneath it, and a partial rotational-energy term \(\frac{1}{2I}(L_x^2+L_y^2+L_z^2)\) sits at upper right.
-- `lecture_08_figure_05.png` is more lecturer-centered, but it preserves the explanatory spatial picture that the lecture uses when saying “the higher it is the more potential energy”: the point on the \(z\)-axis and the slanted axle/angular-momentum direction are visually tied together.
-- `lecture_08_figure_06.png` shows Susskind actively identifying the gravitational-potential term by gesture. It is useful as pacing evidence, but mathematically it overlaps strongly with `lecture_08_figure_04.png`.
+- **lecture_08_figure_01.png** at 00:23:20 shows the oscillator Hamiltonian,
+  q-dot bracket, and p-dot bracket after both derivations are complete.
+- **lecture_08_figure_02.png** at 00:34:00 shows all three Cartesian
+  angular-momentum components and the cross-product form.
+- **lecture_08_figure_03.png** at 00:38:41 shows the complete coordinate
+  brackets with L_z.
+- **lecture_08_figure_04.png** at 00:42:08 shows the corresponding position
+  and momentum rotation rules together.
+- **lecture_08_figure_05.png** at 00:53:18 shows the translation result
+  \(\{F(q),p\}=dF/dq\).
+- **lecture_08_figure_06.png** at 01:03:05 shows \(\{G,H\}=0\) and
+  \(\{H,G\}=0\).
+- **lecture_08_figure_07.png** at 01:10:52 shows the three cyclic brackets
+  among L_x, L_y, and L_z.
+- **lecture_08_figure_08.png** at 01:18:54 shows the gyroscope diagram,
+  \(L^2/(2I)\), and the cancellation in the torque-free calculation.
+- **lecture_08_figure_09.png** at 01:25:35 shows
+  \(\boldsymbol L=\ell\boldsymbol r\) and \(L_z=\ell z\).
+- **lecture_08_figure_10.png** at 01:22:43 shows the intermediate board sign
+  \(V=-cL_z\), retained only with an explicit correction in the caption.
+- **lecture_08_figure_11.png** at 01:30:35 shows the final component equations
+  for precession.
 
-## TeX Reconstruction Plan
-- `lecture_08_figure_01.png` should not appear in the mathematical chapter body. It is only an opening title card and should be skipped.
-- `lecture_08_figure_02.png` should remain visible if the chapter includes the symmetry-conservation equivalence in Poisson-bracket language. Pair it with clean displayed equations for
-  \[
-  \{G,H\}=0,\qquad \{H,G\}=0,
-  \]
-  and explain in prose that the same zero bracket can be read as conservation of \(G\) or invariance of \(H\) under the transformation generated by \(G\).
-- `lecture_08_figure_03.png` should remain visible only if the chapter wants board-layout evidence for the first appearance of the gyroscope geometry. It should be paired with a clean TikZ redraw of the gyroscope sketch. Do not describe it in the notes as a central-potential sketch; it is a gyroscope/flywheel geometry.
-- `lecture_08_figure_04.png` is the strongest screenshot for the potential-energy subsection and should remain visible. Nearby, reconstruct:
-  \[
-  \frac{1}{2I}\left(L_x^2+L_y^2+L_z^2\right),
-  \qquad
-  V=\pm cL_z,
-  \]
-  with a short prose note that the sign is being discussed and corrected in the lecture.
-- `lecture_08_figure_05.png` is best treated as supplementary evidence for the spoken explanation that height is proportional to the \(z\)-component. If space is tight, prefer folding this content into the TikZ redraw and omit the screenshot itself.
-- `lecture_08_figure_06.png` is also supplementary. Use it only if the chapter benefits from preserving Susskind’s pointing gesture as evidence of emphasis; otherwise `lecture_08_figure_04.png` already gives the cleaner mathematical witness.
-- For the gyroscope cluster, a nearby TikZ redraw should show:
-  - the vertical \(z\)-axis,
-  - the pivot point,
-  - the position/axle direction,
-  - the flywheel as a tilted ellipse,
-  - optional arrows for precession or direction change.
-  The redraw should serve clarity; the screenshot should serve evidentiary fidelity.
+## Reconstruction Decisions
 
-## Caption Drafts
-- `lecture_08_figure_01.png`: Opening Stanford title card
-- `lecture_08_figure_02.png`: Vanishing Poisson brackets for \(G\) and \(H\)
-- `lecture_08_figure_03.png`: Gyroscope geometry at the start of the potential-energy discussion
-- `lecture_08_figure_04.png`: Potential energy written as a term proportional to \(L_z\)
-- `lecture_08_figure_05.png`: Height, \(z\), and the gyroscope direction
-- `lecture_08_figure_06.png`: Susskind identifying the gravitational potential-energy term
+The Stanford opening card was removed because it contains no lecture content.
+The former image set contained several nearly redundant gyroscope gestures but
+no evidence for the earlier calculations. They were replaced with completed
+blackboard states at the relevant timestamps.
 
-## Uncertainties
-- In `lecture_08_figure_03.png` and `lecture_08_figure_04.png`, the cropped top-board notation looks like \(\dot P_z=0\) or something close to it, but it is not secure enough to quote without caution.
-- In `lecture_08_figure_04.png` and `lecture_08_figure_06.png`, the right-hand Poisson-bracket or time-derivative equations are only partially visible and should not be transcribed verbatim without transcript support.
-- The sign of the potential-energy term is unstable in the lecture at this stage. The board clearly shows \(V=-cL_z\) in the clean board frame, but the spoken discussion immediately around 01:27–01:32 includes sign corrections tied to the chosen \(z\)-axis and height convention. The notes should state the convention explicitly rather than silently inheriting the board sign.
-- In `lecture_08_figure_05.png`, the lecturer blocks much of the accompanying notation. The reconstructions \(\mathbf L=\ell\,\mathbf r\) and \(L_z=\ell z\) are transcript-backed completions of only partially visible board writing.
-- The slanted vector in the gyroscope images is visually close to a label for either the axle direction, the position vector \(\mathbf r\), or the angular-momentum direction. The transcript later clarifies that Susskind temporarily relabels and then settles on the position vector \(R\)/\(r\), with angular momentum assumed aligned with it.
-- `lecture_08_figure_01.png` is intentionally non-mathematical and should be treated as a rejected title-card asset rather than genuine figure evidence.
+A clean TikZ diagram accompanies the original gyroscope frames. It separates
+the pivot, fixed position vector, flywheel, vertical coordinate, and aligned
+angular momentum. The original frame remains beside the reconstructed
+equations so the diagram can be checked against the lecture.
+
+## Uncertainties Resolved
+
+The slanted gyroscope line is ultimately the position vector from the pivot to
+the wheel center; a physical axle lies along the same direction in the model.
+The angular momentum is assumed aligned with it, not identified with the
+position vector dimensionally.
+
+The negative potential sign in figure 10 is not treated as a final equation.
+The lecture later chooses z upward and corrects the sign. The notes therefore
+derive \(V=Mgz=+cL_z\) for positive \(\ell\), while preserving the frame as a
+record of the live correction.
