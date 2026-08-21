@@ -27,6 +27,7 @@
 - \(\frac{1}{\epsilon}\bigl(|\Psi(\epsilon)\rangle-|\Psi(0)\rangle\bigr)=-iH|\Psi(0)\rangle\) [visible]
 - \(\frac{d}{dt}|\Psi\rangle=-iH|\Psi\rangle\) [visible]
 - \(i\hbar\,\frac{d}{dt}|\Psi\rangle=H|\Psi\rangle\) [transcript-backed]
+- \(U(t)=e^{-iHt/\hbar}\) for time-independent \(H\) [standard reconstruction]
 - \(\frac{d}{dt}\langle \Psi|=i\langle \Psi|H\) in \(\hbar=1\) units [transcript-backed]
 - \(\langle L\rangle_t=\langle \psi(t)|L|\psi(t)\rangle\) [transcript-backed]
 - \(\frac{d}{dt}\langle L\rangle=i\langle HL-LH\rangle=i\langle [H,L]\rangle\) in \(\hbar=1\) units [transcript-backed]
@@ -132,7 +133,7 @@
 - The lower-right symbol in the orthogonality-preservation board frame is visually ambiguous between \(\Phi\) and \(\phi\); standardize to \(\Phi\).
 - The bra-evolution line around 00:34:49–00:35:08 is garbled in the transcript; use the standard reconstruction \(\langle \psi(t)|=\langle \psi(0)|U^\dagger(t)\).
 - The theorem “preserved orthogonality implies preserved overlap for arbitrary pairs of states” is only sketched verbally; the final notes should present it as a short linear-algebra argument, not as a fully board-derived proof.
-- The conjugate infinitesimal expansion \(U^\dagger(\epsilon)=I+i\epsilon H^\dagger\) is partly occluded in the frame and should be treated as standard completion.
+- The conjugate infinitesimal expansion \(U^\dagger(\epsilon)=I+i\epsilon H^\dagger\) is transcript-backed; the replacement 00:43:38 frame also shows the resulting first-order equation unobstructed.
 - The derivative line in the close-up frame is incomplete; the full Schrödinger equation should be anchored in the transcript and the boxed later frame.
 - The late lecture toggles between \(\hbar=1\) and restored units; signs and \(\hbar\)-placement should be checked against the consistent final forms
   \(\;i\hbar\,\partial_t|\psi\rangle=H|\psi\rangle\),
