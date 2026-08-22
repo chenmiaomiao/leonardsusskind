@@ -1,442 +1,855 @@
-\chapter{Particle Mechanics, Four-Momentum, and \(E=mc^2\)}
+\chapter{Particle Mechanics, Four-Momentum, and Rest Energy}
 
-These notes follow Leonard Susskind's third lecture on special relativity, with companion-note curation by LazyingArt LLC and Video2Book. The lecture begins almost pragmatically: before we are allowed to talk about relativistic momentum, relativistic energy, and \(E=mc^2\), we first put on the board the approximation that will be used over and over to recover the Newtonian limit. From there the argument unfolds in a steady sequence. We pass from particles and their world lines to proper time, from proper time to the invariant free-particle action, from the action to the Lagrangian, and only then to momentum, energy, four-momentum, the mass-shell relation, and finally a simple decay process in which frozen mass becomes outgoing radiation.
+\section{The Approximation We Will Use Repeatedly}
 
-\section{Low-Velocity Expansions as Setup}
+The mechanics of a relativistic particle must answer familiar questions in a new language. How does a particle move? What are its momentum and energy? Why do those quantities fit together into a four-vector, and how does \(E=mc^2\) emerge from the ordinary machinery of mechanics? Before taking up those questions, we need one elementary approximation that will recur throughout the calculation.
 
-Susskind opens by saying, in effect, let us first do the one bit of mathematics that we will need recurrently. The reason is clear: every relativistic formula we write down had better collapse back to the old Newtonian one when the velocity is small.
-
-For a parameter \(\epsilon\), the binomial theorem says
+For any exponent \(p\), the binomial series is
 \begin{equation}
 (1+\epsilon)^p
 =
-1+p\epsilon+\frac{p(p-1)}{2}\epsilon^2+\frac{p(p-1)(p-2)}{3!}\epsilon^3+\cdots.
+1+p\epsilon
++\frac{p(p-1)}{2!}\epsilon^2
++\frac{p(p-1)(p-2)}{3!}\epsilon^3
++\cdots .
+\label{eq:sr3-binomial}
 \end{equation}
-In the uses we need tonight, the zeroth-order term is too boring to matter very much; the first correction carries the physics.
+The exponent may be positive, negative, fractional, or even complex. When \(\epsilon\) is small enough for the series to converge rapidly, each successive term is smaller and we may stop at whatever order the desired accuracy requires. The zeroth-order term is often the largest, but in the applications below it is frequently a constant and therefore dynamically uninteresting. The first correction is where the motion appears.
 
-We first apply this to the quantity that recurs throughout relativistic mechanics:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_01.png}
+\caption{The binomial series through cubic order, used to recover nonrelativistic mechanics from relativistic formulas.}
+\lectureframe{00:04:24}
+\end{figure}
+
+We normally set \(c=1\), so a velocity \(v\) means the fraction \(v/c\) of light speed. Take \(\epsilon=-v^2\). With \(p=\tfrac12\),
 \begin{equation}
-\sqrt{1-v^2},
+\sqrt{1-v^2}
+=
+1-\frac{v^2}{2}-\frac{v^4}{8}-\cdots
+\approx
+1-\frac{v^2}{2},
+\qquad |v|\ll 1.
+\label{eq:sr3-sqrt-expansion}
 \end{equation}
-where for the moment we work in units with \(c=1\), so \(v\) means velocity measured as a fraction of the speed of light. Setting \(\epsilon=-v^2\) and \(p=\tfrac12\), we obtain
-\begin{equation}
-\sqrt{1-v^2}\approx 1-\frac{v^2}{2},
-\qquad v\ll 1.
-\end{equation}
-The companion expansion, which will be needed just as often, comes from \(p=-\tfrac12\):
+With \(p=-\tfrac12\), the two minus signs cancel:
 \begin{equation}
 \frac{1}{\sqrt{1-v^2}}
+=
+1+\frac{v^2}{2}+\frac{3v^4}{8}+\cdots
 \approx
-1+\frac{v^2}{2},
-\qquad v\ll 1.
+1+\frac{v^2}{2}.
+\label{eq:sr3-gamma-expansion}
 \end{equation}
+Many factors of \(1/2\) in classical mechanics can be recognized, after the fact, as the first correction in one of these relativistic expansions. The approximation fails as \(v\) approaches one; then no finite truncation captures the singular behavior of the exact expression.
 
-These are not side remarks. The first of them will recover the ordinary free-particle Lagrangian from the relativistic one, and the second will recover the ordinary kinetic energy from the relativistic energy. Susskind even pauses to note that many familiar factors of \(1/2\) in classical mechanics can be viewed as relics of these low-velocity expansions.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_02.png}
+\caption{Both low-velocity formulas are visible: \(\sqrt{1-v^2}\approx1-v^2/2\) and \((1-v^2)^{-1/2}\approx1+v^2/2\).}
+\lectureframe{00:07:39}
+\end{figure}
 
-\section{Particles, World Lines, and Proper Time}
+\section{What Counts as a Particle?}
 
-Now we turn to particles. A particle, in the mechanical sense, need not be elementary. It may be an electron, but it may also be a donut, a box of chocolates, or the sun. What mechanics follows is the motion of the center of mass. In Newtonian language,
+A particle in mechanics need not be elementary. It may be an electron, the Sun, a box of chocolates, or a donut. What matters is that the object holds together well enough for its overall motion to be described by a center of mass. A donut is a useful reminder that the center of mass need not lie in the material itself.
+
+In Newtonian mechanics the center-of-mass variables obey
 \begin{equation}
-\vec p = m\vec v,
+\vec p=m\vec v,
 \qquad
-E_{\text{kin}}=\frac12 mv^2.
+K=\frac12mv^2,
+\qquad
+\vec F=m\vec a.
+\label{eq:sr3-newtonian-particle}
 \end{equation}
-If the object has internal energy, that energy is there as well, but it does not depend on the overall motion of the center of mass. A moving donut carries \(\tfrac12 mv^2\) plus its internal energy; only the first term changes when we change frames.
-
-This is the point at which Susskind asks us to recall the previous quarter's mechanics: least action, Lagrangians, canonical momentum, Hamiltonians. The essential geometric object is the trajectory in spacetime. If we plot position horizontally and time vertically, the motion of a single particle traces out a curve, its world line.
-
-In relativity this curve takes on extra importance because space and time mix under Lorentz transformations. A physical particle with nonzero mass moves along a timelike world line. To make that precise, consider two nearby events with coordinate separations \(\Delta t\) and \(\Delta \vec x\). Their invariant proper-time interval is
+These formulas do not care whether the object is elementary or composite. A composite object also contains internal energy. A moving donut, for example, has center-of-mass kinetic energy plus chemical, thermal, and binding energy:
 \begin{equation}
-\Delta \tau^2 = \Delta t^2 - \Delta \vec x^{\,2},
+E_{\text{Newtonian}}
+=
+E_{\text{internal}}+\frac12mv^2.
+\label{eq:sr3-newtonian-internal}
 \end{equation}
-with
+The internal term is independent of the overall center-of-mass velocity. Relativity will retain this distinction but will reveal that the internal energy contributes to the invariant mass of the whole object.
+
+The tools required are the same ones used in classical mechanics: trajectories, the principle of stationary action, Lagrangians, canonical momenta, Hamiltonians, and the relation between continuous symmetries and conservation laws.
+
+\section{Worldlines and Causal Separation}
+
+Plot a system's position horizontally and time vertically. Its history is then a curve in spacetime. For one particle this curve is its \emph{worldline}. The concept exists in Newtonian mechanics, but it becomes fundamental in relativity because Lorentz transformations mix space and time.
+
+Consider two events separated by
 \begin{equation}
-\Delta \vec x^{\,2} = \Delta x^2+\Delta y^2+\Delta z^2.
+\Delta x^\mu=(\Delta t,\Delta\vec x),
+\qquad
+\Delta\vec x^{\,2}
+=
+(\Delta x)^2+(\Delta y)^2+(\Delta z)^2.
 \end{equation}
-If we restore units for a moment, this becomes
+In units \(c=1\), their invariant interval is
 \begin{equation}
-\Delta \tau^2=\Delta t^2-\frac{\Delta \vec x^{\,2}}{c^2}.
+(\Delta\tau)^2
+=
+(\Delta t)^2-\Delta\vec x^{\,2}.
+\label{eq:sr3-interval}
 \end{equation}
 
-When \(\Delta \tau^2>0\), the interval is timelike: it has more time in it than space. Then there exists a frame in which the two events occur at the same spatial location. When \(\Delta \tau^2<0\), the interval is spacelike: it has more space in it than time. Then there exists a frame in which the two events are simultaneous, and indeed one can even reverse their temporal order by changing frames. This is the relativity of simultaneity.
+\subsection{Timelike separation}
 
-The world line of a massive particle is built from timelike pieces. That is just another way of saying that the particle never outruns light. If it did, the notions of before and after along its trajectory would cease to have invariant meaning, and physics would become badly confused.
+If \((\Delta t)^2>\Delta\vec x^{\,2}\), then \((\Delta\tau)^2>0\) and the separation is timelike. There is a Lorentz frame in which the two events occur at the same spatial point. In that frame the line joining them is vertical and a clock can travel from one event to the other. Its elapsed reading is the proper time \(\Delta\tau\).
 
-\section{Four-Velocity and Its Constraint}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_03.png}
+\caption{A timelike interval has more temporal than spatial separation; a rest frame exists in which the two events share one position.}
+\lectureframe{00:14:42}
+\end{figure}
 
-Let us now focus on one infinitesimal timelike segment of the world line. Ordinary velocity is a three-dimensional object,
+\subsection{Spacelike separation}
+
+If \(\Delta\vec x^{\,2}>(\Delta t)^2\), the interval is spacelike. No inertial frame places both events at the same spatial point, but there is a frame in which they are simultaneous. Other frames can reverse their time order. Therefore neither \emph{event \(A\) happened first} nor \emph{event \(B\) happened first} is an invariant statement for a spacelike pair. This is the relativity of simultaneity in geometric form.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_04.png}
+\caption{For a spacelike interval, a change of inertial frame can make the two events simultaneous or reverse their temporal order.}
+\lectureframe{00:17:01}
+\end{figure}
+
+A massive particle has a timelike worldline: every sufficiently short segment satisfies \(d\tau^2>0\). Successively composing velocities of \(0.9c\) may bring a particle ever closer to \(c\), but never beyond it. The approach resembles Zeno's paradox. This causal restriction applies not only to material objects but also to signals and information, because information must be carried by physical systems. A faster-than-light signal would allow different frames to disagree about which end of its history is the cause and which is the effect.
+
+\section{Four-Velocity}
+
+Focus on a short timelike segment. In conventional units,
+\begin{equation}
+d\tau
+=
+\sqrt{dt^2-\frac{d\vec x^{\,2}}{c^2}}.
+\label{eq:sr3-proper-time-dimensional}
+\end{equation}
+The factor of \(c^2\) is forced by dimensions: \(dt^2\) has units of time squared, whereas \(d\vec x^{\,2}\) has units of length squared.
+
+\begin{classroomqa}
+\audiencequestion{Where must the speed of light be inserted when the interval is written in ordinary units?}
+\lecturerresponse{The spatial term must be divided by \(c^2\), giving \(d\tau^2=dt^2-d\vec x^{\,2}/c^2\). We will usually return to \(c=1\), but dimensional consistency always recovers the missing factors. \lecturetimestamp{00:21:23}}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_05.png}
+\caption{A worldline displacement \(\Delta x^\mu=(\Delta t,\Delta\vec x)\) and the proper-time increment associated with it.}
+\lectureframe{00:21:03}
+\end{figure}
+
+Ordinary velocity has three spatial components,
 \begin{equation}
 v^i=\frac{dx^i}{dt},
 \qquad i=1,2,3.
 \end{equation}
-But relativity suggests a more invariant quantity. Since \(dx^\mu\) is a four-vector and \(d\tau\) is invariant, we define the four-velocity by
+The relativistic velocity is obtained by dividing the full spacetime displacement by invariant proper time:
 \begin{equation}
-u^\mu=\frac{dx^\mu}{d\tau},
-\qquad \mu=0,1,2,3.
+u^\mu
+=
+\frac{dx^\mu}{d\tau},
+\qquad
+\mu=0,1,2,3.
+\label{eq:sr3-four-velocity-definition}
 \end{equation}
-The zeroth component is the time component:
+Greek indices run over spacetime; Latin indices run over space. The zeroth component of position is \(x^0=t\) in \(c=1\) units, so
 \begin{equation}
 u^0=\frac{dt}{d\tau}.
 \end{equation}
 
-To relate \(u^\mu\) to the ordinary velocity, begin with
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_06.png}
+\caption{Ordinary velocity divides spatial displacement by coordinate time, while four-velocity divides all four components by proper time.}
+\lectureframe{00:24:05}
+\end{figure}
+
+To relate \(u^\mu\) to \(\vec v\), factor \(dt^2\) from the interval:
+\begin{align}
+d\tau^2
+&=dt^2-d\vec x^{\,2}\\
+&=dt^2\left(1-\frac{d\vec x^{\,2}}{dt^2}\right)
+=dt^2(1-v^2).
+\end{align}
+Taking the positive root for a future-directed worldline,
 \begin{equation}
-d\tau^2 = dt^2-d\vec x^{\,2}
-=
-dt^2\left(1-\frac{d\vec x^{\,2}}{dt^2}\right)
-=
-dt^2(1-v^2).
-\end{equation}
-Therefore
-\begin{equation}
-d\tau = dt\sqrt{1-v^2},
+\frac{d\tau}{dt}=\sqrt{1-v^2},
 \qquad
-\frac{d\tau}{dt}=\sqrt{1-v^2}.
+\frac{dt}{d\tau}=\frac{1}{\sqrt{1-v^2}}
+\equiv\gamma.
+\label{eq:sr3-time-component}
 \end{equation}
-Inverting gives
+For a spatial component,
 \begin{equation}
-u^0=\frac{dt}{d\tau}=\frac{1}{\sqrt{1-v^2}}.
+v^i
+=
+\frac{dx^i}{dt}
+=
+\frac{dx^i}{d\tau}\frac{d\tau}{dt}
+=u^i\sqrt{1-v^2}.
 \end{equation}
-For the spatial components,
+Thus
 \begin{equation}
-v^i=\frac{dx^i}{dt}=\frac{dx^i}{d\tau}\frac{d\tau}{dt}=u^i\sqrt{1-v^2},
+\boxed{
+u^\mu
+=
+\gamma(1,\vec v)
+},
+\qquad
+u^0=\gamma,
+\qquad
+u^i=\gamma v^i.
+\label{eq:sr3-four-velocity-components}
 \end{equation}
-so
-\begin{equation}
-u^i=\frac{v^i}{\sqrt{1-v^2}}.
-\end{equation}
+At low speed \(u^0\to1\) and \(u^i\to v^i\). Near light speed both \(u^0\) and the magnitude of the spatial four-velocity become large even though \(|\vec v|<1\).
 
-This is the basic kinematic relation. In the nonrelativistic limit, \(u^0\to 1\) and \(u^i\to v^i\). But as \(v\) approaches the speed of light, the distinction becomes decisive.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_07.png}
+\caption{The settled relation between ordinary velocity and all four components of \(u^\mu\).}
+\lectureframe{00:30:40}
+\end{figure}
 
-\subsection{Question \& Answer}
+\subsection{Why only three components are independent}
 
-\paragraph{Question.}
-Why does four-velocity have only three independent components, and why does the relation \(u_0^2-\vec u^{\,2}=1\) hold?
-
-\paragraph{Answer.}
-The quickest way to see it is to divide the interval formula by \(\Delta \tau^2\):
+Four-velocity has four components but only three independent degrees of freedom. Dividing the interval identity by \(d\tau^2\) gives
 \begin{equation}
 1
 =
-\frac{\Delta t^2}{\Delta\tau^2}
--
-\frac{\Delta \vec x^{\,2}}{\Delta\tau^2}.
+\left(\frac{dt}{d\tau}\right)^2
+-\left(\frac{d\vec x}{d\tau}\right)^2,
 \end{equation}
-But \(\Delta t/\Delta\tau\) is just \(u^0\), and \(\Delta \vec x/\Delta\tau\) is \(\vec u\). Therefore
+or
 \begin{equation}
-u_0^2-\vec u^{\,2}=1.
+\boxed{
+(u^0)^2-\vec u^{\,2}=1
+}.
+\label{eq:sr3-four-velocity-normalization}
 \end{equation}
-So the four components are constrained by one invariant relation. That leaves only three independent pieces of information, exactly as one should expect from the ordinary three-velocity.
+The one normalization condition removes one independent component.
 
-This normalization will return later in a more physical guise, when it becomes the energy-momentum relation.
-
-\section{Invariant Action and the Relativistic Lagrangian}
-
-With the geometry in place, the lecture turns to dynamics. What law should govern a free particle? Susskind does not start by guessing an energy. He goes back to the principle of least action. If we want the laws of physics to be the same in every inertial frame, then the action should be built from quantities all observers agree on.
-
-There are two pieces of classical wisdom to preserve. First, the action should be an integral along the trajectory, built up from infinitesimal contributions. Second, the integrand should now be something invariant. For a free particle there is really only one obvious candidate: the proper time along the world line. So the right guess, and it is the right guess, is
-\begin{equation}
-S=-m\int_a^b d\tau.
-\end{equation}
-The factor of \(m\) is chosen so that the low-velocity limit matches ordinary mechanics. The minus sign is a convention, but it is the convention that makes the later comparison with the old Lagrangian come out in the usual way.
-
-Using
-\begin{equation}
-d\tau = dt\sqrt{1-v^2},
-\end{equation}
-we can rewrite the action in the familiar form
-\begin{equation}
-S=-m\int_a^b dt\,\sqrt{1-v^2}.
-\end{equation}
-Thus the free-particle Lagrangian is
-\begin{equation}
-L=-m\sqrt{1-v^2}.
-\end{equation}
-At this stage we are still discussing only a free particle. No potential energy has yet been added, and no force law has yet been introduced.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-Why is proper time the right thing to build the action from, and why do the overall sign and constant factor not affect the equations of motion?
-
-\paragraph{Answer.}
-Proper time is the natural choice because it is the invariant quantity attached to each infinitesimal segment of a timelike world line. If the action is an integral of invariant pieces, then every observer agrees on the value of the action for a given path, and therefore every observer agrees on which path makes the action stationary.
-
-As for the prefactors: multiplying the action by any constant leaves the stationarity condition unchanged. Multiplying by a negative constant merely exchanges a minimum for a maximum, but the stationary path is the same. Likewise, proper time itself is taken to be positive by definition, since it is the time read by a clock from past to future. Had we chosen the negative root everywhere, we would only have flipped the sign of the action, not the resulting trajectory.
-
-Now the opening approximation pays off. Returning to the binomial expansion, and keeping the corrected low-velocity sign, we have
-\begin{equation}
-L
-=
--m\sqrt{1-v^2}
-\approx
--m\left(1-\frac{v^2}{2}\right)
-=
--m+\frac12 mv^2.
-\end{equation}
-The constant term \(-m\) does nothing dynamically; adding a constant to the Lagrangian does not alter the Euler-Lagrange equations. The piece with the juice in it, as Susskind puts it, is the familiar one:
-\begin{equation}
-L_{\text{Newton}}=\frac12 mv^2.
-\end{equation}
-So the relativistic action reduces, in the low-velocity limit, to the old Lagrangian mechanics of Lagrange and Newton.
-
-\section{Canonical Momentum, Vector Conservation, and the Missing Component}
-
-At this point Susskind makes an explicit pivot. He does not work out the equations of motion in detail, because for a free particle they only say that the particle moves on a straight line with constant velocity. The interesting objects tonight are the conserved quantities: momentum and energy.
-
-Since the Lagrangian depends on velocity but not on position, it is translation invariant. By the general machinery of Lagrangian mechanics, that means momentum is conserved. But we do not identify momentum by guessing \(p=mv\). We go back to the canonical definition.
-
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_03_figure_02.png}
-\caption{Canonical momentum defined from the Lagrangian.}
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_08.png}
+\caption{The invariant interval immediately yields the normalization \((u^0)^2-\vec u^{\,2}=1\).}
+\lectureframe{00:33:50}
 \end{figure}
 
-The right-hand side of the board formula is partly blocked by Susskind's arm, so we standardize it in the canonical form:
+\begin{classroomqa}
+\audiencequestion{Can the loss of one independent component be understood from differentiating with respect to proper time itself?}
+\lecturerresponse{Yes. Proper time is not an independent fifth coordinate; it is fixed by the spacetime interval along the worldline. Dividing that defining relation by \(d\tau^2\) constrains the four derivatives to lie on the unit timelike hyperboloid \((u^0)^2-\vec u^{\,2}=1\). \lecturetimestamp{00:34:07}}
+\end{classroomqa}
+
+\section{An Invariant Action for a Free Particle}
+
+What law governs a force-free worldline? We retain two lessons from classical mechanics:
+\begin{enumerate}
+\item the physical path makes an action stationary while its endpoints are held fixed;
+\item the action is built additively from infinitesimal segments of the path.
+\end{enumerate}
+Relativity adds a third demand: every inertial observer must agree on the action. The natural infinitesimal scalar available on a timelike worldline is \(d\tau\). Therefore the free-particle action is
 \begin{equation}
-p_x=\frac{\partial L}{\partial \dot x}.
+\boxed{
+S=-m\int_a^b d\tau
+}
+\qquad(c=1).
+\label{eq:sr3-invariant-action}
 \end{equation}
-Applying this to
+The finite-sum picture is
 \begin{equation}
-L=-m\sqrt{1-v^2},
+S=-m\lim_{N\to\infty}\sum_{k=1}^{N}\Delta\tau_k.
 \end{equation}
-we get
-\begin{align}
-p_x
-&=
-\frac{\partial}{\partial \dot x}\Bigl(-m\sqrt{1-v^2}\Bigr) \\
-&=
--m\left(\frac{1}{2\sqrt{1-v^2}}\right)(-2\dot x) \\
-&=
-\frac{m v_x}{\sqrt{1-v^2}} \\
-&=
-m u_x.
-\end{align}
-The same calculation in all spatial directions gives
-\begin{equation}
-p_i=\frac{m v_i}{\sqrt{1-v^2}}=m u_i.
-\end{equation}
-So relativistic momentum is mass times the spatial components of four-velocity.
+Since every observer agrees on each proper-time increment, every observer agrees on which path makes their sum stationary.
 
-Before pushing farther, Susskind pauses over terminology. Modern usage is to call \(m\) simply the mass. The expression ``rest mass'' is treated as an anachronism. Mass is the invariant tag attached to the particle; what changes with motion is not the mass but the energy.
-
-Now comes the conceptual obstacle. In relativity, statements that single out only some components of a four-vector are usually not invariant. A displacement with \(\Delta x=0\) in one frame need not have \(\Delta x=0\) in another. Likewise \(u_i=0\) merely says that we happen to be in the particle's rest frame. It is not an invariant statement. If we want invariant laws, we should expect them to involve all components of a four-vector together.
-
-This is exactly the issue with momentum conservation. The lecture's board at that point is worth keeping:
-
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.84\textwidth]{lecture_03_figure_03.png}
-\caption{Momentum conservation written as a vector equation, with the earlier low-velocity expansion still visible on the neighboring board.}
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_09.png}
+\caption{The action is built as a sum of invariant proper-time increments along a varied worldline with fixed endpoints.}
+\lectureframe{00:38:30}
 \end{figure}
 
-The board labels are soft, so we standardize the conservation law as
+\begin{classroomqa}
+\audiencequestion{What happens to energy if the action is multiplied by an arbitrary constant?}
+\lecturerresponse{Energy is not the starting invariant; it will be derived from the Lagrangian and Hamiltonian. Multiplying the entire action by a nonzero constant leaves its stationary paths unchanged, though it rescales the canonical quantities defined from that action. The normalization \(-m\) is chosen so those derived quantities match established Newtonian conventions. \lecturetimestamp{00:39:47}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is an invariant such as proper time a good candidate from which to build the action?}
+\lecturerresponse{Because a stationary-action law should select the same physical path in every inertial frame. This is analogous to finding the shortest curve in a Euclidean plane: rotations change coordinate components but not each infinitesimal length, so they cannot change which curve is shortest. Replacing Euclidean length by proper time gives the relativistic construction. \lecturetimestamp{00:40:39}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why choose the positive square root for proper time rather than the negative root?}
+\lecturerresponse{Proper time is defined as the positive elapsed reading of a clock carried from past to future. Choosing the negative root consistently would merely reverse the sign of the action, changing a minimum into a maximum without changing the stationary worldline. In the clock's rest frame, the positive convention gives \(d\tau=dt\). \lecturetimestamp{00:42:59}}
+\end{classroomqa}
+
+The factor \(-m\) is likewise a normalization convention selected to recover Newtonian mechanics. Restoring units, the conventional action is
 \begin{equation}
-\vec P_{\mathrm{i}}-\vec P_{\mathrm{f}}=0.
+S=-mc^2\int_a^b d\tau.
+\label{eq:sr3-action-dimensional}
 \end{equation}
-This is certainly a vector equation. But is it an invariant one?
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_10.png}
+\caption{The finite proper-time sum becomes the invariant integral \(-m\int d\tau\) in natural units.}
+\lectureframe{00:46:23}
+\end{figure}
 
-\paragraph{Question.}
-Why is three-momentum conservation by itself not enough, and why must it be completed to a four-vector statement?
+\section{The Relativistic Lagrangian}
 
-\paragraph{Answer.}
-A statement that all components of a four-vector vanish is invariant. A statement involving only the spatial components need not remain true after a Lorentz transformation. So \(\vec P_{\mathrm{i}}-\vec P_{\mathrm{f}}=0\) is not yet a fully relativistic conservation law. To make it invariant, we must identify a fourth component and require that it too be conserved.
-
-Since the known three components are \(m u_i\), the natural candidate for the missing component is
+To put the action into standard mechanical form, factor \(dt\) from \(d\tau\):
 \begin{equation}
-p_0 = m u_0.
-\end{equation}
-The immediate question is whether this fourth component is something we already recognize. The lecture's answer is: yes, if the mechanics is done systematically, it will turn out to be the energy.
-
-\section{Hamiltonian, Energy, and the Meaning of Mass}
-
-How do we decide what the energy is? Not by inspiration, but by method. The only systematic procedure is to compute the Hamiltonian:
-\begin{equation}
-H=\sum_i \dot x^i p_i-L.
-\end{equation}
-This is not a special relativistic trick. It is the general Hamiltonian formula from ordinary mechanics, now applied to a different Lagrangian.
-
-Substituting
-\begin{equation}
-p_i=\frac{m\dot x^i}{\sqrt{1-v^2}},
+d\tau
+=dt\sqrt{1-\dot{\vec x}^{\,2}},
 \qquad
-L=-m\sqrt{1-v^2},
+\dot{\vec x}^{\,2}
+=\dot x^2+\dot y^2+\dot z^2.
 \end{equation}
-we find
+Then
+\begin{equation}
+S
+=
+\int_a^b L\,dt,
+\qquad
+\boxed{
+L=-m\sqrt{1-v^2}
+}
+\quad(c=1).
+\label{eq:sr3-relativistic-lagrangian}
+\end{equation}
+In conventional units,
+\begin{equation}
+L=-mc^2\sqrt{1-\frac{v^2}{c^2}}.
+\label{eq:sr3-relativistic-lagrangian-c}
+\end{equation}
+This is the Lagrangian of a free particle: it depends on velocity but not position. No force or potential has yet been introduced.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_11.png}
+\caption{Factoring out \(dt\) reveals the free relativistic Lagrangian as a function of the three velocity components.}
+\lectureframe{00:49:57}
+\end{figure}
+
+\subsection{Recovering Lagrange and Newton}
+
+Insert \eqref{eq:sr3-sqrt-expansion}:
+\begin{align}
+L
+&=-m\sqrt{1-v^2}\\
+&\approx-m\left(1-\frac{v^2}{2}\right)\\
+&=-m+\frac12mv^2.
+\label{eq:sr3-lagrangian-low-speed}
+\end{align}
+The constant \(-m\) is independent of both position and velocity. It contributes the same amount to every path with the same endpoint times and therefore drops out of the Euler--Lagrange equations. The part with dynamical content is precisely
+\begin{equation}
+L_{\mathrm{Newton}}=\frac12mv^2.
+\end{equation}
+Thus the sign and mass normalization in the invariant action were chosen correctly.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_12.png}
+\caption{The low-speed expansion leaves a constant \(-m\) and the Newtonian free-particle Lagrangian \(mv^2/2\).}
+\lectureframe{00:53:24}
+\end{figure}
+
+For the present free particle, the Euler--Lagrange equations will say only that the velocity is constant and the spacetime worldline is straight. The more revealing task is to identify the conserved momentum and energy.
+
+\section{Canonical Momentum}
+
+Because \(L\) has no position dependence, it is invariant under spatial translations. The corresponding conserved quantity is momentum. We do not assume the Newtonian formula \(p_i=mv_i\); we use the canonical definition
+\begin{equation}
+p_i=\frac{\partial L}{\partial\dot x^i}.
+\label{eq:sr3-canonical-momentum}
+\end{equation}
+For \(L=-m\sqrt{1-v^2}\),
+\begin{align}
+p_i
+&=
+-m\frac{1}{2\sqrt{1-v^2}}
+\frac{\partial}{\partial\dot x^i}(1-v^2)\\
+&=
+-m\frac{1}{2\sqrt{1-v^2}}(-2\dot x^i)\\
+&=
+\frac{mv_i}{\sqrt{1-v^2}}
+=m\gamma v_i.
+\label{eq:sr3-relativistic-momentum}
+\end{align}
+Since \(u^i=\gamma v^i\),
+\begin{equation}
+\boxed{
+p^i=mu^i
+}.
+\label{eq:sr3-momentum-spatial}
+\end{equation}
+At low speed this reduces to \(p^i\approx mv^i\). Near light speed the denominator matters decisively.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_13.png}
+\caption{Canonical differentiation of the square-root Lagrangian gives \(p_x=mv_x/\sqrt{1-v^2}\).}
+\lectureframe{00:58:49}
+\end{figure}
+
+\subsection{Mass, not relativistic mass}
+
+Here \(m\) is simply the particle's mass: an invariant label that does not change when the particle moves. Older texts sometimes call it \emph{rest mass} and call \(E/c^2\) a velocity-dependent \emph{relativistic mass}. Modern usage avoids that split. Motion changes energy and momentum, not invariant mass. The mass of an electron is the same parameter in every frame.
+
+\section{From Three-Momentum to Four-Momentum}
+
+A statement about one component of a four-vector is generally frame-dependent. For example, \(\Delta\vec x=0\) says that two events share a position in one frame, but a boost tilts that interval and makes \(\Delta\vec x'\ne0\). By contrast,
+\begin{equation}
+\Delta x^\mu=0
+\end{equation}
+is invariant: if all four components vanish in one frame, all four vanish in every frame. Likewise, \(\vec u=0\) only identifies the particle's rest frame; it is not an invariant description of the four-velocity.
+
+For a closed system, ordinary momentum conservation reads
+\begin{equation}
+\vec P_{\mathrm{initial}}-\vec P_{\mathrm{final}}=0.
+\label{eq:sr3-three-momentum-conservation}
+\end{equation}
+This is a three-vector equation. To make conservation manifestly Lorentz covariant, we need a fourth component that joins the three \(p^i=mu^i\). The obvious completion is
+\begin{equation}
+p^\mu=mu^\mu.
+\label{eq:sr3-four-momentum}
+\end{equation}
+In \(c=1\) units,
+\begin{equation}
+p^\mu=(p^0,\vec p)
+=
+m\gamma(1,\vec v).
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_14.png}
+\caption{Momentum conservation becomes invariant only after the spatial components are completed by a fourth component.}
+\lectureframe{01:09:51}
+\end{figure}
+
+The missing component must itself be conserved. Particle mechanics already contains another conserved quantity: energy. The question is whether \(p^0=mu^0=m\gamma\) is exactly that energy in natural units. The systematic answer comes from the Hamiltonian.
+
+\section{The Hamiltonian Is the Energy}
+
+For any time-independent Lagrangian of this form, the Hamiltonian is
+\begin{equation}
+H=\sum_{i=1}^{3}\dot x^i p_i-L.
+\label{eq:sr3-hamiltonian-definition}
+\end{equation}
+This formula is not specifically Newtonian. It is the general Legendre transform from velocities to canonical momenta and applies equally to the relativistic Lagrangian.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_15.png}
+\caption{The general Hamiltonian formula \(H=\sum_i\dot x^i p_i-L\).}
+\lectureframe{01:11:55}
+\end{figure}
+
+Insert \(p_i=m\dot x_i/\sqrt{1-v^2}\) and \(L=-m\sqrt{1-v^2}\):
 \begin{align}
 H
 &=
-\sum_i \dot x^i \frac{m\dot x^i}{\sqrt{1-v^2}} + m\sqrt{1-v^2} \\
+\frac{mv^2}{\sqrt{1-v^2}}
++m\sqrt{1-v^2}\\
 &=
-\frac{m v^2}{\sqrt{1-v^2}} + m\sqrt{1-v^2} \\
+\frac{mv^2+m(1-v^2)}{\sqrt{1-v^2}}\\
 &=
-\frac{m v^2}{\sqrt{1-v^2}} + \frac{m(1-v^2)}{\sqrt{1-v^2}} \\
-&=
-\frac{m}{\sqrt{1-v^2}} \\
-&=
-m u_0.
+\boxed{\frac{m}{\sqrt{1-v^2}}}
+=m\gamma.
+\label{eq:sr3-hamiltonian-result}
 \end{align}
-So the missing fourth component is indeed the Hamiltonian:
+The cancellation is the key step. Comparing with \(u^0=\gamma\),
 \begin{equation}
-p_0 = H = E = \frac{m}{\sqrt{1-v^2}}
+H=mu^0=p^0.
 \end{equation}
-in units with \(c=1\). Once this is recognized, momentum conservation becomes conservation of four-momentum,
+Thus the fourth component is the energy:
 \begin{equation}
-p^\mu = m u^\mu.
+p^\mu=(E,\vec p),
+\qquad
+E=H
+\qquad(c=1).
+\label{eq:sr3-four-momentum-natural}
 \end{equation}
 
-The next natural question is how this new energy compares with the old one. Here the second low-velocity expansion enters:
-\begin{equation}
-E
-=
-\frac{m}{\sqrt{1-v^2}}
-\approx
-m\left(1+\frac{v^2}{2}\right)
-=
-m+\frac12 mv^2.
-\end{equation}
-The second term is the ordinary Newtonian kinetic energy. The first term is new. Restoring the factors of \(c\), we must write
-\begin{equation}
-E=\frac{mc^2}{\sqrt{1-v^2/c^2}},
-\end{equation}
-so that
-\begin{equation}
-E\approx mc^2+\frac12 mv^2.
-\end{equation}
-This is where \(E=mc^2\) enters the lecture: the energy of a system whose center of mass is at rest is \(mc^2\).
-
-Susskind is careful here about what ``at rest'' means. For a composite object, the constituents may be moving wildly inside it. What is set to zero is the velocity of the center of mass. The energy that remains in that frame is the rest energy, and the corresponding invariant quantity is the mass.
-
-\begin{remark}
-Modern usage is therefore this: mass means invariant mass. It is the energy of the system in the frame where the total momentum is zero, divided by \(c^2\). For a composite system, that mass can be larger than the sum of the constituent masses if there is internal kinetic energy, or smaller if the binding energy is sufficiently negative. What is invariant is not a naive sum of constituent masses, but the total energy in the center-of-mass frame.
-\end{remark}
-
-At this stage the Euler-Lagrange equations for the free particle contain no further surprises. They say that momentum and energy are constant, hence the four-velocity is constant, so the world line is a straight line in spacetime. In that sense, two familiar Newtonian statements merge into one: straight-line motion and constant velocity are both encoded by constant four-velocity.
-
-\section{Mass Shell, Massless Particles, and Positronium Decay}
-
-The normalization of the four-velocity now turns into a direct relation between energy, momentum, and mass. The board image is especially helpful here because it preserves the lecture's juxtaposition: old-fashioned kinetic energy on one side, relativistic invariant on the other.
-
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.86\textwidth]{lecture_03_figure_05.png}
-\caption{Four-velocity normalization and the relativistic energy-momentum invariant.}
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_16.png}
+\caption{The two terms in the Hamiltonian combine over a common denominator; the \(mv^2\) contributions cancel.}
+\lectureframe{01:14:28}
 \end{figure}
 
-The upper board formula is partly obscured, so we write its cautious standard form:
+\begin{classroomqa}
+\audiencequestion{Is the formula \(H=\sum_i\dot x^i p_i-L\) only the classical Hamiltonian formula?}
+\lecturerresponse{It is the general Legendre transform associated with a Lagrangian, not a special nonrelativistic assumption. The form of \(L\) decides which mechanics results. Here the relativistic square-root Lagrangian produces \(H=m/\sqrt{1-v^2}\). \lecturetimestamp{01:15:21}}
+\end{classroomqa}
+
+The invariant conservation statement is now
 \begin{equation}
-u_0^2-\vec u^{\,2}=1.
+\sum_{\mathrm{initial}}p^\mu
+=
+\sum_{\mathrm{final}}p^\mu,
+\label{eq:sr3-four-momentum-conservation}
 \end{equation}
-Multiplying by \(m^2\) and using
+which contains conservation of energy and all three components of momentum in one four-vector equation.
+
+\section{Rest Energy and the Newtonian Limit}
+
+In natural units the exact energy is
 \begin{equation}
-E=p_0=mu_0,
+E=\frac{m}{\sqrt{1-v^2}}.
+\end{equation}
+Using \eqref{eq:sr3-gamma-expansion},
+\begin{equation}
+E
+\approx
+m+\frac12mv^2+\frac38mv^4+\cdots .
+\label{eq:sr3-energy-natural-expansion}
+\end{equation}
+The second term is familiar kinetic energy. The first is the energy that remains when the center of mass is at rest.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_17.png}
+\caption{The exact energy expands as \(m+mv^2/2+\cdots\) in units \(c=1\).}
+\lectureframe{01:18:02}
+\end{figure}
+
+Restore dimensions in the exact expression. The ratio inside the square root must be \(v^2/c^2\), and the numerator must have units of energy:
+\begin{equation}
+\boxed{
+E
+=
+\gamma mc^2
+=
+\frac{mc^2}{\sqrt{1-v^2/c^2}}
+}.
+\label{eq:sr3-energy-exact}
+\end{equation}
+Its low-speed expansion is
+\begin{equation}
+\boxed{
+E
+=
+mc^2+\frac12mv^2
++\frac38m\frac{v^4}{c^2}
++\cdots
+}.
+\label{eq:sr3-energy-dimensional-expansion}
+\end{equation}
+At rest,
+\begin{equation}
+\boxed{E_{\mathrm{rest}}=mc^2}.
+\label{eq:sr3-emc2}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_18.png}
+\caption{Dimensional restoration turns the constant term into \(mc^2\), followed by the Newtonian kinetic energy \(mv^2/2\).}
+\lectureframe{01:19:16}
+\end{figure}
+
+This applies to any closed object, not only an elementary particle. \emph{At rest} means that the center of mass is at rest. Molecules, atoms, and fields inside the object may still move and interact. Their internal kinetic energy, potential energy, and binding energy all contribute to the total rest energy and hence to the object's invariant mass.
+
+\begin{classroomqa}
+\audiencequestion{Could the conversion factor have been \(c^2\) divided by some arbitrary number?}
+\lecturerresponse{Dimensions alone determine the power of \(c\), but the coefficient is fixed by the natural-unit result. The ordinary-unit formula must reduce to \(E=m\) when \(c=1\), so the restored expression is \(E=mc^2\) at rest, with coefficient one. \lecturetimestamp{01:22:08}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the leading one in the binomial expansion physically important, and what do the higher terms mean?}
+\lecturerresponse{Yes. In the energy expansion the leading one becomes the rest energy \(mc^2\). The next term is Newtonian kinetic energy, and all higher terms are relativistic corrections. They are negligible for a baseball but become essential as \(v\) approaches \(c\). \lecturetimestamp{01:22:37}}
+\end{classroomqa}
+
+The exact energy and momentum diverge as \(v\to c\):
+\begin{equation}
+E=\gamma mc^2\longrightarrow\infty,
 \qquad
-\vec p = m\vec u,
+\vec p=\gamma m\vec v\longrightarrow\infty
+\qquad(m>0).
 \end{equation}
-we obtain
+Reaching light speed would therefore require unbounded energy and momentum. A finite force acting for finite time supplies only finite impulse, so a massive particle can approach \(c\) but cannot reach it.
+
+\begin{classroomqa}
+\audiencequestion{What now enforces the light-speed barrier?}
+\lecturerresponse{The exact four-momentum does. Both energy and momentum diverge as a massive particle approaches \(c\), while four-momentum conservation constrains every interaction. The earlier normalization of four-velocity is the same statement in kinematic form. \lecturetimestamp{01:24:27}}
+\end{classroomqa}
+
+\section{The Mass of a Composite System}
+
+Suppose two particles move with equal and opposite momenta. Their total three-momentum vanishes, so we are already in the rest frame of the combined system. The invariant mass \(M\) of that system is defined by its total energy in this frame:
 \begin{equation}
-E^2-p^2=m^2
-\end{equation}
-in units with \(c=1\). Equivalently,
-\begin{equation}
-E=\sqrt{p^2+m^2}.
-\end{equation}
-When units are restored, this becomes
-\begin{equation}
-E^2=p^2c^2+m^2c^4,
+Mc^2=E_{\mathrm{tot}}
 \qquad
-E=\sqrt{p^2c^2+m^2c^4}.
+(\vec P_{\mathrm{tot}}=0).
+\end{equation}
+More generally,
+\begin{equation}
+M^2c^4
+=
+E_{\mathrm{tot}}^2-c^2\vec P_{\mathrm{tot}}^{\,2}.
+\label{eq:sr3-composite-mass}
 \end{equation}
 
-This is the right variable change for the next part of the lecture. Instead of asking for energy as a function of velocity, we can ask for energy as a function of momentum.
+\begin{classroomqa}
+\audiencequestion{For two particles moving in opposite directions, is the mass of the combined system larger than the sum of their individual masses?}
+\lecturerresponse{If they are free, yes: in the center-of-momentum frame their kinetic energy adds to the total rest energy, so \(M>m_1+m_2\). Attractive binding energy can lower the total instead, giving \(M<m_1+m_2\). The invariant definition is the total energy in the frame where total momentum vanishes. \lecturetimestamp{01:25:06}}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+This is why internal motion and binding cannot be ignored when weighing a composite object. The invariant mass belongs to the whole closed system, not to a mere arithmetic list of constituent masses.
 
-\paragraph{Question.}
-Why is velocity the wrong variable for massless particles, and why should we think instead in terms of energy as a function of momentum?
+\begin{classroomqa}
+\audiencequestion{What role does the rest-energy term play in the phase of a quantum state?}
+\lecturerresponse{A state of definite energy evolves with phase \(\exp(-iEt/\hbar)\), so a particle at rest contributes \(\exp(-imc^2t/\hbar)\). A common overall phase is not observable, but relative phases between components with different energies can be. This quantum consequence is consistent with, but not needed for, the classical derivation here. \lecturetimestamp{01:26:57}}
+\end{classroomqa}
 
-\paragraph{Answer.}
-If we try to use
-\begin{equation}
-E=\frac{m}{\sqrt{1-v^2}}
-\end{equation}
-for a massless particle, then \(m=0\) and \(v=1\), so the formula becomes the indeterminate expression \(0/0\). More importantly, all massless particles move with the same speed, so velocity cannot distinguish one photon's energy from another's. Momentum can. The invariant relation does the job immediately:
-\begin{equation}
-E=\sqrt{p^2+m^2}.
-\end{equation}
-Setting \(m=0\), we get
-\begin{equation}
-E=|p|
-\qquad (c=1),
-\end{equation}
-or, with units restored,
-\begin{equation}
-E=pc.
-\end{equation}
-So for massless particles the natural description is \(E(p)\), not \(E(v)\).
+\section{The Energy--Momentum Relation}
 
-That prepares the lecture's concrete payoff: positronium decay. Positronium is a neutral bound state of an electron and a positron. It has a nonzero mass, and after some time it may decay into two photons. This is precisely the kind of process that does not fit nonrelativistic intuition, because the initial object is massive while the final objects are massless.
+The normalization of four-velocity immediately gives the invariant norm of four-momentum. In \(c=1\) units,
+\begin{equation}
+(u^0)^2-\vec u^{\,2}=1.
+\end{equation}
 
-\paragraph{Worked example: positronium at rest.}
-Put the positronium atom in its rest frame. Then the initial total momentum is zero. After decay into two photons, the total momentum must still be zero, so the photons must emerge back to back with equal and opposite momenta:
+Multiplying by \(m^2\) and using \(p^\mu=mu^\mu\),
 \begin{equation}
-p_{\gamma,1}=-p_{\gamma,2}.
+\boxed{
+E^2-\vec p^{\,2}=m^2
+}
+\qquad(c=1).
+\label{eq:sr3-mass-shell-natural}
 \end{equation}
-Let the magnitude of each photon's momentum be \(p\). Then energy conservation gives
+Equivalently,
 \begin{equation}
-E_{\text{init}} = mc^2 = E_{\gamma,1}+E_{\gamma,2}.
+E=\sqrt{\vec p^{\,2}+m^2}.
 \end{equation}
-But each photon is massless, so each has energy \(pc\). Therefore
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_19.png}
+\caption{Multiplying the four-velocity normalization by \(m^2\) yields \(E^2-\vec p^{\,2}=m^2\).}
+\lectureframe{01:31:48}
+\end{figure}
+
+Restoring \(c\),
 \begin{equation}
-mc^2 = 2pc,
-\end{equation}
-and hence
-\begin{equation}
-p=\frac{mc}{2},
+\boxed{
+E^2
+=
+\vec p^{\,2}c^2+m^2c^4
+},
 \qquad
-E_\gamma = pc = \frac{mc^2}{2}.
+E=\sqrt{\vec p^{\,2}c^2+m^2c^4}.
+\label{eq:sr3-mass-shell}
+\end{equation}
+This formula expresses energy as a function of momentum without referring to velocity. It is the relativistic analog of the Newtonian relation
+\begin{equation}
+K=\frac{\vec p^{\,2}}{2m}.
 \end{equation}
 
-That is the simplest clean relativistic decay calculation in the lecture. What is conserved is not the sum of particle masses. The photons have zero mass. What is conserved is total energy and total momentum. The rest energy of the positronium has simply reappeared as the energy carried by the outgoing radiation.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_20.png}
+\caption{The mass-shell relation with dimensions restored: \(E=\sqrt{\vec p^{\,2}c^2+m^2c^4}\).}
+\lectureframe{01:32:38}
+\end{figure}
 
-The lecture briefly goes on to mention wavelengths, angular momentum, and quantum-mechanical randomness in the emission direction. Those are real questions, but the stable classical-relativistic thread is already complete: mass is a form of energy, and the invariant bookkeeping device is four-momentum.
+\subsection{Massless particles}
 
-\section{Summary}
+The velocity formula \(E=\gamma mc^2\) becomes an indeterminate \(0/0\) form if \(m=0\) and \(v=c\). Velocity is therefore a poor label for distinguishing massless particles: every freely propagating massless particle in vacuum moves at \(c\), yet different photons can have different energies.
 
-The lecture begins with a technical warm-up and never loses sight of why it began there. The low-velocity expansions
+The energy--momentum relation has a smooth massless limit:
 \begin{equation}
-\sqrt{1-v^2}\approx 1-\frac{v^2}{2},
+m=0
+\quad\Longrightarrow\quad
+\boxed{E=c|\vec p|}.
+\label{eq:sr3-massless-energy}
+\end{equation}
+This applies to photons and, in the idealized massless theory, gravitons. It is an excellent approximation for a highly relativistic particle whenever \(mc^2\ll E\), including neutrinos at sufficiently high energy despite their small nonzero masses.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_21.png}
+\caption{The massless limit of the energy--momentum relation gives \(E=c|\vec p|\).}
+\lectureframe{01:33:48}
+\end{figure}
+
+\section{Positronium Decay}
+
+Consider positronium, a bound state of an electron and a positron. Its invariant mass is slightly less than \(2m_e\): the constituents have positive internal kinetic energy but a larger negative binding energy. Numerically,
+\begin{equation}
+m_ec^2\approx0.511\ \mathrm{MeV},
 \qquad
-\frac{1}{\sqrt{1-v^2}}\approx 1+\frac{v^2}{2}
+m_e\approx9.11\times10^{-31}\ \mathrm{kg},
 \end{equation}
-are the bridge back to Newtonian mechanics. From there we were led to world lines, proper time, and the four-velocity
+but the kinematics does not depend on the numerical value.
+
+Take the two-photon decay channel in the positronium rest frame:
 \begin{equation}
-u^\mu=\frac{dx^\mu}{d\tau},
+\mathrm{Ps}\longrightarrow\gamma+\gamma.
+\end{equation}
+Initially the total momentum is zero. Momentum conservation therefore requires the photons to emerge back to back with equal and opposite momenta:
+\begin{equation}
+\vec p_1=\vec p,
 \qquad
-u_0^2-\vec u^{\,2}=1.
+\vec p_2=-\vec p.
+\label{eq:sr3-positronium-momentum}
 \end{equation}
-Building the free-particle action from proper time gave
+If \(M\) is the positronium mass, energy conservation gives
 \begin{equation}
-S=-m\int d\tau,
+Mc^2
+=E_1+E_2
+=c|\vec p_1|+c|\vec p_2|
+=2c|\vec p|.
+\end{equation}
+Hence
+\begin{equation}
+\boxed{
+|\vec p|=\frac{Mc}{2},
 \qquad
-L=-m\sqrt{1-v^2},
+E_1=E_2=\frac{Mc^2}{2}
+}.
+\label{eq:sr3-positronium-result}
 \end{equation}
-whose low-velocity limit is the old free-particle Lagrangian. Canonical momentum then gave
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_22.png}
+\caption{A positronium state at rest decays into two photons with equal and opposite momenta; \(Mc^2=2c|\vec p|\).}
+\lectureframe{01:40:55}
+\end{figure}
+
+This process has no Newtonian analog in which the sum of particle masses is conserved. The incoming state has nonzero invariant mass while each outgoing photon is massless. What is conserved is total four-momentum. The stored rest energy has become propagating electromagnetic energy. With the quantum relation \(|\vec p|=h/\lambda\), the same result fixes the photon wavelength; the corresponding photon energy lies far above the optical range.
+
+\begin{classroomqa}
+\audiencequestion{How is angular momentum conserved in the decay?}
+\lecturerresponse{The outgoing radiation must carry the same total angular momentum as the initial state. In the two-photon channel the photon helicities and their orbital state combine appropriately. More precisely, spin-singlet para-positronium decays predominantly into two photons, while spin-triplet ortho-positronium decays predominantly into three; the allowed channel respects all quantum numbers. \lecturetimestamp{01:42:11}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why must a particle moving at light speed be massless?}
+\lecturerresponse{For finite nonzero energy, the factor \(\gamma\) diverges as \(v\to c\). The invariant relation \(E^2-\vec p^{\,2}c^2=m^2c^4\) shows that a particle whose four-momentum is null has \(m=0\). Conversely, a free massless particle has a null worldline and propagates at \(c\). \lecturetimestamp{01:42:50}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could the same neutral state decay into gravitons instead of photons?}
+\lecturerresponse{In principle gravitational final states are allowed when the quantum numbers permit them, but the gravitational branching fraction is fantastically smaller than the electromagnetic one. The kinematic bookkeeping would still use the same conservation of four-momentum and \(E=c|\vec p|\) for each massless quantum. \lecturetimestamp{01:43:20}}
+\end{classroomqa}
+
+\subsection{One decay vertex}
+
+A decay is local: the parent worldline ends at one spacetime event and the outgoing photon worldlines begin there. Detector interactions can be extrapolated backward to reconstruct that common vertex. If the two photons were emitted at distinct events, their back-extrapolated null trajectories would not meet at one point.
+
+\begin{classroomqa}
+\audiencequestion{Must the two photons be emitted simultaneously in every frame?}
+\lecturerresponse{They originate at the same spacetime event, not at two spatially separated events whose simultaneity could be frame-dependent. All Lorentz frames agree that one event is one event. Quantum mechanics gives the parent a finite position uncertainty, so the reconstructed vertex is a distribution rather than a perfectly known classical point. \lecturetimestamp{01:44:01}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is the four-velocity norm equal to one?}
+\lecturerresponse{Proper time was defined by \(d\tau^2=dt^2-d\vec x^{\,2}\) in units \(c=1\). Dividing by \(d\tau^2\) gives \((dt/d\tau)^2-(d\vec x/d\tau)^2=1\), which is precisely \((u^0)^2-\vec u^{\,2}=1\). The normalization is therefore built into the definition of proper time. \lecturetimestamp{01:45:38}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does \(u^0=dt/d\tau\) give a deeper interpretation of the energy?}
+\lecturerresponse{It gives the useful identity \(E=mc^2\,dt/d\tau=\gamma mc^2\): at rest the ratio of coordinate time to proper time is one, and in motion it is the Lorentz factor. Beyond encoding that velocity dependence, the identity by itself does not add a separate dynamical principle. \lecturetimestamp{01:46:36}}
+\end{classroomqa}
+
+\section{Conservation Requires a Closed System}
+
+The statement
 \begin{equation}
-p_i = \frac{m v_i}{\sqrt{1-v^2}}=m u_i,
+\sum p^\mu_{\mathrm{initial}}
+=
+\sum p^\mu_{\mathrm{final}}
 \end{equation}
-and the Hamiltonian supplied the fourth component,
+applies to an isolated system containing everything that exchanges energy and momentum. Real laboratories have stray electric and magnetic fields, ambient particles, gravity, supports, and detectors. If one leaves those degrees of freedom outside the bookkeeping, the subsystem can show a small apparent imbalance; the missing four-momentum has gone into the environment.
+
+\begin{classroomqa}
+\audiencequestion{Could the two-photon momentum sum be a tiny amount different from zero?}
+\lecturerresponse{Not for the complete isolated system. In an actual experiment an unmodeled field or recoil of the apparatus can carry the tiny remainder, so the selected subsystem may not look closed. Once every interacting part is included, total four-momentum is conserved. \lecturetimestamp{01:47:51}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the uncertainty principle weaken momentum conservation?}
+\lecturerresponse{No. A quantum state may have uncertain position or momentum, and sharper knowledge of one broadens the distribution of the other, but translation symmetry still gives exact conservation of total momentum for an isolated system. Quantum uncertainty concerns outcomes and distributions, not a failure of the conservation law. \lecturetimestamp{01:49:19}}
+\end{classroomqa}
+
+\section{Exact and Approximate Energy}
+
+It is important not to confuse the exact formula with its low-speed expansion:
+\begin{align}
+E_{\mathrm{exact}}
+&=
+\frac{mc^2}{\sqrt{1-v^2/c^2}},
+\label{eq:sr3-exact-repeated}\\
+E_{\mathrm{slow}}
+&=
+mc^2+\frac12mv^2
++O\!\left(\frac{mv^4}{c^2}\right).
+\label{eq:sr3-approx-repeated}
+\end{align}
+The first remains valid for every \(v<c\). The second is useful only when \(v/c\ll1\).
+
+\begin{classroomqa}
+\audiencequestion{Was the formula for energy only an approximation?}
+\lecturerresponse{\(E=mc^2+mv^2/2+\cdots\) is the approximation. The exact result is \(E=mc^2/\sqrt{1-v^2/c^2}\). The factor \(v^2/c^2\) makes the denominator dimensionless, while the numerator \(mc^2\) gives energy units. \lecturetimestamp{01:49:56}}
+\end{classroomqa}
+
+\subsection{The spacetime picture revisited}
+
+The late blackboard sketch returns to the geometry of the experiment. Before decay, the positronium at rest follows a vertical timelike worldline. At the decay event that worldline ends and two null photon worldlines depart in opposite spatial directions.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_03_figure_23.png}
+\caption{The positronium worldline terminates at one decay event, from which the two null photon worldlines emerge.}
+\lectureframe{01:53:48}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What determines the axis along which the two photons emerge?}
+\lecturerresponse{For an unpolarized state there is a quantum angular distribution, and an individual decay selects a direction randomly from that distribution. Momentum conservation fixes the photons to be back to back once one direction is realized; it does not choose that axis in advance. \lecturetimestamp{01:53:55}}
+\end{classroomqa}
+
+\section{What the Free Equations of Motion Say}
+
+The invariant action was not chosen by guessing a force law. It was chosen as the simplest local Lorentz scalar that reproduces the Newtonian free-particle Lagrangian at low speed. Varying it gives
 \begin{equation}
-E=H=\frac{m}{\sqrt{1-v^2}},
+\frac{d}{dt}\left(\frac{\partial L}{\partial\dot x^i}\right)=0,
 \end{equation}
-so that energy and momentum fit together into four-momentum. That led directly to
+so
 \begin{equation}
-E\approx mc^2+\frac12 mv^2
+\frac{dp_i}{dt}=0.
 \end{equation}
-at low velocity, and to the exact invariant relation
+For fixed nonzero mass this is equivalent to constant four-velocity:
 \begin{equation}
-E^2=p^2c^2+m^2c^4.
+\frac{du^\mu}{d\tau}=0.
 \end{equation}
-Finally, the positronium example showed what the whole construction is for: in relativity the correct conservation law is not the conservation of naive mass sums, but the conservation of total energy-momentum.
+The worldline is therefore a straight line in spacetime. That single geometric statement contains both uniform speed and unchanging spatial direction.
+
+\begin{classroomqa}
+\audiencequestion{Is there a more bottom-up justification for the relativistic action, analogous to choosing the classical action so that it reproduces Newton's equations?}
+\lecturerresponse{For the free particle, Lorentz invariance, locality along the worldline, and the Newtonian low-speed limit determine the simplest action up to an overall constant. Its Euler--Lagrange equation then gives constant momentum, exactly the force-free Newtonian result. Interactions provide further tests; later a charged particle will be coupled to electric and magnetic fields. \lecturetimestamp{01:54:27}}
+\end{classroomqa}
+
+\section{Two Independent Classical Limits}
+
+The nonrelativistic limit and the classical limit of quantum mechanics are different operations. Relativistic corrections are governed by the ratio \(v/c\). Quantum effects are governed by action scales relative to \(\hbar\), together with properties such as mass, system size, and how smoothly external forces vary.
+
+\begin{classroomqa}
+\audiencequestion{Is the low-velocity limit that recovers Newtonian mechanics the same limit by which quantum mechanics becomes classical?}
+\lecturerresponse{No. The relativistic limit concerns \(v/c\); the quantum-to-classical limit concerns \(\hbar\) relative to the characteristic action and often becomes effective for large masses or smoothly varying forces. A system can be quantum but nonrelativistic, relativistic but essentially classical, both, or neither. \lecturetimestamp{01:57:32}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is there an incompatibility between special relativity and quantum mechanics?}
+\lecturerresponse{No. Relativistic quantum theory is consistent and leads to quantum field theory. The famous unresolved tension concerns incorporating gravity into quantum mechanics, not combining special relativity with quantum principles. Gravity has not entered the present free-particle discussion. \lecturetimestamp{01:59:01}}
+\end{classroomqa}
+
+For now the force-free result is complete: a massive particle follows a straight timelike worldline, its invariant mass fixes the norm of its four-momentum, and energy and momentum are the four components of one conserved object. Introducing charge and electromagnetic fields will be the next step beyond this free motion.
