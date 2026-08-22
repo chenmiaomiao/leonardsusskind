@@ -1,44 +1,39 @@
-# Visual Evidence
-## Frame Inventory
-- `lecture_06_figure_02.png`: Susskind stands at the left while the right board shows a stacked tensor-transformation sequence, and this screenshot should remain in the final notes because the board layout itself carries the pedagogy.
-- `lecture_06_figure_03.png`: The frame shows the transition from earlier contraction notation on the left board to the introduction of symmetric tensors on the right board, and the screenshot should remain in the final notes.
-- `lecture_06_figure_04.png`: The board gives a clean side-by-side comparison of symmetric and antisymmetric rank-two tensors, and the screenshot should remain in the final notes.
-- `lecture_06_figure_05.png`: The board shows the worldline action on the upper line and the corresponding ordinary-time Lagrangian on the lower line, and the screenshot should remain in the final notes.
+# Visual Evidence: Lecture 6
 
-## Equation Extraction
-- `lecture_06_figure_02.png`: `A^\mu B^\nu + C^\mu D^\nu` `[visible]`
-- `lecture_06_figure_02.png`: `\bigl((A')^\mu(B')^\nu\bigr)=L^\mu{}_\sigma L^\nu{}_\tau A^\sigma B^\tau` `[partially visible]`
-- `lecture_06_figure_02.png`: `\bigl(T^{\mu\nu}\bigr)'=L^\mu{}_\sigma L^\nu{}_\tau T^{\sigma\tau}` `[visible]`
-- `lecture_06_figure_02.png`: `\bigl(T^{\mu\nu\lambda}\bigr)'=L^\mu{}_\sigma L^\nu{}_\tau L^\lambda{}_\kappa T^{\sigma\tau\kappa}` `[visible]`
-- `lecture_06_figure_03.png`: `A_\mu B^\mu` `[visible]`
-- `lecture_06_figure_03.png`: `T^{\mu\nu}=T^{\nu\mu}` `[partially visible]`
-- `lecture_06_figure_03.png`: `A^\mu B^\nu \neq A^\nu B^\mu` `[visible]`
-- `lecture_06_figure_03.png`: `A^0 B^1 \neq A^1 B^0` `[visible]`
-- `lecture_06_figure_04.png`: `T^{\mu\nu}=T^{\nu\mu}` `[visible]`
-- `lecture_06_figure_04.png`: `F^{\mu\nu}=-F^{\nu\mu}` `[visible]`
-- `lecture_06_figure_04.png`: `A^\mu B^\nu - A^\nu B^\mu` `[visible]`
-- `lecture_06_figure_04.png`: `F^{\mu\nu}=A^\mu B^\nu-A^\nu B^\mu` `[standard completion]`
-- `lecture_06_figure_05.png`: `\mathcal{L}=-m\sqrt{1-\dot X^2}-eA_0(x,t)-e\dot X^m A_m(x,t)` `[partially visible]`
-- `lecture_06_figure_05.png`: `S=\int dt\,\left[-m\sqrt{1-\dot X^2}-e\left(A_0+\dot X^m A_m\right)\right]` `[standard completion]`
-- `lecture_06_figure_05.png`: `S_{\mathrm{int}}=-e\int A_\mu\,dx^\mu` `[standard completion]`
+## Chronological Frame Inventory
 
-## Diagram Extraction
-- `lecture_06_figure_02.png`: There is no standalone geometric diagram, but the board has a ladder structure from concrete vector products to the rank-two and rank-three tensor laws; preserve the screenshot and typeset the equations nearby rather than redrawing in TikZ.
-- `lecture_06_figure_03.png`: The important visual feature is the split-board transition from old notation to the symmetry condition and counterexamples; preserve as a screenshot, with no TikZ redraw needed.
-- `lecture_06_figure_04.png`: The frame is a comparative board layout, not a geometric figure; preserve as a screenshot and accompany it with clean displayed equations rather than TikZ.
-- `lecture_06_figure_05.png`: The visual content is a top-to-bottom rewrite from action to Lagrangian; preserve as a screenshot and typeset the cleaned formulas nearby, with no TikZ redraw needed.
-- Across these four assets, no attached frame contains axes, arrows, spacetime sketches, or matrix-style diagrams that need faithful TikZ reconstruction from the image alone.
+1. lecture_06_figure_01.png, 00:07:45: Minkowski metric and index lowering.
+2. lecture_06_figure_02.png, 00:11:05: scalar differential and covariant gradient.
+3. lecture_06_figure_03.png, 00:14:00: contraction and four-divergence.
+4. lecture_06_figure_04.png, 00:21:35: x-directed boost matrix.
+5. lecture_06_figure_05.png, 00:23:10: y-z rotation matrix.
+6. lecture_06_figure_06.png, 00:25:20: covector transformation and metric relation.
+7. lecture_06_figure_07.png, 00:33:20: tensor transformation ladder.
+8. lecture_06_figure_08.png, 00:35:55: one rank-two component expanded.
+9. lecture_06_figure_09.png, 00:41:00: tensor index lowering.
+10. lecture_06_figure_10.png, 00:47:20: symmetry and antisymmetry.
+11. lecture_06_figure_11.png, 00:50:20: completed electromagnetic tensor.
+12. lecture_06_figure_12.png, 00:54:00: Lorentz-force target.
+13. lecture_06_figure_13.png, 00:55:10: free worldline action.
+14. lecture_06_figure_14.png, 00:59:20: vector-potential coupling along the path.
+15. lecture_06_figure_15.png, 01:05:20: ordinary-time charged-particle Lagrangian.
+16. lecture_06_figure_16.png, 01:09:20: corrected canonical momentum.
+17. lecture_06_figure_17.png, 01:14:20: expanded Euler-Lagrange equation.
+18. lecture_06_figure_18.png, 01:17:20: total derivative of the vector potential.
+19. lecture_06_figure_19.png, 01:23:40: grouped electric and magnetic terms.
+20. lecture_06_figure_20.png, 01:42:40: covariant force equation.
+21. lecture_06_figure_21.png, 01:47:10: work-energy interpretation.
+22. lecture_06_figure_22.png, 01:51:00: local field action.
+23. lecture_06_figure_23.png, 01:55:40: locality, Lorentz invariance, and gauge invariance.
 
-## Reconstruction Guidance
-- Use `lecture_06_figure_02.png` as visual evidence for the teaching sequence itself: first an example built from products of vectors, then the transformed product, then the abstract tensor laws. The notes should typeset the rank-two and rank-three transformation laws cleanly, while keeping the screenshot to preserve the board logic.
-- Use `lecture_06_figure_03.png` and `lecture_06_figure_04.png` together to anchor the transition from generic rank-two tensors to symmetric and antisymmetric special cases. The final notes should give clean displayed equations for `T^{\mu\nu}=T^{\nu\mu}`, `F^{\mu\nu}=-F^{\nu\mu}`, and the explicit counterexamples, while treating the screenshots as evidence for timing and board emphasis.
-- Use `lecture_06_figure_05.png` to support the move from an invariant worldline action to the ordinary-time Lagrangian form. The clean note version should typeset both the invariant coupling `-e\int A_\mu\,dx^\mu` and the `dt`-based Lagrangian, because the screenshot confirms the rewrite but does not fully preserve every delimiter and limit.
-- Prefer screenshot-plus-typeset-equation treatment over screenshot-only reproduction. The screenshots matter historically and pedagogically, but the readable mathematics in the notes should come from cleaned LaTeX reconstructions.
-- Do not infer extra board content that is not visible. If the later chapter wants the full antisymmetric field-tensor matrix with `E_i` and `B_i`, that should be reconstructed from transcript-backed lecture content, not claimed as visible in these four frames.
+## Selection Findings
 
-## Uncertainties
-- In `lecture_06_figure_02.png`, the top line is clearly a sum of two rank-two products, but the last superscript on `D` is not perfectly crisp and the far-right end of the transformed-product line is cut off.
-- In `lecture_06_figure_03.png`, the symmetry statement is partly cropped on the right, so `T^{\nu\mu}` is a cautious completion rather than a fully image-secure reading.
-- In `lecture_06_figure_04.png`, the antisymmetric combination `A^\mu B^\nu-A^\nu B^\mu` is visible, but the exact equality to `F^{\mu\nu}` is better treated as a standard completion supported by the transcript.
-- In `lecture_06_figure_05.png`, the upper action line is cropped and partly obstructed, so the full action should be reconstructed from the transcript rather than claimed as fully legible from the frame.
-- In multiple places, the handwritten `L`, `\lambda`, and cramped indices such as `\sigma`, `\tau`, and `\kappa` are easy to confuse, so final typesetting should follow standard tensor notation rather than the exact handwritten shapes.
+- Each frame contains the completed board state needed by the adjacent discussion.
+- Figure 11 is taken during the electromagnetic-tensor discussion, after the antisymmetric array has been completed and while its electric-magnetic mixing is being explained.
+- Figure 16 captures the corrected canonical momentum, not the incomplete first attempt.
+- Figure 19 captures the completed grouped force, after the chain-rule terms have been moved and paired.
+- Figure 20 is the final covariant equation rather than an intermediate proper-time manipulation.
+
+## Rejected Material
+
+Opening cards, campus footage, audience-only views, talking-head shots without needed board content, incomplete equations, duplicate board states, heavily occluded frames, and seek-displaced keyframes were excluded.
