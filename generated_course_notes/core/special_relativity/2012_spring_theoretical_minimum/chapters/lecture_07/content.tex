@@ -1,373 +1,1187 @@
-\chapter{Lecture 7: Gauge Invariance and the Return of the Vector Potential}
+\chapter{Gauge Invariance and the Necessity of the Vector Potential}
 
-The lecture begins as a reset. The previous meeting had become mathematically dense, and the point now is not to retreat from that mathematics but to rebuild the machinery carefully enough that we can see what it is doing. We first restore the compact notation of relativistic vectors and contractions; from there we ask what general principles a theorist tries to preserve; and only then do we return to the charged particle in an electromagnetic field. The reward is twofold. We recover the Lorentz force law from an action, and at the same time we discover why the vector potential \(A_\mu\) is necessary and why it is nevertheless not unique. These notes follow Leonard Susskind's lecture sequence closely, with the retained board evidence curated through LazyingArt LLC and Video2Book used only where the blackboard itself fixes an equation or a step in the argument.
+Before beginning the physics, there are two practical matters.  The next
+meeting will be skipped while the lecturer is in Belgium, but the course
+will continue until all ten lectures have been given.  The handwritten notes
+for the evening have also been prepared at short notice; anyone willing to
+scan them for the class website will rescue them from a remarkably slow
+scanner.
 
-\section{Recap of Relativistic Notation}
+The previous lecture was mathematically dense.  Rather than pretending
+otherwise, we shall go through its central calculation again.  The aim of
+the course is a genuine theoretical minimum: enough structure to continue
+to the next level.  If the mathematics could be removed without losing the
+physics, there would be every reason to remove it.  But exact laws require
+quantitative statements, and quantitative statements require mathematics.
+The notation may become arcane; that is not evidence that physicists are
+trying to hide the subject behind priestly language.
 
-Before anything ambitious can be done, the lecture briefly requalifies the notation. We write the spacetime coordinates as
+Perhaps a simpler formulation of nature remains to be found.  One can, as
+Feynman joked, square every equation of physics, add the squares, and set the
+sum equal to zero.  That produces one equation, because every square must
+then vanish, but it produces no new understanding.  Simplicity means finding
+the organizing idea, not merely compressing the typography.  When an
+audience member objects to the suggestion that such an idea must come from
+someone young, the point is readily conceded: age is irrelevant to insight.
+
+\lectureoverview{We shall first restore the index notation needed to
+recognize Lorentz scalars.  We then formulate four principles for a
+relativistic theory, repeat the charged-particle derivation in full, and
+finally discover gauge invariance twice: as an endpoint term in the action
+and as the invariance of the electromagnetic field tensor.}
+
+\section{The Index Language Revisited}
+
+\subsection{Why some indices are upstairs}
+
+Let
 \begin{equation}
-X^\mu=(t,x,y,z),
+x^\mu=(t,x,y,z),
+\qquad
+\mu=0,1,2,3,
 \end{equation}
-with \(\mu=0,1,2,3\). Coordinate differences such as \(dX^\mu\) carry upper indices. Derivatives with respect to coordinates carry lower indices:
+with metric
 \begin{equation}
-\partial_\mu := \frac{\partial}{\partial X^\mu}.
+\eta_{\mu\nu}
+=
+\operatorname{diag}(-1,1,1,1).
+\label{eq:sr7-metric}
 \end{equation}
-The transcript is visibly garbled in part of this review, but the secure point is plain: in the flat-space conventions of the lecture, lowering an index changes the sign of the time component and leaves the spatial components unchanged.
-
-The real utility of the notation is the contraction rule. When the same index appears once upstairs and once downstairs, we sum over it. The lecturer's concrete example is the differential of a scalar function \(s(X)\):
+Coordinates and coordinate displacements are assigned upper indices:
 \begin{equation}
-ds=\frac{\partial s}{\partial X^\mu}\,dX^\mu=\partial_\mu s\,dX^\mu.
+dx^\mu=(dt,dx,dy,dz).
 \end{equation}
-Written longhand this is just the ordinary total differential. Written this way it immediately displays a contraction, and therefore the sort of scalar object we are allowed to build without writing everything out component by component.
-
-The same compression makes invariant quadratic forms almost automatic. If \(X^\mu\) is a displacement, then
+Derivatives with respect to those coordinates carry lower indices:
 \begin{equation}
-X_\mu X^\mu=x^2+y^2+z^2-t^2.
+\partial_\mu
+\equiv
+\frac{\partial}{\partial x^\mu}.
+\label{eq:sr7-gradient}
 \end{equation}
-This is the point of the upstairs--downstairs notation. A contraction of one upper and one lower index is a scalar. Once we learn to recognize that pattern quickly, Lorentz-invariant expressions begin to announce themselves.
+Which family is called upper and which lower is a convention, much as the
+names left and right are conventions.  Once chosen, however, the convention
+must be followed consistently because the two families transform
+differently.
 
-\section{Four Principles for Building the Theory}
+\begin{classroomqa}
+\audiencequestion{When should an index be written as a superscript, and when should it be a subscript?}
+\lecturerresponse{Coordinates, displacements, and objects that transform like them are assigned upper indices.  Derivatives and objects that transform like derivatives are assigned lower indices.  The choice of which family is called upper is conventional, but the distinction between the two transformation laws is not. \lecturetimestamp{00:05:03}}
+\end{classroomqa}
 
-Having repaired the notation, the lecture steps back and asks a broader question. If a new phenomenon is found in the laboratory, what principles guide the theorist who tries to write a relativistic theory of it? The answer is given in four stages, and the charged-particle example will be used as the running test case.
-
-\paragraph{Action principle.}
-The first principle is that the dynamics should come from an action. This is not presented as a whim of physicists. The lecture insists that energy conservation, momentum conservation, and more generally the connection between symmetries and conservation laws come through the action principle. For a particle we seek an action of the form
+For a scalar function \(s(x)\), the total differential is
 \begin{equation}
-I=\int dt\,L(X,\dot X),
+ds
+=
+\frac{\partial s}{\partial x^\mu}\,dx^\mu
+=
+\partial_\mu s\,dx^\mu.
+\label{eq:sr7-total-differential}
 \end{equation}
-and the equations of motion follow from the Euler--Lagrange equations,
+Written out, this is
 \begin{equation}
-\frac{d}{dt}\frac{\partial L}{\partial \dot X^m}=\frac{\partial L}{\partial X^m}.
+ds
+=
+\frac{\partial s}{\partial t}\,dt
++\frac{\partial s}{\partial x}\,dx
++\frac{\partial s}{\partial y}\,dy
++\frac{\partial s}{\partial z}\,dz.
 \end{equation}
-
-\paragraph{Locality.}
-The second principle is locality. If we poke a system at some point in space and time, its immediate effect should be only on nearby things. The lecture's violin-string picture makes the point well: strike one part of the string and the nearest bit responds first; farther parts respond only after the disturbance propagates down the chain.
-
-For a particle, locality means that the Lagrangian depends on the coordinates and their first time derivatives, not on arbitrarily separated moments of time. For a field, the action is an integral over spacetime,
-\begin{equation}
-I=\int d^4x\,\mathcal L(\phi,\partial_\mu\phi),
-\end{equation}
-and locality means that \(\mathcal L\) depends on the field and its first derivatives, not on direct couplings between distant points. In a field theory \(\mathcal L\) carries the dimensions of an energy density, precisely because it is integrated over a spacetime volume.
-
-The lecture later comes back to this and phrases it even more sharply: locality is what makes the equations of motion differential equations. The force at a given time determines the acceleration at that same time. Locality forbids bizarre alternatives in which the force at one time would control the acceleration at some completely different time.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-Is entanglement the same thing as nonlocality?
-
-\paragraph{Answer.}
-No. The lecture pauses here to reject that confusion very explicitly. Entanglement gives correlations; it does not produce direct instantaneous influence at a distance. One may learn something about Bob's system by measuring Alice's, but Alice does not thereby change Bob's local physics on the spot. Locality, in the sense being used here, is a statement about dynamical effect, not merely about correlation.
-
-\paragraph{Lorentz invariance.}
-The third principle is Lorentz invariance. The rules of the game should be the same in every inertial frame. In practice, this means that the Lagrangian should be a scalar. In curved spacetime one would refine that statement to a scalar density, and the lecturer notes this in passing, but for the present special-relativistic discussion the working rule is simply: build scalar actions.
-
-\paragraph{Gauge invariance.}
-The fourth principle is the new one, gauge invariance. It is introduced here as a mystery rather than as a completed idea. We are told that it is another kind of invariance, but not yet what sort of object it acts on or why it is forced on us. The lecture then says, in effect: we will get to gauge invariance soon, but first we must go back through the charged-particle example, because the whole story is already there in miniature.
-
-\section{Why the Vector Potential Returns}
-
-We now return to the motion of a charged particle in an electromagnetic field. The familiar three-vector equation is written first, and precisely this is what creates the problem.
+The compact expression says exactly the same thing.  It is not a new law;
+it is a device for seeing the scalar structure without carrying four terms
+through every line.
 
 \begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=0.82\textwidth]{lecture_07_figure_02.png}
-\end{center}
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_01.png}
+\caption{The scalar differential assembled from a lower-index gradient and an upper-index displacement.}
+\lectureframe{00:08:20}
 \end{figure}
 
+Einstein's convention is now immediate: an index repeated once upstairs and
+once downstairs is summed.  The contraction in
+\eqref{eq:sr7-total-differential} is therefore a scalar.  There is a deeper
+geometric interpretation of vectors and covectors, but that discussion is
+postponed until general relativity.
+
+\subsection{Raising an index}
+
+Every four-vector has upper- and lower-index forms related by the metric:
 \begin{equation}
-m\mathbf a = e\left(\mathbf E+\mathbf v\times\mathbf B\right).
+A_\mu=\eta_{\mu\nu}A^\nu.
 \end{equation}
-
-The lecture deliberately starts here because everyone already knows this formula. It contains electric and magnetic fields, and it contains no vector potential at all. So why not simply stop here? Why not say that the fields tell the charge how to move and be done with it?
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-If the Lorentz force law already uses only \(\mathbf E\) and \(\mathbf B\), why introduce \(A_\mu\)?
-
-\paragraph{Answer.}
-Because writing down equations of motion is not yet enough. The lecture's point is that one may certainly write the Lorentz force law directly, but one cannot write a Lorentz-invariant local action principle for the charged particle directly in terms of \(\mathbf E\), \(\mathbf B\), the position, and the velocity. The lecture treats this as a theorem and does not prove it here. For our purposes the logical point is enough: if we insist on an action principle together with locality and Lorentz invariance, then some auxiliary object must be introduced, and that object is the four-vector potential \(A_\mu\).
-
-This is the real reason the vector potential returns. It is not a decorative rewriting of electromagnetism. It is the object that makes the action possible.
-
-\section{From the Worldline Action to the Ordinary-Time Lagrangian}
-
-The action for a relativistic charged particle contains two terms:
+With \eqref{eq:sr7-metric},
 \begin{equation}
-I=-m\int d\tau - e\int A_\mu(X)\,dX^\mu.
+A_0=-A^0,
+\qquad
+A_m=A^m,
+\qquad m=1,2,3.
+\label{eq:sr7-lowering}
 \end{equation}
-The first term is the proper-time length of the worldline, multiplied by \(-m\). The second is the electromagnetic coupling. The lecture is careful here: along each infinitesimal segment of the trajectory there is a value of the four-vector potential, and \(A_\mu dX^\mu\) is the scalar obtained by contracting that vector with the infinitesimal displacement along the worldline.
-
-At this stage the formula is compact but still a little abstract. So the lecture slows down and rewrites it in ordinary time \(t\). This is exactly the board rhythm preserved by the second retained frame: the upper line gives the action in \(dt\)-language, and the lower line reads off the Lagrangian from the integrand.
+Thus raising or lowering an index changes the sign of the time component and
+does nothing to the spatial components.  The same rule applies to the
+derivative:
+\begin{equation}
+\partial_\mu
+=
+\left(
+\frac{\partial}{\partial t},
+\frac{\partial}{\partial x},
+\frac{\partial}{\partial y},
+\frac{\partial}{\partial z}
+\right),
+\qquad
+\partial^\mu
+=
+\left(
+-\frac{\partial}{\partial t},
+\frac{\partial}{\partial x},
+\frac{\partial}{\partial y},
+\frac{\partial}{\partial z}
+\right).
+\label{eq:sr7-raised-gradient}
+\end{equation}
 
 \begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{lecture_07_figure_03.png}
-\end{center}
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_02.png}
+\caption{The lower- and upper-index derivative operators; only the time component changes sign.}
+\lectureframe{00:12:30}
 \end{figure}
 
-Because
+\begin{classroomqa}
+\audiencequestion{Does a partial derivative always carry a lower index, and can it also be raised?}
+\lecturerresponse{The operator \(\partial/\partial x^\mu\) is naturally
+\(\partial_\mu\), a covector.  Applying the metric gives
+\(\partial^\mu=\eta^{\mu\nu}\partial_\nu\); in flat spacetime this merely
+reverses the time component. \lecturetimestamp{00:11:00}}
+\end{classroomqa}
+
+The invariant interval is the familiar example:
 \begin{equation}
-\frac{d\tau}{dt}=\sqrt{1-\dot X^2},
-\qquad
-\dot X^2=\dot x^2+\dot y^2+\dot z^2,
+x_\mu x^\mu
+=
+x^2+y^2+z^2-t^2.
+\label{eq:sr7-interval}
 \end{equation}
-and because
+A contraction of one upper and one lower index produces a Lorentz scalar.
+This simple recognition rule is the reason for carrying the notation so
+carefully.
+
+\section{Four Principles for Constructing a Theory}
+
+Suppose an experiment reveals a new phenomenon and we want to formulate a
+theory of it.  Four principles organize the search.  They may eventually
+need refinement, but every successful fundamental theory presently fits
+their pattern.
+
+\subsection{The action principle}
+
+The first demand is an action.  For particle mechanics,
 \begin{equation}
-\frac{dX^0}{dt}=1,
-\qquad
-\frac{dX^m}{dt}=\dot X^m,
+I[x]
+=
+\int dt\,L(x,\dot x),
+\label{eq:sr7-particle-action-general}
 \end{equation}
-we can rewrite the action as
+and the physical path is stationary under variations that hold its
+endpoints fixed:
+\begin{equation}
+\delta I=0.
+\end{equation}
+The resulting equations are
+\begin{equation}
+\frac{d}{dt}
+\left(
+\frac{\partial L}{\partial\dot x^m}
+\right)
+=
+\frac{\partial L}{\partial x^m}.
+\label{eq:sr7-EL}
+\end{equation}
+
+The action principle is not an aesthetic ornament.  It is the framework
+that relates symmetries to conservation laws.  Time-translation symmetry of
+an action yields energy conservation; spatial translations yield momentum
+conservation; related symmetries underlie other conserved quantities.  The
+action alone is not the conservation law, but it is the structure through
+which the symmetry becomes one.
+
+\subsection{Locality}
+
+The second demand is locality.  If one point of a violin string is disturbed,
+the neighboring segment responds first.  Its neighbor responds next, and
+the disturbance propagates.  The effect can eventually reach the whole
+string, but the direct short-time influence is local.
+
+For a particle, locality is encoded by a Lagrangian evaluated along the
+trajectory.  It depends on the position and velocity at the same time, not
+on arbitrary pairs of remote times.  For a field \(\phi(x)\),
+\begin{equation}
+I[\phi]
+=
+\int d^4x\,
+\mathcal L\!\left(\phi,\partial_\mu\phi\right).
+\label{eq:sr7-local-field-action}
+\end{equation}
+The density at one event depends on the field and its first derivatives
+there.  It does not contain a direct product of the field here with the
+field at an unrelated distant point.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_03.png}
+\caption{Particle and field actions displayed beneath the locality principle.}
+\lectureframe{00:19:30}
+\end{figure}
+
+This is why local equations of motion are differential equations.
+Derivatives compare infinitesimally neighboring values.  A nonlocal
+alternative might relate the acceleration now to a force at a completely
+different time, or relate velocities at two remote times to a force at a
+third.  Such laws are mathematically imaginable, but locality excludes
+them.
+
+\begin{classroomqa}
+\audiencequestion{Does quantum entanglement contradict this locality principle?}
+\lecturerresponse{Not in the dynamical sense being used here.  Entanglement
+creates correlations, but a local operation by Alice cannot be used to
+alter Bob's reduced state or send him a controllable signal
+instantaneously.  The nickel-and-dime analogy isolates the distinction:
+seeing one coin reveals which correlated coin the other person has, but it
+does not act on the distant coin.  Quantum correlations are richer than
+that classical analogy, yet they still do not provide superluminal
+signaling. \lecturetimestamp{00:20:02}}
+\end{classroomqa}
+
+\subsection{Lorentz invariance}
+
+The third demand is that the laws have the same form in every inertial
+frame.  The practical construction rule is simple: the Lagrangian must be
+a Lorentz scalar, so the action is invariant.  Upper--lower contractions
+such as \(\partial_\mu\phi\,\partial^\mu\phi\) provide the building blocks.
+
+In general relativity the statement is enlarged.  The integrand is a scalar
+density, and invariance extends from Lorentz transformations to arbitrary
+coordinate transformations.  That refinement does not replace the present
+principle; it is its curved-spacetime form.
+
+\begin{classroomqa}
+\audiencequestion{Is Lorentz invariance only a rule for special relativity, rather than a truly general principle?}
+\lecturerresponse{For a nongravitational problem in flat spacetime, Lorentz
+invariance is the correct statement.  In curved spacetime one replaces the
+scalar Lagrangian by the appropriate scalar density and requires invariance
+under arbitrary coordinate transformations.  Apart from that refinement,
+the same construction philosophy survives. \lecturetimestamp{00:24:16}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What are the dimensions of the particle Lagrangian and the field Lagrangian density?}
+\lecturerresponse{A particle Lagrangian has dimensions of energy.  In
+\(I=\int dt\,d^3x\,\mathcal L\), the spatial measure supplies a volume, so
+\(\mathcal L\) has dimensions of energy per unit volume.  Integrating it
+over space gives an ordinary Lagrangian with dimensions of energy.
+\lecturetimestamp{00:25:49}}
+\end{classroomqa}
+
+\subsection{Gauge invariance}
+
+The fourth demand is gauge invariance.  At this point it is deliberately
+left mysterious.  An audience member offers a useful anticipation: perhaps
+one can add certain things to a Lagrangian without changing the physics.
+That is close, but the word certain will do nearly all the work.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_04.png}
+\caption{Locality, scalar construction, Lorentz invariance, and gauge invariance collected on the board.}
+\lectureframe{00:27:00}
+\end{figure}
+
+We postpone the definition because the charged-particle calculation already
+contains it.  Repeating that calculation is not a detour.  It will show why
+the vector potential is forced upon us and why, once introduced, it contains
+a redundancy.
+
+\section{Why the Vector Potential Is Necessary}
+
+For a slowly moving charged particle, the target equation is the familiar
+Lorentz-force law
+\begin{equation}
+m\mathbf a
+=
+e\left(
+\mathbf E+\mathbf v\times\mathbf B
+\right).
+\label{eq:sr7-lorentz-target}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_05.png}
+\caption{The familiar force law, written before the vector potential is reintroduced.}
+\lectureframe{00:29:08.870}
+\end{figure}
+
+No vector potential appears in \eqref{eq:sr7-lorentz-target}.  One can write
+the equations of motion directly with \(\mathbf E\) and \(\mathbf B\).
+The difficulty is more structural: under the assumptions of locality and
+Lorentz invariance used in the lecture, the interaction of a charged
+particle cannot be written as a worldline action directly in terms of those
+fields, position, and velocity alone.  The potential \(A_\mu\) is needed to
+construct the local scalar coupling.
+
+\begin{classroomqa}
+\audiencequestion{If the force law already contains only \(\mathbf E\) and \(\mathbf B\), why introduce \(A_\mu\)?}
+\lecturerresponse{Because an equation of motion is not yet an action
+principle.  Within the local Lorentz-invariant framework of this lecture,
+the charged-particle action requires the four-potential.  The fields alone
+can state the force, but the potential is the object that permits the force
+to be derived from a scalar worldline action. \lecturetimestamp{00:29:06}}
+\end{classroomqa}
+
+\subsection{The worldline action}
+
+The candidate action has a free part and an interaction part:
+\begin{equation}
+I[x]
+=
+-m\int d\tau
+-e\int A_\mu(x)\,dx^\mu.
+\label{eq:sr7-worldline-action}
+\end{equation}
+The first term adds the proper-time length of every infinitesimal segment of
+the trajectory.  It is a scalar by construction.  In the second term,
+\(A_\mu(x)\) is evaluated at the event occupied by the particle and
+contracted with the displacement \(dx^\mu\).  That increment is also a
+scalar and is local along the worldline.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_06.png}
+\caption{The two pieces of the charged-particle action and the local contraction \(A_\mu(x)dx^\mu\).}
+\lectureframe{00:31:20}
+\end{figure}
+
+\subsection{Rewriting the action in ordinary time}
+
+To use the familiar Euler--Lagrange equations, divide each worldline
+increment by \(dt\):
+\begin{equation}
+\frac{d\tau}{dt}
+=
+\sqrt{1-\dot{\mathbf x}^{\,2}},
+\qquad
+\dot{\mathbf x}^{\,2}
+=
+\dot x^2+\dot y^2+\dot z^2.
+\end{equation}
+The four components of \(dx^\mu/dt\) are
+\begin{equation}
+\frac{dx^\mu}{dt}
+=
+\left(1,\dot x,\dot y,\dot z\right).
+\end{equation}
+Consequently,
 \begin{align}
 I
 &=
-\int dt\left[-m\frac{d\tau}{dt}-e\,A_\mu(X)\frac{dX^\mu}{dt}\right] \\
+\int dt\,
+\left[
+-m\sqrt{1-\dot{\mathbf x}^{\,2}}
+-eA_\mu\frac{dx^\mu}{dt}
+\right]
+\notag\\
 &=
-\int dt\left[-m\sqrt{1-\dot X^2}-e\bigl(A_0(x,t)+A_m(x,t)\dot X^m\bigr)\right].
+\int dt\,
+\left[
+-m\sqrt{1-\dot{\mathbf x}^{\,2}}
+-e\left(A_0+A_m\dot x^m\right)
+\right].
+\label{eq:sr7-action-in-t}
 \end{align}
 The ordinary-time Lagrangian is therefore
 \begin{equation}
-L=-m\sqrt{1-\dot X^2}-e\bigl(A_0(x,t)+A_m(x,t)\dot X^m\bigr).
-\end{equation}
-
-This is the point where the lecture becomes concrete. Up to now \(A_\mu\) has been justified by the abstract demand for a scalar action. From here onward it must earn its keep mechanically.
-
-\section{Euler--Lagrange Mechanics and the Recovery of the Lorentz Force}
-
-The lecturer says explicitly that this part is straightforward but tedious. That remark matters. He does not want us to think that the real physics is over once the Lagrangian has been guessed. The algebra is the place where the structure becomes visible.
-
-We begin with the derivative of the Lagrangian with respect to the velocity:
-\begin{equation}
-\frac{\partial L}{\partial \dot X^m}
+L(x,\dot x,t)
 =
-\frac{m\dot X^m}{\sqrt{1-\dot X^2}}-eA_m(x,t).
-\end{equation}
-The first term is the relativistic momentum-like piece. The lecturer then catches the omitted second term and puts it back in: the coupling term depends on \(\dot X^m\) as well, and so there must be a contribution \(-eA_m\). The first term may be rewritten as
-\begin{equation}
-U^\mu:=\frac{dX^\mu}{d\tau},
-\qquad
-\frac{m\dot X^m}{\sqrt{1-\dot X^2}}=mU^m.
+-m\sqrt{1-\dot{\mathbf x}^{\,2}}
+-e\left[
+A_0(x,t)+A_m(x,t)\dot x^m
+\right].
+\label{eq:sr7-lagrangian}
 \end{equation}
 
-Now differentiate with respect to time. Since \(A_m\) depends both explicitly on time and implicitly on time through the particle position, we need the chain rule:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_07.png}
+\caption{The worldline action rewritten as an ordinary-time integral and the Lagrangian read from its integrand.}
+\lectureframe{00:35:30}
+\end{figure}
+
+At this stage the imaginative part is over.  Once a Lagrangian has been
+chosen, the rest is mechanical.  The mechanics can be long and tedious,
+but that tedium is not empty: it is what reveals the electric, magnetic, and
+relativistic structures.  The lecturer jokes that discovering the principle
+is the enjoyable part and deducing all its consequences is what one gives to
+graduate students.
+
+\begin{classroomqa}
+\audiencequestion{May the spatial index on \(A_m\) or \(\dot x^m\) be moved upstairs or downstairs in this calculation?}
+\lecturerresponse{Yes.  The spatial metric is the identity, so raising or
+lowering a Latin index does not change its component value.  The time index
+is the one whose sign requires care. \lecturetimestamp{00:34:10}}
+\end{classroomqa}
+
+\section{The Euler--Lagrange Calculation}
+
+\subsection{Canonical momentum and a live correction}
+
+Choose one spatial component \(x^m\).  Differentiating the free term of
+\eqref{eq:sr7-lagrangian} gives
+\begin{equation}
+\frac{m\dot x_m}{\sqrt{1-\dot{\mathbf x}^{\,2}}}
+=
+m u_m,
+\qquad
+u^\mu\equiv\frac{dx^\mu}{d\tau}.
+\end{equation}
+The first board attempt stops there.  An audience correction catches the
+omission: the interaction term also depends on \(\dot x^m\).  The complete
+derivative is
+\begin{equation}
+\frac{\partial L}{\partial\dot x^m}
+=
+\frac{m\dot x_m}{\sqrt{1-\dot{\mathbf x}^{\,2}}}
+-eA_m
+=
+m u_m-eA_m.
+\label{eq:sr7-canonical-momentum}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Is the first expression for \(\partial L/\partial\dot x^m\) missing the contribution from the electromagnetic term?}
+\lecturerresponse{Yes.  Differentiating
+\(-eA_n\dot x^n\) with respect to \(\dot x^m\) contributes
+\(-eA_m\).  The corrected canonical momentum is
+\(m u_m-eA_m\), not the mechanical momentum alone.
+\lecturetimestamp{00:37:24}}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_08.png}
+\caption{The corrected canonical momentum with both the mechanical and potential terms.}
+\lectureframe{00:38:30}
+\end{figure}
+
+\subsection{Differentiating along the moving path}
+
+The left side of the Euler--Lagrange equation is
+\begin{equation}
+\frac{d}{dt}
+\left(
+\frac{\partial L}{\partial\dot x^m}
+\right)
+=
+m\frac{du_m}{dt}
+-e\frac{dA_m(x(t),t)}{dt}.
+\end{equation}
+The potential changes for two reasons: it may depend explicitly on time,
+and the particle moves through its spatial variation.  The chain rule gives
 \begin{equation}
 \frac{dA_m}{dt}
 =
-\partial_0A_m+(\partial_nA_m)\dot X^n.
+\partial_0A_m
++\dot x^n\partial_nA_m.
+\label{eq:sr7-chain-rule}
 \end{equation}
-Hence
+In longhand, the second term means
 \begin{equation}
-\frac{d}{dt}\frac{\partial L}{\partial \dot X^m}
+\dot x\,\frac{\partial A_m}{\partial x}
++\dot y\,\frac{\partial A_m}{\partial y}
++\dot z\,\frac{\partial A_m}{\partial z}.
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_09.png}
+\caption{The explicit and convective pieces of the time derivative of \(A_m\).}
+\lectureframe{00:42:10}
+\end{figure}
+
+On the right side,
+\begin{equation}
+\frac{\partial L}{\partial x^m}
 =
-m\frac{dU^m}{dt}
--
-e\,\partial_0A_m
--
-e\,(\partial_nA_m)\dot X^n.
+-e\partial_mA_0
+-e\dot x^n\partial_mA_n.
+\label{eq:sr7-spatial-derivative-L}
 \end{equation}
+The free term has no explicit position dependence.  In
+\eqref{eq:sr7-spatial-derivative-L}, \(m\) is the free index selecting one
+equation; \(n\) is a repeated dummy index and is summed.  Renaming that
+dummy index changes nothing.  This distinction is why the lecturer pauses
+over the letters before combining the terms.
 
-On the right-hand side of the Euler--Lagrange equation, only the electromagnetic term depends explicitly on \(X^m\):
+Equating the two sides and rearranging yields
 \begin{equation}
-\frac{\partial L}{\partial X^m}
+m\frac{du_m}{dt}
 =
--e\,\partial_mA_0
--e\,(\partial_mA_n)\dot X^n.
+e\left(
+\partial_0A_m-\partial_mA_0
+\right)
++e\dot x^n
+\left(
+\partial_nA_m-\partial_mA_n
+\right).
+\label{eq:sr7-grouped-force}
 \end{equation}
-Therefore
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_10.png}
+\caption{The force separated into a velocity-independent bracket and a velocity-linear antisymmetric bracket.}
+\lectureframe{00:49:30}
+\end{figure}
+
+\subsection{Recognizing electric and magnetic fields}
+
+The first bracket contains no particle velocity.  In the convention of this
+action, define
 \begin{equation}
-m\frac{dU^m}{dt}
--
-e\,\partial_0A_m
--
-e\,(\partial_nA_m)\dot X^n
+E_m
+\equiv
+\partial_0A_m-\partial_mA_0.
+\label{eq:sr7-E-from-A}
+\end{equation}
+It has precisely the operational role of the electric field.  The second
+bracket is antisymmetric in its spatial indices:
+\begin{equation}
+C_{mn}
+\equiv
+\partial_nA_m-\partial_mA_n.
+\label{eq:sr7-C}
+\end{equation}
+Its three independent components are the curl of the spatial potential,
+with orientation chosen in the lecture convention so that
+\begin{equation}
+\dot x^n C_{mn}
 =
--e\,\partial_mA_0
--e\,(\partial_mA_n)\dot X^n.
+\left(\mathbf v\times\mathbf B\right)_m.
+\label{eq:sr7-magnetic-identification}
 \end{equation}
-Rearranging gives
+The detailed component check is left as an exercise on the board.  The
+structural identification is already visible: an antisymmetric spatial
+derivative of a vector has three components, exactly the number carried by
+\(\mathbf B\), and it multiplies the velocity.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_11.png}
+\caption{The two derivative brackets identified as the electric and magnetic parts of the Lorentz force.}
+\lectureframe{00:52:00}
+\end{figure}
+
+Equation \eqref{eq:sr7-grouped-force} has therefore recovered the Lorentz
+force from the vector-potential action.  It has also done something more
+important: it has exposed the antisymmetrized derivatives that will become
+the field tensor.
+
+\section{From Ordinary Time to a Four-Vector Equation}
+
+\subsection{The proper-time conversion}
+
+The left side of \eqref{eq:sr7-grouped-force} is not the Newtonian
+acceleration \(d\mathbf v/dt\).  It is the ordinary-time derivative of a
+four-velocity component:
 \begin{equation}
-m\frac{dU^m}{dt}
+\frac{du^m}{dt}
 =
-e\bigl(\partial_0A_m-\partial_mA_0\bigr)
-+
-e\bigl(\partial_nA_m-\partial_mA_n\bigr)\dot X^n.
+\frac{du^m}{d\tau}\frac{d\tau}{dt}.
 \end{equation}
-
-This is exactly the moment the lecture wants us to see. Two kinds of terms have emerged. The first does not involve the velocity:
+Multiply the equation by \(dt/d\tau\).  Then
 \begin{equation}
-E_m:=\partial_0A_m-\partial_mA_0.
-\end{equation}
-This is the electric part of the force. The second is linear in the velocity:
-\begin{equation}
-\bigl(\partial_nA_m-\partial_mA_n\bigr)\dot X^n.
-\end{equation}
-The lecturer points to its antisymmetry in \(m\) and \(n\) and asks what familiar three-dimensional structure it is. The answer is the curl. With
-\begin{equation}
-\mathbf B=\nabla\times\mathbf A,
-\end{equation}
-this second piece is the \(m\)-component of \(\mathbf v\times\mathbf B\). Thus the ordinary three-vector force law reappears, but now it has been derived from the action:
-\begin{equation}
-m\mathbf a=e\left(\mathbf E+\mathbf v\times\mathbf B\right).
-\end{equation}
-
-The lecture does not stop there. It immediately says: this is not yet fully satisfactory. The left-hand side only looks like \(m\mathbf a\). It is really the time derivative of a four-velocity component. We now want to rewrite the result in a way that makes its relativistic character explicit.
-
-\section{Proper Time, Four-Velocity, and the Field Tensor}
-
-The lecturer's next move is marked by the phrase ``one last step.'' The quantity on the left-hand side is not the second derivative of position with respect to ordinary time; it is the derivative with respect to \(t\) of something that is already defined with respect to proper time. So let us write everything in terms of \(\tau\).
-
-Since
-\begin{equation}
-U^\mu=\frac{dX^\mu}{d\tau},
-\end{equation}
-we have
-\begin{equation}
-\frac{dU^m}{dt}
+\dot x^n\frac{dt}{d\tau}
 =
-\frac{dU^m}{d\tau}\frac{d\tau}{dt}.
-\end{equation}
-Multiplying the equation of motion by \(dt/d\tau\) turns the left-hand side into proper acceleration and the factor \(\dot X^n(dt/d\tau)\) on the right-hand side into \(U^n\):
-\begin{equation}
-m\frac{dU^m}{d\tau}
+\frac{dx^n}{dt}\frac{dt}{d\tau}
 =
-e\bigl(\partial_0A_m-\partial_mA_0\bigr)U^0
-+
-e\bigl(\partial_nA_m-\partial_mA_n\bigr)U^n.
+u^n,
+\qquad
+\frac{dt}{d\tau}=u^0.
 \end{equation}
-This is already far better. The left-hand side is now a component of a four-vector, and the right-hand side is beginning to advertise the index structure of a rank-two tensor acting on \(U^\nu\).
+The spatial equation becomes
+\begin{align}
+m\frac{du^m}{d\tau}
+&=
+e\left(
+\partial_0A_m-\partial_mA_0
+\right)u^0
+\notag\\
+&\quad
++e\left(
+\partial_nA_m-\partial_mA_n
+\right)u^n.
+\label{eq:sr7-proper-spatial}
+\end{align}
 
-At the board the lecturer briefly hesitates over the order of derivatives and the resulting signs. For the final notes we now fix a single convention and keep it throughout:
-\begin{equation}
-F_{\mu\nu}:=\partial_\mu A_\nu-\partial_\nu A_\mu.
-\end{equation}
-This object is antisymmetric,
-\begin{equation}
-F_{\mu\nu}=-F_{\nu\mu},
-\end{equation}
-so its diagonal entries vanish automatically.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_12.png}
+\caption{The factors \(dt/d\tau\) convert ordinary velocities into components of the four-velocity.}
+\lectureframe{00:56:30}
+\end{figure}
 
-The lecture then displays the tensor as a \(4\times 4\) array. We may write it in the canonical form
+The left side is proper acceleration:
+\begin{equation}
+\frac{du^\mu}{d\tau}
+=
+\frac{d^2x^\mu}{d\tau^2}.
+\end{equation}
+It is a four-vector.  The right side must therefore be assembled from a
+rank-two tensor acting on \(u^\nu\).
+
+\subsection{The field tensor and the force law}
+
+Choose the convention
 \begin{equation}
 F_{\mu\nu}
+\equiv
+\partial_\mu A_\nu-\partial_\nu A_\mu.
+\label{eq:sr7-F-definition}
+\end{equation}
+It is antisymmetric:
+\begin{equation}
+F_{\mu\nu}=-F_{\nu\mu}.
+\end{equation}
+Using the interaction sign in \eqref{eq:sr7-worldline-action}, the compact
+equation is
+\begin{equation}
+\boxed{
+m\frac{du^\mu}{d\tau}
+=
+-eF^\mu{}_\nu u^\nu
+}.
+\label{eq:sr7-covariant-force}
+\end{equation}
+Equivalently, before naming \(F_{\mu\nu}\),
+\begin{equation}
+m\frac{du^\mu}{d\tau}
+=
+e\left(
+\partial_\nu A^\mu-\partial^\mu A_\nu
+\right)u^\nu.
+\end{equation}
+Different metric, charge, and potential conventions redistribute the
+overall signs.  The invariant content is the antisymmetrized derivative of
+the potential and its contraction with the four-velocity.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_13.png}
+\caption{The proper-time equation packaged as a rank-two field tensor acting on the four-velocity.}
+\lectureframe{00:58:25}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{The derivation produced three spatial equations.  Why is a fourth equation allowed to be added?}
+\lecturerresponse{The scalar action guarantees a Lorentz-covariant result.
+Once the difference between the two sides is recognized as a four-vector,
+Lorentz transformations mix its spatial and temporal components.  A
+four-vector equation cannot consistently have only three components; the
+time component accompanies the spatial ones. \lecturetimestamp{00:59:40}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is a fixed list of numbers such as \((1,2,3,4)\) itself a Lorentz-invariant four-vector?}
+\lecturerresponse{No.  Such numbers can be the components of a vector in
+one chosen frame, but the components transform.  Even in two dimensions,
+the vector with components \((1,2)\) can be described in a rotated frame as
+\((0,\sqrt5)\).  The geometric vector persists; its numerical component
+list does not. \lecturetimestamp{01:00:28}}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_14.png}
+\caption{A two-component vector re-expressed in axes aligned with the vector itself.}
+\lectureframe{01:02:00}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{If the goal was to replace ordinary time by proper time, why does \(\partial_0A_m=\partial A_m/\partial t\) still appear?}
+\lecturerresponse{The goal was not to erase every letter \(t\).  It was to
+write the dynamics in manifest four-vector notation.  The operator
+\(\partial_0\) is the time component of the covariant four-gradient, just as
+\(\partial_m\) are its spatial components.  It belongs inside the
+four-dimensional tensor. \lecturetimestamp{01:05:10}}
+\end{classroomqa}
+
+The lecture uses this moment to restate locality.  A local equation relates
+the acceleration at an event to the field and velocity at that event.  It
+does not link the acceleration now to a force at a remote time.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_15.png}
+\caption{The covariant force equation used to restate locality as differential dynamics.}
+\lectureframe{01:05:50}
+\end{figure}
+
+\subsection{Displaying the electromagnetic components}
+
+For the all-upper tensor, the convention used on the board gives
+\begin{equation}
+F^{\mu\nu}
 =
 \begin{pmatrix}
-0 & E_x & E_y & E_z \\
--E_x & 0 & B_z & -B_y \\
--E_y & -B_z & 0 & B_x \\
--E_z & B_y & -B_x & 0
+0&-E_x&-E_y&-E_z\\
+E_x&0&B_z&-B_y\\
+E_y&-B_z&0&B_x\\
+E_z&B_y&-B_x&0
 \end{pmatrix}.
+\label{eq:sr7-F-matrix}
 \end{equation}
-Rows are labeled by \(\mu\), columns by \(\nu\). The mixed space--time components carry the electric field, and the space--space components carry the magnetic field.
+The row index is \(\mu\), the column index is \(\nu\).  The mixed
+time--space entries contain the electric field; the space--space block
+contains the magnetic field.  Antisymmetry sets the diagonal to zero and
+reduces sixteen displayed entries to six independent components.
 
-This is the point at which the lecture makes a structural claim about Lorentz invariance. If the three spatial components of a four-vector equation are correct, then the fourth comes along with them, because the equation transforms as a four-vector equation. That is why we are allowed to write the compact covariant force law
-\begin{equation}
-m\frac{dU^\mu}{d\tau}=e\,F^\mu{}_{\nu}U^\nu.
-\end{equation}
-The mixed-index signs depend on the metric when the first index is raised, and the lecture quite sensibly refuses to get distracted by those bookkeeping details. The secure content is that the motion of the particle is governed by an antisymmetric field tensor acting on the four-velocity.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_16.png}
+\caption{The completed electromagnetic tensor, with electric entries in the time--space slots and magnetic entries in the spatial block.}
+\lectureframe{01:12:10}
+\end{figure}
 
-\section{Gauge Invariance as Boundary-Term Invariance}
+\begin{classroomqa}
+\audiencequestion{Is there a standard rule deciding which tensor index labels rows and which labels columns?}
+\lecturerresponse{It is a display convention.  Here the first index
+\(\mu\) runs vertically and the second index \(\nu\) runs horizontally.
+Once that convention is announced, every component can be read
+unambiguously.  Raising a time index introduces a sign, but it does not
+alter the row--column convention. \lecturetimestamp{01:09:01}}
+\end{classroomqa}
 
-Only after that reconstruction does the lecture say: we still have not yet gotten to gauge invariance. So it backs up once more and asks a more general question. What is an invariance? The useful answer is that it is a change that does not alter the equations of motion, or equivalently does not alter which field configurations or trajectories make the action stationary.
+\begin{classroomqa}
+\audiencequestion{Which index placements preserve antisymmetry?}
+\lecturerresponse{The tensors \(F_{\mu\nu}\) and \(F^{\mu\nu}\) are
+antisymmetric.  The mixed array \(F^\mu{}_\nu\) is not antisymmetric under
+ordinary matrix transposition: raising one time index changes the electric
+slots, making the time--space pair symmetric, while the purely spatial
+magnetic block remains antisymmetric.  The lecturer reaches this conclusion
+after briefly testing and rejecting the opposite possibility on the board.
+\lecturetimestamp{01:13:18}}
+\end{classroomqa}
 
-The warm-up example is a free scalar field:
-\begin{equation}
-\partial_t^2\phi-\nabla^2\phi=0.
-\end{equation}
-A corresponding Lagrangian density can be taken as
-\begin{equation}
-\mathcal L_\phi=-\frac12\,\partial_\mu\phi\,\partial^\mu\phi.
-\end{equation}
-Because only derivatives of \(\phi\) appear, this theory is invariant under the shift
-\begin{equation}
-\phi\longrightarrow \phi+c,
-\end{equation}
-with \(c\) constant. The derivatives of \(c\) vanish, so both the equation of motion and the action are unchanged.
+\section{What Counts as an Invariance?}
 
-But if we add a mass term,
+Only now do we return to the fourth principle.  An invariance is a change
+that leaves the equations of motion unchanged.  The action itself may remain
+exactly unchanged, or it may change by a boundary term that has no effect on
+the variational equations.
+
+\subsection{Constant shifts of a massless scalar}
+
+Consider the massless scalar equation in one spatial dimension,
 \begin{equation}
-\partial_t^2\phi-\nabla^2\phi+\mu^2\phi=0,
+\frac{\partial^2\phi}{\partial t^2}
+-\frac{\partial^2\phi}{\partial x^2}
+=0,
+\label{eq:sr7-wave}
 \end{equation}
-with Lagrangian density
+obtained from
 \begin{equation}
-\mathcal L_{\phi,\mu}
+\mathcal L_0
 =
--\frac12\,\partial_\mu\phi\,\partial^\mu\phi
--\frac{\mu^2}{2}\phi^2,
+-\frac12\partial_\mu\phi\,\partial^\mu\phi.
+\label{eq:sr7-massless-L}
 \end{equation}
-the constant-shift invariance is destroyed. The derivative terms are still unaffected by \(\phi\to\phi+c\), but the \(\phi^2\) term changes, and with it the action.
+If \(\phi\) is a solution, then so is
+\begin{equation}
+\phi\longrightarrow\phi+c,
+\label{eq:sr7-constant-shift}
+\end{equation}
+where \(c\) is constant.  Every derivative of \(c\) vanishes, so neither the
+equation nor the derivative-only Lagrangian changes.
 
-The lecture then turns to a more delicate example, \(\phi\to\phi+x\). The point is not that this is a fundamental symmetry of the theory, but that it teaches us how total derivatives enter. Since the second derivatives of \(x\) vanish, the wave equation still survives. In the Lagrangian density, however,
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_17.png}
+\caption{The massless wave equation, its derivative Lagrangian, and the constant shift \(\phi\mapsto\phi+c\).}
+\lectureframe{01:17:10}
+\end{figure}
+
+Now add a mass term:
 \begin{equation}
-\partial_x(\phi+x)=\partial_x\phi+1,
+\frac{\partial^2\phi}{\partial t^2}
+-\frac{\partial^2\phi}{\partial x^2}
++\mu^2\phi
+=0,
 \end{equation}
-so the relevant square becomes
 \begin{equation}
-(\partial_x\phi+1)^2
+\mathcal L_\mu
 =
-(\partial_x\phi)^2+2\,\partial_x\phi+1.
+-\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac{\mu^2}{2}\phi^2.
+\label{eq:sr7-massive-L}
 \end{equation}
-The new terms are a constant and a total derivative. A constant added to the Lagrangian is irrelevant, and a total derivative changes the action only through boundary terms. This is the lesson the lecturer wanted all along.
+The derivative part remains unchanged under
+\(\phi\mapsto\phi+c\), but \(\phi^2\) does not.  Both theories are
+legitimate; one has the shift invariance and the other does not.
 
-We are now ready to return to the electromagnetic action and perform the analogous change
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_18.png}
+\caption{The mass term that breaks constant-shift invariance.}
+\lectureframe{01:18:50}
+\end{figure}
+
+\subsection{A student anticipates the boundary term}
+
+An audience member proposes a sharper test:
 \begin{equation}
-A_\mu \longrightarrow A_\mu+\partial_\mu S,
+\phi(x,t)\longrightarrow\phi(x,t)+x.
+\label{eq:sr7-linear-shift}
 \end{equation}
-where \(S(X)\) is an arbitrary scalar function. The change in the interaction term is
+The second derivatives of \(x\) vanish, so the massless wave equation is
+still satisfied.  The action requires a closer look.  Since \(x\) and \(t\)
+are independent variables,
+\begin{equation}
+\frac{\partial x}{\partial t}=0,
+\qquad
+\frac{\partial x}{\partial x}=1.
+\end{equation}
+The spatial part changes according to
 \begin{align}
-\Delta I
+-\frac12
+\left[
+\partial_x(\phi+x)
+\right]^2
 &=
--e\int \partial_\mu S\,dX^\mu \\
+-\frac12
+\left(
+\partial_x\phi+1
+\right)^2
+\notag\\
 &=
--e\int dS \\
-&=
--e\bigl(S(2)-S(1)\bigr).
+-\frac12(\partial_x\phi)^2
+-\partial_x\phi
+-\frac12.
+\label{eq:sr7-linear-shift-L}
 \end{align}
-This is the crucial boundary-term identity. Along the worldline, \(\partial_\mu S\,dX^\mu\) is exactly the differential \(dS\). When integrated, it gives only the value of \(S\) at the endpoints.
+The new pieces are a constant and a total derivative.  The constant does
+not change the Euler--Lagrange equation.  Integrating
+\(\partial_x\phi\) produces only spatial boundary values, so under the
+usual fixed-boundary conditions it also leaves the equation of motion
+unchanged.
 
-But the action principle varies the path while holding those endpoints fixed. So this additional term cannot affect which path makes the action stationary. The motion of the particle is unchanged. This is the first proof of gauge invariance.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_19.png}
+\caption{The proposed shift \(\phi\mapsto\phi+x\) and the derivative square that reveals a constant plus a total derivative.}
+\lectureframe{01:22:40}
+\end{figure}
 
-The second proof works directly with the field tensor. Under the same transformation,
+\begin{classroomqa}
+\audiencequestion{Does \(\phi\mapsto\phi+x\) preserve the massless field equation even though it changes the Lagrangian density?}
+\lecturerresponse{Yes.  The second derivatives of \(x\) vanish, so the
+equation is unchanged.  The Lagrangian changes only by a constant and a
+total spatial derivative.  These alter the numerical action by a fixed
+bulk constant and boundary values, but not the Euler--Lagrange equation
+under fixed boundary conditions. \lecturetimestamp{01:20:00}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is \(\partial x/\partial t\) zero?}
+\lecturerresponse{Because \(x\) and \(t\) are independent coordinates of
+the field description.  A partial derivative with respect to \(t\) holds
+\(x\) fixed. \lecturetimestamp{01:22:22}}
+\end{classroomqa}
+
+The student has arrived at the device needed for electromagnetism: a total
+derivative can change the written action without changing its stationary
+paths.
+
+\section{Gauge Invariance of the Charged Particle}
+
+\subsection{Adding a four-gradient}
+
+Return to the interaction
+\begin{equation}
+I_{\mathrm{int}}
+=
+-e\int A_\mu\,dx^\mu.
+\end{equation}
+Let \(\Lambda(x)\) be any sufficiently smooth scalar and change the
+potential by
+\begin{equation}
+A_\mu
+\longrightarrow
+A'_\mu
+=
+A_\mu+\partial_\mu\Lambda.
+\label{eq:sr7-gauge-transformation}
+\end{equation}
+The gradient \(\partial_\mu\Lambda\) has the same covariant index structure
+as \(A_\mu\), so the sum is well defined.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_20.png}
+\caption{The worldline coupling and the transformation \(A_\mu\mapsto A_\mu+\partial_\mu\Lambda\).}
+\lectureframe{01:24:50}
+\end{figure}
+
+The change in the action is
+\begin{align}
+\Delta I_{\mathrm{int}}
+&=
+-e\int \partial_\mu\Lambda\,dx^\mu
+\notag\\
+&=
+-e\int d\Lambda
+\notag\\
+&=
+-e\left[
+\Lambda(x_2)-\Lambda(x_1)
+\right].
+\label{eq:sr7-gauge-boundary}
+\end{align}
+Along each infinitesimal worldline segment,
+\(\partial_\mu\Lambda\,dx^\mu\) is precisely the increment
+\(d\Lambda\).  Adding the increments telescopes to the difference between
+the final and initial endpoint values.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_21.png}
+\caption{The gradient contribution integrated along the path to the endpoint difference \(\Lambda(x_2)-\Lambda(x_1)\).}
+\lectureframe{01:28:10}
+\end{figure}
+
+The variational principle compares nearby trajectories with \(x_1\) and
+\(x_2\) held fixed.  The extra term in \eqref{eq:sr7-gauge-boundary} is
+therefore the same for every allowed variation:
+\begin{equation}
+\delta\Delta I_{\mathrm{int}}=0.
+\end{equation}
+The stationary trajectory is unchanged.  This is gauge invariance as an
+endpoint statement.
+
+\begin{classroomqa}
+\audiencequestion{May \(\Lambda\) be any scalar function?}
+\lecturerresponse{Yes, subject to the smoothness and boundary assumptions
+needed for the derivatives and action.  The transformation is local because
+the parameter is an arbitrary function of spacetime, not merely one global
+constant. \lecturetimestamp{01:28:40}}
+\end{classroomqa}
+
+Adding a gradient to \(A_\mu\) is called a gauge transformation.  The word
+gauge is a historical inheritance; the lecture warns, humorously but
+firmly, against pronouncing it as though it were a French word.  The name is
+less important than the operation.
+
+\subsection{The direct proof with the field tensor}
+
+The equations of motion depend on \(F_{\mu\nu}\), not on the potential by
+itself.  Under \eqref{eq:sr7-gauge-transformation},
 \begin{align}
 F'_{\mu\nu}
 &=
-\partial_\mu\bigl(A_\nu+\partial_\nu S\bigr)
+\partial_\mu
+\left(
+A_\nu+\partial_\nu\Lambda
+\right)
 -
-\partial_\nu\bigl(A_\mu+\partial_\mu S\bigr) \\
+\partial_\nu
+\left(
+A_\mu+\partial_\mu\Lambda
+\right)
+\notag\\
 &=
 F_{\mu\nu}
 +
-\partial_\mu\partial_\nu S
+\partial_\mu\partial_\nu\Lambda
 -
-\partial_\nu\partial_\mu S \\
+\partial_\nu\partial_\mu\Lambda
+\notag\\
 &=
-F_{\mu\nu},
+F_{\mu\nu}.
+\label{eq:sr7-F-gauge-invariant}
 \end{align}
-because partial derivatives commute. Thus the equations of motion, which depend on \(F_{\mu\nu}\), are manifestly unchanged.
+For a smooth scalar in ordinary flat spacetime, partial derivatives commute.
+The two additional terms cancel.  Thus the field tensor, the electric and
+magnetic fields it contains, and the force law are all gauge invariant.
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_22.png}
+\caption{The two second derivatives generated by a gauge transformation cancel because partial derivatives commute.}
+\lectureframe{01:33:50}
+\end{figure}
 
-\paragraph{Question.}
-Is gauge invariance like changing reference frames?
+The two proofs close the same circle from opposite directions.  The action
+changes only at fixed endpoints, while the equations depend only on an
+unchanged field tensor.
 
-\paragraph{Answer.}
-No. This is the conceptual closure of the lecture. Lorentz invariance compares genuinely different observers, each with a physically meaningful reference frame. Gauge invariance is different. It is not the passage from your coordinates to mine. It is a redundancy of description: many choices of \(A_\mu\) correspond to the same fields and therefore to the same physics. What is new is that the transformation involves an arbitrary function of position, not one fixed global parameter.
+\section{What the Redundancy Means}
 
-That is also why \(A_\mu\) is indispensable and yet not directly measurable. It is indispensable because the action principle for the charged particle cannot be written directly in terms of \(\mathbf E\) and \(\mathbf B\) alone. But it is not directly measurable because changing it by a gradient leaves all gauge-invariant physics unchanged. What one can measure are gauge-invariant features of the theory. In particular, if the potential is pure gauge,
+\subsection{Why keep an object that is not unique?}
+
+The natural objection is immediate.  If \(A_\mu\) is not unique, why did we
+introduce it?  Because it is indispensable to the local Lorentz-invariant
+action even though its component values contain redundant information.
+Many potentials represent the same electromagnetic field:
 \begin{equation}
-A_\mu=\partial_\mu S,
+A_\mu
+\sim
+A_\mu+\partial_\mu\Lambda.
 \end{equation}
-then
+The equivalence class is physical; a particular representative is a choice
+of description.
+
+\begin{classroomqa}
+\audiencequestion{Is there practical value in changing the gauge?}
+\lecturerresponse{Yes.  A suitable \(\Lambda\) can simplify a component of
+the potential or make one feature of a problem transparent.  Locally, and
+with suitable boundary conditions, one can often choose a gauge in which
+one selected component, including \(A_0\), vanishes.  Another gauge may
+display a different feature more clearly. \lecturetimestamp{01:35:43}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is gauge invariance analogous to describing the same experiment from two Lorentz frames?}
+\lecturerresponse{No.  Lorentz transformations compare physically
+meaningful reference frames carried by different observers.  Gauge
+transformations are redundancies within one description: different
+potentials encode the same field.  Mathematically both are invariances, but
+their interpretations differ. \lecturetimestamp{01:37:07}}
+\end{classroomqa}
+
+There is also a structural difference.  A rotation uses a fixed global
+angle; one does not ordinarily rotate the axes by unrelated angles at each
+point.  A gauge transformation is parameterized by the entire function
+\(\Lambda(x)\).  This position-dependent freedom is what makes it a local
+gauge invariance.
+
+\begin{classroomqa}
+\audiencequestion{Is adding a gradient the general definition of gauge invariance?}
+\lecturerresponse{For the Abelian electromagnetic theory, that is the
+transformation.  Yang--Mills theories have a more elaborate non-Abelian
+version in which the potential carries additional internal structure, but
+the same idea survives: different local descriptions represent the same
+physics. \lecturetimestamp{01:39:27}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is a gauge transformation merely a mathematical device for highlighting different parts of a problem?}
+\lecturerresponse{It is a useful calculational and interpretive device, but
+its role is constrained: it may simplify the equations or reveal a
+property, yet it cannot change any final gauge-invariant prediction.
+\lecturetimestamp{01:40:22}}
+\end{classroomqa}
+
+\subsection{Other fields and other potentials}
+
+Gauge potentials in other theories are also commonly denoted by \(A\) and
+carry a spacetime index \(\mu\).  What distinguishes them is additional
+internal structure associated with other symmetries.  The lecture postpones
+that structure rather than offering a premature formula.
+
+\begin{classroomqa}
+\audiencequestion{What do the vector potentials of other field theories look like?}
+\lecturerresponse{They still behave as spacetime vectors and are commonly
+written \(A_\mu\), but they carry additional labels and algebraic structure
+associated with internal symmetries.  That is the entrance to Yang--Mills
+theory and is intentionally deferred. \lecturetimestamp{01:41:02}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is it really impossible to write the local Lorentz-invariant charged-particle action directly with \(\mathbf E\) and \(\mathbf B\)?}
+\lecturerresponse{Within the assumptions stated here, yes.  The lecture
+presents this as a theorem and does not prove it.  Preserving the action
+principle, locality, and Lorentz invariance forces the introduction of the
+potential, after which gauge redundancy appears automatically.
+\lecturetimestamp{01:42:18}}
+\end{classroomqa}
+
+\subsection{What can be measured?}
+
+A local value of \(A_\mu\) by itself is not gauge invariant.  If a physical
+measurement determined that value uniquely, changing it by
+\(\partial_\mu\Lambda\) would alter a physical outcome, contrary to the
+invariance just proved.  Measurable predictions must be built from
+gauge-invariant quantities, such as \(F_{\mu\nu}\) in the present classical
+discussion.
+
+\begin{classroomqa}
+\audiencequestion{Why does nature so persistently choose gauge theories?}
+\lecturerresponse{At the classical level the lecture offers no final reason.
+Quantum mechanics supplies a deeper perspective, but even there the broad
+answer is not exhausted.  What is already evident is the unusual beauty,
+symmetry, and economy of theories organized by gauge redundancy.
+\lecturetimestamp{01:43:36}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the vector potential itself be measured?}
+\lecturerresponse{Not as a gauge-dependent local component value.  A
+measurement is a physical process, and every physical prediction must be
+insensitive to \(A_\mu\mapsto A_\mu+\partial_\mu\Lambda\).  What can be
+measured are gauge-invariant features of the potential and field.
+\lecturetimestamp{01:44:18}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What happens if \(A_\mu\) is changed by something that is not a gradient?}
+\lecturerresponse{In general \(F_{\mu\nu}\) changes, so the change is
+detectable.  By contrast, a pure-gauge potential
+\(A_\mu=\partial_\mu\Lambda\) has
+\(F_{\mu\nu}=0\) and exerts no electromagnetic force; a free particle then
+moves on a straight worldline. \lecturetimestamp{01:45:22}}
+\end{classroomqa}
+
+Gauge invariance is therefore not a disposable trick.  Electrodynamics,
+Yang--Mills theory, the Standard Model, and gravity all possess gauge
+redundancies of one kind or another.  The pattern is peculiar: an auxiliary
+quantity is required to formulate the theory, yet part of that quantity can
+be changed without changing the physics.  The peculiarity is also the
+organizing power.
+
+\section{The Logic of Gauge Invariance}
+
+The lecture has taken a deliberately indirect path.  We first restored the
+upper--lower index language because scalar contractions are the grammar of
+Lorentz-invariant actions.  We then stated four principles: action,
+locality, Lorentz invariance, and gauge invariance.  The fourth remained
+undefined while the charged-particle calculation was rebuilt.
+
+That calculation began with the local scalar action
 \begin{equation}
-F_{\mu\nu}=0,
+I
+=
+-m\int d\tau
+-e\int A_\mu dx^\mu,
 \end{equation}
-and the particle feels no electromagnetic force at all.
+passed through the ordinary-time Lagrangian and every Euler--Lagrange
+derivative, and recovered the electric and magnetic Lorentz force.  Proper
+time then assembled the result into
+\begin{equation}
+m\frac{du^\mu}{d\tau}
+=
+-eF^\mu{}_\nu u^\nu,
+\qquad
+F_{\mu\nu}
+=
+\partial_\mu A_\nu-\partial_\nu A_\mu.
+\end{equation}
 
-The lecture also emphasizes that gauge invariance is not merely philosophical. It is useful. By choosing \(S\) appropriately, we may simplify the vector potential, set one component to zero, or make one property of a problem more transparent. A gauge transformation is therefore a calculational tool and an interpretive tool, but it must never change the final answer.
-
-The lecture ends by widening the frame once more. Gauge invariance is not peculiar to electromagnetism; it pervades fundamental physics. Electrodynamics, Yang--Mills theory, the standard model, and gravity all come with their own gauge redundancies. At the classical level their existence may look mysterious. At the level of formalism, however, one can already see the beauty of the pattern.
-
-\section{Summary}
-
-The lecture unfolds in a deliberate order, and the chapter should be read in the same way. We first restore the compact notation of upper and lower indices and contractions, because without that notation the later invariant structures are hard to see. We then formulate four guiding principles: action principle, locality, Lorentz invariance, and gauge invariance. Returning to the charged particle, we write down the familiar Lorentz force law, then deliberately create the puzzle that drives the whole lecture: the force law uses only \(\mathbf E\) and \(\mathbf B\), but the action principle forces us to introduce \(A_\mu\). From that action we recover the Lorentz force mechanically, rewrite it in covariant form using proper time and the field tensor, and only then explain gauge invariance as the statement that adding a gradient changes the action only by boundary terms. The final conceptual point is the sharpest one: gauge invariance is not a change of observer but a redundancy of description. That is why the vector potential is necessary in the formulation and yet not itself the directly measurable object.
+The scalar-field examples prepared the final step: a total derivative can
+alter an action only through boundaries.  Consequently,
+\begin{equation}
+A_\mu\longrightarrow A_\mu+\partial_\mu\Lambda
+\end{equation}
+changes the worldline action only by fixed endpoint values and leaves
+\(F_{\mu\nu}\) unchanged because mixed partial derivatives commute.  The
+vector potential is therefore necessary but nonunique.  Gauge invariance is
+the statement that this nonuniqueness belongs to the description, not to
+the physics.
