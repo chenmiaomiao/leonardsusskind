@@ -1,372 +1,984 @@
-\chapter{Local Flatness, Covariant Derivatives, and Curvature}
+\chapter{Local Flatness, Covariant Differentiation, and Curvature}
 
-General relativity has the reputation of being very difficult, and Susskind begins by admitting that the reputation is not wholly undeserved. But the difficulty, at least at first, is not that the core ideas are inaccessible. It is that the subject is notationally heavy, calculationally intensive, and filled with indices that one must simply learn to carry. That is the spirit in which this chapter should be read. We will not try to hide the machinery before we understand what it is doing. These notes follow Leonard Susskind's lecture closely; where the blackboard itself carries mathematical content, we keep the supporting board evidence preserved through the work of LazyingArt LLC and Video2Book.
+\lectureoverview{A metric can always be made Euclidean through first
+order at one chosen point. Curvature begins where that coordinate
+freedom ends: in the second-order failure of neighboring local frames
+to fit together. We develop that statement in three stages. First come
+normal coordinates, then the covariant derivative and its connection,
+and finally the noncommutativity of two covariant derivatives, which
+defines the Riemann tensor and gives tidal gravity its invariant
+meaning.}
 
-\section{Why We Need a Diagnostic for Curvature}
+\section{The Necessary Burden of Indices}
 
-The lecture opens by lowering the temperature. There are elegant compact notations for general relativity, just as there are compact vector notations for Maxwell theory, but Susskind's point is that one does not really learn the subject by hiding the indices at the outset. He himself says that when he actually needs to calculate something, he returns to the same component language used here. So we begin without apology.
+General relativity is difficult in a rather particular way. Its basic
+ideas are not impossibly obscure, but a calculation quickly becomes
+crowded with indices, derivatives, and symbols. More compressed
+languages exist: vielbeins, differential forms, spinors, twistors, and
+related devices can package long component equations into compact
+objects. Learning those languages, however, is itself a substantial
+task, and compact notation can conceal the machinery one most needs to
+understand on a first encounter.
 
-There is then a brief look outward. Current research ranges from quantum gravity and black-hole physics to numerical relativity, gravitational radiation, and even uses of the same equations in condensed matter and fluid dynamics. The digression is short, but it serves a purpose: the subject is alive. Then the lecture snaps back to the immediate course arc. Today is the last day of pure Riemannian geometry. Next time, geometry will become gravity.
+Maxwell's equations offer the model. Written component by component,
+they amount to several separate equations. Vector notation collects
+them into divergence and curl equations, making the structure easier
+to see. General relativity admits analogous compressions, but the
+component method remains the dependable route when an explicit
+calculation must actually be done. We shall therefore keep the
+indices visible. Once their grammar becomes familiar, the conceptual
+path is much smoother, even though the arithmetic can still fill
+pages.
 
-The central question is therefore sharpened. How do we tell whether a gravitational field is real, as opposed to something produced by awkward coordinates? Susskind says that this is not merely similar to the problem of deciding whether a metric geometry is flat. It is the same problem.
+Symbolic computer packages can help with that arithmetic. Given a
+metric \(g_{mn}(x)\), such a package can construct Christoffel symbols,
+Riemann tensors, Ricci tensors, and Einstein tensors. It can then
+substitute these expressions into field equations. This does not
+remove the need to understand what the objects mean. It merely
+separates the mechanical expansion from the geometry.
 
-So let us suppose we are handed a metric \(g_{mn}(x)\). We want a test for flatness that does not require guesswork about coordinates.
+\begin{classroomqa}
+\audiencequestion{What were the active areas of research in general
+relativity at the time of this lecture?}
+\lecturerresponse{The lecture singled out several fronts. Quantum
+gravity and the quantum physics of black holes were central problems
+in fundamental theory. Classical astrophysics and numerical
+relativity studied systems such as orbiting and merging black holes,
+where solving Einstein's equations and predicting gravitational
+radiation require much more than blindly feeding equations to a
+computer. The same mathematical structures were also finding uses in
+condensed-matter physics and fluid dynamics. The historical point was
+equally striking: general relativity had moved from a comparatively
+small specialty in the 1960s to one of the central languages of
+theoretical physics, tightly connected with quantum field theory.
+\lecturetimestamp{00:05:15}}
+\end{classroomqa}
 
-\paragraph{The bad way.} Search through all possible coordinate systems. Transform the metric into one trial coordinate system after another and keep asking whether, in some lucky frame, the components become those of a flat metric. This is hopeless. It is an infinite search.
+This is the last lecture devoted to Riemannian geometry by itself.
+Beginning with the next lecture, the geometry will be interpreted as
+gravity. The bridge is already visible. Distinguishing a genuine
+gravitational field from an apparent field caused by accelerated or
+curvilinear coordinates is mathematically the same problem as
+distinguishing a curved metric from a flat metric written in awkward
+coordinates.
 
-\paragraph{The good way.} Construct a diagnostic quantity directly from the metric and its derivatives. Better still, make it a tensor. If a tensor vanishes in one coordinate system, it vanishes in all coordinate systems. Susskind even introduces the symbol \(R\) before telling us exactly how many indices it will carry. The target is already clear: we want an invariant object whose vanishing means flatness and whose nonvanishing signals genuine curvature.
+\section{The Invariant Question}
 
-That object will be the curvature tensor. But before it can be earned, the lecture deliberately backs up and rebuilds the minimum machinery that will make the construction intelligible.
+A two-dimensional geometry is flat when Euclidean geometry works
+intrinsically: straight lines, parallel lines, triangle relations, and
+distance measurements all have their Euclidean form. It is tempting to
+say that flatness means
+\(g_{mn}=\delta_{mn}\), but that statement is coordinate dependent.
+Even an ordinary plane has a position-dependent metric in polar
+coordinates. The correct statement is that a flat region admits
+coordinates in which the metric is constant and Euclidean throughout
+that region.
 
-\section{Metric Review: The Minimum Needed Machinery}
+Suppose instead that the metric is handed to us in some arbitrary
+coordinates. One bad test would be to search through coordinate
+systems one after another, transforming the metric each time and
+hoping eventually to find a Cartesian form. There are infinitely many
+possibilities, so this is not a practical criterion.
 
-The lecture restarts from a very elementary place: we start with a space. The dimension can be anything, but one dimension is too simple to teach us much. A closed one-dimensional space is just a loop of some total length. A bug walking around it can count steps and measure that length, but if the rope is bent or wiggled in space without stretching, the intrinsic geometry is unchanged. In that sense one-dimensional geometry is characterized only by length.
-
-Two dimensions are different. A plane, a sphere, the Earth's surface with mountains and valleys, a torus, or a surface with several holes are intrinsically different spaces. What characterizes them is the metric tensor.
-
-The metric tells us the squared length of an infinitesimal displacement:
-\begin{equation}
-ds^2 = g_{mn}\,dx^m dx^n.
-\end{equation}
-Because \(ds^2\) is invariant, \(g_{mn}\) must transform as a tensor. This is not a decorative remark. It is exactly why the metric can encode intrinsic geometry rather than just coordinate bookkeeping.
-
-The metric is also invertible:
-\begin{equation}
-g^{mr}g_{rn}=\delta^m{}_n.
-\end{equation}
-Here the Kronecker delta is written with one index up and one down, as a mixed tensor. The lecture pauses over this point because it is part of learning to read the index notation correctly.
-
-In Riemannian geometry the metric is positive definite. Equivalently, for every nonzero displacement \(u^m\),
-\begin{equation}
-g_{mn}u^m u^n>0.
-\end{equation}
-Susskind phrases this geometrically: squared lengths are always positive. Later, when we pass from Riemannian to Einsteinian geometry, this will change.
-
-The metric also raises and lowers indices:
-\begin{align}
-V_n &= g_{nm}V^m,\\
-V^m &= g^{mn}V_n.
-\end{align}
-These are not two different vectors. They are the covariant and contravariant components of the same vector.
-
-There is one more preliminary observation. If the components of the metric were constant in space, then one could always straighten out the coordinate axes and bring the metric into the form \(\delta_{mn}\). In that case the space would certainly be flat. So the real problem is not the existence of a metric, but its variation from point to point.
-
-And here Susskind is careful about language. One should not say that a flat metric \emph{is} \(\delta_{mn}\). What is true is that in suitable coordinates a flat metric can be \emph{expressed} by the components \(\delta_{mn}\). In other coordinates the same flat geometry can look less simple. That distinction is going to matter immediately.
-
-The question is now the one he asks explicitly on the board: to what extent can any metric be forced to look flat by a suitable choice of coordinates?
-
-\section{Gaussian Normal Coordinates and Local Flatness}
-
-Susskind answers that question with a local theorem. At any chosen point one can introduce coordinates, called Gaussian normal coordinates, in which the metric looks Euclidean and its first derivatives vanish. After shifting the chosen point to the origin, the board records the statement as
-\begin{align}
-g_{mn} &= \delta_{mn} \qquad \text{at } x=0,\\
-\frac{\partial g_{mn}}{\partial x^r} &= 0 \qquad \text{at } x=0,\\
-\frac{\partial^2 g_{mn}}{\partial x^r \partial x^s} &\neq 0
-\qquad \text{in general.}
-\end{align}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_03_figure_03.png}
-\caption{Gaussian normal metric conditions on the board, together with the partially visible quadratic coordinate expansion.}
-\end{figure}
-
-The lecture first explains this geometrically. We go to a point on a curved surface, draw coordinate axes there, and extend them as straight as possible. Later the phrase ``as straight as possible'' becomes geodesic language. For the moment the point is simpler: one can always flatten the metric to zeroth and first order at a point.
-
-There is even some freedom left. If we have found one such local frame, we can rotate it and still keep \(g_{mn}=\delta_{mn}\) at the point. So Gaussian normal coordinates are not unique. What is unique is the local statement they make possible.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Is this simplification only at one point, or does it extend through a region?
-
-\paragraph{Answer.} Only at the chosen point. One may build Gaussian normal coordinates at every point, but unless the space is truly flat, one cannot extend one such coordinate system throughout a region and keep all these simplifications. What survives away from the point are the second derivatives. Those cannot, in general, all be set to zero.
-
-This is the first decisive step in the lecture. There is no invariant content in the statement that the metric is flat-looking at a point, or even flat-looking through first derivatives. That can always be arranged. So the real geometric information must live one order deeper.
-
-Susskind then proves the local statement by counting parameters. Let the chosen point be the common origin of two coordinate systems \(x\) and \(y\), so that \(x=0\) and \(y=0\) refer to the same point. We expand the new coordinates in powers of the old ones:
-\begin{equation}
-x^m = y^m + C^m{}_{nr}\,y^n y^r + O(y^3).
-\end{equation}
-The board itself shows only the quadratic part,
+The right strategy is to construct a diagnostic from \(g_{mn}\) and
+its derivatives. We want an object \(R\) with two decisive properties:
 \[
-x^m = y^m + C^m{}_{nr}\,y^n y^r,
+R=0 \quad\Longleftrightarrow\quad
+\text{the geometry is locally flat},
 \]
-and that is enough for the argument.
-
-In four dimensions there are ten independent quadratic monomials \(y^n y^r\), because the product is symmetric in \(n\) and \(r\):
-\begin{equation}
-\#(y^n y^r)=\frac{4\cdot 5}{2}=10.
-\end{equation}
-For each upper index \(m\), there are therefore ten coefficients \(C^m{}_{nr}\), so altogether
-\begin{equation}
-\#(C^m{}_{nr})=4\times 10=40.
-\end{equation}
-On the other hand, a symmetric metric \(g_{mn}\) in four dimensions has ten independent components, and setting all first derivatives to zero gives four conditions for each component:
-\begin{equation}
-\#\bigl(\partial_r g_{mn}\bigr)=10\times 4=40.
-\end{equation}
-Forty unknown quadratic coefficients and forty first-derivative conditions: one can solve the equations to quadratic order. That is precisely what it means to make the metric equal to \(\delta_{mn}\) at the point and to kill all its first derivatives there.
-
-But the freedom does not continue forever. At the next order the counting no longer works out in the same way. The second derivatives cannot, in general, all be removed. So it is exactly at second order that curvature begins to show itself.
-
-This is why every smooth metric is locally flat and yet need not be globally flat. The statement is local, pointwise, and first-order. The real content of geometry survives beyond that.
-
-\section{Why Ordinary Derivatives of Vector Components Fail}
-
-Now the lecture explains why Gaussian normal coordinates were introduced in the first place. We want to differentiate vectors and tensors. But ordinary differentiation of components will not do.
-
-Suppose we have a vector field, that is, a vector attached to every point. In flat Cartesian coordinates it is clear what it means for a vector at one point to be the same as a vector at a neighboring point: same direction, same length. In such a frame a constant vector field has constant components.
-
-But now superimpose a curvilinear coordinate system on top of those locally straight coordinates. The vector may remain geometrically the same, yet its components in the curvilinear coordinates change from point to point, not because the vector has changed, but because the coordinate directions have changed.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\textwidth]{lecture_03_figure_02.png}
-\caption{Curved coordinates and the boxed zero-derivative condition. The board layout itself matters: quadratic coordinate transformation on the left, local sketch in the middle, boxed naive criterion on the right.}
-\end{figure}
-
-The board makes this point in three pieces at once. On the left, the earlier quadratic coordinate transformation is still visible:
+and
 \[
-x^m = y^m + C^m{}_{nr}\,y^n y^r.
+R\neq 0 \text{ at a point}
+\quad\Longrightarrow\quad
+\text{the geometry is curved there}.
 \]
-In the middle, a local sketch compares a straight local frame with a curving coordinate line whose basis directions rotate from point to point. On the right, the lecture boxes the deliberately naive condition
-\begin{equation}
-\frac{\partial V_m}{\partial x^r}=0.
-\end{equation}
-The lower index on \(V_m\) is what the board visibly shows, and it is the safest figure-faithful transcription.
+Most importantly, \(R\) must be a tensor. A tensor that vanishes in
+one coordinate system vanishes in every coordinate system, so no
+coordinate search is needed.
 
-The point is not that this equation is meaningless. It is that it is not tensorial. It may hold in one coordinate system and fail in another.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why can all these derivatives vanish in one coordinate system but not in another?
-
-\paragraph{Answer.} Because the coordinates may be changing even when the vector is not. In a locally straight frame, a constant vector field can have constant components. In a curvilinear frame, the basis directions themselves rotate from point to point, so the components vary. The variation then belongs to the coordinates, not to the vector.
-
-This is the first major conceptual obstacle of the lecture. If \(\partial_r V_m\) were the components of a tensor with indices \(m\) and \(r\), then once it vanished in one coordinate system it would vanish in all coordinate systems. Since that is not true, ordinary partial derivatives of vector components are not themselves tensor components.
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.1]
-\draw[->] (-0.6,0) -- (1.3,0);
-\draw[->] (0,-0.4) -- (0,1.4);
-\fill (0,0) circle (1.5pt);
-\draw[thick] (-0.15,-0.2) .. controls (0.7,0.2) and (1.35,0.9) .. (2.25,1.7);
-\fill (1.85,1.35) circle (1.5pt);
-\draw[->] (1.85,1.35) -- (2.6,1.55);
-\draw[->] (1.85,1.35) -- (2.05,2.15);
-\draw[dashed] (0,0) -- (1.85,1.35);
-\node at (0.3,1.55) {locally straight frame};
-\node at (2.35,0.7) {curvilinear coordinate line};
-\node at (2.45,2.0) {shifted basis directions};
-\end{tikzpicture}
-\caption{Schematic reconstruction of the lecture's local comparison. The same geometric vector can acquire changing components because the coordinate frame itself changes from point to point.}
+\includegraphics[width=\linewidth]{lecture_03_figure_01.png}
+\caption{The desired invariant test: a metric need not visibly equal
+\(\delta_{mn}\), while a vanishing curvature object should identify a
+locally flat geometry.}
+\lectureframe{00:18:20}
 \end{figure}
 
-So we are forced to a new question: can we define a derivative that agrees with ordinary differentiation in the nicest local frame, and yet remains a tensor when expressed in arbitrary coordinates?
+The qualification \emph{locally} matters. A vanishing Riemann tensor
+guarantees local Euclidean geometry; global identifications can still
+produce nontrivial topology. A flat cylinder or flat torus, for
+example, can be locally Euclidean without being globally the plane.
 
-\section{Covariant Derivative and the Christoffel Symbols}
+\section{Metric Geometry in the Small}
 
-Susskind introduces the covariant derivative operationally. To define the derivative of a vector at a point, we need only a small neighborhood of that point. So we first construct Gaussian normal coordinates there. In those coordinates the metric is as close to Cartesian as it can be, and at the chosen point its first derivatives vanish.
+It helps to see what changes with dimension. A zero-dimensional space
+is only a point. A connected one-dimensional Riemannian space can be
+straightened locally into a line; globally it may be an interval, a
+line, or a loop. A bug confined to a closed one-dimensional track can
+measure its circumference, but bending the track in an ambient room
+does not alter its intrinsic metric.
 
-Now take a vector at a neighboring point and shift it back so that its tail sits at the base point, keeping its Gaussian-normal components fixed during that shift. Compare the shifted vector with the original one at the base point. The difference, divided by the small separation, defines the derivative. In this local frame, at that point, differentiation is just ordinary differentiation.
-
-Susskind temporarily writes this derivative with a capital \(D\). We normalize the notation to \(\nabla\). When the construction is re-expressed in arbitrary coordinates, it is no longer just the partial derivative. One finds
+Two dimensions admit much richer intrinsic geometry: a plane, a
+sphere, a lumpy terrestrial surface, and a torus need not agree even
+locally, and their global topologies can differ as well. The metric is
+the instrument that records their infinitesimal distances:
 \begin{equation}
-\nabla_r V_m=\partial_r V_m-\Gamma^{t}{}_{rm}V_t.
+ ds^2=g_{mn}(x)\,dx^m dx^n.
+\label{eq:l3-line-element}
 \end{equation}
-The new term is not differentiated because it does not come from the vector itself changing. It comes from the coordinate system changing from point to point.
+The quantity \(ds^2\) is a scalar. Consequently the changes in
+\(dx^m\) under a coordinate transformation are exactly compensated by
+the transformation of \(g_{mn}\).
 
-At the chosen point in Gaussian normal coordinates,
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_02.png}
+\caption{The invariant line element written with a position-dependent
+metric.}
+\lectureframe{00:19:00}
+\end{figure}
+
+The metric is nondegenerate and therefore has an inverse:
 \begin{equation}
-\Gamma^{t}{}_{rm}(x_0)=0.
+ g^{mn}g_{nr}=\delta^m{}_r.
+\label{eq:l3-inverse-metric}
 \end{equation}
-That is the practical content of the construction. Differentiate where the geometry is as flat as possible, then transform back.
-
-The same pattern holds for higher-rank covariant tensors. Each lower index contributes its own Christoffel correction:
+The mixed Kronecker tensor \(\delta^m{}_r\) is the identity map. In
+ordinary Riemannian geometry the metric is also positive definite,
 \begin{equation}
-\nabla_s T_{mn}
-=
-\partial_s T_{mn}
--\Gamma^{t}{}_{sm}T_{tn}
--\Gamma^{t}{}_{sn}T_{mt}.
+ g_{mn}u^m u^n>0
+\qquad\text{for every nonzero }u^m.
+\label{eq:l3-positive}
 \end{equation}
-The lecture develops this as a rule rather than as an abstract theorem: cover up one index and treat the rest as spectators, then do the same for the other index. One Christoffel term for each index.
+Lorentzian spacetime will later relax this positivity while retaining
+nondegeneracy.
 
-There is also a symmetry, valid for the ordinary Riemannian connection used in general relativity:
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_03.png}
+\caption{The inverse metric and the identity tensor on the board.}
+\lectureframe{00:20:40}
+\end{figure}
+
+The metric identifies vectors and covectors:
 \begin{equation}
-\Gamma^{t}{}_{rm}=\Gamma^{t}{}_{mr}.
+ V_m=g_{mn}V^n,
+ \qquad
+ V^m=g^{mn}V_n.
+\label{eq:l3-raise-lower}
 \end{equation}
-Susskind notes that more general geometries with torsion need not satisfy this, but ordinary gravitational theory does.
+Moving an index is therefore an operation performed by the metric, not
+a typographical change.
 
-The lecture also pauses to explain what the covariant derivative is for. The field equations of gravity will be differential equations, but they must not be tied to one peculiar coordinate system. If they are to have the same form in every frame, they must be tensor equations. So we need a way to differentiate tensors and get tensors back. That is exactly what the covariant derivative provides.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_04.png}
+\caption{Raising and lowering a vector index with the metric and its
+inverse.}
+\lectureframe{00:24:40}
+\end{figure}
 
-\subsection{Question \& Answer}
+If all components of \(g_{mn}\) are constant in a region, a constant
+linear change of coordinates can diagonalize and normalize the metric
+there. The geometry is then flat. The interesting information must
+therefore be tied to how the metric varies with position.
 
-\paragraph{Question.} Are the Christoffel symbols tensors?
+\section{Normal Coordinates: Flat Through First Order}
 
-\paragraph{Answer.} No. They cannot be. In Gaussian normal coordinates at a chosen point they vanish, but in another coordinate system at the same point they need not vanish. A tensor that is zero in one coordinate system is zero in every coordinate system. Therefore Christoffel symbols are not tensors. They are the coordinate-dependent correction terms that make \(\nabla_r V_m\) into a tensor.
-
-This is why the lecture insists that Christoffel symbols are not curvature. Even in flat space they can be nonzero if the coordinates are curved. Susskind explicitly mentions polar coordinates on a flat plane: the space is flat, but the metric components depend on position, and the Christoffel symbols do not vanish.
-
-So by this stage we have the right derivative, but still not the desired diagnostic of flatness. The connection tells us how coordinates vary. It does not yet tell us whether the geometry itself is curved.
-
-\section{Metric Compatibility and the Formula for \texorpdfstring{$\Gamma$}{Gamma}}
-
-The next narrowing of focus is characteristic of the lecture. Having introduced the covariant derivative in general, Susskind applies it to the one tensor we already know best: the metric.
-
-In Gaussian normal coordinates, at the chosen point, the ordinary derivatives of the metric vanish. Since the covariant derivative is defined by differentiating first in Gaussian normal coordinates and then transforming as a tensor, the covariant derivative of the metric must vanish:
-\begin{equation}
-\nabla_s g_{mn}=0.
-\end{equation}
-This is the special property of the metric, and it is what will let us solve for the Christoffel symbols.
-
-Writing out the covariant derivative of a tensor with two lower indices gives
-\begin{equation}
-0
-=
-\nabla_s g_{mn}
-=
-\partial_s g_{mn}
--\Gamma^{t}{}_{sm}g_{tn}
--\Gamma^{t}{}_{sn}g_{mt}.
-\end{equation}
-Now comes the trick. Susskind more or less says: if you have done this kind of thing before, you know what to do; if not, I will tell you. One writes down the two companion equations obtained by permuting the indices:
+Choose a point \(P\). The normal-coordinate theorem says that one can
+construct coordinates centered at \(P\) for which
 \begin{align}
-0
-&=
-\nabla_m g_{sn}
-=
-\partial_m g_{sn}
--\Gamma^{t}{}_{ms}g_{tn}
--\Gamma^{t}{}_{mn}g_{st},\\
-0
-&=
-\nabla_n g_{sm}
-=
-\partial_n g_{sm}
--\Gamma^{t}{}_{ns}g_{tm}
--\Gamma^{t}{}_{nm}g_{st}.
+ g_{mn}(P)&=\delta_{mn}, \label{eq:l3-normal-metric}\\
+ \partial_r g_{mn}(P)&=0. \label{eq:l3-normal-first}
 \end{align}
-Using the symmetry \(\Gamma^{t}{}_{ms}=\Gamma^{t}{}_{sm}\) and \(\Gamma^{t}{}_{nm}=\Gamma^{t}{}_{mn}\), we now add the last two equations and subtract the first. That combination is chosen precisely so that the unwanted Christoffel terms cancel. The result is
-\begin{equation}
-\partial_m g_{sn}+\partial_n g_{sm}-\partial_s g_{mn}
-=
-2\,\Gamma^{t}{}_{mn}g_{ts}.
-\end{equation}
-Now multiply by the inverse metric. This isolates the Christoffel symbol and gives the standard Levi-Civita formula:
-\begin{equation}
-\Gamma^{r}{}_{mn}
-=
-\frac12 g^{rs}
-\left(
-\partial_m g_{sn}
-+
-\partial_n g_{sm}
--
-\partial_s g_{mn}
-\right).
-\end{equation}
+The lecture calls these Gaussian normal coordinates. Geometrically,
+one draws axes through \(P\) and extends their coordinate lines as
+straight as the geometry permits. The precise notion of straightness
+will become geodesic motion.
 
-This derivation is mechanically simple but pedagogically important. The lecture does not want us to memorize \(\Gamma\) as an unexplained formula. It wants us to see that \(\Gamma\) is computable from the metric and its first derivatives, and that metric compatibility is the bridge that makes the computation possible.
-
-There is also a subtle point here that the transcript brings out through student questions. The equations \(\nabla_s g_{mn}=0\) are written at a chosen point, where Gaussian normal coordinates make the ordinary derivatives vanish. But once the resulting formula is obtained, it is valid at every point, because it is expressed entirely in arbitrary coordinates. The Gaussian normal coordinates are only a local trick used to discover the rule. They are not part of the final formula.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} If the covariant derivative of the metric is always zero, why does that not prove the space is flat?
-
-\paragraph{Answer.} Because \(\nabla_s g_{mn}=0\) is a universal property of the metric with the Levi-Civita connection. It is not the statement that the metric components are constant. The statement that the components are constant would be \(\partial_s g_{mn}=0\), and even that can fail in flat space when the coordinates are curved. Metric compatibility determines the connection. It does not diagnose curvature.
-
-This is exactly the point at which Susskind says, in effect: we still have not got curvature. We have constructed the derivative operator, and we have related the Christoffel symbols to the metric, but Christoffel symbols themselves are not the final invariant.
-
-\section{Curvature from Loops, Commutators, and Tidal Forces}
-
-Now the lecture finally returns to the object it promised at the beginning.
-
-Susskind starts geometrically, with a two-dimensional example that can be held almost in one's hands. He does not use a sharp cone, because he wants a smooth space, but rather a rounded cone whose curvature is concentrated near the top. Away from that top region the surface is flat. To see this, he extends the surface into an honest cone, slices it, and opens it out. The opened surface lies flat in the plane, except that a wedge is missing. The angle of that missing wedge is the deficit angle, or conical deficit. The larger the deficit, the pointier the cone.
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0) -- (18:2.35);
-\draw[thick] (0,0) -- (322:2.35);
-\draw[thick] (18:2.35) arc (18:322:2.35);
-\draw[<->] (0.60,0.14) arc (13:-13:0.60);
-\node at (1.02,0.50) {$\Delta$};
-\draw[->] (118:1.55) -- ++(0.60,0.00);
-\draw[->] (246:1.55) -- ++(0.22,0.52);
-\node at (2.05,1.65) {identified};
-\node at (2.05,-1.65) {identified};
-\node at (0,-2.75) {opened cone with deficit angle};
-\end{tikzpicture}
-\caption{Schematic reconstruction of the conical-deficit argument. Flattening the cone requires cutting out a wedge; when the edges are reidentified, a transported vector fails to come back with the same direction.}
+\includegraphics[width=\linewidth]{lecture_03_figure_05.png}
+\caption{Normal coordinates chosen so that the metric is Euclidean at
+the selected point.}
+\lectureframe{00:28:50}
 \end{figure}
 
-Now imagine a vector field that is constant on the opened flat sheet. When we glue the sheet into a cone, that same ``constant'' transport around the tip produces a jump in direction. The vector comes back rotated. That is the effect of curvature in geometric form.
+There is no unique such frame. An orthogonal rotation at \(P\) preserves
+\(g_{mn}(P)=\delta_{mn}\). What matters is not the orientation of the
+axes but the existence of a frame in which both
+\eqref{eq:l3-normal-metric} and \eqref{eq:l3-normal-first} hold.
 
-The lecture then translates this into the language we have built. We transport the vector so that its covariant derivative along the path is zero. Even so, when the path closes around a region of curvature, the vector fails to return to itself. That failure is the invariant content.
+\begin{classroomqa}
+\audiencequestion{Do these conditions hold only at the selected point,
+or throughout a neighborhood?}
+\lecturerresponse{They hold at the selected point \(P\). One may center
+a normal frame at any point, but one generally cannot use a single
+coordinate system over a curved region and keep the metric Euclidean
+with all first derivatives zero everywhere. Extending the same
+coordinates away from \(P\) exposes higher derivatives of the metric.
+\lecturetimestamp{00:29:53}}
+\end{classroomqa}
 
-There is a second and more algebraic way to say the same thing, and Susskind says it is the more useful one. Take a vector field and differentiate it first in the \(r\)-direction and then in the \(s\)-direction. Compare that with differentiating first in the \(s\)-direction and then in the \(r\)-direction. In flat space the two operations agree. In curved space they do not. Their difference is essentially what one gets by taking the vector around a small closed loop.
+At \(P\), the second derivatives are generally unavoidable:
+\begin{equation}
+ \partial_r\partial_s g_{mn}(P)\neq 0
+ \qquad\text{in general}.
+\label{eq:l3-normal-second}
+\end{equation}
+Thus the metric carries no invariant curvature information at zeroth
+or first order at one point; coordinate freedom can remove it. The
+first possible invariant information appears at second order.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.1]
-\fill (0,0) circle (1.2pt);
-\fill (2.2,0) circle (1.2pt);
-\fill (0,1.5) circle (1.2pt);
-\fill (2.2,1.5) circle (1.2pt);
-\draw[->,thick] (0,0) -- (2.2,0) node[midway,below] {$r$};
-\draw[->,thick] (2.2,0) -- (2.2,1.5) node[midway,right] {$s$};
-\draw[->,thick] (0,0) -- (0,1.5) node[midway,left] {$s$};
-\draw[->,thick] (0,1.5) -- (2.2,1.5) node[midway,above] {$r$};
-\node at (1.1,-0.55) {$\nabla_s\nabla_r$};
-\node at (1.1,2.0) {$\nabla_r\nabla_s$};
-\node at (3.3,0.75) {difference};
-\node at (3.3,0.45) {measures curvature};
-\draw[->] (2.5,0.75) -- (2.95,0.75);
-\end{tikzpicture}
-\caption{A small-loop version of the lecture's commutator argument. The two orders of covariant differentiation correspond to the two ways of going around the loop.}
+\includegraphics[width=\linewidth]{lecture_03_figure_06.png}
+\caption{The normal-coordinate conditions: the metric is Euclidean,
+its first derivatives vanish, and its second derivatives need not.}
+\lectureframe{00:30:50}
 \end{figure}
 
-At this point Susskind does something pedagogically sensible. He does not grind through the entire double covariant derivative on the board. He says the calculation is mechanical, tells the class to do the plug-in themselves, and gives the answer. One computes \(\nabla_s\nabla_r V_n\), computes \(\nabla_r\nabla_s V_n\), subtracts, and defines the coefficient of \(V_t\) to be the curvature tensor:
+\subsection{Why the coordinate freedom is sufficient}
+
+Take \(P\) to be the common origin of coordinates \(x^m\) and \(y^m\).
+After using a linear transformation to arrange the metric at the
+origin, consider the quadratic part of a further coordinate change:
 \begin{equation}
-(\nabla_s\nabla_r-\nabla_r\nabla_s)V_n
-=
-R^{t}{}_{nrs}V_t.
+ x^m
+ =y^m+C^m{}_{nr}y^n y^r+O(y^3),
+ \qquad C^m{}_{nr}=C^m{}_{rn}.
+\label{eq:l3-quadratic-transform}
 \end{equation}
-In canonical Levi-Civita form,
+In four dimensions the symmetric pair \(nr\) has
+\[
+\frac{4(4+1)}{2}=10
+\]
+independent choices. For each of the four values of \(m\), there are
+ten coefficients \(C^m{}_{nr}\), giving forty quadratic coefficients.
+
+The symmetric metric also has ten independent components in four
+dimensions. Each component has four first derivatives, so the
+conditions \(\partial_r g_{mn}(P)=0\) comprise forty equations. The
+matching count shows that the quadratic coordinate freedom has exactly
+the right size to impose the first-derivative conditions. The
+normal-coordinate theorem supplies the existence statement; counting
+alone is a useful structural check rather than a complete proof of
+solvability for an arbitrary nonlinear system.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_07.png}
+\caption{The quadratic coordinate transformation and the ten
+independent quadratic monomials in four dimensions.}
+\lectureframe{00:33:50}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is
+\(x^m=y^m+C^m{}_{nr}y^n y^r+\cdots\) an attempted coordinate
+transformation?}
+\lecturerresponse{Yes. The coefficients \(C^m{}_{nr}\) are chosen so
+that, in the new coordinates, the first derivatives of the metric
+vanish at the common origin. The linear part keeps the Jacobian
+invertible near that point, while the quadratic part adjusts the first
+metric derivatives. \lecturetimestamp{00:35:41}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is this what it means to say that a smooth geometry
+is locally flat?}
+\lecturerresponse{It is the relevant first-order statement. At a
+sufficiently small scale a smooth surface is approximated by its
+tangent plane, and normal coordinates express that fact through
+\(g_{mn}(P)=\delta_{mn}\) and
+\(\partial_r g_{mn}(P)=0\). Exact flatness on a neighborhood is
+stronger: it also requires the curvature tensor to vanish there.
+\lecturetimestamp{00:36:19}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the equality between forty coefficients and
+forty equations really ensure that the equations can be solved?}
+\lecturerresponse{The count identifies the required coordinate
+freedom, while the theorem guarantees the local construction for a
+smooth nondegenerate metric. The lecture proposes checking the
+two-dimensional case directly as an exercise. The argument does not
+depend on four dimensions; in \(d\) dimensions the same symmetry and
+coordinate freedom fit together. \lecturetimestamp{00:36:45}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is there no constant term in the expansion, and
+which term is first order?}
+\lecturerresponse{The term \(y^m\) is the first-order term. A constant
+term was omitted because the two coordinate origins were deliberately
+chosen to represent the same point, so \(y=0\) implies \(x=0\). That
+choice costs no generality. \lecturetimestamp{00:38:52}}
+\end{classroomqa}
+
+\section{Why Componentwise Differentiation Fails}
+
+Now consider a covariant vector field \(V_m(x)\). In straight Cartesian
+coordinates on flat space, a geometrically constant vector has
+constant components. One might therefore try to define its derivative
+as \(\partial_rV_m\). The difficulty appears as soon as the coordinate
+grid bends.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_08.png}
+\caption{A curvilinear coordinate grid superimposed on a locally
+straight frame.}
+\lectureframe{00:40:10}
+\end{figure}
+
+Place the same geometric vector at neighboring points. Relative to a
+fixed Cartesian frame the components do not change. Relative to a
+curvilinear basis, however, the basis vectors themselves turn as one
+moves, so the component list changes even though the vector does not.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_09.png}
+\caption{The same vector at neighboring points acquires different
+components because the local coordinate basis has rotated.}
+\lectureframe{00:42:30}
+\end{figure}
+
+The naive condition
 \begin{equation}
-R^{t}{}_{nrs}
-=
-\partial_r\Gamma^{t}{}_{sn}
--
-\partial_s\Gamma^{t}{}_{rn}
-+
-\Gamma^{p}{}_{sn}\Gamma^{t}{}_{rp}
--
-\Gamma^{p}{}_{rn}\Gamma^{t}{}_{sp}.
+ \partial_rV_m=0
+\label{eq:l3-naive-derivative}
 \end{equation}
-This is the Riemann curvature tensor.
+can therefore be true in one coordinate system and false in another.
+If \(\partial_rV_m\) were a rank-two tensor, that would be impossible:
+vanishing in one frame would imply vanishing in every frame. Ordinary
+partial derivatives of vector components are consequently not tensor
+components.
 
-The lecture's emphasis is not on memorizing the precise index pattern of the formula, but on seeing what sort of object it is. There are two terms involving derivatives of Christoffel symbols and two terms involving products of Christoffel symbols. Since \(\Gamma\) itself is built from first derivatives of the metric, the first two terms in \(R\) contain second derivatives of \(g\), while the last two contain quadratic combinations of first derivatives. That is exactly what we should have expected. First derivatives of the metric can be made to vanish at a point by Gaussian normal coordinates; second derivatives cannot, in general. So the curvature tensor probes precisely what local flattening cannot erase.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_10.png}
+\caption{The deliberately naive zero-derivative condition beside the
+changing curvilinear basis.}
+\lectureframe{00:44:00}
+\end{figure}
 
-This gives the promised diagnostic. If the curvature tensor vanishes everywhere, the space is flat. If it is nonzero anywhere, there is genuine curvature. That is still a pointwise calculation, and if the metric were given only numerically one would still have to check point by point. But it is incomparably better than searching through all coordinate systems. If the metric is given analytically, one differentiates, constructs \(R\), and checks whether the analytic result vanishes.
+We need a derivative that removes the apparent change caused by the
+basis while retaining the genuine change of the vector field.
 
-\subsection{Question \& Answer}
+\section{Defining the Covariant Derivative}
 
-\paragraph{Question.} What distinguishes a real gravitational field from acceleration?
+Differentiation at \(P\) only compares values in an arbitrarily small
+neighborhood of \(P\). We may therefore begin in normal coordinates
+centered there. Take a vector at a neighboring point, shift its tail
+back to \(P\), and keep its normal-coordinate components fixed during
+the shift. Comparing the transported vector with the vector already at
+\(P\), then dividing by the separation, gives the ordinary derivative
+in that locally straight frame.
 
-\paragraph{Answer.} Tidal forces. An accelerated coordinate system can imitate many features of gravity, but it cannot produce the genuine relative stretching and squeezing that comes from curvature. A real gravitational field produced by real matter varies from place to place, and that variation shows up as tidal distortion. The curvature tensor is the local invariant measure of that effect.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_11.png}
+\caption{The local comparison: translate the neighboring vector in
+normal coordinates before taking the difference.}
+\lectureframe{00:46:50}
+\end{figure}
 
-Susskind makes this physical identification with some insistence. If a very small body falls in a gravitational field, it may experience almost no noticeable tidal effect, because the field hardly changes across its size. A sufficiently large body in the same environment will be stretched and compressed, because different parts of it sample different local geometry. The correspondence with curvature is exact, not accidental. In this sense curvature is what gravity becomes when one strips away the coordinate language and asks for the local invariant content.
+Now express that geometrically defined derivative in arbitrary
+coordinates. There are two contributions: the components \(V_m\) may
+change, and the coordinate basis may change. Index structure fixes the
+form of the correction:
+\begin{equation}
+ \nabla_rV_m
+ =\partial_rV_m-\Gamma^t{}_{rm}V_t.
+\label{eq:l3-covector-derivative}
+\end{equation}
+The quantities \(\Gamma^t{}_{rm}\) are the connection coefficients,
+also called Christoffel symbols. The minus sign is appropriate for a
+lower vector index. At the center \(P\) of normal coordinates,
+\begin{equation}
+ \Gamma^t{}_{rm}(P)=0,
+\qquad
+ \nabla_rV_m(P)=\partial_rV_m(P).
+\label{eq:l3-gamma-normal-zero}
+\end{equation}
 
-He also adds a useful caution. A truly uniform gravitational field does not occur as a real exact field produced by matter. One may approximate the Earth's field as uniform over a sufficiently small region, and then a freely falling observer feels essentially nothing. That is precisely because tidal forces are small there. But when the field varies appreciably across an object, curvature announces itself by deformation.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_12.png}
+\caption{The covariant derivative of a covector: ordinary component
+change minus the change induced by the moving basis.}
+\lectureframe{00:49:50}
+\end{figure}
 
-So the lecture ends where it promised to end. We began by asking how to distinguish genuine geometry from funny coordinates. We then found that local flatness can always be arranged at first order, that naive differentiation fails because coordinate frames themselves change, that the covariant derivative repairs the failure, and that curvature finally appears in the noncommutation of covariant derivatives or, geometrically, in transporting a vector around a loop.
+\begin{classroomqa}
+\audiencequestion{Does
+\(\nabla_rV_m=\partial_rV_m-\Gamma^t{}_{rm}V_t\) hold in arbitrary
+coordinates, and what does it become in normal coordinates?}
+\lecturerresponse{The full formula holds in arbitrary coordinates. At
+the selected point in normal coordinates the first metric derivatives,
+and hence the Christoffel symbols, vanish, leaving only
+\(\partial_rV_m\). Away from that point, even the same normal-coordinate
+chart generally has nonzero connection coefficients.
+\lecturetimestamp{00:50:22}}
+\end{classroomqa}
 
-\section{Summary}
+The covariant derivative is so named because the entire object
+\(\nabla_rV_m\) transforms covariantly as a tensor; the name is not
+merely a comment about the lower derivative index. The Christoffel
+term is precisely what repairs the nontensorial transformation of the
+partial derivative.
 
-This chapter follows the lecture's arc from notation to invariant content. The metric defines lengths, has an inverse, is positive definite in the Riemannian setting, and raises and lowers indices. At a chosen point we may always introduce Gaussian normal coordinates so that the metric looks flat and its first derivatives vanish. That local flattening, however, immediately tells us that ordinary derivatives of vector components cannot be tensorial. The covariant derivative repairs the problem by subtracting off the variation of the coordinates themselves, and the Christoffel symbols are the coefficients that carry that coordinate dependence.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_13.png}
+\caption{The complete covector derivative and its connection
+correction.}
+\lectureframe{00:51:30}
+\end{figure}
 
-But Christoffel symbols are not yet curvature. Curvature appears only when we compare two successive covariant differentiations in opposite orders, or geometrically when we transport a vector around a closed loop and fail to come back to what we started with. The resulting Riemann tensor is the diagnostic quantity the lecture set out to find. It vanishes in flat space and becomes nonzero precisely when there is real geometric content left over after all coordinate tricks have been exhausted. In the next lecture that same content will be reinterpreted directly as gravity, with the transition from Riemannian to Einsteinian geometry and then the Schwarzschild example; geodesics, which were postponed here, will re-enter there.
+\begin{classroomqa}
+\audiencequestion{Is this related to the convective derivative used in
+fluid flow?}
+\lecturerresponse{The lecture answers cautiously that there is a
+connection: fluid mechanics also distinguishes change carried by a
+flow from change seen at a fixed coordinate point, and covariant
+derivatives occur in fluid equations on curved coordinates or curved
+spaces. The operators are not identical by definition, but both correct
+a naive derivative for structure that is moving with the description.
+\lecturetimestamp{00:52:31}}
+\end{classroomqa}
+
+For the torsion-free connection used here,
+\begin{equation}
+ \Gamma^t{}_{rm}=\Gamma^t{}_{mr}.
+\label{eq:l3-torsion-free}
+\end{equation}
+More general geometries can possess torsion and need not obey this
+symmetry. The present connection is the one relevant to the standard
+metric formulation of general relativity.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_14.png}
+\caption{The Christoffel symbols identified as the symmetric
+connection coefficients of the torsion-free geometry.}
+\lectureframe{00:54:30}
+\end{figure}
+
+There is a useful physical analogy. Normal coordinates play the role of
+a freely falling frame at one event: the coordinate correction can be
+made to disappear there. Arbitrary curvilinear coordinates resemble an
+accelerated elevator, where apparent forces enter because the frame
+itself changes. The analogy is local, and curvature will measure why a
+single freely falling frame cannot remove gravity throughout an
+extended region.
+
+\subsection{One correction for each tensor index}
+
+For a covariant rank-two tensor \(T_{mn}\), each lower index receives
+its own connection correction:
+\begin{equation}
+ \nabla_sT_{mn}
+ =\partial_sT_{mn}
+ -\Gamma^t{}_{sm}T_{tn}
+ -\Gamma^t{}_{sn}T_{mt}.
+\label{eq:l3-rank-two-derivative}
+\end{equation}
+To remember the rule, hold one index fixed as a spectator while
+differentiating the other, and then repeat for the second index.
+Contravariant indices receive corresponding terms with the opposite
+sign.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_15.png}
+\caption{The covariant derivative of a rank-two covariant tensor, with
+one Christoffel correction for each lower index.}
+\lectureframe{01:01:50}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does the symbol \(\partial_r\) itself refer only to
+normal coordinates, and is the tensor formula restricted to that
+frame?}
+\lecturerresponse{No. The notation
+\(\partial_r=\partial/\partial x^r\) is meaningful in any coordinate
+system, and the full covariant-derivative formula is written for
+arbitrary coordinates. Only at the chosen point of a normal frame do
+the Christoffel corrections vanish. \lecturetimestamp{00:57:22}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{When the covariant derivative reduces to the partial
+derivative in normal coordinates, is that reduction only at the
+selected point? Are the Christoffel symbols tensors?}
+\lecturerresponse{Yes, the reduction is pointwise. The Christoffel
+symbols are not tensors: they can vanish at \(P\) in normal coordinates
+and be nonzero at the same point in another coordinate system. Their
+nontensorial transformation is exactly what allows the combination in
+\eqref{eq:l3-covector-derivative} to transform as a tensor.
+\lecturetimestamp{00:58:13}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What will the covariant derivative actually be used
+for?}
+\lecturerresponse{For field equations. Gravitational fields vary from
+point to point, so their equations must contain derivatives. At the
+same time, the equations should have the same content in every
+coordinate system. Covariant differentiation turns tensors into
+tensors and therefore permits differential equations whose truth does
+not depend on a peculiar reference frame. \lecturetimestamp{01:02:35}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the covariant derivative be multiplied by a
+coordinate differential to describe the change between neighboring
+points?}
+\lecturerresponse{Yes. Along an infinitesimal displacement \(dx^s\),
+the covariant change is \(dx^s\nabla_sT\). The partial term measures
+the change of components, while the connection terms account for the
+change of the coordinate basis. Even flat space in polar coordinates
+requires that distinction. \lecturetimestamp{01:03:22}}
+\end{classroomqa}
+
+\section{Metric Compatibility Determines the Connection}
+
+Apply the rank-two rule to the metric. At \(P\) in normal coordinates,
+\(\partial_sg_{mn}=0\) and \(\Gamma^t{}_{sm}=0\), so
+\(\nabla_sg_{mn}=0\). Since the covariant derivative is a tensor, this
+pointwise result is true in every coordinate system:
+\begin{equation}
+ \nabla_sg_{mn}=0.
+\label{eq:l3-metric-compatibility}
+\end{equation}
+This is metric compatibility. It says that parallel transport
+preserves the metric, and hence preserves lengths and angles.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_16.png}
+\caption{The metric-compatibility equation begins the derivation of
+the connection from the metric.}
+\lectureframe{01:06:20}
+\end{figure}
+
+Expanding \eqref{eq:l3-metric-compatibility} gives
+\begin{equation}
+ 0
+ =\partial_sg_{mn}
+ -\Gamma^t{}_{sm}g_{tn}
+ -\Gamma^t{}_{sn}g_{mt}.
+\label{eq:l3-compat-expanded}
+\end{equation}
+Write two more copies with cyclically permuted derivative and metric
+indices:
+\begin{align}
+ 0
+ &=\partial_mg_{sn}
+ -\Gamma^t{}_{ms}g_{tn}
+ -\Gamma^t{}_{mn}g_{st},
+\label{eq:l3-compat-m}\\
+ 0
+ &=\partial_ng_{sm}
+ -\Gamma^t{}_{ns}g_{tm}
+ -\Gamma^t{}_{nm}g_{st}.
+\label{eq:l3-compat-n}
+\end{align}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_17.png}
+\caption{The three permuted metric-compatibility equations.}
+\lectureframe{01:10:20}
+\end{figure}
+
+Add \eqref{eq:l3-compat-m} and \eqref{eq:l3-compat-n},
+then subtract \eqref{eq:l3-compat-expanded}. Using the torsion-free
+symmetry \eqref{eq:l3-torsion-free}, the unwanted connection terms
+cancel:
+\begin{equation}
+ \partial_mg_{sn}+\partial_ng_{sm}-\partial_sg_{mn}
+ =2\Gamma^t{}_{mn}g_{st}.
+\label{eq:l3-isolate-gamma-lowered}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_18.png}
+\caption{Adding two compatibility equations and subtracting the third
+cancels the unwanted Christoffel terms.}
+\lectureframe{01:12:10}
+\end{figure}
+
+Multiplication by \(g^{rs}\) isolates the connection:
+\begin{equation}
+ \boxed{
+ \Gamma^r{}_{mn}
+ =\frac12 g^{rs}
+ \left(
+ \partial_mg_{sn}
+ +\partial_ng_{sm}
+ -\partial_sg_{mn}
+ \right)}
+\label{eq:l3-christoffel}
+\end{equation}
+Thus the Levi-Civita connection is built from the metric and its first
+derivatives. This is the promised reason that the Christoffel symbols
+vanish at the center of normal coordinates.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_19.png}
+\caption{The inverse metric isolates the Christoffel symbol from the
+lowered connection equation.}
+\lectureframe{01:16:10}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why were all three metric-compatibility equations
+set equal to zero?}
+\lecturerresponse{At the selected point in normal coordinates, the
+ordinary derivatives of the metric vanish and so do the Christoffel
+symbols. Hence the covariant derivative of the metric is zero there.
+To establish the statement at any other point, center a normal frame at
+that point and repeat. Because \(\nabla_sg_{mn}\) is a tensor, its
+vanishing is coordinate independent. \lecturetimestamp{01:14:27}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What are the dimensions of the metric and the
+Christoffel array, and why are there forty independent Christoffel
+components in four dimensions?}
+\lecturerresponse{In \(d\) dimensions, \(g_{mn}\) is a symmetric
+\(d\times d\) matrix. The connection has three indices. For each fixed
+upper index \(r\), the symmetric lower pair \(mn\) has
+\(d(d+1)/2\) choices. Thus a torsion-free connection has
+\(d^2(d+1)/2\) independent components, which is forty when \(d=4\).
+\lecturetimestamp{01:16:18}}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_20.png}
+\caption{The board during the component-count discussion: ten choices
+for the symmetric lower pair and four choices for the upper index.}
+\lectureframe{01:16:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Which metric appears in
+\eqref{eq:l3-christoffel}? Must a different normal-coordinate metric
+be used at every point?}
+\lecturerresponse{The formula uses the components of the metric in
+whatever global or local coordinates one has chosen for the
+calculation. Normal coordinates are only the local device used to
+derive the rule: move to a normal frame at one point, differentiate
+there, transform the result back, and then discard the auxiliary frame.
+Once \eqref{eq:l3-christoffel} is known, it is evaluated directly in
+the arbitrary coordinates of interest. \lecturetimestamp{01:17:21}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does either
+\(\nabla_sg_{mn}=0\) or the Christoffel formula tell us that the space
+is flat?}
+\lecturerresponse{No. Metric compatibility holds for every
+Levi-Civita connection, curved or flat. Christoffel symbols can be
+nonzero even on a flat plane written in polar coordinates. If all
+\(\Gamma^r{}_{mn}\) vanish throughout a region in one chart, that
+chart is Cartesian there and the region is flat; but their nonvanishing
+alone does not diagnose curvature. A tensor built from derivatives and
+products of \(\Gamma\) is still needed. \lecturetimestamp{01:19:27}}
+\end{classroomqa}
+
+\section{A Cone Reveals What the Connection Cannot}
+
+Consider a rounded cone. Away from its tip it can be approximated by an
+ordinary cone made from paper. Cut a wedge from a flat disk and glue the
+exposed edges together. Nothing in the remaining paper has been
+stretched; locally, every point away from the join and tip is still
+flat. The missing wedge is recorded by a deficit angle
+\(\Delta\).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_21.png}
+\caption{The cone introduced as a geometry that is locally flat away
+from its tip but has nontrivial curvature concentrated at the tip.}
+\lectureframe{01:23:00}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_22.png}
+\caption{Cutting a wedge from a disk and identifying its edges produces
+the conical deficit angle.}
+\lectureframe{01:24:20}
+\end{figure}
+
+The paper construction makes the distinction tangible. On the cut
+sheet, transport a vector while keeping it parallel in the ordinary
+plane. After the wedge edges are identified, a path that circles the
+tip returns to its starting point with the transported vector rotated
+relative to its initial direction.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\linewidth]{lecture_03_figure_23.png}
+\caption{The paper-cone demonstration: a flat sheet with a wedge
+removed becomes a cone when its cut edges are joined.}
+\lectureframe{01:25:10}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_24.png}
+\caption{Vectors drawn on the cut wedge before the edges are identified.}
+\lectureframe{01:27:40}
+\end{figure}
+
+This rotation is holonomy. It is not caused by a poor choice of
+coordinates along one segment. Each small segment can be treated in a
+locally flat frame. The effect appears only after those local
+comparisons are composed around a closed loop. For the ideal cone the
+net rotation equals the deficit angle, up to orientation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_25.png}
+\caption{Parallel transport around the conical tip returns a vector
+with a rotated direction: the holonomy records the enclosed curvature.}
+\lectureframe{01:29:10}
+\end{figure}
+
+\section{Two Routes Around an Infinitesimal Loop}
+
+Replace the finite loop by a tiny coordinate rectangle. Starting at
+one corner, transport first in the \(r\) direction and then in the
+\(s\) direction. Compare that result with transport first in \(s\) and
+then in \(r\). In flat Cartesian coordinates the two routes agree. In
+a curved geometry they generally do not.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_26.png}
+\caption{Two orderings of infinitesimal transport around a coordinate
+rectangle.}
+\lectureframe{01:31:40}
+\end{figure}
+
+The algebraic measure is the commutator of covariant derivatives:
+\begin{equation}
+ \left(\nabla_s\nabla_r-\nabla_r\nabla_s\right)V_n.
+\label{eq:l3-commutator}
+\end{equation}
+Ordinary mixed partial derivatives commute on smooth functions. The
+failure here comes from differentiating the connection terms as well
+as the vector components.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_27.png}
+\caption{The infinitesimal loop represented by the difference between
+the two orders of covariant differentiation.}
+\lectureframe{01:33:20}
+\end{figure}
+
+To compute it, first regard
+\[
+ T_{rn}=\nabla_rV_n
+\]
+as a rank-two covariant tensor. Then use
+\eqref{eq:l3-rank-two-derivative} to differentiate \(T_{rn}\) in the
+\(s\) direction. Repeat with \(r\) and \(s\) interchanged and subtract.
+The operation is lengthy but mechanical: expand, apply the product
+rule, and cancel the terms containing second partial derivatives of
+\(V_n\).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_28.png}
+\caption{Beginning the double covariant derivative by treating
+\(\nabla_rV_n\) as a rank-two tensor.}
+\lectureframe{01:35:40}
+\end{figure}
+
+Using the convention adopted on the board, the result is
+\begin{equation}
+ \left(\nabla_s\nabla_r-\nabla_r\nabla_s\right)V_n
+ =R_{srn}{}^tV_t.
+\label{eq:l3-riemann-commutator}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_29.png}
+\caption{The commutator of covariant derivatives defines the action of
+the curvature tensor on a covector.}
+\lectureframe{01:38:30}
+\end{figure}
+
+For this ordering of the commutator,
+\begin{equation}
+\begin{split}
+ R_{srn}{}^t
+={}&
+ \partial_r\Gamma^t{}_{sn}
+ -\partial_s\Gamma^t{}_{rn}\\
+&+\Gamma^p{}_{sn}\Gamma^t{}_{pr}
+ -\Gamma^p{}_{rn}\Gamma^t{}_{ps}.
+\end{split}
+\label{eq:l3-riemann}
+\end{equation}
+Other texts may reverse the sign or arrange the indices differently;
+the convention is fixed by writing both
+\eqref{eq:l3-riemann-commutator} and \eqref{eq:l3-riemann}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_30.png}
+\caption{The Riemann tensor: two derivatives of the connection and two
+quadratic connection terms.}
+\lectureframe{01:39:40}
+\end{figure}
+
+Equation \eqref{eq:l3-christoffel} shows why curvature first appears at
+second order in the metric. Each \(\Gamma\) contains a first derivative
+of \(g\). The derivative terms in \eqref{eq:l3-riemann} therefore
+contain second derivatives of \(g\), while the quadratic terms contain
+products of first derivatives. In normal coordinates at \(P\), the
+connection itself vanishes but its derivatives generally do not, so
+the curvature survives:
+\[
+ \Gamma^t{}_{mn}(P)=0,
+ \qquad
+ R_{srn}{}^t(P)
+ =\partial_r\Gamma^t{}_{sn}(P)
+ -\partial_s\Gamma^t{}_{rn}(P).
+\]
+It is important to keep the derivative order straight: the Riemann
+tensor uses first derivatives of \(\Gamma\), which are second order in
+the metric.
+
+This is the desired diagnostic. If every component of the Riemann
+tensor vanishes throughout a region, that region is locally flat. If
+any component is nonzero at a point, no change of coordinates can
+remove the curvature there. A computer algebra system can test these
+components from an analytic metric, but the concept is simply the
+failure of parallel transport to close around an infinitesimal loop.
+
+\section{Curvature as Tidal Gravity}
+
+The geometric diagnostic has a direct physical meaning. Imagine a
+flexible object made from linked triangles. In a flat region it can be
+moved without stress. Push it into a region where the intrinsic metric
+curves, and different parts of the linkage cannot all retain their
+preferred separations and angles. The object must stretch, squeeze, or
+shear.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_31.png}
+\caption{A linked object moved from a flat region into a curved bulge
+must deform to follow the local metric.}
+\lectureframe{01:44:10}
+\end{figure}
+
+That deformation is the geometric counterpart of tidal force. In a
+gravitational field, neighboring freely falling particles can
+accelerate relative to one another: one direction may be stretched
+while another is squeezed. The Riemann tensor controls this relative
+acceleration. In the language introduced later as geodesic deviation,
+for tangent \(u^\mu\) and separation \(\xi^\mu\),
+\begin{equation}
+ \frac{D^2\xi^\mu}{D\tau^2}
+ =-R^\mu{}_{\nu\rho\sigma}
+ u^\nu\xi^\rho u^\sigma,
+\label{eq:l3-geodesic-deviation-preview}
+\end{equation}
+with the overall sign following the chosen curvature convention. This
+equation is not derived here, but it makes precise the lecture's
+statement that curvature and tidal stress are literally the same local
+physics.
+
+An ideal perfectly uniform gravitational field has no tidal variation
+and can be removed locally by passing to a uniformly accelerated frame.
+Real fields produced by isolated masses are not perfectly uniform.
+Earth's field points approximately radially and changes with position,
+so neighboring free-fall trajectories converge or separate.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_03_figure_32.png}
+\caption{A radial gravitational field varies across an extended body,
+producing the relative acceleration identified as tidal gravity.}
+\lectureframe{01:48:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What distinguishes a genuine gravitational field
+from the apparent field seen in an accelerated frame?}
+\lecturerresponse{A uniformly accelerated frame can imitate a uniform
+gravitational field for local experiments, but it does not produce
+tidal relative acceleration. A field generated by real matter varies
+from place to place and therefore produces tidal forces. Those forces
+are invariant evidence that the effect is not merely a coordinate
+transformation. A perfectly uniform real field is an idealization;
+near a sufficiently small patch of a large body's surface, the actual
+field can only be approximately uniform. \lecturetimestamp{01:46:54}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does the size of the falling object matter for
+tidal effects?}
+\lecturerresponse{Curvature compares neighboring locations. An object
+much smaller than the length scale over which the field changes
+samples almost the same acceleration at all of its parts and suffers
+little deformation. An extended object samples a larger difference.
+A freely falling bacterium near Earth feels negligible tidal stress,
+whereas the lecture's imaginary two-thousand-mile person would be
+severely distorted. The curvature has a local value, but the accumulated
+deformation scales with the separation being compared.
+\lecturetimestamp{01:49:01}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If flatness requires checking the curvature at every
+point, is the test still an infinite problem?}
+\lecturerresponse{For a metric given analytically, the derivatives and
+curvature components are analytic expressions. One calculates them
+once as functions of position and can often see whether they vanish
+identically. If the metric is supplied only as a numerical table, then
+one must estimate and inspect curvature throughout the sampled region,
+which can indeed be expensive. Even then, this is far better defined
+than searching every possible coordinate system at every point.
+\lecturetimestamp{01:50:37}}
+\end{classroomqa}
+
+\section{What Has Been Established}
+
+The argument can now be read as one continuous chain:
+\begin{enumerate}
+ \item At any chosen point, coordinates can make
+ \(g_{mn}=\delta_{mn}\) and \(\partial_rg_{mn}=0\).
+ \item Ordinary derivatives of tensor components fail to transform as
+ tensors because coordinate bases vary from point to point.
+ \item The connection corrects that basis variation and defines
+ covariant differentiation.
+ \item Metric compatibility and zero torsion determine the connection
+ uniquely from the metric.
+ \item Two covariant derivatives fail to commute by the Riemann tensor.
+ That failure measures holonomy, second-order metric variation, and
+ tidal gravity.
+\end{enumerate}
+
+The promised curvature diagnostic has therefore been constructed
+without choosing a privileged global coordinate system. The next step
+is to change from positive-definite Riemannian geometry to Lorentzian
+spacetime, apply these tools to the Schwarzschild geometry of a star or
+black hole, and return to the geodesics that were deferred at the end
+of this lecture.
