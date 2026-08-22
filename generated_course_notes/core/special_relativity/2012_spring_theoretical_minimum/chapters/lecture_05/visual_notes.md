@@ -1,49 +1,44 @@
-# Visual Evidence
-## Frame Inventory
-- `lecture_05_figure_02.png`: Shows \(\phi(x,t)\), a partly occluded particle-Lagrangian label, the square-root relativistic particle term, and a small separate slanted sketch on the right; the screenshot should remain in the final notes.
-- `lecture_05_figure_03.png`: Shows the assembled second-derivative stack for the field equation while a new symbol is just being started on the left; the screenshot should remain in the final notes.
-- `lecture_05_figure_04.png`: Shows scalar-contraction notation on the left and the relation \(d\phi=(\partial\phi/\partial x^\mu)dx^\mu\) with a lower component expansion on the right; the screenshot should remain in the final notes.
-- `lecture_05_figure_05.png`: Shows the scalar-field Lagrangian with spatial-derivative terms and a mass term, plus the lower harmonic-oscillator comparison line; the screenshot should remain in the final notes.
+# Visual Evidence: Lecture 5
 
-## Equation Extraction
-- `lecture_05_figure_02.png`: \(\phi(x,t)\) [visible]
-- `lecture_05_figure_02.png`: \(\mathcal L_{\text{particle}}\) [partially visible]
-- `lecture_05_figure_02.png`: \(= -m\sqrt{1-\dot x^{\,2}}\) [visible]
-- `lecture_05_figure_02.png`: \(\mathcal L_{\text{particle}}=-m\sqrt{1-\dot x^{\,2}}\) [standard completion]
+## Chronological Frame Inventory
 
-- `lecture_05_figure_03.png`: \(=\frac{\partial^2\phi}{\partial t^2}-\frac{\partial^2\phi}{\partial x^2}-\frac{\partial^2\phi}{\partial y^2}-\frac{\partial^2\phi}{\partial z^2}\) [visible]
-- `lecture_05_figure_03.png`: a newly started partial-derivative symbol at the left edge [partially visible]
+1. lecture_05_figure_01.png, 00:03:30: wave crests and tilted moving-frame axes.
+2. lecture_05_figure_02.png, 00:13:40: restored-c Doppler factor and directional reversal.
+3. lecture_05_figure_03.png, 00:19:00: separable and coupled two-coordinate Lagrangians.
+4. lecture_05_figure_04.png, 00:24:10: scalar-coupled relativistic particle action.
+5. lecture_05_figure_05.png, 00:28:50: slow-particle expansion and potential term.
+6. lecture_05_figure_06.png, 00:30:30: worldline crossing a field-filled spacetime region.
+7. lecture_05_figure_07.png, 00:32:10: free scalar-field action.
+8. lecture_05_figure_08.png, 00:35:35: static worldline beside the field action.
+9. lecture_05_figure_09.png, 00:36:45: one-dimensional delta-function identity.
+10. lecture_05_figure_10.png, 00:39:05: product form of the three-dimensional delta.
+11. lecture_05_figure_11.png, 00:42:05: field and localized interaction in one action.
+12. lecture_05_figure_12.png, 00:45:35: sourced scalar wave equation.
+13. lecture_05_figure_13.png, 00:47:05: static Poisson equation.
+14. lecture_05_figure_14.png, 00:50:30: source shifted to a time-dependent position.
+15. lecture_05_figure_15.png, 00:55:00: spacetime coordinates collected into x-mu.
+16. lecture_05_figure_16.png, 00:57:25: four-displacement and proper-time invariant.
+17. lecture_05_figure_17.png, 01:00:30: diagonal mostly-plus Minkowski metric.
+18. lecture_05_figure_18.png, 01:03:00: lowering an index with the metric.
+19. lecture_05_figure_19.png, 01:09:30: invariant vector contraction in components.
+20. lecture_05_figure_20.png, 01:20:00: scalar differential and covariant gradient.
+21. lecture_05_figure_21.png, 01:25:10: compact invariant scalar-field density.
+22. lecture_05_figure_22.png, 01:29:40: Lorentz boost and Galilean limit.
+23. lecture_05_figure_23.png, 01:38:20: massive scalar density and oscillator analogy.
+24. lecture_05_figure_24.png, 01:40:00: completed Klein--Gordon equation.
+25. lecture_05_figure_25.png, 01:44:00: component and compact plane-wave ansatz.
+26. lecture_05_figure_26.png, 01:47:00: dispersion relation after substitution.
+27. lecture_05_figure_27.png, 01:51:30: field-dependent particle mass coefficient.
+28. lecture_05_figure_28.png, 01:56:00: cosine and sine plane waves out of phase.
 
-- `lecture_05_figure_04.png`: \(A^\mu A_\mu=\mathrm{Sca}\ldots\) [partially visible]
-- `lecture_05_figure_04.png`: \(A^\mu\eta_{\mu\nu}A^\nu\) [partially visible]
-- `lecture_05_figure_04.png`: \(\frac{\partial\phi(x)}{\partial x^\mu}\,dx^\mu\) [visible]
-- `lecture_05_figure_04.png`: \(\frac{\partial\phi}{\partial x^\mu}=\left(\frac{\partial\phi}{\partial t},\frac{\partial\phi}{\partial x},\ldots\right)\) [partially visible]
-- `lecture_05_figure_04.png`: \(A^\mu A_\mu=A^\mu\eta_{\mu\nu}A^\nu\) [standard completion]
+## Reading Decisions
 
-- `lecture_05_figure_05.png`: \(\frac12\left[\left(\frac{\partial\phi}{\partial t}\right)^2-\left(\frac{\partial\phi}{\partial x}\right)^2+\cdots-M^2\phi^2\right]\) [partially visible]
-- `lecture_05_figure_05.png`: \(\frac{\dot\phi^2}{2}-\frac{\mu^2\phi^2}{2}\) [partially visible]
-- `lecture_05_figure_05.png`: \(\frac12\left[\left(\frac{\partial\phi}{\partial t}\right)^2-\left(\frac{\partial\phi}{\partial x}\right)^2-\left(\frac{\partial\phi}{\partial y}\right)^2-\left(\frac{\partial\phi}{\partial z}\right)^2-\mu^2\phi^2\right]\) [standard completion]
+- Frames 1 and 2 preserve the geometric setup and the settled Doppler result rather than repeating nearby partial algebra.
+- Frames 3 through 14 document the complete reciprocity chain: coupled coordinates, particle response, one total action, delta localization, sourced field equation, and moving source.
+- Frames 15 through 22 preserve the exact order in which four-vector notation replaces component expressions and then reduces to Galilean notation.
+- Frames 23 through 28 follow the massive-field derivation, plane-wave solution, mass-shift return, and real-wave clarification.
+- Exact TeX accompanies each image because live handwriting and mid-derivation sign changes are evidence, not a substitute for a settled formula.
 
-## Diagram Extraction
-- `lecture_05_figure_02.png`: Preserve as a screenshot. The right-hand slanted tick-mark sketch is too ambiguous to justify a standalone TikZ redraw; at most it remains as board-layout evidence beside the cleaned equation.
-- `lecture_05_figure_03.png`: Preserve as a screenshot. This is not a separate diagram but an in-progress derivation, and the board rhythm is part of its evidentiary value.
-- `lecture_05_figure_04.png`: Preserve as a screenshot. The two-column board structure matters, but the mathematical content should be cleaned by typeset equations rather than redrawn as TikZ.
-- `lecture_05_figure_05.png`: Preserve as a screenshot. The upper-versus-lower board layout is pedagogically useful, but it is better reproduced by displayed equations than by a geometric figure.
-- Across all four assets, no mandatory TikZ redraw is warranted from the current visual evidence alone. These are equation-and-layout frames, not stable geometric figures.
+## Result
 
-## Reconstruction Guidance
-- For `lecture_05_figure_02.png`, keep the screenshot and typeset the cleaned equation \(\mathcal L_{\mathrm{particle}}=-m\sqrt{1-\dot x^{\,2}}\) beside it; use the image only to support the visible uncoupled relativistic term, not to infer later coupling details.
-- For `lecture_05_figure_03.png`, keep the screenshot as evidence for the operator \(\partial_t^2-\partial_x^2-\partial_y^2-\partial_z^2\), but reconstruct the full Euler-Lagrange step from the transcript rather than from the hidden left side of the board.
-- For `lecture_05_figure_04.png`, keep the screenshot and typeset the contraction formula and the infinitesimal identity \(d\phi=(\partial\phi/\partial x^\mu)dx^\mu\) in clean form; use prose to explain that the derivative complex forms the covariant components of a 4-vector.
-- For `lecture_05_figure_05.png`, keep the screenshot and regularize the upper line into a clean scalar-field Lagrangian with all spatial derivatives written explicitly; also typeset the lower oscillator comparison as a separate displayed formula.
-- Where handwriting is cropped or compressed, use cautious standard completion only when the surrounding lecture context fixes the intended expression. Do not upgrade uncertain board marks into new mathematics.
-- If a future chapter wants a polished redrawn figure, add it only after the underlying content is fixed by transcript and frame evidence; at present, screenshot plus displayed equation is the right balance.
-
-## Uncertainties
-- `lecture_05_figure_02.png`: the left-hand \(\mathcal L\) label and its subscript are blocked by Susskind, so the full \(\mathcal L_{\text{particle}}\) reading is a cautious completion rather than a verbatim transcription.
-- `lecture_05_figure_02.png`: the small right-hand slanted sketch cannot be identified confidently as a worldline, wavefront family, or other specific construction from this frame alone.
-- `lecture_05_figure_03.png`: the leftmost symbol being written is incomplete, so only the already written second-derivative stack is reliable.
-- `lecture_05_figure_04.png`: the word “scalar” is truncated, and the boxed left-hand contraction formula is only partly legible.
-- `lecture_05_figure_04.png`: the lower-right component expansion is cut off after the first entries, so the full list must be completed cautiously from standard notation.
-- `lecture_05_figure_05.png`: the top-line mass parameter visually resembles \(M\) in the frame, while the transcript strongly suggests \(\mu\); this should be standardized carefully in the notes.
-- `lecture_05_figure_05.png`: the far-right bracket and the omitted \(y\) and \(z\) terms are not fully visible, so the four-dimensional Lagrangian must be completed from the lecture context rather than from the image alone.
+All 28 images match their transcript timestamps and chapter placement. None is an opening card, campus view, unrelated illustration, or inaccurate keyframe.
