@@ -1,481 +1,952 @@
-\chapter{General Relativity Lecture 2: Flatness, Tensors, and the Metric}
+\chapter{Intrinsic Geometry and the Algebra of Tensors}
 
-These notes follow Leonard Susskind's second lecture on general relativity in the order in which the ideas are introduced. The lecture begins with a methodological claim: good tensor notation should act like a set of mechanical rules, so that once the indices are placed correctly the next move is almost forced. Board captures curated by LazyingArt LLC and Video2Book are kept where they record equations or board layout that matter, but the development itself follows the spoken argument: first the intrinsic notion of flatness, then the transformation laws for tensors, and only after that the metric tensor that encodes distance.
+Tensor notation is useful only when it does some of the thinking for us.
+Well-designed notation behaves like a box of mechanical pieces: an upper
+index fits a lower index, unlike objects refuse to be added, and a legal
+contraction leaves behind an object whose transformation law can be read
+from the remaining indices. The immediate purpose of this machinery is
+geometric. We want to distinguish genuine curvature from curvature that
+appears only because the coordinates have been bent.
 
-\section{Notation, Flatness, and the Intrinsic Problem}
+\section{Curvature Seen from Inside}
 
-Susskind opens with a piece of advice that is more than advice. In tensor analysis, notation is not decoration. If the rules are good, they constrain what one is allowed to do next. The notation should behave like a set of tinker toys: a stick goes into a hole, not into another stick, and once the first move is made the next move is partly dictated. That is the spirit in which the lecture proceeds. We want enough tensor analysis, and enough control over metrics, to distinguish a genuinely flat geometry from one that only looks curved because we described it in awkward coordinates.
+Begin with an ordinary sheet of paper. It may be rolled into a cylinder
+without stretching or tearing. To an observer in the surrounding room,
+the sheet is plainly bent; nevertheless, distances measured within the
+sheet are unchanged. Its extrinsic curvature has changed, while its
+intrinsic geometry has not.
 
-At first this sounds easy. Flat means plane-like; curved means bumps and lumps. But the curled page shows that this intuition is not yet sharp enough. If we take a flat sheet of paper and curl it without stretching it, the distances measured \emph{along the sheet} do not change. The embedding in the surrounding three-dimensional room changes, but the internal geometry does not. This is the distinction between extrinsic curvature and intrinsic geometry.
+Imagine now a small creature confined to the sheet. It cannot look into
+the ambient room. It can measure lengths, compare neighboring directions,
+construct triangles, and transport measuring rods from place to place.
+Those internal experiments are all that geometry should require. The
+corresponding question in gravitation is whether a field represents true
+spacetime curvature or merely a curvilinear description of flat
+spacetime.
 
-The lecture's little bug is the right guide. A bug confined to the surface cannot look off the surface. It can crawl, measure distances along the surface, draw triangles, and compare angles, but it has no direct access to the way the surface sits in a larger space. General relativity is interested in precisely this intrinsic geometry. The physical question is the same one we met in another language last time: is there a real gravitational field, or have we merely chosen funny spacetime coordinates?
+One way to make this intrinsic viewpoint concrete is to replace the
+surface by a network of points and links. Join neighboring points,
+record the length of every link, and allow the joints to hinge. An
+equilateral triangular lattice lies flat. Bending the hinges does not
+alter the encoded geometry because the lattice can always be returned
+to the plane without changing a length.
 
-\begin{figure}[t]
+Now lengthen the six links meeting at one vertex while holding the
+surrounding links fixed. The central vertex can no longer remain in the
+plane without violating the prescribed lengths. It must rise into a
+bulge. No view from outside was needed to diagnose this curvature: the
+incompatible neighboring distances already contained it.
+
+\begin{figure}[H]
 \centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=1.0]
-\begin{scope}
-\draw (-1.8,-1.1) rectangle (1.8,1.1);
-\fill (0.4,0.35) circle (0.05);
-\node[above right] at (0.4,0.35) {bug};
-\draw[<->] (-1.2,-0.6) -- (1.2,-0.6);
-\node at (0,1.45) {flat sheet};
-\end{scope}
-
-\begin{scope}[xshift=6.2cm]
-\draw (-1.9,0.75) .. controls (-0.8,1.2) and (0.8,1.2) .. (1.9,0.75);
-\draw (-1.9,-0.75) .. controls (-0.8,-1.2) and (0.8,-1.2) .. (1.9,-0.75);
-\draw (-1.9,0.75) -- (-1.9,-0.75);
-\draw (1.9,0.75) -- (1.9,-0.75);
-\fill (0.45,0.98) circle (0.05);
-\node[above right] at (0.45,0.98) {bug};
-\draw[<->] (-1.0,0.0) .. controls (-0.3,0.25) and (0.3,0.25) .. (1.0,0.0);
-\node at (0,1.45) {curled sheet};
-\end{scope}
-\end{tikzpicture}
-}%
-\caption{Schematic reconstruction of the curled-page argument. The embedding changes, but lengths measured along the page do not. The bug, confined to the surface, has access only to the intrinsic geometry.}
+\includegraphics[width=\linewidth]{lecture_02_figure_01.png}
+\caption{The triangular-link model of intrinsic geometry. Altering the
+links around one vertex forces a bulge that cannot be flattened without
+changing lengths.}
+\lectureframe{00:06:40}
 \end{figure}
 
-This gives the lecture its first real pivot. The problem of flatness is not merely a visual problem. It is a problem about the internal relations among nearby points. That same problem, translated into spacetime language, becomes the question of whether we are seeing real gravity or merely a misleading coordinate description.
+\begin{classroomqa}
+\audiencequestion{What, then, is the precise definition of a flat
+space?}
+\lecturerresponse{The operational answer is that its intrinsic distance
+relations can be realized without distortion in a Euclidean layout. In
+the language developed below, a Riemannian space is flat when one can
+find coordinates, throughout the region of interest, in which the
+metric is the constant Kronecker delta. At a single point this can
+always be done locally; doing it over a region is the nontrivial
+condition. The curvature tensor will eventually state that condition
+without reference to a special coordinate choice.
+\lecturetimestamp{00:09:15}}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+This answer uses the metric before we have earned it. We therefore turn
+temporarily from curvature to tensor analysis. The detour is not
+optional: the metric must be recognized as a tensor before its
+coordinate dependence can be separated from genuine geometry.
 
-The natural question comes immediately: what does \emph{flat} mean?
+\section{Fields and Coordinate Descriptions}
 
-At this point the lecture gives only a preview, not the full machinery. The intuitive answer is that a flat space can be laid out without distortion. But the mathematical answer, the one we will eventually earn, is stated in terms of the metric tensor: in a flat space one can choose coordinates so that the metric becomes the Kronecker delta,
-\begin{equation}
-g_{mn}=\delta_{mn},
-\end{equation}
-for the ordinary positive-definite geometry being discussed here. That is the target, but we are not yet entitled to use it until we know what a tensor is and how a metric transforms.
+A tensor in general relativity is usually a tensor \emph{field}: at
+every point there is a tensor, and its components vary from point to
+point. A scalar field is the simplest example. Temperature on a surface
+may be represented by a number \(S(P)\) at each point \(P\). Two people
+may label the point by different coordinates, but they must agree on
+the temperature there.
 
-Before we can answer the question in earnest, we need the language that will let us even state it properly.
-
-\section{Triangulations and the Intuition for Curvature}
-
-The lecture now makes the intrinsic viewpoint operational. Imagine sprinkling points through the space, joining neighboring points by links, and specifying the lengths of those links. In this way the geometry is encoded by neighboring distances. If those distances can be realized in a flat layout without changing any link length, then the geometry is flat. If they cannot, then the curvature is intrinsic.
-
-A triangular lattice is the cleanest example. If the links form equilateral triangles, and the joints are free to hinge, the whole structure can still be laid flat on the desk. Nothing in those local distances forces a bulge. But if we enlarge the six links that meet a single node, that node is forced out of the plane. A bulge appears, and it cannot be pressed back into the plane without altering the lengths of the links. That is the lecture's concrete model of curvature.
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=1.0]
-\begin{scope}
-\draw (0,0) -- (1,0) -- (2,0);
-\draw (0.5,0.866) -- (1.5,0.866) -- (2.5,0.866);
-\draw (0,1.732) -- (1,1.732) -- (2,1.732);
-\draw (0,0) -- (0.5,0.866) -- (0,1.732);
-\draw (1,0) -- (1.5,0.866) -- (1,1.732);
-\draw (2,0) -- (2.5,0.866) -- (2,1.732);
-\draw (0.5,0.866) -- (1,0) -- (1.5,0.866) -- (2,0);
-\draw (0.5,0.866) -- (1,1.732) -- (1.5,0.866) -- (2,1.732);
-\foreach \x/\y in {0/0,1/0,2/0,0.5/0.866,1.5/0.866,2.5/0.866,0/1.732,1/1.732,2/1.732}
-  \fill (\x,\y) circle (0.05);
-\node at (1.25,-0.55) {flat equilateral lattice};
-\end{scope}
-
-\begin{scope}[xshift=6.7cm]
-\coordinate (O) at (1,0.866);
-\coordinate (A) at (1,1.732);
-\coordinate (B) at (1.75,1.299);
-\coordinate (C) at (1.75,0.433);
-\coordinate (D) at (1,0);
-\coordinate (E) at (0.25,0.433);
-\coordinate (F) at (0.25,1.299);
-
-\draw (A) -- (B) -- (C) -- (D) -- (E) -- (F) -- (A);
-\draw[thick] (O) -- (A);
-\draw[thick] (O) -- (B);
-\draw[thick] (O) -- (C);
-\draw[thick] (O) -- (D);
-\draw[thick] (O) -- (E);
-\draw[thick] (O) -- (F);
-\draw[->,thick] (O) -- ++(0,1.3) node[above] {forced out of the plane};
-
-\foreach \p in {O,A,B,C,D,E,F}
-  \fill (\p) circle (0.05);
-
-\node at (1.0,-0.55) {six enlarged links at one node};
-\end{scope}
-\end{tikzpicture}
-}%
-\caption{Schematic reconstruction of the triangulation argument. Equal neighboring distances can be realized in a flat layout; altering the six links that meet one node forces a bulge if the lengths are to remain fixed.}
+\includegraphics[width=\linewidth]{lecture_02_figure_02.png}
+\caption{A scalar field together with two coordinate labels for the
+same points.}
+\lectureframe{00:11:25}
 \end{figure}
 
-This is the lecture's first real criterion in geometric language. A curved space is not merely one that can be bent in a higher-dimensional room. It is one that cannot be flattened without changing the distances that define it. That is why the distinction is intrinsic rather than extrinsic.
-
-So the question becomes sharper. If we are given a geometry in coordinates, what object are we usually given? The answer, Susskind says, is the metric tensor. But before we can use it, we need a more systematic discussion of tensors themselves.
-
-\section{Coordinates, Basis Vectors, and Two Kinds of Components}
-
-Before turning to abstract transformation laws, the lecture pauses for a geometric interlude. This is not yet the official definition of tensors. It is a way of seeing why upper and lower indices must be treated differently outside Cartesian coordinates.
-
-Take coordinates \(x^1,x^2,\dots\) that need not be perpendicular, and need not be spaced in physical units. A change of one coordinate unit along the \(m\)-th direction defines a basis vector \(E_m\). These basis vectors are not assumed to be orthogonal, and their lengths need not be one.
-
-Now take an arbitrary vector \(V\). We can expand it in the basis:
+Let \(x^m\) and \(y^m\) be two smooth coordinate systems. Each is a map
+from points to ordered lists of numbers, and in an overlapping
+coordinate patch the two lists are related by mutually inverse
+functions,
 \begin{equation}
-V = V^m E_m.
+ y^m=y^m(x^1,\ldots,x^d),
+ \qquad
+ x^m=x^m(y^1,\ldots,y^d).
+\label{eq:coordinate-maps}
 \end{equation}
-The coefficients \(V^m\) are numbers, not vectors. They tell us how much of each basis vector is needed to build \(V\). These are the contravariant components. They are, in Susskind's phrase, the expansion coefficients.
+Smoothness allows differentiation, and invertibility ensures that no
+point is lost or identified with another merely by changing
+coordinates.
 
-The covariant components are defined differently. They are the dot products of \(V\) with the basis vectors:
-\begin{equation}
-V_n = V \cdot E_n.
-\end{equation}
-Substituting the expansion of \(V\), we find
-\begin{equation}
-V_n = V^m(E_m\cdot E_n).
-\end{equation}
-This isolates a new object,
-\begin{equation}
-g_{mn}=E_m\cdot E_n,
-\end{equation}
-which is precisely the metric tensor in this basis picture. Therefore
-\begin{equation}
-V_n=g_{mn}V^m.
-\end{equation}
-The two kinds of components coincide only in the special case of orthonormal Cartesian coordinates.
-
-The same construction gives the length of the vector:
-\begin{equation}
-V\cdot V=(V^mE_m)\cdot(V^nE_n)=g_{mn}V^mV^n.
-\end{equation}
-This is the first appearance of the metric in the lecture as the object that computes squared length.
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.1]
-\draw[->,thick] (0,0) -- (3.1,0.45) node[right] {$E_1$};
-\draw[->,thick] (0,0) -- (1.1,3.0) node[above] {$E_2$};
-
-\draw[->,blue,thick] (0,0) -- (1.6,0.23) node[midway,below] {$V^1E_1$};
-\draw[->,blue,thick] (1.6,0.23) -- (2.205,1.88) node[midway,right] {$V^2E_2$};
-
-\draw[->,very thick] (0,0) -- (2.205,1.88) node[right] {$V$};
-\end{tikzpicture}
-\caption{Schematic reconstruction of oblique coordinates. The contravariant components are the coefficients in the expansion \(V=V^mE_m\), while the covariant components arise from dot products with the basis vectors.}
+\includegraphics[width=\linewidth]{lecture_02_figure_03.png}
+\caption{Two smooth, invertible coordinate maps describing the same
+geometric region.}
+\lectureframe{00:13:10}
 \end{figure}
 
-A subtle point is worth preserving from the lecture. Before the metric is introduced abstractly, contravariant vectors and covariant vectors are to be treated as different kinds of objects. The basis-vector picture hints at a correspondence between them through \(V_n=g_{mn}V^m\), but the lecture does not yet want us to identify them wholesale. That identification will become systematic only once the metric has been defined on its own terms.
+For a scalar field the transformation law is simply
+\begin{equation}
+ S'(y)=S(x).
+\label{eq:scalar-law}
+\end{equation}
+The functions on the two sides may look different because their
+arguments differ, but at corresponding points their values agree. This
+is the prototype of an invariant statement.
 
-The lecture then sharpens the geometric picture one more time. Orthogonality by itself is not enough to recover Cartesian simplicity. Polar coordinates are orthogonal, but the separation corresponding to a fixed angular increment grows with radius. So even when coordinate directions meet at right angles, the basis vectors need not behave as they do in Cartesian coordinates.
+\section{Oblique Coordinates and Two Kinds of Components}
 
-\begin{figure}[t]
+Before defining general tensors by transformation laws, it is useful to
+see why upper and lower vector indices cannot be treated as decorative
+variants of one another.
+
+Draw a coordinate grid whose axes are neither perpendicular nor
+normalized. At a point, increasing \(x^m\) by one coordinate unit
+produces a basis vector \(\mathbf e_m\). In coordinate language,
+\begin{equation}
+ \mathbf e_m=\frac{\partial \mathbf r}{\partial x^m}.
+\label{eq:coordinate-basis}
+\end{equation}
+The vectors \(\mathbf e_m\) need not have unit length and need not be
+orthogonal.
+
+\begin{figure}[H]
 \centering
-\begin{tikzpicture}[scale=1.2]
-\draw (0,0) circle (0.8);
-\draw (0,0) circle (1.5);
-\draw (0,0) circle (2.2);
-\draw[->] (0,0) -- (2.45,0);
-\draw[->] (0,0) -- (2.12,1.22);
-\draw[thick] (0.8,0) arc[start angle=0,end angle=30,radius=0.8];
-\draw[thick] (1.5,0) arc[start angle=0,end angle=30,radius=1.5];
-\draw[thick] (2.2,0) arc[start angle=0,end angle=30,radius=2.2];
-\node at (0.72,0.33) {$\Delta\theta$};
-\node at (1.55,1.95) {$r$ increases};
-\end{tikzpicture}
-\caption{Schematic reconstruction of the polar-coordinate refinement. The coordinate directions are orthogonal, but the physical separation associated with a fixed angular increment grows with radius. Orthogonality alone does not make a coordinate system Cartesian.}
+\includegraphics[width=\linewidth]{lecture_02_figure_04.png}
+\caption{An oblique coordinate grid and its coordinate basis vectors.}
+\lectureframe{00:17:40}
 \end{figure}
 
-Only after this detour does Susskind say, in effect, now let us come to tensor analysis proper.
-
-\section{Tensors by Their Transformation Laws}
-
-For a while we are asked to proceed in the safest possible way: not by leaning on geometric pictures, but by letting the transformation law define the object. A tensor, at least at first, is whatever transforms in the right way.
-
-Let \(x^m\) and \(y^m\) be two coordinate systems on the same space, related by an invertible differentiable change of variables. We will mostly be interested in tensor \emph{fields}: a different tensor attached to each point of space, varying from point to point. Prime notation will refer to components written in the \(y\)-coordinates, and unprimed notation to components written in the \(x\)-coordinates.
-
-The simplest tensor is a scalar field \(S\). Everybody agrees on its value at a given point, so
+Every vector \(\mathbf V\) can be expanded in this basis:
 \begin{equation}
-S'(y)=S(x).
+ \mathbf V=V^m\mathbf e_m.
+\label{eq:contravariant-expansion}
+\end{equation}
+The numbers \(V^m\) are the \emph{contravariant components}. They are
+the coefficients needed to assemble the geometric vector from the
+basis vectors.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_05.png}
+\caption{The expansion of a vector in a nonorthogonal coordinate
+basis.}
+\lectureframe{00:19:20}
+\end{figure}
+
+There is another natural set of numbers:
+\begin{equation}
+ V_m=\mathbf V\mathbin{\boldsymbol{\cdot}}\mathbf e_m.
+\label{eq:covariant-projection}
+\end{equation}
+These are the \emph{covariant components}. In an oblique basis they are
+not simply the same coefficients with the index moved. Substituting
+\eqref{eq:contravariant-expansion} gives
+\begin{equation}
+ V_m
+ =V^n\bigl(\mathbf e_n\mathbin{\boldsymbol{\cdot}}\mathbf e_m\bigr).
+\label{eq:covariant-from-basis}
 \end{equation}
 
-A contravariant vector transforms like a little coordinate displacement:
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_06.png}
+\caption{Covariant components obtained by taking scalar products with
+the coordinate basis.}
+\lectureframe{00:21:10}
+\end{figure}
+
+The scalar products of the basis vectors form the Gram matrix
+\begin{equation}
+ g_{mn}=\mathbf e_m\mathbin{\boldsymbol{\cdot}}\mathbf e_n.
+\label{eq:metric-gram}
+\end{equation}
+Consequently,
+\begin{equation}
+ V_m=g_{mn}V^n.
+\label{eq:lower-vector}
+\end{equation}
+This is the first appearance of the metric. It converts expansion
+coefficients into projections because it records both the lengths and
+mutual angles of the coordinate basis.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_07.png}
+\caption{The metric as the Gram matrix of the basis vectors.}
+\lectureframe{00:23:40}
+\end{figure}
+
+The same matrix computes length:
 \begin{align}
-V'^m &= \frac{\partial y^m}{\partial x^n}V^n, \\
-dy^m &= \frac{\partial y^m}{\partial x^n}dx^n.
+ \mathbf V\mathbin{\boldsymbol{\cdot}}\mathbf V
+ &=(V^m\mathbf e_m)\mathbin{\boldsymbol{\cdot}}
+   (V^n\mathbf e_n) \notag\\
+ &=g_{mn}V^mV^n.
+\label{eq:vector-length}
 \end{align}
-The differential \(dx^m\) is the archetype. Its components transform with the Jacobian \(\partial y/\partial x\), and that is exactly what a contravariant vector does.
 
-A covariant vector transforms the other way:
-\begin{equation}
-W'_m=\frac{\partial x^n}{\partial y^m}W_n.
-\end{equation}
-The gradient of a scalar is the standard example:
-\begin{equation}
-\frac{\partial S}{\partial y^m}
-=
-\frac{\partial x^n}{\partial y^m}\frac{\partial S}{\partial x^n}.
-\end{equation}
-This is nothing but the chain rule, written in tensor notation. Since there are several coordinates, these derivatives are partial derivatives throughout.
-
-The general pattern is systematic. Each upper \(y\)-index contributes a factor of \(\partial y/\partial x\), and each lower \(y\)-index contributes a factor of \(\partial x/\partial y\). Thus a mixed rank-two tensor transforms as
-\begin{equation}
-T'^m{}_n
-=
-\frac{\partial y^m}{\partial x^p}
-\frac{\partial x^q}{\partial y^n}
-T^p{}_q,
-\end{equation}
-while a purely covariant rank-two tensor transforms as
-\begin{equation}
-W'_{mn}
-=
-\frac{\partial x^p}{\partial y^m}
-\frac{\partial x^q}{\partial y^n}
-W_{pq}.
-\end{equation}
-
-This is where the opening claim about notation begins to pay off. The indices do not merely label components. They tell us what sort of Jacobian factors are allowed to appear, and they keep track of which contractions are legal. One begins to see what Susskind means when he says that good notation carries you along.
-
-\section{Tensor Equations, Tensor Products, and Contraction}
-
-Once tensors are defined by their transformation laws, their main use becomes visible at once: tensor equations have the same truth value in every coordinate system, provided the two sides have the same index structure.
-
-\begin{proposition}
-If all components of a tensor vanish in one coordinate system, then all components vanish in every coordinate system.
-\end{proposition}
-
-\begin{proof}
-Each transformed component is a linear combination of the original components. Therefore zero maps to zero.
-\end{proof}
-
-\paragraph{What is invariant?}
-Not the individual components; they change from frame to frame. What is invariant is the truth of the tensor equation. If \(W=T\) for two tensors of the same type, then \(W-T=0\) in one coordinate system, and therefore in every coordinate system. But if the index structure fails to match, the equation has no coordinate-independent meaning. This is exactly the point the lecture insists on when it refuses to equate unlike tensors.
-
-The subtraction rule makes this concrete. If \(T\) and \(S\) are tensors of the same type, then
-\begin{equation}
-T^{m\cdots}{}_{\cdots p}-S^{m\cdots}{}_{\cdots p}
-=
-(T-S)^{m\cdots}{}_{\cdots p}.
-\end{equation}
-The ellipses are deliberate: the board suppresses the full rank, and we should not invent it. What matters is that the index pattern matches on both sides. Then \(T-S=0\) is a tensor equation, and if it is true in one frame it is true in every frame.
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_02_figure_02.png}
-\caption{Tensor subtraction as a tensor equation. The board keeps the suppressed indices generic, but the mathematical point is complete: the difference of two tensors of the same type is another tensor of that same type.}
+\includegraphics[width=\linewidth]{lecture_02_figure_08.png}
+\caption{The vector norm written in terms of the metric and
+contravariant components.}
+\lectureframe{00:25:00}
 \end{figure}
 
-Tensor multiplication, by contrast, raises rank rather than preserving it. If \(V^m\) is contravariant and \(W_n\) is covariant, then
+\begin{classroomqa}
+\audiencequestion{Why introduce this geometric construction before the
+formal transformation laws?}
+\lecturerresponse{It gives the indices a concrete meaning. Upper
+components are expansion coefficients, lower components are linear
+measurements of the vector, and the metric connects the two. The formal
+definition will then tell us that these roles survive arbitrary smooth
+coordinate changes. \lecturetimestamp{00:26:07}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{When do the covariant and contravariant components
+have the same numerical values?}
+\lecturerresponse{In an orthonormal Euclidean basis,
+\(g_{mn}=\delta_{mn}\), so \(V_m=V^m\) component by component. Mere
+orthogonality is not enough: if the basis vectors have nonunit lengths,
+the diagonal metric still supplies scale factors.
+\lecturetimestamp{00:26:19}}
+\end{classroomqa}
+
+Polar coordinates provide the clean warning. Radial and angular
+coordinate lines meet orthogonally, yet a fixed change
+\(d\theta\) corresponds to physical distance \(r\,d\theta\). In the
+plane,
 \begin{equation}
-T^m{}_n = V^mW_n
+ ds^2=dr^2+r^2d\theta^2,
+\label{eq:polar-metric}
 \end{equation}
-is a rank-two tensor. This is the tensor product, or outer product. It is \emph{not} the dot product. In four dimensions it has sixteen components, not one. The components commute as numbers, but the order of the tensor slots still matters: the first index belongs to one factor, the second to the other.
+so the basis is orthogonal but not Cartesian.
 
-Contraction is the next operation, and here the lecture pauses for a lemma.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_09.png}
+\caption{Polar coordinates: orthogonal coordinate directions with an
+angular scale factor that grows with radius.}
+\lectureframe{00:28:10}
+\end{figure}
 
-\begin{proposition}
-For any invertible coordinate transformation \(x \leftrightarrow y\),
+\begin{classroomqa}
+\audiencequestion{Are covariant vectors genuinely different vectors,
+or only a second way of listing the same vector?}
+\lecturerresponse{Before a metric is supplied, a vector and a covector
+are different kinds of linear object. A vector belongs to the tangent
+space; a covector is a linear functional on that space. A nondegenerate
+metric gives a one-to-one correspondence between them, represented by
+\(V_m=g_{mn}V^n\), but the correspondence should not be mistaken for
+identity. \lecturetimestamp{00:29:10}}
+\end{classroomqa}
+
+\section{Transformation Laws Define the Tensor}
+
+The safest formal definition is operational: an array is a tensor if
+its components transform by the appropriate Jacobian factors.
+Differentiating \eqref{eq:coordinate-maps} gives
 \begin{equation}
-\frac{\partial x^b}{\partial y^m}\frac{\partial y^m}{\partial x^a}
-=
-\delta^b{}_a.
+ dy^m=\frac{\partial y^m}{\partial x^n}\,dx^n.
+\label{eq:differential-law}
 \end{equation}
-\end{proposition}
-
-\begin{proof}
-For any differentiable function \(f\),
+Any contravariant vector obeys the same rule,
 \begin{equation}
-\frac{\partial f}{\partial y^m}\frac{\partial y^m}{\partial x^a}
-=
-\frac{\partial f}{\partial x^a}
-\end{equation}
-by the chain rule. Choosing \(f=x^b\), we obtain
-\begin{equation}
-\frac{\partial x^b}{\partial y^m}\frac{\partial y^m}{\partial x^a}
-=
-\frac{\partial x^b}{\partial x^a}
-=
-\delta^b{}_a.
-\end{equation}
-\end{proof}
-
-Now let
-\begin{equation}
-T^m{}_n=V^mW_n.
-\end{equation}
-Its transformation law is
-\begin{equation}
-T'^m{}_n
-=
-\frac{\partial y^m}{\partial x^a}
-\frac{\partial x^b}{\partial y^n}
-V^aW_b.
-\end{equation}
-If we contract the upper and lower indices, we obtain
-\begin{align}
-T'^m{}_m
-&=
-\frac{\partial y^m}{\partial x^a}
-\frac{\partial x^b}{\partial y^m}
-V^aW_b \\
-&=
-\delta^b{}_a\,V^aW_b \\
-&=
-V^aW_a.
-\end{align}
-The contraction \(V^mW_m\) has no free indices and has the same value in every coordinate system. It is therefore a scalar.
-
-This is the lecture's tensor-algebra version of the inner product. More generally, when we contract one upper index with one lower index, the rank drops by two.
-
-\subsection{Question \& Answer}
-
-Why may we contract only an upper index with a lower one?
-
-Because only then do the Jacobians collapse to a Kronecker delta. If we start instead with a tensor carrying two upper indices, for example \(U^{mn}\), then its transformation law contains two factors of \(\partial y/\partial x\):
-\begin{equation}
-U'^{mn}
-=
-\frac{\partial y^m}{\partial x^a}
-\frac{\partial y^n}{\partial x^b}
-U^{ab}.
-\end{equation}
-If one now tries to identify the two upper indices, the Jacobian factor becomes
-\begin{equation}
-\frac{\partial y^m}{\partial x^a}
-\frac{\partial y^m}{\partial x^b},
-\end{equation}
-and this is not the mixed product that yields \(\delta^b{}_a\). Nothing simplifies. One does not get a tensor. So the notation is not merely etiquette here; it enforces what operations are legal.
-
-The lecture briefly lists one more tensor operation, covariant differentiation, but does not develop it yet. That is postponed. The real mathematical payoff of the present lecture comes next, when we return to the metric tensor that was deferred at the beginning.
-
-\section{The Metric Tensor as the Quadratic Form of Distance}
-
-Only now, after the detour through tensor algebra, do we come back to the central object. Susskind first reminds us that the basis-vector construction already produced a metric through \(E_m\cdot E_n\). But he now wants the metric tensor defined on its own terms, abstractly.
-
-Consider a little displacement vector with contravariant components \(dx^m\). Its squared length is defined by the metric tensor:
-\begin{equation}
-ds^2 = g_{mn}(x)\,dx^m dx^n.
-\end{equation}
-This is the cautious canonical way to typeset what the lecture repeatedly calls ``the squared length of the little \(dx\) vector.''
-
-Several points are already built into this formula. First, the metric can depend on position. Second, the expression is quadratic in the coordinate differentials. Third, in general coordinates the analogue of the Pythagorean theorem is still quadratic, but no longer diagonal.
-
-The lecture then asks how many independent components the metric has. In four dimensions there are initially \(4\times 4=16\) coefficients. But since \(dx^m dx^n = dx^n dx^m\), there is no need to distinguish \(g_{12}\) from \(g_{21}\), and similarly for every off-diagonal pair. That reduces the count to \(10\). In three dimensions the count is \(6\), and in two dimensions it is \(3\):
-\begin{equation}
-16 \longrightarrow 10, \qquad 9 \longrightarrow 6, \qquad 4 \longrightarrow 3.
+ V'^m(y)
+ =\frac{\partial y^m}{\partial x^n}V^n(x).
+\label{eq:contravariant-law}
 \end{equation}
 
-What still needs proof is that \(g_{mn}\) really is a tensor. The guiding principle is that length is a scalar. Everyone may disagree about the components of a vector, but everyone agrees about its squared length. Therefore
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_10.png}
+\caption{The contravariant transformation law, modeled on the
+transformation of coordinate differentials.}
+\lectureframe{00:32:50}
+\end{figure}
+
+A covector transforms with the inverse Jacobian:
 \begin{equation}
-g_{mn}(x)\,dx^m dx^n
-=
-g'_{pq}(y)\,dy^p dy^q.
+ W'_m(y)
+ =\frac{\partial x^n}{\partial y^m}W_n(x).
+\label{eq:covariant-law}
 \end{equation}
-Now rewrite the differentials in terms of the primed coordinates:
+The gradient of a scalar is the standard example. Applying the chain
+rule to \eqref{eq:scalar-law},
 \begin{equation}
-dx^m=\frac{\partial x^m}{\partial y^p}\,dy^p,
+ \frac{\partial S}{\partial y^m}
+ =\frac{\partial x^n}{\partial y^m}
+  \frac{\partial S}{\partial x^n}.
+\label{eq:gradient-law}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_11.png}
+\caption{A scalar gradient transforming as a covector by the chain
+rule.}
+\lectureframe{00:34:20}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Do upper and lower components necessarily have the
+same physical units?}
+\lecturerresponse{No. Coordinate components inherit the units and
+scale conventions of the coordinates and their basis vectors. If one
+coordinate is a length and another an angle, their components need not
+even share dimensions. The complete contraction is the object whose
+physical dimensions are coordinate independent.
+\lecturetimestamp{00:35:41}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why are the derivatives partial derivatives rather
+than ordinary derivatives?}
+\lecturerresponse{A field depends on several coordinates. The Jacobian
+asks how one coordinate function changes when one argument varies and
+the others are held fixed, so its entries are partial derivatives.
+\lecturetimestamp{00:36:45}}
+\end{classroomqa}
+
+The pattern now extends mechanically. Every upper primed index brings
+one factor of \(\partial y/\partial x\); every lower primed index brings
+one factor of \(\partial x/\partial y\). A mixed tensor transforms as
+\begin{equation}
+ T'^m{}_n
+ =
+ \frac{\partial y^m}{\partial x^p}
+ \frac{\partial x^q}{\partial y^n}
+ T^p{}_q,
+\label{eq:mixed-law}
+\end{equation}
+and a rank-two covariant tensor transforms as
+\begin{equation}
+ W'_{mn}
+ =
+ \frac{\partial x^p}{\partial y^m}
+ \frac{\partial x^q}{\partial y^n}
+ W_{pq}.
+\label{eq:rank-two-covariant-law}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_12.png}
+\caption{The transformation rule for a tensor with one upper and one
+lower index.}
+\lectureframe{00:40:45}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_13.png}
+\caption{A rank-two covariant transformation law, with one inverse
+Jacobian for each lower index.}
+\lectureframe{00:42:15}
+\end{figure}
+
+Repeated indices are summed unless stated otherwise. This convention
+removes summation signs while preserving all the information needed to
+reconstruct them. A repeated dummy index must occur exactly twice in a
+term, once upstairs and once downstairs; a free index occurs once in
+every term of an equation.
+
+\begin{classroomqa}
+\audiencequestion{Who introduced this summation notation?}
+\lecturerresponse{It is conventionally credited to Einstein, which is
+why it is called the Einstein summation convention. Its value is not
+historical ornament: the index pattern makes legal tensor operations
+visible at a glance. \lecturetimestamp{00:43:21}}
+\end{classroomqa}
+
+\section{Tensor Equations and Coordinate-Independent Truth}
+
+Components vary with coordinates, but a tensor equation remains true
+in every coordinate system. If two tensors of the same type satisfy
+\(W=T\), then their difference is the zero tensor:
+\begin{equation}
+ W^{m\cdots}{}_{\cdots n}
+ -T^{m\cdots}{}_{\cdots n}=0.
+\label{eq:tensor-equality}
+\end{equation}
+The transformation law is linear, so zero components in one system
+produce zero components in every system. The matching free indices on
+the two sides are indispensable. An equation between objects of
+different tensor type has no coordinate-independent meaning.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_14.png}
+\caption{Matching index structure turns equality of components into a
+tensor equation valid in every coordinate system.}
+\lectureframe{00:46:35}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What exactly is invariant if the vector components
+are changing?}
+\lecturerresponse{The geometric tensor and the truth of a tensor
+equation are invariant; the coordinate list is not. A scalar is the
+special case with no indices, so its numerical value at a point is the
+same in every coordinate system. \lecturetimestamp{00:47:19}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is vector magnitude the invariant analogue, and does
+zero magnitude mean the vector is zero?}
+\lecturerresponse{Once a metric is given, the contraction
+\(g_{mn}V^mV^n\) is a scalar and therefore an invariant squared norm.
+In positive-definite geometry it vanishes only for the zero vector. In
+Lorentzian spacetime a nonzero null vector can have zero norm, so the
+two statements must be kept separate. \lecturetimestamp{00:48:04}}
+\end{classroomqa}
+
+\section{The Permitted Algebra of Tensors}
+
+The board collects the principal operations that will be needed:
+multiply by a scalar, add or subtract tensors of the same type, form
+tensor products, contract an upper with a lower index, and eventually
+differentiate covariantly.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_15.png}
+\caption{The board inventory of tensor operations: addition,
+multiplication, contraction, and differentiation.}
+\lectureframe{00:50:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Differentiation with respect to what?}
+\lecturerresponse{With respect to position, hence with respect to the
+coordinates. Ordinary component derivatives do not generally transform
+as tensors because the Jacobians themselves vary. Covariant
+differentiation repairs this, but its construction is postponed until
+the geometric preliminaries are in place. \lecturetimestamp{00:51:49}}
+\end{classroomqa}
+
+Scalar multiplication is immediate. Addition and subtraction require
+matching tensor type:
+\begin{equation}
+ C^m{}_n=A^m{}_n+B^m{}_n,
 \qquad
-dx^n=\frac{\partial x^n}{\partial y^q}\,dy^q.
+ D^m{}_n=A^m{}_n-B^m{}_n.
+\label{eq:tensor-addition}
 \end{equation}
-Substituting these into the unprimed expression gives
-\begin{align}
-ds^2
-&=
-g_{mn}(x)
-\left(\frac{\partial x^m}{\partial y^p}dy^p\right)
-\left(\frac{\partial x^n}{\partial y^q}dy^q\right) \\
-&=
-g_{mn}(x)\,
-\frac{\partial x^m}{\partial y^p}
-\frac{\partial x^n}{\partial y^q}
-\,dy^pdy^q.
-\end{align}
-Comparing with \(ds^2=g'_{pq}(y)\,dy^pdy^q\), we identify the coefficient of \(dy^pdy^q\) as the primed metric:
-\begin{equation}
-g'_{pq}(y)
-=
-g_{mn}(x)\,
-\frac{\partial x^m}{\partial y^p}
-\frac{\partial x^n}{\partial y^q}.
-\end{equation}
-This is exactly the transformation law of a covariant rank-two tensor.
+One cannot add a vector to a covector or a rank-two tensor to a scalar,
+just as one cannot add a velocity to an area.
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_02_figure_03.png}
-\caption{Metric tensor in primed and unprimed coordinates. The board isolates \(g'_{pq}(y)\) in a small box and the transformed coefficient built from \(g_{mn}(x)\) and two Jacobians in a larger box; the lecture's point is that these must be the same object.}
+\includegraphics[width=\linewidth]{lecture_02_figure_16.png}
+\caption{Addition is defined componentwise only for tensors with the
+same free-index pattern.}
+\lectureframe{00:53:00}
 \end{figure}
 
-The board capture is helpful here. The auxiliary substitution lines for \(dx^m\) and \(dx^n\) are only partially visible, so we typeset them in their standard canonical form. But the important visual evidence is fully present: the small box around \(g'_{pq}(y)\) and the large box around the transformed coefficient tell us exactly which object is to be read as the metric in the new coordinates.
-
-This also explains why the metric carries two lower indices: it multiplies two contravariant displacement components \(dx^m\) and \(dx^n\). In this way the lecture returns cleanly to the question it postponed. If flatness is to be decided from the metric, then we must first know that the metric is genuinely a tensor.
-
-\section{The Metric as a Symmetric Matrix and Its Inverse}
-
-At this stage the lecture changes point of view. The metric tensor is not only a tensor; it is also a matrix. Since \(dx^m dx^n = dx^n dx^m\), we may take
+The tensor product combines all indices of its factors. For example,
 \begin{equation}
-g_{mn}=g_{nm}.
+ T^{mn}=V^mW^n,
+\qquad
+ S^m{}_n=V^mU_n.
+\label{eq:tensor-products}
 \end{equation}
-In other words, the metric is a symmetric matrix. This symmetry should be derived from the quadratic form itself, not from the somewhat garbled late discussion on the board.
+In four dimensions \(T^{mn}\) has sixteen components. No index has been
+summed, so this is an outer product rather than a dot product.
 
-For the ordinary Riemannian geometry being discussed in this lecture, Susskind then assumes that the metric has no zero eigenvalues. The matrix is therefore invertible. He denotes its inverse by \(g^{mn}\), the metric with upstairs indices, and writes the inverse relation as
-\begin{equation}
-g_{mn}g^{np}=\delta_m{}^p.
-\end{equation}
-This is the index notation for the statement that a matrix multiplied by its inverse gives the identity matrix.
-
-\paragraph{Where do these tensors live?}
-A late student question asks what space these vectors and tensors live in. The useful answer is the tangent space. At each point of the curved space there is a tangent space of the same dimension, and vectors and higher tensors at that point are naturally regarded as living there. This is why the index ranges match the dimension of the underlying space.
-
-\subsection{Question \& Answer}
-
-In what sense is \(g_{mn}g^{np}=\delta_m{}^p\) the identity matrix?
-
-The right way to read the formula is that \emph{the whole array} of quantities with row index \(m\) and column index \(p\) is the identity matrix. One does \emph{not} mean that only the case \(m=p\) is being discussed. Rather, for every pair \((m,p)\) there is one equation, and together those equations form the statement that the product matrix is the identity.
-
-The Kronecker delta is the mixed-index identity tensor:
-\begin{equation}
-\delta_m{}^p
-=
-\begin{cases}
-1, & m=p,\\
-0, & m\neq p.
-\end{cases}
-\end{equation}
-So the matrix equation simultaneously contains the diagonal equations that give \(1\) and the off-diagonal equations that give \(0\).
-
-In two dimensions the lecture writes this out as
-\begin{equation}
-\begin{pmatrix}
-g_{11} & g_{12} \\
-g_{21} & g_{22}
-\end{pmatrix}
-\begin{pmatrix}
-g^{11} & g^{12} \\
-g^{21} & g^{22}
-\end{pmatrix}
-=
-\begin{pmatrix}
-1 & 0 \\
-0 & 1
-\end{pmatrix}.
-\end{equation}
-Since the metric is symmetric, we also have \(g_{21}=g_{12}\). Reading off the entries gives four scalar equations. Two of them are
-\begin{align}
-g_{11}g^{11}+g_{12}g^{21} &= 1, \\
-g_{11}g^{12}+g_{12}g^{22} &= 0,
-\end{align}
-and two more come from the second row. This is the precise meaning of the identity-matrix statement.
-
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_02_figure_06.png}
-\caption{Inverse metric identity and symmetric matrix example. The board ties together the transformed line element, the inverse-metric relation, and the explicit \(2\times 2\) matrix picture.}
+\includegraphics[width=\linewidth]{lecture_02_figure_17.png}
+\caption{A tensor product retaining one free index from each vector
+factor.}
+\lectureframe{00:55:15}
 \end{figure}
 
-The board frame is especially useful here because it preserves the lecture's sequencing: the transformed line element remains across the top, the inverse-metric identity sits at left, and the small \(2\times 2\) matrix example appears below. The matrix product on the board is unfinished, so the clean LaTeX rewrite above should be taken as a cautious completion of what the lecture is visibly setting up.
+\begin{classroomqa}
+\audiencequestion{Is multiplication of two vectors here the dot
+product?}
+\lecturerresponse{No. A dot product contracts an index and produces a
+scalar. The tensor product leaves both indices free and therefore
+produces a rank-two tensor. In four dimensions that is sixteen
+components rather than one. \lecturetimestamp{00:56:36}}
+\end{classroomqa}
 
-The lecture then adds an important caveat. In an ordinary geometry where squared lengths are positive, the metric is positive definite. But this is not how spacetime geometry will finally work. In relativity one encounters signatures such as
+\begin{classroomqa}
+\audiencequestion{Since the component numbers commute, does exchanging
+the two vector factors make no difference?}
+\lecturerresponse{For ordinary scalar components,
+\(V^mW^n=W^nV^m\). But tensor slots are ordered. Interchanging the
+factors and then naming the first slot \(m\) and the second \(n\)
+produces the transposed array; \(T^{mn}\) need not equal \(T^{nm}\).
+\lecturetimestamp{00:58:52}}
+\end{classroomqa}
+
+\section{Contraction and the Inverse-Jacobian Lemma}
+
+The key to contraction is the chain rule. Because the coordinate maps
+are inverse,
 \begin{equation}
-ds^2=t^2-x^2-y^2-z^2
+ \frac{\partial x^b}{\partial y^m}
+ \frac{\partial y^m}{\partial x^a}
+ =
+ \frac{\partial x^b}{\partial x^a}
+ =\delta^b{}_a.
+\label{eq:inverse-jacobian}
 \end{equation}
-or the opposite sign convention. So the later Lorentzian metric will not be positive definite. Even so, the matrix can remain invertible; null vectors do not imply zero eigenvalues. This caveat matters because the lecture's claim about nonzero eigenvalues belongs only to the ordinary positive-metric discussion of tonight's lecture.
+The two Jacobian matrices are inverses, and their product is the
+Kronecker delta.
 
-\section{Summary}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_18.png}
+\caption{The inverse-Jacobian identity prepared as the lemma behind
+tensor contraction.}
+\lectureframe{01:02:15}
+\end{figure}
 
-The lecture has now earned the preview it gave near the beginning. Flatness will ultimately be a statement about the metric, but one must first understand what tensors are, how their indices transform, and what operations preserve tensor character. We began with the intrinsic geometry of a curled page and a triangulated lattice, moved through contravariant and covariant components, built tensor equations, tensor products, and contractions, and returned at last to the metric tensor as the quadratic form of distance.
+\begin{classroomqa}
+\audiencequestion{What kind of object is the inverse Jacobian?}
+\lecturerresponse{It is the derivative matrix of the inverse coordinate
+map. Its entries are \(\partial x^b/\partial y^m\), and matrix
+multiplication with \(\partial y^m/\partial x^a\) gives the identity by
+the multivariable chain rule. \lecturetimestamp{01:02:37}}
+\end{classroomqa}
 
-This is also exactly where the lecture stops. So far, as Susskind says, the material is mostly the discipline of notation and the algebra it permits. The next step is differentiation. If the question of flatness is to be answered in earnest, we must know how the metric varies from point to point. That means covariant differentiation, and then curvature.
+A quick proof makes the notation transparent. For any scalar function
+\(f\),
+\begin{equation}
+ \frac{\partial f}{\partial y^m}
+ \frac{\partial y^m}{\partial x^a}
+ =\frac{\partial f}{\partial x^a}.
+\end{equation}
+Choosing \(f=x^b\) gives
+\begin{equation}
+ \frac{\partial x^b}{\partial y^m}
+ \frac{\partial y^m}{\partial x^a}
+ =\frac{\partial x^b}{\partial x^a}
+ =\delta^b{}_a.
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_19.png}
+\caption{The chain rule collapsing the inverse Jacobians to the
+Kronecker delta.}
+\lectureframe{01:04:55}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is \(\delta^b{}_a\) the identity only in Cartesian
+coordinates?}
+\lecturerresponse{No. The mixed tensor \(\delta^b{}_a\) represents the
+identity map in every coordinate system. A Euclidean metric written as
+\(\delta_{ab}\) is special to orthonormal Cartesian coordinates, but
+the mixed-index identity should not be confused with that metric.
+\lecturetimestamp{01:04:58}}
+\end{classroomqa}
+
+Now take a mixed tensor \(T^m{}_n\). Its transformed trace is
+\begin{align}
+ T'^m{}_m
+ &=
+ \frac{\partial y^m}{\partial x^a}
+ \frac{\partial x^b}{\partial y^m}
+ T^a{}_b \notag\\
+ &=\delta^b{}_aT^a{}_b
+ =T^a{}_a.
+\label{eq:trace-invariant}
+\end{align}
+The contracted quantity has no free index and is therefore a scalar.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_20.png}
+\caption{Transformation of a mixed tensor before the upper and lower
+indices are contracted.}
+\lectureframe{01:07:45}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_21.png}
+\caption{The Jacobians cancel under contraction, leaving the same
+scalar trace in either coordinate system.}
+\lectureframe{01:10:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{After a contraction, does the result still carry
+indices?}
+\lecturerresponse{Only the contracted pair disappears. Contracting the
+sole upper and lower indices of \(T^m{}_n\) leaves a scalar. In a
+higher-rank tensor, all uncontracted indices remain free.
+\lecturetimestamp{01:09:00}}
+\end{classroomqa}
+
+For example,
+\begin{equation}
+ A^{mn}{}_{pq}
+ \longmapsto
+ A^{mn}{}_{pn}
+ =B^m{}_p
+\label{eq:higher-rank-contraction}
+\end{equation}
+contracts \(n\) and lowers the rank by two. The precise letters are
+dummy labels; the structural rule is that one upper and one lower slot
+are summed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_22.png}
+\caption{A higher-rank contraction removes one upper and one lower
+index while preserving the remaining free indices.}
+\lectureframe{01:12:35}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why not contract two upper indices, or two lower
+indices, in the same way?}
+\lecturerresponse{Two upper indices supply two Jacobians of the same
+orientation,
+\(\partial y^m/\partial x^a\) and
+\(\partial y^m/\partial x^b\). They do not multiply to the identity, so
+the proposed sum does not have a tensor transformation law. A metric
+can first lower one of the indices, after which an upper--lower
+contraction is legal; without that additional tensor, the operation is
+not coordinate invariant. \lecturetimestamp{01:13:03}}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_23.png}
+\caption{The attempted same-variance contraction leaves two
+same-direction Jacobians and therefore does not collapse to an
+identity.}
+\lectureframe{01:14:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is contraction the tensor version of an inner
+product?}
+\lecturerresponse{A contraction pairs a vector slot with a covector
+slot and is the basic invariant pairing. With a metric, two vectors can
+be turned into such a pair, so the familiar inner product is a metric
+followed by contraction. \lecturetimestamp{01:14:43}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Must the two contracted indices run over the same
+range?}
+\lecturerresponse{Yes. They refer to dual bases of the same
+\(d\)-dimensional tangent space and cotangent space. Otherwise the
+summation and the inverse-Jacobian identity would not be defined.
+\lecturetimestamp{01:15:13}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does a tensor that vanishes in one frame vanish
+in every frame?}
+\lecturerresponse{Every transformed component is a linear combination
+of the original components. All those combinations vanish when every
+input component is zero. This simple linearity is what makes tensor
+equations coordinate independent. \lecturetimestamp{01:15:31}}
+\end{classroomqa}
+
+\section{The Metric from Squared Distance}
+
+Return now to geometry. For an infinitesimal displacement with
+components \(dx^m\), define its squared length by
+\begin{equation}
+ ds^2=g_{mn}(x)\,dx^m dx^n.
+\label{eq:line-element}
+\end{equation}
+This is the generalized Pythagorean theorem. The metric may vary from
+point to point, and off-diagonal terms record nonorthogonality of the
+coordinate directions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_24.png}
+\caption{The tensor-operation list gives way to the quadratic
+definition of the infinitesimal line element.}
+\lectureframe{01:18:45}
+\end{figure}
+
+Only the symmetric part contributes because
+\(dx^m dx^n=dx^n dx^m\). We may therefore take
+\begin{equation}
+ g_{mn}=g_{nm}.
+\label{eq:metric-symmetry}
+\end{equation}
+In \(d\) dimensions a symmetric metric has
+\begin{equation}
+ \frac{d(d+1)}{2}
+\label{eq:metric-component-count}
+\end{equation}
+independent components: ten in four dimensions, six in three, and
+three in two.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_25.png}
+\caption{The line element and the symmetric component array used to
+count the independent entries of the metric.}
+\lectureframe{01:21:35}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why are there ten independent metric components in
+four dimensions rather than sixteen?}
+\lecturerresponse{There are four diagonal entries and six unordered
+off-diagonal pairs. Equivalently,
+\(4(4+1)/2=10\). The antisymmetric part would multiply the symmetric
+product \(dx^m dx^n\) and cancel out. \lecturetimestamp{01:19:50}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How many independent components are there in three
+dimensions?}
+\lecturerresponse{Six: three diagonal entries and three off-diagonal
+pairs, or \(3(3+1)/2\). \lecturetimestamp{01:20:47}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{And in two dimensions?}
+\lecturerresponse{Three: \(g_{11}\), \(g_{22}\), and the single
+symmetric pair \(g_{12}=g_{21}\). \lecturetimestamp{01:22:28}}
+\end{classroomqa}
+
+\subsection{Why the metric is a tensor}
+
+Squared distance is a scalar. Writing the same displacement in two
+coordinate systems therefore gives
+\begin{equation}
+ g_{mn}(x)\,dx^m dx^n
+ =
+ g'_{pq}(y)\,dy^pdy^q.
+\label{eq:length-invariance}
+\end{equation}
+Use
+\begin{equation}
+ dx^m=\frac{\partial x^m}{\partial y^p}\,dy^p
+\end{equation}
+twice:
+\begin{align}
+ ds^2
+ &=
+ g_{mn}(x)
+ \frac{\partial x^m}{\partial y^p}
+ \frac{\partial x^n}{\partial y^q}
+ dy^pdy^q.
+\label{eq:metric-transform-derivation}
+\end{align}
+Comparison with the primed expression identifies
+\begin{equation}
+ g'_{pq}(y)
+ =
+ \frac{\partial x^m}{\partial y^p}
+ \frac{\partial x^n}{\partial y^q}
+ g_{mn}(x).
+\label{eq:metric-transformation}
+\end{equation}
+This is exactly the transformation law for a covariant rank-two
+tensor.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_26.png}
+\caption{Derivation of the metric transformation law from invariance
+of the scalar line element.}
+\lectureframe{01:26:25}
+\end{figure}
+
+The conclusion also explains the two lower indices. Each lower metric
+index pairs with one upper index carried by a displacement component.
+Under a coordinate change, the two inverse Jacobians in
+\eqref{eq:metric-transformation} cancel the two forward Jacobians of
+the differentials, leaving \(ds^2\) unchanged.
+
+\section{The Metric Matrix and Its Inverse}
+
+At a point, \(g_{mn}\) is a symmetric matrix:
+\begin{equation}
+ [g_{mn}]
+ =
+ \begin{pmatrix}
+ g_{11} & g_{12} & \cdots \\
+ g_{12} & g_{22} & \cdots \\
+ \vdots & \vdots & \ddots
+ \end{pmatrix}.
+\label{eq:metric-matrix}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_27.png}
+\caption{The metric displayed as a symmetric matrix after its tensor
+transformation law has been established.}
+\lectureframe{01:28:50}
+\end{figure}
+
+The metric is required to be nondegenerate: it has no zero eigenvalue
+and therefore possesses an inverse. Denote that inverse by \(g^{mn}\).
+In index notation,
+\begin{equation}
+ g_{mn}g^{np}=\delta_m{}^p.
+\label{eq:inverse-metric}
+\end{equation}
+The repeated \(n\) is summed, while \(m\) and \(p\) label the row and
+column of the product.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_28.png}
+\caption{The inverse metric introduced through
+\(g_{mn}g^{np}=\delta_m{}^p\).}
+\lectureframe{01:31:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Where do the vectors and tensors at a point actually
+live?}
+\lecturerresponse{Vectors at a point form its tangent space
+\(T_P M\); covectors form the dual space \(T_P^*M\). Higher tensors
+belong to tensor products of these spaces. A tensor field assigns such
+an object smoothly to every point. The metric is a bilinear form on the
+tangent space, and its inverse is the corresponding bilinear form on
+the cotangent space. \lecturetimestamp{01:34:15}}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_29.png}
+\caption{A vector drawn in the tangent space attached to a point of a
+curved manifold.}
+\lectureframe{01:35:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does
+\(g_{mn}g^{np}=\delta_m{}^p\) refer only to the case \(m=p\)?}
+\lecturerresponse{No. It is the complete matrix equation. For every
+ordered pair \((m,p)\), the summed product is one when \(m=p\) and zero
+when \(m\ne p\). All diagonal and off-diagonal equations are present
+simultaneously. \lecturetimestamp{01:36:50}}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_30.png}
+\caption{The inverse relation interpreted as the complete
+mixed-index identity matrix.}
+\lectureframe{01:38:50}
+\end{figure}
+
+In two dimensions this means
+\begin{equation}
+ \begin{pmatrix}
+ g_{11} & g_{12}\\
+ g_{12} & g_{22}
+ \end{pmatrix}
+ \begin{pmatrix}
+ g^{11} & g^{12}\\
+ g^{12} & g^{22}
+ \end{pmatrix}
+ =
+ \begin{pmatrix}
+ 1&0\\
+ 0&1
+ \end{pmatrix}.
+\label{eq:two-dimensional-inverse}
+\end{equation}
+For example,
+\begin{align}
+ g_{11}g^{11}+g_{12}g^{12}&=1,\\
+ g_{11}g^{12}+g_{12}g^{22}&=0.
+\end{align}
+The other row supplies the remaining two equations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{lecture_02_figure_31.png}
+\caption{The inverse-metric identity expanded as an explicit
+two-dimensional matrix product.}
+\lectureframe{01:40:00}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Must the metric be positive definite?}
+\lecturerresponse{For ordinary Riemannian geometry, positive
+definiteness makes every nonzero squared length positive. Spacetime
+uses a Lorentzian metric instead, with one sign opposite to the other
+three. What both cases require here is nondegeneracy, not positivity.
+\lecturetimestamp{01:42:18}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why exclude a zero eigenvalue?}
+\lecturerresponse{A zero eigenvalue makes the metric matrix singular,
+so \(g^{mn}\) does not exist and the metric cannot establish a
+one-to-one correspondence between vectors and covectors. A metric, in
+the usual differential-geometric sense, is required to be
+nondegenerate. \lecturetimestamp{01:43:56}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Do the ten independent components of a
+four-dimensional metric have anything to do with ten-dimensional
+string theory?}
+\lecturerresponse{No. The first ten is simply
+\(4(4+1)/2\), the number of entries in a symmetric four-by-four
+matrix. The appearance of ten spacetime dimensions in superstring
+theory has a different origin. \lecturetimestamp{01:44:32}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If Lorentzian spacetime has nonzero vectors of zero
+length, does that make the metric noninvertible?}
+\lecturerresponse{No. A null vector satisfies
+\(g_{mn}V^mV^n=0\), a cancellation within an indefinite quadratic
+form. It is not a zero-eigenvalue vector satisfying
+\(g_{mn}V^n=0\). For example, the Minkowski metric has eigenvalues
+\(\pm1\) and is perfectly invertible while still admitting lightlike
+vectors. \lecturetimestamp{01:45:02}}
+\end{classroomqa}
+
+\section{What Comes Next}
+
+We can now state the geometric program cleanly. The metric records
+infinitesimal distance, transforms covariantly, and has an inverse. Its
+components may look complicated merely because the coordinates are
+complicated. To decide whether the geometry itself is curved, we must
+compare the metric at neighboring points in a coordinate-independent
+way.
+
+Ordinary derivatives are not enough, because differentiating a tensor
+also differentiates the position-dependent Jacobians in its
+transformation law. The next step is therefore covariant
+differentiation. From derivatives of the metric one constructs a
+connection; from derivatives and products of that connection one
+constructs curvature. Only then will the curled-page question receive
+its final intrinsic answer.
