@@ -1,383 +1,1056 @@
-\chapter{Energy, Momentum, and Fields}
+\chapter{Energy, Momentum, and the Electromagnetic Field}
 
-This lecture begins explicitly with preliminaries. Susskind says the preliminaries are already in the notes, but he wants to talk through them before the main story starts. That choice matters. The sign convention for the electric field and the meaning of momentum have to be cleaned up first; otherwise the later discussion of field energy, field momentum, and the energy-momentum tensor would be obscured by avoidable confusion. Once those preliminaries are in place, the lecture makes a single continuous move: field theory is classical mechanics with infinitely many degrees of freedom, labeled by position, and from that point the Hamiltonian density, the momentum density, and finally the Poynting vector all fall into place.
+The final lecture begins with a repair and ends with the object that will
+stand on the right-hand side of Einstein's equation. The route is not a
+detour. A sign convention for the electric field must first be made
+explicit; three distinct meanings of momentum must then be separated.
+Only after those preliminaries can field theory be read as ordinary
+mechanics with one degree of freedom at every point in space. The
+Hamiltonian, local energy density, Noether momentum, electromagnetic
+energy, and Poynting vector then follow in one continuous argument.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.58\textwidth]{lecture_10_figure_01.png}
-\caption{Stanford University title card. It does no mathematical work, but it marks the documentary opening of the lecture.}
-\end{figure}
+\section{A Convention That Must Be Carried Consistently}
 
-\section{Repairing Conventions Before the Main Story}
+The preliminary notes were to be posted for the class, but the issue is
+important enough to settle aloud. Byron had noticed an inconsistency not
+within the course notation, but between that notation and the notation
+used almost everywhere else. This is an occupational hazard of deriving
+equations afresh: an internally consistent private convention can drift
+away from the public one.
 
-The lecture opens with a practical confession. A student had noticed that Susskind's notes were inconsistent with more standard conventions. Susskind's response is characteristic: he is not worried about whose sign is morally correct; he is worried about consistency. If one sticks to a convention all the way through, nothing goes wrong. Trouble begins only when different sign conventions are silently mixed.
-
-The issue is the definition of the electric field in terms of the vector potential. In Maxwell's convention,
-\begin{equation}
-(\vec E_M)_i=-\frac{\partial A_i}{\partial t}+\partial_i A_0.
-\end{equation}
-The board at this moment isolates only the time-derivative piece,
-\begin{equation}
-\vec E_M=-\frac{\partial \vec A}{\partial t},
-\end{equation}
-because the lecture is temporarily focusing on that term before verbally restoring the gradient of \(A_0\).
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_10_figure_02.png}
-\caption{Electric field from the time derivative of the vector potential. The chalked equation shows only the time-derivative term; the full \(+\partial_iA_0\) term is restored from the transcript.}
-\end{figure}
-
-Susskind's earlier convention is the opposite:
-\begin{equation}
-(\vec E_L)_i=+\frac{\partial A_i}{\partial t}-\partial_iA_0=-(\vec E_M)_i.
-\end{equation}
-The magnetic field, however, is the same in both notational systems:
-\begin{equation}
-\vec B=\nabla\times \vec A.
-\end{equation}
-
-The lecture then briefly propagates this sign flip through Maxwell's equations. The point is bookkeeping, not a new derivation. Schematically, in the Maxwell convention one has
+Write \(\mathbf E_M\) for the standard Maxwell--Franklin convention and
+\(\mathbf E_L\) for the convention used in the preceding lectures. With
+the course's covariant component \(A_0\), they are
 \begin{align}
-\nabla\times\vec E_M&=-\frac{\partial\vec B}{\partial t},
+\mathbf E_M
+  &= -\dot{\mathbf A}+\boldsymbol{\nabla}A_0,
 &
-\nabla\cdot\vec B&=0,
-\\
-\nabla\times\vec B&=\frac{\partial\vec E_M}{\partial t}+\vec J_F,
-&
-\nabla\cdot\vec E_M&=\rho_F,
+\mathbf E_L
+  &= +\dot{\mathbf A}-\boldsymbol{\nabla}A_0
+   =-\mathbf E_M .
+\label{eq:two-electric-conventions}
 \end{align}
-where the subscript \(F\) is only a reminder that the current and charge signs here follow the usual Franklin convention. If one flips the electric field and at the same time keeps track of Susskind's opposite current convention, the same equations are rewritten schematically as
+Many books instead introduce the scalar potential
+\(\Phi=-A_0\); then the first formula reads
+\(\mathbf E_M=-\dot{\mathbf A}-\boldsymbol{\nabla}\Phi\).
+The magnetic field does not change:
+\begin{equation}
+\mathbf B=\boldsymbol{\nabla}\times\mathbf A.
+\label{eq:B-from-A-opening}
+\end{equation}
+
+In rationalized units with \(c=1\), the standard Maxwell--Franklin
+equations are
 \begin{align}
-\nabla\times\vec E_L&=+\frac{\partial\vec B}{\partial t},
+\boldsymbol{\nabla}\times\mathbf E_M&=-\dot{\mathbf B},
 &
-\nabla\cdot\vec B&=0,
-\\
-\nabla\times\vec B&=-\frac{\partial\vec E_L}{\partial t}-\vec J_L,
+\boldsymbol{\nabla}\cdot\mathbf B&=0,
+\nonumber\\
+\boldsymbol{\nabla}\times\mathbf B&=\dot{\mathbf E}_M+\mathbf J_F,
 &
-\nabla\cdot\vec E_L&=\rho_L.
+\boldsymbol{\nabla}\cdot\mathbf E_M&=\rho_F .
+\label{eq:maxwell-franklin}
 \end{align}
-Nothing profound is hiding here. The lecture's point is simpler and more important: when we compare to a published formula or an experimental number, we must make sure that our electric field is normalized in the same way.
-
-\section{Three Different Meanings of Momentum}
-
-With the sign issue cleared, Susskind turns to a second preliminary. He slows down deliberately here. There are, he says, at least three concepts of momentum, and they are not three languages for the same thing. In simple examples they may agree numerically, but in general they do not.
-
-\paragraph{Mechanical momentum.}
-This is the familiar Newtonian notion:
+Benjamin Franklin's historical choice fixes the sign of charge: the
+electron is negative in this convention. The course convention also
+reverses the source labels,
 \begin{equation}
-P_m=m\dot X_m.
+\mathbf J_L=-\mathbf J_F,
+\qquad
+\rho_L=-\rho_F.
+\label{eq:source-convention-map}
 \end{equation}
-For a single particle it is just mass times velocity. For a composite system it is the total mass times the time derivative of the center-of-mass position.
+Substitution of
+\(\mathbf E_L=-\mathbf E_M\) therefore gives
+\begin{align}
+\boldsymbol{\nabla}\times\mathbf E_L&=+\dot{\mathbf B},
+&
+\boldsymbol{\nabla}\cdot\mathbf B&=0,
+\nonumber\\
+\boldsymbol{\nabla}\times\mathbf B&=-\dot{\mathbf E}_L-\mathbf J_L,
+&
+\boldsymbol{\nabla}\cdot\mathbf E_L&=\rho_L .
+\label{eq:maxwell-course-convention}
+\end{align}
 
-\paragraph{Canonical momentum.}
-Now the Lagrangian enters. The lecture writes, in effect,
-\begin{equation}
-L=L(q_i,\dot q_i),
-\end{equation}
-and then defines the momentum conjugate to the coordinate \(q_i\) by
-\begin{equation}
-p_i=\frac{\partial L}{\partial \dot q_i}.
-\end{equation}
-If the Lagrangian is of the familiar form \(\frac12 m\dot x^2-V(x)\), then canonical momentum and mechanical momentum coincide. But the lecture immediately warns us not to trust that coincidence too much.
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_10_figure_03.png}
-\caption{Canonical momentum as a derivative of the Lagrangian. The board layout is important: mechanical momentum, canonical momentum, and \(L(q_i,\dot q_i)\) are being distinguished before the definition is fully completed.}
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_01.png}
+\caption{The complete board comparison between the Maxwell--Franklin and
+course conventions.}
+\par\smallskip
+\textit{Lecture frame: 00:07:10.}
 \end{figure}
 
-A particle in a magnetic field provides the standard counterexample. Up to the sign and \(c\)-convention that Susskind himself treats cautiously in the lecture, the Lagrangian acquires a term of the form
+Nothing measurable depends on which dictionary is chosen. What matters
+is consistency, especially when a calculated field is compared with a
+published experimental value. The practical joke is that such direct
+numerical comparisons had arisen so rarely in the lecturer's own work
+that the opposite sign survived unnoticed until the class called
+attention to it. For the electromagnetic calculation later in this
+chapter we shall use the standard field
+\(\mathbf E\equiv\mathbf E_M\).
+
+\section{Three Different Quantities Called Momentum}
+
+The word \emph{momentum} now has to be unpacked. Mechanical momentum,
+canonical momentum, and Noether momentum can coincide in simple
+problems, but they are not three descriptions of one quantity. In a
+general system they can have different numerical values.
+
+\subsection{Mechanical momentum}
+
+For a body of total mass \(M\), mechanical momentum is
 \begin{equation}
-L=\frac12 m\dot x_i^2-e\,\dot x_iA_i.
+\mathbf P_{\mathrm{mech}}=M\dot{\mathbf X}_{\mathrm{cm}}.
+\label{eq:mechanical-momentum}
 \end{equation}
-Then the canonical momentum is shifted:
+For one particle, \(\mathbf X_{\mathrm{cm}}\) is simply its position.
+For a composite body, the center-of-mass qualification is essential.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_02.png}
+\caption{Mechanical momentum introduced as mass times the
+center-of-mass velocity.}
+\par\smallskip
+\textit{Lecture frame: 00:11:15.}
+\end{figure}
+
+\subsection{Canonical momentum}
+
+Suppose the mechanics is described by
+\(L(q_i,\dot q_i)\). The canonical momentum conjugate to \(q_i\) is
+\begin{equation}
+p_i=\frac{\partial L}{\partial\dot q_i}.
+\label{eq:canonical-momentum}
+\end{equation}
+For
+\begin{equation}
+L=\frac12 m\dot{\mathbf x}^{\,2}-V(\mathbf x),
+\label{eq:simple-particle-lagrangian}
+\end{equation}
+this gives \(\mathbf p=m\dot{\mathbf x}\), so canonical and mechanical
+momentum happen to agree.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_03.png}
+\caption{Mechanical and canonical momentum displayed beside the simple
+particle Lagrangian.}
+\par\smallskip
+\textit{Lecture frame: 00:13:40.}
+\end{figure}
+
+A charged particle in a magnetic field is the useful counterexample.
+With the sign convention written on the board,
+\begin{equation}
+L=\frac12m\dot{\mathbf x}^{\,2}-V(\mathbf x)
+  -e\,\dot{\mathbf x}\cdot\mathbf A(\mathbf x),
+\label{eq:magnetic-particle-lagrangian}
+\end{equation}
+and therefore
 \begin{equation}
 p_i=m\dot x_i-eA_i.
+\label{eq:magnetic-canonical-shift}
 \end{equation}
-So the canonical momentum is not, in general, the same thing as \(m\dot x_i\). In Hamiltonian mechanics, when one writes \(p_i\), one means the canonical momentum.
+Changing the convention for charge or for the interaction term changes
+the displayed sign, but not the lesson: the canonical momentum contains
+a vector-potential contribution and is not merely \(m\dot x_i\).
+Hamilton's equations use the canonical variable. One may later move the
+field-dependent term to the other side of an equation and recover a
+Newtonian-looking acceleration, but that rearrangement does not change
+the definition.
 
-\paragraph{Noether momentum.}
-The third notion is the conserved quantity associated with translation invariance. If a continuous symmetry acts as
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_04.png}
+\caption{The vector-potential term shifts canonical momentum away from
+mechanical momentum.}
+\par\smallskip
+\textit{Lecture frame: 00:15:50.}
+\end{figure}
+
+\subsection{Noether momentum}
+
+The third momentum is the conserved charge associated with spatial
+translation invariance. For an infinitesimal symmetry
 \begin{equation}
-q_i\to q_i+\delta q_i
+q_i\longrightarrow q_i+\delta q_i
 \end{equation}
-and leaves the Lagrangian unchanged, then Noether's theorem gives the conserved quantity
+that leaves the Lagrangian invariant, Noether's theorem gives, up to the
+normalization of the infinitesimal parameter,
 \begin{equation}
 Q=\sum_i p_i\,\delta q_i.
+\label{eq:noether-charge-mechanics}
 \end{equation}
-This is again called momentum when the symmetry is spatial translation. In the simple mechanical cases it often reduces to the total mechanical momentum, but the lecture is insistent: that is a special circumstance, not a definition.
+The \(p_i\) appearing here are canonical momenta. If the symmetry is a
+uniform translation and canonical momentum happens to equal mechanical
+momentum, \(Q\) reduces to the familiar total momentum. In a less simple
+system that coincidence must be proved, not assumed.
 
-\section{Canonical Momentum and Hamiltonian in the Simple Particle Example}
-
-Before passing to fields, Susskind puts the ordinary-mechanics notion of energy in the corner of the board. When the Lagrangian is invariant under time translations, the Hamiltonian is conserved. In general,
-\begin{equation}
-H=\sum_i p_i\dot q_i-L.
-\end{equation}
-He does not rederive that formula here. He simply uses it.
-
-Now he immediately says: let us work out the simplest case, just to remind ourselves. Take one coordinate \(x\) and the Lagrangian
-\begin{equation}
-L=\frac12 m\dot x^2-V(x).
-\end{equation}
-Then the canonical momentum is
-\begin{equation}
-p=\frac{\partial L}{\partial \dot x}=m\dot x.
-\end{equation}
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_10_figure_04.png}
-\caption{Particle Lagrangian for the one-coordinate example. This is the clean board reset before the Hamiltonian is reconstructed.}
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_05.png}
+\caption{The Noether charge assembled from canonical momenta and the
+infinitesimal changes of the coordinates.}
+\par\smallskip
+\textit{Lecture frame: 00:19:00.}
 \end{figure}
 
-From the definition of the Hamiltonian,
+\section{Energy as the Hamiltonian}
+
+Spatial translations lead to momentum; time translations lead to
+energy. If the Lagrangian has no explicit time dependence, the
+Hamiltonian
+\begin{equation}
+H=\sum_i p_i\dot q_i-L
+\label{eq:hamiltonian-definition}
+\end{equation}
+is conserved. This is the Legendre transform of the Lagrangian, not a
+rule about changing signs by inspection.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_06.png}
+\caption{The Hamiltonian written as the Legendre transform of a general
+Lagrangian.}
+\par\smallskip
+\textit{Lecture frame: 00:22:55.}
+\end{figure}
+
+For the one-particle example,
 \begin{align}
-H&=p\dot x-L \\
-&=m\dot x^2-\left(\frac12 m\dot x^2-V(x)\right) \\
-&=\frac12 m\dot x^2+V(x).
+p&=m\dot x,
+\nonumber\\
+H&=p\dot x-L
+  =m\dot x^2-\left(\frac12m\dot x^2-V(x)\right)
+  =\frac12m\dot x^2+V(x).
+\label{eq:particle-hamiltonian}
 \end{align}
-So in this familiar case the Hamiltonian is kinetic energy plus potential energy, while the Lagrangian is kinetic energy minus potential energy.
+Thus the Lagrangian is kinetic minus potential energy, whereas the
+Hamiltonian is kinetic plus potential energy.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_10_figure_05.png}
-\caption{From particle Lagrangian to positive-energy Hamiltonian. The frame is partially occluded, so it serves here as continuity evidence rather than as the sole source for the Hamiltonian formula.}
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_07.png}
+\caption{The particle calculation showing how
+\(H=T+V\) follows from \(H=p\dot x-L\).}
+\par\smallskip
+\textit{Lecture frame: 00:24:20.}
 \end{figure}
 
-The lecture extracts a useful practical rule from this warm-up. When the Lagrangian has the simple structure ``quadratic in velocities minus terms with no velocities,'' the Hamiltonian can be read off quickly: keep the quadratic velocity term and flip the sign of the term that does not depend on velocities. But Susskind immediately adds the important caution: this is only a shortcut. One should remember that the shortcut comes from the defining formula \(H=\sum_i p_i\dot q_i-L\).
+When every velocity dependence is a conventional positive quadratic
+kinetic term and the remainder contains no velocities, one can read off
+the Hamiltonian by reversing the sign of the nonvelocity part. That
+shortcut will be used repeatedly. It is safe only because the Legendre
+transform has this simple form in the examples at hand.
 
-This warm-up is not a digression. It supplies the template for the rest of the lecture. The field-theory Hamiltonian will be obtained by exactly the same move.
+\section{A Field Is a Mechanical System with Continuously Many Coordinates}
 
-\section{From Classical Mechanics to Field Theory}
-
-Now comes the real turn. Susskind says that field theory is a special case of classical mechanics, but that the connection is slightly obscured when we insist on writing everything in manifestly relativistic notation. So for the moment we do something less elegant and more illuminating: we pick a frame, pick a time variable, and separate time derivatives from space derivatives.
-
-In ordinary mechanics the action is
+To expose the mechanical structure of field theory, choose one inertial
+frame and temporarily stop insisting that every line display manifest
+Lorentz covariance. Classical mechanics has a time axis and coordinates
+\(q_i(t)\). A scalar field has a time axis and coordinates
+\(\phi(\mathbf x,t)\). The discrete label \(i\) has simply become the
+continuous label \(\mathbf x\):
 \begin{equation}
-A=\int dt\,L(q,\dot q).
+q_i(t)\quad\longrightarrow\quad\phi(\mathbf x,t).
+\label{eq:discrete-to-field}
 \end{equation}
-The degrees of freedom are the coordinates \(q_i(t)\). Field theory looks the same once we understand what replaces the discrete label \(i\). The replacement is a spatial label:
+The value of the field at each spatial point is one degree of freedom.
+Here \(\mathbf x\) labels which degree of freedom is meant; it is not
+itself the generalized coordinate.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_08.png}
+\caption{A spatial lattice used to display the field value at each point
+as a separate mechanical degree of freedom.}
+\par\smallskip
+\textit{Lecture frame: 00:30:15.}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why not write the field as
+\(\phi(\mathbf x,t)\) from the beginning?}
+\lecturerresponse{That is the complete notation. The temporary
+\(\phi(\mathbf x)\) suppresses the common time argument just as one
+often writes \(q_i\) while remembering that every \(q_i\) depends on
+time. The label \(i\), or now \(\mathbf x\), tells us which degree of
+freedom is under discussion. \lecturetimestamp{00:32:43}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Are the field values at neighboring points really
+independent coordinates? What imposes continuity?}
+\lecturerresponse{They are independent canonical coordinates. Smoothness
+is not imposed by identifying neighboring values; it is selected
+dynamically. The Hamiltonian contains a positive gradient-energy term,
+so a fixed jump over an ever smaller distance costs ever more energy.
+Finite-energy configurations are consequently smooth in the continuum
+limit. \lecturetimestamp{00:33:09}}
+\end{classroomqa}
+
+A spatial derivative makes the coupling between neighboring degrees of
+freedom explicit. On a lattice of spacing \(\epsilon\),
 \begin{equation}
-q_i(t)\longrightarrow \phi(x,t),
-\qquad
-\sum_i \longrightarrow \int d^3x.
+\partial_x\phi(x,t)
+  =\lim_{\epsilon\to0}
+   \frac{\phi(x+\epsilon,t)-\phi(x,t)}{\epsilon}.
+\label{eq:field-finite-difference}
 \end{equation}
-What is important here is that \(x\) is not the coordinate of the system in the mechanical sense. It is only a label, just as \(i\) was only a label. The degree of freedom is \(\phi(x,t)\), the value of the field at the point labeled by \(x\).
+It depends on two nearby coordinates, but it contains no generalized
+velocity. In the mechanical analogy it belongs to the coordinate
+dependence of the Lagrangian, not to the \(\dot q_i\) dependence.
 
-This is easiest to see if we imagine space temporarily discretized into a chain of points. Then the field values \(\phi_0,\phi_1,\phi_2,\dots\) really are just an infinite list of canonical coordinates. Passing from the discrete chain to a continuum changes the notation, but not the conceptual structure.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_09.png}
+\caption{The spatial derivative reconstructed as a neighboring-field
+difference on the lattice.}
+\par\smallskip
+\textit{Lecture frame: 00:31:40.}
+\end{figure}
 
-The action therefore becomes
-\begin{equation}
-A=\int dt\,L=\int dt\int d^3x\,\mathcal L.
-\end{equation}
-The ordinary Lagrangian \(L\) is the spatial integral of a Lagrangian density \(\mathcal L\).
-
-At this stage the lecture also insists on a second point. A field-theory Lagrangian depends not only on \(\phi\) and \(\dot\phi\) but also on spatial derivatives such as \(\partial_x\phi\). However, a spatial derivative is really just a nearby difference:
-\begin{equation}
-\partial_x\phi \sim \frac{\phi(x+\epsilon,t)-\phi(x,t)}{\epsilon}.
-\end{equation}
-So the spatial derivative does not introduce a new kind of dynamical variable analogous to a velocity. It is simply another way of packaging the dependence of the Lagrangian on neighboring field values. If we know all the field values, we know their differences as well. This is why Susskind wants time derivatives and space derivatives kept separate here rather than compressed into a single covariant notation.
-
-This viewpoint also makes locality transparent. The Lagrangian density at a point may depend on the field and its derivatives at that point, or equivalently on nearest-neighbor differences. It does not involve action at a distance. That local structure is the field-theory version of ordinary mechanics.
-
-\section{Scalar Field Hamiltonian and the Meaning of Potential Energy}
-
-With the dictionary in hand, the lecture says in effect: let us go for the Hamiltonian. To keep the calculation concrete, Susskind returns to the simplest field example, a single scalar field in one spatial dimension. The Lagrangian density is taken to be
-\begin{equation}
-\mathcal L=\frac12\dot\phi^2-\frac12\left(\frac{\partial\phi}{\partial x}\right)^2-V(\phi).
-\end{equation}
-If we wanted manifest relativistic elegance, we would combine the derivative terms into something like \(\frac12\partial_\mu\phi\,\partial^\mu\phi\). But the lecture deliberately does not do that now. The purpose is to see the mechanics analogy, and for that purpose time derivatives and space derivatives should remain visibly distinct.
-
-The conjugate momentum field is
-\begin{equation}
-\Pi_\phi=\frac{\partial\mathcal L}{\partial\dot\phi}=\dot\phi.
-\end{equation}
-There is a local reason this works so cleanly. Because the Lagrangian is the spatial integral of a local density, the particular \(\dot\phi(x)\) at one point appears only in the local term at that point. Differentiating the total Lagrangian with respect to \(\dot\phi(x)\) therefore throws away all other spatial terms and picks out exactly the contribution at \(x\).
-
-Now the Hamiltonian follows in the same way as in particle mechanics:
+The action can now be written in explicitly mechanical form:
 \begin{align}
-H&=\int dx\,\bigl[\Pi_\phi\dot\phi-\mathcal L\bigr] \\
-&=\int dx\left[\dot\phi^2-\left(\frac12\dot\phi^2-\frac12\left(\frac{\partial\phi}{\partial x}\right)^2-V(\phi)\right)\right] \\
-&=\int dx\left[\frac12\dot\phi^2+\frac12\left(\frac{\partial\phi}{\partial x}\right)^2+V(\phi)\right].
+S&=\int dt\,L,
+\nonumber\\
+L&=\int d^3x\,
+\mathcal L\!\left(
+\phi,\dot\phi,\boldsymbol{\nabla}\phi
+\right),
+\nonumber\\
+S&=\int dt\,d^3x\,
+\mathcal L\!\left(
+\phi,\dot\phi,\boldsymbol{\nabla}\phi
+\right).
+\label{eq:field-action-split}
 \end{align}
-This is precisely the same sign pattern as before: the Lagrangian contains kinetic-type terms with one sign and non-time-derivative terms with the other, while the Hamiltonian contains both with positive signs.
+The script letter \(\mathcal L\) is the Lagrangian density; integrating
+it over space gives the ordinary Lagrangian that is integrated over
+time. A local theory couples each point only through fields and their
+derivatives at that point. Splitting time from space hides Lorentz
+covariance for a moment, but makes the mechanics transparent.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.84\textwidth]{lecture_10_figure_06.png}
-\caption{Scalar-field Hamiltonian with positive potential term. The stacked board layout records the mechanics-to-field-theory analogy on a single board: Lagrangian density at the top, conjugate momentum at left, and Hamiltonian below.}
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_10.png}
+\caption{The field action separated into a time integral and a spatial
+integral of the Lagrangian density.}
+\par\smallskip
+\textit{Lecture frame: 00:36:40.}
 \end{figure}
 
-This is the point where Susskind corrects a spoken slip that is worth preserving. When the lower Hamiltonian line is read off, the lecture momentarily says \(V(x)\); the board and the surrounding discussion make clear that the intended term is \(V(\phi)\). More importantly, the lecture also sharpens the meaning of potential energy in field theory. It is slightly misleading to say that only \(V(\phi)\) is the potential energy. In the Hamiltonian,
-\begin{equation}
-\frac12\left(\frac{\partial\phi}{\partial x}\right)^2+V(\phi)
-\end{equation}
-is the whole non-kinetic part. In other words, everything that does not contain time derivatives plays the potential-energy role.
+\section{Canonical Field Momentum and Hamiltonian Density}
 
-The lecture then reopens an ordinary-mechanics question in field-theory language: what plays the role of Newton's law? The answer is the field equation obtained from the Euler-Lagrange equations,
+The velocity of a field coordinate is \(\dot\phi(\mathbf x,t)\): the
+rate at which the field changes in time at one fixed point. It is not
+motion from one spatial point to another. The canonical momentum
+conjugate to the field is therefore itself a field,
 \begin{equation}
-\frac{\partial^2\phi}{\partial t^2}-\frac{\partial^2\phi}{\partial x^2}
-=-\frac{dV}{d\phi}.
+\Pi(\mathbf x,t)
+ =\frac{\partial\mathcal L}{\partial\dot\phi(\mathbf x,t)}.
+\label{eq:field-canonical-momentum}
 \end{equation}
-This is the field-theory analogue of the equation of motion. Historically one often started from experimentally known equations of motion and then constructed an action. Modern field theory often proceeds in the opposite direction: guided by symmetry and locality, one guesses a Lagrangian and lets the field equations emerge from it.
+For several fields \(\phi_a\), there is one momentum field \(\Pi_a\)
+for each.
 
-A second point is now clear. The Hamiltonian density has positive derivative terms:
+The discrete sum in the Legendre transform becomes a spatial integral:
+\begin{align}
+H
+ &=\int d^3x\,
+   \left[\Pi\dot\phi-\mathcal L\right]
+  =\int d^3x\,\mathcal H,
+\nonumber\\
+\mathcal H
+ &=\Pi\dot\phi-\mathcal L .
+\label{eq:field-hamiltonian-density}
+\end{align}
+The quantity inside the integral is the energy density.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_11.png}
+\caption{The field Legendre transform and its interpretation as an
+integral of local energy density.}
+\par\smallskip
+\textit{Lecture frame: 00:42:40.}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why may the derivative of the total Lagrangian with
+respect to \(\dot\phi\) at one point be replaced by a derivative of the
+local density there?}
+\lecturerresponse{Think of the spatial integral as a continuum sum.
+Under the locality assumption used here, the velocity
+\(\dot\phi(\mathbf x)\) appears only in the term belonging to that same
+point. Differentiation with respect to that particular velocity removes
+all the other terms. Spatial derivatives may couple neighboring field
+values, but they do not introduce neighboring time derivatives in this
+theory. \lecturetimestamp{00:51:56}}
+\end{classroomqa}
+
+\subsection{The scalar field}
+
+In one spatial dimension, take
 \begin{equation}
-\frac12\dot\phi^2+\frac12\left(\frac{\partial\phi}{\partial x}\right)^2.
+\mathcal L
+ =\frac12\dot\phi^2
+  -\frac12(\partial_x\phi)^2
+  -V(\phi).
+\label{eq:scalar-field-lagrangian}
 \end{equation}
-So the energy is naturally nonnegative, up to the behavior of \(V(\phi)\). If \(V(\phi)\) is bounded from below, one may add a constant and assume it is nonnegative as well. If it is unbounded from below, the theory is unstable. The vacuum then corresponds to a constant field, sitting at a minimum of the potential terms.
-
-\subsection{Question \& Answer}
-
-The lecture now answers a question that had been asked earlier, at exactly the right moment. If the values of \(\phi(x)\) at different points are independent degrees of freedom, what forces the field to vary smoothly? Why should it not be wildly jagged from point to point?
-
-The answer is energetic, not kinematic. A spatial derivative is a difference divided by a separation:
+This is the noncovariant display of the Lorentz scalar used earlier:
+the relative minus sign between temporal and spatial derivatives comes
+from the Minkowski metric. The canonical momentum is
 \begin{equation}
-\partial_x\phi \sim \frac{\phi(x+\epsilon)-\phi(x)}{\epsilon}.
+\Pi=\dot\phi,
+\label{eq:scalar-pi}
 \end{equation}
-If the field changes abruptly while \(\epsilon\) becomes small, then \(|\partial_x\phi|\) becomes large. But the Hamiltonian density contains the positive term
+and the Hamiltonian becomes
 \begin{equation}
-\frac12\left(\frac{\partial\phi}{\partial x}\right)^2.
+H=\int dx\,
+\left[
+\frac12\dot\phi^2
++\frac12(\partial_x\phi)^2
++V(\phi)
+\right].
+\label{eq:scalar-field-hamiltonian}
 \end{equation}
-So a jagged field configuration carries a large energy density. If we demand finite-energy configurations, we are forced toward finite derivatives, and that is what makes the field smooth. The continuity is not imposed by hand at the level of degrees of freedom; it is enforced by the energetics of the theory.
+During the calculation the potential was momentarily called \(V(x)\);
+the class corrected it to \(V(\phi)\). It may depend on position
+indirectly through the field, but in the translation-invariant theory it
+has no prescribed external \(x\)-dependence.
 
-\section{Energy Density, Momentum Density, and Tensor Language}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_12.png}
+\caption{Scalar Lagrangian density, conjugate momentum, and positive
+Hamiltonian assembled on one board.}
+\par\smallskip
+\textit{Lecture frame: 00:47:05.}
+\end{figure}
 
-Once the Hamiltonian has been written as an integral over space, the lecture gives the integrand a new name. The energy of the field is an integral of an energy density, and that density is denoted
+The whole part without time derivatives plays the role of potential
+energy. That includes both \(V(\phi)\) and the gradient energy
+\(\frac12(\partial_x\phi)^2\). The Lagrangian can have either sign; a
+stable energy should be bounded below.
+
+\begin{classroomqa}
+\audiencequestion{May the potential \(V(\phi)\) be negative?}
+\lecturerresponse{Yes. If it has a finite lower bound, a constant may be
+added so that its minimum is zero without changing the classical field
+equation. A potential unbounded below describes an instability: the
+field can lower its energy without limit. The stable vacuum is a
+constant field sitting at a minimum of the shifted potential.
+\lecturetimestamp{00:49:03}}
+\end{classroomqa}
+
+The earlier continuity question is now answered quantitatively. A jump
+\(\Delta\phi\) across a lattice spacing \(\epsilon\) contributes
 \begin{equation}
-T^{00}.
+\frac12(\partial_x\phi)^2
+\sim\frac12\left(\frac{\Delta\phi}{\epsilon}\right)^2.
+\label{eq:gradient-cost}
 \end{equation}
-For the scalar field,
+As \(\epsilon\to0\), a fixed jump gives an arbitrarily large energy
+density. Finite energy therefore suppresses jagged configurations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_13.png}
+\caption{The scalar energy formula retained while the board sketch
+contrasts a smooth field with a sharp variation.}
+\par\smallskip
+\textit{Lecture frame: 00:54:20.}
+\end{figure}
+
+\section{Local Energy and the Meaning of \texorpdfstring{\(T^{00}\)}{T00}}
+
+The energy density receives a compact name:
 \begin{equation}
-T^{00}=\Pi_\phi\dot\phi-\mathcal L
-=\frac12\dot\phi^2+\frac12\left(\frac{\partial\phi}{\partial x}\right)^2+V(\phi).
+T^{00}=\mathcal H=\Pi\dot\phi-\mathcal L.
+\label{eq:T00-definition}
+\end{equation}
+The two zero indices encode two separate statements. Energy is the
+time component \(P^0\) of the energy--momentum four-vector, while a
+density is the time component of a conserved current. Thus \(T^{00}\)
+is the density of the time component of four-momentum.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_14.png}
+\caption{The field energy written locally and identified with
+\(T^{00}\).}
+\par\smallskip
+\textit{Lecture frame: 01:00:00.}
+\end{figure}
+
+Conservation in a relativistic local theory is not merely a statement
+that one global number remains unchanged. Energy cannot disappear in
+the laboratory and reappear at Alpha Centauri. A change inside a region
+must be explained by a flux through its boundary. In local form,
+\begin{equation}
+\partial_\mu T^{\mu\nu}=0,
+\label{eq:stress-energy-continuity}
+\end{equation}
+so the first index labels density or flux direction, and the second
+labels which component \(P^\nu\) is being transported.
+
+\begin{classroomqa}
+\audiencequestion{Does calling \(T^{00}\) a density mean that the total
+energy is obtained by integrating it?}
+\lecturerresponse{Exactly:
+\(E=P^0=\int d^3x\,T^{00}\). The local density is the integrand in the
+field Legendre transform. Its variation at one place is balanced by an
+energy current through neighboring places. \lecturetimestamp{00:59:06}}
+\end{classroomqa}
+
+\section{Momentum Density from Spatial Translations}
+
+Return to Noether's formula, now replacing the discrete sum by a spatial
+integral. Under a small translation in the \(m\)-direction, the field
+changes by
+\begin{equation}
+\delta\phi
+  =\phi(\mathbf x)-\phi(\mathbf x-\boldsymbol{\epsilon})
+  =\epsilon^m\partial_m\phi+O(\epsilon^2),
+\label{eq:translated-field-change}
+\end{equation}
+for the passive convention used on the board. Reversing active and
+passive translations reverses the overall sign; the physical generator
+is fixed once that convention is chosen. Factoring out
+\(\epsilon^m\), the Noether momentum has the structure
+\begin{equation}
+P_m\ \propto\ \int d^3x\,\Pi\,\partial_m\phi.
+\label{eq:scalar-noether-momentum}
 \end{equation}
 
-Susskind pauses here because the double zero is not arbitrary. One zero refers to energy being the time component of the energy-momentum four-vector. The other refers to density: in a local conservation law, density is itself the time component of a current. The lecture insists on locality at this point. Conserved quantities do not disappear here and reappear at Alpha Centauri. They change locally, through flux through the boundary of a region. That is why densities and currents must appear.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_15.png}
+\caption{A translated field profile and the derivative that measures
+its infinitesimal change.}
+\par\smallskip
+\textit{Lecture frame: 01:04:20.}
+\end{figure}
 
-Momentum density is treated in the same spirit, but now the momentum in question is the Noether momentum associated with spatial translations, not canonical momentum. For a small translation of the coordinate grid by an amount \(\delta a\), the field changes by
-\begin{equation}
-\delta\phi(x)=\phi(x)-\phi(x-\delta a)\approx \delta a\,\partial_x\phi.
-\end{equation}
-Up to the translation parameter, which is conventionally divided out in the final definition, Noether's theorem gives
-\begin{equation}
-P=\int dx\,\Pi_\phi\,\delta\phi.
-\end{equation}
-Hence the density of the \(m\)-th component of momentum is
-\begin{equation}
-T^{0m}=\Pi_\phi\,\partial_m\phi.
-\end{equation}
-In one spatial dimension this reads
-\begin{equation}
-T^{0x}=\dot\phi\,\partial_x\phi.
-\end{equation}
+\begin{classroomqa}
+\audiencequestion{Why was the infinitesimal translation
+\(\epsilon\) not kept in the momentum formula?}
+\lecturerresponse{The Noether charge is first obtained proportional to
+\(\epsilon\). Momentum is defined as the coefficient of that arbitrary
+translation parameter, so \(\epsilon\) is divided out. Multiplying a
+conserved quantity by a fixed constant would not affect conservation,
+but extracting the coefficient gives the standard normalization.
+\lecturetimestamp{01:04:45}}
+\end{classroomqa}
 
-This is an important moment in the lecture. The quantity \(T^{0m}\) is not merely a compact notation for a conserved integral; it is a local density. The second index tells us which component of energy-momentum is being discussed. The first index tells us whether we are looking at a density or a flux. In this lecture the full tensor structure is not derived, but its meaning is sketched. Holding the second index fixed and varying the first index tells us how a given component of energy-momentum is stored and transported.
+\begin{classroomqa}
+\audiencequestion{Does the translation interval become the \(dx\) in
+the continuum integral?}
+\lecturerresponse{They arise from different limits. The measure \(dx\)
+comes from replacing the sum over spatially labeled degrees of freedom
+by an integral. The translation parameter \(\epsilon\) describes the
+symmetry operation and is factored out of its Noether charge. Both are
+infinitesimal in intermediate reasoning, but they play different roles.
+\lecturetimestamp{01:05:16}}
+\end{classroomqa}
 
-The lecture then states, without proof, that the energy-momentum tensor is symmetric:
+In the notation of the lecture, the density of the \(m\)-component of
+momentum is
 \begin{equation}
-T^{0m}=T^{m0}.
+T^{0m}=\Pi\,\partial_m\phi,
+\label{eq:scalar-momentum-density}
 \end{equation}
-That statement will later imply that the density of momentum equals the flux of energy. For now it functions as a signpost rather than as a theorem proved in detail.
+with the understood translation-sign convention. For the scalar theory
+\(\Pi=\dot\phi\), so it is proportional to
+\(\dot\phi\,\partial_m\phi\).
 
-One further caution survives from the spoken discussion. Translation invariance must be understood as a symmetry of the whole physical system. If the theory contains fields and particles, we do not translate only the fields and leave the particles behind. One translates everything. The conserved momentum is therefore the combined momentum of fields and matter.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_16.png}
+\caption{The Noether momentum density
+\(T^{0m}=\Pi\,\partial_m\phi\) on the board.}
+\par\smallskip
+\textit{Lecture frame: 01:07:10.}
+\end{figure}
 
-\section{Gauge Fixing, Electromagnetism, and the Poynting Vector}
+This is literal momentum carried by a wave. Translation invariance
+applies only when everything is translated: fields, particles, sources,
+and apparatus. A light pulse absorbed by a freely suspended board gives
+the board a recoil. Ordinary light makes the effect tiny; a sufficiently
+powerful laser can transfer enough momentum to compress a small target.
+The conserved total belongs to particles and fields together.
 
-At this stage the lecture explicitly chooses a direction. Rather than pursue the general flux formulas in the abstract, Susskind says it is more important to apply the whole framework to the electromagnetic field. This is where the general formalism becomes tangible.
+\subsection{What replaces Newton's equation?}
 
-The dynamical fields are the components of the vector potential \(A_\mu\). But \(A_\mu\) is not unique. Gauge transformations
+The field Euler--Lagrange equation derived from
+Eq.~\eqref{eq:scalar-field-lagrangian} is
 \begin{equation}
-A_\mu\to A_\mu+\partial_\mu S
+\ddot\phi-\nabla^2\phi=-\frac{dV}{d\phi}.
+\label{eq:scalar-equation-of-motion}
 \end{equation}
-do not change the physics. One can use that freedom to simplify the description. In particular, one may choose \(S\) so that the time component of the vector potential vanishes:
-\begin{equation}
-A_0=0.
-\end{equation}
-This is the gauge-fixing step. Once it is made, the degrees of freedom are simply the three spatial components \(A_m(x,t)\).
+It is the field-theory analogue of Newton's law.
 
-The electric and magnetic fields are then read from the vector potential. In Maxwell's convention the general relation is
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_17.png}
+\caption{The scalar field equation displayed beside its Hamiltonian and
+momentum density.}
+\par\smallskip
+\textit{Lecture frame: 01:12:55.}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What corresponds to Newton's law for a field?}
+\lecturerresponse{The Euler--Lagrange field equation does. Here it is a
+wave equation with the force term \(-V'(\phi)\). The role of
+\(m\ddot x=-V'(x)\) is played by
+\(\ddot\phi-\nabla^2\phi=-V'(\phi)\).
+\lecturetimestamp{01:11:48}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How do we know that a proposed field Lagrangian is
+correct? Must we already know the field equation?}
+\lecturerresponse{Either direction is possible. Historically one may
+infer equations from experiment and then seek an action, as happened
+with Newton and Maxwell. In modern theory one often starts from the
+field content, locality, symmetry, and a small set of admissible terms,
+derives the equations, and tests their predictions. The displayed
+scalar could describe a fundamental field, but it could equally describe
+the transverse displacement of a rope whose continuum action is derived
+from its constituent particles. \lecturetimestamp{01:12:55}}
+\end{classroomqa}
+
+\section{The Electromagnetic Field in Temporal Gauge}
+
+The components already found,
+\(T^{00}\) and \(T^{0m}\), belong to the energy--momentum tensor. Its
+remaining components describe energy and momentum flux. This tensor
+will later source gravity, but electromagnetism provides the immediate
+example.
+
+The basic electromagnetic coordinate is the four-potential \(A_\mu\).
+Gauge freedom allows
 \begin{equation}
-(\vec E_M)_i=-\frac{\partial A_i}{\partial t}+\partial_iA_0,
+A_\mu\longrightarrow A'_\mu=A_\mu+\partial_\mu S
+\label{eq:gauge-transformation-lecture10}
 \end{equation}
-while the magnetic field is
+without changing \(F_{\mu\nu}\). Choose \(S\) to satisfy
 \begin{equation}
-\vec B=\nabla\times\vec A.
+\partial_tS=-A_0.
+\label{eq:temporal-gauge-choice}
 \end{equation}
-After the gauge choice \(A_0=0\), these simplify to
+For example, one may integrate \(A_0\) in time at each fixed spatial
+point. The transformed time component then vanishes:
 \begin{equation}
-E_m=-\frac{\partial A_m}{\partial t},
+A'_0=A_0+\partial_tS=0.
+\label{eq:temporal-gauge}
+\end{equation}
+This is temporal gauge. It removes \(A_0\) from the list of dynamical
+coordinates, although Gauss's law remains as a constraint and a
+time-independent residual gauge freedom remains.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_18.png}
+\caption{Gauge freedom used to choose \(A_0=0\) by solving
+\(\partial_tS=-A_0\).}
+\par\smallskip
+\textit{Lecture frame: 01:20:15.}
+\end{figure}
+
+From this point onward let \(\mathbf E\) denote the standard Maxwell
+field. Before gauge fixing,
+\begin{equation}
+E_m=-\partial_tA_m+\partial_mA_0,
 \qquad
-\vec B=\nabla\times\vec A.
+\mathbf B=\boldsymbol{\nabla}\times\mathbf A.
+\label{eq:E-B-general-potential}
 \end{equation}
-So the electric field comes from time derivatives of the basic field \(A_m\), and the magnetic field comes from space derivatives. This is exactly the same pattern we just saw in the scalar example.
-
-The electromagnetic Lagrangian density is presented in the separated form
+In temporal gauge these reduce to
 \begin{equation}
-\mathcal L_{\mathrm{EM}}=\frac12E^2-\frac12B^2.
-\end{equation}
-Only afterward does the lecture mention the compact covariant shorthand
-\begin{equation}
-\mathcal L_{\mathrm{EM}}=-\frac14F_{\mu\nu}F^{\mu\nu}.
-\end{equation}
-For the present discussion the separated form is the useful one. It makes the analogy with
-\(\frac12\dot\phi^2-\frac12(\partial_x\phi)^2\) completely visible.
-
-Now each spatial component \(A_x,A_y,A_z\) is a field of its own, so each has a canonical momentum. The conjugate momentum is
-\begin{equation}
-\Pi_m=\frac{\partial\mathcal L}{\partial \dot A_m}=\dot A_m=-E_m.
-\end{equation}
-Here the sign is convention-sensitive, and the lecture openly wobbles over it. Susskind even remarks later that he has always liked the opposite sign convention because it would make the electric field itself look like the canonical momentum conjugate to \(A_m\). In the Maxwell convention used for the later electromagnetic formulas, however, the relation is \(\Pi_m=-E_m\).
-
-The Hamiltonian now needs almost no work. Once we see the Lagrangian as kinetic energy minus the part with no time derivatives, the answer can be read off:
-\begin{equation}
-\mathcal H_{\mathrm{EM}}=\frac12E^2+\frac12B^2.
-\end{equation}
-This is the electromagnetic energy density. As in the scalar case, the Lagrangian need not be positive, but the energy is. In a free electromagnetic wave,
-\begin{equation}
-E\perp B,
+\mathbf E=-\dot{\mathbf A},
 \qquad
-|E|=|B|,
+\mathbf B=\boldsymbol{\nabla}\times\mathbf A.
+\label{eq:E-B-temporal-gauge}
 \end{equation}
-so the electric and magnetic contributions to the energy density are equal.
+Time derivatives of \(\mathbf A\) produce the electric field; spatial
+derivatives produce the magnetic field.
 
-The next question is momentum density. By Noether's theorem the structure must parallel the scalar case. The lecture writes, up to the sign that it temporarily loses,
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_19.png}
+\caption{The electric and magnetic fields in temporal gauge:
+\(\mathbf E=-\dot{\mathbf A}\) and
+\(\mathbf B=\nabla\times\mathbf A\).}
+\par\smallskip
+\textit{Lecture frame: 01:23:50.}
+\end{figure}
+
+\section{Electromagnetic Canonical Momentum and Energy}
+
+The free Maxwell Lagrangian density is
 \begin{equation}
-\mathcal P_n\sim \Pi_m\,\partial_n A_m.
+\mathcal L_{\mathrm{EM}}
+ =-\frac14F_{\mu\nu}F^{\mu\nu}
+ =\frac12\left(\mathbf E^2-\mathbf B^2\right).
+\label{eq:maxwell-lagrangian-energy-lecture}
 \end{equation}
-Using \(\Pi_m=-E_m\), this becomes an expression involving \(E_m\partial_nA_m\). That is not yet written in terms of the magnetic field, so Susskind performs the standard trick: add and subtract the term needed to complete the curl, then integrate by parts. The auxiliary term satisfies
+In temporal gauge,
 \begin{equation}
-\int d^3x\,E_m\,\partial_mA_n
-=
--\int d^3x\,(\partial_mE_m)A_n,
+\mathcal L_{\mathrm{EM}}
+ =\frac12\dot{\mathbf A}^{\,2}
+  -\frac12(\boldsymbol{\nabla}\times\mathbf A)^2.
+\label{eq:maxwell-lagrangian-temporal}
 \end{equation}
-provided the fields vanish sufficiently rapidly at spatial infinity so that boundary terms can be discarded. For a free electromagnetic field,
+It has precisely the scalar-field pattern: squares of time derivatives
+minus squares of spatial derivatives.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_20.png}
+\caption{The Maxwell Lagrangian rewritten as a mechanical field
+Lagrangian for the spatial components of \(\mathbf A\).}
+\par\smallskip
+\textit{Lecture frame: 01:28:10.}
+\end{figure}
+
+Each component \(A_m\) has a canonical momentum,
 \begin{equation}
-\nabla\cdot\vec E=0,
+\Pi_m
+ =\frac{\partial\mathcal L_{\mathrm{EM}}}
+        {\partial\dot A_m}
+ =\dot A_m
+ =-E_m.
+\label{eq:em-canonical-momentum}
 \end{equation}
-so the added term makes no contribution. What remains is the standard free-field expression
+This is a concrete example of why a convention matters. In the earlier
+opposite electric-field convention the final displayed sign would
+change, although the canonical derivative itself would not.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_21.png}
+\caption{The three canonical momentum fields associated with
+\(A_x,A_y,A_z\), each equal to the corresponding time derivative and
+therefore to minus the standard electric field.}
+\par\smallskip
+\textit{Lecture frame: 01:30:20.}
+\end{figure}
+
+The Hamiltonian shortcut is now justified: reverse the sign of the
+non-time-derivative term. The electromagnetic energy density is
 \begin{equation}
-\vec{\mathcal P}=\vec E\times\vec B.
+T^{00}_{\mathrm{EM}}
+ =\mathcal H_{\mathrm{EM}}
+ =\frac12\left(\mathbf E^2+\mathbf B^2\right),
+\label{eq:em-energy-density}
 \end{equation}
-This is the momentum density of the electromagnetic field.
-
-The lecture then turns from formula to meaning. A pulse of light transfers momentum. If it reflects from a freely suspended object, the object recoils; if it is absorbed, the object absorbs the light's momentum. Ordinary light is feeble in this respect, but the principle is the same. In a plane wave both \(\vec E\) and \(\vec B\) oscillate and even reverse sign, but they reverse sign together, so the cross product \(\vec E\times\vec B\) keeps a fixed direction. That direction is the direction of propagation of the wave.
-
-Now the tensor language from the previous section returns and becomes physically sharp. Because the energy-momentum tensor is taken to be symmetric in this lecture, the density of momentum and the flux of energy along the same axis are equal:
+and
 \begin{equation}
-T^{0m}=T^{m0}.
+H_{\mathrm{EM}}
+ =\int d^3x\,
+\frac12\left(\mathbf E^2+\mathbf B^2\right).
+\label{eq:em-total-energy}
 \end{equation}
-The quantity \(\vec E\times\vec B\), the Poynting vector, therefore has two meanings at once. It is the density of electromagnetic momentum, and it is also the flow of electromagnetic energy, that is, power per unit area.
+Unlike the Lagrangian density, the energy density is nonnegative.
 
-The lecture closes with one more conceptual remark. Are the electric and magnetic fields more fundamental, or is the vector potential more fundamental? The formalism suggests that the vector potential is more basic, because the theory is built from it. But the vector potential is gauge-dependent and therefore not directly measurable. So the lecture does not force a verdict. It ends instead on the more durable lesson: gauge freedom is not an accident or an embarrassment. It is part of the structure of the theory.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_22.png}
+\caption{The positive electromagnetic Hamiltonian density
+\(\frac12(\mathbf E^2+\mathbf B^2)\).}
+\par\smallskip
+\textit{Lecture frame: 01:32:00.}
+\end{figure}
 
-\section{Summary}
-
-This lecture starts with preliminaries and ends with a structural object. First the sign convention for the electric field is repaired. Then mechanical momentum, canonical momentum, and Noether momentum are carefully separated. With that notation cleaned up, field theory is recast as classical mechanics with infinitely many degrees of freedom labeled by position. The scalar-field example then shows how the Hamiltonian is obtained, why the non-time-derivative terms play the role of potential energy, and why finite energy forces fields to be smooth. From there the local densities \(T^{00}\) and \(T^{0m}\) appear naturally. Finally, after fixing the gauge \(A_0=0\), the same machinery is applied to electromagnetism, leading to
+For a plane wave in vacuum, \(\mathbf E\perp\mathbf B\), the two fields
+are in phase, and in \(c=1\) units they have equal magnitude. Electric
+and magnetic contributions therefore divide the wave energy equally:
 \begin{equation}
-\mathcal H_{\mathrm{EM}}=\frac12E^2+\frac12B^2,
+u_E=\frac12\mathbf E^2,
 \qquad
-\vec{\mathcal P}=\vec E\times\vec B.
+u_B=\frac12\mathbf B^2,
+\qquad
+u_E=u_B.
+\label{eq:plane-wave-energy-halves}
 \end{equation}
-What looks at first like cleanup turns out to be the whole architecture: classical mechanics, field theory, Noether's theorem, and electrodynamics are all being organized by the same action principle, and the energy-momentum tensor is waiting at the end as the bridge to general relativity.
+
+\section{Deriving Electromagnetic Momentum}
+
+Noether's translation formula must now be summed over the three fields
+\(A_m\). With the translation sign chosen so that the physical momentum
+points along wave propagation, the \(n\)-component is
+\begin{equation}
+P_n
+ =\int d^3x\,E_m\,\partial_nA_m,
+\label{eq:em-canonical-noether-momentum}
+\end{equation}
+where \(m\) is summed. The lecture deliberately pauses over the sign:
+it depends on the earlier electric-field and active/passive translation
+choices. The gauge-invariant physical result will fix it.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_23.png}
+\caption{The scalar-field Noether formula promoted to the three
+components of the vector potential.}
+\par\smallskip
+\textit{Lecture frame: 01:36:40.}
+\end{figure}
+
+The integrand still contains the gauge potential rather than only the
+physical fields. Insert and subtract
+\(E_m\partial_mA_n\):
+\begin{align}
+E_m\partial_nA_m
+ &=
+ E_m\left(\partial_nA_m-\partial_mA_n\right)
+ +E_m\partial_mA_n.
+\label{eq:add-subtract-em-momentum}
+\end{align}
+The first term is a cross product,
+\begin{equation}
+E_m\left(\partial_nA_m-\partial_mA_n\right)
+  =(\mathbf E\times\mathbf B)_n.
+\label{eq:cross-product-component}
+\end{equation}
+The second term integrates by parts:
+\begin{align}
+\int d^3x\,E_m\partial_mA_n
+ &=
+\int_{\partial V}d\Sigma_m\,E_mA_n
+-\int d^3x\,A_n\partial_mE_m.
+\label{eq:em-momentum-integration-parts}
+\end{align}
+If the fields fall off so that the boundary term vanishes, and if the
+region is source free so that
+\(\boldsymbol{\nabla}\cdot\mathbf E=0\), the second term contributes
+nothing.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_24.png}
+\caption{The added term transferred by integration by parts to
+\(\nabla\cdot\mathbf E\).}
+\par\smallskip
+\textit{Lecture frame: 01:40:00.}
+\end{figure}
+
+The total field momentum is therefore
+\begin{equation}
+\mathbf P_{\mathrm{EM}}
+ =\int d^3x\,\mathbf E\times\mathbf B,
+\qquad
+\mathbf g_{\mathrm{EM}}
+ =\mathbf E\times\mathbf B,
+\label{eq:em-momentum-density}
+\end{equation}
+in the units of the lecture. The vector
+\(\mathbf g_{\mathrm{EM}}\) is the electromagnetic momentum density.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_25.png}
+\caption{The gauge-potential expression reduced to the
+gauge-invariant momentum \(\int d^3x\,\mathbf E\times\mathbf B\).}
+\par\smallskip
+\textit{Lecture frame: 01:41:10.}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Where was
+\(\boldsymbol{\nabla}\cdot\mathbf E=0\) used, and what if charges are
+present?}
+\lecturerresponse{It removes the volume term after integration by
+parts, so the displayed field-only derivation applies to a free
+electromagnetic wave. With charge present, that term is not zero and
+the momentum of the charged matter must be included. Translation
+invariance and momentum conservation concern the complete
+matter--field system. \lecturetimestamp{01:41:55}}
+\end{classroomqa}
+
+\subsection{Direction of wave momentum}
+
+In a plane wave, \(\mathbf E\), \(\mathbf B\), and the propagation
+direction form a right-handed triad. Half a wavelength later both
+\(\mathbf E\) and \(\mathbf B\) reverse:
+\begin{equation}
+(-\mathbf E)\times(-\mathbf B)
+ =\mathbf E\times\mathbf B.
+\label{eq:poynting-sign-reversal}
+\end{equation}
+The momentum density therefore points in one fixed direction throughout
+the oscillation, the direction in which the wave travels.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_26.png}
+\caption{The plane-wave geometry: electric and magnetic fields reverse
+together, while their cross product continues along the propagation
+axis.}
+\par\smallskip
+\textit{Lecture frame: 01:43:10.}
+\end{figure}
+
+This is why light pressure is real. Absorption transfers the field
+momentum to matter; reflection reverses the light momentum and can
+transfer twice the normal component to the reflector.
+
+\section{Where the Potential Meets the Observable Fields}
+
+At the close, the class asks for the points of contact between
+\(A_\mu\) and the observable fields. They are precisely
+\begin{align}
+E_n&=-\partial_tA_n+\partial_nA_0,
+\nonumber\\
+B_n&=\epsilon_{nmk}\partial_mA_k.
+\label{eq:potential-field-contact}
+\end{align}
+Temporal gauge removes the \(A_0\) term but does not change the physical
+fields.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_27.png}
+\caption{The general electric-field relation restored after the
+temporal-gauge calculation, together with the covariant scalar
+Lagrangian recalled below it.}
+\par\smallskip
+\textit{Lecture frame: 01:45:40.}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Exactly where do the vector potential and the
+electric and magnetic fields connect?}
+\lecturerresponse{The electric field combines the time derivative of
+the spatial potential with the spatial derivative of \(A_0\); the
+magnetic field is the curl of the spatial potential. In temporal gauge
+this becomes simply
+\(\mathbf E=-\dot{\mathbf A}\) and
+\(\mathbf B=\nabla\times\mathbf A\).
+\lecturetimestamp{01:44:15}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the potential more fundamental than
+\(\mathbf E\) and \(\mathbf B\)?}
+\lecturerresponse{The action and gauge principle are most naturally
+formulated with \(A_\mu\), which makes the potential structurally
+fundamental. Yet \(A_\mu\) is not unique: gauge-related potentials
+represent the same physics, and the local fields are gauge invariant.
+The two statements are compatible. Fundamental variables need not
+themselves be directly observable. \lecturetimestamp{01:46:36}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the gauge potential itself exert a force?}
+\lecturerresponse{A gauge-dependent representative cannot produce a
+gauge-dependent measurable force. Charged matter is coupled through the
+potential in the action, but the classical Lorentz force can be written
+entirely in terms of the gauge-invariant electric and magnetic fields.
+\lecturetimestamp{01:47:49}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If crossed electric and magnetic fields are static,
+must their momentum be zero?}
+\lecturerresponse{Not necessarily for the field by itself:
+\(\mathbf E\times\mathbf B\) can be nonzero even when both fields are
+time independent. In a closed static apparatus the complete momentum
+budget also includes the charges, currents, supports, and any
+mechanical or hidden momentum. The brief classroom answer that the
+total must balance is the correct conservation statement; setting the
+field contribution alone to zero would be too strong.
+\lecturetimestamp{01:48:01}}
+\end{classroomqa}
+
+\section{One Tensor, Two Meanings of the Poynting Vector}
+
+The energy--momentum tensor organizes all the densities and fluxes:
+\begin{align}
+T^{00}&=\text{energy density},
+&
+T^{0i}&=\text{\(i\)-momentum density},
+\nonumber\\
+T^{i0}&=\text{energy flux in the \(i\)-direction},
+&
+T^{ij}&=\text{\(j\)-momentum flux in the \(i\)-direction}.
+\label{eq:stress-energy-components}
+\end{align}
+For example, \(T^{31}\) is the amount of \(x\)-momentum crossing a unit
+area whose normal points in the \(z\)-direction per unit time. The
+spatial block \(T^{ij}\) is the stress tensor.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_28.png}
+\caption{The board begins arranging density and flux components into
+the energy--momentum tensor.}
+\par\smallskip
+\textit{Lecture frame: 01:51:10.}
+\end{figure}
+
+For the relativistic systems under discussion, the physical
+energy--momentum tensor can be chosen symmetric:
+\begin{equation}
+T^{\mu\nu}=T^{\nu\mu}.
+\label{eq:stress-energy-symmetry}
+\end{equation}
+Consequently,
+\begin{equation}
+T^{0i}=T^{i0}.
+\label{eq:momentum-density-energy-flux}
+\end{equation}
+The density of \(i\)-momentum equals the flux of energy in the
+\(i\)-direction when \(c=1\). This is the answer to a final audience
+memory: the Poynting vector is indeed a power density.
+
+\begin{classroomqa}
+\audiencequestion{Is \(\mathbf E\times\mathbf B\) the power density
+rather than the momentum density?}
+\lecturerresponse{It is both. Symmetry of \(T^{\mu\nu}\) identifies the
+momentum density \(T^{0i}\) with the energy flux \(T^{i0}\). Thus
+\(\mathbf S=\mathbf E\times\mathbf B\) is energy per unit time per unit
+area and, in \(c=1\) units, momentum per unit volume. With ordinary
+units restored, \(\mathbf g=\mathbf S/c^2\).
+\lecturetimestamp{01:48:20}}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../../figures/lecture_10_figure_29.png}
+\caption{The symmetric tensor relation equating momentum density with
+energy flux, labeled on the board by the Poynting vector.}
+\par\smallskip
+\textit{Lecture frame: 01:53:50.}
+\end{figure}
+
+\section{The Bridge to General Relativity}
+
+The course closes by bringing classical mechanics, field theory, and
+electromagnetism into one structure:
+\begin{enumerate}
+\item Time-translation invariance gives the Hamiltonian and energy.
+\item Spatial-translation invariance gives Noether momentum.
+\item Replacing discrete coordinates by spatially labeled fields turns
+sums into integrals and conserved quantities into local densities.
+\item Gauge fixing exposes the mechanical coordinates of the Maxwell
+field without changing its observables.
+\item The Maxwell Hamiltonian gives
+\(\frac12(\mathbf E^2+\mathbf B^2)\), while spatial translations give
+\(\mathbf E\times\mathbf B\).
+\item The symmetric energy--momentum tensor unifies energy density,
+momentum density, energy flux, and stress.
+\end{enumerate}
+
+This is the quantity needed at the next stage. In general relativity,
+the energy--momentum tensor appears as the source in Einstein's field
+equation. The final lecture has therefore not merely appended an
+electromagnetic calculation; it has prepared the language in which
+matter and fields tell spacetime how to curve.

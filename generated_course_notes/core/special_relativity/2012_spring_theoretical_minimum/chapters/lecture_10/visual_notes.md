@@ -1,53 +1,57 @@
-# Visual Evidence
-## Frame Inventory
-- `lecture_10_figure_01.png` shows the Stanford University title card with no blackboard content; it should not remain in the final notes.
-- `lecture_10_figure_02.png` shows a mostly blank board with a single electric-field relation at the upper left; it should remain if the convention discussion is illustrated visually.
-- `lecture_10_figure_03.png` shows a comparison board separating mechanical momentum, canonical momentum, and generic Lagrangian notation; it should remain.
-- `lecture_10_figure_04.png` shows the simple particle Lagrangian written across the top of the board; it is optional and can be kept small or omitted.
-- `lecture_10_figure_05.png` shows the same particle example at a later stage with the Hamiltonian sign flip developing, but the lecturer’s paper blocks part of the board; it usually should not remain unless continuity matters.
-- `lecture_10_figure_06.png` shows the scalar-field Lagrangian, conjugate momentum, and Hamiltonian stacked on one board; it should remain.
+# Lecture 10 Visual Evidence
 
-## Equation Extraction
-- `lecture_10_figure_02.png`: [visible] `\vec E_M=-\frac{\partial \vec A}{\partial t}`
-- `lecture_10_figure_02.png`: [standard completion] `(\vec E_M)_i=-\frac{\partial A_i}{\partial t}+\partial_i A_0`
+## Verification Method
 
-- `lecture_10_figure_03.png`: [visible] `P_m=m\dot X_m`
-- `lecture_10_figure_03.png`: [visible] `L(q_i,\dot q_i)`
-- `lecture_10_figure_03.png`: [partially visible] `P_c=\partial \cdots`
-- `lecture_10_figure_03.png`: [standard completion] `p_i=\frac{\partial L}{\partial \dot q_i}`
+The 1:54:44 source video was sampled broadly at four-minute intervals. Each selected mathematical moment was then checked across five neighboring frames at minus 30, minus 15, zero, plus 15, and plus 30 seconds. Final frames were re-extracted at full 1280 by 720 resolution with accurate two-stage seeking. Every retained image was reviewed in a final contact sheet against its transcript timestamp.
 
-- `lecture_10_figure_04.png`: [visible] `\frac12 m\dot x^2-V(x)`
-- `lecture_10_figure_04.png`: [standard completion] `L=\frac12 m\dot x^2-V(x)`
+The inherited Stanford title card was rejected. No selected image is a title card, camera transition, unrelated campus scene, or generic lecturer portrait.
 
-- `lecture_10_figure_05.png`: [partially visible] `P=m\dot x`
-- `lecture_10_figure_05.png`: [partially visible] `\frac12 m\dot x^2+V`
-- `lecture_10_figure_05.png`: [standard completion] `H=p\dot x-L=\frac12 m\dot x^2+V(x)`
+## Verified Frame Inventory
 
-- `lecture_10_figure_06.png`: [visible] `\mathcal L=\frac12\dot\phi^2-\frac12\left(\frac{\partial\phi}{\partial x}\right)^2-V(\phi)`
-- `lecture_10_figure_06.png`: [partially visible] `\Pi_\phi=\dot\phi`
-- `lecture_10_figure_06.png`: [partially visible] `H=\int dx\left[\frac12\dot\phi^2+\frac12\left(\frac{\partial\phi}{\partial x}\right)^2+V(\cdot)\right]`
-- `lecture_10_figure_06.png`: [standard completion] `H=\int dx\left[\frac12\dot\phi^2+\frac12\left(\frac{\partial\phi}{\partial x}\right)^2+V(\phi)\right]`
-
-## Diagram Extraction
-- No frame contains a true geometric diagram, axis sketch, or spacetime figure that needs mandatory TikZ redrawing.
-- `lecture_10_figure_02.png` is worth preserving as a screenshot because the board is intentionally empty except for one term, which reflects the lecture’s step-by-step isolation of the electric-field definition.
-- `lecture_10_figure_03.png` is worth preserving as a screenshot because its horizontal layout carries meaning: mechanical momentum appears first, canonical momentum is being introduced in the center, and `L(q_i,\dot q_i)` is set off to the right.
-- `lecture_10_figure_05.png` does not justify TikZ and is visually weaker than typeset reconstruction; if used at all, it should be a small continuity screenshot rather than a primary figure.
-- `lecture_10_figure_06.png` is worth preserving as a screenshot because the stacked board layout shows the lecture’s mechanics-to-field-theory progression: Lagrangian density at the top, conjugate momentum at left, Hamiltonian below.
-- If a later chapter editor wants a cleaner pedagogical figure, it should be a supplementary schematic rather than a replacement for the screenshots; none of the attached frames requires a TikZ redraw at this stage.
+1. lecture_10_figure_01.png, 00:07:10: both electric-field conventions and all four mapped Maxwell equations.
+2. lecture_10_figure_02.png, 00:11:15: mechanical momentum.
+3. lecture_10_figure_03.png, 00:13:40: canonical momentum beside the simple particle Lagrangian.
+4. lecture_10_figure_04.png, 00:15:50: magnetic coupling and shifted canonical momentum.
+5. lecture_10_figure_05.png, 00:19:00: Noether charge assembled from canonical momenta and variations.
+6. lecture_10_figure_06.png, 00:22:55: general Hamiltonian Legendre transform.
+7. lecture_10_figure_07.png, 00:24:20: particle Hamiltonian calculation.
+8. lecture_10_figure_08.png, 00:30:15: field values as degrees of freedom on a spatial lattice.
+9. lecture_10_figure_09.png, 00:31:40: neighboring-field finite difference.
+10. lecture_10_figure_10.png, 00:36:40: time integral, spatial integral, and Lagrangian density.
+11. lecture_10_figure_11.png, 00:42:40: field canonical momentum and Hamiltonian density.
+12. lecture_10_figure_12.png, 00:47:05: scalar Lagrangian, Pi, and positive Hamiltonian.
+13. lecture_10_figure_13.png, 00:54:20: field-profile sketch retained during the gradient-energy smoothness answer.
+14. lecture_10_figure_14.png, 01:00:00: local field energy identified with T00.
+15. lecture_10_figure_15.png, 01:04:20: translated field arguments and derivative.
+16. lecture_10_figure_16.png, 01:07:10: Noether momentum density T0m.
+17. lecture_10_figure_17.png, 01:12:55: scalar field equation.
+18. lecture_10_figure_18.png, 01:20:15: gauge transformation and temporal-gauge condition.
+19. lecture_10_figure_19.png, 01:23:50: E equals minus A dot and B equals curl A.
+20. lecture_10_figure_20.png, 01:28:10: Maxwell Lagrangian in temporal gauge.
+21. lecture_10_figure_21.png, 01:30:20: three canonical momenta and their electric-field relation.
+22. lecture_10_figure_22.png, 01:32:00: positive electromagnetic energy density.
+23. lecture_10_figure_23.png, 01:36:40: electromagnetic Noether momentum before gauge-invariant reduction.
+24. lecture_10_figure_24.png, 01:40:00: integration by parts and divergence of E.
+25. lecture_10_figure_25.png, 01:41:10: final E cross B momentum integral.
+26. lecture_10_figure_26.png, 01:43:10: plane-wave field orientation and propagation axis.
+27. lecture_10_figure_27.png, 01:45:40: full potential-to-electric-field relation.
+28. lecture_10_figure_28.png, 01:51:10: density and flux layout of the energy--momentum tensor.
+29. lecture_10_figure_29.png, 01:53:50: tensor symmetry and the Poynting-vector conclusion.
 
 ## Reconstruction Guidance
-- Use `lecture_10_figure_02.png` as evidence for the sign convention discussion, but typeset the full Maxwell-side definition next to it. The board only gives the time-derivative piece clearly; the gradient term should be supplied from the transcript, not claimed as visible chalk.
-- Use `lecture_10_figure_03.png` to preserve the rhetorical contrast between kinds of momentum. The clean note version should typeset `p_i=\partial L/\partial \dot q_i`, while the screenshot shows that the lecturer introduced it as a comparison, not as an isolated final formula.
-- For the particle example, let typeset equations do most of the work. `lecture_10_figure_04.png` can support the reset to `L=\frac12 m\dot x^2-V(x)`, but the canonical-momentum and Hamiltonian derivations should be reconstructed cleanly in prose and display math.
-- Treat `lecture_10_figure_05.png` cautiously. It is better as corroboration of the sign flip from Lagrangian to Hamiltonian than as a source for exact transcription.
-- Use `lecture_10_figure_06.png` as the main visual evidence for the scalar-field Hamiltonian discussion. The notes should typeset the Lagrangian density, the conjugate momentum, and the Hamiltonian in polished form, while the screenshot preserves the one-board analogy between particle mechanics and field theory.
-- Preserve screenshot evidence where board layout matters most: `lecture_10_figure_02.png`, `lecture_10_figure_03.png`, and `lecture_10_figure_06.png`. For the rest, prefer clean TeX reconstruction over visual duplication.
 
-## Uncertainties
-- In `lecture_10_figure_02.png`, only the `-\partial_t\vec A` term is directly visible; the `+\nabla A_0` term is a cautious completion.
-- In `lecture_10_figure_03.png`, the left-hand labels and the full canonical formula are partly blocked by the lecturer, so only the comparison structure is fully secure.
-- In `lecture_10_figure_04.png`, the leading `L=` is not as secure visually as the main expression `\frac12 m\dot x^2-V(x)`.
-- In `lecture_10_figure_05.png`, the lecturer’s paper obscures both the upper formula and part of the middle line, so exact chalk transcription is unreliable.
-- In `lecture_10_figure_06.png`, the lower potential term is blurry enough that the still can suggest either `V(\phi)` or `V(x)`; the lecture context strongly supports `V(\phi)`.
-- In `lecture_10_figure_06.png`, the left-middle conjugate-momentum line is partly hidden by the lecturer, so `\Pi_\phi=\dot\phi` is safer as a reconstruction than as a fully visible board transcription.
+- Use the screenshots as evidence of the lecture's board rhythm, not as substitutes for typeset equations.
+- State the convention dictionary in TeX because the opening board is dense and several signs are partially occluded.
+- Preserve the lattice and wave-orientation sketches as diagrams; they carry spatial reasoning that equations alone do not.
+- Preserve the temporal-gauge sequence across figures 18 through 22 because it shows how one four-potential becomes three mechanical coordinates.
+- Keep figures 23 through 25 as a derivation sequence: canonical expression, integration by parts, gauge-invariant result.
+- Keep figures 28 and 29 together so tensor density, flux, symmetry, and the dual interpretation of the Poynting vector remain connected.
+
+## Uncertainties Resolved in TeX
+
+- The opening board alternates between Maxwell, course, and Franklin labels. The nearby equations provide the complete consistent dictionary.
+- The magnetic-particle coupling sign is convention dependent. The chapter preserves the board sign and explicitly isolates the invariant canonical shift.
+- The scalar board briefly writes V of x. The transcript immediately corrects it to V of phi.
+- The Noether momentum derivation carries an overall active/passive translation sign. The chapter states that ambiguity and fixes the physical result by wave propagation.
+- The lecture derives E cross B after assuming zero charge density. The chapter retains that restriction and explains the matter contribution when sources are present.
+- The on-the-spot static crossed-field answer is incomplete if read as field momentum alone. The chapter distinguishes nonzero field momentum from the balanced total of a closed apparatus.
