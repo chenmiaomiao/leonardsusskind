@@ -1,521 +1,647 @@
-\chapter{Uncertainty, Time Evolution, and the Classical Limit}
+\chapter{Uncertainty, Ehrenfest's Theorem, and the Classical Limit}
 
-This lecture unfolds in two large movements. It begins with a brief but purposeful detour about negative energy, then rebuilds the wave-function language needed for the uncertainty principle, proves that principle in a stripped-down but revealing form, and only after that returns to the Schr\"odinger equation itself. The order is part of the argument. These notes follow Leonard Susskind's lecture closely, and where the blackboard organization matters the preserved board evidence kept by LazyingArt LLC and Video2Book is retained alongside the cleaned mathematics.
+\section{The Loose End in the Linear Hamiltonian}
 
-\section{A Brief Detour: Negative Energy and Dirac's Idea}
-
-Susskind opens by returning to the toy Hamiltonian
+The model
 \begin{equation}
-H=cP.
+H=cP
+\label{eq:l10-linear-hamiltonian}
 \end{equation}
-For a momentum eigenstate the wave function is a plane wave,
+was useful because its wave packets translate without changing shape. It also carries a serious warning. Momentum may be positive or negative, so the same formula assigns positive energy to one plane wave and negative energy to the other:
 \begin{equation}
-\psi_p(x)=e^{ipx}.
-\end{equation}
-Nothing in the mathematics prefers positive \(p\) to negative \(p\). Both signs give perfectly acceptable waves. But with \(H=cP\), the sign of \(p\) is also the sign of the energy, and that is where the trouble starts.
-
-If negative-energy particles existed in ordinary empty space, then empty space would not be the state of lowest energy. We could always lower the energy further by producing negative-energy particles while compensating with positive-energy radiation. In that world the vacuum would be unstable. So the puzzle is not merely that negative energy is aesthetically unpleasant. It would make the whole world unstable.
-
-The lecture resolves this only qualitatively, and only as an aside. Dirac's move works for fermions: if every negative-energy state is already occupied, Pauli exclusion prevents us from adding more particles to the same states. In that sense the true vacuum is not empty space at all, but a completely filled sea of negative-energy fermion states. The same move fails for bosons, since bosons can pile into one state without limit. So the model is tolerable as a baby version of a fermionic theory, but not as a bosonic one.
-
-That is as far as the lecture wants to go. Susskind explicitly withdraws from the detour and reminds the audience that the course has mostly treated the foundations of quantum mechanics and only the simplest systems. He even jokes that a course in quantum mechanics that never reaches the harmonic oscillator is a disgrace. That self-conscious pause matters. It resets the discussion and prepares the turn back to the actual topic of the day: the Schr\"odinger equation, approached through the wave function.
-
-\section{Wave Functions, Representations, and Many Coordinates}
-
-The wave function is the bridge between the abstract formalism developed earlier and the concrete dynamics Susskind now wants to discuss. In position space we write
-\begin{equation}
-\psi(x)=\langle x|\psi\rangle,
-\end{equation}
-the amplitude that the state \(|\psi\rangle\) be found at the position \(x\). The same state can be represented in momentum space by
-\begin{equation}
-\tilde{\psi}(p)=\langle p|\psi\rangle.
-\end{equation}
-These are not two different states; they are two descriptions of the same state in two different bases.
-
-The relation between them is a Fourier transform. In the one-dimensional setting of the lecture we may write
-\begin{equation}
-\psi(x)=\frac{1}{\sqrt{2\pi}}\int dp\,\tilde{\psi}(p)e^{ipx},
-\end{equation}
-and, conversely,
-\begin{equation}
-\tilde{\psi}(p)=\frac{1}{\sqrt{2\pi}}\int dx\,\psi(x)e^{-ipx}.
-\end{equation}
-Susskind does not linger over conventions here. What matters for the lecture is the structural fact that position and momentum descriptions are Fourier-conjugate.
-
-He then briefly broadens the setting. If a particle can move in more than one spatial direction, then its position is described by several coordinates. The crucial point is that those coordinates commute. Susskind pauses to say that this is not a formal inevitability deduced from earlier rules; it is an empirical fact about the way quantum mechanics matches experiment. Thus in more than one dimension the wave function depends on all the commuting coordinates at once.
-
-For several particles, the same idea becomes more dramatic. The wave function is no longer a function of one coordinate but of all the coordinates of all the particles:
-\begin{equation}
-\psi=\psi(x_1,x_2,\dots,x_N)
-\end{equation}
-in the one-dimensional many-particle case, or of all components of all particle positions in higher dimensions. One may also use mixed representations, leaving some variables in coordinate space and others in momentum space. But the lecture now deliberately narrows again to one-dimensional motion, where the main ideas can be exposed clearly.
-
-\section{From Noncommutation to a Definition of Uncertainty}
-
-Susskind first states the uncertainty principle in its primitive form. Position and momentum do not commute, so there are no simultaneous sharp eigenstates of both. Position eigenstates are tightly localized in space; momentum eigenstates are plane waves spread over all of space. If one knows position sharply, one is very far from knowing momentum sharply, and vice versa.
-
-He then adds a more qualitative Fourier-transform version of the same point. If we build one representation from the other by Fourier transform, we quickly discover that a narrow function in \(x\) produces a broad function in \(p\), while a narrow function in \(p\) produces a broad function in \(x\). This is already enough to see why the uncertainty principle should exist, but not yet enough to prove a theorem.
-
-The lecture therefore asks a more basic question: what do we mean by uncertainty?
-
-\subsection{Question \& Answer}
-
-Why does the lecture begin by shifting the origin until \(\langle X\rangle=0\)? Because we are not trying to measure where the packet sits; we are trying to measure how wide it is. The center of a distribution can be moved by a harmless change of coordinates. Once the center is placed at the origin, the remaining quantity \(\langle X^2\rangle\) measures spread rather than location.
-
-\begin{definition}
-After shifting the origin so that \(\langle X\rangle=0\), we define the squared uncertainty in position by
-\begin{equation}
-(\Delta x)^2=\langle X^2\rangle.
-\end{equation}
-If we do not shift the origin, the more general formula is the variance
-\begin{equation}
-(\Delta x)^2=\langle X^2\rangle-\langle X\rangle^2.
-\end{equation}
-\end{definition}
-
-In position space the first form becomes
-\begin{equation}
-(\Delta x)^2=\int dx\,\psi^*(x)\psi(x)\,x^2.
-\end{equation}
-That is the definition Susskind writes on the board. The farther probability is spread from the chosen origin, the larger \(\langle X^2\rangle\) becomes.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_10_figure_02.png}
-\caption{Position uncertainty defined as an integral over probability density.}
-\end{figure}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[x=1cm,y=1cm]
-\draw[->] (-4.1,0) -- (4.1,0);
-\draw[->] (0,0) -- (0,2.5);
-\draw[smooth] plot coordinates {(-3.5,0.03) (-2.8,0.10) (-2.0,0.35) (-1.3,0.95) (-0.8,1.55) (-0.3,2.00) (0,2.15) (0.3,2.00) (0.8,1.55) (1.3,0.95) (2.0,0.35) (2.8,0.10) (3.5,0.03)};
-\draw[dashed] (0,0) -- (0,2.15);
-\node at (0,-0.35) {\(x=0\)};
-\node at (2.7,2.05) {\(|\psi(x)|^2\)};
-\end{tikzpicture}
-\caption{A wave packet after shifting the origin so that its center lies at \(\langle X\rangle=0\).}
-\end{figure}
-
-Momentum uncertainty is defined in the same spirit. In momentum space one may write
-\begin{equation}
-(\Delta p)^2=\int dp\,|\tilde{\psi}(p)|^2\,p^2
-\end{equation}
-after shifting so that \(\langle P\rangle=0\). But Susskind immediately decides not to use that formula in the proof. Instead he rewrites \((\Delta p)^2\) in the position representation, so that both uncertainties can be handled in one common language.
-
-\section{Proving the Uncertainty Principle}
-
-The lecture now turns deliberately from definition to proof. We first recall how the momentum operator acts in the \(x\)-representation:
-\begin{equation}
-P=-i\,\partial_x,
+\psi_p(x)=e^{ipx/\hbar},
 \qquad
-P^2=-\partial_x^2.
+E(p)=cp.
 \end{equation}
-Therefore
+If arbitrarily many physical particles could occupy negative-energy states, empty space would not be the state of lowest energy. It could produce positive-energy quanta while depositing compensating negative energy into new particles, preserving total energy but lowering the vacuum without bound.
+
+\begin{classroomqa}
+\audiencequestion{Why is a negative-energy branch more than an odd choice of zero for the energy?}
+\lecturerresponse{A common additive shift of every energy is harmless. An unbounded spectrum is different. If ever lower-energy states can be populated while positive-energy particles carry away the balance, there is no stable ground state. Stability requires a lower bound relative to the vacuum.}
+\end{classroomqa}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_01.png}
+\caption{The linear Hamiltonian and its plane-wave eigenfunctions expose the negative-energy branch when \(p<0\).}
+\lectureframe{00:04:35}
+\end{figure}
+
+Dirac's historical answer worked for fermions. Fermions obey the exclusion principle: no two identical fermions can occupy the same one-particle state. Imagine filling every negative-energy state. Once all of them are occupied, exclusion prevents another fermion from falling into that sector. A vacancy in the filled set behaves as an antiparticle.
+
+This argument does not rescue negative-energy bosons. Any number of bosons may occupy one state, so a negative-energy bosonic mode could be populated without limit. The old filled-sea picture is best regarded as the historical route to antiparticles; modern quantum field theory organizes particles and antiparticles without treating the physical vacuum as a literal sea of observable negative-energy electrons. The point needed here is narrower: the toy Hamiltonian is not a complete stable particle theory.
+
+As a one-dimensional caricature of a fermionic particle moving at a fixed speed, the model hints at the neutrino problem for which Dirac's ideas were relevant. It cannot serve as a photon theory: photons are bosons, and exclusion cannot fill and block their negative-energy states.
+
+\begin{classroomqa}
+\audiencequestion{Why can exclusion stabilize the fermionic construction but not a bosonic one?}
+\lecturerresponse{A fermionic state can be filled once and then blocked. A bosonic state has no such occupancy ceiling, so a negative-energy bosonic mode would still let the energy fall without bound.}
+\end{classroomqa}
+
+\paragraph{Where the course now stands.}
+The quarter has developed much of the foundation of quantum mechanics and several deliberately simple systems, but very few applications. In particular, it has not yet reached even the harmonic oscillator. That omission marks a boundary rather than an ending: relativity and field theory come next, after which quantum mechanics must be taken up again to study the oscillator and the other structures built on it. The sustained interest in the earlier discussion of entanglement also shows why the foundational route was worthwhile.
+
+With that perspective, the loose end is closed. The main business is the wave function, uncertainty, and the relation between quantum evolution and classical mechanics. The aim is not the most general possible evolution equation, but the special position-space equation originally written by Schr\"odinger.
+
+\section{Wave Functions and Complete Commuting Coordinates}
+
+For one particle on a line, the position-space wave function is
 \begin{equation}
-(\Delta p)^2=\langle \psi|P^2|\psi\rangle
+\psi(x)=\braket{x}{\psi},
+\end{equation}
+the amplitude for finding the particle near \(x\). The momentum-space wave function is
+\begin{equation}
+\widetilde{\psi}(p)=\braket{p}{\psi}.
+\end{equation}
+They describe the same abstract state in different bases and are related by a Fourier transform:
+\begin{align}
+\psi(x)
+&=
+\int_{-\infty}^{\infty}
+\frac{dp}{\sqrt{2\pi\hbar}}\,
+\widetilde{\psi}(p)e^{ipx/\hbar},
+\label{eq:l10-fourier-forward}\\
+\widetilde{\psi}(p)
+&=
+\int_{-\infty}^{\infty}
+\frac{dx}{\sqrt{2\pi\hbar}}\,
+\psi(x)e^{-ipx/\hbar}.
+\label{eq:l10-fourier-inverse}
+\end{align}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_02.png}
+\caption{Position and momentum wave functions are projections of one state onto two different continuous bases.}
+\lectureframe{00:09:05}
+\end{figure}
+
+In two spatial dimensions, \(X\) and \(Y\) commute, so a common eigenbasis may be labeled by both coordinates and the wave function becomes \(\psi(x,y)\). That commutation is not forced by the abstract axioms alone; it is part of the empirically successful quantum description of ordinary space. For \(N\) particles in three dimensions,
+\begin{equation}
+\psi(\mathbf{x}_1,\ldots,\mathbf{x}_N)
+\end{equation}
+is a function on configuration space, not a separate three-dimensional wave attached independently to each particle. A macroscopic system can therefore require an enormous number of coordinates.
+
+\begin{classroomqa}
+\audiencequestion{Does the commutation of different spatial coordinates follow automatically from quantum mechanics?}
+\lecturerresponse{No. The abstract framework permits many algebras of observables. The fact that distinct Cartesian position components commute is an empirical structural fact about the quantum mechanics of particles in ordinary space.}
+\end{classroomqa}
+
+One may Fourier transform every coordinate, obtaining a wave function of all momenta, or transform only selected variables. Mixed representations are legitimate because a representation is a basis choice, not a change in the physical state.
+
+\section{What Uncertainty Measures}
+
+The most primitive form of the uncertainty principle follows at once from the Fourier pair. A state of definite momentum is a plane wave with constant modulus and no position localization. A state sharply localized in position requires many momentum components. More generally, narrowing one member of a Fourier pair broadens the other.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_03.png}
+\caption{A localized position profile requires a broad superposition of plane waves in the reciprocal momentum representation.}
+\lectureframe{00:14:45}
+\end{figure}
+
+To make that statement quantitative, begin with a general observable \(Q\). Its expectation value in a normalized state is
+\begin{equation}
+\expect{Q}=\bra{\psi}Q\ket{\psi}.
+\end{equation}
+The variance is
+\begin{equation}
+(\Delta Q)^2
 =
--\int dx\,\psi^*(x)\,\partial_x^2\psi(x).
+\expect{\bigl(Q-\expect{Q}\bigr)^2}
+=
+\expect{Q^2}-\expect{Q}^2.
+\label{eq:l10-general-variance}
 \end{equation}
+The uncertainty \(\Delta Q\) is the positive square root of this variance.
 
-\subsection{Question \& Answer}
-
-How can \((\Delta p)^2\) stay positive if the first \(x\)-space formula carries a minus sign? Because the integral itself is negative. The repair is integration by parts, and Susskind slows down to re-teach the rule because he is about to use it repeatedly:
+For position one may first shift the origin so that \(\expect{X}=0\). Then
 \begin{equation}
-\int f\,g'\,dx=-\int f' g\,dx,
+(\Delta x)^2
+=
+\expect{X^2}
+=
+\int_{-\infty}^{\infty}
+dx\,|\psi(x)|^2x^2.
+\label{eq:l10-position-variance}
 \end{equation}
-provided the boundary term vanishes.
+Positive and negative contributions cancel in \(\expect{X}\), but they add in \(\expect{X^2}\). A broader probability distribution therefore has a larger variance.
 
-For a normalized wave function, the boundary term does vanish, and one integration by parts gives
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_04.png}
+\caption{With the mean shifted to zero, the position variance is the probability-weighted integral of \(x^2\).}
+\lectureframe{00:20:50}
+\end{figure}
+
+The distinction between \(\expect{X^2}\) and \(\expect{X}^2\) is essential. A distribution symmetric about zero has \(\expect{X}=0\), but unless it is concentrated at the origin it still has \(\expect{X^2}>0\).
+
+Momentum variance may be defined directly in momentum space:
 \begin{equation}
 (\Delta p)^2
 =
-\int dx\,(\partial_x\psi^*)(\partial_x\psi),
+\int_{-\infty}^{\infty}
+dp\,|\widetilde{\psi}(p)|^2
+\bigl(p-\expect{P}\bigr)^2.
 \end{equation}
-which is manifestly real and nonnegative.
+It is more useful for the proof to work in position space. Shift the mean momentum to zero and use
+\begin{equation}
+P=-i\hbar\frac{d}{dx},
+\qquad
+P^2=-\hbar^2\frac{d^2}{dx^2}.
+\end{equation}
+Then
+\begin{equation}
+(\Delta p)^2
+=
+\expect{P^2}
+=
+-\hbar^2
+\int_{-\infty}^{\infty}
+dx\,\psi^*(x)\frac{d^2\psi}{dx^2}.
+\label{eq:l10-momentum-variance-second}
+\end{equation}
 
-The board layout at this stage is important enough to keep. It shows exactly how the lecture has arranged the proof: the two variances on one side, the inequality on the other.
+\begin{classroomqa}
+\audiencequestion{How can a variance be positive when its position-space formula begins with a minus sign?}
+\lecturerresponse{The integral multiplying that sign is nonpositive. Integrating by parts transfers one derivative to \(\psi^*\), introduces a second minus sign, and turns the result into the integral of an absolute square.}
+\end{classroomqa}
 
-\begin{figure}
+For wave functions that decay sufficiently rapidly at infinity,
+\begin{equation}
+\int f\,g'\,dx
+=
+\left[fg\right]_{-\infty}^{\infty}
+-
+\int f'g\,dx,
+\end{equation}
+and the boundary term vanishes. Applying this once to Equation~\eqref{eq:l10-momentum-variance-second} gives
+\begin{equation}
+(\Delta p)^2
+=
+\hbar^2
+\int_{-\infty}^{\infty}
+dx\,
+\frac{d\psi^*}{dx}
+\frac{d\psi}{dx}
+=
+\hbar^2
+\int_{-\infty}^{\infty}
+dx\,
+\left|\frac{d\psi}{dx}\right|^2
+\geq 0.
+\label{eq:l10-momentum-variance-positive}
+\end{equation}
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_10_figure_03.png}
-\caption{Variance formulas beside the vector-space inequality.}
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_05.png}
+\caption{Integration by parts converts the apparent negative expression for \(\expect{P^2}\) into a manifestly positive norm.}
+\lectureframe{00:27:35}
 \end{figure}
 
-The corresponding cleaned reconstruction is
+\begin{classroomqa}
+\audiencequestion{Can the means of both position and momentum be shifted to zero at the same time?}
+\lecturerresponse{Yes. Translating the argument of the wave function shifts \(\expect{X}\), while multiplying it by a plane-wave phase shifts \(\expect{P}\). These operations alter the means without changing the corresponding variances, so both centered variables may be used in the proof.}
+\end{classroomqa}
+
+\section{The Uncertainty Bound}
+
+The mathematical tool needed is the Cauchy--Schwarz inequality. The lecture approaches it through elementary vector geometry: the dot product of two vectors is their lengths multiplied by the cosine of the angle between them, so its magnitude cannot exceed the product of their lengths. In Hilbert-space notation,
+\begin{equation}
+\braket{A}{A}\braket{B}{B}
+\geq
+\left|\braket{A}{B}\right|^2.
+\label{eq:l10-cauchy-schwarz}
+\end{equation}
+It holds in real or complex vector spaces of any dimension.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_06.png}
+\caption{The geometric vector inequality is recast as the Hilbert-space Cauchy--Schwarz bound used in the proof.}
+\lectureframe{00:35:35}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Should the inequality be strict, or may equality occur?}
+\lecturerresponse{It is a greater-than-or-equal relation. Equality occurs when the two Hilbert-space vectors are linearly dependent. That equality condition later identifies the minimum-uncertainty wave packets.}
+\end{classroomqa}
+
+Center both variables and first follow the simplified blackboard proof, which takes \(\psi(x)\) to be real. Define
+\begin{equation}
+\ket{A}=X\ket{\psi},
+\qquad
+\ket{B}=P\ket{\psi}.
+\label{eq:l10-auxiliary-vectors}
+\end{equation}
+Their squared norms are precisely the variances:
+\begin{equation}
+\braket{A}{A}=(\Delta x)^2,
+\qquad
+\braket{B}{B}=(\Delta p)^2.
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_07.png}
+\caption{The auxiliary vectors \(X\ket{\psi}\) and \(P\ket{\psi}\) turn the two variances into Hilbert-space norms.}
+\lectureframe{00:44:40}
+\end{figure}
+
+The remaining inner product is
 \begin{align}
-(\Delta x)^2 &= \langle \psi|X^2|\psi\rangle, \\
-(\Delta p)^2 &= \langle \psi|P^2|\psi\rangle
-= \int dx\,(\partial_x\psi^*)(\partial_x\psi), \\
-\langle A|A\rangle\,\langle B|B\rangle &\ge |\langle A|B\rangle|^2.
+\braket{A}{B}
+&=
+\int_{-\infty}^{\infty}
+dx\,
+x\psi(x)
+\left(-i\hbar\frac{d\psi}{dx}\right).
 \end{align}
-
-Susskind calls the last relation the triangle inequality in vector-space language. In polished Hilbert-space form it is the Cauchy-Schwarz inequality. But the pedagogical point is the same: we need a general inequality that relates two positive norms to an inner product.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[x=1cm,y=1cm]
-\draw[->] (0,0) -- (3.1,0.7);
-\draw[->] (0,0) -- (1.2,2.3);
-\draw[dashed] (3.1,0.7) -- (1.2,2.3);
-\node at (1.9,0.1) {\(A\)};
-\node at (0.35,1.35) {\(B\)};
-\node at (2.35,1.8) {\(A-B\)};
-\draw (0.72,0.16) arc[start angle=13,end angle=62,radius=0.75];
-\node at (0.96,0.70) {\(\theta\)};
-\end{tikzpicture}
-\caption{The geometric picture behind the inequality Susskind invokes.}
-\end{figure}
-
-Now comes the real trick. We choose vectors so that their norms are exactly the uncertainties we are trying to relate:
+Only its absolute value enters. Since \(\psi\) is real,
 \begin{equation}
-|A\rangle=X|\psi\rangle,
-\qquad
-|B\rangle=P|\psi\rangle.
-\end{equation}
-In the \(x\)-representation these become
-\begin{equation}
-A(x)=x\psi(x),
-\qquad
-B(x)=-i\,\frac{d\psi}{dx}.
-\end{equation}
-And the corresponding inner product is
-\begin{equation}
-|\langle A|B\rangle|^2
+\psi\frac{d\psi}{dx}
 =
+\frac{1}{2}\frac{d}{dx}\psi^2.
+\end{equation}
+Therefore,
+\begin{align}
+\left|\braket{A}{B}\right|
+&=
+\frac{\hbar}{2}
 \left|
-\int dx\,\psi(x)\,x\,\frac{d\psi}{dx}
-\right|^2
-\end{equation}
-up to the harmless overall phase that disappears inside the absolute value.
+\int_{-\infty}^{\infty}
+dx\,
+x\frac{d}{dx}\psi^2
+\right| \notag\\
+&=
+\frac{\hbar}{2}
+\left|
+-\int_{-\infty}^{\infty}
+dx\,\psi^2
+\right|
+=
+\frac{\hbar}{2},
+\label{eq:l10-inner-product-half-hbar}
+\end{align}
+where integration by parts removes the derivative from \(\psi^2\), \(d x/dx=1\), the boundary term vanishes, and normalization supplies the last equality.
 
-\begin{figure}
+Insert Equation~\eqref{eq:l10-inner-product-half-hbar} into Cauchy--Schwarz:
+\begin{equation}
+(\Delta x)^2(\Delta p)^2
+\geq
+\frac{\hbar^2}{4}.
+\end{equation}
+Taking the positive square root gives
+\begin{equation}
+\boxed{
+\Delta x\,\Delta p
+\geq
+\frac{\hbar}{2}
+}.
+\label{eq:l10-uncertainty-principle}
+\end{equation}
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.84\textwidth]{lecture_10_figure_04.png}
-\caption{Auxiliary states \(A\) and \(B\) in the uncertainty proof.}
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_08.png}
+\caption{The integration-by-parts step and normalization produce the sharp position-momentum uncertainty bound.}
+\lectureframe{00:50:55}
 \end{figure}
 
-The lecture now introduces one more simplification. To avoid a blackboard full of \(\psi^*\)'s, Susskind assumes that \(\psi(x)\) is real. He explicitly says this is only a pedagogical simplification, not the general theorem. We follow him here.
-
-\begin{theorem}
-In the simplified proof where \(\langle X\rangle=\langle P\rangle=0\), \(\psi(x)\) is taken real, and \(\hbar=1\), one finds
+The restriction to real \(\psi\) was a blackboard convenience, not a restriction on the theorem. For a general complex state, take
 \begin{equation}
-\Delta x\,\Delta p\ge \frac{1}{2}.
-\end{equation}
-\end{theorem}
-
-\begin{proof}
-By construction,
-\begin{equation}
-\langle A|A\rangle=(\Delta x)^2,
+\ket{A}=(X-\expect{X})\ket{\psi},
 \qquad
-\langle B|B\rangle=(\Delta p)^2.
+\ket{B}=(P-\expect{P})\ket{\psi}.
 \end{equation}
-Cauchy-Schwarz therefore gives
+The commutator fixes the imaginary part of their overlap:
 \begin{equation}
-(\Delta x)^2(\Delta p)^2\ge |\langle A|B\rangle|^2.
-\end{equation}
-Now, because \(\psi\) is real,
-\begin{equation}
-\psi\,\frac{d\psi}{dx}
+\operatorname{Im}\braket{A}{B}
 =
-\frac{1}{2}\frac{d}{dx}(\psi^2).
-\end{equation}
-So
-\begin{equation}
-\langle A|B\rangle
-\sim
-\int dx\,x\,\psi\,\frac{d\psi}{dx}
+\frac{1}{2i}\expect{[X,P]}
 =
-\frac{1}{2}\int dx\,x\,\frac{d}{dx}(\psi^2),
+\frac{\hbar}{2}.
 \end{equation}
-where the omitted phase is irrelevant once we take the absolute value.
+Since \(|\braket{A}{B}|\) is at least as large as the magnitude of its imaginary part, the same bound follows.
 
-Integrating by parts gives
-\begin{equation}
-\frac{1}{2}\int dx\,x\,\frac{d}{dx}(\psi^2)
-=
--\frac{1}{2}\int dx\,\psi^2,
-\end{equation}
-since the boundary term vanishes and \(\partial_x x = 1\). For a normalized wave function,
-\begin{equation}
-\int dx\,\psi^2=1.
-\end{equation}
-Therefore
-\begin{equation}
-|\langle A|B\rangle|^2=\frac{1}{4},
-\end{equation}
-and hence
-\begin{equation}
-(\Delta x)^2(\Delta p)^2\ge \frac{1}{4}.
-\end{equation}
-Taking square roots,
-\begin{equation}
-\Delta x\,\Delta p\ge \frac{1}{2}.
-\end{equation}
-When the factors of \(\hbar\) are restored, this becomes
-\begin{equation}
-\Delta x\,\Delta p\ge \frac{\hbar}{2}.
-\end{equation}
-\end{proof}
+\begin{classroomqa}
+\audiencequestion{What exactly happened to the boundary term in the repeated integrations by parts?}
+\lecturerresponse{For the normalizable packets considered here, the products appearing at \(+\infty\) and \(-\infty\) vanish. On a finite periodic interval, the endpoint terms cancel. The domain of the operators must be chosen so that these statements hold; otherwise the formal manipulation is not justified.}
+\end{classroomqa}
 
-\begin{figure}
+\begin{classroomqa}
+\audiencequestion{Is the equality sign physically attainable, or is the lower bound merely an estimate?}
+\lecturerresponse{It is attainable. Equality in Cauchy--Schwarz requires the two auxiliary vectors to be proportional. Solving that condition produces Gaussian packets, the minimum-uncertainty states developed next.}
+\end{classroomqa}
+
+\section{Other Fourier-Conjugate Pairs}
+
+The time-energy relation resembles position-momentum uncertainty, but it must be phrased more carefully because time is usually an evolution parameter here, not an observable represented by a universal self-adjoint operator. Expand a state in energy eigenvectors:
+\begin{equation}
+\ket{\psi(t)}
+=
+\int dE\,
+\phi(E)e^{-iEt/\hbar}\ket{E}.
+\label{eq:l10-time-energy-fourier}
+\end{equation}
+Energy amplitudes and temporal variation are Fourier related. A narrow energy distribution changes slowly and cannot make a sharply timed pulse; a broad energy distribution can produce a short arrival-time envelope.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.84\textwidth]{lecture_10_figure_05.png}
-\caption{The boxed uncertainty bound as it appears on the board.}
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_09.png}
+\caption{Time dependence is assembled from energy eigenstates with phases \(e^{-iEt/\hbar}\), giving the Fourier basis of the time-energy relation.}
+\lectureframe{00:53:40}
 \end{figure}
 
-The cleaned final form, correcting the board's strict sign, is
+\begin{classroomqa}
+\audiencequestion{Does the same proof apply directly to time and energy?}
+\lecturerresponse{The reciprocal-width intuition does, and a passing wave packet gives a useful example: a short arrival-time window requires a broad energy distribution. The operator statement is subtler because time does not enter this formulation exactly as \(X\) does.}
+\end{classroomqa}
+
+Angle and angular momentum form another conjugate pair for rotational motion. Locally their Fourier relation resembles position and momentum. Globally the periodicity of angle introduces additional care, so the remark is an analogy here rather than a full theorem.
+
+\begin{classroomqa}
+\audiencequestion{Are position-momentum, time-energy, and angle-angular momentum isolated examples?}
+\lecturerresponse{No. Canonically conjugate variables repeatedly appear as Fourier pairs. The details of domains and periodicity differ, but reciprocal localization is the common structure.}
+\end{classroomqa}
+
+\section{The Schr\"odinger Equation in Position Space}
+
+We now return to dynamics. The abstract law is
 \begin{equation}
-\Delta x\,\Delta p\ge \frac{1}{2}
+i\hbar\frac{d}{dt}\ket{\psi(t)}
+=
+H\ket{\psi(t)}.
+\label{eq:l10-abstract-schrodinger}
 \end{equation}
-in units with \(\hbar=1\), and
-\begin{equation}
-\Delta x\,\Delta p\ge \frac{\hbar}{2}
-\end{equation}
-when dimensions are restored.
-
-\subsection{Question \& Answer}
-
-Why is the final statement really \(\ge\), and when can equality occur? Susskind is corrected on exactly this point during the lecture, and he immediately agrees that it matters. If the inequality were not sharp, perhaps a stronger one could still be proved. But in fact equality is attainable. There are wave packets for which
-\begin{equation}
-\Delta x\,\Delta p=\frac{\hbar}{2},
-\end{equation}
-and those are precisely the minimal uncertainty packets that the next lecture will study.
-
-\section{After the Proof: Minimal Packets and Other Conjugate Pairs}
-
-The lecture does not drop the uncertainty principle the moment the theorem is written down. It lingers on the live pressure points that the proof has raised.
-
-First, the integration-by-parts rule really does depend on the boundary term vanishing. For normalizable states that condition is natural: \(\psi(x)\) must decay so that \(\int |\psi|^2 dx\) is finite. The theorem is not independent of that structure.
-
-Second, equality matters. The existence of minimal packets means the inequality is tight. We have not simply proved some loose lower bound.
-
-\subsection{Question \& Answer}
-
-Does the same kind of argument apply to time and energy? Susskind answers yes, but more cautiously than in the position-momentum case. The relation is again Fourier-theoretic, but its use is subtler. The time dependence of a state may be written schematically as
-\begin{equation}
-|\psi(t)\rangle=\int dE\,\phi(E)e^{-iEt}|E\rangle.
-\end{equation}
-Thus time and energy are related in the same broad Fourier sense as position and momentum. If a wave packet passes an observer during a very short time interval, the corresponding energy spread must be broad; if the energy spread is very narrow, the time of passage is correspondingly uncertain. The lecture does not attempt a full formal treatment here, and neither should we.
-
-The same broad pattern extends to other conjugate pairs. A rigid body described by an angle \(\theta\) has angular momentum conjugate to that angle, and one again finds an uncertainty relation of the same family. These remarks are brief in the lecture, but they are important. They tell us that the position-momentum theorem is one instance of a larger structure.
-
-\section{The Schr\"odinger Equation in Abstract and in Position Space}
-
-Only after the uncertainty discussion has run its course does Susskind say, in effect, let us return to the Schr\"odinger equation. He re-enters through the abstract law of time evolution,
-\begin{equation}
-i\,\frac{d}{dt}|\psi\rangle=H|\psi\rangle.
-\end{equation}
-The left-hand side of the board frame is partly cropped, but the transcript makes the intended equation unmistakable.
-
-He then chooses the standard Hamiltonian for a particle in a potential,
+For a particle of mass \(m\) in a potential \(V(X)\), take
 \begin{equation}
 H=\frac{P^2}{2m}+V(X).
+\label{eq:l10-particle-hamiltonian}
 \end{equation}
-This is exactly the classical particle Hamiltonian, now elevated to operator form. The lecture is quite frank about the logic: one takes the classical Hamiltonian, quantizes it, and then asks whether the resulting wave-packet motion reproduces classical mechanics in the circumstances where classical mechanics ought to work.
+This imports the classical kinetic-plus-potential form and then tests whether its quantum evolution reproduces classical motion in the proper regime.
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.76\textwidth]{lecture_10_figure_06.png}
-\caption{The board reset as the lecture returns to abstract time evolution.}
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_10.png}
+\caption{The Hamiltonian acts on the abstract state vector in the time-dependent Schr\"odinger equation.}
+\lectureframe{00:59:05}
 \end{figure}
 
-In the \(x\)-representation we replace \(P\) by \(-i\partial_x\), and so
+In the position representation, \(P^2\) becomes a second derivative. A function of \(X\) acts by multiplication:
 \begin{equation}
-i\,\partial_t\psi(x,t)
+\bigl(V(X)\psi\bigr)(x)=V(x)\psi(x).
+\end{equation}
+Consequently,
+\begin{equation}
+i\hbar\frac{\partial\psi(x,t)}{\partial t}
 =
--\frac{1}{2m}\partial_x^2\psi(x,t)+V(x)\psi(x,t).
+\left[
+-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}
++V(x)
+\right]\psi(x,t).
+\label{eq:l10-position-schrodinger}
 \end{equation}
-It is convenient, and faithful to the lecture, to also write the complex-conjugate equation:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_11.png}
+\caption{The particle Hamiltonian becomes the kinetic second derivative plus multiplication by \(V(x)\).}
+\lectureframe{01:03:05}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{In what sense is the ordinary function \(V(x)\) an operator?}
+\lecturerresponse{Once a position basis is chosen, \(X\) acts by multiplying by \(x\). A sufficiently regular function \(V(X)\) therefore acts by multiplying by the corresponding number \(V(x)\) at each point. Its usefulness is tested by the dynamics that follows.}
+\end{classroomqa}
+
+For the expectation-value calculations, solve Equation~\eqref{eq:l10-position-schrodinger} for the two time derivatives:
+\begin{align}
+\dot{\psi}
+&=
+\frac{i\hbar}{2m}\psi''
+-\frac{i}{\hbar}V\psi,
+\label{eq:l10-psi-dot}\\
+\dot{\psi}^{\,*}
+&=
+-\frac{i\hbar}{2m}\psi^{*\,\prime\prime}
++\frac{i}{\hbar}V\psi^*.
+\label{eq:l10-psi-star-dot}
+\end{align}
+The second line is only the complex conjugate of the first, but writing both makes the cancellations visible.
+
+\section{The Motion of the Packet Center}
+
+The center of the position distribution is
 \begin{equation}
-\partial_t\psi^*(x,t)
+\expect{X}
 =
--\frac{i}{2m}\partial_x^2\psi^*(x,t)+iV(x)\psi^*(x,t).
+\int_{-\infty}^{\infty}
+dx\,\psi^*(x,t)\,x\,\psi(x,t).
 \end{equation}
-
-\subsection{Question \& Answer}
-
-What does it mean for \(V(x)\) to be an operator? In this representation the answer is simple: it multiplies the wave function. The operator \(X\) multiplies by \(x\); a function of \(X\) multiplies by the corresponding function. Thus
+Differentiate it:
 \begin{equation}
-V(X)\psi(x)=V(x)\psi(x).
-\end{equation}
-Susskind pauses over this because it is a definition, and definitions in physics have to earn their keep. The payoff will come when we see what this choice implies for the motion of expectation values.
-
-\section{Expectation Values, Ehrenfest-Type Equations, and the Limits of Classical Motion}
-
-The lecture's final aim is to connect wave-packet motion to classical motion. If the packet remains sufficiently coherent and localized, then its center may be identified with the expectation value of position. We therefore ask how \(\langle X\rangle\) and \(\langle P\rangle\) change with time.
-
-\begin{proposition}
-For the Hamiltonian \(H=\frac{P^2}{2m}+V(X)\),
-\begin{equation}
-\frac{d}{dt}\langle X\rangle=\frac{\langle P\rangle}{m}.
-\end{equation}
-\end{proposition}
-
-\begin{proof}
-Start from
-\begin{equation}
-\langle X\rangle=\int dx\,\psi^*(x,t)\,x\,\psi(x,t).
-\end{equation}
-Differentiating gives
-\begin{equation}
-\frac{d}{dt}\langle X\rangle
+\frac{d}{dt}\expect{X}
 =
-\int dx\,(\partial_t\psi^*)x\psi
+\int dx\,
+\left(
+\dot{\psi}^{\,*}x\psi
 +
-\int dx\,\psi^*x(\partial_t\psi).
+\psi^*x\dot{\psi}
+\right).
+\label{eq:l10-x-expectation-derivative}
 \end{equation}
-Substitute the Schr\"odinger equations for \(\partial_t\psi\) and \(\partial_t\psi^*\). The two terms involving \(V(x)\) cancel exactly, since they are equal and opposite. What remains is
-\begin{equation}
-\frac{d}{dt}\langle X\rangle
-=
-\frac{i}{2m}\int dx\,
-\left[
--(\partial_x^2\psi^*)x\psi+\psi^*x(\partial_x^2\psi)
-\right].
-\end{equation}
-Now integrate by parts. This is the move the lecture returns to again and again. After one integration by parts on each term, the pieces involving \(x\,(\partial_x\psi^*)(\partial_x\psi)\) cancel, and we are left with
-\begin{equation}
-\frac{d}{dt}\langle X\rangle
-=
-\frac{i}{2m}\int dx\,
-\left[
-(\partial_x\psi^*)\psi-\psi^*(\partial_x\psi)
-\right].
-\end{equation}
-Since \(\langle P\rangle\) is real, this is precisely
-\begin{equation}
-\frac{d}{dt}\langle X\rangle
-=
-\frac{1}{m}\int dx\,\psi^*(-i\partial_x)\psi
-=
-\frac{\langle P\rangle}{m}.
-\end{equation}
-\end{proof}
+The two terms are complex conjugates. On substituting Equations~\eqref{eq:l10-psi-dot} and \eqref{eq:l10-psi-star-dot}, the potential terms cancel because \(V(x)\) is real. Integrating the kinetic terms by parts leaves
+\begin{align}
+\frac{d}{dt}\expect{X}
+&=
+\frac{1}{m}
+\int dx\,
+\psi^*
+\left(-i\hbar\frac{\partial}{\partial x}\right)
+\psi \notag\\
+&=
+\frac{\expect{P}}{m}.
+\label{eq:l10-ehrenfest-x}
+\end{align}
 
-This is the first half of mechanics: momentum divided by mass is velocity. Susskind pauses over the point that no localization assumption has yet been used. The relation is exact.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_12.png}
+\caption{The derivative of the packet center reduces to the expectation value of momentum divided by the mass.}
+\lectureframe{01:15:40}
+\end{figure}
 
-\begin{proposition}
-For the same Hamiltonian,
-\begin{equation}
-\frac{d}{dt}\langle P\rangle=-\left\langle \frac{dV}{dx}\right\rangle.
-\end{equation}
-\end{proposition}
+This relation is exact. No narrow-packet approximation entered the algebra.
 
-\begin{proof}
-Write
-\begin{equation}
-\langle P\rangle
-=
-\int dx\,\psi^*(-i\partial_x)\psi.
-\end{equation}
-Differentiating with respect to time gives
-\begin{equation}
-\frac{d}{dt}\langle P\rangle
-=
--i\int dx\,(\partial_t\psi^*)\,\partial_x\psi
--i\int dx\,\psi^*\,\partial_x(\partial_t\psi).
-\end{equation}
-Integrate the second term by parts:
-\begin{equation}
-\frac{d}{dt}\langle P\rangle
-=
--i\int dx\,(\partial_t\psi^*)\,\partial_x\psi
-+i\int dx\,(\partial_x\psi^*)\,\partial_t\psi.
-\end{equation}
-Now substitute the Schr\"odinger equations. The kinetic pieces combine into a total derivative,
-\begin{equation}
--\frac{1}{2m}\int dx\,\partial_x\!\left[(\partial_x\psi^*)(\partial_x\psi)\right],
-\end{equation}
-so with vanishing boundary terms they disappear.
+\begin{classroomqa}
+\audiencequestion{Where was the assumption that the wave packet is a single narrow bump used in this derivation?}
+\lecturerresponse{Nowhere. The identity \(d\expect{X}/dt=\expect{P}/m\) holds for every state in the domain of this Hamiltonian. Localization matters only when we interpret \(\expect{X}\) as the trajectory of a classical particle.}
+\end{classroomqa}
 
-The potential terms combine into
+The other half of mechanics concerns momentum:
 \begin{equation}
-\int dx\,V(x)\left[\psi^*(\partial_x\psi)+(\partial_x\psi^*)\psi\right].
-\end{equation}
-But the bracket is just the derivative of the probability density:
-\begin{equation}
-\psi^*(\partial_x\psi)+(\partial_x\psi^*)\psi
+\expect{P}
 =
-\partial_x(\psi^*\psi).
+\int dx\,
+\psi^*
+\left(-i\hbar\frac{\partial}{\partial x}\right)
+\psi.
 \end{equation}
-Therefore
+Differentiate both factors that depend on time:
 \begin{equation}
-\frac{d}{dt}\langle P\rangle
+\frac{d}{dt}\expect{P}
 =
-\int dx\,V(x)\,\partial_x(\psi^*\psi).
+-i\hbar
+\int dx\,
+\left(
+\dot{\psi}^{\,*}\psi'
++
+\psi^*\frac{\partial\dot{\psi}}{\partial x}
+\right).
+\label{eq:l10-p-expectation-start}
 \end{equation}
-One final integration by parts yields
+After integrating one term by parts, substitute the two Schr\"odinger equations. The kinetic contributions cancel. The potential terms combine into
 \begin{equation}
-\frac{d}{dt}\langle P\rangle
+\int dx\,
+V(x)
+\left(
+\psi\frac{\partial\psi^*}{\partial x}
++
+\psi^*\frac{\partial\psi}{\partial x}
+\right)
 =
--\int dx\,\psi^*(x,t)\psi(x,t)\,\frac{dV}{dx}
+\int dx\,
+V(x)\frac{\partial}{\partial x}|\psi|^2.
+\end{equation}
+One final integration by parts moves the derivative onto the potential:
+\begin{align}
+\frac{d}{dt}\expect{P}
+&=
+-\int dx\,|\psi(x,t)|^2\frac{dV}{dx} \notag\\
+&=
+-\expect{V'(X)}
 =
--\left\langle \frac{dV}{dx}\right\rangle.
-\end{equation}
-\end{proof}
-
-If we define the force by
-\begin{equation}
-F(x)=-\frac{dV}{dx},
-\end{equation}
-then the result reads
-\begin{equation}
-\frac{d}{dt}\langle P\rangle=\langle F(X)\rangle.
-\end{equation}
-Again, nothing approximate has been done.
-
-\subsection{Question \& Answer}
-
-If these equations are exact, why are we not already finished with the classical limit? Because the exact result is
-\begin{equation}
-\frac{d}{dt}\langle P\rangle=\langle F(X)\rangle,
-\end{equation}
-whereas classical motion of the packet center would require
-\begin{equation}
-\frac{d}{dt}\langle P\rangle\approx F(\langle X\rangle).
-\end{equation}
-In general those are not the same thing:
-\begin{equation}
-\langle F(X)\rangle \neq F(\langle X\rangle).
-\end{equation}
-
-Susskind gives a beautifully sharp example. Suppose
-\begin{equation}
-F(x)=x^2,
-\end{equation}
-and suppose the wave packet consists of two separated bumps, symmetric about the origin. Then
-\begin{equation}
-\langle X\rangle=0,
+\expect{F(X)},
 \qquad
-F(\langle X\rangle)=F(0)=0,
-\end{equation}
-but
+F(x)=-V'(x).
+\label{eq:l10-ehrenfest-p}
+\end{align}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_13.png}
+\caption{The potential terms combine into a total derivative, yielding \(d\expect{P}/dt=-\expect{V'(X)}\).}
+\lectureframe{01:30:45}
+\end{figure}
+
+Equations~\eqref{eq:l10-ehrenfest-x} and \eqref{eq:l10-ehrenfest-p} are Ehrenfest's theorem for this Hamiltonian. They are exact quantum identities, but exact expectation-value equations are not yet the same as a classical orbit.
+
+\section{Where the Classical Approximation Enters}
+
+Classical mechanics for a point at the packet center would require
 \begin{equation}
-\langle F(X)\rangle=\langle X^2\rangle>0.
+\frac{d}{dt}\expect{P}
+\approx
+F\!\left(\expect{X}\right).
+\label{eq:l10-classical-center-force}
 \end{equation}
-So the exact Ehrenfest-type equations do not by themselves produce Newton's law for the center of the packet. A further approximation is needed: the packet must be localized enough that the force is effectively constant across its width.
-
-This is the point at which the lecture returns from algebra to physics. A smooth potential does not disturb a narrow packet very much, and then the packet moves more or less classically. A sharp potential feature, by contrast, tends to break the packet into pieces and scatter them.
-
-Susskind then makes the argument more concrete with an order-of-magnitude estimate. In many reasonable circumstances macroscopic objects nearly saturate the uncertainty relation, so that
+Quantum mechanics gives instead
 \begin{equation}
-\Delta x\,\Delta p \sim \hbar.
+\frac{d}{dt}\expect{P}
+=
+\expect{F(X)}.
 \end{equation}
-Since \(\Delta p=m\,\Delta v\), this becomes
+In general,
 \begin{equation}
-\Delta x\,\Delta v \sim \frac{\hbar}{m}.
+\expect{F(X)}
+\neq
+F\!\left(\expect{X}\right).
+\label{eq:l10-force-nonlinearity}
 \end{equation}
-This is not a new exact theorem; it is a heuristic estimate. But it captures the point. When \(m\) is large, the positional spread needed for a given velocity spread becomes small. A heavy body therefore tends to carry a tightly concentrated packet. Sharp details of the potential then look broad compared with the packet, and the packet moves through them without being torn apart. When \(m\) is small, the spread is larger, and the same potential is seen as ragged and disruptive.
 
-That is why the lecture ends with a contrast between bowling balls and electrons, and between smooth fields and sharp structures. An electron in a very smooth electric field can move as an almost classical packet. The same electron striking the sharp structure near a nucleus scatters in all directions. The lecture then widens the point once more: photons behave the same way. Smoothly varying media lead to geometric optics; diffraction gratings and other sharp structures spread waves out.
+\begin{classroomqa}
+\audiencequestion{If both Ehrenfest equations are exact, why do they not already prove that every quantum state follows Newton's law?}
+\lecturerresponse{Newton's law for the packet center needs the force evaluated at the center. The exact quantum equation contains the average of the force over the full probability distribution. Those coincide for a narrow packet in a slowly varying force field, but not for an arbitrary state or nonlinear force.}
+\end{classroomqa}
 
-\begin{remark}
-Quantum mechanics is not expected to reproduce classical mechanics in every imaginable circumstance. It is expected to reproduce it when packets remain coherent and localized, and when the potential is smooth on the scale seen by those packets.
-\end{remark}
+The lecture's counterexample makes the distinction unmistakable. Let \(F(x)=x^2\) and choose a normalized state with two equal narrow bumps centered near \(+a\) and \(-a\). Symmetry gives
+\begin{equation}
+\expect{X}=0,
+\qquad
+F\!\left(\expect{X}\right)=0,
+\end{equation}
+while
+\begin{equation}
+\expect{F(X)}
+=
+\expect{X^2}
+\approx
+a^2>0.
+\end{equation}
 
-\section{Summary}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_14.png}
+\caption{For a symmetric two-bump packet and \(F(x)=x^2\), the force at the mean vanishes while the mean force does not.}
+\lectureframe{01:33:35}
+\end{figure}
 
-The lecture proceeds with great deliberateness. It settles one loose conceptual end about negative energy, resets the agenda, rebuilds the wave-function language of position and momentum, and turns the uncertainty principle from a Fourier-transform intuition into a theorem. Only then does it return to the Schr\"odinger equation, derive exact equations for \(\langle X\rangle\) and \(\langle P\rangle\), and finally insert the crucial caveat: exact expectation-value equations are not yet classical mechanics. The classical limit appears only when wave packets stay narrow and potentials stay smooth enough that \(\langle F(X)\rangle\) may be replaced by \(F(\langle X\rangle)\). That final distinction is not an appendix to the lecture. It is the point toward which the entire lecture has been moving.
+For a single narrow packet centered at \(\bar{x}=\expect{X}\), expand the force:
+\begin{equation}
+F(X)
+=
+F(\bar{x})
++
+F'(\bar{x})(X-\bar{x})
++
+\frac{1}{2}F''(\bar{x})(X-\bar{x})^2
++\cdots.
+\end{equation}
+Taking the expectation value removes the linear term:
+\begin{equation}
+\expect{F(X)}
+=
+F(\bar{x})
++
+\frac{1}{2}F''(\bar{x})(\Delta x)^2
++\cdots.
+\end{equation}
+The classical approximation is reliable when the packet remains narrow compared with the length scale on which the force changes appreciably.
+
+Sharp features can split and scatter a packet. A broad, smooth potential tends to guide a sufficiently localized packet without destroying its single-bump form; a pointlike obstacle, atomic core, or structure on the scale of the wavelength can produce reflected and diffracted components.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_15.png}
+\caption{Potential structure on a scale shorter than the packet width or relevant wavelength can break a coherent packet into scattered components.}
+\lectureframe{01:37:25}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What makes a potential bad for a classical packet?}
+\lecturerresponse{The issue is scale, not moral character. Features much sharper than the packet or comparable to its wavelength resolve the wave nature and generate scattering. If the potential varies slowly across the packet, the force is nearly constant over its support and the center follows the classical equation.}
+\end{classroomqa}
+
+Mass also matters. For a nearly minimum-uncertainty packet,
+\begin{equation}
+\Delta x\,\Delta v
+\sim
+\frac{\hbar}{2m}.
+\end{equation}
+A large mass permits both a small spatial width and a modest velocity spread. Heavy objects can therefore remain sharply localized while traversing macroscopic potentials. Light particles are more readily spread or diffracted by microscopic structure. This is a scaling argument, not a claim that mass alone decides whether motion is classical.
+
+\begin{classroomqa}
+\audiencequestion{Is an electron ever large enough, in this sense, to behave approximately classically?}
+\lecturerresponse{Yes, if the external field varies smoothly on the electron packet's scale. Between broad capacitor plates, for example, a coherent packet can follow the classical acceleration for a useful time. Near the sharp Coulomb structure of a nucleus, the same electron displays pronounced scattering.}
+\end{classroomqa}
+
+Rutherford's 1911 scattering experiment provides the complementary lesson. Alpha particles encountering the compact charge distribution of a gold nucleus were scattered through large angles, revealing that the positive charge was concentrated in a very small region. Rutherford described a beam of particles; quantum mechanics describes the incident amplitude and its scattered components. Modern electron and photon scattering experiments use the same scale sensitivity.
+
+\begin{classroomqa}
+\audiencequestion{Is this wave-versus-scale behavior special to matter particles?}
+\lecturerresponse{No. Electromagnetic waves follow geometric optics when the refractive index changes slowly over a wavelength. A diffraction grating with spacing comparable to the wavelength spreads the wave into distinct directions. Electrons, alpha particles, photons, and other quantum excitations share this relation between wavelength and structure.}
+\end{classroomqa}
+
+The classical limit is therefore not a separate law pasted onto quantum mechanics. The exact expectation-value equations already contain the classical relations. Classical trajectories emerge when the state remains localized and the Hamiltonian varies smoothly enough that averaging the force is effectively the same as evaluating it at the packet center.
