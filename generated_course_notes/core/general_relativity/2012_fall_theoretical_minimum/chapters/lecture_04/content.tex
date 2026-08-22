@@ -1,189 +1,266 @@
-\chapter{Uniform Gravity from Geodesics and Accelerated Coordinates}
+\chapter{Geodesics, Uniform Acceleration, and the Newtonian Limit}
 
-This lecture begins with a promise and then refuses to cash it immediately. We want a general-relativistic description of a uniform gravitational field, not just the Newtonian near-Earth approximation. But before we can write any such field down, we must review the machinery that will later carry the entire argument: covariant differentiation, parallel transport, and geodesics. Only after that review does the lecture pivot to spacetime, to accelerated coordinates, and finally to the local metric of an accelerated elevator.
+The immediate problem is gravity. More precisely, we want the spacetime metric that describes a nearly uniform gravitational field, such as the field in a small laboratory near the surface of the Earth. The shortest route to that metric turns out not to be a direct one. We must first make three geometric ideas operational: covariant differentiation, parallel transport, and geodesic motion.
 
-The path is therefore quite deliberate. We begin with geometry in the local Riemannian sense, recast that geometry as dynamics through the geodesic equation, and then discover that flat spacetime written in a clever set of coordinates already imitates a uniform gravitational field. These notes follow Leonard Susskind's lecture closely in order and motivation, with board details cross-checked against preserved lecture frames from LazyingArt LLC and Video2Book. Where the board or transcript compresses an index correction or a sign choice, we keep the lecture's convention but present the cleaned standard formula.
+These ideas depend on one another. Covariant differentiation tells us how to compare vectors at neighboring points. Parallel transport tells us how to carry a vector without turning it. A geodesic is obtained when the vector being carried is the tangent to the path itself. Once the path lies in spacetime rather than in space, that same geodesic equation becomes the equation of motion of a freely falling particle.
 
-\section{Review Goal: Covariant Derivatives and the Problem of Gravity}
+The second half of the lecture then makes a striking move. We remain in flat Minkowski spacetime, but describe it with coordinates adapted to a rigidly accelerated family of observers. In those coordinates the metric looks gravitational. Near one observer it reproduces the potential of a uniform field, and its geodesics obey the Newtonian equation
+\begin{equation}
+\frac{d^2y}{d\tau^2}=-g.
+\end{equation}
+This is the equivalence principle written as a calculation.
 
-Susskind opens by stating the physical target very plainly: we want to discuss gravity, at least in a uniform gravitational field. But he does not go there at once. He first reviews the covariant derivative because the later force law will be written entirely in terms of the metric and the Christoffel symbols.
+\section{The Covariant Derivative Recalled}
 
-The guiding idea is local. At a chosen point \(P\), one can pick coordinates that are as Cartesian as possible. Early in the lecture he loosely calls them Gaussian normal coordinates, then immediately retreats from the terminology and says, more safely, that he means the best coordinates at a point. What matters is the condition
+At a chosen point \(P\), coordinates can be selected that are as Cartesian as possible. The lecture initially uses the phrase Gaussian normal coordinates and then immediately qualifies it. The name is less important than the local conditions:
 \begin{equation}
 g_{mn}(P)=\delta_{mn},
 \qquad
 \partial_r g_{mn}(P)=0.
+\label{eq:l4-normal-point}
 \end{equation}
-In those coordinates the covariant derivative should reduce to the ordinary derivative at \(P\), while in arbitrary coordinates it must still transform as a tensor.
+These are normal coordinates at one point. They need not remain Cartesian in a finite neighborhood, and many such frames exist because their axes may be rotated.
 
-The first identity to recall is metric compatibility:
+The metric is compatible with the derivative operator:
 \begin{equation}
-\nabla_m g_{rs}=0.
+\nabla_r g_{mn}=0,
+\qquad
+\nabla_r g^{mn}=0.
+\label{eq:l4-metric-compatibility}
 \end{equation}
-This is not a decorative relation. It is part of the whole architecture: the metric is covariantly constant, and that is what later allows lengths and angles to be transported consistently.
-
-For a covector \(V_s\), the lecture reviews
+For a covector \(V_s\), the covariant derivative is
 \begin{equation}
-\nabla_r V_s=\partial_r V_s-\Gamma^{p}{}_{rs}V_p.
-\end{equation}
-The Christoffel symbols are built from derivatives of the metric. The board derivation is corrected in midstream, so the clean formula to keep is
-\begin{equation}
-\Gamma^{p}{}_{rs}
+\nabla_r V_s
 =
-\frac{1}{2}\,
-g^{pn}
+\partial_r V_s-\Gamma^p{}_{rs}V_p.
+\label{eq:l4-covector-derivative}
+\end{equation}
+The connection coefficients are
+\begin{equation}
+\Gamma^p{}_{rs}
+=
+\frac{1}{2}g^{pn}
 \left(
 \partial_s g_{nr}
-+
-\partial_r g_{ns}
--
-\partial_n g_{rs}
++\partial_r g_{ns}
+-\partial_n g_{rs}
 \right).
+\label{eq:l4-christoffel}
 \end{equation}
-Because they are made from first derivatives of the metric, the \(\Gamma^{p}{}_{rs}\) vanish at a point in best coordinates. But they are not tensors. That fact, which looks like a technical nuisance at the beginning, becomes physically essential at the end of the lecture.
+Several indices are corrected while this expression is written on the board. Equation \eqref{eq:l4-christoffel} is the completed relation. It is symmetric in \(r\) and \(s\), as expected for the torsion-free Levi-Civita connection.
 
-For a vector with upper index, the lecture insists that one can work out the corresponding formula by a short exercise. Start from
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_04_figure_01.png}
+\caption{The covector derivative and the completed Christoffel-symbol formula.}
+\end{figure}
+
+Because the Christoffel symbols are made from first derivatives of the metric, they vanish at \(P\) in the coordinates \eqref{eq:l4-normal-point}. They do not vanish in every coordinate system, even when the underlying space is flat. Thus \(\Gamma^p{}_{rs}\) is not a tensor. That non-tensorial character will later be exactly what allows an accelerated observer to describe a gravitational force that an inertial observer does not see.
+
+\subsection{Raising the vector index}
+
+The corresponding derivative of a vector is not introduced as a separate rule to memorize. It follows from the metric. Begin with
 \begin{equation}
 V^n=g^{np}V_p.
 \end{equation}
-Then use the product rule together with \(\nabla_m g^{np}=0\):
+Then
 \begin{align}
 \nabla_m V^n
-&=
-\nabla_m(g^{np}V_p) \\
-&=
-(\nabla_m g^{np})V_p+g^{np}\nabla_m V_p \\
-&=
-g^{np}\nabla_m V_p.
+&=\nabla_m\!\left(g^{np}V_p\right) \\
+&=(\nabla_m g^{np})V_p+g^{np}\nabla_m V_p \\
+&=g^{np}\left(\partial_mV_p-\Gamma^r{}_{mp}V_r\right),
 \end{align}
-Substituting the covector formula and rearranging the indices gives
+where metric compatibility removed the first term. Reorganizing the indices gives
 \begin{equation}
-\nabla_m V^n=\partial_m V^n+\Gamma^{n}{}_{mr}V^r.
+\nabla_m V^n
+=
+\partial_m V^n+\Gamma^n{}_{mr}V^r.
+\label{eq:l4-vector-derivative}
 \end{equation}
-This is one of those small index facts that the lecture wants us to remember in a practical way: lower indices bring the Christoffel term with a minus sign, upper indices bring it with a plus sign.
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_02.png}
+\caption{Raising the index with the inverse metric before differentiating.}
+\end{figure}
 
-What does Susskind really mean by ``Gaussian normal coordinates'' here? The lecture itself corrects the wording. He is not trying to invoke a global coordinate construction with some stronger geometric meaning. He means only the locally flattest coordinates at a chosen point: the coordinates in which the metric equals the Kronecker delta there and has vanishing first derivatives there.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_03.png}
+\caption{The upper-index derivative emerging from metric compatibility and the product rule.}
+\end{figure}
 
-So the content is local, not terminological:
+The index grammar is therefore simple:
 \begin{equation}
-g_{mn}(P)=\delta_{mn},
-\qquad
-\partial_r g_{mn}(P)=0.
+\boxed{
+\begin{aligned}
+\text{lower index:}&\quad -\Gamma,\\
+\text{upper index:}&\quad +\Gamma.
+\end{aligned}}
 \end{equation}
-Those are the coordinates in which the covariant derivative reduces, at that point, to the ordinary derivative.
+For a higher-rank tensor, one connection term appears for each index, with its sign determined by whether that index is lower or upper.
+
+\subsection{A terminology question}
+
+What exactly are the best coordinates mentioned above? They are not being asserted as a distinguished global coordinate system. At one selected point they make the metric equal to its flat form and make its first derivatives vanish. Rotating the axes gives another equally good frame. The geometric statements derived in such a frame do not depend on that orientation, because the final objects are tensors.
 
 \section{Parallel Transport Along a Curve}
 
-Once the derivative operator is in place, the lecture turns it into a geometric process. Suppose we move along a curve in a curved space and carry a vector with us. What does it mean for that vector to stay parallel to itself?
-
-Take the covariant derivative of a contravariant vector and multiply by a displacement \(dx^m\). Then the covariant change in the vector is
-\begin{equation}
-dV^n
-=
-\left(
-\partial_m V^n+\Gamma^{n}{}_{mr}V^r
-\right)\,dx^m.
-\end{equation}
-The lecture reads this operationally. The first term is the ordinary change in the components. The second is the correction required because the coordinates themselves may bend from point to point. The sum is the true infinitesimal change measured in the local best coordinates.
-
-This leads directly to the defining equation:
-\begin{equation}
-dV^n+\Gamma^{n}{}_{mr}V^r\,dx^m=0.
-\end{equation}
-
-\begin{definition}
-A vector is parallel transported along a curve if its covariant differential change vanishes all along that curve.
-\end{definition}
-
-The lecture is careful about how to understand this. At each point on the curve, we erect best coordinates and ask whether the vector changes to first order there. If it does not, we move to the next point and repeat. If the answer is always no, then the vector is said to remain parallel to itself along the curve.
-
-This already explains a fundamental fact about curved spaces. Parallel transport is path-dependent. If we take the same initial vector and carry it between the same endpoints along two different curves, the two final vectors need not agree. That mismatch is not an accident of language; it is a manifestation of curvature.
-
-The lecture also pauses for a useful side point: the length of a parallel-transported vector is preserved. One may see this immediately from metric compatibility. If \(V^2=g_{nr}V^nV^r\), then
+Suppose a vector \(V^n\) is carried along a curve. Over an infinitesimal displacement \(dx^m\), its covariant change is
 \begin{align}
-d(V^2)
-&=
-(\nabla_m g_{nr})V^nV^r\,dx^m
-+
-2g_{nr}V^n(\nabla_m V^r)\,dx^m \\
-&=0,
+\delta V^n
+&=(\nabla_mV^n)\,dx^m \\
+&=\partial_mV^n\,dx^m
++\Gamma^n{}_{mr}V^r\,dx^m \\
+&=dV^n+\Gamma^n{}_{mr}V^r\,dx^m.
+\label{eq:l4-covariant-differential}
 \end{align}
-because \(\nabla_m g_{nr}=0\) and parallel transport means \(\nabla_m V^r\,dx^m=0\).
 
-\subsection{Question \& Answer}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_04_figure_04.png}
+\caption{The ordinary component change and the connection correction along a curve.}
+\end{figure}
 
-Are we discussing a genuine vector field on the whole space, or just a vector assigned along a chosen curve? The lecture answers that the weaker notion is enough. We may begin with a single vector at one point, then solve the transport equation along the curve and thereby fill that curve with vectors. Nothing forces us to define the vector away from the curve.
-
-That clarification matters. The statement that a vector is covariantly constant is a statement relative to a particular direction or a particular curve. A vector field could be covariantly constant along one curve and not along another. For what follows, it is enough to think of a vector assigned along a curve and transported according to the equation above.
-
-\section{Geodesics as the Straightest Possible Curves}
-
-Now the lecture raises the local question that turns geometry into mechanics: what if the vector being transported is the tangent vector of the curve itself? When that happens, the curve is a geodesic.
-
-A geodesic may be described globally as a curve of stationary length between two points. Susskind mentions that definition, but then moves quickly to the one he prefers: locally, a geodesic is the straightest possible curve.
-
-To state that precisely, define the tangent vector by
+The vector is parallel transported when this covariant change vanishes:
 \begin{equation}
-t^m=\frac{dx^m}{ds},
-\qquad
+\boxed{
+dV^n+\Gamma^n{}_{mr}V^r\,dx^m=0.
+}
+\label{eq:l4-parallel-transport}
+\end{equation}
+Operationally, we may imagine erecting a normal frame at each point of the curve. In that local frame, the transported vector is required not to turn. We then move an infinitesimal distance, erect the next normal frame, and repeat.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_04_figure_05.png}
+\caption{A clear board state of the parallel-transport equation.}
+\end{figure}
+
+The orientation of each temporary normal frame is not part of the physics. We could rotate it before making the comparison. What matters is that the covariant statement \eqref{eq:l4-parallel-transport} is independent of that arbitrary choice.
+
+\subsection{Path dependence and curvature}
+
+In a curved space, parallel transport depends on the path. Begin with the same vector at the same initial point and transport it to the same endpoint along two different routes. In general, the final vectors differ. Carrying a vector around a closed loop may return it rotated. That mismatch is holonomy, and it is a direct sign of curvature.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_06.png}
+\caption{Two routes on a curved surface need not transport a vector to the same final orientation.}
+\end{figure}
+
+The cone provides a useful example. Away from its tip, a cone can be cut open and laid flat. Parallel transport around a loop that encloses the tip nevertheless returns the vector rotated by the angular deficit. If the tip is rounded, the curvature is finite and spread over a small region. If it is perfectly sharp, the idealization concentrates the curvature at the tip.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_07.png}
+\caption{Circular motion on the cone and its cut-open planar representation.}
+\end{figure}
+
+\subsection{Questions about the transported vector}
+
+\paragraph{Must the vector be defined everywhere?}
+No. One may start with a single vector at one point and solve \eqref{eq:l4-parallel-transport} only along the chosen curve. A full vector field is optional. If a field has been defined on a region, it may be covariantly constant along one direction and not along another.
+
+\paragraph{Is its length preserved?}
+Yes. Let \(V^2=g_{mn}V^mV^n\). Along the curve,
+\begin{align}
+\frac{D}{d\lambda}\left(g_{mn}V^mV^n\right)
+&=
+\frac{Dg_{mn}}{d\lambda}V^mV^n
++2g_{mn}V^m\frac{DV^n}{d\lambda}\\
+&=0.
+\end{align}
+Metric compatibility kills the first term and parallel transport kills the second. Lengths and mutual angles of parallel-transported vectors are therefore preserved.
+
+\paragraph{Is the tangent to every curve parallel transported?}
+No. This question leads directly to geodesics. The tangent to a circular route around a cone continually turns. The tangent to the straight line obtained after cutting the cone open does not. Only the second path is locally straight.
+
+\section{Geodesics: Straightest Rather Than Merely Shortest}
+
+A geodesic has two related descriptions. Globally, it is a stationary path of the length or proper-time functional. Locally, it is the straightest possible path. The word stationary is important: depending on the geometry and endpoints, the path need not be the unique global minimum. In Lorentzian spacetime, timelike geodesics locally maximize proper time rather than minimize a positive distance.
+
+The local description is the one needed here. A small car driven over curved terrain with its steering wheel held dead ahead traces a geodesic, provided the car is small compared with the scale on which the terrain bends. It need not look straight in an embedding space; it is straight according to the geometry available on the surface.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_08.png}
+\caption{A path drawn intrinsically on the curved surface, preparing the straightest-path definition.}
+\end{figure}
+
+\subsection{The tangent vector}
+
+Let the curve be \(x^m(s)\), with arc length
+\begin{equation}
 ds^2=g_{mn}\,dx^m dx^n.
 \end{equation}
-The construction is the familiar one. Take two neighboring points on the curve, draw the vector from one to the other, divide by the distance \(ds\), and then let the two points merge. The result is a unit tangent vector.
-
-Now demand that this tangent vector be parallel to itself:
+The unit tangent is
 \begin{equation}
-dt^n+\Gamma^{n}{}_{mr}t^r\,dx^m=0.
+t^m=\frac{dx^m}{ds}.
+\label{eq:l4-unit-tangent}
 \end{equation}
-Divide by \(ds\) and use \(dx^m/ds=t^m\). Then
+Geometrically, take two nearby points, form the displacement vector between them, divide by their separation, and let the points merge.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_09.png}
+\caption{The tangent direction as the limiting displacement along a curve.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_10.png}
+\caption{The line element and the unit tangent \(t^m=dx^m/ds\).}
+\end{figure}
+
+A geodesic is a curve whose tangent is parallel transported along itself:
+\begin{equation}
+dt^n+\Gamma^n{}_{mr}t^r\,dx^m=0.
+\end{equation}
+Divide by \(ds\) and use \(dx^m/ds=t^m\):
 \begin{equation}
 \frac{dt^n}{ds}
 =
--\Gamma^{n}{}_{mr}t^r t^m.
+-\Gamma^n{}_{mr}t^m t^r.
 \end{equation}
-Finally, because \(t^n=dx^n/ds\), one obtains the second-order geodesic equation,
+Finally insert \(t^n=dx^n/ds\):
 \begin{equation}
+\boxed{
 \frac{d^2x^n}{ds^2}
-=
--\Gamma^{n}{}_{mr}
++\Gamma^n{}_{mr}
+\frac{dx^m}{ds}
 \frac{dx^r}{ds}
-\frac{dx^m}{ds}.
+=0.
+}
+\label{eq:l4-geodesic}
 \end{equation}
 
-\begin{definition}
-A geodesic is a curve whose tangent vector is parallel to itself along the curve.
-\end{definition}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_11.png}
+\caption{The tangent-vector transport law and the second-order geodesic equation.}
+\end{figure}
 
-The lecture immediately comments on the shape of this equation. If \(s\) were playing the role of time, the left-hand side would look like an acceleration. The right-hand side would then be something determined by the metric. The analogy is not yet complete, but the Newton-like form is already visible.
+Equation \eqref{eq:l4-geodesic} already resembles Newtonian dynamics. If \(s\) is replaced by an appropriate time parameter, the first term is an acceleration. The connection term then acts like a force per unit mass, determined entirely by the metric. In general relativity this analogy becomes literal: free particles follow spacetime geodesics, and what Newton called gravitational acceleration appears through the connection.
 
-\subsection{Question \& Answer}
+\section{From Riemannian Distance to Spacetime Proper Time}
 
-Is the tangent vector of an arbitrary curve automatically parallel to itself? No. The lecture answers this first with the cone example. If we cut a cone and open it out into a flat sector, a circle around the cone becomes an ordinary circle in the flattened picture. Its tangent vector certainly changes as one moves around it. So that curve is not a geodesic.
-
-By contrast, a straight line in the flattened sector corresponds to the geodesic on the cone. The same point is then restated with the car-on-curved-terrain analogy: take a sufficiently small car, point the steering wheel exactly straight, and do not turn it. The path it traces is a geodesic. That is why geodesic means straightest possible rather than merely shortest in some naive global sense.
-
-\section{From Curved Space to Spacetime}
-
-At this point the lecture changes scale. Up to now we have been dealing with curved spaces in the ordinary Riemannian sense. But particles in gravity do not trace geodesics in space alone. They trace geodesics in spacetime. So we now replace spatial distance with proper time.
-
-In Minkowski spacetime,
+The discussion now moves from curved space to spacetime. In inertial Cartesian coordinates, the proper time between nearby events is
 \begin{equation}
-d\tau^2=dt^2-dx^2-dy^2-dz^2.
+d\tau^2
+=dt^2-dx^2-dy^2-dz^2.
+\label{eq:l4-proper-time}
 \end{equation}
-The board then rewrites this in tensor form:
+The lecture uses
 \begin{equation}
-d\tau^2=-\,g_{\mu\nu}\,dx^\mu dx^\nu.
+d\tau^2=-g_{\mu\nu}\,dx^\mu dx^\nu
+\label{eq:l4-lecture-sign}
 \end{equation}
-Here the coordinate bookkeeping is made completely explicit:
-\begin{equation}
-X^\mu=(t,x,y,z),
-\qquad
-t=x^0,\quad x=x^1,\quad y=x^2,\quad z=x^3.
-\end{equation}
-And the Minkowski metric is displayed as
+with
 \begin{equation}
 g_{\mu\nu}
+=
+\eta_{\mu\nu}
 =
 \begin{pmatrix}
 -1&0&0&0\\
@@ -191,289 +268,605 @@ g_{\mu\nu}
 0&0&1&0\\
 0&0&0&1
 \end{pmatrix}.
+\label{eq:l4-eta}
+\end{equation}
+Thus the external minus sign in \eqref{eq:l4-lecture-sign} converts the chosen mostly-plus metric into \eqref{eq:l4-proper-time}. The coordinates are
+\begin{equation}
+x^\mu=(t,x,y,z),
+\qquad
+x^0=t,\quad x^1=x,\quad x^2=y,\quad x^3=z.
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_04_figure_04.png}
-\caption{Minkowski metric matrix and spacetime coordinate conventions}
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_12.png}
+\caption{Proper time, spacetime coordinates, and the mostly-plus Minkowski metric.}
 \end{figure}
 
-In special relativity one ordinarily denotes this flat metric by \(\eta_{\mu\nu}\), so that
-\begin{equation}
-d\tau^2=-\,\eta_{\mu\nu}\,dx^\mu dx^\nu.
-\end{equation}
-The lecture is insistent about the convention. The metric has one negative and three positive eigenvalues. The overall minus sign in front of \(g_{\mu\nu}dx^\mu dx^\nu\) is part of the board presentation, and the live lecture even has a student catch a missing minus sign before the notation is settled.
+The signature is the invariant information: one eigenvalue has the sign associated with time and three have the sign associated with space. Multiplying the entire metric by \(-1\) and adjusting every convention consistently gives the equally common mostly-minus convention. Nothing physical depends on that overall choice.
 
-\paragraph{Flat spacetime.}
-There is a subtle but important point here. Flat spacetime does not mean that the metric is literally the Kronecker delta. It means that there exist coordinates in which the metric takes the Minkowski form \(\eta_{\mu\nu}\). In other coordinates, even flat spacetime may have a metric that looks quite complicated. This is exactly the point the lecture needs for what follows: a complicated metric may reflect nothing more than a peculiar coordinate system on flat spacetime.
+The lecture asks whether spaces with other indefinite signatures have been considered. Mathematically, pseudo-Riemannian geometries with many signatures are well established. The physical point is narrower: observed relativistic spacetime is Lorentzian, with one temporal direction. Additional timelike directions would profoundly alter causal structure and do not describe the physics under discussion.
 
-\section{Uniform Acceleration as Hyperbolic Polar Coordinates}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_13.png}
+\caption{The sign convention is checked before the flat metric is denoted by \(\eta_{\mu\nu}\).}
+\end{figure}
 
-Susskind now says explicitly that, for a while, we are going to do special relativity. We remain in flat spacetime, but we look at it in the analog of polar coordinates. This detour is essential to the lecture's rhythm. The accelerated coordinate system is not introduced as a trick; it is introduced as the Minkowski analog of an elementary Euclidean construction.
+Flat spacetime does not mean that the metric components must look like \(\eta_{\mu\nu}\) in every coordinate system. It means that some coordinates exist in which they do. Curvilinear or accelerated coordinates can make the components vary with position even when the Riemann tensor is zero.
 
-In the Euclidean plane we write
+\section{Why Equal Coordinate Acceleration Is Not Rigid}
+
+We want coordinates attached to an accelerating elevator. The first idea is to line up a set of observers at fixed separations and give them all the same coordinate acceleration. Relativity prevents that naive construction from remaining rigid.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_04_figure_14.png}
+\caption{A line of neighboring observers used to test whether a common acceleration preserves rigidity.}
+\end{figure}
+
+If separated observers follow identical acceleration programs according to one inertial frame, the distance between them in their changing instantaneous rest frames does not remain fixed. A string joining them stretches and eventually breaks. This is the same kinematic tension exhibited by the Bell-spaceship thought experiment. Moreover, constant Newtonian coordinate acceleration cannot continue indefinitely: it would eventually predict a speed greater than light.
+
+A relativistically rigid accelerated frame must therefore use a different proper acceleration at each position. The observers nearer the would-be horizon accelerate more strongly; those farther away accelerate more gently. Their proper separations can then remain constant in the momentarily comoving frame. This is Born-rigid acceleration in one spatial dimension.
+
+\section{Euclidean Polar Coordinates as the Warm-Up}
+
+The correct construction is easiest to see by beginning with an ordinary circle. In a Euclidean plane,
 \begin{equation}
 x=r\cos\theta,
 \qquad
 y=r\sin\theta,
+\end{equation}
+so
+\begin{equation}
+x^2+y^2=r^2,
 \qquad
 \cos^2\theta+\sin^2\theta=1.
 \end{equation}
-Equivalently,
-\begin{equation}
-x^2+y^2=r^2.
-\end{equation}
-For completeness, the lecture even writes the exponential forms,
+The complex-exponential forms are
 \begin{equation}
 \cos\theta=\frac{e^{i\theta}+e^{-i\theta}}{2},
 \qquad
-\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i},
+\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}.
+\label{eq:l4-euler-trig}
 \end{equation}
-correcting the missing factor of \(i\) as he goes. In polar coordinates the flat metric is
-\begin{equation}
-ds^2=dr^2+r^2\,d\theta^2.
-\end{equation}
-A circle is \(r=\text{constant}\), and uniform angular motion around it gives a uniform inward acceleration.
+The factor of \(i\) in the denominator of the sine formula is caught and restored during the board discussion.
 
-The relativistic analog is obtained by replacing circular functions with hyperbolic ones:
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_15.png}
+\caption{The circle, Euclidean polar coordinates, and their exponential trigonometric forms.}
+\end{figure}
+
+A fixed value of \(r\) is a circle. Motion with constant angular speed has constant centripetal acceleration in magnitude, always directed inward. The hyperbola will play the corresponding role in spacetime.
+
+\section{Hyperbolic Coordinates in Minkowski Spacetime}
+
+Replace trigonometric functions by their hyperbolic relatives:
 \begin{equation}
 \cosh\omega=\frac{e^\omega+e^{-\omega}}{2},
 \qquad
 \sinh\omega=\frac{e^\omega-e^{-\omega}}{2},
-\qquad
+\end{equation}
+with
+\begin{equation}
 \cosh^2\omega-\sinh^2\omega=1.
+\label{eq:l4-hyperbolic-identity}
 \end{equation}
-Now define
-\begin{equation}
-x=r\cosh\omega,
-\qquad
-t=r\sinh\omega.
-\end{equation}
-Then immediately
-\begin{equation}
-x^2-t^2=r^2,
-\end{equation}
-so fixed \(r\) means a hyperbola. The lecture pauses here and asks which coordinate is time-like. The answer is built directly into the picture: increasing \(r\) moves one outward across the family of hyperbolae, so \(r\) is space-like; increasing \(\omega\) moves one upward along a given hyperbola, so \(\omega\) is time-like. The transcript briefly misfires at one point, but the intended interpretation is perfectly clear.
+There is no factor of \(i\). The coordinate \(\omega\) is a hyperbolic angle, or rapidity. Unlike an ordinary angle, it is not periodic; it ranges from \(-\infty\) to \(+\infty\).
 
-Substituting into the Minkowski line element gives the flat accelerated-coordinate metric
-\begin{equation}
-d\tau^2=r^2\,d\omega^2-dr^2.
-\end{equation}
-This is the metric of flat spacetime written in the coordinates adapted to uniformly accelerated observers.
-
-\subsection{Question \& Answer}
-
-Why can we not simply give every point of the elevator the same acceleration? This is one of the lecture's most important conceptual beats. In relativity, that naive prescription does not produce a rigid accelerated frame. The proper distance between neighboring points would not remain fixed in their instantaneous rest frame; strings connecting them would be stretched. Worse, if one insists on uniform ordinary acceleration everywhere for long enough, one runs straight into the speed-of-light barrier.
-
-The correct rigidly accelerated frame is the family of hyperbolae \(r=\text{constant}\). Along each one, the proper acceleration is constant in time, but it differs from one hyperbola to the next. For the hyperbola \(r=R\),
-\begin{equation}
-a=\frac{1}{R}
-\qquad
-(c=1),
-\end{equation}
-and with units restored,
-\begin{equation}
-a=\frac{c^2}{R}.
-\end{equation}
-So the closer hyperbolae are more sharply bent and have larger acceleration; the farther ones are gentler and have smaller acceleration. That is what a relativist means here by a uniformly accelerated reference frame.
-
-\section{Near the Earth: The Local Metric in an Accelerated Elevator}
-
-Now the lecture narrows its focus. We do not want the entire hyperbolic family; we want a small neighborhood in which the acceleration is modest, essentially the analog of the gravitational field near the Earth's surface.
-
-Since
-\begin{equation}
-g=\frac{c^2}{R},
-\end{equation}
-the radius \(R\) needed to imitate terrestrial gravity is enormous:
-\begin{equation}
-R=\frac{c^2}{g}.
-\end{equation}
-That is why the lecture spends a moment emphasizing the scale. The Earth's gravitational field is weak on relativistic scales. To reproduce such a modest acceleration in these coordinates, we must go very far out in the hyperbola family.
-
-Choose a particular reference hyperbola \(r=R\) whose proper acceleration is \(g\), and then look only near it. Introduce a local height coordinate \(y\) by
-\begin{equation}
-r=R+y,
-\qquad
-dr=dy.
-\end{equation}
-The coordinate \(y\) is the height above the floor of the accelerated elevator. Substituting into the accelerated-frame metric gives
-\begin{align}
-d\tau^2
-&=
-r^2\,d\omega^2-dr^2 \\
-&=
-(R+y)^2\,d\omega^2-dy^2 \\
-&=
-(R^2+2Ry+y^2)\,d\omega^2-dy^2 \\
-&=
-\left(1+\frac{2y}{R}+\frac{y^2}{R^2}\right)R^2\,d\omega^2-dy^2.
-\end{align}
-Now define a local time coordinate
-\begin{equation}
-t=R\omega.
-\end{equation}
-Then \(R^2\,d\omega^2=dt^2\), so the metric becomes
-\begin{equation}
-d\tau^2
-=
-\left(1+\frac{2y}{R}+\frac{y^2}{R^2}\right)dt^2-dy^2.
-\end{equation}
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{lecture_04_figure_05.png}
-\caption{Local accelerated-frame metric expanded about \(r=R+y\)}
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_16.png}
+\caption{Circular functions are replaced by hyperbolic functions in the spacetime construction.}
 \end{figure}
 
-On the right board the end factors are partly cropped, so the displayed \(d\omega^2\) and final \(-dy^2\) are standard reconstructions forced by the preceding metric and by the algebra stated in the transcript. The lower boxed line, however, makes the lecture's intention unmistakable.
-
-Because \(R\) is extraordinarily large on ordinary scales, the quadratic term \(y^2/R^2\) is negligible in the local region of interest. Keeping only the first-order correction gives
-\begin{equation}
-d\tau^2\approx (1+2gy)\,dt^2-dy^2,
-\qquad
-g=\frac{1}{R}
-\quad
-(c=1).
-\end{equation}
-This is the metric in the vicinity of the chosen accelerated worldline.
-
-The lecture then explicitly asks us to recognize the coefficient of \(dt^2\). The quantity \(gy\) is the gravitational potential per unit mass in a uniform field, so
-\begin{equation}
-\Phi=gy,
-\qquad
-1+2gy=1+2\Phi.
-\end{equation}
-With the lecture's sign convention this means
-\begin{equation}
-g_{tt}=-(1+2\Phi).
-\end{equation}
-At this stage the identification is still motivational. We are told that \(gy\) looks like the gravitational potential; the real test will be whether the geodesic equation produces the correct force law.
-
-\begin{remark}
-We should not forget what has happened and what has not happened. We have found a metric that looks gravitational, but the spacetime is still flat. This is the gravitation of an accelerated elevator, not yet the gravitation of real matter.
-\end{remark}
-
-\section{Geodesics in the Local Metric and the Newtonian Limit}
-
-The lecture now returns to the geodesic equation and finally turns the geometry into dynamics. Particles move on geodesics of spacetime, so in proper-time parametrization
-\begin{equation}
-\frac{d^2x^\nu}{d\tau^2}
-=
--\Gamma^{\nu}{}_{\mu\rho}
-\frac{dx^\mu}{d\tau}
-\frac{dx^\rho}{d\tau}.
-\end{equation}
-For the vertical motion we want the \(y\)-component:
-\begin{equation}
-\frac{d^2y}{d\tau^2}
-=
--\Gamma^{y}{}_{\mu\rho}
-\frac{dx^\mu}{d\tau}
-\frac{dx^\rho}{d\tau}.
-\end{equation}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.92\textwidth]{lecture_04_figure_06.png}
-\caption{Christoffel-symbol force term and the \(y\)-derivative of \(g_{tt}\)}
-\end{figure}
-
-The board at this point is a derivation map rather than a single clean theorem. It shows the geodesic equation, the specialization to the \(y\)-motion, and a compressed final line involving \(\partial_y g_{tt}\). The sign chain on the board is not fully reliable; the lecture itself contains live corrections. The cleaned derivation is as follows.
-
-\paragraph{Worked derivation.}
-As long as the elevator and the particle are moving slowly, the time component of the four-velocity dominates. In the lecture's language, \(dt/d\tau\) is essentially \(1\), while the spatial components are small. Therefore the only significant term in the geodesic equation is the one with two time indices:
-\begin{equation}
-\frac{d^2y}{d\tau^2}\approx -\Gamma^{y}{}_{tt}.
-\end{equation}
-Now compute the relevant Christoffel symbol from the local metric. Since the metric is independent of \(t\), since \(g_{yt}=0\), and since \(g_{yy}=1\), we have
-\begin{align}
-\Gamma^{y}{}_{tt}
-&=
-\frac{1}{2}g^{yy}
-\left(
-\partial_t g_{yt}
-+
-\partial_t g_{yt}
--
-\partial_y g_{tt}
-\right) \\
-&=
--\frac{1}{2}\,\partial_y g_{tt}.
-\end{align}
-Thus
-\begin{equation}
-\frac{d^2y}{d\tau^2}
-\approx
-\frac{1}{2}\,\partial_y g_{tt}.
-\end{equation}
-Now insert the weak-field form
-\begin{equation}
-g_{tt}=-(1+2gy).
-\end{equation}
-Then
-\begin{equation}
-\partial_y g_{tt}=-2g,
-\end{equation}
-and therefore
-\begin{equation}
-\frac{d^2y}{d\tau^2}=-g.
-\end{equation}
-This is exactly Newton's equation for a particle in a uniform gravitational field.
-
-Written in the more suggestive weak-field language,
-\begin{equation}
-g_{tt}=-(1+2\Phi)
-\qquad \Longrightarrow \qquad
-\frac{d^2y}{d\tau^2}\approx -\partial_y\Phi.
-\end{equation}
-So the lecture's earlier claim is now justified: the coefficient multiplying \(dt^2\) contains the gravitational potential.
-
-There is a further lesson, emphasized in the closing remarks. In the original inertial Minkowski coordinates, \(\eta_{\mu\nu}\) is constant, the Christoffel symbols vanish, and no gravitational force appears. In the accelerated coordinates, the Christoffel symbols are nonzero and particles seem to fall. That is possible only because the Christoffel symbols are not tensors. If they were tensors, vanishing in one frame would force them to vanish in every frame, and the equivalence principle would collapse.
-
-The lecture then turns this success into a bridge to the next topic. The metric we found is still flat; its curvature tensor vanishes. So the gravity here is not the gravity of matter. But if the weak-field rule
-\begin{equation}
-g_{tt}=-(1+2\Phi)
-\end{equation}
-is more general, then for a gravitating object one should try the Newtonian potential
-\begin{equation}
-\Phi(y)\sim -\frac{GM}{y}.
-\end{equation}
-That suggests the heuristic form
-\begin{equation}
-g_{tt}\sim -\left(1-\frac{2GM}{y}\right).
-\end{equation}
-The lecture corrects the sign live, and then notices the striking consequence:
-\begin{equation}
-1-\frac{2GM}{y}=0
-\qquad \Longleftrightarrow \qquad
-y=2GM.
-\end{equation}
-Something special happens there. The coefficient of the time term vanishes. That is the lecture's first glimpse of the horizon of a black hole. But it remains only a glimpse: the Schwarzschild metric itself is deferred, because the field equations have not yet been introduced.
-
-\section{Summary}
-
-The lecture begins by promising a uniform gravitational field and then deliberately delays it. That delay turns out to be the whole point. We first review the covariant derivative in the locally best coordinates, then turn it into the operational notion of parallel transport, and then identify geodesics as the curves whose tangent vectors are parallel to themselves. Only after that preparation do we move from curved space to spacetime, where geodesics become equations of motion.
-
-The central construction of the second half is the uniformly accelerated frame in flat Minkowski spacetime. Ordinary polar coordinates in the Euclidean plane are upgraded to hyperbolic coordinates in the \(t\)-\(x\) plane,
+Define new coordinates in the right Rindler wedge:
 \begin{equation}
 x=r\cosh\omega,
 \qquad
 t=r\sinh\omega,
+\qquad
+r>0.
+\label{eq:l4-rindler-transform}
 \end{equation}
-with metric
+Then
 \begin{equation}
-d\tau^2=r^2\,d\omega^2-dr^2.
+x^2-t^2=r^2.
+\label{eq:l4-rindler-hyperbola}
 \end{equation}
-Localizing near one large hyperbola \(r=R\) whose proper acceleration equals terrestrial \(g\), and expanding about \(r=R+y\), gives
-\begin{equation}
-d\tau^2\approx (1+2gy)\,dt^2-dy^2.
-\end{equation}
-Then the spacetime geodesic equation reduces, in the slow-motion limit, to
-\begin{equation}
-\frac{d^2y}{d\tau^2}=-g.
-\end{equation}
-So geodesic motion in the local metric reproduces Newton's law in a uniform gravitational field.
+At fixed \(r\), varying \(\omega\) traces a hyperbola. Increasing \(r\) moves across the family in a spacelike direction, while increasing \(\omega\) moves forward along one hyperbola in a timelike direction.
 
-This is the success of the lecture, but not its endpoint. The spacetime is still flat; the curvature tensor is zero. The recovered gravity is therefore the gravity of an accelerated frame, not yet the gravity of gravitating matter. That is why the lecture closes by looking ahead. Once we replace the uniform-field potential by the \(1/y\)-type potential of a gravitating body, the time-time coefficient develops a zero at \(y=2GM\). That oddness is the doorway to Schwarzschild and to real curvature, which the next lecture will take up directly.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_17.png}
+\caption{The coordinate transformation \(x=r\cosh\omega\), \(t=r\sinh\omega\), and its invariant hyperbola.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_18.png}
+\caption{A congruence of fixed-\(r\) hyperbolae representing a rigidly accelerated family.}
+\end{figure}
+
+\subsection{The metric in accelerated coordinates}
+
+Differentiate \eqref{eq:l4-rindler-transform}:
+\begin{align}
+dx&=\cosh\omega\,dr+r\sinh\omega\,d\omega,\\
+dt&=\sinh\omega\,dr+r\cosh\omega\,d\omega.
+\end{align}
+Using \eqref{eq:l4-hyperbolic-identity}, the cross terms cancel:
+\begin{align}
+d\tau^2
+&=dt^2-dx^2\\
+&=r^2\,d\omega^2-dr^2.
+\label{eq:l4-rindler-metric}
+\end{align}
+The transverse directions, when restored, simply add \(-dy^2-dz^2\) to the proper-time convention used here.
+
+This is still flat spacetime. The coordinate-dependent coefficient \(r^2\) is no more evidence of curvature than the \(r^2\) multiplying \(d\theta^2\) in Euclidean polar coordinates.
+
+\subsection{Proper acceleration along the hyperbolae}
+
+For a fixed worldline \(r=R\), equation \eqref{eq:l4-rindler-metric} gives
+\begin{equation}
+d\tau=R\,d\omega.
+\end{equation}
+Its four-velocity is
+\begin{equation}
+U^\mu
+=
+\frac{d(t,x)}{d\tau}
+=
+(\cosh\omega,\sinh\omega),
+\end{equation}
+and its four-acceleration is
+\begin{equation}
+A^\mu
+=
+\frac{dU^\mu}{d\tau}
+=
+\frac{1}{R}(\sinh\omega,\cosh\omega).
+\end{equation}
+The invariant magnitude is constant:
+\begin{equation}
+a=\sqrt{A^\mu A_\mu}=\frac{1}{R}
+\qquad (c=1).
+\label{eq:l4-proper-acceleration}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_19.png}
+\caption{The inverse-radius law \(a=1/R\) for a fixed accelerated worldline.}
+\end{figure}
+
+With units restored,
+\begin{equation}
+\boxed{a=\frac{c^2}{R}.}
+\label{eq:l4-proper-acceleration-units}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_04_figure_20.png}
+\caption{Restoring units converts \(1/R\) into \(c^2/R\).}
+\end{figure}
+
+The smaller the intercept \(R\), the more sharply the worldline bends and the larger the proper acceleration felt by its observer. Farther hyperbolae bend less and require less acceleration. Each observer has constant acceleration in time, but different observers have different accelerations. That variation is precisely what preserves their mutual proper distances.
+
+\subsection{Questions about the accelerated coordinates}
+
+\paragraph{Is \(R\) the \(x\)-intercept?}
+Yes. At \(\omega=0\), equation \eqref{eq:l4-rindler-transform} gives \(t=0\) and \(x=R\). The intercept fixes the proper acceleration through \eqref{eq:l4-proper-acceleration-units}.
+
+\paragraph{Does the construction depend on the chosen origin?}
+The coordinates do. Translating the origin produces another family of hyperbolae with shifted asymptotes. No invariant physics depends on that choice. We are deliberately selecting one accelerated coordinate system and asking how inertial motion appears when described in it.
+
+\paragraph{What is proper acceleration?}
+It is the acceleration measured by an accelerometer carried with the observer. Covariantly,
+\begin{equation}
+A^\mu=\frac{dU^\mu}{d\tau},
+\qquad
+U^\mu=\frac{dx^\mu}{d\tau}.
+\end{equation}
+Its magnitude is the push the observer actually feels, not the coordinate acceleration \(d^2x/dt^2\) assigned by a distant frame.
+
+\section{Flat Metrics in Polar and Hyperbolic Coordinates}
+
+Before localizing near the Earth, it is useful to place the Euclidean and Lorentzian metrics side by side. In the plane,
+\begin{equation}
+ds^2=dr^2+r^2d\theta^2,
+\qquad
+g_{ab}
+=
+\begin{pmatrix}
+1&0\\
+0&r^2
+\end{pmatrix}.
+\label{eq:l4-polar-metric}
+\end{equation}
+An audience suggestion briefly introduces a spherical factor, but this is only a plane, not a sphere. The \(r^2\) term records the fact that a fixed angular interval spans a longer arc at larger radius.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_21.png}
+\caption{The Euclidean polar metric: position-dependent components in a flat plane.}
+\end{figure}
+
+The Minkowski analog is
+\begin{equation}
+d\tau^2=r^2d\omega^2-dr^2.
+\end{equation}
+Both metrics have position-dependent components, yet both geometries are flat. Coordinate curvature and geometric curvature are not the same thing.
+
+\section{Localizing Near Terrestrial Acceleration}
+
+Choose one reference hyperbola whose proper acceleration is the terrestrial value \(g\):
+\begin{equation}
+g=\frac{c^2}{R},
+\qquad
+R=\frac{c^2}{g}.
+\label{eq:l4-earth-radius}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_22.png}
+\caption{Selecting the reference hyperbola by \(c^2/R=g\).}
+\end{figure}
+
+Numerically,
+\begin{equation}
+R
+\simeq
+\frac{(3.0\times10^8\ {\rm m\,s^{-1}})^2}
+{9.8\ {\rm m\,s^{-2}}}
+\simeq
+9.2\times10^{15}\ {\rm m}.
+\end{equation}
+The lecture rounds this to \(10^{16}\) meters. A field of one terrestrial \(g\) is modest on relativistic scales, so the corresponding Rindler radius is enormous.
+
+Now examine only a small neighborhood of that reference observer. Introduce a local height \(y\) by
+\begin{equation}
+r=R+y,
+\qquad
+dr=dy,
+\qquad
+|y|\ll R.
+\label{eq:l4-local-height}
+\end{equation}
+The equality \(dr=dy\) is explicitly caught during the discussion, so the spatial term must be written as \(-dy^2\).
+
+Substitution into \eqref{eq:l4-rindler-metric} gives
+\begin{align}
+d\tau^2
+&=(R+y)^2d\omega^2-dy^2\\
+&=(R^2+2Ry+y^2)d\omega^2-dy^2\\
+&=
+\left(
+1+\frac{2y}{R}+\frac{y^2}{R^2}
+\right)
+R^2d\omega^2-dy^2.
+\label{eq:l4-local-expand}
+\end{align}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_23.png}
+\caption{Expanding the accelerated metric about \(r=R+y\).}
+\end{figure}
+
+Define a local time coordinate
+\begin{equation}
+t=R\omega.
+\label{eq:l4-local-time}
+\end{equation}
+Then
+\begin{equation}
+d\tau^2
+=
+\left(
+1+\frac{2y}{R}+\frac{y^2}{R^2}
+\right)dt^2-dy^2.
+\label{eq:l4-local-exact}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_24.png}
+\caption{Introducing \(t=R\omega\) after the expansion about the reference hyperbola.}
+\end{figure}
+
+Even a vertical excursion of tens of kilometers is tiny compared with \(R\). The lecture uses a fall of roughly twenty-four miles to make the comparison vivid: such a distance is still negligible beside \(10^{16}\) meters. Therefore \(y^2/R^2\) is much smaller than \(y/R\), and the quadratic term may be dropped:
+\begin{equation}
+d\tau^2
+\simeq
+\left(1+\frac{2y}{R}\right)dt^2-dy^2.
+\label{eq:l4-local-linear}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_25.png}
+\caption{The expanded metric and the local-time substitution before the weak-field truncation.}
+\end{figure}
+
+In units with \(c=1\), equation \eqref{eq:l4-earth-radius} gives \(1/R=g\), and hence
+\begin{equation}
+\boxed{
+d\tau^2\simeq(1+2gy)\,dt^2-dy^2.
+}
+\label{eq:l4-uniform-metric}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_26.png}
+\caption{The completed local metric for the uniformly accelerated elevator.}
+\end{figure}
+
+The quantity
+\begin{equation}
+\Phi(y)=gy
+\end{equation}
+is the Newtonian gravitational potential per unit mass in a uniform field. Thus
+\begin{equation}
+d\tau^2\simeq(1+2\Phi)\,dt^2-dy^2
+\qquad (c=1).
+\label{eq:l4-weak-potential-propertime}
+\end{equation}
+With the lecture's convention \(d\tau^2=-g_{\mu\nu}dx^\mu dx^\nu\), this means
+\begin{equation}
+g_{tt}=-(1+2\Phi).
+\label{eq:l4-gtt-potential}
+\end{equation}
+In conventional units the dimensionless correction is \(2\Phi/c^2\).
+
+Nothing has curved spacetime. Equation \eqref{eq:l4-uniform-metric} is the local expansion of a flat Rindler metric. Its apparent gravity is the inertial force seen inside an accelerated elevator.
+
+\section{The Geodesic Equation Becomes Newton's Law}
+
+The identification of \(gy\) with a potential has so far been suggestive. The decisive test is dynamical: does a free particle in the metric \eqref{eq:l4-uniform-metric} accelerate downward with \(d^2y/dt^2=-g\)?
+
+For a timelike worldline parametrized by proper time,
+\begin{equation}
+\frac{d^2x^\nu}{d\tau^2}
++\Gamma^\nu{}_{\mu\rho}
+\frac{dx^\mu}{d\tau}
+\frac{dx^\rho}{d\tau}
+=0.
+\label{eq:l4-spacetime-geodesic}
+\end{equation}
+The vertical component is
+\begin{equation}
+\frac{d^2y}{d\tau^2}
+=
+-\Gamma^y{}_{\mu\rho}
+\frac{dx^\mu}{d\tau}
+\frac{dx^\rho}{d\tau}.
+\label{eq:l4-y-geodesic}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_27.png}
+\caption{The transport equation and its second-order geodesic form, ready to be applied to vertical motion.}
+\end{figure}
+
+\subsection{The slow-motion approximation}
+
+For a slowly moving particle in a weak, static field,
+\begin{equation}
+\frac{dt}{d\tau}\simeq1,
+\qquad
+\left|\frac{dy}{d\tau}\right|\ll1.
+\end{equation}
+The time component of the four-velocity is therefore of order one, while the spatial components are small compared with it. Among the products in \eqref{eq:l4-y-geodesic}, the dominant one has \(\mu=\rho=t\):
+\begin{equation}
+\frac{d^2y}{d\tau^2}
+\simeq
+-\Gamma^y{}_{tt}
+\left(\frac{dt}{d\tau}\right)^2
+\simeq
+-\Gamma^y{}_{tt}.
+\label{eq:l4-slow-geodesic}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_28.png}
+\caption{Specializing the spacetime geodesic equation to the slowly moving \(y\)-component.}
+\end{figure}
+
+Now calculate the one required connection coefficient. The metric is diagonal and independent of \(t\), so
+\begin{align}
+\Gamma^y{}_{tt}
+&=
+\frac{1}{2}g^{yy}
+\left(
+\partial_tg_{yt}
++\partial_tg_{ty}
+-\partial_yg_{tt}
+\right)\\
+&=
+-\frac{1}{2}\partial_yg_{tt},
+\label{eq:l4-gamma-ytt}
+\end{align}
+because \(g^{yy}=1\) in the lecture's mostly-plus tensor convention.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_29.png}
+\caption{The Christoffel formula reduced to the \(y,t,t\) component.}
+\end{figure}
+
+Combining \eqref{eq:l4-slow-geodesic} and \eqref{eq:l4-gamma-ytt},
+\begin{equation}
+\frac{d^2y}{d\tau^2}
+\simeq
+\frac{1}{2}\partial_yg_{tt}.
+\label{eq:l4-accel-gtt}
+\end{equation}
+From \eqref{eq:l4-gtt-potential},
+\begin{equation}
+\partial_yg_{tt}
+=
+-2\partial_y\Phi
+=
+-2g.
+\end{equation}
+Therefore
+\begin{equation}
+\boxed{
+\frac{d^2y}{d\tau^2}=-g.
+}
+\label{eq:l4-newton-result}
+\end{equation}
+Since \(t\simeq\tau\) in the same slow-motion approximation, this is also
+\begin{equation}
+\frac{d^2y}{dt^2}=-g.
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_30.png}
+\caption{The completed sign chain: the \(y\)-derivative of \(g_{tt}\) produces the acceleration \(-g\).}
+\end{figure}
+
+More generally, in the Newtonian regime,
+\begin{equation}
+\boxed{
+g_{tt}=-(1+2\Phi)
+\quad\Longrightarrow\quad
+\frac{d^2x^i}{dt^2}=-\partial_i\Phi
+}
+\qquad(c=1).
+\label{eq:l4-newton-general}
+\end{equation}
+With units restored, the metric correction is \(2\Phi/c^2\), while the acceleration remains \(-\boldsymbol{\nabla}\Phi\).
+
+This calculation explains why the metric, rather than a separate gravitational force field, is the central object. A free particle simply follows a spacetime geodesic. In coordinates adapted to an accelerated laboratory, that geodesic has the coordinate curvature ordinarily attributed to gravity.
+
+\subsection{A question about the chosen Rindler origin}
+
+Could the reference hyperbola have been shifted so that its asymptotes and intercept occur elsewhere? Yes. There is a uniformly accelerated coordinate system associated with every suitable translated origin. In the elevator picture, these choices amount to selecting elevators whose floors occupy different positions at one instant.
+
+The local result does not rely on a privileged origin. Once a reference observer with acceleration \(g\) has been selected, \(y\) measures height relative to that observer and the nearby metric takes the form \eqref{eq:l4-uniform-metric}. The arbitrary coordinate choice determines where we describe the floor; it does not create invariant curvature.
+
+\section{Why the Christoffel Symbol Must Not Be a Tensor}
+
+The post-lecture discussion returns to a point that first appeared during the review. In the original inertial coordinates,
+\begin{equation}
+g_{\mu\nu}=\eta_{\mu\nu},
+\qquad
+\partial_\rho\eta_{\mu\nu}=0,
+\qquad
+\Gamma^\mu{}_{\nu\rho}=0.
+\end{equation}
+A free particle moves on a straight line, and there is no gravitational force.
+
+In the accelerated coordinates, the same flat spacetime has position-dependent metric components. Its Christoffel symbols do not vanish, and the same inertial trajectory appears curved. The particle seems to fall toward the floor of the elevator.
+
+This would be impossible if \(\Gamma^\mu{}_{\nu\rho}\) were a tensor. A tensor that vanishes in one frame vanishes in every frame. The connection instead acquires an inhomogeneous term under a coordinate transformation, so it may be zero in an inertial frame and nonzero in an accelerated one. That is exactly what the equivalence principle requires:
+\begin{equation}
+\text{acceleration of the frame}
+\quad\longleftrightarrow\quad
+\text{local gravitational force}.
+\end{equation}
+
+Curvature behaves differently. The Riemann tensor is a tensor. If it vanishes in the inertial frame, it vanishes in the accelerated frame as well:
+\begin{equation}
+R^\mu{}_{\nu\rho\sigma}=0.
+\end{equation}
+Thus the Christoffel symbols describe coordinate-dependent gravitational force, while curvature detects the invariant tidal content that no change of coordinates can remove.
+
+\section{From a Uniform Potential to a Schwarzschild Preview}
+
+The accelerated elevator has no gravitating matter and no curvature. Nevertheless, the weak-field relation \eqref{eq:l4-newton-general} suggests what to look for in the field of an actual spherical mass. The Newtonian potential outside a mass \(M\) is
+\begin{equation}
+\Phi(r)=-\frac{GM}{r}.
+\label{eq:l4-newton-potential}
+\end{equation}
+Substituting it into the weak-field time component gives
+\begin{equation}
+g_{tt}
+\simeq
+-\left(1-\frac{2GM}{r}\right)
+\qquad(c=1).
+\label{eq:l4-schwarzschild-preview}
+\end{equation}
+The sign of the potential is corrected during the board discussion. Attraction requires a negative potential that approaches zero from below as \(r\) tends to infinity.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]{lecture_04_figure_31.png}
+\caption{The Newtonian potential inserted into the time-time metric coefficient, revealing the factor \(1-2GM/r\).}
+\end{figure}
+
+The coefficient vanishes at
+\begin{equation}
+r=2GM
+\qquad(c=1),
+\end{equation}
+or, with units restored,
+\begin{equation}
+r_s=\frac{2GM}{c^2}.
+\end{equation}
+This is the Schwarzschild radius. The vanishing of this particular metric coefficient foreshadows a horizon.
+
+The argument is deliberately presented as a preview, not a derivation. The weak-field approximation alone cannot establish the exact Schwarzschild solution near \(r=2GM/c^2\), precisely where the correction is no longer small. The full solution also contains a nontrivial radial component and must satisfy Einstein's field equations. Those equations have not yet been introduced. What the present reasoning reveals is the correct structural clue and the scale at which something qualitatively new must occur.
+
+\section{Classroom Questions and Corrections}
+
+\subsection{Does a hyperbolic angle behave like an ordinary angle?}
+
+No. Both parameterize motion along a family of constant-radius curves, but \(\theta\) is periodic while the rapidity \(\omega\) ranges over the real line. The word angle refers to the algebraic analogy between rotations and Lorentz boosts, not to a quantity restricted between \(0\) and \(2\pi\).
+
+\subsection{Why does a modest acceleration require an enormous R?}
+
+The relation \(a=c^2/R\) contains the large relativistic scale \(c^2\). To obtain only \(10\ {\rm m\,s^{-2}}\), one needs \(R\) of order \(10^{16}\) meters. This is not a new physical distance attached to the Earth. It is the curvature radius of the hyperbolic worldline in a Minkowski diagram, expressed in length units.
+
+The large radius also guarantees a useful Newtonian interval. Over laboratory times and distances, the speed remains far below \(c\), the acceleration varies negligibly across the apparatus, and \(t\) differs little from proper time.
+
+\subsection{Is the apparent gravitational field real?}
+
+It is real as an accelerometer reading for an observer held at fixed Rindler position, but it is not invariant curvature. Release the observer, and the accelerometer reads zero along the resulting inertial geodesic. A sufficiently small freely falling laboratory eliminates the uniform field locally. What cannot be eliminated over a finite region is a tidal field, represented by nonzero curvature.
+
+\subsection{What was corrected during the force calculation?}
+
+Several signs and a factor of one half are checked live. The reliable chain in the lecture's convention is
+\begin{equation}
+g_{tt}=-(1+2gy),
+\qquad
+\Gamma^y{}_{tt}=-\frac12\partial_yg_{tt}=g,
+\qquad
+\frac{d^2y}{d\tau^2}=-\Gamma^y{}_{tt}=-g.
+\end{equation}
+Writing the convention explicitly prevents a board-level sign hesitation from becoming a physical ambiguity.
+
+\section{What Has Been Established}
+
+The lecture starts with differential geometry and ends with Newton's falling body. The essential steps are:
+\begin{enumerate}
+\item A covariant derivative compares tensors in changing coordinate bases.
+\item Parallel transport means zero covariant change along a chosen path.
+\item A geodesic parallel transports its own tangent.
+\item Free particles follow geodesics of spacetime.
+\item Fixed-\(r\) hyperbolae form a relativistically rigid accelerated frame.
+\item Their proper acceleration is \(a=c^2/r\), so it must vary with position.
+\item Near a reference worldline with acceleration \(g\), the flat metric is
+\begin{equation}
+d\tau^2\simeq(1+2gy)\,dt^2-dy^2
+\qquad(c=1).
+\end{equation}
+\item Its geodesic equation reduces to
+\begin{equation}
+\frac{d^2y}{dt^2}=-g.
+\end{equation}
+\end{enumerate}
+
+The equivalence principle is therefore not merely an analogy between an elevator and gravity. It is encoded in the way the metric and its connection transform. A uniform gravitational force can appear when flat spacetime is written in accelerated coordinates, while the curvature remains zero.
+
+The final extrapolation points beyond the uniform field. Replacing \(\Phi=gy\) by \(\Phi=-GM/r\) predicts the characteristic factor \(1-2GM/r\) in the time component of a spherical metric and exposes the Schwarzschild scale. To decide the full geometry, however, we need the field equations. That is the task to which the next lecture turns.
