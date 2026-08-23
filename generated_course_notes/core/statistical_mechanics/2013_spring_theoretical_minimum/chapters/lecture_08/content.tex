@@ -1,366 +1,868 @@
-\chapter{Poincar\'e Recurrences, Magnetization, and the First Ising Step}
+\chapter{Recurrence, Nonequilibrium Order, and Ising Spins}
 
-Let us come back to the second law for a moment, just as the lecture does, and ask how far we can push it before it seems to conflict with microscopic reversibility. The discussion begins with a gas in half a room and the question of Poincar\'e recurrence, moves outward to low-entropy initial data and the Boltzmann-brain problem, and only then resets to magnets and the first Ising model. These notes follow Leonard Susskind's lecture closely; LazyingArt LLC and Video2Book support the broader curation pipeline, but the order of ideas and the mathematical pacing are taken from the lecture itself.
+\lectureoverview{A gas released from one half of a room rushes toward
+equilibrium, yet reversible mechanics says that sufficiently long evolution
+must also produce returns to the exceptional state.  We estimate that return
+time from phase-space volume, separate recurrence from the unexplained
+low-entropy beginning of the universe, and use the resulting puzzle to discuss
+Boltzmann brains, coherent history, and life maintained by an energy flow.
+We then turn to magnetic order.  Independent two-state spins give an exactly
+soluble warm-up: combinatorics determines the partition function and the
+magnetization is a hyperbolic tangent.  Neighbor interactions finally restore
+an up--down symmetry and lead to the one-dimensional Ising model.}
 
-\section{Poincar\'e Recurrences and the Return of Rare States}
+\section{A Roomful of Air That Eventually Returns}
 
-Here is the first question: suppose we arrange for all the air in the room to begin on the left-hand side. This is not impossible. We can put in a wall, evacuate one side, push the air into the other, and then remove the partition. What happens next is familiar. The gas spreads out, fills the room approximately uniformly, and entropy increases.
+Begin with all the air in the left half of a room.  One can prepare this state
+with a partition: evacuate the right half, place the air on the left, and then
+remove the wall.  The gas spreads rapidly through the room and approaches
+thermal equilibrium.  Entropy increases.  Nothing surprising has happened.
 
-But the lecture immediately asks for more than the usual slogan. Suppose we sit there and wait. Then wait longer. Is the entropy increase really one-way, or is it only what we see on ordinary timescales? The answer is that, sooner or later, the unlikely happens. The gas can fluctuate back into the special state with all the air once again on one side of the room. That return is what we call a Poincar\'e recurrence.
+Now leave the room sealed and wait.  A million consecutive heads is an
+extraordinarily unlikely coin-toss record, but an indefinitely repeated
+experiment eventually produces extraordinarily unlikely records.  The same
+logic applies to the gas.  At some remote time all of its molecules will again
+be found in the left half, or in some comparably special region.  Such a return
+is a Poincare recurrence.
 
-The right analogy is not a miracle but a long run of coin tosses. If we flip a coin often enough, some fantastically unlikely sequence will eventually occur. In the same way, a closed mechanical system can wander back into a wildly atypical macrostate. The issue is therefore not whether recurrence exists, but how long we must wait before seeing it.
+The precise theorem is slightly more careful than the picture.  For a
+finite-measure region of phase space whose dynamics preserves phase-space
+volume, almost every initial point returns arbitrarily close to its starting
+point.  A macroscopic statement such as \emph{all molecules are in the left
+half} is easier: it asks only that the trajectory re-enter a finite
+coarse-grained region, not that every molecular coordinate return exactly.
+The practical question is how long that takes.
 
-That is the point at which the lecture turns to phase space. We want a timescale, even if only a rough one. Is it years, centuries, or something so enormous that the distinction ceases to matter?
+\subsection{A high-dimensional phase point}
 
-\section{Phase Space, Volume Fractions, and Exponential Waiting Times}
+For \(N\) classical particles, phase space has \(6N\) coordinates,
+\begin{equation}
+ \Gamma=(\bm x_1,\ldots,\bm x_N;\bm p_1,\ldots,\bm p_N).
+ \label{eq:sm8-phase-point}
+\end{equation}
+The positions are bounded by the room.  At fixed total energy the momenta are
+bounded as well, because one particle cannot carry arbitrarily large momentum
+without carrying arbitrarily large energy.  The allowed energy shell
+therefore has finite measure under the assumptions of the recurrence
+argument.
 
-The natural language for this question is phase space. For a gas of \(N\) particles, phase space has dimension \(6N\): three coordinates and three momentum components for each particle. Susskind first notes that the momentum directions are effectively bounded once the total energy is bounded. But when the recurrence estimate begins in earnest, he suppresses momentum and keeps the position variables in view. For the counting argument, it is configuration-space volume that matters.
+The phase point moves deterministically, but in a many-body gas its motion is
+chaotic.  Nearby trajectories separate quickly, as they do in a sequence of
+billiard-ball collisions.  After coarse-graining, a long trajectory appears
+to wander throughout the accessible region.
 
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_02.png}
-\caption{Chaotic trajectory in a bounded phase-space box. The board picture is schematic: it is there to suggest complicated wandering through an allowed region, not to serve as a literal low-dimensional model of the gas.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_02.png}
+\caption{A schematic phase-space region and a complicated trajectory
+wandering through it.  The drawing is deliberately low-dimensional; the real
+gas lives in a \(6N\)-dimensional space.}
+\lectureframe{00:06:41}
 \end{figure}
 
-\begin{figure}
+The low-dimensional sketch immediately tempts us into a mistake.  If the
+special state occupied half of the drawn rectangle, one might say that the
+gas should spend half its time there.  But \emph{every molecule lies in the
+left half} constrains every position coordinate, not just one coordinate of
+the phase point.
+
+Take only two particles moving in one spatial dimension, with coordinates
+\(x_1\) and \(x_2\).  Their configuration space is a square.  Requiring
+\(x_1<L/2\) selects half the square; requiring both
+\(x_1<L/2\) and \(x_2<L/2\) selects one quarter:
+\begin{equation}
+ P_2=\frac{1}{2}\frac{1}{2}=\frac{1}{4}.
+ \label{eq:sm8-two-particle-quarter}
+\end{equation}
+
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0) rectangle (7,4.5);
-\draw[thick] (0,0) -- (0,5.1);
-\node at (-0.35,4.8) {\(p\)};
-\draw[thick] (0.7,3.7) .. controls (1.4,4.3) and (2.0,3.4) .. (2.8,3.8)
-                    .. controls (3.6,4.2) and (4.2,3.1) .. (5.0,3.6)
-                    .. controls (5.8,4.1) and (6.2,3.3) .. (6.3,2.5)
-                    .. controls (6.4,1.6) and (5.7,1.1) .. (5.0,1.5)
-                    .. controls (4.2,1.9) and (3.9,3.0) .. (3.1,2.8)
-                    .. controls (2.2,2.6) and (2.5,1.3) .. (1.7,1.0)
-                    .. controls (1.0,0.8) and (0.8,1.8) .. (1.2,2.5)
-                    .. controls (1.7,3.2) and (2.8,3.2) .. (3.4,2.4)
-                    .. controls (4.0,1.6) and (3.6,0.8) .. (2.8,0.7)
-                    .. controls (2.0,0.6) and (1.4,1.3) .. (1.3,2.1)
-                    .. controls (1.1,3.0) and (1.9,3.4) .. (2.6,3.0)
-                    .. controls (3.5,2.5) and (4.4,2.1) .. (5.4,2.3);
-\end{tikzpicture}
-\caption{A clean redraw of the same schematic. The point is only that chaotic evolution can thread through the accessible region in a very intricate way.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_07.png}
+\caption{For two one-dimensional particles, the smaller square represents
+the configurations in which both coordinates lie in the chosen half of the
+room.}
+\lectureframe{00:07:08}
 \end{figure}
 
-The lecture now lets a low-dimensional picture mislead us on purpose. If we draw only one position coordinate and one momentum coordinate, then the region corresponding to ``left half of the room'' seems to occupy half the available area. If we coarse-grain the trajectory, it looks as though the system should spend about half its time there. That is crazy, as Susskind says, and the reason is simple: we have drawn only two dimensions.
-
-The real condition is not that one coordinate lies in one half of the room, but that \emph{all} the coordinates do. So let us forget momentum for the moment and draw only two spatial coordinates, \(x_1\) and \(x_2\), for two particles moving in one dimension. The full configuration space is a square. The condition that both particles lie in the left half of the room picks out one quarter of that square. Thus
+Three particles give \(1/2^3\), and \(N\) particles give
 \begin{equation}
-P_2=\frac{1}{4}.
+ P_{\mathrm{half}}(N)
+ =\left(\frac{1}{2}\right)^N.
+ \label{eq:sm8-half-probability}
 \end{equation}
-For three particles, the same reasoning gives \(2^{-3}\). For \(N\) particles,
+The exponent is the entire point.  A factor of one half is ordinary; one half
+raised to a macroscopic particle number is beyond ordinary intuition.
+
+\begin{classroomqa}
+\audiencequestion{Should the answer be \(1/3^N\), since the molecules also
+have other spatial directions?}
+\lecturerresponse{It depends on the condition being imposed.  If the only
+question is whether every particle lies to the left of the dividing wall,
+then each particle satisfies one binary condition and the answer is
+\(2^{-N}\).  Constraining another independent fraction of its available
+position space would supply another factor.
+\lecturetimestamp{00:07:47--00:08:05}}
+\end{classroomqa}
+
+\section{Phase Volume, Entropy, and the Recurrence Scale}
+
+The same estimate can be written without referring to halves.  Let the room
+have ordinary spatial volume \(V\), and let \(v\) be a smaller region in which
+we demand that every molecule be found.  Ignoring momentum factors that are
+common to the two macrostates, the available configuration-space volumes are
 \begin{equation}
-P_{\mathrm{half}}(N)=\left(\frac{1}{2}\right)^N.
+ \Omega_{\mathrm{room}}\propto V^N,
+ \qquad
+ \Omega_{\mathrm{small}}\propto v^N.
+ \label{eq:sm8-config-volumes}
 \end{equation}
-
-This is the decisive correction. The probability is not mildly small; it is exponentially small in the number of particles.
-
-The lecture then broadens the argument. Suppose the particles are required to lie in some smaller region of volume \(v\) inside a box of volume \(V\). The full configuration-space volume scales like \(V^N\), while the special region scales like \(v^N\). Hence the fraction of time spent in that special region is
+The long-time fraction spent in the small macrostate is therefore
 \begin{equation}
-P(v)=\frac{v^N}{V^N}=\left(\frac{v}{V}\right)^N.
-\end{equation}
-The corresponding recurrence time scales like the inverse probability:
-\begin{equation}
-\tau_{\mathrm{rec}} \sim \frac{1}{P(v)} \sim \left(\frac{V}{v}\right)^N.
-\end{equation}
-In particular, for half the room,
-\begin{equation}
-\tau_{\mathrm{rec}} \sim 2^N.
+ P(v)
+ =\frac{\Omega_{\mathrm{small}}}{\Omega_{\mathrm{room}}}
+ =\left(\frac{v}{V}\right)^N.
+ \label{eq:sm8-volume-ratio}
 \end{equation}
 
-Susskind then translates the same statement into entropy language. The entropy of a region of phase space is the logarithm of its volume, so the equilibrium region has exponentially larger volume than any sharply localized region. Schematically,
-\begin{equation}
-P \sim e^{-S_{\mathrm{eq}}},
-\end{equation}
-with the understanding that this is a scaling statement, not a sharply normalized theorem. The essential point is that the exponent is of order the number of molecules. In a room-sized system that means something like \(10^{30}\). Thus the recurrence time is not merely large; it is absurdly large, of order \(2^{10^{30}}\).
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Does the unit of time matter here? If the recurrence time is written in seconds, could it become significantly different in hours, or in some very short unit?
-
-\paragraph{Answer.} Not in any meaningful sense. Dividing a number of order \(2^{10^{30}}\) by \(3600\), or multiplying it by any ordinary conversion factor, does not change the fact that the timescale is governed by an exponent of order \(10^{30}\). That is why Susskind says it does not matter whether we use seconds, hours, or years. What \emph{does} depend on microscopic details is how long the system actually lingers in the special corner once it reaches it. The recurrence estimate concerns how rarely the system returns, not the exact duration of the visit. If one chooses a very tiny time unit, then the system will still spend only an infinitesimal fraction of its life in the special corner.
-
-The estimate is now in hand. The lecture immediately asks: what is the point of doing this exercise?
-
-\section{Reversibility, Low-Entropy Initial Data, and Boltzmann Brains}
-
-The point, Susskind says, is to understand in what sense the laws are reversible. A closed system does not simply move from an odd state to an ordinary-looking equilibrium state and stay there forever. If we wait long enough, it fluctuates back. Over very long times the system explores both directions. Oddness goes up and down in a time-symmetric way.
-
-What is not time-symmetric is the \emph{conditioning} that we began in a very special state. If we knowingly start in a tiny corner of phase space, then the overwhelmingly likely next step is to move out of that corner. That is what gives the second law its practical bite. We are not seeing a fundamental irreversibility in the microscopic equations; we are seeing the overwhelmingly likely behavior that follows from special initial data.
-
-This is where the lecture turns outward to cosmology. Boltzmann understood that the recurrence argument, by itself, is not enough. It may reconcile reversible laws with irreversible-looking behavior, but it does not explain why the universe started in such a low-entropy state in the first place. That is a separate question, and in cosmology it becomes unavoidable.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} If a closed system can recur forever, why not say that we ourselves are just one random fluctuation out of equilibrium?
-
-\paragraph{Answer.} Because that explanation predicts the wrong sort of world. If one asks for the most probable fluctuation compatible with the existence of observers, then one does not get a rich astronomical universe with coherent history. One gets the \emph{smallest} fluctuation sufficient to produce the observer.
-
-That is the logic behind the Boltzmann-brain problem. A single planet is fantastically unlikely. Two planets are vastly more unlikely. A sky full of stars and galaxies is more unlikely still. So if we rely on random fluctuation in a closed equilibrium universe, the most probable observational situation is not a structured cosmos. It is something much thinner.
-
-The lecture sharpens this with deliberately vivid examples. Suppose, ridiculously, that a fluctuation assembles Boltzmann's head. Given that the head exists, what is the probability that Boltzmann's wife is also there? It is still extremely tiny. The lecture uses a lottery analogy here: the probability of winning the next time is not increased just because one happened to win once before. In the same way, the conditional probability for another elaborate structure is not made large merely because one improbable structure has already appeared.
-
-So if Boltzmann's head looks around and finds not only itself, but also its wife, a room, and a coherent environment, it ought to conclude that the fluctuation theory is probably wrong. The world it sees is too structured.
-
-This is also the point of \emph{historical coherence}. In the lecture, Susskind makes the point with textbooks. If the present world had simply fluctuated into existence, there would be no reason for different records to agree about the past. The world we actually see has consistent astronomical evidence, consistent historical evidence, and mutually reinforcing records. That coherence is exactly what a pure fluctuation picture does not naturally explain.
-
-The lecture therefore does not use recurrence to explain the observed universe. It uses recurrence to reveal a conceptual fact about reversible laws, and then it insists that the low-entropy beginning of the universe remains a real problem.
-
-\section{Why Life Does Not Violate the Second Law}
-
-A student now raises the next natural objection. If entropy increases, how can life maintain organization for such long times? This is not a side remark in the lecture; it is a local conceptual obstacle, and it is answered in exactly that spirit.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Does life decrease entropy?
-
-\paragraph{Answer.} Not for the whole system. The second law does not say that every subsystem must increase its entropy monotonically at every moment. It says that a local decrease must be paid for by a larger increase elsewhere.
-
-The distinction that matters is the one between equilibrium and a stationary nonequilibrium state. The Earth is not a sealed box in equilibrium. It is a system through which energy flows. That is what allows stable-looking structure to persist.
-
-Susskind's model image is fluid flow in a pipe. A flowing fluid can generate vortices and eddies. Those eddies have structure; they can persist; they can even look surprisingly organized. But if one seals the pipe and stops the flow, the eddies disappear and the system settles into dull equilibrium. The structure was never a violation of mechanics or thermodynamics. It was a pattern sustained by throughput.
-
-Life is a structure of that kind. The relevant flow on Earth is the flow of energy from the sun. If we sealed the Earth so that no radiation entered or left, then eventually everything would drift to thermal equilibrium. There would be no life and no interesting structure. Life is therefore not a loophole in the second law. It is, as the lecture beautifully says, a kind of eddy flow in a stream of solar energy.
-
-Only after that long conceptual detour does the lecture reset itself: we have spent an hour on interesting things; now back to dull things.
-
-\section{From Real Magnets to the Simplest Spin Model}
-
-The reset is abrupt and important. Magnets.
-
-The lecture begins qualitatively. A magnet, whatever else it may be microscopically, is made of many little magnets. At high temperature those little moments are randomly oriented, and there is no net magnetization. As the temperature is lowered, if the interaction energy favors neighboring moments pointing in the same direction, small aligned regions begin to form. These are domains. Lower the temperature further, and the domains grow. One may eventually reach a point at finite temperature where the system acquires macroscopic order. That is the magnetic phase transition.
-
-This qualitative discussion already introduces spontaneous symmetry breaking. At zero temperature, if alignment lowers the energy, one expects the little magnets to line up. But in which direction? There need be no external field. The system may simply have to choose, and a tiny stray field may decide the choice. That is the physical picture the lecture wants in place before the mathematics begins.
-
-Now we simplify brutally. We do not let the little magnets point in arbitrary directions. Each one points only up or down. This is not because real iron behaves so simply. It is because we want a mathematically controlled warm-up problem.
-
-At this point the symbol \(N\) changes its job: it now counts spins rather than gas molecules. We define
-\begin{equation}
-\sigma_i=\pm 1,
-\end{equation}
-so that \(\sigma_i=+1\) means up and \(\sigma_i=-1\) means down. The first model has no interaction between spins at all. Instead, there is an external magnetic field \(H\), and each spin has magnetic moment \(\mu\). The board equations fix the sign convention: up carries energy \(+\mu H\), down carries energy \(-\mu H\). Thus the field biases the system toward down spins.
-
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_08_figure_03.png}
-\caption{Spin energy from up and down counts. The board first identifies \(n\) and \(m\), then writes the total energy in terms of them.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_08.png}
+\caption{The board's general phase-volume picture: a small region \(v^N\)
+inside an accessible region \(V^N\), with the ratio \(v^N/V^N\).}
+\lectureframe{00:10:44}
 \end{figure}
 
-If \(n\) spins point up and \(m\) spins point down, then
+In units with \(k_B=1\), entropy is the logarithm of accessible phase volume.
+If \(S_A=\log\Omega_A\) is the entropy of the constrained macrostate and
+\(S_{\rm eq}=\log\Omega_{\rm eq}\) that of equilibrium, then
 \begin{equation}
-n=\#\text{ups}, \qquad m=\#\text{downs}, \qquad n+m=N,
+ P(A)
+ =\frac{\Omega_A}{\Omega_{\rm eq}}
+ =\exp\!\left(S_A-S_{\rm eq}\right)
+ =e^{-\Delta S},
+ \qquad
+ \Delta S=S_{\rm eq}-S_A.
+ \label{eq:sm8-entropy-probability}
 \end{equation}
-and the total energy is
+For the half-room state, \(\Delta S=N\log 2\), and
+\eqref{eq:sm8-entropy-probability} reduces exactly to \(2^{-N}\).
+The shorthand \(P\sim e^{-S_{\rm eq}}\) is appropriate only when the entropy
+of the special region is being treated as a fixed reference; the physically
+meaningful exponent is the entropy deficit \(\Delta S\).
+
+\begin{classroomqa}
+\audiencequestion{Is this the volume of configuration space rather than the
+whole phase space?}
+\lecturerresponse{For this comparison, yes.  We are imposing a positional
+condition while leaving the momentum distribution at the same temperature,
+so the common momentum-space factor cancels.  A fully general recurrence
+statement uses phase space; this particular probability can be computed from
+the configuration-space ratio.
+\lecturetimestamp{00:11:21--00:11:40}}
+\end{classroomqa}
+
+Suppose the system loses memory of its detailed position on a microscopic
+correlation or mixing time \(\tau_{\rm mix}\).  A rare region of probability
+\(P(A)\) is then encountered on the scale
 \begin{equation}
-E=(n-m)\mu H.
+ \tau_{\rm rec}
+ \sim \frac{\tau_{\rm mix}}{P(A)}
+ \sim \tau_{\rm mix}e^{\Delta S}.
+ \label{eq:sm8-recurrence-time-general}
 \end{equation}
-That is the whole energy function for the simple model. Once it is on the board, we can do statistical mechanics.
-
-\section{Independent Spins in an External Field: Counting, Partition Function, Magnetization}
-
-The first task is combinatorial. Fix \(n\) and \(m\). How many configurations have exactly that many up spins and down spins? We are choosing which \(n\) of the \(N\) sites are up, so the multiplicity is
+For the half-room condition,
 \begin{equation}
-\Omega(n,m)=\frac{N!}{n!\,m!}.
+ \tau_{\rm rec}\sim\tau_{\rm mix}2^N.
+ \label{eq:sm8-recurrence-time-half}
 \end{equation}
-This is the number of states with the same energy \(E=(n-m)\mu H\).
+The lecture uses the deliberately rough room-sized estimate
+\(N\sim10^{30}\), giving the memorable scale
+\(\tau_{\rm rec}/\tau_{\rm mix}\sim2^{10^{30}}\).  At ordinary atmospheric
+density a room is closer to \(10^{27}\) molecules, but replacing
+\(10^{30}\) by \(10^{27}\) changes none of the conclusion: the recurrence
+time remains inconceivably larger than the age of the universe.
 
-The lecture now turns this into a partition function.
+\begin{classroomqa}
+\audiencequestion{In what units is the recurrence time measured?  Could a
+change from seconds to hours, or to an extremely short unit, alter the
+conclusion?}
+\lecturerresponse{The dimensional prefactor is \(\tau_{\rm mix}\); the huge
+number is the dimensionless ratio \(\tau_{\rm rec}/\tau_{\rm mix}\).
+Changing seconds to hours divides by an ordinary conversion factor, which is
+negligible beside \(2^{10^{30}}\).  The duration of an individual visit to
+the corner does depend on molecular speeds.  The estimate concerns how rarely
+the visit begins.  There is also a quantum recurrence theorem, but it is not
+needed here.
+\lecturetimestamp{00:17:24--00:19:18}}
+\end{classroomqa}
 
-\begin{figure}
+\begin{classroomqa}
+\audiencequestion{What is the objective of calculating a time that no
+experiment can possibly wait for?}
+\lecturerresponse{The point is conceptual.  It tells us in what sense a
+closed mechanical system remains reversible.  It spends almost all its time
+near equilibrium, yet on sufficiently long scales it also makes fluctuations
+toward lower entropy.  The second law is therefore an overwhelmingly probable
+statement about special initial data, not a microscopic equation that forbids
+reverse motion.
+\lecturetimestamp{00:15:12--00:16:35}}
+\end{classroomqa}
+
+\section{Reversibility and the Special Beginning}
+
+Start knowingly in the tiny half-room region.  Almost every neighboring
+trajectory immediately leaves it, because vastly more phase volume lies
+outside than inside.  The gas spreads quickly and then waits an immense time
+before returning.  This asymmetry between rapid relaxation and long waiting
+does not violate reversible mechanics.
+
+The time reverse of the rapid escape is not the entire waiting period.  It is
+the brief, fantastically well-coordinated episode in which equilibrium-looking
+molecular velocities happen to arrange themselves so that the gas
+\emph{swooshes} into one half of the room.  Reverse every momentum at the end
+of the ordinary escape and the gas retraces the escape in reverse.  The long
+waiting time is the time required for that special incoming velocity pattern
+to occur spontaneously.
+
+\begin{classroomqa}
+\audiencequestion{Does time symmetry mean that the slow recurrence into the
+corner takes as long as the original escape from it?}
+\lecturerresponse{No.  Compare the escape with its exact time reverse.  Both
+are rapid.  What takes an enormous time is waiting in equilibrium for the
+precise incoming fluctuation that initiates the reverse swoosh.  Over an
+enormously long record, excursions away from equilibrium occur in both time
+directions with symmetric local histories.
+\lecturetimestamp{00:20:46--00:21:58}}
+\end{classroomqa}
+
+The recurrence argument consequently explains only part of the arrow of
+time.  It explains why entropy ordinarily rises \emph{given} that the system
+began in a low-entropy region.  It does not explain why the initial condition
+was special.  In cosmology that missing premise becomes the central question:
+why did the observable universe begin in such an exceptionally small region
+of its gravitational phase space?
+
+\begin{classroomqa}
+\audiencequestion{Does recurrence apply to cosmology?  After the universe
+spreads out, might it recur if one waits long enough?}
+\lecturerresponse{That question is unavoidable, but its answer depends on
+global cosmology.  A genuinely closed system with a finite equilibrium state
+space invites recurrence.  An expanding spacetime, gravity, horizons, and an
+infinite or nonstationary state space can change the premises.  The important
+lesson here is narrower: an equilibrium recurrence picture by itself is not
+a satisfactory statistical explanation of the structured universe we see.
+\lecturetimestamp{00:19:59--00:20:45}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the recurrence depend on preparing the gas in a small
+region at the beginning?  If the room starts at equilibrium, will the air
+still eventually gather into one corner?}
+\lecturerresponse{Yes.  Recurrence concerns the long-time dynamics of the
+closed system, so an equilibrium-looking initial state also undergoes rare
+low-entropy fluctuations.  Preparing the half-room state matters for a
+different reason: it lets us condition on a known special beginning and ask
+why entropy rises immediately afterwards.
+\lecturetimestamp{00:22:04--00:22:20}}
+\end{classroomqa}
+
+\section{Why a Random Fluctuation Predicts Too Little}
+
+One might try to turn recurrence into a cosmology: perhaps the universe spent
+almost all of eternity in equilibrium, and our present world is one rare
+fluctuation.  The proposal fails a sharp statistical test.  Condition on the
+existence of an observer and ask what else that observer should expect to
+see.
+
+A fluctuation large enough to make one planet is extraordinarily rare.  A
+fluctuation that makes two planets requires a larger entropy deficit and is
+still rarer.  A fluctuation that makes stars, galaxies, a cosmic microwave
+background, and mutually consistent records of a long past is rarer by an
+enormous additional exponential.  An equilibrium-fluctuation theory
+therefore predicts the smallest fluctuation sufficient for observation, not
+the richly coherent world actually observed.  In its most extreme form, the
+minimal observer is called a Boltzmann brain.
+
+The logic is conditional probability.  Let \(A\) be the event that one
+observer-sized fluctuation occurs and \(B\) an independent second structure.
+If both have tiny probability \(p\), then
+\begin{equation}
+ P(B\mid A)=p,
+ \qquad
+ P(A\cap B)=p^2.
+ \label{eq:sm8-conditional-fluctuations}
+\end{equation}
+Learning that the first fluctuation occurred does not make the second likely.
+The lottery analogy is exact at this level: a previous winner has no improved
+chance on the next independent draw.  Thus the observer may condition on
+being present, but should still be astonished to find an independently
+structured environment.
+
+\begin{classroomqa}
+\audiencequestion{Given that one planet or one Boltzmann observer already
+exists, is the probability of another one really smaller?}
+\lecturerresponse{The conditional probability for a second independent rare
+fluctuation is the same tiny one-event probability, not the square of it.
+The joint probability for both is the square.  This is precisely why the
+first observer should still expect thermal disorder outside itself.  Finding
+a spouse, another planet, and an ordered sky is evidence against the premise
+that the observer was assembled as an isolated equilibrium fluctuation.
+\lecturetimestamp{00:26:12--00:30:27}}
+\end{classroomqa}
+
+\subsection{Coherent records of a past}
+
+The same argument applies to history.  Two textbooks that agree, astronomical
+records that fit one expansion history, geological strata, memories, and
+laboratory notebooks all constrain one another.  A single random textbook
+could contain any story.  An entire network of records that agrees about the
+same past occupies a much smaller phase-space region.
+
+The classroom example uses the familiar tale that George Washington chopped
+down a cherry tree.  Whether that tale is true is irrelevant.  The point is
+that, in a world fluctuated into existence at the present instant, one book's
+sentence gives no dynamical reason for another record to agree with it.
+Coherent correlations are evidence of a shared history, not merely of one
+instantaneous accident.
+
+\begin{classroomqa}
+\audiencequestion{What does \emph{historical coherence} mean here?}
+\lecturerresponse{It means that many present records fit one another as
+consequences of a common past.  A fluctuation could fabricate records and
+memories, but fabricating a mutually consistent network requires a much
+larger fluctuation than fabricating one minimal observer.  The recurrence
+theory therefore predicts that most observer-like fluctuations lack the
+coherence we actually find.
+\lecturetimestamp{00:30:30--00:31:12}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could the universe still be a closed system whose
+equilibration and recurrence times are merely extremely long?}
+\lecturerresponse{That possibility does not remove the statistical problem.
+Over an indefinitely long history there would be many observer-like
+fluctuations, and the overwhelming majority would be minimal ones without a
+coherent surrounding history.  An observer selected from that ensemble
+should not expect our observations.  Cosmologists therefore take the
+Boltzmann-brain problem seriously as a test of cosmological measures and
+late-time models, not as a claim that recurrence has already been observed.
+\lecturetimestamp{00:31:13--00:32:42}}
+\end{classroomqa}
+
+\section{Life as Structure Sustained by Flow}
+
+Life seems to pose the opposite difficulty.  Organisms maintain intricate
+organization for long times; they do not look like brief accidental
+fluctuations.  The resolution is that the second law applies to a complete
+closed system.  A subsystem may lower or maintain its entropy provided a
+larger entropy increase occurs in its environment:
+\begin{equation}
+ \dot S_{\rm total}
+ =\dot S_{\rm subsystem}+\dot S_{\rm environment}\geq 0.
+ \label{eq:sm8-open-system-second-law}
+\end{equation}
+
+The Earth is not in thermal equilibrium.  It is approximately stationary on
+human timescales, but stationary does not mean static.  Energy flows through
+it.  Sunlight arrives, is degraded through many processes, and is radiated
+away at a lower effective temperature.  That throughput can sustain local
+organization while the total entropy rises.
+
+Water flowing through a pipe supplies the immediate mechanical image.  The
+flow may contain persistent eddies and vortices.  They are organized
+structures, but they are maintained by the stream.  Seal both ends, stop the
+flow, and viscosity erases the eddies as the water approaches a dull
+equilibrium.  The outgoing water is warmer than the incoming water, so the
+larger system has paid the entropy bill.
+
+\begin{classroomqa}
+\audiencequestion{Does life decrease entropy, and why can its organization
+persist rather than appear and disappear as an ordinary fluctuation?}
+\lecturerresponse{Life may maintain or lower entropy locally, but only by
+exporting still more entropy.  Its persistence comes from a stationary
+nonequilibrium flow, chiefly the flow of solar energy through the Earth.  If
+the Earth were sealed against incoming and outgoing radiation, it would
+eventually approach thermal equilibrium and the organized activity would
+cease.  Life is closer to an eddy in a stream than to an equilibrium
+fluctuation.
+\lecturetimestamp{00:32:43--00:35:42}}
+\end{classroomqa}
+
+With that, we leave the \emph{interesting things} and return, in the
+lecture's deliberately dry phrase, to something dull: magnets.
+
+\section{Cooling a Magnet: Domains and a Chosen Direction}
+
+Statistical mechanics often calls a mathematical model a magnet even when it
+is not a literal piece of iron.  The useful common feature is a collection of
+local degrees of freedom that can order.  In a real magnetic material these
+degrees of freedom may arise from atomic magnetic moments, electron spins,
+orbital currents, or effective moments of crystal units.
+
+At high temperature thermal disorder makes the local moments point in many
+directions, giving little or no net magnetization.  If neighboring moments
+have lower energy when aligned, cooling allows small aligned domains to form.
+Further cooling makes the energy advantage more important and the correlated
+domains grow.  In a system that supports a ferromagnetic transition, the
+correlation length becomes macroscopic at a finite critical temperature.
+The ordered phase then chooses an orientation even though the zero-field
+energy did not prefer one orientation in advance.
+
+\begin{classroomqa}
+\audiencequestion{Should microscopic magnets prefer to anti-align because a
+north pole attracts a south pole?}
+\lecturerresponse{The effective interaction depends on the material.
+Ordinary dipole intuition is not the whole microscopic problem; exchange,
+crystal structure, and competing interactions matter.  Ferromagnetic
+materials are those in which the effective low-energy tendency favors
+parallel order, while other materials can favor anti-alignment.
+\lecturetimestamp{00:39:56--00:40:30}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Must an external magnetic field be present while the
+material cools in order for the moments to line up?}
+\lecturerresponse{No.  The interaction can produce order without a field.
+In an exactly symmetric idealization, different directions are energetically
+equivalent, so the realized direction is selected by initial fluctuations,
+boundaries, or an arbitrarily small stray field.  Choosing one of those
+equivalent directions is spontaneous symmetry breaking; the onset of
+macroscopic order is the magnetic phase transition.
+\lecturetimestamp{00:40:31--00:42:33}}
+\end{classroomqa}
+
+Real materials are complicated, so we now simplify brutally.  Every local
+moment may point only up or down:
+\begin{equation}
+ \sigma_i=+1\quad\hbox{or}\quad\sigma_i=-1.
+ \label{eq:sm8-ising-spin}
+\end{equation}
+There is no east or west in this model.  The two allowed orientations are a
+definition of the model, as heads and tails are the two outcomes of a coin.
+Its value is not microscopic realism but mathematical clarity and its ability
+to represent ordering phenomena shared by many systems.
+
+\begin{classroomqa}
+\audiencequestion{What are these two-state objects physically?  Should they
+be imagined as particles?}
+\lecturerresponse{One may picture atoms on the sites of a crystal, each with
+an effective magnetic moment produced by spin or microscopic current.  For
+the model, however, only the two-valued variable matters.  The restriction to
+up and down is imposed to make the statistical mechanics simple.
+\lecturetimestamp{00:44:22--00:45:01}}
+\end{classroomqa}
+
+\section{Independent Spins in an External Field}
+
+The first model contains \(N\) spins that do not interact with one another.
+An external field \(H\) supplies the only energy scale, and \(\mu\) measures
+the strength of one spin's coupling to it.  We keep the sign convention used
+in the calculation:
+\begin{equation}
+ \epsilon_i=\mu H\sigma_i.
+ \label{eq:sm8-single-spin-energy}
+\end{equation}
+For \(H>0\), an up spin \(\sigma_i=+1\) has energy \(+\mu H\), while a down
+spin \(\sigma_i=-1\) has energy \(-\mu H\).  Thus this convention makes the
+positive field favor down spins.  It is the reverse of another common naming
+convention, but no physics depends on the names if the signs are used
+consistently.
+
+Let \(n\) be the number of up spins and \(m\) the number of down spins.  Then
+\begin{equation}
+ n+m=N,
+ \qquad
+ E=(n-m)\mu H.
+ \label{eq:sm8-counting-energy}
+\end{equation}
+
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_08_figure_04.png}
-\caption{Binomial form of the spin partition function. The screenshot records the order of the board derivation; the cleaned calculation below reconstructs the algebra where the frame is incomplete.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_03.png}
+\caption{The independent-spin setup: \(n\) up spins, \(m\) down spins,
+\(n+m=N\), and \(E=(n-m)\mu H\).}
+\lectureframe{00:49:50}
 \end{figure}
 
-One way to write \(Z\) is as a sum over all configurations. Once we group configurations by \(n\) and \(m\), this becomes
+\begin{classroomqa}
+\audiencequestion{What are the dimensions of \(H\), \(\mu\), and \(E\)?  Is
+\(H\) a number or a magnetic field?}
+\lecturerresponse{\(H\) denotes the externally imposed field strength and
+\(\mu\) the magnetic moment.  Their product \(\mu H\) has dimensions of
+energy.  In the abstract model one often combines them into a single
+energy-valued parameter, customarily also denoted by a lowercase \(h\).
+Here we retain both factors to show their physical origin, and \(E\) is the
+total energy.
+\lecturetimestamp{00:48:21--00:49:27}}
+\end{classroomqa}
+
+\subsection{Counting configurations}
+
+For fixed \(n\) and \(m=N-n\), choose which \(n\) of the \(N\) sites point up.
+The multiplicity is
+\begin{equation}
+ \Omega(n,m)=\binom{N}{n}
+ =\frac{N!}{n!\,m!}.
+ \label{eq:sm8-spin-multiplicity}
+\end{equation}
+Every one of these configurations has the same energy
+\eqref{eq:sm8-counting-energy}.
+
+\begin{classroomqa}
+\audiencequestion{Can \(n\) and \(m\) both be summation indices, since they
+are not independent?  And where does the combinatorial factor enter?}
+\lecturerresponse{They may be written as a constrained pair with
+\(n+m=N\), or one may sum over \(n=0,\ldots,N\) and set \(m=N-n\).
+The Boltzmann weight belongs to each individual configuration; grouping all
+configurations of the same energy multiplies that weight by
+\(N!/(n!\,m!)\).
+\lecturetimestamp{00:52:04--00:53:03}}
+\end{classroomqa}
+
+The partition function is therefore
 \begin{align}
-Z
-&=\sum_{n+m=N}\Omega(n,m)\,e^{-\beta\mu H(n-m)} \\
-&=\sum_{n=0}^{N}\frac{N!}{n!(N-n)!}
-\left(e^{-\beta\mu H}\right)^n
-\left(e^{+\beta\mu H}\right)^{N-n}.
+ Z_N
+ &=\sum_{n+m=N}
+   \frac{N!}{n!\,m!}
+   e^{-\beta\mu H(n-m)}
+ \notag\\
+ &=\sum_{n=0}^{N}
+   \binom{N}{n}
+   \left(e^{-\beta\mu H}\right)^n
+   \left(e^{+\beta\mu H}\right)^{N-n}.
+ \label{eq:sm8-spin-z-sum}
 \end{align}
-The lecture introduces the temporary abbreviations
+Introduce
 \begin{equation}
-x=e^{-\beta\mu H},
-\qquad
-y=e^{+\beta\mu H},
+ x=e^{-\beta\mu H},
+ \qquad
+ y=e^{+\beta\mu H}.
+ \label{eq:sm8-xy}
 \end{equation}
-so that
+The binomial theorem then completes the calculation:
 \begin{align}
-Z
-&=\sum_{n=0}^{N}\frac{N!}{n!(N-n)!}\,x^n y^{N-n} \\
-&=(x+y)^N \\
-&=\left(e^{-\beta\mu H}+e^{+\beta\mu H}\right)^N \\
-&=2^N\cosh^N(\beta\mu H).
+ Z_N
+ &=\sum_{n=0}^{N}\binom{N}{n}x^n y^{N-n}
+   =(x+y)^N
+ \notag\\
+ &=\left(e^{-\beta\mu H}+e^{+\beta\mu H}\right)^N
+   =\left[2\cosh(\beta\mu H)\right]^N.
+ \label{eq:sm8-spin-z-closed}
 \end{align}
-The transcript is garbled in the middle of this manipulation, but the board layout and the binomial theorem make the intended derivation clear.
 
-Only after that does the lecture define magnetization carefully. It is not the raw quantity \(n-m\), and it is not \( (n-m)\mu H/N \). Susskind corrects himself on the spot. The cleaned definition is
-\begin{equation}
-M=\left\langle \frac{n-m}{N}\right\rangle.
-\end{equation}
-That is, magnetization is the Boltzmann average of the spin excess per site.
-
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_08_figure_05.png}
-\caption{Magnetization and spin energy. The board boxes the corrected magnetization definition and the corresponding energy relation.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_04.png}
+\caption{The partition-function sum, the substitutions \(x\) and \(y\), and
+the binomial reduction to a power of \(2\cosh(\beta\mu H)\).}
+\lectureframe{00:56:00}
 \end{figure}
 
-For a single configuration we have
+There is also a shorter derivation.  Since the spins are independent, one
+spin has
 \begin{equation}
-E=(n-m)\mu H=N\mu H\left(\frac{n-m}{N}\right).
+ z_1=e^{-\beta\mu H}+e^{+\beta\mu H}
+    =2\cosh(\beta\mu H),
+ \label{eq:sm8-one-spin-z}
 \end{equation}
-Averaging both sides gives the relation emphasized on the board,
+and \(Z_N=z_1^N\).  The combinatorial derivation is nevertheless worth
+keeping because it shows explicitly how multiplicity competes with energy.
+
+\section{Configuration Magnetization and Ensemble Magnetization}
+
+For one configuration define its dimensionless spin excess per site by
 \begin{equation}
-\langle E\rangle = N\mu H\,M.
+ M_{\rm conf}=\frac{n-m}{N}.
+ \label{eq:sm8-config-magnetization}
+\end{equation}
+It ranges from \(+1\) for all spins up to \(-1\) for all spins down.  The
+thermodynamic magnetization used here is its Boltzmann average,
+\begin{equation}
+ M=\left\langle M_{\rm conf}\right\rangle
+  =\left\langle\frac{n-m}{N}\right\rangle.
+ \label{eq:sm8-average-magnetization}
+\end{equation}
+The factor \(\mu H\) does not belong in this definition.  It was briefly
+written there during the calculation and then removed; \(\mu H\) converts
+spin excess into energy.
+
+Configuration by configuration,
+\begin{equation}
+ E=N\mu H M_{\rm conf}.
+ \label{eq:sm8-energy-config-m}
+\end{equation}
+Linearity of averaging immediately gives
+\begin{equation}
+ \langle E\rangle=N\mu H M.
+ \label{eq:sm8-energy-average-m}
 \end{equation}
 
-\subsection{Question \& Answer}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_05.png}
+\caption{The spin row, the corrected average magnetization, and the energy
+relation emphasized on the board.}
+\lectureframe{01:01:22}
+\end{figure}
 
-\paragraph{Question.} Are we talking here about the magnetization of one configuration, or about an average magnetization?
+\begin{classroomqa}
+\audiencequestion{Is magnetization being assigned to a particular
+configuration, or are we discussing an average magnetization?  Why does the
+same relation hold for average energy?}
+\lecturerresponse{Both notions appear, and they should be distinguished.
+\((n-m)/N\) is the value in one configuration; \(M\) is its Boltzmann
+average.  Since \(E=N\mu H M_{\rm conf}\) holds separately in every
+configuration, averaging both sides with the same probabilities gives
+\(\langle E\rangle=N\mu H M\).  The fixed quantities \(N\), \(\mu\), and
+\(H\) pass through the average.
+\lecturetimestamp{00:59:54--01:03:40}}
+\end{classroomqa}
 
-\paragraph{Answer.} About the average. This is one of the places where the lecture slows down on purpose. Configuration by configuration, \((n-m)/N\) is simply the spin excess per site for that state. But in statistical mechanics the observable quantity is the Boltzmann average of that number. The same is true of the energy. If two quantities are equal configuration by configuration, then their Boltzmann averages are equal as well. That is why averaging
-\[
-E=(n-m)\mu H
-\]
-immediately leads to
-\[
-\langle E\rangle = N\mu H\,M.
-\]
+\begin{classroomqa}
+\audiencequestion{How can the model align every spin north--south without
+biasing up against down?}
+\lecturerresponse{The absence of east and west is built into the two-state
+model; it is a restriction of the allowed degrees of freedom.  The present
+external-field model \emph{is} biased between up and down: with our sign
+convention the field lowers the energy of down spins.  Consequently this
+model has no up--down symmetry.  The zero-field Ising model introduced below
+will restore that symmetry.
+\lecturetimestamp{01:03:41--01:04:53}}
+\end{classroomqa}
 
-Now comes the standard thermodynamic step. Instead of computing the magnetization directly, the lecture computes the average energy from the partition function and then reads off the magnetization:
+\subsection{Energy from the partition function}
+
+The mean energy follows from the usual identity
 \begin{equation}
-\langle E\rangle=-\frac{\partial}{\partial\beta}\log Z.
+ \langle E\rangle
+ =-\frac{\partial}{\partial\beta}\log Z_N.
+ \label{eq:sm8-energy-identity}
 \end{equation}
-From
-\begin{equation}
-Z=2^N\cosh^N(\beta\mu H)
-\end{equation}
-we obtain
-\begin{equation}
-\log Z = N\log 2 + N\log\!\bigl(\cosh(\beta\mu H)\bigr).
-\end{equation}
-Differentiating gives
+Using \eqref{eq:sm8-spin-z-closed},
 \begin{align}
-\langle E\rangle
-&=-\frac{\partial}{\partial\beta}\log Z \\
-&=-N\mu H\,\frac{\sinh(\beta\mu H)}{\cosh(\beta\mu H)} \\
-&=-N\mu H\,\tanh(\beta\mu H).
+ \log Z_N
+ &=N\log 2+N\log\!\left[\cosh(\beta\mu H)\right],
+ \notag\\
+ \langle E\rangle
+ &=-N\mu H\,
+   \frac{\sinh(\beta\mu H)}{\cosh(\beta\mu H)}
+ \notag\\
+ &=-N\mu H\tanh(\beta\mu H).
+ \label{eq:sm8-average-energy}
 \end{align}
-Therefore
+Combining this with \eqref{eq:sm8-energy-average-m} gives
 \begin{equation}
-M=\frac{\langle E\rangle}{N\mu H}=-\tanh(\beta\mu H).
+ \boxed{M=-\tanh(\beta\mu H)}.
+ \label{eq:sm8-magnetization-tanh}
 \end{equation}
 
-The lecture does not leave the result as a bare formula. It pauses to ask what the \(\tanh\) function looks like. Since
+The shape of the answer contains the physics.  Recall
 \begin{equation}
-\cosh x=\frac{e^x+e^{-x}}{2},
-\qquad
-\sinh x=\frac{e^x-e^{-x}}{2},
-\qquad
-\tanh x=\frac{\sinh x}{\cosh x},
+ \cosh x=\frac{e^x+e^{-x}}{2},
+ \qquad
+ \sinh x=\frac{e^x-e^{-x}}{2}.
+ \label{eq:sm8-hyperbolic-definitions}
 \end{equation}
-we have \(\tanh x\to 1\) for large positive \(x\), while near the origin \(\tanh x\sim x\). Hence the magnetization behaves exactly as the lecture predicts:
+Near the origin, \(\tanh x=x+O(x^3)\); for large positive \(x\), it approaches
+\(1\).  Since \(\beta=1/T\),
 \begin{equation}
-M \to -1 \qquad (T\to 0),
-\qquad
-M \to 0 \qquad (T\to \infty).
+ M\longrightarrow -1
+ \quad (T\longrightarrow0),
+ \qquad
+ M\longrightarrow 0
+ \quad (T\longrightarrow\infty).
+ \label{eq:sm8-magnetization-limits}
 \end{equation}
-At zero temperature, all spins point down because the field biases them downward. At infinite temperature, the thermal randomness overwhelms the small energy bias and all states become equally likely on average. If we reverse the field, \(H\to -H\), the sign of the magnetization reverses as well.
+At zero temperature every spin occupies the lower-energy down state.  At
+infinite temperature all configurations become equally weighted and the
+field bias is washed out.  Reversing \(H\) reverses \(M\).
 
-This smooth interpolation is the moral of the model. It is simple, soluble, and biased. Precisely because it is biased, it has no symmetry and no phase transition. That is why the lecture now pivots to the Ising model.
-
-\section{The First Ising Step: Neighbor Interactions, Symmetry, and Next Time}
-
-The previous model had an external field built into it, and that meant the direction of magnetization was already chosen in advance. The Ising model removes that bias. There is no external field. The energy is stored in neighboring pairs.
-
-\begin{figure}
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_08_figure_06.png}
-\caption{Two-spin interaction energy. The crucial sign choice appears explicitly on the board: aligned neighbors are assigned lower energy.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_09.png}
+\caption{The hyperbolic-tangent curve approaches a constant at large
+\(\beta\mu H\) and is linear near the origin.  The physical magnetization in
+the lecture's convention is the negative of the plotted \(\tanh\).}
+\lectureframe{01:13:14}
 \end{figure}
 
-The lecture begins with just two neighboring spins. If we wrote \(J\sigma_{(1)}\sigma_{(2)}\), then anti-aligned spins would have the lower energy. Susskind wants the opposite convention, so he inserts a minus sign:
-\begin{equation}
-E_{12}=-J\,\sigma_{(1)}\sigma_{(2)},
-\qquad J>0.
-\end{equation}
-Now aligned spins have lower energy and anti-aligned spins have higher energy.
+\begin{classroomqa}
+\audiencequestion{The magnetization changes continuously.  Where is the
+phase-transition temperature that was mentioned earlier?}
+\lecturerresponse{There is none in this model.  Independent spins in a
+nonzero external field are too simple, and
+\(\log Z_N=N\log[2\cosh(\beta\mu H)]\) is smooth at every finite positive
+temperature.  A phase transition requires the interacting, symmetric problem
+that we now approach; the two-dimensional zero-field Ising model is the first
+member of this family with a finite-temperature transition.
+\lecturetimestamp{01:14:47--01:15:11}}
+\end{classroomqa}
 
-\begin{figure}
+\section{The Ising Model: Energy in Neighboring Pairs}
+
+The external field chose a direction before the statistics began.  Remove
+that field and let neighboring spins provide one another's effective field.
+If both neighbors of a site point up, they favor up; if both point down, they
+favor down; if one points each way, their effects cancel in the simplest
+picture.  Energy is now associated with pairs rather than isolated sites.
+
+For two neighboring spins, choose \(J>0\) and write
+\begin{equation}
+ E_{12}=-J\sigma_1\sigma_2.
+ \label{eq:sm8-pair-energy}
+\end{equation}
+Aligned spins have \(\sigma_1\sigma_2=+1\) and energy \(-J\);
+anti-aligned spins have product \(-1\) and energy \(+J\).  The minus sign is
+therefore exactly what makes the interaction ferromagnetic.
+
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,0) -- (5.2,0);
-\fill (1,0) circle (2.2pt);
-\fill (2.6,0) circle (2.2pt);
-\fill (4.2,0) circle (2.2pt);
-\draw[->,thick] (1,-0.55) -- (1,0.75);
-\draw[->,thick] (2.6,-0.55) -- (2.6,0.75);
-\draw[->,thick] (4.2,-0.55) -- (4.2,0.75);
-\node at (1,-0.95) {\(\sigma_n\)};
-\node at (2.6,-0.95) {\(\sigma_{n+1}\)};
-\node at (4.2,-0.95) {\(\sigma_{n+2}\)};
-\node at (3.45,0.55) {\(\cdots\)};
-\end{tikzpicture}
-\caption{Minimal redraw of the nearest-neighbor chain. Each pair of neighbors is counted once in the energy sum.}
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_06.png}
+\caption{The local ferromagnetic interaction
+\(E_{12}=-J\sigma_1\sigma_2\).}
+\lectureframe{01:19:59}
 \end{figure}
 
-For a one-dimensional lattice, the Hamiltonian becomes
+On an open one-dimensional chain the Hamiltonian is
 \begin{equation}
-E=-J\sum_n \sigma_n \sigma_{n+1}.
+ {\cal H}=-J\sum_{i=1}^{N-1}\sigma_i\sigma_{i+1}.
+ \label{eq:sm8-ising-chain-open}
 \end{equation}
-This system has a global spin-flip symmetry:
+With periodic boundary conditions one sets \(\sigma_{N+1}=\sigma_1\) and
+sums through \(N\).  Either convention counts every neighboring pair once;
+their boundary difference becomes negligible for a long chain.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_10.png}
+\caption{The local pair energy extended to the nearest-neighbor chain
+Hamiltonian.}
+\lectureframe{01:20:46}
+\end{figure}
+
+At infinite temperature every spin string is equally probable.  Half the
+bonds are aligned on average and half anti-aligned, so
 \begin{equation}
-\sigma_i \mapsto -\sigma_i
-\qquad \text{for all } i.
+ \left\langle\sigma_i\sigma_{i+1}\right\rangle_{T=\infty}=0,
+ \qquad
+ \left\langle{\cal H}\right\rangle_{T=\infty}=0.
+ \label{eq:sm8-infinite-t-bond}
 \end{equation}
-Every configuration has a partner of equal energy with all spins reversed. In that precise sense the model is symmetric between up and down.
+Zero energy here is not a low-energy state.  The all-aligned ground state has
+energy \(-J\) per bond, so the infinite-temperature ensemble lies an
+extensive energy above it.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{How can the average product be zero when every individual
+product \(\sigma_i\sigma_{i+1}\) is either \(+1\) or \(-1\)?}
+\lecturerresponse{An average need not be one of the values taken in a single
+configuration.  At infinite temperature aligned and anti-aligned bonds occur
+equally often, so their \(+1\) and \(-1\) contributions cancel.  The same
+averaging distinction that mattered for magnetization matters here.
+\lecturetimestamp{01:21:39--01:22:37}}
+\end{classroomqa}
 
-\paragraph{Question.} At infinite temperature, how can the average nearest-neighbor product be zero if each product \(\sigma_n\sigma_{n+1}\) is either \(+1\) or \(-1\)?
+\subsection{Two ground states and one global symmetry}
 
-\paragraph{Answer.} Because we are talking about an average. At infinite temperature the system is random chaos: parallel and anti-parallel neighbors occur with equal likelihood. The average of a random variable need not be one of its allowed values. Thus
+At zero temperature every bond wants to be aligned.  There are consequently
+two ground states,
 \begin{equation}
-\langle \sigma_n \sigma_{n+1}\rangle = 0
-\qquad (T=\infty)
+ (+,+,+,\ldots,+)
+ \qquad\hbox{and}\qquad
+ (-,-,-,\ldots,-).
+ \label{eq:sm8-two-ground-states}
 \end{equation}
-is perfectly sensible even though each individual product is \(\pm1\). It means only that the positive and negative contributions cancel on average. Correspondingly, the average energy is zero relative to this Hamiltonian, which is high compared with the negative ground-state energy.
-
-At zero temperature the picture is completely different. The system wants every neighboring pair to align, and in one dimension that gives two ground states:
+They have exactly the same energy.  The Hamiltonian makes this degeneracy
+transparent: reverse every spin,
 \begin{equation}
-(\uparrow \uparrow \uparrow \cdots \uparrow)
-\qquad \text{and} \qquad
-(\downarrow \downarrow \downarrow \cdots \downarrow).
+ \sigma_i\longmapsto-\sigma_i
+ \qquad\hbox{for all }i,
+ \label{eq:sm8-global-flip}
 \end{equation}
-These two states have equal energy. The symmetry alone does not tell the system which one to choose.
-
-Now the lecture adds the tiniest stray magnetic field acting on one spin. At strictly zero temperature, the Boltzmann distribution concentrates infinitely strongly on the true lowest-energy state. That tiny bias can therefore choose the orientation of the whole chain. If the field is removed afterwards, the ordered state can persist because each spin helps hold its neighbors in place. This is the lecture's entry point to spontaneous symmetry breaking.
-
-The contrast with the earlier model is now very sharp. In the external-field problem there was never any symmetry to break; the field had already picked a direction. In the zero-field Ising model, by contrast, magnetization would have to come from the system's choosing one of two symmetry-related ordered states.
-
-The lecture stops exactly there. The one-dimensional model is posed but not yet solved. The next task is to compute its partition function and see what really happens at finite temperature. The answer, previewed at the end of the lecture, is that the one-dimensional Ising model has no phase transition at any finite temperature. The first truly interesting model in this family is the two-dimensional Ising model, where a genuine phase transition does occur.
-
-\section{Summary}
-
-The lecture began by returning to the second law through a concrete puzzle: if we compress a gas into half a room and let it go, how long must we wait for it to come back? The answer comes from high-dimensional counting:
+and every bond product is unchanged,
 \begin{equation}
-P_{\mathrm{half}}(N)=\left(\frac{1}{2}\right)^N,
-\qquad
-P(v)=\left(\frac{v}{V}\right)^N,
-\qquad
-\tau_{\mathrm{rec}}\sim P^{-1}.
+ (-\sigma_i)(-\sigma_{i+1})
+ =\sigma_i\sigma_{i+1}.
+ \label{eq:sm8-global-flip-invariance}
 \end{equation}
-So recurrence is real, but on absurdly long timescales. That resolves the tension between reversible microscopic laws and apparently one-way macroscopic behavior, while leaving intact the deeper problem of the low-entropy beginning of the universe.
+Flipping one spin is not a symmetry, because it reverses the sign of the
+adjacent bond products.  Flipping all spins is a symmetry.  This is the
+global \(\mathbb Z_2\) symmetry of the zero-field Ising model.
 
-The lecture then used that same statistical logic to motivate simple magnetic models. For noninteracting spins in an external field, the counting is exact:
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_08_figure_11.png}
+\caption{The chain Hamiltonian beside the global transformation
+\(\sigma_i\mapsto-\sigma_i\), which leaves every pair product invariant.}
+\lectureframe{01:26:31}
+\end{figure}
+
+Apply a tiny field to one spin at strictly zero temperature.  It breaks the
+tie between the two ground states, and the ferromagnetic couplings propagate
+that choice through the chain.  Remove the field after the state has been
+selected and a large system can retain its orientation for a very long time.
+This is the intuitive entry point to spontaneous symmetry breaking.
+
+There is one essential statistical qualification.  For a finite system in
+exactly zero field, the canonical ensemble gives equal weight to the two
+ground states and hence zero average magnetization.  A broken-symmetry phase
+is defined by taking the thermodynamic limit before removing the selecting
+field:
 \begin{equation}
-Z=2^N\cosh^N(\beta\mu H),
-\qquad
-M=-\tanh(\beta\mu H).
+ M_*=\lim_{H\to0^+}\lim_{N\to\infty}M_N(H).
+ \label{eq:sm8-order-of-limits}
 \end{equation}
-This model is biased and therefore too simple to exhibit a phase transition. The Ising model removes the bias, places the energy in neighboring pairs, restores the global spin-flip symmetry, and sets up the next question: when can an interacting symmetric system choose an ordered state on its own?
+In the one-dimensional nearest-neighbor model this limit is nonzero only at
+\(T=0\); any finite temperature destroys long-range order in the infinite
+chain.  In two dimensions the ordered phase survives below a nonzero
+critical temperature.
+
+\subsection{A historical correction}
+
+The classroom account gives this history with a joke at Ising's expense.
+The accurate chronology is kinder.  Wilhelm Lenz proposed the model, and his
+student Ernst Ising solved the one-dimensional case in his 1924 thesis,
+published in 1925.  Ising correctly found no finite-temperature
+ferromagnetic transition in one dimension, although the broader significance
+of higher dimensions was not yet understood.  Kramers and Wannier developed
+the two-dimensional duality and identified the square-lattice critical point
+in 1941; Onsager gave the celebrated exact zero-field solution in 1944.
+
+The next calculation is now clear.  We must find the partition function of
+\eqref{eq:sm8-ising-chain-open} and determine how its correlations depend on
+temperature.  That calculation will show explicitly why the one-dimensional
+chain has no finite-temperature phase transition and why dimensionality
+matters.
+
+\section{Where We Stand}
+
+The recurrence problem and the spin problem are two versions of the same
+statistical lesson.  In the gas, an entropy deficit makes a macrostate
+exponentially rare:
+\begin{equation}
+ P(A)=e^{-\Delta S},
+ \qquad
+ \tau_{\rm rec}\sim\tau_{\rm mix}e^{\Delta S}.
+ \label{eq:sm8-summary-recurrence}
+\end{equation}
+Reversible mechanics permits the return, while the enormous phase-volume
+ratio explains why ordinary experience sees only relaxation.  The remaining
+arrow-of-time problem lies in the special cosmological initial condition, not
+in a failure of microscopic reversibility.
+
+For independent spins in a field,
+\begin{equation}
+ Z_N=\left[2\cosh(\beta\mu H)\right]^N,
+ \qquad
+ M=-\tanh(\beta\mu H).
+ \label{eq:sm8-summary-spins}
+\end{equation}
+That system is explicitly biased and changes smoothly with temperature.  The
+Ising interaction
+\begin{equation}
+ {\cal H}=-J\sum_i\sigma_i\sigma_{i+1}
+ \label{eq:sm8-summary-ising}
+\end{equation}
+removes the external bias, restores a global up--down symmetry, and presents
+the real ordering question: can a symmetric many-body system choose one of
+two ordered states at nonzero temperature?

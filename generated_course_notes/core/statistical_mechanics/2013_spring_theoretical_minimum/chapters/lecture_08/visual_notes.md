@@ -1,59 +1,44 @@
 # Visual Evidence
-## Frame Inventory
-- `lecture_08_figure_01.png`: Opening Stanford title card only; it should not remain in the final notes.
-- `lecture_08_figure_02.png`: Left side of the board shows a boxed phase-space-style region with a tangled trajectory and a vertical `p` label; it should remain as visual evidence and be paired with a TikZ redraw.
-- `lecture_08_figure_03.png`: Board state for the simple spin-counting model with `n`, `m`, `N`, and `E=(n-m)\mu H`; it should remain in the final notes.
-- `lecture_08_figure_04.png`: Mid-derivation partition-function board with the sum, binomial coefficient, and `x,y` substitutions; it may remain as secondary evidence but should not carry the derivation by itself.
-- `lecture_08_figure_05.png`: Best frame for the spin-row sketch, magnetization definition, and energy rewritten in terms of magnetization; it should remain in the final notes.
-- `lecture_08_figure_06.png`: Clean local Ising interaction formula `E=-J\sigma_{(1)}\sigma_{(2)}` with dotted continuation; it should remain in the final notes.
 
-## Equation Extraction
-- `lecture_08_figure_02.png` [visible]: `p`
-- `lecture_08_figure_03.png` [visible]: `\mu H`
-- `lecture_08_figure_03.png` [visible]: `n=\#\text{ of ups}`
-- `lecture_08_figure_03.png` [visible]: `m=\#\text{ of downs}`
-- `lecture_08_figure_03.png` [visible]: `n+m=N`
-- `lecture_08_figure_03.png` [visible]: `E=(n-m)\mu H`
-- `lecture_08_figure_04.png` [visible]: `Z=\sum e^{-\beta\mu H(n-m)}`
-- `lecture_08_figure_04.png` [visible]: `e^{-\beta\mu H}=x`
-- `lecture_08_figure_04.png` [visible]: `e^{+\beta\mu H}=y`
-- `lecture_08_figure_04.png` [partially visible]: `\frac{N!}{n!(N-n)!}\,x^n y^m`
-- `lecture_08_figure_04.png` [partially visible]: `(x+y)^N`
-- `lecture_08_figure_04.png` [standard completion]: `Z=(x+y)^N=(e^{-\beta\mu H}+e^{+\beta\mu H})^N`
-- `lecture_08_figure_04.png` [standard completion]: `Z=2^N(\cosh \beta\mu H)^N`
-- `lecture_08_figure_05.png` [partially visible]: `\sigma_{(1)},\sigma_{(2)}`
-- `lecture_08_figure_05.png` [partially visible]: `E=(n-m)\mu H`
-- `lecture_08_figure_05.png` [partially visible]: `M=\left\langle \frac{n-m}{N}\right\rangle`
-- `lecture_08_figure_05.png` [visible]: `E=NM\mu H`
-- `lecture_08_figure_06.png` [visible]: `E=-J\,\sigma_{(1)}\sigma_{(2)}`
-- `lecture_08_figure_06.png` [standard completion]: `E=-J\sum_n \sigma_n \sigma_{n+1}`
+## Review Result
 
-## Diagram Extraction
-- `lecture_08_figure_02.png`: A rectangular phase-space box with a vertical momentum-like axis label and a looping, self-crossing trajectory. This should be shown both ways: keep the screenshot and redraw a simplified TikZ version nearby.
-- `lecture_08_figure_03.png`: No real diagram, but the board layout matters: definitions across the top and the energy formula below. This should stay as a screenshot rather than be redrawn.
-- `lecture_08_figure_04.png`: Equation layout rather than a diagram. If used at all, preserve it as a screenshot only; no TikZ redraw is needed.
-- `lecture_08_figure_05.png`: A short row of up/down arrows under `N`, with `\sigma` labels beneath, plus boxed equations. This is worth keeping as a screenshot, and an optional tiny TikZ spin-row may be added for clarity.
-- `lecture_08_figure_06.png`: A local two-spin interaction written without an explicit lattice drawing, followed by dots indicating continuation. Keep the screenshot and consider a very small TikZ two-spin or short chain sketch beside it.
+Ten lecture frames are retained. Each corresponds to the nearby transcript
+timestamp and has a clear mathematical or diagrammatic purpose. The Stanford
+title card is rejected. No frame is included merely to decorate the chapter.
 
-## Reconstruction Guidance
-- Use `lecture_08_figure_02.png` as evidence for the recurrence discussion’s visual language, but redraw only what is actually visible: a box, a vertical `p`, and a complicated trajectory. Do not pretend the later `x_1,x_2` square is present in this frame.
-- For `lecture_08_figure_03.png`, typeset the clean equations `n+m=N` and `E=(n-m)\mu H` next to the screenshot. The note-quality version should state in prose that `n` counts up spins and `m` counts down spins.
-- For `lecture_08_figure_04.png`, reconstruct the full partition-function derivation cleanly in LaTeX, because the frame is only partially legible. The screenshot can support the board rhythm, but the mathematics in the notes should come from cautious completion:
-  `Z=\sum e^{-\beta\mu H(n-m)}`
-  `\to \sum \frac{N!}{n!\,m!}x^n y^m`
-  `\to (x+y)^N`
-  `\to 2^N(\cosh\beta\mu H)^N`.
-- For `lecture_08_figure_05.png`, treat the boxed equations as the key evidence. In the final notes, typeset the corrected magnetization definition without `\mu H` inside `M`, and keep the screenshot nearby because it preserves the lecture’s emphasis and correction history.
-- For `lecture_08_figure_06.png`, typeset the visible local formula exactly as shown, then cautiously extend it to the chain Hamiltonian using the transcript. The screenshot matters because it captures the moment where Susskind first fixes the sign choice that favors aligned spins.
-- `lecture_08_figure_01.png` should be ignored in the mathematical notes.
+## Recurrence Sequence
 
-## Uncertainties
-- `lecture_08_figure_02.png`: The horizontal axis label is not visible, so only the vertical `p` label is reliable from the frame.
-- `lecture_08_figure_02.png`: The lower curved stroke outside the box is ambiguous and should not be overinterpreted.
-- `lecture_08_figure_03.png`: The left edge of the energy line is slightly cropped, though `E=(n-m)\mu H` is still readable.
-- `lecture_08_figure_04.png`: The combinatorial denominator is partly obscured; the board likely intends the standard binomial coefficient, but the exact visible text is incomplete.
-- `lecture_08_figure_04.png`: The lower line is not clear enough to prove whether the board already shows `(x+y)^N` alone or the fuller `2^N(\cosh\beta\mu H)^N` form.
-- `lecture_08_figure_05.png`: The lecture briefly misstated magnetization with an extra `\mu H` before correcting it; the frame should be read in light of that correction.
-- `lecture_08_figure_05.png`: The averaging brackets and the denominator in the magnetization definition are present but not perfectly crisp.
-- `lecture_08_figure_06.png`: Only the two-spin local interaction is truly frame-visible; the full nearest-neighbor sum is a transcript-backed completion, not a direct board transcription.
-- The transcript later garbles `\sinh`, `\cosh`, and `\tanh` as “cinch,” “cosh,” and “tanch,” so any later note reconstruction should normalize those functions to standard notation rather than following the transcript literally.
+- 00:06:41: a bounded low-dimensional phase-space box and tangled trajectory.
+- 00:07:08: the two-coordinate square with the one-quarter subregion.
+- 00:10:44: the general \(v^N/V^N\) phase-volume construction.
+
+These three frames support distinct steps and are not duplicates. The first
+shows wandering dynamics, the second fixes the two-particle counting error,
+and the third generalizes the argument to an arbitrary constrained volume.
+
+## Spin Sequence
+
+- 00:49:50: complete independent-spin energy and count definitions.
+- 00:56:00: complete binomial partition-function board.
+- 01:01:22: corrected average magnetization and energy relation.
+- 01:13:14: completed positive-argument \(\tanh\) curve.
+- 01:19:59: local ferromagnetic pair energy.
+- 01:20:46: nearest-neighbor chain Hamiltonian.
+- 01:26:31: global spin-flip transformation.
+
+The counting and partition frames replace earlier obstructed captures from the
+same board states. The local-pair and full-chain frames are both kept because
+they establish different formulas. The global symmetry frame is separately
+necessary to support the final conceptual step.
+
+## Interpretation Limits
+
+- The recurrence trajectory is schematic and does not establish ergodicity by
+  itself.
+- The \(\tanh\) board curve is positive; the text supplies the minus sign from
+  the lecture's energy convention.
+- The magnetization board follows an in-class correction. The final equation
+  is read as an ensemble average without \(\mu H\) inside \(M\).
+- No domain sketch was drawn during the qualitative ferromagnet discussion,
+  so that prose remains transcript-backed rather than being paired with an
+  unrelated image.
