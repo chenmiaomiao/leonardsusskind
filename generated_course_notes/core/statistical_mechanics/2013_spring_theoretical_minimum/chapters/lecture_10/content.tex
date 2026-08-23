@@ -1,478 +1,744 @@
-\chapter{The Ising Magnet and the Liquid--Gas Transition}
+\chapter{From Ising Magnets to Liquid--Gas Criticality}
 
-We begin from a phenomenon everybody knows: boiling water, liquid turning into vapor, and a sharp change in density that we recognize as a phase transition. Leonard Susskind's point in this lecture is that we can understand that transition without following the standard van der Waals route. Instead we go back to a system already in our hands, the Ising magnet, and watch the same mathematics reappear in a different physical language. These notes follow that path closely, keeping the lecture's order and a few blackboard frames where the argument is visibly assembled on the board; the lecture record behind this chapter also reflects the curation work of LazyingArt LLC and Video2Book.
+\lectureoverview{The liquid--gas transition can be reached by an unexpected route. We first complete the mean-field treatment of the Ising magnet, identify its coexistence line and critical point, and then reinterpret an up spin as an occupied lattice site. The resulting lattice gas has hard-core exclusion, short-range attraction, a chemical potential controlled by the magnetic field, and precisely the same phase diagram. The formal course concludes with critical behavior and universality. A separate postlecture discussion then examines what physicists mean by fine-tuning, how selection effects can enter an explanation, and why such reasoning is useful only when joined to a mechanism and possible tests.}
 
-\section{From Boiling Water to the Ising Magnet}
+\section{Why Boiling Water Begins with a Magnet}
 
-The opening move is deliberately indirect. We are after the liquid--gas transition, but we are not going to attack it in the usual way. The claim is stronger and more interesting than a mere analogy: the Ising magnet provides a mathematically equivalent description of the same kind of transition.
+Boiling water is the familiar phenomenon we would like to understand: a liquid changes into a gas and its density changes abruptly. The standard route passes through the van der Waals equation. Here we take a different route. We return to the Ising magnet, finish its mean-field description, and then discover that the same model can be read as a fluid.
 
-That immediately explains why the lecture backs up before it goes forward. Before any talk about fluids, boxes, or chemical potential, we first rebuild the Ising model. We remind ourselves where the energy lives, what a broken bond costs, how an external field enters, and why mean field is good enough to reveal the qualitative mechanism of a phase transition. Only then do we reinterpret the same structure as a lattice gas.
+This is more than a picturesque analogy. Once the variables have been translated correctly, the Ising magnet and the lattice gas are the same statistical-mechanical system. Magnetization becomes particle density, the external magnetic field becomes a chemical potential, and the magnetic coexistence line becomes the liquid--gas coexistence line. The translation explains why two apparently different pieces of matter can have the same critical behavior.
 
-\section{Recap of Ising Energetics and Mean Field}
+Mean field will not supply exact numerical answers in low dimension. In one dimension it even predicts a transition that the exact solution forbids. Its value here is structural. In two and three dimensions it reveals the right order parameter, the competing phases, the critical endpoint, and the way an infinitesimal bias selects one phase. In three dimensions, where every site has six nearest neighbors, replacing those neighbors by their average already gives a useful qualitative picture.
 
-At each lattice site \(i\) we place a spin
+\section{The Ising Energy Bookkeeping}
+
+Put a two-state spin on every site of a hypercubic lattice,
 \begin{equation}
-\sigma_i=\pm 1.
+\sigma_i=\pm1.
 \end{equation}
-In the Ising model the energy is not attached to a site by itself. It is attached to links between neighboring sites. With the sign convention used in this lecture, the energy is
+We use the Hamiltonian
 \begin{equation}
-E_{\text{Ising}}=-J\sum_{\langle ij\rangle}\sigma_i\sigma_j+h\sum_i \sigma_i.
+\mathcal H
+=-J\sum_{\langle ij\rangle}\sigma_i\sigma_j
++h\sum_i\sigma_i,
+\qquad J>0.
+\label{eq:ising-hamiltonian}
 \end{equation}
-The first sum runs over nearest-neighbor links \(\langle ij\rangle\), not over sites. The constant \(J\) tells us how costly it is to break a bond.
+The notation matters. The first sum is over nearest-neighbor \emph{links}; the second is over \emph{sites}. A link is counted once, not once from each endpoint.
 
-For one link, the contribution is \(-J\sigma_i\sigma_j\). If the neighbors are parallel, \(\sigma_i\sigma_j=+1\), so the link energy is \(-J\). If they are anti-parallel, \(\sigma_i\sigma_j=-1\), so the link energy is \(+J\). Therefore the energy cost of breaking a bond is
+For a single link,
 \begin{equation}
-\Delta E_{\text{broken bond}}=(+J)-(-J)=2J.
+E_{ij}=-J\sigma_i\sigma_j.
 \end{equation}
-This is one of the lecture's recurrent themes: it is the energy difference that matters, not the absolute zero of energy.
-
-If all spins are aligned, the energy is as low as it can be. On an infinite hypercubic lattice in \(d\) dimensions, each site has \(2d\) neighbors, and because every link joins two sites, the total number of links is
+Parallel spins have energy \(-J\), while antiparallel spins have energy \(+J\). A broken bond therefore costs
 \begin{equation}
-N_{\text{links}}=d\,N_{\text{sites}}.
+\Delta E_{\rm bond}=+J-(-J)=2J.
+\label{eq:broken-bond}
 \end{equation}
-Thus the completely aligned state has energy
+The number \(2J\), rather than either absolute link energy, is what controls the relative Boltzmann weights. We could add a constant to every configuration without changing any probability.
+
+\begin{classroomqa}
+\audiencequestion{Why are there two different sums in the Hamiltonian?}
+\lecturerresponse{The exchange energy belongs to a pair of neighboring sites, so it is summed over links \(\langle ij\rangle\). The field acts independently on each spin, so it is summed over sites \(i\). Confusing those two countings introduces exactly the factors of two that will matter in mean field. \lecturetimestamp{00:08:04--00:08:45}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does making \(J\) larger simply make every energy more negative?}
+\lecturerresponse{It enlarges the separation between aligned and misaligned configurations. The zero of energy is arbitrary; the physical statement is that a broken bond costs \(2J\). Larger positive \(J\) therefore makes thermal disorder less favorable at a fixed temperature. \lecturetimestamp{00:08:47--00:10:17}}
+\end{classroomqa}
+
+On an infinite or periodic hypercubic lattice in \(d\) dimensions, every site has \(2d\) neighbors. Counting from all \(N\) sites counts every link twice, so
 \begin{equation}
-E_{\text{ground}}=-J\,N_{\text{links}}=-J\,d\,N_{\text{sites}}.
+N_{\rm links}=\frac{(2d)N}{2}=dN.
+\label{eq:number-links}
 \end{equation}
-But this constant ground-state energy can be shifted away. Statistical mechanics only cares about differences between configurations.
+An aligned configuration consequently has exchange energy \(-JdN\). Boundary sites alter this by a surface term, negligible compared with \(N\) in the thermodynamic limit. The two completely aligned states are degenerate when \(h=0\).
 
-The second term,
+The field term fixes a sign convention that we shall keep consistently. In equation~\eqref{eq:ising-hamiltonian}, positive \(h\) gives the lower site energy to \(\sigma=-1\). Thus \(h>0\) favors negative magnetization, while \(h<0\) favors positive magnetization. One can reverse this convention by writing \(-h\sum_i\sigma_i\); nothing physical changes, but every later sign must then be reversed with it.
+
+\begin{classroomqa}
+\audiencequestion{Where does temperature enter if the Hamiltonian contains only \(J\) and \(h\)?}
+\lecturerresponse{Temperature enters through the Boltzmann factor \(e^{-\beta\mathcal H}\), with \(\beta=1/T\) in units \(k_{\rm B}=1\). The dimensionless quantities are therefore \(\beta J\) and \(\beta h\). \lecturetimestamp{00:13:07--00:13:43}}
+\end{classroomqa}
+
+\section{One Spin in the Average Field of Its Neighbors}
+
+Choose a spin far from the boundary. It has \(2d\) nearest neighbors. Mean field replaces each fluctuating neighbor by the same average
 \begin{equation}
-E_{\text{field}}=h\sum_i \sigma_i,
+m=\expect{\sigma}.
 \end{equation}
-acts on sites rather than links. In this convention, positive \(h\) lowers the energy when \(\sigma_i=-1\). So the two pieces of the Hamiltonian compete in a clear way: the link term wants neighboring spins to line up, while the field term favors one orientation over the other.
+The exchange energy involving the chosen spin \(\sigma\) is then
+\begin{equation}
+-J\sigma\sum_{\text{\(2d\) neighbors}}\sigma_j
+\;\longrightarrow\;-2dJm\,\sigma.
+\end{equation}
+Adding the external field gives the effective one-spin energy
+\begin{equation}
+\mathcal H_{\rm mf}(\sigma)=(-2dJm+h)\sigma.
+\label{eq:mean-field-one-spin}
+\end{equation}
+The factor \(2d\) is essential. It is easy to omit while writing the central-spin picture, and it was restored explicitly during the board derivation.
 
-Now we recall the mean-field approximation. The lecture is very explicit about what it is good for and where it fails. In one dimension it gives the wrong qualitative answer: it predicts a phase transition where there is none. In two dimensions and higher it becomes useful, and by three dimensions, with six nearest neighbors, it is already quite good qualitatively. The reason is simple. The more neighbors a spin has, the more reasonable it becomes to replace the actual environment by an average one.
-
-\begin{remark}
-The sign of the field drifts verbally in the lecture, but the stable pair to keep is
-\[
-E_{\text{field}}=h\sum_i \sigma_i,
-\qquad
-\frac{yT}{2dJ}=\tanh(y-\beta h).
-\]
-With this convention, positive \(h\) favors \(\sigma=-1\). We keep that convention throughout.
-\end{remark}
-
-\section{Self-Consistency for the Average Spin}
-
-The mean-field construction begins with one spin, drawn on the board and surrounded by its neighbors. We imagine it deep in the interior of a large sample, so that every site sees the same average environment.
-
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_10_figure_02.png}
-\caption{Mean-field self-consistency for \(\bar{\sigma}\). The frame preserves both the neighbor sketch and the board equation, although the right edge is cropped.}
+\includegraphics[width=0.84\textwidth]{lecture_10_figure_02.png}
+\caption{A central spin surrounded by its mean-field neighbors, together with the one-spin energy and the developing self-consistency equation.}
+\lectureframe{00:17:57}
 \end{figure}
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=1.15]
-\fill (0,0) circle (2.4pt);
-\node[below] at (0,-0.1) {$\sigma$};
-
-\node at (1.6,0) {$\times$};
-\node at (-1.6,0) {$\times$};
-\node at (0,1.35) {$\times$};
-\node at (0,-1.35) {$\times$};
-
-\draw (0.18,0) -- (1.15,0);
-\draw (-0.18,0) -- (-1.15,0);
-\draw (0,0.18) -- (0,0.95);
-\draw (0,-0.18) -- (0,-0.95);
-
-\node[right] at (1.95,0.25) {$\bar{\sigma}$};
-\node[left] at (-1.95,0.25) {$\bar{\sigma}$};
-\node[above] at (0,1.62) {$\bar{\sigma}$};
-\node[below] at (0,-1.62) {$\bar{\sigma}$};
-\end{tikzpicture}
-\caption{The mean-field picture: one spin interacting with \(2d\) neighbors, each replaced by the same average value \(\bar{\sigma}\).}
-\end{figure}
-
-Each of the \(2d\) neighbors is replaced by the average spin \(\bar{\sigma}\). The one-spin energy is therefore
-\begin{equation}
-E_{\text{mf}}(\sigma)=(-2dJ\,\bar{\sigma}+h)\sigma.
-\end{equation}
-This is exactly the coefficient structure visible on the board. The frame does not visibly show the factor of \(\beta\), because \(\beta\) enters only when we pass from the energy to the Boltzmann weight.
-
-It is convenient to name the coefficient
-\begin{equation}
-A_{\text{mf}}=-2dJ\,\bar{\sigma}+h,
-\qquad
-E_{\text{mf}}(\sigma)=A_{\text{mf}}\sigma.
-\end{equation}
-Now we have reduced the many-spin problem to an ordinary one-spin statistical mechanics problem in the background of a parameter \(\bar{\sigma}\).
 
 The one-spin partition function is
 \begin{align}
-Z_1
-&=\sum_{\sigma=\pm1} e^{-\beta A_{\text{mf}}\sigma}
-= e^{-\beta A_{\text{mf}}}+e^{\beta A_{\text{mf}}}
-=2\cosh(\beta A_{\text{mf}}).
+z_{\rm mf}
+&=\sum_{\sigma=\pm1}
+\exp\!\left[-\beta(-2dJm+h)\sigma\right] \\
+&=2\cosh\!\left[\beta(2dJm-h)\right].
 \end{align}
-The thermal average of the chosen spin is
+Its average spin is
 \begin{align}
-\langle \sigma\rangle
-&=\frac{\sum_{\sigma=\pm1}\sigma\,e^{-\beta A_{\text{mf}}\sigma}}
-{\sum_{\sigma=\pm1}e^{-\beta A_{\text{mf}}\sigma}} \\
-&=\frac{e^{-\beta A_{\text{mf}}}-e^{\beta A_{\text{mf}}}}
-{e^{-\beta A_{\text{mf}}}+e^{\beta A_{\text{mf}}}}
-=-\tanh(\beta A_{\text{mf}}) \\
-&=\tanh\!\big[\beta(2dJ\,\bar{\sigma}-h)\big].
+\expect{\sigma}
+&=\frac{\sum_{\sigma=\pm1}\sigma
+ e^{\beta(2dJm-h)\sigma}}
+{\sum_{\sigma=\pm1}e^{\beta(2dJm-h)\sigma}} \\
+&=\tanh\!\left[\beta(2dJm-h)\right].
 \end{align}
-
-Now comes the self-consistency trick. The average spin of the chosen site is assumed to be the same as the average of its neighbors. In a large homogeneous sample, deep in the interior, that is exactly the mean-field assumption. Therefore
+But the spin we selected is supposed to be typical of the neighbors whose average we called \(m\). Self-consistency therefore requires
 \begin{equation}
-\bar{\sigma}=\tanh\!\big[\beta(2dJ\,\bar{\sigma}-h)\big].
+\boxed{m=\tanh\!\left[\beta(2dJm-h)\right].}
+\label{eq:mean-field-self-consistency}
 \end{equation}
-That is the mean-field equation determining \(\bar{\sigma}\).
+This one nonlinear equation is the mean-field reduction of the many-spin problem.
 
-The lecture then makes the standard simplifying substitution
+\begin{classroomqa}
+\audiencequestion{Why is the average on the left the same \(m\) that was inserted for every neighbor?}
+\lecturerresponse{That equality is the approximation. We assume a homogeneous bulk state, replace the actual environment by its average, calculate the central spin in that environment, and demand that the calculated average reproduce the environment we assumed. A solution is a self-consistent bulk state. \lecturetimestamp{00:16:28--00:18:00}}
+\end{classroomqa}
+
+Introduce
 \begin{equation}
-y=2dJ\,\beta\,\bar{\sigma}.
+y=2\beta dJm.
+\label{eq:y-definition}
 \end{equation}
-Since \(\beta=1/T\), this means
+Since \(\beta=1/T\),
 \begin{equation}
-\bar{\sigma}=\frac{yT}{2dJ}.
+m=\frac{yT}{2dJ},
 \end{equation}
-Substituting into the self-consistency condition gives the reduced equation
+and equation~\eqref{eq:mean-field-self-consistency} becomes
 \begin{equation}
-\frac{yT}{2dJ}=\tanh(y-\beta h).
+\boxed{\frac{yT}{2dJ}=\tanh(y-\beta h).}
+\label{eq:reduced-mean-field}
 \end{equation}
-This is where the lecture wants to start over. Having compressed the many-spin system into one nonlinear equation, we are ready to solve it geometrically.
 
-\section{Graphical Solution and the Critical Temperature}
-
-The board is then cleared down to a single visible equation.
-
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_10_figure_03.png}
-\caption{The reduced mean-field equation just before the graph is drawn. The visible equation is the stable form to keep.}
+\includegraphics[width=0.82\textwidth]{lecture_10_figure_03.png}
+\caption{The reduced self-consistency equation after introducing \(y=2\beta dJm\), ready to be solved graphically.}
+\lectureframe{00:24:42}
 \end{figure}
 
-The lecturer's next move is: forget the clutter, set the field to zero, and ask what the graph looks like. With \(h=0\), the reduced equation becomes
+\begin{classroomqa}
+\audiencequestion{Why does the field appear as \(y-\beta h\), and which spin does a positive field favor?}
+\lecturerresponse{Our Hamiltonian contains \(+h\sigma\). Its Boltzmann exponent is therefore \(\beta(2dJm-h)\sigma\), so the hyperbolic tangent contains \(y-\beta h\). Positive \(h\) favors \(\sigma=-1\). If one instead defines the Hamiltonian with \(-h\sigma\), every occurrence of \(h\) changes sign and the phase diagram is reflected horizontally. \lecturetimestamp{00:18:17--00:20:00}}
+\end{classroomqa}
+
+\section{Graphical Solutions and the Curie Point}
+
+Set \(h=0\). We must find the intersections of
 \begin{equation}
-\frac{yT}{2dJ}=\tanh y.
+\frac{T}{2dJ}y
+\qquad\text{and}\qquad
+\tanh y.
 \end{equation}
-The left-hand side is a straight line through the origin. Its slope is \(T/(2dJ)\). The right-hand side is the fixed curve \(\tanh y\).
+The first is a straight line through the origin; the second is an odd, saturating curve. At high temperature the line is steep and the only intersection is \(y=0\), hence \(m=0\). As the temperature falls, the line becomes shallower. The critical temperature is reached when the line and the hyperbolic tangent are tangent at the origin.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-3.4,0) -- (3.4,0) node[right] {$y$};
-\draw[->] (0,-1.35) -- (0,1.35);
-
-\draw[smooth] plot coordinates {
-(-3,-0.995) (-2,-0.964) (-1,-0.761) (-0.5,-0.462) (0,0)
-(0.5,0.462) (1,0.761) (2,0.964) (3,0.995)};
-\node at (2.15,0.92) {$\tanh y$};
-
-\draw[dashed] (-0.8,-1.25) -- (0.8,1.25);
-\node[right] at (0.92,1.06) {$T>T_c$};
-
-\draw[thick] (-1.2,-1.2) -- (1.2,1.2);
-\node[right] at (1.28,1.2) {$T=T_c$};
-
-\draw[dotted] (-3.1,-0.95) -- (3.1,0.95);
-\node[right] at (2.45,0.82) {$T<T_c$};
-
-\fill (-1.92,-0.59) circle (1.6pt);
-\fill (0,0) circle (1.6pt);
-\fill (1.92,0.59) circle (1.6pt);
+\begin{tikzpicture}[x=1.2cm,y=2.1cm]
+\draw[->] (-3.2,0) -- (3.35,0) node[right] {$y$};
+\draw[->] (0,-1.2) -- (0,1.2);
+\draw[very thick,blue!65!black,domain=-3:3,samples=120]
+  plot (\x,{tanh(\x)});
+\node[blue!65!black,above] at (2.25,0.96) {$\tanh y$};
+\draw[dashed,red!70!black] (-0.75,-1.13) -- (0.75,1.13);
+\node[red!70!black,right] at (0.76,1.02) {$T>T_c$};
+\draw[black] (-1.05,-1.05) -- (1.05,1.05);
+\node[right] at (1.05,0.88) {$T=T_c$};
+\draw[densely dotted,green!45!black] (-3.05,-0.72) -- (3.05,0.72);
+\node[green!45!black,right] at (2.42,0.67) {$T<T_c$};
+\fill (-2.35,-0.55) circle (1.7pt);
+\fill (0,0) circle (1.7pt);
+\fill (2.35,0.55) circle (1.7pt);
 \end{tikzpicture}
-\caption{Graphical solution of the mean-field equation at \(h=0\). At high temperature the only intersection is \(y=0\). At \(T_c\) the line is tangent at the origin. Below \(T_c\) two additional nonzero branches appear.}
+\caption{The mean-field equation at zero field. Below \(T_c\), the two nonzero intersections represent the stable magnetized phases; the zero solution remains algebraically present but is unstable.}
+\label{fig:mean-field-intersections}
 \end{figure}
 
-Now we read the graph exactly as the lecture reads it. At high temperature the line is steep, so the only intersection is the origin. Therefore
-\begin{equation}
-y=0,
-\qquad
-\bar{\sigma}=0.
-\end{equation}
-There is no magnetization.
-
-Lower the temperature and the slope decreases. At a special temperature the line just hugs the curve at the origin. The slope of \(\tanh y\) at the origin is
+Because
 \begin{equation}
 \left.\frac{d}{dy}\tanh y\right|_{y=0}=1,
 \end{equation}
-so the tangency condition is
+the tangency condition is
 \begin{equation}
-\frac{T_c}{2dJ}=1,
+\frac{T_c}{2dJ}=1.
 \end{equation}
-and therefore
+Thus mean field predicts
 \begin{equation}
-T_c=2dJ.
+\boxed{T_c^{\rm MF}=2dJ.}
+\label{eq:mean-field-tc}
 \end{equation}
-This is the mean-field critical temperature.
+Below this temperature there are two stable nonzero solutions \(\pm m_0(T)\). The solution \(m=0\) still satisfies the equation, but it is no longer a stable equilibrium. The system chooses one of the two symmetry-related magnetized phases.
 
-If we lower the temperature still further, the line becomes shallower. Then two new intersections appear, one at positive \(y\) and one at negative \(y\). Strictly speaking the origin remains an intersection, but it is no longer the branch the system chooses. This is exactly the lecture's phrasing: the system does not go there. It chooses one of the nonzero solutions, so the magnetization becomes nonzero.
+\begin{classroomqa}
+\audiencequestion{Is this the Curie temperature?}
+\lecturerresponse{Yes. For a ferromagnet the temperature at which spontaneous magnetization disappears is conventionally called the Curie temperature. Here \(2dJ\) is its mean-field value, not an exact low-dimensional result. \lecturetimestamp{00:28:19--00:28:57}}
+\end{classroomqa}
 
-That is the phase transition in mean field. Above \(T_c\), thermal fluctuations win and the average magnetization is zero. Below \(T_c\), the tendency to line up wins and the system becomes spontaneously magnetized.
-
-The lecture also makes an important accuracy remark here. The formula \(T_c=2dJ\) is not exact. It is a mean-field estimate. It becomes exact only when \(d\) is large. In two dimensions it is off by a noticeable amount; in three dimensions it is already fairly good. But it gets the qualitative story exactly right, and for this lecture that is the point.
-
-For magnets one often calls \(T_c\) the Curie temperature. In the more general language of phase transitions it is simply the critical temperature.
-
-\section{From Branch Selection to the \(T\)-\(h\) Plane}
-
-At this point the lecture changes from equation solving to interpretation. Once the two symmetry-related nonzero solutions appear, the system ``doesn't quite know what to do.'' Should it choose the positive branch or the negative branch? The symmetry of the problem alone does not decide. If we flip every spin, we get the same problem back again.
-
-The answer is that an arbitrarily small field removes the ambiguity. In practice the experimentalist controls two parameters: the temperature and the external field \(h\). The coupling \(J\) belongs to the material; if we want to change \(J\), we usually have to change the substance itself. So the natural plane to draw is the \(T\)-\(h\) plane.
-
-Because we have fixed the convention \(E_{\text{field}}=h\sum_i \sigma_i\), a positive field favors \(\sigma=-1\), while a negative field favors \(\sigma=+1\). Equivalently, in the reduced equation the curve \(\tanh(y-\beta h)\) is shifted horizontally, and the sign of \(h\) selects one of the two nonzero branches.
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=1.05]
-\draw[->] (-3.2,0) -- (3.2,0) node[right] {$h$};
-\draw[->] (0,0) -- (0,4.0) node[above] {$T$};
-
-\draw[thick] (0,0) -- (0,2.55);
-\fill (0,2.55) circle (2.2pt);
-\node[above right] at (0,2.55) {$T_c$};
-
-\node at (-1.85,1.2) {$\bar{\sigma}>0$};
-\node at (1.85,1.2) {$\bar{\sigma}<0$};
-\node at (1.6,3.2) {smooth crossover};
-
-\draw[dashed] (-1.65,3.05) .. controls (-0.7,3.7) and (0.7,3.7) .. (1.65,3.05);
-\node at (0,3.55) {go around the critical point};
-\end{tikzpicture}
-\caption{The mean-field \(T\)-\(h\) plane. With the convention \(E_{\text{field}}=h\sum_i\sigma_i\), the positive-magnetization branch lies at \(h<0\) and the negative-magnetization branch at \(h>0\). Below \(T_c\), crossing \(h=0\) forces a jump from one branch to the other.}
-\end{figure}
-
-At high temperature and zero field, the magnetization is zero. At zero temperature, by contrast, the system is fully lined up, so \(\bar{\sigma}=\pm1\). Between these limits the phase diagram organizes the whole story.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} What jumps, and what does not?
-
-\paragraph{Answer.} The crucial distinction is between approaching the critical point and crossing the coexistence line. As \((T,h)\to(T_c,0)\) from any direction, the magnetization tends to zero:
+Near the transition, expand the hyperbolic tangent:
 \begin{equation}
-\lim_{(T,h)\to(T_c,0)} \bar{\sigma}(T,h)=0.
+\tanh y=y-\frac{y^3}{3}+O(y^5).
 \end{equation}
-So the critical point itself is continuous.
-
-But if we keep \(T<T_c\) fixed and vary the field through \(h=0\), then the magnetization jumps from one nonzero branch to the other:
+At \(h=0\), equation~\eqref{eq:reduced-mean-field} gives
 \begin{equation}
-\bar{\sigma}(T,0^\pm)=\pm m_0(T),
+\left(1-\frac{T}{T_c}\right)y-\frac{y^3}{3}+O(y^5)=0.
+\end{equation}
+The nonzero branches therefore behave as
+\begin{equation}
+y^2\simeq3\left(1-\frac{T}{T_c}\right),
 \qquad
-m_0(T)>0,
-\qquad
-T<T_c.
+m\propto(T_c-T)^{1/2}.
+\label{eq:mf-beta-exponent}
 \end{equation}
-The sign convention tells us which side of the axis corresponds to which branch, but the important fact is the discontinuity itself.
+The square root is a mean-field critical exponent. Its precise value will not survive in low dimension, but the continuous vanishing of the order parameter at the endpoint will.
 
-\paragraph{Question.} What happens exactly on the line \(h=0\) below \(T_c\)?
+\section{The Temperature--Field Plane and Branch Selection}
 
-\paragraph{Answer.} In the idealized perfectly symmetric problem, the system cannot decide. The two branches are equally available. In a real experiment one never turns off every bias completely, so some tiny residual field or imperfection picks one branch. That is why the lecture says the system ``doesn't know what to do'' exactly on the axis.
+The material fixes \(J\); the experimenter can vary \(T\) and \(h\). It is therefore natural to draw a phase diagram in the \(T\)--\(h\) plane. Below \(T_c\), an arbitrarily small field selects one of the two magnetized branches. With our convention, \(h<0\) selects \(m>0\), while \(h>0\) selects \(m<0\).
 
-\paragraph{Question.} Can one move from negative magnetization to positive magnetization without a jump?
+At zero temperature the spins are fully aligned, so \(m=\pm1\). At high temperature the zero-field average is \(m=0\). As the critical point is approached along \(h=0\), the magnitude \(m_0(T)\) falls continuously to zero. But at any fixed \(T<T_c\), crossing \(h=0\) switches discontinuously from \(+m_0(T)\) to \(-m_0(T)\).
 
-\paragraph{Answer.} Yes, provided one is allowed to move in the full \((T,h)\) plane instead of keeping \(T\) fixed. If we go around the critical point, passing through the high-temperature region, the magnetization changes smoothly from one sign to the other. So both statements are true. At fixed \(T<T_c\) there is a jump across \(h=0\); globally there is still a continuous path around the critical point.
-
-The lecture briefly alludes to the taxonomy of phase transitions, but does not pursue it. The geometric statement above is the one that matters here.
-
-\section{Chemical Potential and the Box Picture}
-
-At this stage the lecturer says, in effect: now we know enough about magnets, but I am interested in the liquid--gas transition. So the lecture pivots to a permeable box.
-
-Imagine a region of space whose interior is at lower potential energy than the exterior. The walls are permeable, so particles can come in and out. The energy difference between being inside and being outside is the chemical potential \(\mu\), understood here as the energy cost of removing a particle from the box.
-
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-0.5,0) -- (6.5,0) node[right] {$x$};
-\draw[->] (0,-2.1) -- (0,1.5) node[above] {$V(x)$};
-
-\draw[thick] (0.5,0.8) -- (1.8,0.8) -- (1.8,-1.2) -- (4.8,-1.2) -- (4.8,0.8) -- (6.0,0.8);
-\draw[dashed] (1.8,-1.8) -- (1.8,1.1);
-\draw[dashed] (4.8,-1.8) -- (4.8,1.1);
-
-\node at (0.9,1.05) {outside};
-\node at (5.4,1.05) {outside};
-\node at (3.3,-1.48) {inside box};
-\node[left] at (0,-1.2) {$-\mu$};
-\end{tikzpicture}
-\caption{The permeable-box picture. Inside the box the one-particle energy is lower, so the equilibrium density depends on the chemical potential \(\mu\).}
+\includegraphics[width=0.90\textwidth]{lecture_10_figure_06.png}
+\caption{The coexistence line in the \(T\)--\(h\) plane and the magnetization branches at fixed temperature below \(T_c\).}
+\lectureframe{00:39:30}
 \end{figure}
 
-The Boltzmann factor always favors lower energy. So if the inside of the box is lower in energy, the density inside rises. The stronger the chemical potential, the more the box wants to pull particles in. The lecture does not use this picture to discuss chemistry in any detail. It uses it to isolate a variable that controls density.
-
-Because particles can cross the walls, the number of particles is itself part of the configuration. If we were to set up the statistical mechanics in full, we would use the grand-canonical partition function
-\begin{equation}
-Z=\sum_N \sum_{\text{conf}_N} e^{-\beta E+\beta\mu N}.
-\end{equation}
-Here the sum is not only over positions and momenta, but also over the particle number \(N\). The lecture does not carry out the calculation. It only needs the meaning of the formula: \(\mu\) is the thing we adjust if we want to adjust the average density.
-
-Now we can say what the liquid--gas transition looks like in this language. Hold the temperature fixed and vary the chemical potential. Then the density inside the box is some function of \(\mu\). In the gas phase the density is low. In the liquid phase the density is high. A liquid--gas transition is the place where, as we vary \(\mu\), that density changes discontinuously.
-
-\begin{remark}
-The lecture carefully avoids a pressure computation. One could in principle rewrite the discussion in terms of pressure, but that would require more thermodynamics than is done here. We keep the discussion at the level used in the lecture.
-\end{remark}
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How does one actually vary the chemical potential in practice?
-
-\paragraph{Answer.} In the lecture the cleanest thought experiment is to lower the one-particle energy inside the box and thereby ``pull'' particles in. But the lecturer immediately admits that this is not how one usually does it for an ordinary fluid. In practice the most accessible control is pressure. Pressure changes the density, and the boiling point depends on it. So the box picture with \(\mu\) is the conceptual model, while pressure is the usual laboratory handle.
-
-\paragraph{Question.} What becomes of the jump if we go above the critical point?
-
-\paragraph{Answer.} Then the jump disappears. Above the critical temperature the density changes smoothly as we vary the control parameter. The sharp distinction between gas and liquid survives only below the critical point. And, just as in the magnetic case, one can go from low density to high density without a jump by going around the critical point through the high-temperature region.
-
-\section{The Lattice Gas Hidden Inside the Ising Model}
-
-Now comes the lecture's main translation. What does the Ising magnet have to do with a fluid? Before giving the dictionary, the lecture states the two ingredients needed for a liquid--gas transition.
-
-First, there must be hard-core repulsion: two molecules cannot sit on top of one another. Second, there must be a little attraction when they are near but not coincident. The standard molecular picture has exactly this form: very strong short-distance repulsion, plus a modest short-range attraction.
-
-The striking claim is that the Ising model supplies both ingredients automatically.
-
-We reinterpret the all-down state as empty space. Then we say:
-\begin{equation}
-\sigma_i=-1 \Longleftrightarrow n_i=0,
-\qquad
-\sigma_i=+1 \Longleftrightarrow n_i=1.
-\end{equation}
-So \(\sigma=-1\) means no particle on the site, and \(\sigma=+1\) means one particle on the site.
-
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=0.74\textwidth]{lecture_10_figure_04.png}
-\caption{The moment where the board explicitly identifies \(\sigma=-1\) with an empty lattice site.}
-\end{figure}
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=0.9]
-\foreach \x in {0,1,2,3}
-  \foreach \y in {0,1,2,3}
-    \draw (\x,\y) circle (0.08);
-
-\fill (1,2) circle (0.12);
-
-\node at (5.25,2.05) {$\sigma=-1 \Longleftrightarrow n=0$};
-\node at (5.25,1.1) {$\sigma=+1 \Longleftrightarrow n=1$};
-\node at (1.68,2.36) {occupied};
-\node at (0.55,0.45) {empty};
-\end{tikzpicture}
-\caption{The lattice-gas dictionary. Since \(\sigma\) can only be \(\pm1\), the model automatically forbids double occupancy.}
-\end{figure}
-
-Immediately we get the hard core. The Ising variable does not allow \(\sigma=2\). So it does not allow two particles on the same site. Occupation is either \(0\) or \(1\), never more. The infinite short-distance repulsion is built in from the start.
-
-The next question is whether these particles attract. For that we simply count broken bonds. We subtract the constant ground-state energy and declare the empty lattice to have zero energy.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_10_figure_05.png}
-\caption{The bookkeeping step where the Ising energy is re-read as particle energetics: one particle, two separated particles, and two nearby particles.}
-\end{figure}
-
-Let us do the counting in two dimensions, exactly as in the lecture. One particle means one spin flipped up in an otherwise down background. That breaks four bonds. Since each broken bond costs \(2J\),
-\begin{equation}
-E_{1\text{ particle}}=4(2J)=8J.
-\end{equation}
-Two well-separated particles simply double that cost:
-\begin{equation}
-E_{2\text{ particles, far apart}}=16J.
-\end{equation}
-But if the two particles are nearest neighbors, the bond between them is not broken, because both spins are up. Then only six bonds are broken, so
-\begin{equation}
-E_{2\text{ particles, nearest neighbors}}=6(2J)=12J.
-\end{equation}
-Therefore bringing two particles from far separation to one lattice spacing lowers the energy by
-\begin{equation}
-\Delta E_{\text{nn attraction}}=12J-16J=-4J.
-\end{equation}
-That is the short-range attraction.
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=0.82]
-\foreach \x in {0,1,2}
-  \foreach \y in {0,1,2}
-    \draw (\x,\y) circle (0.07);
-\fill (1,1) circle (0.11);
-\node at (1,-0.55) {one particle};
-
-\begin{scope}[xshift=5.0cm]
-\foreach \x in {0,1,2}
-  \foreach \y in {0,1,2}
-    \draw (\x,\y) circle (0.07);
-\fill (0,2) circle (0.11);
-\fill (2,0) circle (0.11);
-\node at (1,-0.55) {two far apart};
+\begin{tikzpicture}[x=1.25cm,y=1.15cm]
+\begin{scope}
+\draw[->] (-2.45,0) -- (2.55,0) node[right] {$h$};
+\draw[->] (0,0) -- (0,3.7) node[above] {$T$};
+\draw[very thick,red!70!black] (0,0) -- (0,2.35);
+\fill[red!70!black] (0,2.35) circle (2.3pt);
+\node[right] at (0.08,2.35) {$T_c$};
+\node at (-1.25,1.05) {$m>0$};
+\node at (1.25,1.05) {$m<0$};
+\draw[->,rounded corners,blue!65!black] (-1.65,0.85) -- (-1.65,3.02)
+ -- (1.65,3.02) -- (1.65,0.85);
+\node[blue!65!black] at (0,3.35) {continuous path};
 \end{scope}
-
-\begin{scope}[xshift=10.0cm]
-\foreach \x in {0,1,2}
-  \foreach \y in {0,1,2}
-    \draw (\x,\y) circle (0.07);
-\fill (1,1) circle (0.11);
-\fill (2,1) circle (0.11);
-\node at (1,-0.55) {two neighbors};
+\begin{scope}[xshift=7.0cm,yshift=1.55cm]
+\draw[->] (-2.5,0) -- (2.5,0) node[right] {$h$};
+\draw[->] (0,-1.35) -- (0,1.4) node[above] {$m$};
+\draw[very thick,blue!65!black]
+  (-2.2,1.05) .. controls (-0.75,1.03) and (-0.2,0.75) .. (-0.08,0.62);
+\draw[very thick,blue!65!black]
+  (0.08,-0.62) .. controls (0.2,-0.75) and (0.75,-1.03) .. (2.2,-1.05);
+\draw[dashed] (0,0.62) -- (0,-0.62);
+\fill (0,0.62) circle (1.8pt);
+\fill (0,-0.62) circle (1.8pt);
+\node at (0,-1.75) {\(T<T_c\)};
 \end{scope}
 \end{tikzpicture}
-\caption{The three lattice configurations whose bond counting gives \(8J\), \(16J\), and \(12J\) in two dimensions.}
+\caption{At fixed \(T<T_c\), magnetization jumps across the coexistence line. In the full two-parameter plane, the two phases can instead be connected continuously by going around the critical point.}
+\label{fig:ising-phase-plane}
 \end{figure}
 
-So the Ising system, read as a lattice gas, has exactly the two features the lecture asked for: infinite hard-core repulsion at zero separation, and modest attraction at one lattice spacing.
+\begin{classroomqa}
+\audiencequestion{What happens if the field is exactly zero below \(T_c\)?}
+\lecturerresponse{The ideal infinite system has two equally good pure phases. Any infinitesimal residual bias, boundary condition, or fluctuation associated with preparation selects one of them. The thermodynamic discontinuity is expressed by the two one-sided limits \(m(T,0^-)=+m_0(T)\) and \(m(T,0^+)=-m_0(T)\) in our sign convention. \lecturetimestamp{00:35:04--00:37:10}}
+\end{classroomqa}
 
-Now let us restore the field term. If a site changes from empty to occupied, then \(\sigma\) changes from \(-1\) to \(+1\), so the field contribution changes by
+\begin{classroomqa}
+\audiencequestion{Is this the same thing as hysteresis?}
+\lecturerresponse{Hysteresis concerns metastability and the history-dependent delay with which a real system switches branches. It is related, but it requires dynamics beyond the equilibrium phase diagram and is not developed here. \lecturetimestamp{00:37:11--00:37:20}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the positive and negative phases be connected without crossing a discontinuity?}
+\lecturerresponse{Yes. Raise the temperature above \(T_c\), change the sign of the field there, and lower the temperature again. That path goes around the endpoint and the magnetization changes continuously. The jump is unavoidable only when one crosses \(h=0\) at fixed \(T<T_c\). \lecturetimestamp{00:37:20--00:38:15}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the magnetization approach zero whenever \(h\) approaches zero?}
+\lecturerresponse{Not at a generic temperature below \(T_c\). There the one-sided limits are nonzero. The spontaneous magnetization approaches zero only as the critical temperature itself is approached. \lecturetimestamp{00:38:29--00:39:45}}
+\end{classroomqa}
+
+\section{A Permeable Box and the Chemical Potential}
+
+We now leave magnets and begin again with particles. Imagine a region whose potential energy is lower than that of the surrounding space. The walls are permeable: particles can enter and leave. If the interior energy is lower by an amount \(\mu\), occupation inside receives a relative Boltzmann factor \(e^{\beta\mu}\). Deepening or raising the well changes the average number of particles in the box.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_10_figure_07.png}
+\caption{The potential-well picture of a permeable box. The energy difference between inside and outside controls the preference for particles to occupy the box.}
+\lectureframe{00:41:30}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1.25cm,y=1.0cm]
+\draw[->] (-3.2,0) -- (3.3,0) node[right] {position};
+\draw[->] (-3.0,-2.4) -- (-3.0,1.2) node[above] {potential};
+\draw[very thick] (-2.8,0.7) -- (-1.35,0.7)
+ -- (-1.35,-1.45) -- (1.35,-1.45) -- (1.35,0.7) -- (2.9,0.7);
+\draw[<->,red!70!black] (0,0.63) -- (0,-1.38);
+\node[right,red!70!black] at (0.08,-0.35) {$\mu$};
+\foreach \x/\y in {-0.95/-1.1,-0.45/-0.85,0.05/-1.12,0.55/-0.95,0.95/-1.18}
+  \fill[blue!65!black] (\x,\y) circle (2pt);
+\node at (0,-2.0) {permeable region};
+\end{tikzpicture}
+\caption{Changing the potential offset changes the particle-number preference. In a grand-canonical description, that offset is represented by the chemical potential.}
+\end{figure}
+
+This thought experiment makes chemical potential concrete. It is an energy advantage per added particle relative to a reservoir. If several species can pass through the wall, each species has its own chemical potential. A sealed box is different: then \(N\) is fixed and the chemical potential is inferred thermodynamically rather than imposed by exchange with a reservoir.
+
+\begin{classroomqa}
+\audiencequestion{Is the depth of the well literally the chemical potential?}
+\lecturerresponse{It is a direct mechanical realization of a chemical-potential difference. Lowering every one-particle level inside by \(\mu\) contributes \(-\mu N\) to the energy and therefore \(+\beta\mu N\) to the Boltzmann exponent. Only differences of chemical potential matter. \lecturetimestamp{00:44:49--00:45:40}}
+\end{classroomqa}
+
+Because particles may enter and leave, the partition sum must include all particle numbers:
 \begin{equation}
-\Delta E_h = 2h.
+\Xi(T,\mu)
+=\sum_{N=0}^{\infty}\;\sum_{\mathcal C_N}
+\exp\!\left[-\beta E(\mathcal C_N)+\beta\mu N\right].
+\label{eq:grand-partition}
 \end{equation}
-Thus an isolated particle in two dimensions has energy
+The inner sum runs over configurations with a specified \(N\); the outer sum runs over \(N\) itself. The grand-canonical weight may also be written \(e^{-\beta(E-\mu N)}\).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_08.png}
+\caption{The permeable box and the grand-canonical sum over particle number and configurations.}
+\lectureframe{00:47:15}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What changes when the box is sealed?}
+\lecturerresponse{The particle number stops fluctuating. One then uses the canonical partition function at fixed \(N\). In the permeable box, \(N\) is a thermodynamic variable controlled on average by \(\mu\). \lecturetimestamp{00:45:42--00:47:50}}
+\end{classroomqa}
+
+At fixed temperature, varying \(\mu\) ordinarily changes the density smoothly. Below a critical temperature it can instead cause an abrupt jump. That is the fluid phenomenon we are seeking. To obtain it microscopically, the particles need two features: they must not be able to occupy the same place, and they must attract at short range.
+
+\section{Turning Spins into a Lattice Gas}
+
+Keep the lattice but reinterpret its two states. Define an occupation number
 \begin{equation}
-E_{1\text{ particle}}=8J+2h
+n_i=\frac{1+\sigma_i}{2}
+=
+\begin{cases}
+0,&\sigma_i=-1,\\
+1,&\sigma_i=+1.
+\end{cases}
+\label{eq:occupation-map}
 \end{equation}
-in this counting convention. The point is not the exact offset, which the lecture treats as conventional. The point is that \(J\) controls the interaction between neighboring particles, while \(h\) changes the one-body cost of having a particle present. That is exactly how a tunable chemical potential should behave.
+An empty site has spin down; an occupied site has spin up. Because \(n_i\) can only be zero or one, double occupancy is forbidden. The lattice itself therefore supplies the hard core.
 
-\begin{remark}
-The identification of \(h\) with the thermodynamic chemical potential is only clean up to sign convention and an additive constant. The lecture's stable statement is the structural one: \(h\) tunes the one-particle energy without changing the interaction strength \(J\).
-\end{remark}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_10_figure_04.png}
+\caption{The lattice-gas identification begins with \(\sigma=-1\) as an empty site; \(\sigma=+1\) is then an occupied site.}
+\lectureframe{00:53:45}
+\end{figure}
 
-Finally, we need the density. The occupation variable is
+Begin with the empty lattice, all \(\sigma=-1\). Every bond is aligned and has energy \(-J\). That constant vacuum energy can be subtracted. Now place one particle on a site in two dimensions. The corresponding spin flips to \(+1\), breaking four bonds. Each broken bond costs \(2J\), so
 \begin{equation}
-n_i=\frac{1+\sigma_i}{2},
+\Delta E_1=4(2J)=8J.
+\label{eq:one-particle-cost}
 \end{equation}
-because this gives \(n_i=0\) when \(\sigma_i=-1\) and \(n_i=1\) when \(\sigma_i=+1\). Averaging gives
+Two particles far apart break eight bonds and cost \(16J\). If the two particles occupy neighboring sites, the bond between them is aligned again. Only six boundary bonds are broken, and the cost is
 \begin{equation}
-\rho=\langle n_i\rangle=\frac{1+\bar{\sigma}}{2}
-=\frac12+\frac{\bar{\sigma}}{2}.
+\Delta E_{2,\rm adjacent}=6(2J)=12J.
 \end{equation}
-This is another important beat in the lecture: the density is not \(\bar{\sigma}\), but a shifted version of it, because \(\sigma=-1\) means zero particles, not minus one particle.
-
-Now the magnetic phase diagram translates directly into the fluid one. Above the critical temperature, varying \(h\) changes \(\bar{\sigma}\) smoothly, so varying the chemical potential changes the density smoothly. Nothing dramatic happens. Below the critical temperature, by contrast, \(\bar{\sigma}\) jumps across the coexistence line, and therefore the density jumps as well:
+Bringing the particles together therefore lowers the energy by
 \begin{equation}
-\Delta \rho = \frac12 \Delta \bar{\sigma}.
+16J-12J=4J.
+\label{eq:lattice-attraction}
 \end{equation}
-Negative \(\bar{\sigma}\) means low density, positive \(\bar{\sigma}\) means high density. So the magnetic jump becomes the jump from vapor to liquid. In that sense boiling is just the lattice-gas translation of spontaneous magnetization.
+The live count was first described as a \(2J\) saving and then corrected: one shared link removes two broken-boundary contributions, so the attraction is \(4J\).
 
-This is the lecture's main conclusion: the magnet and the fluid are not merely similar. They are the same mathematical system wearing different physical interpretations.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_10_figure_05.png}
+\caption{The two-dimensional bond count: one isolated particle costs \(8J\), two distant particles cost \(16J\), and two adjacent particles cost \(12J\).}
+\lectureframe{01:00:25}
+\end{figure}
 
-The lecture closes the statistical mechanics portion with one final remark. Near the critical point there are many interesting singular behaviors, described by critical exponents. Those exponents depend far less on microscopic details than one might have expected. In particular, the magnetic transition and the liquid--gas transition belong to the same critical-behavior class. That is the universality statement the lecture wants us to carry away.
+The lattice gas now has both required molecular properties. The binary occupation supplies hard-core exclusion, and the exchange interaction supplies a nearest-neighbor attraction of strength \(4J\). The particle number is allowed to fluctuate because spin flips change the number of occupied sites.
 
-\section{Summary}
+\subsection{The exact algebraic dictionary}
 
-We began with boiling water and took the long way around. First we rebuilt the Ising model: spins on a lattice, energy stored on links, a broken-bond cost of \(2J\), and a field term that acts on individual sites. Then mean field reduced the many-spin system to one spin in an averaged neighborhood, leading to the self-consistency equation
-\[
-\bar{\sigma}=\tanh\!\big[\beta(2dJ\bar{\sigma}-h)\big]
-\]
-and the reduced form
-\[
-\frac{yT}{2dJ}=\tanh(y-\beta h).
-\]
-From the graph of a line against \(\tanh y\), we read off the mean-field critical temperature \(T_c=2dJ\), the emergence of symmetry-broken branches below \(T_c\), and the distinction between continuity at the critical point and the jump across the coexistence line.
+The bond-counting picture is enough to see the physics, but the exact change of variables makes the equivalence unmistakable. Substitute
+\begin{equation}
+\sigma_i=2n_i-1
+\end{equation}
+into equation~\eqref{eq:ising-hamiltonian}. For a link,
+\begin{equation}
+\sigma_i\sigma_j
+=4n_in_j-2n_i-2n_j+1.
+\end{equation}
+On a regular \(d\)-dimensional lattice,
+\begin{equation}
+\sum_{\langle ij\rangle}(n_i+n_j)=2d\sum_i n_i.
+\end{equation}
+Therefore
+\begin{align}
+\mathcal H
+&=-4J\sum_{\langle ij\rangle}n_in_j
++(4dJ+2h)\sum_i n_i+\text{constant}.
+\label{eq:ising-as-lattice-gas}
+\end{align}
+Compare this with the conventional lattice-gas Hamiltonian
+\begin{equation}
+\mathcal H_{\rm lg}
+=-\epsilon\sum_{\langle ij\rangle}n_in_j
+-\mu\sum_i n_i+\text{constant}.
+\label{eq:lattice-gas-hamiltonian}
+\end{equation}
+The dictionary is
+\begin{equation}
+\boxed{\epsilon=4J,\qquad
+\mu=-(4dJ+2h).}
+\label{eq:chemical-potential-map}
+\end{equation}
 
-Then the same mathematics was read as a lattice gas. Empty and occupied sites became \(\sigma=-1\) and \(\sigma=+1\). Hard-core exclusion was automatic. Explicit bond counting gave
-\[
-8J,\qquad 16J,\qquad 12J,
-\]
-showing a nearest-neighbor attraction of strength \(4J\). The field term supplied a tunable one-body cost, and the density became
-\[
-\rho=\frac{1+\bar{\sigma}}{2}.
-\]
-So the magnetization jump became a density jump, the magnetic phase diagram became the liquid--gas phase diagram, and the critical point of the magnet became the critical point of boiling.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_10_figure_09.png}
+\caption{The exchange and field terms beside the particle-energy count. The field changes the insertion energy without changing the nearest-neighbor attraction.}
+\lectureframe{01:04:30}
+\end{figure}
+
+In two dimensions, an isolated insertion changes the energy by
+\begin{equation}
+8J+2h=-\mu.
+\end{equation}
+The \(8J\) comes from broken bonds; \(2h\) comes from changing one spin from \(-1\) to \(+1\). Adjusting \(h\) therefore adjusts the chemical potential while leaving the attraction \(4J\) fixed. The field is not literally equal to \(\mu\), because the exchange baseline contributes the offset \(4dJ\).
+
+\begin{classroomqa}
+\audiencequestion{If the field controls particle number, why is \(h\) not simply the chemical potential?}
+\lecturerresponse{Creating a particle also breaks exchange bonds relative to the empty reference state. The conventional coefficient of \(-N\) is therefore \(\mu=-(4dJ+2h)\), not merely \(-2h\). The offset depends on \(J\) and the coordination number. \lecturetimestamp{01:06:28--01:06:41}}
+\end{classroomqa}
+
+The density is equally simple:
+\begin{equation}
+\rho=\expect{n_i}
+=\frac{1+\expect{\sigma_i}}{2}
+=\frac{1+m}{2}.
+\label{eq:density-map}
+\end{equation}
+Thus \(m=-1\) is the empty lattice, \(m=+1\) is the completely filled lattice, and \(m=0\) is half filling. The total particle number is \(N_{\rm p}=\sum_i n_i\); the density is \(N_{\rm p}/N\).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_10_figure_10.png}
+\caption{The density relation \(\rho=(1+m)/2\) written beside the magnetic coexistence line.}
+\lectureframe{01:08:25}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is \((1+m)/2\) the number of particles or the density?}
+\lecturerresponse{It is the mean occupation per site, hence the dimensionless lattice density. Multiplying by the total number of sites gives the expected particle number. The distinction between an intensive density and an extensive count is important. \lecturetimestamp{01:06:43--01:09:31}}
+\end{classroomqa}
+
+\section{The Magnetic Phase Diagram Becomes the Fluid Phase Diagram}
+
+Translate figure~\ref{fig:ising-phase-plane} using equations~\eqref{eq:chemical-potential-map} and \eqref{eq:density-map}. Above \(T_c\), changing \(\mu\) changes the density smoothly. Below \(T_c\), crossing the coexistence value
+\begin{equation}
+\mu_{\rm coex}=-4dJ
+\qquad(h=0)
+\label{eq:coexistence-mu}
+\end{equation}
+causes the density to jump between a dilute gas and a dense liquid. At \(T_c\) the two densities merge and the discontinuity disappears.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_10_figure_11.png}
+\caption{The Ising coexistence line read as a liquid--gas phase diagram. The gas lies on the low-density side, the liquid on the high-density side, and the two can be connected continuously around the critical endpoint.}
+\lectureframe{01:14:30}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1.25cm,y=1.1cm]
+\draw[->] (-2.65,0) -- (2.75,0) node[right] {$\mu-\mu_{\rm coex}$};
+\draw[->] (0,0) -- (0,3.8) node[above] {$T$};
+\draw[very thick,red!70!black] (0,0) -- (0,2.35);
+\fill[red!70!black] (0,2.35) circle (2.4pt);
+\node[right] at (0.1,2.35) {critical point};
+\node at (-1.35,1.0) {gas};
+\node at (1.35,1.0) {liquid};
+\draw[->,blue!65!black,rounded corners]
+ (-1.7,0.85) -- (-1.7,3.05) -- (1.7,3.05) -- (1.7,0.85);
+\node[blue!65!black] at (0,3.4) {continuous route};
+\end{tikzpicture}
+\caption{The liquid and gas are distinct phases below the endpoint, yet no singular boundary separates them in the supercritical region.}
+\label{fig:liquid-gas-plane}
+\end{figure}
+
+This identifies the familiar boiling line. At a fixed pressure, heating a liquid until it crosses coexistence produces boiling. At fixed temperature, changing pressure or chemical potential can cross the same boundary. A superheated vapor or supercooled liquid is a metastable continuation beyond equilibrium coexistence; describing its lifetime requires nucleation dynamics, which lie beyond this equilibrium construction.
+
+\begin{classroomqa}
+\audiencequestion{Is superheated steam represented in this phase diagram?}
+\lecturerresponse{The equilibrium diagram identifies the coexistence boundary. A superheated or supersaturated state is metastable: it persists temporarily on the wrong side because forming a critical droplet has an interfacial free-energy cost. That kinetic refinement is not calculated here. \lecturetimestamp{01:12:19--01:12:29}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How does one vary chemical potential in an ordinary fluid?}
+\lecturerresponse{The potential-well box is the clean theoretical control. In the laboratory one more often changes pressure, volume, or contact with a reservoir; thermodynamics then translates those controls into a change of chemical potential. \lecturetimestamp{01:12:30--01:13:59}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{When the density changes, are we changing the molecular potential \(J\)?}
+\lecturerresponse{No. For a fixed substance, \(J\) represents the short-range attraction and remains fixed in this model. Changing \(\mu\) changes how many sites are occupied and therefore the distribution of intermolecular separations. Changing \(J\) would mean changing the microscopic substance or interaction. \lecturetimestamp{01:14:50--01:15:41}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the critical temperature the same thing as the ordinary boiling point?}
+\lecturerresponse{No. A boiling point is specified at a chosen pressure, so it moves along the coexistence curve when the pressure changes. The critical temperature is the unique endpoint above which liquid and gas are no longer separated by a phase boundary. Pressure has not been derived explicitly in this lattice-gas treatment. \lecturetimestamp{01:15:42--01:17:02}}
+\end{classroomqa}
+
+One can now state the central result. The Ising magnet and the lattice gas do not merely draw similar diagrams. They share a partition function after a change of variables and parameters. Every singular thermodynamic property on one side has a counterpart on the other:
+\begin{equation}
+\begin{array}{c|c}
+\text{Ising magnet} & \text{lattice gas}\\ \hline
+\sigma_i=\pm1 & n_i=0,1\\
+m=\expect{\sigma} & \rho=(1+m)/2\\
+h & \mu=-(4dJ+2h)\\
+\text{aligned exchange} & \text{nearest-neighbor attraction}\\
+h=0,\ T<T_c & \text{liquid--gas coexistence}\\
+(T_c,0) & \text{critical endpoint}
+\end{array}
+\label{eq:ising-fluid-dictionary}
+\end{equation}
+
+\section{Critical Exponents and Universality}
+
+Close to a critical point, thermodynamic quantities often develop power-law singularities. With reduced temperature
+\begin{equation}
+t=\frac{T-T_c}{T_c},
+\end{equation}
+one writes, schematically,
+\begin{equation}
+m\sim(-t)^{\beta_{\rm crit}},
+\qquad
+\chi\sim |t|^{-\gamma},
+\qquad
+\xi\sim |t|^{-\nu}.
+\label{eq:critical-exponents}
+\end{equation}
+Here \(\beta_{\rm crit}\) is a critical exponent, not inverse temperature. Mean field gives \(\beta_{\rm crit}=1/2\), but fluctuations change the exponents below the upper critical dimension.
+
+The exponents need not be integers. They need not all be irrational either: the two-dimensional Ising model famously has several exact rational exponents, whereas the three-dimensional Ising values are nontrivial numbers determined with high precision by theory and computation. The robust lesson is that the exponents are generally not fixed by elementary dimensional analysis.
+
+Even more strikingly, microscopic details often do not fix them. Systems with the same spatial dimension, the same order-parameter symmetry, and sufficiently short-range interactions can flow to the same long-distance critical theory. They belong to one \emph{universality class}. A uniaxial magnet and an ordinary liquid--gas endpoint both have a single scalar order parameter and share the Ising universality class in the same dimension.
+
+\begin{classroomqa}
+\audiencequestion{Are universality classes a finite or discrete list?}
+\lecturerresponse{There are many classes, organized by dimension, symmetries, conservation laws, interaction range, and other long-distance data. In many familiar cases the fixed points and exponent sets are discrete, but there are also systems with continuously varying exponents. The safe claim is not that the catalog is finite; it is that many microscopically different systems share the same long-distance data. \lecturetimestamp{01:18:50--01:19:38}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If liquid and gas coexist, what separates them in an actual container?}
+\lecturerresponse{An interface does. Surface tension penalizes interfacial area, while gravity creates a vertical chemical-potential gradient and usually places the denser liquid below the gas. In negligible gravity the geometry is controlled more directly by surface tension and boundary conditions. \lecturetimestamp{01:19:40--01:21:18}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Where is the heat of vaporization in this picture?}
+\lecturerresponse{Below the critical point, crossing the first-order coexistence line generally carries latent heat. The heat of vaporization tends to zero as the critical endpoint is approached because the two phases become identical there. This lecture establishes the phase structure but does not calculate the latent heat. \lecturetimestamp{01:21:19--01:22:18}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can a phase transition be used as a sensitive detector, for example with a superconducting device?}
+\lecturerresponse{Yes. Near a transition, a small perturbation can produce a large response or trigger a change of state. Practical detectors exploit that sensitivity, although the relevant order parameter and dynamics may differ from the Ising example. \lecturetimestamp{01:22:19--01:24:05}}
+\end{classroomqa}
+
+This completes the statistical-mechanics course. The route began with entropy and equilibrium, passed through partition functions and gases, and ended by showing that a magnet and a fluid can be two descriptions of the same critical phenomenon.
+
+\section{Postlecture Discussion: Fine-Tuning and Selection}
+
+After the formal lecture ended, the conversation continued for roughly forty minutes. It is worth preserving, but it should not be confused with the derivation above. The subject is no longer the lattice gas. It is the logic of fine-tuning and the cautious use of anthropic selection in cosmology.
+
+\subsection{Small numbers are not automatically fine-tuned}
+
+There is no single sentence that settles every use of the phrase \emph{anthropic principle}. The useful starting point is operational: when a theory permits many realized environments, observations are conditioned on the fact that observers can arise only in some of them. That conditional statement can be rational. It becomes empty if invoked without an ensemble, a selection condition, or a mechanism that makes the alternatives physically meaningful.
+
+Before selection enters, one must distinguish a small parameter from a fine-tuned parameter. A number can be small because a stable dynamical mechanism drives it to a special value. Fine-tuning means that the observed value appears to require an extraordinarily precise balance among otherwise independent contributions, with no known restoring mechanism or symmetry protecting the balance.
+
+\begin{classroomqa}
+\audiencequestion{Can the anthropic principle be stated sharply?}
+\lecturerresponse{Its defensible use is conditional rather than mystical: if many physically realized environments have different parameters, then the environments observed by beings like us are drawn from the subset compatible with observers. That does not by itself generate the environments or assign their probabilities; those tasks belong to the underlying physics. \lecturetimestamp{01:25:45--01:26:13}}
+\end{classroomqa}
+
+The cosmological constant is the motivating example. Its observed magnitude is extraordinarily small compared with naive quantum-field-theory contributions to vacuum energy. The difficulty is not merely that the final number is small. It is that many large terms appear to have to cancel to tremendous accuracy, while no accepted low-energy feedback mechanism adjusts the result toward the observed value.
+
+\subsection{The blimp and the submarine}
+
+Two buoyancy examples isolate the distinction. A blimp floats at an altitude where its average density matches the density of the surrounding air. Air density decreases with height. If the blimp rises, the external air becomes less dense and the blimp tends to descend; if it falls, the external air becomes denser and the blimp tends to rise. The density match may be numerically delicate, but the atmospheric gradient provides restoring feedback. The equilibrium is dynamically explained.
+
+A neutrally buoyant submarine in nearly incompressible water is different. Water density changes little with depth. If the submarine's average density happens to equal the surrounding water, no comparable depth-dependent restoring mechanism explains that equality. A tiny mismatch makes it rise or sink. Achieving neutral buoyancy requires precise adjustment of ballast and contents. The small residual is then a fine-tuning unless some control system or design mechanism accounts for it.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[>=Latex]
+\begin{scope}[xshift=-3.8cm]
+\shade[top color=blue!5,bottom color=blue!28] (-2.5,-2.2) rectangle (2.5,2.2);
+\draw[very thick,rounded corners=18pt,fill=yellow!35]
+  (-1.15,0) ellipse (1.15 and 0.55);
+\draw[thick] (0,-0.55) -- (0,-1.05);
+\draw[thick,fill=gray!20] (-0.45,-1.05) rectangle (0.45,-1.38);
+\draw[->,red!70!black,thick] (1.65,1.45) -- (1.65,0.55)
+ node[midway,right] {restoring};
+\draw[->,red!70!black,thick] (-1.65,-1.45) -- (-1.65,-0.55)
+ node[midway,left] {restoring};
+\node at (0,2.55) {\textbf{Blimp: density gradient}};
+\node[align=center] at (0,-2.75) {displacement changes\\the buoyant imbalance};
+\end{scope}
+\begin{scope}[xshift=3.8cm]
+\shade[top color=cyan!10,bottom color=blue!45] (-2.5,-2.2) rectangle (2.5,2.2);
+\draw[very thick,fill=gray!35,rounded corners=12pt]
+  (-1.45,-0.25) -- (1.1,-0.25) arc (-90:90:0.38)
+  -- (-1.45,0.51) -- cycle;
+\draw[thick] (-0.25,0.51) -- (-0.25,0.85) -- (0.35,0.85) -- (0.35,0.51);
+\draw[->,red!70!black,thick] (1.65,0.15) -- (1.65,1.35)
+ node[midway,right] {rise};
+\draw[->,red!70!black,thick] (-1.65,0.15) -- (-1.65,-1.35)
+ node[midway,left] {sink};
+\node at (0,2.55) {\textbf{Submarine: nearly uniform density}};
+\node[align=center] at (0,-2.75) {no depth-dependent feedback\\protects neutral buoyancy};
+\end{scope}
+\end{tikzpicture}
+\caption{A small residual can be dynamically stable or genuinely tuned. The blimp has restoring feedback; the idealized submarine requires its average density to be adjusted to the water.}
+\label{fig:blimp-submarine}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why should the submarine crew demand an explanation if neutral buoyancy is observed?}
+\lecturerresponse{Because, absent a ballast-control mechanism, neither a symmetry nor environmental feedback protects the equality of two independent densities. The question is not whether the equality is logically possible, but why the system occupies such a narrow region of its parameter space. \lecturetimestamp{01:35:05--01:36:25}}
+\end{classroomqa}
+
+\subsection{Many domains and conditional observation}
+
+Now imagine a process that produces an enormous number of submarines with many different average densities. Most sink or rise; only a tiny fraction remain for long periods in the habitable band between surface and bottom. An observer who necessarily lives in one of the surviving submarines should not be surprised to measure near-neutral buoyancy. The observation is selected by the condition required for the observer to be present.
+
+This reasoning needs two ingredients:
+\begin{enumerate}
+\item a physical process that actually realizes many alternatives, rather than alternatives that exist only in imagination;
+\item a selection condition explaining why observations are made only in a restricted subset.
+\end{enumerate}
+Selection does not replace the production mechanism. It changes the conditional probability of what an observer measures once the ensemble exists.
+
+\begin{classroomqa}
+\audiencequestion{Is the argument merely that unlikely things happen somewhere in a sufficiently large sample?}
+\lecturerresponse{That is only the first half. The second is observational conditioning: the observers are not sampled uniformly from all domains but only from domains where their existence is possible. A complete proposal still needs a measure over domains and a physical account of how they are produced. \lecturetimestamp{01:39:19--01:40:36}}
+\end{classroomqa}
+
+Applied to vacuum energy, a large negative cosmological constant can make a universe recollapse too rapidly, while a sufficiently large positive value can prevent matter from condensing into galaxies. The observed value lies in the narrow range compatible with long-lived structure. This provides a possible selection condition, not a derivation of the distribution of cosmological constants.
+
+Quantum field theory adds the fine-tuning problem: vacuum contributions from different fields and scales are individually much larger than the observed residual. If those terms cancel almost exactly, the result resembles the carefully balanced submarine rather than the self-correcting blimp. The analogy is meant to expose the logical problem, not to supply its solution.
+
+\begin{classroomqa}
+\audiencequestion{Could changes in one parameter be compensated by changes in several others?}
+\lecturerresponse{Yes. The viable set need not be a narrow interval on one axis; it may be a thin surface in a multidimensional parameter space. Correlated changes can preserve structure, but the question then becomes why the realized parameters lie near that surface and what measure the underlying theory assigns to it. \lecturetimestamp{01:45:10--01:46:19}}
+\end{classroomqa}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[x=1.3cm,y=1.05cm,>=Latex]
+\draw[->] (-3.2,0) -- (3.4,0) node[right] {$\lambda_1$};
+\draw[->] (0,-2.5) -- (0,2.65) node[above] {$\lambda_2$};
+\fill[gray!12] (-3,-2.25) rectangle (3.1,2.3);
+\draw[very thick,blue!65!black]
+ (-2.8,-1.55) .. controls (-1.3,-0.75) and (0.15,0.05) .. (2.85,1.55);
+\draw[very thick,blue!25]
+ (-2.8,-1.25) .. controls (-1.3,-0.45) and (0.15,0.35) .. (2.85,1.85);
+\fill[blue!15,opacity=.65]
+ (-2.8,-1.55) .. controls (-1.3,-0.75) and (0.15,0.05) .. (2.85,1.55)
+ -- (2.85,1.85) .. controls (0.15,0.35) and (-1.3,-0.45) .. (-2.8,-1.25) -- cycle;
+\node[blue!65!black,rotate=28] at (1.3,0.95) {viable band};
+\foreach \x/\y in {-2.4/1.45,-1.7/-1.8,-0.9/1.8,0.3/-1.45,1.2/1.85,2.4/-0.8}
+  \fill[red!65!black] (\x,\y) circle (2pt);
+\fill[green!45!black] (0.55,0.58) circle (2.8pt);
+\node[green!35!black,right] at (0.65,0.55) {observed domain};
+\end{tikzpicture}
+\caption{With several parameters, habitability or structural viability may occupy a thin correlated band rather than a narrow interval of one parameter. Selection constrains observations to the band but does not generate the parameter distribution.}
+\label{fig:viable-parameter-band}
+\end{figure}
+
+\subsection{Landscape proposals and their uncertainties}
+
+One proposed source of alternatives is a theory with many metastable vacua, possibly populated in different cosmological domains. String-theory landscape ideas and eternal-inflation scenarios are examples, but their detailed realization and probability measure remain uncertain. The lecture presents this as a possibility, not an established fact.
+
+Symmetry would be a more conventional explanation if it forced the cosmological constant to vanish exactly. The difficulty is that the observed accelerated expansion corresponds to a small nonzero value. A mechanism that naturally gives exactly zero does not automatically explain a tiny residual; breaking the symmetry can simply reintroduce the tuning. The submarine image returns here: a rope could hold it at a chosen depth, but then the rope is the mechanism that must be identified rather than assumed.
+
+\begin{classroomqa}
+\audiencequestion{Does measuring a parameter very precisely violate the uncertainty principle?}
+\lecturerresponse{No. An uncertainty relation applies to specified pairs of noncommuting observables. A coupling constant or vacuum parameter can have a sharply defined value without being the canonical conjugate of an uncontrolled observable. Precision by itself is not an uncertainty-principle paradox. \lecturetimestamp{01:49:21--01:49:36}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does anthropic reasoning explain the value, or merely restate that observers require it?}
+\lecturerresponse{Selection alone is not a dynamical explanation. Its legitimate role is to alter conditional probabilities in a physically realized ensemble. Used without an ensemble, a measure, or testable consequences, it risks becoming a label rather than an explanation. \lecturetimestamp{01:49:37--01:50:21}}
+\end{classroomqa}
+
+\subsection{Moderate coincidences in particle physics}
+
+Not every life-relevant parameter is tuned to the same extraordinary degree. Familiar matter depends on photons, electrons, light quarks, and the strong interaction; neutrinos influence cosmology but are not the direct binding agents of atoms. The proton--neutron mass difference is particularly consequential. Because the neutron is slightly heavier than the proton, isolated neutrons can decay and ordinary hydrogen is stable. Reversing the ordering by enough would radically alter nuclear chemistry.
+
+The electron mass and the fine-structure constant likewise set atomic sizes and binding energies. Changing them substantially would change chemistry. These are meaningful sensitivity statements, but they should not be inflated into a claim that every small variation forbids every conceivable form of complexity. Compared with the cosmological-constant problem, many such coincidences are moderate and correlated with other parameters.
+
+The hierarchy associated with the electroweak scale is another prominent naturalness problem: radiative contributions tend to make a fundamental scalar mass sensitive to high scales unless protected by additional structure. Its status and interpretation differ from the vacuum-energy problem, and neither should be reduced to a slogan.
+
+\begin{classroomqa}
+\audiencequestion{Would changing the proton--neutron mass difference really matter for ordinary matter?}
+\lecturerresponse{Yes. The observed ordering permits stable hydrogen and controls beta stability across nuclei. Modest changes can reorganize nuclear abundances and stellar burning. A careful analysis must vary the coupled parameters consistently rather than changing one number while freezing all the rest. \lecturetimestamp{01:51:47--01:53:08}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What roles do the electron mass and fine-structure constant play?}
+\lecturerresponse{They set characteristic atomic energy and length scales, schematically \(E_{\rm atom}\sim \alpha^2m_e\) and \(a_0\sim(\alpha m_e)^{-1}\) in units \(\hbar=c=1\). Large changes would reshape chemistry, although the exact viable region is a multidimensional question. \lecturetimestamp{01:53:09--01:54:12}}
+\end{classroomqa}
+
+\subsection{Disagreement, time dependence, and tests}
+
+The discussion briefly turns to criticism of inflation and to the interpretation of precision cosmological data. That historical disagreement should be represented as disagreement, not settled by rhetoric. Inflation has successful phenomenological predictions and many model variants; questions about initial conditions, measures, and testability remain active. Data constrain models, but no single conversational reference to an experiment settles the whole framework.
+
+\begin{classroomqa}
+\audiencequestion{Could the cosmological constant vary slowly with time instead of being constant?}
+\lecturerresponse{A dynamical dark-energy field can produce time-dependent acceleration. It introduces a potential and initial conditions that must themselves be explained, and observations constrain the equation of state to be close to a cosmological constant. In the lecture-era discussion, no evidence required appreciable time variation. \lecturetimestamp{01:57:17--01:59:19}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does anthropic selection itself nucleate different universes or domains?}
+\lecturerresponse{No. Selection says which realized domains can contain observers; it does not create the domains. A separate cosmological mechanism, such as vacuum transitions during an inflationary history, would have to generate them. \lecturetimestamp{01:59:20--01:59:42}}
+\end{classroomqa}
+
+The causal order must remain clear:
+\begin{equation}
+\text{laws and initial conditions}
+\longrightarrow
+\text{physical environments}
+\longrightarrow
+\text{observers and observations}.
+\end{equation}
+Observers do not reach backward and dictate the laws. Conditioning enters when we ask what an observer drawn from the realized environments is likely to measure.
+
+The scientific question is therefore not whether the language sounds philosophical, political, or religious. It is whether the proposal has a defined physical ensemble, a computable or at least constrained measure, and consequences that could distinguish it from alternatives. Possible signatures discussed for multivacuum cosmology include traces of collisions between bubble domains. Such signals are difficult to predict robustly and none had been established in the cosmic microwave background in the lecture-era discussion. Absence of an easy test is a serious limitation, not a license either to declare the idea true or to dismiss the underlying fine-tuning problem.
+
+\begin{classroomqa}
+\audiencequestion{What would turn this from a selection argument into a scientific theory?}
+\lecturerresponse{The proposal needs a mechanism that generates the alternatives, a probability measure or controlled substitute, and observable consequences. Bubble-collision signatures are one possible avenue, but their absence or ambiguity illustrates how demanding the testability problem is. \lecturetimestamp{02:02:31--02:04:12}}
+\end{classroomqa}
+
+The postlecture exchange ends on that disciplined note. Fine-tuning is evidence that an explanation may be missing. Symmetry, dynamical adjustment, and environmental selection are logically different candidate explanations. Selection can be rational, but only as one component of a physical account whose assumptions and limits are stated openly.
