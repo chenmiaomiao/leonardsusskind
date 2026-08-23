@@ -6,6 +6,7 @@
 - [transcript-backed] \( PV = N k_B T \)
 - [transcript-backed] \( P = \rho k_B T \)
 - [transcript-backed] \( v_s^2 = \frac{k_B T}{m} \) for the ideal-gas formula used in the lecture comparison
+- [standard thermodynamic correction] \( c_s^2 = \left(\frac{\partial P}{\partial \rho_{\mathrm{mass}}}\right)_S = \gamma\frac{k_B T}{m} \) for an ideal gas
 - [transcript-backed] \( H(x,p) = \frac{p^2}{2m} + \frac{\kappa x^2}{2} \)
 - [transcript-backed] \( e^{-\beta H} = e^{-\beta p^2/2m}\, e^{-\beta \kappa x^2/2} \)
 - [transcript-backed] \( Z_{\mathrm{cl}} = \int dp\,dx\, e^{-\beta H(x,p)} \)
@@ -13,9 +14,11 @@
 - [transcript-backed] \( y^2 = \frac{\beta \kappa x^2}{2} \)
 - [standard reconstruction] \( \omega = \sqrt{\frac{\kappa}{m}} \)
 - [standard reconstruction] \( Z_{\mathrm{cl}} = \frac{2\pi}{\omega}\,\frac{1}{\beta} \) up to irrelevant multiplicative constants
+- [standard phase-space normalization] \( Z_{\mathrm{cl}} = \frac{1}{\beta\hbar\omega} \)
 - [standard reconstruction] \( \log Z_{\mathrm{cl}} = \text{const} - \log \beta \)
 - [visible] \( E = -\frac{\partial \log Z}{\partial \beta} = \frac{1}{\beta} = T \)
 - [transcript-backed] \( \langle K\rangle = \langle U\rangle = \frac{1}{2\beta} = \frac{T}{2} \)
+- [standard equipartition consequence] \( \langle p^2\rangle=mT \), \( \langle x^2\rangle=T/\kappa \), and \( \langle \dot{x}^2\rangle=T/m \)
 - [transcript-backed] \( E_n = n\hbar\omega \) in the lecture convention before the zero-point correction is discussed
 - [transcript-backed] \( Z_{\mathrm{q}} = \sum_{n=0}^{\infty} e^{-\beta n\hbar\omega} \)
 - [transcript-backed] \( \sum_{n=0}^{\infty} x^n = \frac{1}{1-x} \)
@@ -23,16 +26,18 @@
 - [transcript-backed] \( E = -\frac{\partial \log Z_{\mathrm{q}}}{\partial \beta} = -\frac{1}{Z_{\mathrm{q}}}\frac{\partial Z_{\mathrm{q}}}{\partial \beta} \)
 - [transcript-backed] \( E = \hbar\omega\,\frac{e^{-\beta\hbar\omega}}{1-e^{-\beta\hbar\omega}} \)
 - [standard reconstruction] \( E = \frac{\hbar\omega}{e^{\beta\hbar\omega}-1} \)
+- [standard zero-point restoration] \( E_n=(n+\tfrac12)\hbar\omega \) and \( E_{\mathrm{phys}}=\hbar\omega/2+\hbar\omega/(e^{\beta\hbar\omega}-1) \)
 - [transcript-backed] \( \beta \hbar \omega \ll 1 \Rightarrow E \approx \frac{1}{\beta} = T \)
 - [transcript-backed] \( \beta \hbar \omega \gg 1 \Rightarrow E \approx \hbar\omega\, e^{-\beta\hbar\omega} \)
 - [transcript-backed] \( \beta \hbar \omega \sim 1 \)
 - [transcript-backed] \( T \sim \hbar\omega \)
 - [transcript-backed] \( Z_{\mathrm{tot}} = \prod_i Z_i \), so \( \log Z_{\mathrm{tot}} = \sum_i \log Z_i \)
 - [transcript-backed] \( E_{\mathrm{tot}} = \sum_i E_i \)
-- [standard reconstruction] \( S_{\mathrm{micro}} \propto \log V_{\mathrm{blob}} \) for a uniform distribution on a phase-space patch
+- [standard reconstruction] \( S_{\mathrm{fine}} = -\int d\Gamma\,f\log f = \log \Omega_A \) for a uniform distribution on a phase-space patch
 - [transcript-backed] \( V_{\mathrm{blob}}(t) = \text{const} \) under Liouville evolution
 - [standard reconstruction] \( S_{\mathrm{cg}} \propto \log V_{\mathrm{coarse}} \) with \( V_{\mathrm{coarse}} \ge V_{\mathrm{blob}} \)
 - [standard reconstruction] Recurrence is to an \(\epsilon\)-neighborhood, not necessarily to the exact initial point
+- [standard dynamical-systems formulation] \( \lVert\delta\Gamma(t)\rVert\sim e^{\lambda t}\lVert\delta\Gamma(0)\rVert \) for a positive Lyapunov exponent
 
 ## Definitions And Objects
 - \(T\): temperature.
@@ -133,8 +138,8 @@ Phase-space entropy and coarse-graining
 
 ## Uncertain Mathematics
 - The board line above the visible energy formula is only partially readable; typeset \( \log Z = \text{const} - \log \beta \) as a cautious reconstruction, not a literal full transcription from the screenshot alone.
-- The speed-of-sound discussion in lecture is approximate and somewhat tentative. Do not present the lecture as having cleanly derived the full thermodynamic sound-speed formula with all conditions stated.
-- The factor-of-\(\sqrt{3}\) mismatch between the naive molecular-speed estimate and the formal sound-speed formula is left as a live issue in the lecture; keep it as a comparison, not a fully settled derivation.
+- The speed-of-sound discussion is approximate and somewhat tentative. Preserve the fixed-temperature board estimate, then distinguish it from the standard adiabatic derivative used for ordinary sound.
+- The factor-of-\(\sqrt{3}\) mismatch between the naive molecular-speed estimate and the fixed-temperature formula is left as a live issue in the source. Keep that comparison while explaining the separate adiabatic factor \(\gamma\).
 - The lecture briefly says each kinetic/potential contribution is “one half beta”; the intended mathematics is \(1/(2\beta)=T/2\).
 - The entropy sign is verbally unstable around the blob discussion. The mathematically usable form for the notes is \(S \propto \log V_{\mathrm{blob}}\), not minus that quantity.
 - The garbled transcript around \(01{:}30{:}20\)–\(01{:}31{:}00\) should not be reconstructed in detail beyond the clear nearby claims: nearby trajectories separate, filamentation develops, and coarse-graining fills the accessible region.

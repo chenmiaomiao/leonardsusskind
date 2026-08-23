@@ -1,419 +1,940 @@
-\chapter{Sound, Oscillators, and the Deferred Second Law}
+\chapter{Sound, Quantum Oscillators, and the Second Law}
 
-These notes follow Leonard Susskind's seventh lecture on statistical mechanics, with the chapter text guided by the transcript and by selected board frames curated by LazyingArt LLC and Video2Book. The lecture announces the second law immediately, but it does not rush toward it. First we are shown what statistical mechanics already lets us compute in ordinary systems: the speed of sound in a dilute gas, the thermal energy of a harmonic oscillator, and the way quantum mechanics turns degrees of freedom on and off. Only after that long preparation do we return to the real puzzle of irreversibility.
+\lectureoverview{The second law is the destination, but two concrete
+calculations prepare the way.  The speed of sound tests how thermodynamic
+derivatives become observable motion.  The harmonic oscillator then exposes
+the failure of classical equipartition for stiff degrees of freedom and shows
+how quantum mechanics activates modes one by one.  We finally return to the
+apparent conflict between reversible microscopic dynamics and increasing
+entropy, using phase-space flow, coarse-graining, chaos, and recurrence to
+state the second law as an overwhelmingly probable law rather than an
+exceptionless mechanical prohibition.}
 
-\section{Why We Delay the Second Law}
+\section{A Promise About the Second Law}
 
-The opening move of the lecture is characteristic. We are told at once what the real destination is: the second law, what it means, and how it can possibly be consistent with microscopic reversibility. But then the lecturer deliberately postpones it. That postponement is not a digression. It is part of the pedagogy. Before we ask how entropy can increase, we first want a few examples of the sort of concrete numerical and conceptual information that statistical mechanics already gives us.
+The central problem is easy to state and difficult to explain.  Newtonian
+equations are reversible: if a microscopic history is allowed, the
+time-reversed history is allowed as well.  The second law nevertheless says
+that macroscopic processes have a preferred direction, characterized by
+entropy that ordinarily increases.  We shall come to that tension, but not
+immediately.  It is better first to see statistical mechanics produce
+concrete information and then encounter, within an elementary calculation,
+the historical puzzle that forced classical physics to give way to quantum
+physics.
 
-So the chapter will follow the same route. We begin with a gas and the speed of sound. We then move to the harmonic oscillator in a heat bath, which turns out to be the mathematical center of the lecture. That classical calculation produces a paradox, quantum mechanics resolves it, and only then do we come back to the second law with the right questions already sharpened.
+The first example is numerical and deliberately rough: estimate the speed of
+sound in a dilute gas.  The second is exact within its assumptions: calculate
+the mean energy of a harmonic oscillator in a heat bath.  The oscillator will
+lead from equipartition to quantized energy levels, from one mode to infinitely
+many modes, and finally back to the question of what it means for a
+many-particle system to forget its initial state.
 
-\section{Speed of Sound in a Dilute Gas}
+\section{The Molecular Scale of the Speed of Sound}
 
-Susskind begins from a physical picture rather than from a formal derivation. Suppose we create a small overdensity in a very dilute gas. How fast should that overdensity spread? If the gas is dilute enough, the excess density spreads because molecules move out of the dense region. So the first guess is that the speed of sound should be of the same order as the molecular speed.
-
-That immediately brings us to equipartition. In thermal equilibrium at temperature \(T\), a molecule in a dilute gas has kinetic energy
+Imagine a small overdensity in a dilute gas.  It spreads because molecules
+leave the crowded region, so its propagation speed should be comparable with
+the molecular speed.  Equipartition gives the kinetic energy of one molecule,
 \begin{equation}
-\frac{3}{2}k_B T=\frac{1}{2}m\langle v^2\rangle,
+ \frac{3}{2}k_B T
+ =\frac{1}{2}m\expect{v^2},
+ \qquad
+ \expect{v^2}=\frac{3k_B T}{m}.
+ \label{eq:sm7-molecular-speed}
 \end{equation}
-and therefore
-\begin{equation}
-\langle v^2\rangle=\frac{3k_B T}{m}.
-\end{equation}
-This is not yet a derivation of the sound speed. It is a scaling argument: if the molecules move with a typical speed \(\sqrt{\langle v^2\rangle}\), then an overdensity ought to spread at something not too different from that.
+Here temperature is measured from absolute zero and \(k_B\) has been restored
+because we want laboratory units.  The argument is only a scale estimate:
+the molecular root-mean-square speed is not itself the speed of a collective
+sound wave.
 
-At this point the lecture pivots and says, in effect, there is a more exact formula, but we are not going to derive it tonight. The exact formula comes from studying a small lump of gas, asking what net force a pressure gradient exerts on it, and then applying \(F=ma\). The result is written down directly:
+A more systematic derivation considers a small element of gas.  Unequal
+pressures on opposite faces exert a net force, and its acceleration is
+inversely proportional to the mass density.  The result has the form
 \begin{equation}
-v_s^2=\frac{\partial P}{\partial \rho_{\mathrm{mass}}},
+ c_s^2=
+ \left(\frac{\partial P}{\partial \rho_m}\right)_{\cal C},
+ \qquad
+ \rho_m=m\rho,
+ \label{eq:sm7-sound-general}
 \end{equation}
-where \(\rho_{\mathrm{mass}}\) is the mass density. Since the lecture has already been using \(\rho\) for the particle number density, we distinguish the two by
+where \(\rho\) is number density and the subscript \({\cal C}\) specifies the
+thermodynamic condition followed by the disturbance.  The board calculation
+uses
 \begin{equation}
-\rho_{\mathrm{mass}}=m\rho.
+ P=\rho k_B T
+ \quad\Longrightarrow\quad
+ \frac{1}{m}
+ \left(\frac{\partial P}{\partial\rho}\right)_T
+ =\frac{k_B T}{m}.
+ \label{eq:sm7-sound-isothermal}
 \end{equation}
-Hence
+This is the isothermal sound-speed estimate.  It differs from
+\eqref{eq:sm7-molecular-speed} by a factor of \(3\) in the squared speed, or
+\(\sqrt{3}\) in the speed.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_02.png}
+\caption{The molecular-speed estimate, the pressure derivative, and the
+ideal-gas substitution displayed together.}
+\lectureframe{00:08:55}
+\end{figure}
+
+There is an important refinement.  A small-amplitude sound wave normally
+compresses and rarefies the gas faster than heat can flow between neighboring
+elements.  The local motion is therefore approximately adiabatic, not
+isothermal:
 \begin{equation}
-v_s^2=\frac{1}{m}\frac{\partial P}{\partial \rho}.
+ c_s^2=
+ \left(\frac{\partial P}{\partial\rho_m}\right)_S.
+ \label{eq:sm7-sound-adiabatic}
+\end{equation}
+For an ideal gas with adiabatic index \(\gamma\),
+\begin{equation}
+ P\rho_m^{-\gamma}=\text{constant},
+ \qquad
+ c_s^2=\gamma\frac{P}{\rho_m}
+       =\gamma\frac{k_B T}{m}.
+ \label{eq:sm7-sound-ideal-adiabatic}
+\end{equation}
+For room-temperature diatomic air, \(\gamma\simeq 7/5\).  Thus the
+fixed-temperature calculation is a useful first estimate, while the
+adiabatic derivative supplies the physically appropriate refinement.
+
+Using the rough values
+\begin{equation}
+ k_B\simeq1.3\times10^{-23}\ {\rm J\,K^{-1}},
+ \qquad
+ T\simeq300\ {\rm K},
+ \qquad
+ m_{\rm air}\simeq4\times10^{-26}\ {\rm kg},
+ \label{eq:sm7-air-data}
+\end{equation}
+the molecular estimate is about \(500\ {\rm m\,s^{-1}}\).  Temperature here
+must be an absolute temperature in kelvins, not an offset scale such as
+Fahrenheit.  The familiar sound
+speed is of order \(300\ {\rm m\,s^{-1}}\), and the adiabatic ideal-gas
+formula gives about \(340\ {\rm m\,s^{-1}}\) at room temperature.  The rough
+calculation has therefore found the correct physical scale.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_03.png}
+\caption{The room-air estimate using Boltzmann's constant, an effective
+molecular mass near \(30\) proton masses, and \(T\simeq300\ {\rm K}\).}
+\lectureframe{00:10:55}
+\end{figure}
+
+Long before a microscopic account was available, one could determine the
+sound speed from measurements of pressure as a function of density.  The
+statistical argument adds the striking interpretation that the resulting
+macroscopic speed is set by the thermal speed of individual molecules.
+
+\begin{classroomqa}
+\audiencequestion{Should neutrons be added to the molecular mass, and does
+the number \(14\) for nitrogen count only protons?}
+\lecturerresponse{The quoted atomic weight already counts protons and
+neutrons.  Molecular nitrogen contains two atoms of atomic weight about
+\(14\), so its mass is about \(28\) proton masses; rounding \(28\) to \(30\)
+is sufficient for this estimate.
+\lecturetimestamp{00:10:58--00:11:16}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{The factor \(3\) came from three translational directions,
+whereas sound propagates along one direction.  Should that remove the factor
+of \(3\)?}
+\lecturerresponse{It correctly warns us not to identify the three-dimensional
+root-mean-square molecular speed with a one-dimensional propagation speed.
+The opening argument was only an order-of-magnitude picture.  A controlled
+answer comes from the pressure derivative, together with the thermodynamic
+condition appropriate to the wave.
+\lecturetimestamp{00:11:12--00:12:00}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Did the derivative assume that temperature remains
+constant during the wave?}
+\lecturerresponse{The displayed ideal-gas substitution did.  Holding
+temperature fixed is a plausible provisional estimate for a very small
+disturbance; the standard refinement is that ordinary sound is approximately
+adiabatic, which replaces the isothermal derivative by
+\(\left(\partial P/\partial\rho_m\right)_S\).
+\lecturetimestamp{00:12:59--00:14:01}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If the pressure and density variations are both small,
+does that make their derivative small?}
+\lecturerresponse{No.  A derivative is the ratio of two small variations in
+the infinitesimal limit.  Both \(\delta P\) and \(\delta\rho\) may be small
+while \(\delta P/\delta\rho\) remains finite and sets the wave speed.
+\lecturetimestamp{00:14:03--00:14:23}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Should the speed of sound rise when the gas is compressed,
+as it does when one passes from a gas toward a liquid or solid?}
+\lecturerresponse{Yes.  The derivative is evaluated at the state under
+consideration, and \(P(\rho,T)\) need not remain linear.  When molecules are
+squeezed close together, the equation of state becomes nonideal and
+\(\partial P/\partial\rho\) can grow substantially.
+\lecturetimestamp{00:14:25--00:15:13}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can the value \(500\ {\rm m\,s^{-1}}\) be used at every
+pressure?}
+\lecturerresponse{No.  It belongs to the low-density range in which the
+ideal-gas equation is a useful approximation.  Once higher powers of density
+enter \(P(\rho,T)\), the derivative and therefore the sound speed depend on
+the pressure and density.
+\lecturetimestamp{00:15:14--00:16:29}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the original picture of sound spreading at roughly
+the molecular speed also fail as density increases?}
+\lecturerresponse{Probably.  That picture is tailored to a dilute gas.
+Collective interactions become increasingly important at high density, which
+is precisely why the equation-of-state derivative is the more general
+description.
+\lecturetimestamp{00:16:32--00:16:53}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why was the nitrogen-molecule mass written as roughly
+\(30\) proton masses rather than \(28\)?}
+\lecturerresponse{Only numerical accuracy appropriate to the estimate is
+needed, so \(28\) was rounded to \(30\).  Dividing the original
+\(500\ {\rm m\,s^{-1}}\) estimate by \(\sqrt{3}\simeq1.7\) also brings it
+close to \(300\ {\rm m\,s^{-1}}\), although the adiabatic derivative is the
+controlled way to calculate the correction.
+\lecturetimestamp{00:16:54--00:17:27}}
+\end{classroomqa}
+
+\section{One Classical Oscillator in a Heat Bath}
+
+We now replace the freely translating molecule by one harmonic oscillator and
+treat everything else as a heat bath.  A mass on a spring is the immediate
+picture, but the model is much broader.  An electromagnetic cavity mode
+oscillates; atoms in a crystal oscillate; almost any stable system displaced
+slightly from equilibrium executes harmonic motion to leading order.
+
+With \(x\) measured from equilibrium, momentum \(p\), mass \(m\), and spring
+constant \(\kappa\), the Hamiltonian is
+\begin{equation}
+ H(x,p)=\frac{p^2}{2m}+\frac{\kappa x^2}{2},
+ \qquad
+ \omega=\sqrt{\frac{\kappa}{m}}.
+ \label{eq:sm7-classical-hamiltonian}
+\end{equation}
+The bath fixes \(T\), and from this point we again use \(k_B=1\), so
+\(\beta=1/T\).  An oscillator equilibrated with the room has a temperature
+near \(300\ {\rm K}\); one immersed in liquid helium has a temperature of only
+a few kelvins.  A putative spring placed in the center of the Sun would not
+survive as a spring, but the example makes the role of the environment clear.
+The Boltzmann weight factorizes:
+\begin{equation}
+ e^{-\beta H}
+ =e^{-\beta p^2/(2m)}
+  e^{-\beta\kappa x^2/2}.
+ \label{eq:sm7-factorized-weight}
 \end{equation}
 
-Now we insert the ideal-gas equation of state. With Boltzmann's constant temporarily restored for laboratory numerology,
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_04.png}
+\caption{A spring-mass oscillator and its kinetic-plus-potential Hamiltonian.}
+\lectureframe{00:20:55}
+\end{figure}
+
+Unlike the free gas, the position integral does not merely yield the
+container volume.  The restoring potential weights each displacement:
 \begin{equation}
-PV=Nk_B T,
-\qquad
-P=\rho k_B T.
+ Z_{\rm cl}
+ =\frac{1}{h}\int_{-\infty}^{\infty}dp
+             \int_{-\infty}^{\infty}dx\,
+ e^{-\beta p^2/(2m)}
+ e^{-\beta\kappa x^2/2}.
+ \label{eq:sm7-classical-z}
 \end{equation}
-If the temperature is held fixed, then
+The factor \(1/h\) makes a one-dimensional classical partition function
+dimensionless.  It is suppressed in the board calculation because it is
+independent of \(\beta\) and cannot affect the mean energy.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_05.png}
+\caption{The classical oscillator partition function separated into its
+momentum and displacement Gaussian integrals.}
+\lectureframe{00:22:55}
+\end{figure}
+
+For the momentum integral, set
 \begin{equation}
-\frac{\partial P}{\partial \rho}=k_B T,
+ q=\sqrt{\frac{\beta}{2m}}\,p,
+ \qquad
+ dp=\sqrt{\frac{2m}{\beta}}\,dq.
+ \label{eq:sm7-p-gaussian-substitution}
 \end{equation}
-and therefore
+For the position integral, set
 \begin{equation}
-v_s^2=\frac{k_B T}{m}.
+ y=\sqrt{\frac{\beta\kappa}{2}}\,x,
+ \qquad
+ dx=\sqrt{\frac{2}{\beta\kappa}}\,dy.
+ \label{eq:sm7-x-gaussian-substitution}
 \end{equation}
-
-This is not the same as the earlier naive estimate, which gave \(3k_B T/m\) for the molecular \(v^2\). So the heuristic argument overshoots by a factor of \(3\) in the square of the speed, or by a factor of \(\sqrt{3}\) in the speed itself. The lecture does not hide that mismatch. The point is that the first argument was meant only as an order-of-magnitude estimate.
-
-The numerical estimate for air is still worthwhile. Taking
+Since \(\int_{-\infty}^{\infty}e^{-u^2}\,du=\sqrt{\pi}\), the
+unnormalized phase-space integral used on the board is
 \begin{equation}
-k_B\approx 1.3\times 10^{-23}\,\mathrm{J/K},
-\qquad
-T\approx 300\,\mathrm{K},
-\qquad
-m_{\mathrm{air}}\approx 4\times 10^{-26}\,\mathrm{kg},
+ \int dp\,dx\,e^{-\beta H}
+ =\frac{2\pi}{\beta}\sqrt{\frac{m}{\kappa}}
+ =\frac{2\pi}{\beta\omega}.
+ \label{eq:sm7-classical-z-unnormalized}
 \end{equation}
-we get a speed of the right scale. The naive molecular estimate gives about \(500\,\mathrm{m/s}\), while the observed speed of sound is about \(300\,\mathrm{m/s}\). Dividing by \(\sqrt{3}\) takes one to the other.
-
-\paragraph{A useful interruption.} A student asks whether the factor of \(3\) should disappear because sound propagates in one direction. Susskind does not pretend to have a polished answer ready. He concedes that the objection may be right, or partly right, but insists on the real point: the order of magnitude is already correct, and that is enough for the illustrative role of the example.
-
-\paragraph{Another interruption.} A second student points out that the argument used \(P=\rho k_B T\) at fixed \(T\), whereas a sound wave does not hold everything exactly constant. Again the lecture answers at the right level: for very small amplitude sound waves in a nearly ideal gas, the temperature probably varies very little, so the fixed-\(T\) approximation is at least a plausible working approximation.
-
-\paragraph{A third interruption.} What about pressure dependence? Outside the ideal-gas regime, \(\partial P/\partial \rho\) need not be constant. As the gas is squeezed more and more strongly, the equation of state changes and the speed of sound changes with it. So the value computed above is really the low-density, nearly ideal-gas answer.
-
-This opening example does exactly what it should. It shows statistical mechanics producing a concrete physical scale, while at the same time preserving the lecture's live texture of objections, caveats, and estimates.
-
-\section{A Classical Harmonic Oscillator in a Heat Bath}
-
-Susskind now says, in effect, let us move on. We replace the free particle in a gas by a single harmonic oscillator immersed in a heat bath and ask for its average energy. This is not meant as a toy problem. The lecture pauses to remind us that almost anything, if displaced slightly from equilibrium, oscillates. A spring with a mass on it is one example, but so is an electromagnetic mode in a cavity, and so are vibrations in a crystal.
-
-For a one-dimensional oscillator the energy is
+With the phase-space cell restored,
 \begin{equation}
-H(x,p)=\frac{p^2}{2m}+\frac{\kappa x^2}{2},
+ Z_{\rm cl}=\frac{2\pi}{h\beta\omega}
+           =\frac{1}{\beta\hbar\omega}.
+ \label{eq:sm7-classical-z-normalized}
 \end{equation}
-where \(x\) is the displacement from equilibrium and \(p\) is the momentum. From this point on the lecture drops \(k_B\), so that
+
+Only the \(\beta\)-dependence matters for the energy:
 \begin{equation}
-\beta=\frac{1}{T}.
+ \log Z_{\rm cl}=\text{constant}-\log\beta,
+ \qquad
+ \expect{H}
+ =-\frac{\partial\log Z_{\rm cl}}{\partial\beta}
+ =\frac{1}{\beta}=T.
+ \label{eq:sm7-classical-energy}
 \end{equation}
-The Boltzmann factor is then
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_06.png}
+\caption{The complete classical chain on the right board: Gaussian
+factorization, \(Z\propto(\beta\omega)^{-1}\), and
+\(\expect{H}=1/\beta=T\).}
+\lectureframe{00:30:15}
+\end{figure}
+
+There is no factor of \(3\) because this is one spatial oscillator.  There is
+also no remaining factor of \(1/2\), because there are two independent
+quadratic terms.  Each Gaussian contributes \(T/2\):
 \begin{equation}
-e^{-\beta H}=e^{-\beta p^2/2m}\,e^{-\beta\kappa x^2/2}.
+ \expect{K}=\frac{T}{2},
+ \qquad
+ \expect{U}=\frac{T}{2},
+ \qquad
+ \expect{H}=T.
+ \label{eq:sm7-equipartition-oscillator}
 \end{equation}
-The important step is the factorization: the exponential of a sum becomes the product of two exponentials, and the partition function breaks into two Gaussian integrals,
+This is equipartition in its most useful form: every independent quadratic
+term in the classical Hamiltonian contributes \(T/2\).
+
+The answer is independent of both \(m\) and \(\kappa\).  The motion itself
+does depend on those parameters:
+\begin{equation}
+ \expect{p^2}=mT,
+ \qquad
+ \expect{x^2}=\frac{T}{\kappa},
+ \qquad
+ \expect{\dot{x}^2}=\frac{T}{m}.
+ \label{eq:sm7-classical-fluctuations}
+\end{equation}
+Thus a heavier mass moves more slowly and a stiffer spring has a smaller
+amplitude, even though the mean energy remains \(T\).
+That becomes disturbing when \(\kappa\) is made fantastically large.  A
+spring too stiff to move ought to look like a frozen constraint, yet
+classical equipartition still assigns it energy \(T\).
+
+\begin{classroomqa}
+\audiencequestion{As \(\kappa\to\infty\), the partition function tends to
+zero.  How can its logarithm still be used?}
+\lecturerresponse{Keep \(\kappa\) finite but arbitrarily large.  Its
+contribution to \(\log Z\) is additive and independent of \(\beta\), so the
+\(\beta\)-derivative still gives \(T\).  The limiting discomfort is real:
+the classical calculation is internally consistent, but it omits a feature
+of nature needed for very stiff oscillators.
+\lecturetimestamp{00:34:01--00:34:54}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{The ideal-gas partition function required an \(N!\).
+Should there be an analogous factorial here?}
+\lecturerresponse{No.  We are studying one specified oscillator, not
+permuting \(N\) identical particles.  For many independent labeled modes the
+partition functions multiply.  An indistinguishability factor belongs to a
+different counting problem.
+\lecturetimestamp{00:35:03--00:35:40}}
+\end{classroomqa}
+
+\section{Why Classical Equipartition Was a Crisis}
+
+Real molecules are not structureless points.  A diatomic molecule contains a
+bond that can vibrate, hence an internal oscillator.  A naive classical count
+would assign that mode additional thermal energy even at ordinary
+temperatures.  In a deliberately schematic count, activating one vibrational
+oscillator raises an energy of \(3T/2\) toward \(5T/2\).  Precise
+heat-capacity bookkeeping must also include rotational degrees of freedom and
+distinguish energy from its temperature derivative.  The decisive
+experimental fact is simpler:
+stiff internal modes did not contribute at low temperature as classical
+equipartition demanded.
+
+One could deny that the molecule has internal structure, which is absurd, or
+recognize that classical mechanics is missing an ingredient.  The ingredient
+is quantum mechanics.  We need very little of it: only that a harmonic
+oscillator has equally spaced energy levels.
+
+\section{The Quantum Oscillator}
+
+First shift the energy origin and write the excitation spectrum as
+\begin{equation}
+ E_n^{\rm exc}=n\hbar\omega,
+ \qquad n=0,1,2,\ldots.
+ \label{eq:sm7-shifted-spectrum}
+\end{equation}
+The partition function is now a genuine sum rather than a phase-space
+integral:
 \begin{align}
-Z_{\mathrm{cl}}
-&=\int dp\,dx\,e^{-\beta H(x,p)} \\
-&=\left(\int dp\,e^{-\beta p^2/2m}\right)
-  \left(\int dx\,e^{-\beta\kappa x^2/2}\right).
+ Z_{\rm exc}
+ &=\sum_{n=0}^{\infty}e^{-\beta n\hbar\omega} \notag\\
+ &=1+x+x^2+\cdots
+  =\frac{1}{1-x},
+ \qquad x=e^{-\beta\hbar\omega}, \notag\\
+ &=\frac{1}{1-e^{-\beta\hbar\omega}}.
+ \label{eq:sm7-quantum-z}
 \end{align}
 
-Now we do exactly what the lecture does on the board. For the momentum integral we define
-\begin{equation}
-q^2=\frac{\beta p^2}{2m},
-\qquad
-dp=\sqrt{\frac{2m}{\beta}}\,dq.
-\end{equation}
-For the position integral we define
-\begin{equation}
-y^2=\frac{\beta\kappa x^2}{2},
-\qquad
-dx=\sqrt{\frac{2}{\beta\kappa}}\,dy.
-\end{equation}
-Each integral becomes a numerical constant times a factor of \(\beta^{-1/2}\). Since only derivatives of \(\log Z\) will matter, the numerical constants can be ignored. The result is
-\begin{equation}
-Z_{\mathrm{cl}}\propto \sqrt{\frac{m}{\kappa}}\frac{1}{\beta}.
-\end{equation}
-Writing the oscillator frequency as
-\begin{equation}
-\omega=\sqrt{\frac{\kappa}{m}},
-\end{equation}
-we may write the classical partition function as
-\begin{equation}
-Z_{\mathrm{cl}}=\frac{2\pi}{\omega}\frac{1}{\beta},
-\end{equation}
-up to the same irrelevant multiplicative constants.
-
-The last lines of this calculation are visible on the board in the two selected frames. The second frame is clearer on the left-hand side, while the first preserves the live continuity of the board state.
-
-\begin{figure}[h]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.44\textwidth]{lecture_07_figure_02.png}
-\caption{A corroborating board frame from the end of the classical oscillator calculation. The upper \(\log Z\) line and the lower energy line are both partly occluded.}
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_07.png}
+\caption{Equally spaced levels and the geometric-series evaluation of the
+quantum oscillator partition function.}
+\lectureframe{00:42:05}
 \end{figure}
 
-\begin{figure}[h]
+Differentiating gives the mean excitation energy:
+\begin{align}
+ E_{\rm exc}
+ &=-\frac{\partial\log Z_{\rm exc}}{\partial\beta}
+  =-\frac{1}{Z_{\rm exc}}
+    \frac{\partial Z_{\rm exc}}{\partial\beta}
+ \notag\\
+ &=\hbar\omega\,
+   \frac{e^{-\beta\hbar\omega}}
+        {1-e^{-\beta\hbar\omega}}
+  =\frac{\hbar\omega}{e^{\beta\hbar\omega}-1}.
+ \label{eq:sm7-quantum-energy}
+\end{align}
+
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.44\textwidth]{lecture_07_figure_03.png}
-\caption{The clearer of the two board frames. The line \(E=-\partial_\beta \log Z=1/\beta=T\) is still partially blocked, but the endpoints are visible enough to support a cautious reconstruction.}
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_08.png}
+\caption{The thermal excitation energy obtained from the
+\(\beta\)-derivative of the quantum partition function.}
+\lectureframe{00:46:05}
 \end{figure}
 
-The upper line is not completely legible, but the visible initial \(c\) together with the lower derivative line strongly suggest the standard reconstruction
+\subsection{High Temperature}
+
+When \(\beta\hbar\omega\ll1\),
 \begin{equation}
-\log Z_{\mathrm{cl}}=\text{const}-\log\beta.
+ e^{-\beta\hbar\omega}
+ =1-\beta\hbar\omega
+  +O\!\left((\beta\hbar\omega)^2\right).
+ \label{eq:sm7-high-t-expansion}
 \end{equation}
-From here the board's final line is natural:
+The numerator of \eqref{eq:sm7-quantum-energy} approaches
+\(\hbar\omega\), while the denominator is
+\(\beta\hbar\omega\) to leading order.  Therefore
 \begin{equation}
-E=-\frac{\partial \log Z_{\mathrm{cl}}}{\partial \beta}
-=\frac{1}{\beta}
-=T.
+ E_{\rm exc}\simeq\frac{1}{\beta}=T.
+ \label{eq:sm7-high-t-energy}
 \end{equation}
+The quantum answer recovers classical equipartition when many level spacings
+fit inside the thermal energy.
 
-This is the central classical result. A one-dimensional harmonic oscillator in a heat bath has average energy equal to the temperature.
+\subsection{Low Temperature}
 
-The lecture then pauses, as it should, to interpret rather than merely record the formula. Why is there no factor of \(3\)? Because this is a one-dimensional oscillator, not a particle moving in three translational directions. Why is there no leftover factor of \(1/2\)? Because there are two Gaussian integrals, one from momentum and one from position. Each quadratic Gaussian contributes half a temperature:
+When \(\beta\hbar\omega\gg1\), the exponential is tiny:
 \begin{equation}
-\langle K\rangle=\frac{T}{2},
-\qquad
-\langle U\rangle=\frac{T}{2},
-\qquad
-\langle H\rangle=T.
+ E_{\rm exc}
+ \simeq\hbar\omega e^{-\beta\hbar\omega}.
+ \label{eq:sm7-low-t-energy}
 \end{equation}
-So the average kinetic and potential energies are equal, and together they make the full temperature.
+The oscillator's thermal excitation is exponentially suppressed.  In the
+shifted convention it is almost zero; the physical zero-point energy will be
+restored below.
 
-The result is already a little startling. It does not depend on the mass \(m\), which resembles what we saw for particles in a gas. More surprisingly, it does not depend on the spring constant \(\kappa\). That is not a side remark. It is the tension on which the next move of the lecture depends.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} A student objects: if \(\kappa\to\infty\), then the partition function tends to zero. How can we even take \(\log Z\)? And physically, should not an infinitely stiff oscillator stay frozen?
-
-\paragraph{Answer.} For any finite but enormous \(\kappa\), the partition function is merely tiny:
-\begin{equation}
-Z_{\mathrm{cl}}\propto \sqrt{\frac{m}{\kappa}}\frac{1}{\beta}.
-\end{equation}
-Once we take the logarithm, the \(\kappa\)-dependence is only additive:
-\begin{equation}
-\log Z_{\mathrm{cl}}=\text{const}-\frac12\log\kappa-\log\beta,
-\end{equation}
-and the \(\beta\)-derivative removes the \(\kappa\)-term completely. So the conclusion \(E=T\) is not a careless slip. It is a correct classical conclusion.
-
-And that is exactly why it is disturbing. If the spring is made absurdly stiff, common sense says it should be almost impossible to excite. Yet classical statistical mechanics still assigns it energy \(T\). So there is something wrong, not with the algebra, but with the classical description of nature. The missing ingredient is quantum mechanics.
-
-\section{Quantum Oscillator and the Classical Crossover}
-
-Quantum mechanics now enters in the most economical possible way. We do not need the full formalism; we only need the energy levels of the oscillator. In the lecture convention, before the later student question about zero-point energy, the levels are taken to be
-\begin{equation}
-E_n=n\hbar\omega,
-\qquad
-n=0,1,2,\dots
-\end{equation}
-The partition function is a true sum over states:
-\begin{equation}
-Z_{\mathrm{q}}=\sum_{n=0}^{\infty}e^{-\beta n\hbar\omega}.
-\end{equation}
-That is a geometric series, so
-\begin{equation}
-Z_{\mathrm{q}}=\frac{1}{1-e^{-\beta\hbar\omega}}.
-\end{equation}
-
-The lecture then computes the energy either as \(-\partial_\beta\log Z\) or, a little more directly in this case, as \(-(1/Z)\,\partial_\beta Z\). The answer is
-\begin{equation}
-E=\hbar\omega\,\frac{e^{-\beta\hbar\omega}}{1-e^{-\beta\hbar\omega}}.
-\end{equation}
-If one prefers to simplify it algebraically, this is
-\begin{equation}
-E=\frac{\hbar\omega}{e^{\beta\hbar\omega}-1},
-\end{equation}
-but the lecture keeps the unsimplified form because it makes the limiting regimes easy to read.
-
-Now comes the real comparison with the classical answer. Let us first go to high temperature. High temperature means small \(\beta\), so \(\beta\hbar\omega\ll 1\). The exponential in the numerator is then approximately \(1\), while in the denominator we must keep the first nontrivial term:
-\begin{equation}
-e^{-\beta\hbar\omega}\approx 1-\beta\hbar\omega.
-\end{equation}
-Hence
-\begin{equation}
-1-e^{-\beta\hbar\omega}\approx \beta\hbar\omega,
-\end{equation}
-and therefore
-\begin{equation}
-E\approx \frac{\hbar\omega}{\beta\hbar\omega}=\frac{1}{\beta}=T.
-\end{equation}
-So at high temperature the quantum answer reproduces the classical answer exactly as it should.
-
-At low temperature the story is very different. Low temperature means large \(\beta\), so \(\beta\hbar\omega\gg 1\). Then the exponential is tiny, and we get
-\begin{equation}
-E\approx \hbar\omega\,e^{-\beta\hbar\omega}.
-\end{equation}
-In the lecture's shifted-energy convention, the oscillator energy is therefore exponentially small at low temperature.
-
-The crossover is controlled by the quantity in the exponential:
-\begin{equation}
-\beta\hbar\omega\sim 1.
-\end{equation}
-Equivalently,
-\begin{equation}
-T\sim \hbar\omega.
-\end{equation}
-This is the threshold the lecture wants us to feel physically. The classical oscillator carries energy \(T\). The quantum oscillator takes energy in lumps of size \(\hbar\omega\). The classical regime begins when the thermal energy has become comparable to one quantum.
-
-There is a very useful student question later in the lecture: what happens if we heat the oscillator further once we are already above threshold? Does the spring become tighter? Does the frequency change? The answer is no. The spring constant remains what it is. What changes is the motion: larger oscillation amplitude, larger momenta, more energy. What is true is that the temperature at which the oscillator begins to exhibit the classical law \(E=T\) moves upward as the spring becomes stiffer.
-
-\paragraph{A brief look backward at counting states.} The lecture adds one more conceptual point here. If we take the high-temperature limit of the quantum partition function itself, we find
-\begin{equation}
-Z_{\mathrm{q}}\approx \frac{1}{\beta\hbar\omega}.
-\end{equation}
-Compare this with the classical result
-\begin{equation}
-Z_{\mathrm{cl}}\propto \frac{1}{\beta\omega}.
-\end{equation}
-The dependence on \(\beta\) and \(\omega\) is the same. The quantum mechanics contributes only an overall multiplicative constant involving \(\hbar\), just as the classical calculation had an overall multiplicative constant involving \(2\pi\). This is the lecture's quick justification for why the classical phase-space integral was the right thing to do: in the high-temperature limit, quantum state counting reduces to it.
-
-\section{Activated Degrees of Freedom: Molecules, Solids, and Strings}
-
-At this point the lecture steps back and asks why the classical result caused such confusion historically. The ideal-gas law works quite well when the molecules are treated as point particles. But real molecules are not point particles. A diatomic molecule, for example, has an internal vibrational mode, and classically that looks like another harmonic oscillator. So one might have expected the thermal energy per molecule to be larger than \(3k_B T/2\), perhaps something like \(5k_B T/2\). Experimentally, that extra energy was not there at ordinary temperatures.
-
-Now we know why. At low temperature the vibrational mode is frozen out. The molecule behaves thermally like a monatomic particle. Only when the temperature rises past the threshold
-\begin{equation}
-T\sim \hbar\omega
-\end{equation}
-does the vibrational mode become active. A stiffer molecular bond means larger \(\omega\), hence a higher activation temperature. That is why strongly bound molecules can keep looking thermally simpler than they really are.
-
-The lecture then generalizes the point. If we heat a system, we do not merely increase the energy in already active modes. We also begin to discover that the system has more internal structure than it seemed to have at low temperature. Degrees of freedom unfreeze themselves one after another. First perhaps a vibrational mode becomes active, then rotational modes, then still stiffer internal vibrations, and eventually ionization.
-
-For many oscillators the bookkeeping is simple:
-\begin{equation}
-Z_{\mathrm{tot}}=\prod_i Z_i,
-\qquad
-\log Z_{\mathrm{tot}}=\sum_i \log Z_i,
-\qquad
-E_{\mathrm{tot}}=\sum_i E_i.
-\end{equation}
-So the total energy is a sum over mode energies. But only modes with
-\begin{equation}
-\hbar\omega_i\lesssim T
-\end{equation}
-contribute appreciably. Modes with \(\hbar\omega_i\gg T\) are still deep in the quantum regime and remain effectively frozen out.
-
-This is the key to the specific heat of solids. A crystal is a large collection of oscillators, and classically one would assign too much thermal energy to them. Einstein's early insight was that the oscillators are not all excited at low temperature. Quantum mechanics suppresses them until the temperature is high enough.
-
-The violin-string example makes the same point in a sharper form. Mathematically, a vibrating string decomposes into an infinite collection of normal modes, each of which is a harmonic oscillator. If every one of those modes carried energy \(T\), the equilibrium energy of the string would be infinite. That is impossible. The resolution is that high-frequency modes have large \(\hbar\omega\) and are frozen out. As the temperature rises, more and more modes come into play.
-
-\paragraph{A final oscillator question.} Near the end of this arc a student asks about the missing zero-point energy. The physical spectrum is
-\begin{equation}
-E_n^{\mathrm{phys}}=\left(n+\frac12\right)\hbar\omega.
-\end{equation}
-Why was it harmless to omit the \(\frac12\hbar\omega\)? Because adding a constant to every energy level multiplies the partition function by a constant factor:
-\begin{equation}
-Z_{\mathrm{phys}}=e^{-\beta\hbar\omega/2}Z_{\mathrm{q}}.
-\end{equation}
-That contributes only an additive constant to \(\log Z\), and so it does not affect the thermodynamic conclusions of interest in the lecture.
-
-\section{Back to the Second Law: Phase Space, Liouville, and Coarse-Graining}
-
-Only after this long oscillator arc does the lecture return to the promise made at the beginning. Why is the second law a puzzle? Because it says that the world is irreversible and that entropy tends to increase, whereas Newton's equations are reversible. Anything that can happen forward can happen backward. So there is a tension between microscopic reversibility and macroscopic irreversibility.
-
-The lecture attacks that tension geometrically. We imagine phase space, the space of all states of a classical system. For a many-particle system it has enormously many dimensions, but we represent it schematically as a plane: positions in one direction, momenta in the other. Suppose our knowledge of the system consists only of the statement that the phase point lies somewhere inside some patch. The probability density is uniform inside that patch and zero outside it.
-
-This is not necessarily an equilibrium state. That point is made explicitly in the lecture. The patch is just a representation of what we know. Entropy here is not being defined only for equilibrium. It is being defined for a probability distribution. For a uniform distribution over a patch of volume \(V\), the mathematically consistent form is
-\begin{equation}
-S_{\mathrm{micro}}\propto \log V.
-\end{equation}
-The lecture briefly wavers verbally over a minus sign, but the reasoning that follows is clear: if the occupied volume becomes smaller, we know more, and the entropy goes down; if the occupied volume becomes larger, we know less, and the entropy goes up.
-
-Now let the system evolve. Liouville's theorem says that Hamiltonian flow preserves the exact phase-space volume of the occupied patch:
-\begin{equation}
-V_{\mathrm{blob}}(t)=\text{const}.
-\end{equation}
-So if we had infinite precision and tracked the exact fine-grained distribution, the blob could stretch and bend but its volume would remain unchanged. At that microscopic level the entropy would be constant.
-
-\begin{figure}[h]
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=0.9]
-\draw (-0.5,-1.4) rectangle (2.8,1.4);
-\fill[gray!25] (1.15,0) ellipse (0.75 and 0.45);
-\draw (1.15,0) ellipse (0.75 and 0.45);
-\node at (1.15,-1.8) {initial patch};
-
-\draw (3.6,-1.4) rectangle (6.9,1.4);
-\draw[line width=0.8pt]
-(4.0,-0.1) .. controls (4.5,-0.7) and (5.2,-0.9) .. (5.8,-0.5)
-.. controls (6.4,-0.1) and (6.3,0.5) .. (5.6,0.8)
-.. controls (5.0,1.0) and (4.4,0.8) .. (4.1,0.3)
-.. controls (3.9,0.0) and (4.0,-0.1) .. (4.0,-0.1);
-\node at (5.25,-1.8) {Liouville-stretched patch};
-
-\draw (7.7,-1.4) rectangle (11.0,1.4);
-\draw[line width=12pt, gray!30, line cap=round]
-(8.1,-0.1) .. controls (8.6,-0.7) and (9.3,-0.9) .. (9.9,-0.5)
-.. controls (10.5,-0.1) and (10.4,0.5) .. (9.7,0.8)
-.. controls (9.1,1.0) and (8.5,0.8) .. (8.2,0.3);
-\draw[line width=0.8pt]
-(8.1,-0.1) .. controls (8.6,-0.7) and (9.3,-0.9) .. (9.9,-0.5)
-.. controls (10.5,-0.1) and (10.4,0.5) .. (9.7,0.8)
-.. controls (9.1,1.0) and (8.5,0.8) .. (8.2,0.3);
-\node at (9.35,-1.8) {coarse-grained region};
-\end{tikzpicture}
-\caption{The lecture's phase-space picture. A compact patch flows into a long thin ``snake'' of the same exact volume, while finite resolution replaces the fine structure by a larger effective occupied region.}
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_09.png}
+\caption{The low-temperature expansion: the first thermal excitation is
+suppressed by \(e^{-\beta\hbar\omega}\).}
+\lectureframe{00:51:55}
 \end{figure}
 
-\subsection{Question \& Answer}
-
-\paragraph{Question.} If Liouville's theorem preserves the phase-space volume exactly, how can entropy increase at all?
-
-\paragraph{Answer.} At the fully resolved microscopic level it does not. The entropy relevant to the second law is a coarse-grained entropy. Real experiments do not resolve arbitrarily nearby phase points. A patch that has been stretched into a thin filament therefore does not remain a thin filament in our description. It is replaced by finite-resolution blobs, and those blobs cover a larger region.
-
-So the relevant entropy is
+The crossover occurs when
 \begin{equation}
-S_{\mathrm{cg}}\propto \log V_{\mathrm{coarse}},
-\qquad
-V_{\mathrm{coarse}}\ge V_{\mathrm{blob}}.
+ \beta\hbar\omega\sim1,
+ \qquad\text{or equivalently}\qquad
+ T\sim\hbar\omega.
+ \label{eq:sm7-crossover}
 \end{equation}
-The increase is not a violation of Liouville's theorem. It is the consequence of losing track of fine structure.
-
-This is exactly the cotton analogy from the lecture. If one adds up the actual volumes of the fibers, the volume may remain nearly unchanged. But if one cannot resolve those fibers and sees only the fluffed-out cotton, the apparent occupied volume has increased. So too in phase space.
-
-The lecture is very explicit on a deeper point here: entropy is not simply a property of the system by itself. It is a property of the system together with what we know, or can resolve, about the system.
-
-\section{Chaos, Recurrence, and the Probabilistic Law}
-
-Why does coarse-graining become unavoidable? Because the thin snake does not remain a single thin snake. In a chaotic system it develops finer and finer tendrils. Whatever the resolving power is, wait long enough and the dynamics will create structure below that scale. That is where the second law really enters the lecture.
-
-The operational content of chaos is then discussed at length. Nearby trajectories stay close for a while and then separate, so long-time prediction demands ever more precise initial data. In modern shorthand one expresses this by a positive Lyapunov exponent:
+This condition has a direct meaning.  Classical equipartition would give the
+oscillator energy \(T\).  Quantum effects become unavoidable when that scale
+falls below one level spacing.  Thus
 \begin{equation}
-\delta\Gamma(t)\sim e^{\lambda t}\,\delta\Gamma(0),
-\qquad \lambda>0,
+ \hbar\omega\gg T \quad\hbox{means frozen and quantum},
+ \qquad
+ \hbar\omega\ll T \quad\hbox{means active and classical}.
+ \label{eq:sm7-regimes}
 \end{equation}
-where \(\delta\Gamma\) denotes a small separation in phase space. The lecture does not derive such a formula formally, but it repeatedly describes exactly this phenomenon and later identifies it by name when a student asks about the ``Lyapunov coefficient.''
+A stiffer spring has larger \(\omega=\sqrt{\kappa/m}\), so it requires a
+higher temperature before it behaves classically.
 
-\subsection{Question \& Answer}
+\section{Degrees of Freedom Appear as We Heat Matter}
 
-\paragraph{Question.} What does ``chaotic'' mean here, and how is it different from an ordinary instability?
+At low temperature, a diatomic molecule can thermally resemble a point
+particle because its stiff bond vibration is frozen.  As \(T\) rises through
+\(\hbar\omega\), the vibrational mode activates.  Rotational modes may
+activate at a lower scale; still higher temperatures reveal more internal
+motion and eventually ionize the atom.  Heating does not merely put more
+energy into a fixed list of modes.  It reveals degrees of freedom that were
+invisible at lower temperature.
 
-\paragraph{Answer.} In the lecture's operational sense, a chaotic system is one in which nearby trajectories follow each other only for a while and then separate so fast that predictability effectively breaks down. For a fixed time \(t\), there is some tolerance \(\epsilon\) in the initial conditions that permits prediction up to time \(t\); but as \(t\) grows, that required precision becomes more and more severe.
+An imaginary nested molecule sharpens the point.  Two atoms are
+joined by a stiff spring, while one apparent atom is itself a pair joined by
+an even stiffer spring.  At low \(T\), both structures look pointlike.  At the
+first threshold the outer vibration appears; at the second threshold the
+inner structure appears.  The complexity of the system is uncovered one
+energy scale at a time.
 
-The harmonic oscillator is the clean counterexample. In phase space it just goes around in circles, and nearby phase points stay nearby forever. A true two-body inverse-square problem behaves similarly. But the three-body problem is generically chaotic, and the double pendulum is a standard lecture example of the same phenomenon. In a merely local instability, such as balancing at the top of a hill, one has a special unstable point. In a chaotic system, the instability is spread much more broadly through the accessible phase space.
+\begin{classroomqa}
+\audiencequestion{Once an oscillator is already in the classical regime,
+does further heating tighten the spring or change its frequency?}
+\lecturerresponse{No.  The spring constant and frequency remain fixed.
+Higher temperature produces larger typical momenta and amplitudes, hence
+larger energy.  Stiffness determines the temperature at which the classical
+law begins, not a temperature-dependent tightening of the spring.
+\lecturetimestamp{01:03:17--01:05:11}}
+\end{classroomqa}
 
-Once the system is chaotic and the accessible region of phase space is bounded, another feature appears. The system can wander through a finite region only so many ways before coming close again to where it once was. The lecture makes this concrete with the billiard-table analogy and then with the air-in-the-corner-of-the-room example.
+\subsection{Crystals and Einstein's Specific Heat}
 
-\begin{figure}[h]
+A crystal contains a great many vibrational modes.  Classical equipartition
+assigns \(T\)-scale energy to every active oscillator and therefore
+overestimates the low-temperature heat capacity.  Einstein's 1907 model
+treated crystal vibrations quantum mechanically and showed why they are
+suppressed until thermal energy reaches their level spacing.  More accurate
+solid-state models allow a distribution of mode frequencies, but the
+freeze-out principle is already present in Einstein's calculation.
+
+\begin{classroomqa}
+\audiencequestion{Was this the work for which Einstein received the Nobel
+Prize, and did it come only after quantum mechanics was established?}
+\lecturerresponse{No.  The Nobel citation concerned the photoelectric
+effect.  The specific-heat model was published in 1907, long before the full
+foundations of quantum mechanics were understood.  Einstein accepted and
+developed crucial quantum ideas even though he later objected to aspects of
+the mature theory.
+\lecturetimestamp{00:58:38--01:03:16}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Classical statistical mechanics replaced a sum over
+discrete states by an apparently uniform integral over position and
+momentum.  What justifies that state counting?}
+\lecturerresponse{The ultimate justification comes from quantum mechanics.
+In the high-temperature limit,
+\[
+ Z_{\rm exc}\simeq\frac{1}{\beta\hbar\omega},
+\]
+which exactly matches the dimensionless classical result
+\eqref{eq:sm7-classical-z-normalized}.  Quantum cells in phase space become
+the classical phase-space measure when the level spacing is unresolved.
+\lecturetimestamp{00:59:38--01:03:06}}
+\end{classroomqa}
+
+\subsection{A String Contains Infinitely Many Oscillators}
+
+A violin or guitar string decomposes into normal modes: the fundamental,
+higher harmonics, and progressively shorter wavelengths.  Mathematically
+there are infinitely many oscillator modes.  If classical equipartition
+assigned energy \(T\) to every one, the string in thermal equilibrium would
+have infinite energy.  Quantum mechanics prevents that catastrophe.  The
+shortest-wavelength modes have the highest frequencies and remain frozen at
+any finite temperature; progressively more modes activate as \(T\) rises.
+The same logic will later underlie blackbody radiation.
+
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=0.95]
-\draw (0,0) rectangle (6.4,4.1);
-\node at (3.2,4.45) {finite accessible region of phase space};
-
-\fill (1.0,0.8) circle (2pt);
-\node[below left] at (1.0,0.8) {special initial point};
-
-\draw[dashed] (1.0,0.8) circle (0.38);
-\node[left] at (0.55,1.35) {\(\epsilon\)};
-
-\draw[line width=0.8pt]
-(1.0,0.8) .. controls (1.5,1.7) and (2.6,3.4) .. (3.6,3.2)
-.. controls (4.9,3.0) and (5.7,2.1) .. (5.3,1.2)
-.. controls (5.0,0.5) and (4.0,0.4) .. (3.2,1.0)
-.. controls (2.4,1.7) and (2.0,2.5) .. (2.8,3.1)
-.. controls (3.7,3.8) and (4.7,3.7) .. (5.4,3.0)
-.. controls (6.0,2.3) and (5.8,1.0) .. (4.8,0.7)
-.. controls (3.7,0.3) and (2.4,0.6) .. (1.3,1.0);
-
-\fill (1.24,0.96) circle (2pt);
-\node[right] at (1.45,1.2) {late return within tolerance};
-\end{tikzpicture}
-\caption{A schematic recurrence picture. The phase point wanders through a bounded accessible region and can return to an \(\epsilon\)-neighborhood of its starting point after a typically enormous time.}
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_10.png}
+\caption{Several normal modes superposed on a string, illustrating why a
+continuous string is an infinite collection of harmonic oscillators.}
+\lectureframe{01:09:30}
 \end{figure}
 
-The right statement about recurrence is therefore not exact return to the same point with infinite precision. The right statement is return within some tolerance \(\epsilon\). For any fixed \(\epsilon\), the recurrence time is finite, though for a system with many degrees of freedom it may be unimaginably large. That is why the air in a room can spread to equilibrium and yet, in principle, return to something like its original very special configuration if one waits long enough.
+\begin{classroomqa}
+\audiencequestion{Can the quantum-to-classical crossover be observed
+directly, and can heating reverse the low-temperature behavior?}
+\lecturerresponse{Yes.  The temperature dependence of a crystal's specific
+heat makes the freeze-out and subsequent activation of vibrational modes
+plainly measurable.
+\lecturetimestamp{01:09:11--01:10:13}}
+\end{classroomqa}
 
-So coarse-grained entropy increase does not abolish reversibility. The system can still return near the initial configuration. That is why the lecturer ends not with the slogan ``entropy always increases'' but with Boltzmann's more careful formulation: from any given configuration, the next configuration is overwhelmingly more likely to have larger entropy than smaller entropy. Entropy probably increases.
+\begin{classroomqa}
+\audiencequestion{For many oscillators, do we repeat the single-oscillator
+partition function for each mode?}
+\lecturerresponse{For independent modes,
+\[
+ Z_{\rm tot}=\prod_j Z_j,\qquad
+ \log Z_{\rm tot}=\sum_j\log Z_j,\qquad
+ E_{\rm tot}=\sum_j E_j.
+\]
+Modes with \(\hbar\omega_j\gg T\) make exponentially small thermal
+contributions; those below the threshold contribute appreciably.
+\lecturetimestamp{01:10:14--01:11:00}}
+\end{classroomqa}
 
-This is not a weakening of the second law. It is the real content of the law when one takes microscopic reversibility seriously.
+\begin{classroomqa}
+\audiencequestion{What happened to the oscillator's zero-point energy
+\(\hbar\omega/2\)?}
+\lecturerresponse{The physical levels are
+\[
+ E_n=\left(n+\frac12\right)\hbar\omega.
+\]
+Consequently
+\[
+ Z_{\rm phys}
+ =e^{-\beta\hbar\omega/2}Z_{\rm exc},
+ \qquad
+ E_{\rm phys}
+ =\frac{\hbar\omega}{2}
+  +\frac{\hbar\omega}{e^{\beta\hbar\omega}-1}.
+\]
+The common shift does not change level probabilities, entropy, heat
+capacity, or thermal excitation energy, but it does shift the absolute mean
+energy by \(\hbar\omega/2\).  The multiplying factor in \(Z\) is
+\(\beta\)-dependent, so it must not be discarded when absolute energy is
+wanted.
+\lecturetimestamp{01:11:08--01:11:37}}
+\end{classroomqa}
 
-\section{Summary}
+\section{The Second Law as a Reversibility Puzzle}
 
-The lecture unfolds in a very deliberate order. We begin by deferring the second law and first extracting something concrete from statistical mechanics: an estimate for the speed of sound in a dilute gas. We then move to the harmonic oscillator and derive the classical result
+We can now return to the promised problem.  The second law says that ordinary
+macroscopic evolution is irreversible and that entropy tends to increase.
+Microscopic Hamiltonian evolution is reversible.  How can a reversible map
+of exact states produce an irreversible law of macroscopic states?
+
+Represent the system by a point
+\(\Gamma=(q_1,\ldots,q_N,p_1,\ldots,p_N)\) in a high-dimensional phase space.
+Our knowledge is not usually an exact point.  Suppose it is a uniform
+probability density on a compact patch \(A\) of volume \(\Omega_A\):
 \begin{equation}
-E=T,
+ f(\Gamma)=
+ \begin{cases}
+  1/\Omega_A,&\Gamma\in A,\\
+  0,&\Gamma\notin A.
+ \end{cases}
+ \label{eq:sm7-uniform-blob}
 \end{equation}
-with equal kinetic and potential contributions \(T/2\). That result is both elegant and absurd for very stiff oscillators, and quantum mechanics resolves the absurdity by introducing the threshold
+In units with \(k_B=1\), its fine-grained Gibbs entropy is
 \begin{equation}
-T\sim \hbar\omega.
+ S_{\rm fine}
+ =-\int d\Gamma\,f\log f
+ =\log\Omega_A.
+ \label{eq:sm7-blob-entropy}
 \end{equation}
-Above that threshold the oscillator behaves classically; below it, the mode is frozen out.
+A smaller patch means more information and lower entropy.  This fixes the
+sign: increasing uncertainty enlarges the occupied region and raises
+\(\log\Omega_A\).
 
-From there the lesson broadens naturally to molecules, solids, and strings: as temperature rises, more degrees of freedom are activated. Only after that preparation do we return to the second law. Liouville's theorem preserves the exact phase-space volume, but coarse-graining does not preserve the effective occupied volume of a filamented patch. Chaos ensures that the fine structure gets finer and finer, and recurrence reminds us that microscopic reversibility is never really gone. The resolution is therefore probabilistic. Entropy need not increase in every logically possible step, but in a system with many degrees of freedom it overwhelmingly tends to.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_11.png}
+\caption{A compact probability patch in a schematic two-dimensional slice
+of the full position-momentum phase space.}
+\lectureframe{01:20:20}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is the system physically constrained to remain inside the
+drawn patch, and is it already in equilibrium?}
+\lecturerresponse{No.  The patch describes what is known about the initial
+state, not a wall in phase space.  It need not be an equilibrium
+distribution.  A gas initially confined to a tank in one corner of a room is
+a concrete example of special, nonequilibrium information.
+\lecturetimestamp{01:14:55--01:15:24}}
+\end{classroomqa}
+
+\section{Liouville Flow and Coarse-Grained Growth}
+
+Liouville's theorem says that Hamiltonian flow preserves phase-space volume.
+The exact patch can translate, stretch, fold, and become extremely thin, but
+\begin{equation}
+ \Omega_{A(t)}=\Omega_{A(0)},
+ \qquad
+ S_{\rm fine}(t)=S_{\rm fine}(0).
+ \label{eq:sm7-liouville}
+\end{equation}
+The discrete analog is a reversible permutation of states.  If one initially
+knows that a die is in one of two states, a one-to-one evolution may change
+which two states they are, but it does not change the number of possibilities.
+
+Real descriptions have finite resolution.  Quantum mechanics supplies a
+natural phase-space cell, while a classical experiment has finite measuring
+power even without invoking quantum theory.  Under Hamiltonian flow the patch
+can become a long, thin snake.  If its separation between neighboring folds
+falls below the resolution scale, we replace each unresolved neighborhood by
+a coarse cell.  The exact occupied volume remains fixed, but the union of
+coarse cells grows:
+\begin{equation}
+ \Omega_{\rm coarse}(t)\geq\Omega_{A(t)},
+ \qquad
+ S_{\rm coarse}(t)=\log\Omega_{\rm coarse}(t).
+ \label{eq:sm7-coarse-entropy}
+\end{equation}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_12.png}
+\caption{A volume-preserving filament viewed through finite-resolution
+cells.  The exact black filament keeps its area; the red coarse cells occupy
+a larger effective region.}
+\lectureframe{01:22:10}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{The coarse cells overlap.  Does that violate Liouville's
+theorem?}
+\lecturerresponse{No.  Liouville governs the exact filament, which remains
+one-to-one and volume preserving.  Overlap belongs to our blurred
+description: we have discarded information about which thin strand contains
+the state.
+\lecturetimestamp{01:21:32--01:21:50}}
+\end{classroomqa}
+
+A useful analogy is cotton.  The material volume of all fibers can
+remain nearly fixed while a teased-out wad occupies a large apparent volume
+to an observer unable to resolve individual fibers.  Likewise, a
+phase-space patch grows finer tentacles; those tentacles develop still finer
+tentacles.  Any fixed finite resolution eventually fails to follow them.
+
+\begin{classroomqa}
+\audiencequestion{Does entropy merely appear to increase classically, while
+quantum mechanics makes the increase real by imposing a fundamental
+resolution limit?}
+\lecturerresponse{The coarse-graining argument does not require a quantum
+limit.  Entropy refers jointly to the system and the macroscopic distinctions
+retained in its description.  With infinite microscopic information the
+fine-grained entropy is constant; with any fixed finite resolution, chaotic
+filaments eventually become unresolved and the coarse-grained entropy
+increases.
+\lecturetimestamp{01:24:04--01:25:20}}
+\end{classroomqa}
+
+\section{Chaos, a Finite Accessible Region, and Equilibration}
+
+For a gas in a box, positions are bounded.  At fixed finite total energy,
+momenta are bounded as well, even if all energy momentarily concentrates in
+one particle.  The dynamically accessible energy shell therefore has finite
+measure under the usual confinement assumptions.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_13.png}
+\caption{A bounded accessible phase-space region beside the filament and
+its coarse-grained representation.}
+\lectureframe{01:28:10}
+\end{figure}
+
+Nearby initial points in a chaotic system follow similar histories for a
+while and then separate.  In a billiard break, an imperceptible change in the
+cue-ball direction is copied into later collisions; the differences compound
+until the final configurations are unrelated.  A whole initial patch is
+therefore stretched and folded through the accessible region.  At finite
+resolution it approaches a broad, nearly uniform equilibrium description.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_14.png}
+\caption{A compact special state evolved into a complicated filament
+through the bounded accessible region while the coarse-grained cells spread
+over a much larger area.}
+\lectureframe{01:33:10}
+\end{figure}
+
+Two qualifications matter.  Chaos by itself does not prove that every
+trajectory visits every accessible neighborhood; that stronger sampling
+claim requires an ergodic or mixing property.  Nor is every physical system
+chaotic.  A generic many-body gas and idealized billiards provide the intended
+setting, where mixing is a useful physical expectation.
+
+\section{Recurrence Does Not Abolish Irreversibility}
+
+Suppose all air molecules begin in one corner with a specially prepared
+velocity pattern.  Collisions quickly spread them through the room, and the
+coarse-grained description reaches equilibrium.  In a finite
+measure-preserving phase space, the Poincare recurrence theorem says that
+almost every initial point returns arbitrarily close to its starting point.
+For a tolerance \(\epsilon>0\), a recurrence time \(t_R(\epsilon)\) is finite
+under the theorem's hypotheses, though for a macroscopic system it is
+fantastically large.  Exact return to an infinitely precise point is neither
+required nor generally expected.
+
+\begin{classroomqa}
+\audiencequestion{In the billiard example, does striking the cue ball inject
+energy and spoil the closed evolution?}
+\lecturerresponse{The chosen initial state begins immediately after the
+strike, with that energy already included.  Recurrence concerns the
+subsequent isolated idealized billiard dynamics; a return near the initial
+state includes a configuration equivalent to the cue ball approaching the
+rack within the chosen tolerance.
+\lecturetimestamp{01:35:37--01:35:55}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If the gas can eventually return to the corner, have we
+lost information, and is the system really reversible?}
+\lecturerresponse{The microscopic dynamics remains reversible throughout.
+Coarse-grained entropy can rise because we stop resolving fine correlations,
+yet an exceptionally rare fluctuation can return the system near its special
+initial macrostate.  Recurrence and coarse-grained irreversibility are
+therefore compatible.
+\lecturetimestamp{01:37:34--01:38:15}}
+\end{classroomqa}
+
+This leads to Boltzmann's essential formulation.  Entropy does not increase
+at every logically possible instant.  Given a nonequilibrium macrostate of a
+large system, overwhelmingly more compatible microscopic continuations lead
+toward larger macrostates than toward still more special ones.  Entropy
+\emph{probably} increases.  Downward fluctuations and recurrences are
+allowed, but their probabilities and time scales make them invisible in
+ordinary macroscopic experience.  The reversibility problem was one of the
+great historical struggles of statistical mechanics and weighed heavily on
+Boltzmann.  That historical connection should not be turned into a simple
+causal claim about his life.
+
+\section{What Chaos Means}
+
+For a more operational definition of chaos, suppose
+two initial phase points differ by \(\delta\Gamma(0)\), a chaotic direction
+typically has
+\begin{equation}
+ \lVert\delta\Gamma(t)\rVert
+ \sim e^{\lambda t}\lVert\delta\Gamma(0)\rVert,
+ \qquad \lambda>0,
+ \label{eq:sm7-lyapunov-growth}
+\end{equation}
+over the regime where linearized separation is meaningful.  The number
+\(\lambda\) is a Lyapunov exponent.  To predict a time \(t\), the required
+precision in initial data scales roughly as \(e^{-\lambda t}\).  Precision in
+the dynamical law matters too: model errors are amplified along with errors
+in initial conditions.  Weather is the familiar example.
+
+\begin{classroomqa}
+\audiencequestion{Is there a principle saying that \emph{most} systems are
+chaotic, or is that merely empirical?}
+\lecturerresponse{There are infinitely many chaotic and nonchaotic
+Hamiltonians, and even the word \emph{most} requires a measure on the space
+of Hamiltonians.  Complicated interacting systems are often chaotic, but
+there is no elementary universal test that classifies every Hamiltonian by
+inspection.
+\lecturetimestamp{01:39:27--01:40:49}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What precisely does \emph{chaotic} mean in this
+discussion?}
+\lecturerresponse{Nearby phase trajectories separate rapidly enough that
+long-time prediction requires exponentially improving knowledge of initial
+conditions.  A harmonic oscillator is the contrast: neighboring phase points
+rotate together and remain close.  The exact two-body Kepler problem is also
+nonchaotic, while the general three-body problem has chaotic regimes.
+\lecturetimestamp{01:40:50--01:43:45}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Must the laws of motion, as well as the initial
+conditions, be known to high precision?}
+\lecturerresponse{Yes.  Both sources of error propagate through the
+dynamics, and chaotic evolution amplifies both.
+\lecturetimestamp{01:43:46--01:43:55}}
+\end{classroomqa}
+
+The double pendulum supplies a vivid example.  An ordinary pendulum is
+integrable and predictable.  Add a second pendulum, and trajectories that
+begin almost together can eventually transfer energy differently and head
+in entirely different directions.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_07_figure_15.png}
+\caption{The double pendulum as a concrete example of deterministic chaos.}
+\lectureframe{01:44:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why can one mechanical system be chaotic while another is
+not?}
+\lecturerresponse{That is a property of the Hamiltonian and its invariant
+structures, not a consequence of friction or experimental noise.  Determining
+it can be mathematically difficult; complexity is suggestive but not a
+proof.
+\lecturetimestamp{01:44:03--01:45:58}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is an ideal double pendulum still chaotic with no
+friction?}
+\lecturerresponse{Yes.  Dissipation is not required.  Exact deterministic
+Hamiltonian motion can have sensitive dependence on initial conditions.
+Infinite-precision initial data would determine the trajectory indefinitely,
+but finite precision gives a finite prediction horizon.
+\lecturetimestamp{01:45:57--01:47:54}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is chaos the same as having no closed-form solution?}
+\lecturerresponse{No.  Chaotic systems generally lack a globally useful
+closed-form trajectory, but analytic solvability and sensitive dependence are
+different properties.  Chaos is diagnosed dynamically by trajectory
+separation, not merely by our inability to write a formula.
+\lecturetimestamp{01:48:20--01:49:23}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How is pervasive chaos different from balancing exactly
+at the unstable top of a hill?}
+\lecturerresponse{The hilltop is one exceptional unstable state: away from
+it, nearby trajectories need not separate rapidly.  In a chaotic region,
+instability is typical along the orbit and nearby phase points repeatedly
+separate.  A positive Lyapunov exponent captures that persistent growth.
+\lecturetimestamp{01:49:27--01:50:11}}
+\end{classroomqa}
+
+\section{From Microscopic Motion to Statistical Law}
+
+The speed-of-sound estimate showed how microscopic thermal motion fixes a
+macroscopic propagation scale, while the questions exposed the
+thermodynamic derivative that must be specified.  The oscillator then showed
+the reach and the failure of classical equipartition.  Quantum level spacing
+freezes stiff modes, explains why heat capacities change with temperature,
+and prevents infinitely many high-frequency modes from carrying infinite
+thermal energy.
+
+The same progression from exact microphysics to effective macroscopic
+description resolves the apparent contradiction at the heart of the second
+law.  Hamiltonian flow preserves exact phase-space volume and remains
+reversible.  Chaotic stretching creates finer correlations than a
+macroscopic description retains, so the coarse-grained occupied region
+grows.  Recurrence guarantees that rare returns are not forbidden; probability
+explains why they do not define ordinary experience.  The second law is not a
+new irreversible microscopic force.  It is the overwhelmingly reliable
+statistical direction of evolution for special macroscopic initial
+conditions in systems with enormously many degrees of freedom.
