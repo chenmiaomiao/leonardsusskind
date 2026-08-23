@@ -1,420 +1,710 @@
-\chapter{From Initial Data to Least Action}
+\chapter{Initial Data, Conservation, and the Action}
 
-These notes follow Leonard Susskind's second lecture on classical mechanics, as preserved in the course recording curated by LazyingArt LLC and Video2Book. The lecture opens as review, but it is not idle review. We begin with the question of initial conditions, use a deliberately false law to see what the order of a differential equation means, recover Newton's actual structure by contrast, review energy and momentum in that Newtonian setting, and then turn toward the deeper formulation in which one studies whole trajectories rather than local steps along them.
+The laws of mechanics can be stated in two remarkably different ways. One
+description is local: specify the state now, use a differential equation, and
+advance the motion from one instant to the next. The other description treats
+an entire trajectory as a single object and selects the physical path by a
+stationary principle. Our purpose is to understand why both descriptions carry
+the same physics.
 
-\section{First-Order and Second-Order Laws}
+We shall approach the global principle slowly. First we return to initial data
+and the order of a differential equation. We then review energy and momentum,
+not because their elementary Newtonian derivations are the deepest proofs of
+those laws, but because they reveal structures that survive far beyond the
+derivations. Only after that preparation shall we pass from ordinary functions
+to functionals and uncover the action.
 
-Susskind begins with one-dimensional motion and a false law of physics. The point is not to rescue Aristotle; it is to understand what a first-order equation would imply if nature had chosen one. The law is
+\section{What the Order of a Law Demands}
+
+Begin in one dimension with a deliberately false law,
 \begin{equation}
-F=m\dot x,
+ F=m\dot x=m\frac{dx}{dt}.
+ \label{eq:l02-aristotle}
 \end{equation}
-or, if the force is known as a function of position,
-\begin{equation}
-F(x)=m\dot x.
-\end{equation}
-This law would say that in order to keep an object moving one must continuously exert a force on it. Remove the force, and the object comes immediately to rest. That is not our world. But mathematically the law is consistent, and that is enough for the comparison.
+It says that a force is needed merely to sustain motion: remove the force and
+the body stops at once. This is not Newtonian physics. Its value is precisely
+that it lets us see what a first-order equation would demand of its initial
+data.
 
-Suppose we know the position \(x\) at some instant. Then we know the force \(F(x)\). But the equation itself then tells us the velocity \(\dot x\). So for a first-order law of this kind, position already fixes the first time derivative. The natural question is whether it also fixes the higher derivatives. It does.
-
-The force changes with time only because the particle moves through regions where the force differs. Therefore
+Suppose the force is prescribed by position,
 \begin{equation}
-\frac{dF}{dt}=\frac{dF}{dx}\,\dot x.
+ F(x)=m\dot x.
+ \label{eq:l02-first-order-force}
 \end{equation}
-Differentiating \(F(x)=m\dot x\) with respect to time gives
+If the position is known at one instant, then \(F(x)\) is known, and the law
+immediately supplies the velocity,
 \begin{equation}
-m\ddot x = \frac{dF}{dt}=\frac{dF}{dx}\,\dot x.
+ \dot x=\frac{F(x)}{m}.
 \end{equation}
-So once the position is known, the velocity is known, and once the velocity is known, the acceleration is known. Differentiate once more:
+The same datum fixes the acceleration. Differentiating the force along the
+motion gives
+\begin{equation}
+ \frac{dF}{dt}=\frac{dF}{dx}\dot x,
+\end{equation}
+and differentiating Eq.~\eqref{eq:l02-first-order-force} gives
+\begin{equation}
+ m\ddot x=\frac{dF}{dx}\dot x.
+ \label{eq:l02-first-acceleration}
+\end{equation}
+Differentiate once more and use the product and chain rules:
 \begin{align}
-m\dddot x
-&=
-\frac{d}{dt}\!\left(\frac{dF}{dx}\,\dot x\right) \\
-&=
-\frac{d^2F}{dx^2}\,\dot x^{\,2}
-+
-\frac{dF}{dx}\,\ddot x.
+ m\dddot x
+ &=\frac{d}{dt}\left(F'(x)\dot x\right) \\
+ &=F''(x)\dot x^{\,2}+F'(x)\ddot x.
+ \label{eq:l02-jerk}
 \end{align}
-The jerk is now determined as well. The pattern is obvious enough that Susskind is content to stop there: one can continue indefinitely, and each new time derivative is fixed by the previous ones and by derivatives of the force law. A first-order theory closes from position alone.
+Thus position determines velocity, velocity and position determine
+acceleration, and the same chain continues through jerk and every higher time
+derivative. In this first-order world, one number \(x(t_0)\) is enough to start
+the motion.
 
-Now rerun the same question for Newton:
+Throughout this calculation the mass is constant. A visible subsystem may
+seem to lose mass if a piece falls away, but then the discarded piece has
+simply been omitted from the description. For the complete closed system, the
+mass carried by the calculation has not disappeared.
+
+Now replace the false law by Newton's law,
 \begin{equation}
-F(x)=m\ddot x.
+ F(x)=m\ddot x.
+ \label{eq:l02-newton-one-d}
 \end{equation}
-If we know the position, then we know the force, and therefore we know the acceleration. But the equation says nothing whatever about the velocity. The obstruction is immediate and decisive. A second-order equation does not propagate from position alone. To get started we must specify both
+Position still determines force and therefore acceleration, but it does not
+determine velocity. Two bodies can pass through the same point with different
+velocities and subsequently follow different motions. We must supply
 \begin{equation}
-x(t_0),
-\qquad
-\dot x(t_0).
+ x(t_0)=x_0,
+ \qquad
+ \dot x(t_0)=v_0.
+ \label{eq:l02-initial-data}
 \end{equation}
-Only then do we know enough to determine the acceleration, and from there the higher derivatives.
+Once these two data are known, Newton's equation supplies \(\ddot x\), and
+successive differentiations supply the rest. The need for position and
+velocity is not an arbitrary convention: it is the signature of a
+second-order law.
 
-This is the first real lesson of the lecture: Newtonian mechanics is second order in time, and so its initial data are positions and velocities. For many particles the statement is the same in larger dimension: every coordinate and every corresponding velocity component must be supplied.
+For many particles, the statement simply expands. We must specify every
+particle coordinate, every corresponding velocity component, and the force
+law, which may depend on the relative positions of all the particles.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Why does Newton's law require both position and velocity,
+whereas the false first-order law requires only position?
+\lecturetimestamp{00:09:14--00:11:57}}
 
-\paragraph{Question.} Why does Newton need both position and velocity while Aristotle's law did not?
+\lecturerresponse{The distinction is the order of the equation. In
+\(F(x)=m\dot x\), the position determines the first derivative directly. In
+\(F(x)=m\ddot x\), it determines only the second derivative. The first
+derivative remains independent and must be included in the initial state.}
+\end{classroomqa}
 
-\paragraph{Answer.} Because the issue is the order of the differential equation. In the first-order law \(F(x)=m\dot x\), knowing the position immediately gives the first derivative. In Newton's law \(F(x)=m\ddot x\), knowing the position gives only the second derivative. The first derivative remains independent, so velocity must be provided as part of the initial data.
+\section{Energy and Conservative Forces}
 
-\section{Conservative Forces and Energy Conservation}
+Energy conservation is more general than the elementary argument we are about
+to give. It remains meaningful in electrodynamics, special and general
+relativity, and quantum mechanics. Here we ask the narrower question: under
+what conditions does ordinary Newtonian particle mechanics conserve
+\(T+U\)?
 
-Having reestablished the initial-data problem, Susskind turns to a quick review of energy conservation. He marks the level of the argument very clearly: the proof is elementary, but the principle is deeper than the proof. Energy conservation survives in electrodynamics, relativity, and quantum mechanics. Here we are only checking that Newton's equations reproduce it in the ordinary conservative case.
+The qualification matters. A friction force appears to destroy mechanical
+energy if the resulting heat and the microscopic degrees of freedom of the
+environment are ignored. An even sharper counterexample is a tangential force
+that continually pushes a constrained particle around a circle. After one
+revolution the particle returns to the same position with a larger speed. Any
+single-valued potential has returned to its original value, while the kinetic
+energy has increased. Such a force cannot be written as the gradient of an
+ordinary potential.
 
-He first reminds us that not every force law conserves the mechanical sum of kinetic and potential energy. If we model friction crudely, the kinetic energy appears simply to disappear. Likewise, if some force kept pushing a particle around a circle in the same direction, the particle would come back to the same position with greater speed, so the kinetic energy would increase while the position, and hence any ordinary potential energy, returned to the same value. Such examples are a warning: the familiar energy law is not automatic.
-
-The forces that occur in nature, at least in the Newtonian particle examples under discussion, are conservative. For a single particle they take the form
+For the class of forces considered here, there is a potential energy
+\(U(\mathbf x)\) such that
 \begin{equation}
-F_i=-\frac{\partial U}{\partial x_i},
-\qquad
-\vec F=-\nabla U.
+ F_i=-\frac{\partial U}{\partial x_i},
+ \qquad
+ \mathbf F=-\boldsymbol\nabla U.
+ \label{eq:l02-conservative-force}
 \end{equation}
-The minus sign is the content: force points in the direction of decreasing potential energy.
+The minus sign says that the force points toward decreasing potential energy.
 
-\begin{figure}[h]
+Define
+\begin{equation}
+ T=\frac12 m\mathbf v^2
+   =\frac12 m\sum_i v_i^2,
+ \qquad
+ E=T+U.
+ \label{eq:l02-energy-definitions}
+\end{equation}
+The board develops the proof in the useful order: write the two energies,
+differentiate them separately, and only then combine them.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.52\textwidth]{lecture_02_figure_02.png}
-\caption{Energy definition and separate time-derivative terms. The top handwritten symbol is best read as \(T\), not \(E\); the transcript and the later cancellation make that normalization clear.}
+\includegraphics[width=0.68\textwidth]{lecture_02_figure_02.png}
+\caption{The energy calculation at 00:22:24. The upper handwritten label is
+read as \(T\): the formula, transcript, and later identity \(E=T+U\) fix that
+interpretation.}
+\lectureframe{00:22:24}
+\label{fig:l02-energy-pieces}
 \end{figure}
 
-Now define the kinetic and total energies:
-\begin{equation}
-T=\frac12 mv^2=\frac12 m\sum_i v_i^2,
-\qquad
-E=T+U.
-\end{equation}
-The board in the lecture is worth preserving because it shows the order of the argument. First one writes down \(T\), then \(E=T+U\), then the separate derivatives of \(T\) and \(U\). Only afterward is the cancellation exposed.
-
-The derivative of the kinetic energy is
+For the kinetic energy,
 \begin{align}
-\frac{dT}{dt}
-&=
-\frac{d}{dt}\left(\frac12 m\sum_i v_i^2\right) \\
-&=
-\sum_i m v_i \frac{dv_i}{dt} \\
-&=
-\sum_i m v_i a_i.
+ \frac{dT}{dt}
+ &=\frac{d}{dt}\left(\frac12m\sum_i v_i^2\right) \\
+ &=\sum_i m v_i\frac{dv_i}{dt}
+ =\sum_i m v_i a_i.
+ \label{eq:l02-tdot}
 \end{align}
-The derivative of the potential energy follows from the chain rule:
+The potential changes because the particle moves through space. The
+multivariable chain rule gives
 \begin{align}
-\frac{dU}{dt}
-&=
-\sum_i \frac{\partial U}{\partial x_i}\frac{dx_i}{dt} \\
-&=
-\sum_i \frac{\partial U}{\partial x_i}v_i.
+ \frac{dU}{dt}
+ &=\sum_i\frac{\partial U}{\partial x_i}
+             \frac{dx_i}{dt} \\
+ &=\sum_i\frac{\partial U}{\partial x_i}v_i.
+ \label{eq:l02-udot}
 \end{align}
+Adding the two derivatives,
+\begin{align}
+ \frac{dE}{dt}
+ &=\sum_i v_i\left(ma_i+\frac{\partial U}{\partial x_i}\right) \\
+ &=\sum_i v_i(F_i-F_i)=0.
+ \label{eq:l02-energy-conservation}
+\end{align}
+The first \(F_i\) is Newton's \(ma_i\); the second comes from
+\(\partial_iU=-F_i\). The cancellation is exact.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_02_figure_03.png}
-\caption{Combined time derivative of the total energy and the force-minus-force cancellation.}
+\includegraphics[width=0.82\textwidth]{lecture_02_figure_03.png}
+\caption{The completed energy derivative at 00:24:01. The right-hand bracket
+is the decisive \(F_i-F_i\) cancellation.}
+\lectureframe{00:24:01}
+\label{fig:l02-energy-cancellation}
 \end{figure}
 
-Now add the two pieces:
-\begin{align}
-\frac{dE}{dt}
-&=
-\frac{dT}{dt}+\frac{dU}{dt} \\
-&=
-\sum_i \left(m a_i+\frac{\partial U}{\partial x_i}\right)v_i.
-\end{align}
-At this point the grouping on the board becomes transparent. We write \(m a_i=F_i\), while the conservative-force law says
+Nothing in the argument restricts \(i\) to the three directions of one
+particle. It may range over all coordinates of all particles. If each
+generalized force is the negative derivative of one common potential and the
+potential has no explicit time dependence, the total energy of the complete
+system is conserved.
+
+\begin{classroomqa}
+\audiencequestion{Why denote potential energy by \(U\) rather than the common
+letter \(V\)?\lecturetimestamp{00:18:13--00:18:36}}
+
+\lecturerresponse{Either notation is possible. Here \(U\) avoids collisions:
+\(V\) is often used for electric voltage and \(v\) already denotes velocity.
+The symbol changes nothing in the physics.}
+\end{classroomqa}
+
+\section{Momentum and a Closed System}
+
+Momentum enters by rewriting the same Newtonian equation. With constant mass,
 \begin{equation}
-\frac{\partial U}{\partial x_i}=-F_i.
+ F_i=m\frac{dv_i}{dt}
+     =\frac{d}{dt}(mv_i).
 \end{equation}
+Define
+\begin{equation}
+ \mathbf p=m\mathbf v.
+\end{equation}
+Then Newton's law becomes
+\begin{equation}
+ \mathbf F=\frac{d\mathbf p}{dt}.
+ \label{eq:l02-force-momentum}
+\end{equation}
+In the absence of force, \(\dot{\mathbf p}=0\), so a free particle carries a
+constant momentum. Intergalactic space is not perfectly empty, but it gives a
+good approximation to this ideal.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\textwidth]{lecture_02_figure_05.png}
+\caption{The component, scalar, and vector forms of Newton's momentum law at
+00:29:00.}
+\lectureframe{00:29:00}
+\label{fig:l02-momentum-law}
+\end{figure}
+
+This discussion uses a specifically Newtonian picture of time. Clocks can be
+synchronized everywhere, all observers agree on one universal time, and time
+flows uniformly. We are also considering force laws with no prescribed
+external time dependence. These assumptions will not survive unchanged in
+relativity, so they should be stated rather than hidden.
+
+Now consider three interacting particles. Let \(\mathbf F_{ab}\) mean the
+force on particle \(a\) due to particle \(b\). Internal forces give
+\begin{align}
+ \dot{\mathbf p}_1&=\mathbf F_{12}+\mathbf F_{13}, \\
+ \dot{\mathbf p}_2&=\mathbf F_{21}+\mathbf F_{23}, \\
+ \dot{\mathbf p}_3&=\mathbf F_{31}+\mathbf F_{32}.
+ \label{eq:l02-three-particle-forces}
+\end{align}
+Newton's action--reaction law states
+\begin{equation}
+ \mathbf F_{ab}=-\mathbf F_{ba}.
+ \label{eq:l02-third-law}
+\end{equation}
+The equal-and-opposite forces lie along the line joining the pair in the
+elementary central-force picture, although only their cancellation is needed
+here.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_02_figure_04.png}
+\caption{The board at 00:32:58, after the three force balances have been
+assembled. The frame is used for their layout; the exact subscripts are
+typeset in Eq.~\eqref{eq:l02-three-particle-forces}.}
+\lectureframe{00:32:58}
+\label{fig:l02-particle-balances}
+\end{figure}
+
+Adding the three equations gives
+\begin{align}
+ \frac{d}{dt}(\mathbf p_1+\mathbf p_2+\mathbf p_3)
+ &=\mathbf F_{12}+\mathbf F_{21}
+  +\mathbf F_{13}+\mathbf F_{31}
+  +\mathbf F_{23}+\mathbf F_{32} \\
+ &=0.
+\end{align}
 Therefore
 \begin{equation}
-\frac{dE}{dt}
-=
-\sum_i (F_i-F_i)v_i
-=
-0.
-\end{equation}
-That is the conservation of energy.
-
-The lecture stresses not just the result but the rhythm of the proof. The two derivatives are built separately; only then are they collected into a bracket; and only then do we read the bracket as force minus force. This is review, but it is review with purpose. Already one feels that the conservation law is telling us something more organized than a mere equation of motion.
-
-The same argument extends immediately to many-particle systems. The index \(i\) can stand not only for spatial directions but also for different particles. As long as the force on each coordinate is minus the derivative of the potential with respect to that coordinate, the total energy of the whole system is conserved.
-
-\section{Force as the Time Derivative of Momentum}
-
-Susskind now says, in effect, let us come to momentum. Again the mood is review, but the review is widening. Newton's law is rewritten in a slightly different form,
-\begin{equation}
-F_i=m\frac{dv_i}{dt}.
-\end{equation}
-Since the mass is constant, we may pull it inside the derivative:
-\begin{equation}
-F=\frac{d}{dt}(mv).
-\end{equation}
-And once we give \(mv\) a name,
-\begin{equation}
-\vec P = m\vec v,
-\end{equation}
-Newton's law becomes
-\begin{equation}
-\vec F=\frac{d\vec P}{dt}.
+ \frac{d\mathbf P}{dt}=0,
+ \qquad
+ \mathbf P=\sum_a\mathbf p_a.
+ \label{eq:l02-total-momentum}
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.52\textwidth]{lecture_02_figure_04.png}
-\caption{Newton's law being rewritten in momentum form. This is a transition frame rather than a finished formula, but it preserves the live progression of the board.}
+\includegraphics[width=0.82\textwidth]{lecture_02_figure_06.png}
+\caption{The completed cancellation board at 00:35:20. Each internal force
+appears once with each orientation, leaving \(\dot{\mathbf P}=0\).}
+\lectureframe{00:35:20}
+\label{fig:l02-momentum-cancellation-board}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.52\textwidth]{lecture_02_figure_05.png}
-\caption{Component and vector forms of force and momentum.}
-\end{figure}
-
-The board hierarchy in the lecture is worth reproducing in clean form:
-\begin{align}
-F_i &= m\frac{dv_i}{dt}, \\
-F &= \frac{d}{dt}(mv), \\
-\vec F &= \frac{d\vec P}{dt}.
-\end{align}
-
-Before going further, the lecture pauses for a sharp question: what assumptions about time are already buried in this Newtonian discussion? The answer is explicit. We are assuming a universal synchronized time, the same at every point in space. We are also assuming, for the moment, that the force law has no explicit time dependence. This is the most naive Newtonian picture, and the lecture wants that simplicity stated out loud before momentum conservation is derived within it.
-
-Now take a closed system of particles. The force on each particle is the sum of forces due to all the others. For three particles,
-\begin{align}
-\vec F_1 &= \vec F_{12}+\vec F_{13}, \\
-\vec F_2 &= \vec F_{21}+\vec F_{23}, \\
-\vec F_3 &= \vec F_{31}+\vec F_{32}.
-\end{align}
-The notation is important: \(\vec F_{12}\) means the force on particle \(1\) due to particle \(2\). Newton's third law then says
-\begin{equation}
-\vec F_{12}=-\vec F_{21},
-\qquad
-\vec F_{13}=-\vec F_{31},
-\qquad
-\vec F_{32}=-\vec F_{23}.
-\end{equation}
-The last of these corrects a small slip in the transcripted cancellation line; the intended pair is clearly \(\vec F_{32}\) and \(\vec F_{23}\).
-
-Since \(\dot{\vec P}_i=\vec F_i\), we have
-\begin{align}
-\frac{d\vec P_1}{dt} &= \vec F_{12}+\vec F_{13}, \\
-\frac{d\vec P_2}{dt} &= \vec F_{21}+\vec F_{23}, \\
-\frac{d\vec P_3}{dt} &= \vec F_{31}+\vec F_{32}.
-\end{align}
-Add them:
-\begin{align}
-\frac{d}{dt}\bigl(\vec P_1+\vec P_2+\vec P_3\bigr)
-&=
-\vec F_{12}+\vec F_{13}
-+\vec F_{21}+\vec F_{23}
-+\vec F_{31}+\vec F_{32} \\
-&=0.
-\end{align}
-Hence
-\begin{equation}
-\frac{d\vec P_{\mathrm{tot}}}{dt}=0.
-\end{equation}
-So the total momentum of a closed system is conserved.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_02_figure_06.png}
-\caption{Pairwise force sketch for momentum conservation. The exact subscripts in the board drawing are not all legible, so the transcript controls the notation while the image preserves the layout and vector logic.}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.1]
-\fill (0,0) circle (2pt) node[below] {$1$};
-\fill (2,1.15) circle (2pt) node[above] {$2$};
-\fill (2,-1.15) circle (2pt) node[below] {$3$};
-
-\draw[->] (0.12,0.08) -- (0.95,0.56);
-\draw[->] (1.88,1.07) -- (1.05,0.59);
-\node at (0.72,0.82) {$\vec F_{12}$};
-\node at (1.35,0.22) {$\vec F_{21}$};
-
-\draw[->] (0.12,-0.08) -- (0.95,-0.56);
-\draw[->] (1.88,-1.07) -- (1.05,-0.59);
-\node at (0.72,-0.82) {$\vec F_{13}$};
-\node at (1.35,-0.22) {$\vec F_{31}$};
-
-\draw[->] (2,0.98) -- (2,-0.30);
-\draw[->] (2,-0.98) -- (2,0.30);
-\node at (2.38,0.36) {$\vec F_{23}$};
-\node at (2.38,-0.36) {$\vec F_{32}$};
+\begin{tikzpicture}[>=Stealth,thick,scale=1.05]
+  \node[circle,fill=black,inner sep=1.8pt,label=left:$1$] (p1) at (-2.5,0) {};
+  \node[circle,fill=black,inner sep=1.8pt,label=above:$2$] (p2) at (1.8,1.65) {};
+  \node[circle,fill=black,inner sep=1.8pt,label=below:$3$] (p3) at (1.8,-1.65) {};
+  \draw[->,blue] ($(p1)!0.08!(p2)$) -- ($(p1)!0.43!(p2)$)
+    node[midway,above] {$\mathbf F_{12}$};
+  \draw[->,blue] ($(p2)!0.08!(p1)$) -- ($(p2)!0.43!(p1)$)
+    node[midway,below] {$\mathbf F_{21}$};
+  \draw[->,red] ($(p1)!0.08!(p3)$) -- ($(p1)!0.43!(p3)$)
+    node[midway,below] {$\mathbf F_{13}$};
+  \draw[->,red] ($(p3)!0.08!(p1)$) -- ($(p3)!0.43!(p1)$)
+    node[midway,above] {$\mathbf F_{31}$};
+  \draw[->,teal] ($(p2)!0.12!(p3)$) -- ($(p2)!0.42!(p3)$)
+    node[midway,right] {$\mathbf F_{23}$};
+  \draw[->,teal] ($(p3)!0.12!(p2)$) -- ($(p3)!0.42!(p2)$)
+    node[midway,left] {$\mathbf F_{32}$};
 \end{tikzpicture}
-\caption{A cleaned pairwise-force diagram clarifying the cancellation of internal forces.}
+\caption{Pairwise internal forces cancel when the momentum equations for a
+closed system are summed.}
+\label{fig:l02-pairwise-redraw}
 \end{figure}
 
-The lecture immediately widens the scope. Momentum conservation is far more general than this little Newtonian example suggests. It applies to light, to quantum mechanics, to relativity. The derivation we have given uses Newtonian assumptions, but the law itself is deeper.
+A closed system is one for which every relevant force source has been included.
+If an external force is present, it does not acquire a partner inside the sum,
+and the result becomes \(\dot{\mathbf P}=\mathbf F_{\mathrm{ext}}\).
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Are action and reaction instantaneous?
+\lecturetimestamp{00:36:15--00:37:12}}
 
-\paragraph{Question.} Are action and reaction instantaneous, and which part of this argument is specifically Newtonian?
+\lecturerresponse{They are instantaneous in Newtonian mechanics, where the
+speed at which influences propagate is effectively infinite. Real influences
+do not propagate instantaneously; special relativity forbids that. Yet
+momentum conservation survives. The Newtonian derivation is therefore less
+general than the conservation law it reveals.}
+\end{classroomqa}
 
-\paragraph{Answer.} In Newtonian mechanics, yes: forces are taken to act instantaneously, because time is assumed universal and signal propagation effectively infinite. That is the specifically Newtonian ingredient in the derivation. But the conservation of momentum itself survives when relativity removes instantaneous action at a distance. So the argument is Newtonian; the law is more general.
+Momentum conservation applies to radiation pressure, quantum systems, and
+relativistic physics, even though the simple pair-force proof cannot be carried
+unchanged into every one of those settings. There are three momentum laws, one
+for each spatial component, and one energy law. In special relativity these
+four quantities belong together as energy--momentum. This is a first hint that
+the conserved quantities have a deeper origin than the present calculations.
 
-\section{A Mathematical Warm-Up: Stationary Points}
+\begin{classroomqa}
+\audiencequestion{Why does momentum seem to provide more conservation laws
+than energy?\lecturetimestamp{00:37:37--00:38:24}}
 
-Only now does the lecture deliberately slow down and say: before we go on to the deep law of classical physics, we need a little mathematics. Not heavy mathematics, but just enough to put everyone back on the same playing field.
+\lecturerresponse{Momentum has one conserved component for each independent
+direction of space, whereas energy is one scalar associated with evolution in
+time. In three spatial dimensions that gives three momentum components and one
+energy. Relativity later unifies the four rather than treating them as an
+accidental list.}
+\end{classroomqa}
 
-Take an ordinary function \(f(y)\) of one variable. If we look for a local minimum, the first condition is that the slope vanish:
+\section{Stationarity in Ordinary Calculus}
+
+We now prepare for what is really the central law of the course: the principle
+of least action. The required mathematics begins with an ordinary function of
+one variable, \(f(y)\). At a smooth local minimum,
 \begin{equation}
-\frac{df}{dy}=0.
+ \frac{df}{dy}=0.
+ \label{eq:l02-one-variable-stationary}
 \end{equation}
-This condition is not sufficient to distinguish minima from maxima, and it also includes inflection points where the graph is momentarily flat. So the mathematically safer word is not minimum but stationary point. The function does not change to first order under a small change of the variable.
+The derivative also vanishes at a smooth maximum. It can even vanish at a flat
+inflection point, such as the origin of \(f(y)=y^3\). The first-derivative
+condition therefore identifies a \emph{stationary point}; the second derivative
+and higher information distinguish the possibilities.
 
-Susskind makes that point explicitly because the principle of least action is really the principle of stationary action. He says he will mostly keep the simpler phrase ``least action,'' but only after flagging the distinction.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_02_figure_07.png}
+\caption{Minimum, maximum, and flat inflection behavior on the board at
+00:43:20. All are stationary to first order.}
+\lectureframe{00:43:20}
+\label{fig:l02-stationary-board}
+\end{figure}
 
-For several variables the first-order condition simply splits into one equation per direction:
+For a function of many variables, stationarity must hold along every coordinate
+direction:
 \begin{equation}
-\frac{\partial f}{\partial x_i}=0
-\qquad \text{for every } i.
+ \frac{\partial f}{\partial x_i}=0
+ \qquad\text{for every }i.
+ \label{eq:l02-many-stationary}
 \end{equation}
-If the function is stationary, it must be stationary no matter which direction one moves away from the point.
+Geometrically, at the bottom of a bowl there is no downhill first-order
+direction. The same equations also find maxima and saddles, so ``stationary''
+remains the accurate word.
 
-The lecture then works a concrete two-variable example,
+As an example, take
 \begin{equation}
-f(x,y)=x^2+y^2+3x+2y+xy+7.
+ f(x,y)=x^2+y^2+xy+3x+2y+7.
+ \label{eq:l02-quadratic-example}
 \end{equation}
-The stationary-point equations are
+The stationarity equations are
 \begin{align}
-\frac{\partial f}{\partial x} &= 2x+y+3=0, \\
-\frac{\partial f}{\partial y} &= x+2y+2=0.
+ \frac{\partial f}{\partial x}&=2x+y+3=0, \\
+ \frac{\partial f}{\partial y}&=x+2y+2=0.
+ \label{eq:l02-quadratic-stationarity}
 \end{align}
-The constant \(7\) disappears, as it should: an overall vertical shift changes the height of the function but not the location of the stationary point. Solving the equations carefully gives
+Solving the linear system gives
 \begin{equation}
-x=-\frac43,
-\qquad
-y=-\frac13.
+ x=-\frac43,
+ \qquad
+ y=-\frac13.
+ \label{eq:l02-correct-stationary-point}
 \end{equation}
-The lecture's spoken numbers are somewhat casual, but the equations themselves are stable, and the method is the point.
+The constant \(7\) never enters the equations because a vertical shift changes
+the value of \(f\), not the location of its stationary point.
 
-The transition is now ready. We know how to locate stationary points of ordinary functions. The next step is to study quantities that depend not on finitely many variables but on whole functions, whole curves, whole trajectories.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_02_figure_08.png}
+\caption{The two-variable example at 00:51:10. The displayed derivative
+equations are correct; the board's \(x=-8/3\) is an arithmetic slip. Solving
+those equations gives Eq.~\eqref{eq:l02-correct-stationary-point}.}
+\lectureframe{00:51:10}
+\label{fig:l02-quadratic-board}
+\end{figure}
 
-\subsection{Question \& Answer}
+For \(n\) variables there are \(n\) first-order equations. They may have no
+solution, one solution, or several solutions. A monotone function need not
+have a stationary point, while a landscape with several valleys can have many.
 
-\paragraph{Question.} Is the principle really least action, or stationary action?
+\begin{classroomqa}
+\audiencequestion{Is the physical principle really one of least action, or of
+stationary action?\lecturetimestamp{00:42:05--00:46:39}}
 
-\paragraph{Answer.} Strictly speaking, stationary action. What must vanish is the first-order change in the quantity under a small deformation of the path. That condition includes minima, but it can also include maxima or other stationary cases. In the ordinary mechanical examples at hand, one often does have a minimum, and the lecture is content to speak that way, but the more accurate phrase is stationary action.
+\lecturerresponse{Stationary action is the precise statement. The first-order
+change of the action vanishes; that does not by itself prove a minimum. In many
+elementary mechanical problems the physical path is locally minimizing, so
+``least action'' is useful language, but the distinction should not be
+forgotten. Velocity-dependent interactions are one reason not to build the
+theory around a naive minimum test.}
+\end{classroomqa}
 
-\section{Local Motion, Whole Paths, and Functionals}
+\section{Generalized Trajectories}
 
-At this point the lecture does something subtle. Before giving geometric examples, it restates the basic problem of mechanics itself. A mechanical system is described by generalized coordinates
+The basic mathematical problem of mechanics is to determine the trajectory of
+a system from suitable data. For \(10^{23}\) particles, no one attempts to
+write every trajectory in practice; statistical or approximate descriptions
+are used instead. Nevertheless, the exact classical question remains well
+defined.
+
+Describe a system by generalized coordinates
 \begin{equation}
-q_1,\ q_2,\ \dots,\ q_n,
+ q_1,q_2,\ldots,q_N.
 \end{equation}
-which may be Cartesian coordinates, angles, orientations, latitude and longitude, or any other variables that locate the system in configuration space. The full motion is then the collection of functions
+They may be Cartesian positions, angles, orientations, latitude and longitude,
+or any other independent variables that locate the system in configuration
+space. A single particle in three-dimensional space has three such
+coordinates; two particles have six; \(n\) unconstrained particles have
+\(3n\).
+
+The motion is the whole collection
 \begin{equation}
-q_1(t),\ q_2(t),\ \dots,\ q_n(t).
+ \mathbf q(t)=\bigl(q_1(t),q_2(t),\ldots,q_N(t)\bigr).
+ \label{eq:l02-generalized-trajectory}
 \end{equation}
-That collection is the generalized trajectory.
+This curve through configuration space is a generalized trajectory. To begin a
+Newtonian prediction, we specify both \(\mathbf q(t_0)\) and
+\(\dot{\mathbf q}(t_0)\). Newton's equations then act locally: knowing where the
+system is and how it is moving tells us its acceleration, and hence how to
+advance to the neighboring point of the path.
 
-In the Newtonian formulation, to predict the future we must know the generalized coordinates and their time derivatives at one instant:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_02_figure_09.png}
+\caption{The generalized trajectory at 01:00:20. The horizontal plane stands
+for the many-dimensional configuration coordinates; the vertical direction
+represents time.}
+\lectureframe{01:00:20}
+\label{fig:l02-generalized-trajectory-board}
+\end{figure}
+
+There is another way to pose the problem. Instead of giving position and
+velocity at one time, hold the configurations fixed at two times,
 \begin{equation}
-q_i(t_0),
-\qquad
-\dot q_i(t_0).
+ \mathbf q(t_0)=\mathbf q_0,
+ \qquad
+ \mathbf q(t_1)=\mathbf q_1,
+ \label{eq:l02-fixed-endpoints}
 \end{equation}
-Newton's equations are local equations along the trajectory. If we know where we are and how we are moving, the equations tell us the acceleration, and so they tell us how to proceed from one point of the trajectory to the next. One does not need knowledge of the whole curve in advance.
+and ask which trajectory connects them. In the elementary well-posed cases
+being considered, this supplies the same amount of boundary data as position
+and velocity at one time. More complicated systems or long time intervals can
+admit several classical paths, but each stationary path still satisfies the
+same equations of motion.
 
-The principle of least action will formulate the same mechanics differently. Instead of the position and velocity at one time, we specify the positions at two times, the beginning and the end of the interval. That is a different but equally sufficient way to pose the problem. Susskind emphasizes this with the simple thought experiment of an object whose initial position is known and whose final position after one second is also known. The true trajectory is the one that connects those two endpoints in the allotted time.
+The contrast is conceptual. Newton's differential equation gives a local rule
+along the curve. A variational principle assigns one number to the whole curve
+and asks which admissible curve makes that number stationary.
 
-Now the geometric examples can do their work. Consider first the shortest curve between two fixed points. Let \(y(x)\) describe the curve. For a small segment,
+\section{From Functions to Functionals}
+
+Take two fixed points in the \(xy\)-plane and describe a connecting curve by
+\(y(x)\). The shortest connection is plainly a straight line, but we want the
+mathematical question that produces that answer.
+
+For a small segment,
 \begin{equation}
-ds^2=dx^2+dy^2,
+ ds^2=dx^2+dy^2,
 \end{equation}
-so
+and therefore
 \begin{equation}
-ds=dx\sqrt{1+\left(\frac{dy}{dx}\right)^2}.
+ ds=dx\sqrt{1+\left(\frac{dy}{dx}\right)^2}.
+ \label{eq:l02-line-element}
 \end{equation}
-Integrating from \(x_1\) to \(x_2\), the total length is
+Adding all the little segments gives the length
 \begin{equation}
-s_{12}[y]
-=
-\int_{x_1}^{x_2}
-\sqrt{1+\left(\frac{dy}{dx}\right)^2}\,dx.
+ \mathcal S[y]
+ =\int_{x_1}^{x_2}
+   \sqrt{1+\left(y'(x)\right)^2}\,dx.
+ \label{eq:l02-arc-length-functional}
 \end{equation}
-This is not a function of a few variables. It is a rule that takes an entire function \(y(x)\) and returns a number. That is what the lecture now names: a functional.
 
-The lecture insists on both a global and a local viewpoint. Globally, we minimize the total length of the whole curve. Locally, if we focus on a tiny segment between two nearby pinned points, the rule is simply: go straight ahead. The local differential-equation point of view and the global minimization point of view are different ways of expressing the same geometry.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_02_figure_10.png}
+\caption{The curve, its \(dx\)-\(dy\) triangle, and the arc-length integral at
+01:12:00.}
+\lectureframe{01:12:00}
+\label{fig:l02-arc-length-board}
+\end{figure}
 
-There is also an instructive false shortcut. One might think that since the integrand contains \(1+(dy/dx)^2\), the shortest path should come from setting \(dy/dx=0\). But that would only produce a horizontal line, and a horizontal line will not generally pass through the fixed endpoints. The endpoint condition is part of the problem; one cannot minimize the integrand pointwise while ignoring the global constraint.
+The input to \(\mathcal S\) is not one number or a finite list of numbers. It is
+the entire function \(y(x)\), and the output is a number. Such an object is a
+\emph{functional}.
 
-The optical example is even closer to what is coming in mechanics. Suppose the speed of light depends on height, \(c=c(y)\), as in a layered medium. Then
+There are complementary global and local views. Globally, compare every curve
+between the endpoints and select a shortest one. Locally, break the curve into
+tiny pieces and focus on a point between two nearby pinned neighbors. Moving
+that point until the two small segments line up says simply: continue straight
+ahead. Applying the same local condition everywhere gives the straight line.
+The global extremization and the local differential equation encode the same
+geometry.
+
+One tempting shortcut fails. Since the integrand in
+Eq.~\eqref{eq:l02-arc-length-functional} is smallest when \(y'=0\), why not set
+\(y'=0\) at every point? Because a horizontal line will not generally meet the
+fixed endpoints. The admissible curves are constrained globally. Minimizing an
+integrand point by point while ignoring its boundary conditions solves a
+different problem.
+
+\subsection{Fermat's Principle}
+
+Optics supplies a more revealing functional. Suppose a layered isotropic
+medium has a light speed \(c(y)\) that varies with height but not with direction
+at a fixed point. Fermat's principle says that the physical ray makes the
+travel time stationary. Locally,
 \begin{equation}
-c(y)=\frac{ds}{dt},
-\qquad
-dt=\frac{ds}{c(y)}.
+ c(y)=\frac{ds}{dt},
+ \qquad
+ dt=\frac{ds}{c(y)}.
 \end{equation}
-Substituting the expression for \(ds\),
+Using Eq.~\eqref{eq:l02-line-element},
 \begin{equation}
-dt
-=
-\frac{\sqrt{1+\left(\frac{dy}{dx}\right)^2}}{c(y)}\,dx.
+ dt=\frac{\sqrt{1+(y')^2}}{c(y)}\,dx,
 \end{equation}
-Hence the total travel time is
+so the total time is the functional
 \begin{equation}
-t_{12}[y]
-=
-\int_{x_1}^{x_2}
-\frac{\sqrt{1+\left(\frac{dy}{dx}\right)^2}}{c(y)}\,dx.
+ \mathcal T[y]
+ =\int_{x_1}^{x_2}
+ \frac{\sqrt{1+\left(y'(x)\right)^2}}{c(y)}\,dx.
+ \label{eq:l02-fermat-functional}
 \end{equation}
-The true light ray is the curve \(y(x)\) that makes this time stationary.
 
-The lecture adds one more example in passing: a hanging chain of fixed length chooses the curve that minimizes its potential energy. The exact catenary formula is not derived here, but the point is the same. Physics repeatedly asks us to minimize quantities that depend on whole curves, not just on finitely many coordinates. That is the calculus of variations.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_02_figure_11.png}
+\caption{The layered-medium ray and completed least-time functional at
+01:23:10. The ray bends toward the faster region while still advancing toward
+its endpoint.}
+\lectureframe{01:23:10}
+\label{fig:l02-fermat-board}
+\end{figure}
 
-\section{The Action}
+If \(c\) is constant, minimizing time is the same as minimizing distance, and
+the ray is straight. If light is faster higher in the medium, the best path can
+curve upward to spend more of its journey in the faster region. It cannot gain
+indefinitely by going straight up and then straight across: the vertical detour
+costs time without advancing toward the destination. The physical path is a
+compromise selected by the whole integral.
 
-Only after this entire runway does Susskind finally say: now let me tell you what the action is. He presents it as something surprising and, even after decades, still surprising. The pedagogical rhythm matters. We are first invited to guess the wrong answer.
+\subsection{The Hanging Chain}
 
-Take one particle moving in one dimension, with trajectory \(x(t)\). Since the action is to be built from kinetic and potential energy and integrated over time, the naive guess would be
+A chain of fixed length suspended from two points supplies another variational
+problem. Gravity drives each small mass element downward, while the fixed
+length prevents every element from falling independently. The equilibrium
+curve minimizes the total gravitational potential energy subject to the length
+constraint.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_02_figure_12.png}
+\caption{The hanging-chain sketch at 01:25:20. The fixed endpoints and fixed
+length constrain the chain while gravity lowers its center of mass.}
+\lectureframe{01:25:20}
+\label{fig:l02-catenary-board}
+\end{figure}
+
+The resulting curve is a catenary, which may be written
 \begin{equation}
-\int_{t_0}^{t_1} (T+U)\,dt.
+ y(x)=a\cosh\!\left(\frac{x-x_0}{a}\right)+y_0
 \end{equation}
-That is the expected guess. But it is wrong.
+after the constants are chosen to fit the endpoints and length. Its derivation
+is not needed yet; its role is to show that minimizing a functional is a common
+physical task, not an artificial game invented for mechanics.
 
-The correct quantity is
+\begin{classroomqa}
+\audiencequestion{From what height is the chain's potential energy measured?
+\lecturetimestamp{01:25:50--01:26:16}}
+
+\lecturerresponse{Any fixed reference height will do. Shifting the zero adds
+the same constant to the energy of every allowed configuration, so it cannot
+change which configuration minimizes the energy.}
+\end{classroomqa}
+
+These examples define the calculus of variations: find a function that makes a
+functional stationary. Mechanics will ask the same question for all the
+functions \(q_i(t)\) that make up a trajectory.
+
+\section{The Action and the Lagrangian}
+
+We can now state the global formulation of mechanics. For every mechanical
+system there is a quantity called the action. Hold the endpoint configurations
+fixed and compare neighboring trajectories between them. The physical
+trajectory makes the action stationary.
+
+\begin{classroomqa}
+\audiencequestion{Is this really equivalent to Newton's formulation, or merely
+an approximation to it?\lecturetimestamp{01:28:21--01:30:13}}
+
+\lecturerresponse{For systems governed by Newtonian mechanics, it is an
+equivalent formulation: varying the correct action yields Newton's equations.
+Which language is more efficient depends on the problem. The action principle
+also extends naturally to relativistic particles, fields, waves, and
+electromagnetism, where a literal catalogue of pairwise Newtonian forces is no
+longer the right description.}
+\end{classroomqa}
+
+The practical advantage can be dramatic. Imagine describing a rigid eraser by
+writing force equations for every microscopic constituent. The local equations
+exist in principle, but they hide the small set of collective variables we
+actually care about: translation and rotation. A suitable action written in
+those variables reaches the same physics far more directly. Likewise, in a
+frictionless block-on-wedge problem, conservation laws or a Lagrangian can
+avoid pages of constraint forces. A more general principle is often not only
+deeper but faster.
+
+For one particle moving in one dimension, the unknown path is \(x(t)\). Since
+kinetic and potential energy have dominated the discussion, a natural first
+guess is
 \begin{equation}
-A[x]
-=
-\int_{t_0}^{t_1}(T-U)\,dt
-=
-\int_{t_0}^{t_1}
-\left(
-\frac12 m\dot x^{\,2}-U(x)
-\right)\,dt.
+ \int_{t_0}^{t_1}(T+U)\,dt.
 \end{equation}
-This is the action. The integrand is called the Lagrangian:
+That is the total energy integrated over time, and it is the wrong guess. The
+correct action is
+\begin{align}
+ A[x]
+ &=\int_{t_0}^{t_1}(T-U)\,dt \\
+ &=\int_{t_0}^{t_1}
+   \left[\frac12m\dot x^{\,2}-U(x)\right]dt.
+ \label{eq:l02-action-one-particle}
+\end{align}
+The difference
 \begin{equation}
-L=T-U.
+ L(x,\dot x)=T-U
+ \label{eq:l02-lagrangian-one-particle}
 \end{equation}
+is the Lagrangian, and the action is its integral over time.
 
-At this point the lecture compares the action directly with the earlier functionals. In the least-distance problem the integrand depended on \(y(x)\) and on \(dy/dx\). In the least-time problem it depended on \(y(x)\), on \(dy/dx\), and on the local light speed \(c(y)\). Here, too, the integrand depends on the function and its first derivative: the position \(x(t)\) enters through the potential energy \(U(x)\), and the derivative \(\dot x\) enters through the kinetic energy.
+The minus sign is not a decorative convention. If \(U\) is defined by
+\(F=-dU/dx\), varying \(T-U\) produces the correct sign in Newton's equation.
+One could rename \(-U\) as a new quantity and write a plus sign, but that new
+quantity would then be the negative of potential energy. Renaming the symbol
+does not change the relation.
 
-This generalizes immediately. For a mechanical system with generalized coordinates \(q_i(t)\),
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{lecture_02_figure_13.png}
+\caption{The action and its general Lagrangian form at 01:43:20. The
+independent variable is now time, and the path is the collection of functions
+\(q_i(t)\).}
+\lectureframe{01:43:20}
+\label{fig:l02-action-board}
+\end{figure}
+
+For generalized coordinates, write
 \begin{equation}
-L(q,\dot q)=T-U,
-\qquad
-A[q]=\int_{t_0}^{t_1}L(q,\dot q)\,dt.
+ L=L(\mathbf q,\dot{\mathbf q}),
+ \qquad
+ A[\mathbf q]
+ =\int_{t_0}^{t_1}L(\mathbf q,\dot{\mathbf q})\,dt.
+ \label{eq:l02-general-action}
 \end{equation}
-In Newtonian particle mechanics the Lagrangian is the difference between kinetic and potential energy. In more general systems the Lagrangian may be a different function of \(q\) and \(\dot q\), but the action principle survives. That is why Susskind calls it the deepest law of classical physics.
+The analogy with the earlier examples is exact at the structural level. The
+arc-length integrand depends on \(y\) and \(y'\); the optical integrand depends
+on \(y\), \(y'\), and \(c(y)\); the mechanical integrand depends on
+\(\mathbf q\) and \(\dot{\mathbf q}\). In every case an integral assigns a
+number to a whole path with fixed endpoints.
 
-The lecture also pauses over notation. Since \(s\) has already been used for path length, it is awkward to use \(s\) for action. The letter does not matter much, but the caution is sensible: the action is not to be confused with the distance functional we have just finished discussing.
+For ordinary Newtonian particles, \(L=T-U\). More general classical systems
+can have less familiar Lagrangians, especially when velocity-dependent
+interactions or fields are present. What survives is the architecture:
+construct the action, vary the path while holding its endpoints fixed, and set
+the first-order change to zero.
 
-The chapter should end where the lecture ends: at the threshold. The action has been revealed, but not yet varied. We have not derived the equations of motion from it. That task is deferred to the next lecture, where the analogy with optics will be completed and the least-action principle will be turned back into differential equations.
+\begin{classroomqa}
+\audiencequestion{Why kinetic energy minus potential energy, rather than the
+total energy?\lecturetimestamp{01:33:30--01:36:38}}
 
-\subsection{Question \& Answer}
+\lecturerresponse{At this stage the honest test is operational. Use the
+calculus of variations and see which choice reproduces Newton's equations.
+\(T-U\) does; \(T+U\) gives the wrong force sign. The derivation, rather than an
+analogy with conserved energy, will explain why this is the right combination.}
+\end{classroomqa}
 
-\paragraph{Question.} Why is the action built from kinetic minus potential energy rather than from the total energy?
-
-\paragraph{Answer.} At the level of this lecture, the honest answer is that \(T-U\) is the combination that reproduces Newton's equations when the variational problem is worked out. Susskind explicitly postpones a deeper motivation and prefers first to examine the consequences. The minus sign is not ornamental. Once the potential is defined by \(F=-dU/dx\), the sign in the action determines the sign in the resulting equation of motion. The naive integral of \(T+U\) does not yield the Newtonian law in the form we want; the integral of \(T-U\) does.
-
-\section{Summary}
-
-The lecture begins with a question about initial conditions and ends with the action, but the argument unfolds in a very deliberate sequence. A false first-order law shows what it would mean for position alone to determine the whole motion. Newton's second-order law then shows why velocity must be supplied independently. Energy conservation is reviewed by building its ingredients separately and letting them cancel only at the end. Momentum conservation is derived from pairwise action and reaction, then immediately recognized as deeper than the Newtonian assumptions used in the derivation.
-
-Only after that review does the lecture broaden its scope. We pass from stationary points of ordinary functions to functionals of whole curves, from local differential rules to global variational problems, and from fixed initial data to fixed endpoints. The payoff is the final formula
-\begin{equation}
-A[q]=\int_{t_0}^{t_1}L(q,\dot q)\,dt,
-\qquad
-L=T-U
-\end{equation}
-for Newtonian particle mechanics. The next step, and the next lecture's task, is to show how this global principle reproduces the local equations of motion.
+That derivation is the next task. Given a Lagrangian, we must learn how to turn
+stationary action into local equations of motion, and how to move back and
+forth between those equations and Newton's law. The same technique will solve
+the optical least-time problem. Mechanics and geometrical optics have arrived
+at the same mathematical threshold from different directions.
