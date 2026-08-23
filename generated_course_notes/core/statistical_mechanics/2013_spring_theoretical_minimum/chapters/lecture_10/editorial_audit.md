@@ -16,8 +16,8 @@ The chapter uses one field-sign convention throughout, restores the factor \(2d\
 
 ## Build Verification
 
-- PDF pages: 24, US Letter.
-- Searchable text: 53,132 characters.
+- PDF pages: 25, US Letter.
+- Searchable text: 53,178 characters.
 - Embedded raster lecture images: 10.
 - LaTeX errors, warnings, overfull boxes, and underfull boxes: 0.
 - qpdf syntax and stream check: pass.
@@ -27,5 +27,5 @@ The chapter uses one field-sign convention throughout, restores the factor \(2d\
 
 ## Reproducibility
 
-- content.tex SHA-256: 65f1af9424ef11bf0ec9ce146687b7ed753e08e6d2cf015dd6c1b75b2ffcaec3
-- lecture.pdf SHA-256: 5664de2b29e25a00bfcbf89277904cd035b82fe03cfe073d888fbd171eac95e0
+- content.tex SHA-256: 6ddff13d3e3a6411fc83d9a7749ab16d35c202e8ebe66779729ca68142080c03
+- lecture.pdf SHA-256: 770c5a674f2a7b0e5f3e255b4a4093d404a2a9ad4ba511b2daffc40b5ccb82b4
