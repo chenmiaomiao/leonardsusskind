@@ -1,428 +1,965 @@
-\chapter{Statistical Mechanics Lecture 1: Probability, Information, and Entropy}
+\chapter{Probability, Information, and Entropy}
 
-These notes follow Leonard Susskind's first lecture on statistical mechanics in the order in which the lecture unfolds. The lecture begins as a manifesto, not as a list of definitions: first the subject is justified, then probability is put on firm ground, then deterministic laws are used to generate probabilities, and only after that do entropy and energy take center stage. The retained lecture frames are kept here as documentary evidence from the original board work; in this edition they are paired with cleaned reconstructions where the board geometry matters, with support from LazyingArt LLC and Video2Book.
+\lectureoverview{Statistical mechanics begins where microscopic law meets
+incomplete knowledge. We first make probability precise, then ask how
+deterministic motion itself assigns probabilities, how conservation laws
+divide state space, and why information-preserving dynamics leads naturally
+to entropy. The first and zeroth laws enter only after this structure is in
+place.}
 
 \section{Why Statistical Mechanics?}
 
-Susskind begins by refusing to treat statistical mechanics as a secondary subject. It is not merely a bit of nineteenth-century technology bolted onto modern physics. In his telling it is pre-modern, modern, and post-modern all at once. The second law of thermodynamics is announced at once as the guiding light of the whole subject: not yet as something to derive, but as something against which our later reasoning will be tested.
+Statistical mechanics is sometimes described as old physics. That description
+misses the point. It is pre-modern, modern, and likely to remain useful in any
+post-modern physics that succeeds the theories we know. Particular models
+come and go; the second law of thermodynamics has repeatedly survived as a
+guidepost. Whenever a proposed description of nature appears to manufacture
+order for free, erase information fundamentally, or run a closed system down
+to an unnaturally simple state, the second law warns us that something has
+been left out.
 
-He then asks what statistical mechanics is, but before answering he steps back to the larger question of prediction. The basic laws of physics are laws of evolution. In classical mechanics, and in the predictable aspects of quantum mechanics as well, if we know the initial condition of a closed system and if we know the laws of motion, then in principle prediction is complete. That is the ideal of exact microscopic description.
+The subject may seem less glamorous than a newly discovered particle, but it
+is at least as deep and far more general. Gases, liquids, solids, radiation,
+black holes, information, and quantum fields all require statistical
+reasoning. Indeed, the experimental machinery used to discover particles
+could not be understood without it. This is why generations of strong
+physicists mastered statistical mechanics even when their principal work lay
+elsewhere: the subject is useful, but it is also unusually beautiful.
 
-The difficulty is that exact microscopic prediction can become practically useless long before it ceases to be exact. A complete list of the positions and velocities of every molecule in a room would be too long to grasp and too unstable to handle. So there is an immediate gap between exact law and useful knowledge. Statistical mechanics enters precisely in that gap. It is what we use when exact initial data are unavailable, when the system is not really closed, or when the detail is so overwhelming that a coarser description is the only sensible one.
+To see why it is needed, begin with the ideal supplied by mechanics. A closed
+system is either the whole universe under consideration or a subsystem
+isolated well enough that its surroundings do not influence it. If we know
+its initial condition and its law of evolution, then classical mechanics
+offers complete prediction. Quantum mechanics modifies what can be predicted,
+but it too has a precisely defined state and a law that predicts the maximal
+information the theory permits.
 
-This is why Susskind immediately turns to the example of a gas in a box. There are things we can predict very well, such as pressure and average energy, and there are things we cannot predict in their exact occurrence, such as the precise time at which a large fluctuation will appear. We can predict the probability of the fluctuation, but not the moment at which it occurs. The coin toss is the same story in miniature: we may be quite sure that roughly half of a billion tosses will be heads, and yet we cannot say when a long streak of heads will begin.
+There is a severe difference between prediction in principle and useful
+understanding. A list of the position and velocity of every molecule in this
+room would be fantastically long, would change almost immediately, and would
+answer few of the questions we actually care about. Exact microscopic laws
+can therefore be perfectly predictive and practically useless at the same
+time.
 
-The lecture also pauses over a more cultural point. The great physicists were masters of statistical mechanics, not only because it was useful, but because it is beautiful. That matters here. The subject is not being introduced as emergency bookkeeping for ignorance; it is being introduced as a mathematically serious way of thinking about physical systems when ignorance itself has structure.
+Statistical mechanics is probability theory applied to this physical
+situation. It becomes necessary when the initial condition is not known with
+perfect accuracy, when the law is known only approximately, when the system
+is open, or simply when the number of microscopic variables is too large to
+track. None of this implies weak prediction. Large numbers often make
+statistical predictions extraordinarily sharp.
 
-\section{Probability As The Starting Language}
+Consider an isolated box of gas. We cannot predict the trajectory of every
+molecule, yet a few macroscopic data allow us to predict pressure, energy,
+and many other bulk quantities with high precision. What remains uncertain
+are the fluctuations. At an unpredictable moment, a small region may contain
+more molecules than average while another contains fewer. Such an event lies
+in the tail of a probability distribution: unlikely, but not forbidden. We
+can calculate how often such fluctuations should occur without predicting
+the instant of a particular occurrence.
 
-Only after this opening does Susskind begin what he calls a mathematical interlude. In this lecture it is really the starting point. We imagine a space of possibilities, and we label its elements by a discrete index \(i\). The \(i\)-th possibility may be an outcome of an experiment, or it may be the exact microscopic state of a system. The point is that at a given time the system is in one precise state, but we do not know which one.
+Coin tossing displays the same distinction. In a billion fair tosses, the
+numbers of heads and tails will be close to equal. A long run of heads will
+eventually occur if we toss often enough, but probability theory predicts its
+frequency rather than its appointment in advance. Statistical mechanics is
+designed for systems whose elements are too small, too numerous, or both.
 
-To each state we assign a probability \(p(i)\). The first rules are the obvious ones,
+The course will develop the laws as well as their applications to matter.
+The subject rewards repeated study: one learns it, forgets parts of it, and
+learns it again with a deeper sense of which ideas are fundamental. We begin
+with the idea that controls everything that follows.
+
+\section{Probability as a Primitive Language}
+
+Why probability works is not something the calculus of probability itself
+explains. A probabilistic prediction can fail on a particular trial; that is
+what it means for an outcome to be possible but unlikely. The theory tells us
+how the exceptions are distributed. It does not abolish them. We therefore
+take probability as a primitive concept and state the rules it obeys.
+
+\subsection{States and normalization}
+
+Let \(i\) label a possible outcome or a possible state of a system. For one
+coin, \(i\) may mean heads or tails. For one die, it may run from \(1\) to
+\(6\). For two dice, a pair of indices records both faces. We begin with a
+finite discrete state space,
+\begin{equation}
+ i=1,\ldots,N,
+\end{equation}
+and later pass to infinitely many and continuously many states.
+
+Ignorance does not mean that the system has no state. It means that we do not
+know which state it has, so we assign a probability \(p_i\) to each
+possibility. The basic rules are
 \begin{align}
-p(i) &\ge 0, \\
-\sum_i p(i) &= 1.
+ p_i &\geq 0, \label{eq:sm1-prob-positive}\\
+ \sum_{i=1}^{N}p_i &=1. \label{eq:sm1-prob-normalization}
 \end{align}
-These states are taken to be mutually exclusive. If one state occurs, the others do not. That assumption is simple, but the lecture later returns to it explicitly in the question period, so it is worth stating clearly at the start.
+The alternatives are mutually exclusive and exhaustive: exactly one of them
+occurs. Negative probabilities have no role here, and the sum is one because
+some allowed outcome must occur.
 
-Susskind then ties probability to repeated trials. If \(N(i)\) is the number of times the \(i\)-th outcome occurs among \(N_{\text{trials}}\) repetitions, then the law-of-large-numbers interpretation is
+\subsection{Frequency and the law of large numbers}
+
+Probability is connected to experiment by repeated trials. Suppose the same
+experiment is performed \(N_{\mathrm{trials}}\) times, and let \(N(i)\) be
+the number of trials that produce outcome \(i\). Then the frequency
+interpretation is
 \begin{equation}
-p(i)=\lim_{N_{\text{trials}}\to\infty}\frac{N(i)}{N_{\text{trials}}}.
+ p_i=
+ \lim_{N_{\mathrm{trials}}\to\infty}
+ \frac{N(i)}{N_{\mathrm{trials}}}.
+ \label{eq:sm1-frequency}
 \end{equation}
-He is careful here: this is a physical hypothesis, not a logical necessity. We never perform infinitely many trials. We idealize. But in large systems and repeated experiments the idealization is good enough that it becomes one of the central working assumptions of physics.
+This is a physical hypothesis expressed through an ideal limit. No laboratory
+performs infinitely many experiments. The claim is that sufficiently many
+trials make the ratio settle close enough to \(p_i\) for the intended
+prediction. Finite samples fluctuate around the limiting value.
 
-Now attach to each state a quantity \(f(i)\). It may be an energy, a momentum, or simply a number we invent in order to discuss an average. Susskind uses bracket notation for the average,
+\subsection{Averages}
+
+Now assign a number \(f(i)\) to each state. It may be energy, momentum, or any
+other quantity we wish to measure. Its expectation value is
 \begin{equation}
-\langle f\rangle=\sum_i f(i)\,p(i).
+ \langle f\rangle=\sum_i f(i)p_i.
+ \label{eq:sm1-expectation}
 \end{equation}
-In frequency language the same quantity can be written as
+Bracket notation is convenient even outside quantum mechanics. In frequency
+language the same average is
 \begin{equation}
-\langle f\rangle
-=
-\lim_{N_{\text{trials}}\to\infty}
-\frac{1}{N_{\text{trials}}}
-\sum_i f(i)\,N(i).
+ \langle f\rangle
+ =
+ \lim_{N_{\mathrm{trials}}\to\infty}
+ \frac{1}{N_{\mathrm{trials}}}
+ \sum_i f(i)N(i).
+ \label{eq:sm1-frequency-average}
 \end{equation}
-If we momentarily use the board's letter \(F\) instead of the spoken \(f\), this is the same structure that remains visible on the left side of the later lecture frame:
+
+For a coin, define
 \begin{equation}
-\langle F\rangle
-=
-\sum_i F(i)\,p(i)
-=
-\lim_{N_{\text{trials}}\to\infty}
-\frac{1}{N_{\text{trials}}}
-\sum_i F(i)\,N(i).
+ f(\mathrm{H})=+1,
+ \qquad
+ f(\mathrm{T})=-1.
 \end{equation}
-The cropped board retains precisely the pieces \(F(i)\,p(i)\) and \(F(i)N(i)/N\), which is enough to identify the idea.
-
-The coin example makes the definition concrete. If
+If heads and tails each have probability \(1/2\), then
 \begin{equation}
-f(\text{heads})=+1,
-\qquad
-f(\text{tails})=-1,
+ \langle f\rangle
+ =(+1)\frac12+(-1)\frac12=0.
 \end{equation}
-then for a fair coin,
+The average need not be a possible outcome. The coin never lands on zero;
+zero summarizes the distribution of its two possible values.
+
+This brief interlude fixes the vocabulary used throughout the subject:
+states, probabilities, frequencies, and expectation values.
+
+\section{Three Ways to Assign Probability}
+
+\subsection{Symmetry}
+
+Why do we usually assign equal probabilities to the two faces of a coin?
+The first answer is symmetry. Turning a nearly ideal coin over exchanges
+heads and tails without changing the experiment. There is then no physical
+reason to favor either outcome. A real mark or imperfection introduces a tiny
+bias, but the symmetric model captures the intended experiment:
 \begin{equation}
-\langle f\rangle=(+1)\frac12+(-1)\frac12=0.
+ p(\mathrm{H})=p(\mathrm{T})=\frac12.
 \end{equation}
-This is a small point, but an important one: the average value need not itself be a possible outcome of the experiment. Zero is not one of the faces of the coin toss. It is the weighted average of the distribution.
 
-That completes the leveling of the ground. The lecture has not yet done statistical mechanics proper. It has fixed the language in which the rest of the subject will be spoken: states, probabilities, frequencies, and expectation values.
+The same argument gives probability \(1/6\) to each face of a symmetric die.
+More generally, configurations related by a symmetry are assigned equal
+probabilities unless some additional information breaks that symmetry.
 
-\section{Symmetry, Experiment, And Dynamical Probability}
+\subsection{Experiment}
 
-At this point Susskind restarts with coins. Why do we assign probability \(1/2\) to heads and \(1/2\) to tails? In the first instance, because of symmetry. Heads and tails are related by a symmetry of the coin, and apart from tiny imperfections there is no reason for one to occur more often than the other. The same thought applies to a symmetric die.
+A misshapen die has no symmetry that exchanges all six faces. In that case,
+symmetry alone gives no answer. One may possess a deeper mechanical model
+that predicts the bias, but absent such a model the honest procedure is
+experimental: throw the die many times, record the frequencies, wait for
+them to stabilize, and use the resulting table of probabilities in later
+predictions.
 
-But symmetry is not always available. If the die is misshapen, or if the system under discussion has no obvious invariance, then symmetry no longer dictates the answer. In that case the lecture's next answer is experiment: throw the die again and again, count the outcomes, and use the measured frequencies.
+Symmetry and experiment are not competing definitions. They are two sources
+of information about a probability distribution. Statistical mechanics will
+rely heavily on symmetry, but dynamics supplies a third route.
 
-Then comes the crucial shift. There is another possible origin of probability, and it comes from deterministic evolution itself. We may know a law of motion without knowing the starting point. That is enough to produce a probability distribution.
+\subsection{Probability from deterministic motion}
 
-Suppose the system has six states labeled by colors, and suppose the update rule is
-\begin{align}
-R &\to B, & B &\to Y, & Y &\to G, \nonumber\\
-G &\to O, & O &\to P, & P &\to R. \label{eq:six_cycle}
-\end{align}
-Here \(P\) stands for purple. The object carrying these labels need not be symmetric at all. The lecture is explicit about this: what matters is not the symmetry of the die, but the existence of a definite update rule.
+Imagine an irregular object with six colored configurations. It changes state
+at fixed discrete time intervals according to a definite update law:
+\begin{equation}
+ R\longrightarrow B\longrightarrow Y\longrightarrow G
+ \longrightarrow O\longrightarrow P\longrightarrow R.
+ \label{eq:sm1-six-cycle}
+\end{equation}
+The object itself need not possess any geometric symmetry. The law merely
+states which configuration follows a given configuration.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_01_figure_02.png}
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_02.png}
+\caption{The expectation-value formulas remain on the left board while the
+six deterministic color updates are listed on the right.}
+\lectureframe{00:26:28}
+\end{figure}
 
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (0,2) -- (1.7,3);
-\draw[->] (2.3,3) -- (4,2);
-\draw[->] (4,1.4) -- (4,-0.4);
-\draw[->] (3.7,-0.9) -- (2.3,-1.9);
-\draw[->] (1.7,-1.9) -- (0.3,-0.9);
-\draw[->] (0,-0.4) -- (0,1.4);
-
-\node[draw,circle] at (0,2) {$R$};
-\node[draw,circle] at (2,3.2) {$B$};
-\node[draw,circle] at (4,2) {$Y$};
-\node[draw,circle] at (4,-0.6) {$G$};
-\node[draw,circle] at (2,-1.8) {$O$};
-\node[draw,circle] at (0,-0.6) {$P$};
+The board list is more transparent when drawn as a directed cycle:
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  >=Latex,
+  state/.style={draw,circle,minimum size=8mm,inner sep=1pt}
+]
+\node[state] (R) at (90:2.2) {$R$};
+\node[state] (B) at (30:2.2) {$B$};
+\node[state] (Y) at (-30:2.2) {$Y$};
+\node[state] (G) at (-90:2.2) {$G$};
+\node[state] (O) at (-150:2.2) {$O$};
+\node[state] (P) at (150:2.2) {$P$};
+\draw[->] (R) -- (B);
+\draw[->] (B) -- (Y);
+\draw[->] (Y) -- (G);
+\draw[->] (G) -- (O);
+\draw[->] (O) -- (P);
+\draw[->] (P) -- (R);
 \end{tikzpicture}
-\caption{At the moment Susskind says ``I'm going to draw this law as a diagram,'' the board still shows earlier probability notation on the left and the six-step update list on the right. Below it we redraw the same law as a closed cycle.}
+\caption{A single six-state orbit. Every state is visited once during each
+period.}
+\label{fig:sm1-six-cycle}
 \end{figure}
 
-Assume that each update takes the same discrete time interval. Then if we sample the system at an unknown instant, without knowing where on the cycle it began, the probabilities are
+Suppose we do not know the initial state and take a snapshot at an unknown
+time. Since each step lasts equally long, the system spends one sixth of a
+period in each color:
 \begin{equation}
-p(R)=p(B)=p(Y)=p(G)=p(O)=p(P)=\frac16.
+ p(R)=p(B)=p(Y)=p(G)=p(O)=p(P)=\frac16.
+ \label{eq:sm1-uniform-cycle}
 \end{equation}
-The system spends one sixth of its time in each state, and that is the whole reason for the uniform distribution.
+The equality does not come from the shape of the object. It comes from equal
+time spent in the states.
 
-The lecture then strengthens the point by changing the order of the cycle while keeping the property that each color is visited once per period. The conclusion remains the same. The probability \(1/6\) does not depend on knowing the microscopic starting point, and it does not even depend on the detailed ordering of the cycle. It depends only on the orbit structure: one closed cycle, equal time per step, one visit per state.
+We can reorder the arrows and obtain a different microscopic law while still
+forming one six-state cycle. The detailed sequence changes, but the snapshot
+probability remains \(1/6\) because every state still occurs once per period.
+Thus this prediction requires neither the starting point nor the detailed
+ordering. It requires only the orbit structure and equal time per update.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\classquestion{If the object is not symmetric, in what sense is it
+legitimate to give every color probability \(1/6\)?}
+\lecturerresponse{The assignment is dynamical rather than geometric. A
+snapshot taken at an unknown phase of a six-step orbit samples six equal time
+slots. The relevant equivalence is among positions on the orbit, not among
+faces of the object. If the dwell times were unequal, the probabilities
+would be unequal as well.
+\lecturetimestamp{00:27:11--00:29:49}}
+\end{classroomqa}
 
-\paragraph{Question.} If the system is not symmetric, why can each state still have probability \(1/6\)?
+\section{Disconnected Cycles and Conserved Quantities}
 
-\paragraph{Answer.} Because the probability here is not being assigned by the shape of the object. It is being assigned by the time spent in each state. The lecture is very explicit on this point. If the system moves deterministically through a single six-step cycle, and if we are ignorant of the starting moment, then a random flash snapshot has to weight the six time-slots equally. The relevant symmetry is therefore a symmetry of the orbit in time, not a symmetry of the die in space.
-
-\section{Cycles, Conserved Quantities, And Two Connected Systems}
-
-The next move complicates the state space in exactly the right way. The six states need not lie on one big cycle. They may split into disconnected cycles. Suppose, for example, that one law produces the three-cycle
+A deterministic law need not place all states on one orbit. Consider two
+disconnected cycles,
 \begin{equation}
-R\to B\to G\to R
+ R\longrightarrow B\longrightarrow G\longrightarrow R,
+ \qquad
+ P\longrightarrow Y\longrightarrow O\longrightarrow P.
+ \label{eq:sm1-two-cycles}
 \end{equation}
-and another disconnected three-cycle
+If we know that the system lies on the first cycle, then
 \begin{equation}
-P\to Y\to O\to P.
+ p(R)=p(B)=p(G)=\frac13,
+ \qquad
+ p(P)=p(Y)=p(O)=0.
 \end{equation}
-If we know the system is on the first cycle, then
+Knowledge that it lies on the second cycle reverses these assignments.
+
+The more general case requires prior weights. Label the cycles \(+1\) and
+\(-1\), and let their probabilities be \(p_+\) and \(p_-\), with
 \begin{equation}
-p(R)=p(B)=p(G)=\frac13,
-\qquad
-p(P)=p(Y)=p(O)=0.
+ p_++p_-=1.
 \end{equation}
-If we know it is on the second cycle, the reverse is true.
+Then
+\begin{align}
+ p(R)=p(B)=p(G)&=\frac{p_+}{3},\\
+ p(P)=p(Y)=p(O)&=\frac{p_-}{3}.
+ \label{eq:sm1-sector-weights}
+\end{align}
+The factors \(1/3\) follow from motion within a cycle. The numbers \(p_+\)
+and \(p_-\) do not. They must come from additional knowledge, perhaps another
+experiment or another system that selects the initial sector.
 
-But now a new issue appears. Dynamics alone does not tell us the probability of being on the first cycle rather than the second. That extra information has to come from elsewhere. Susskind's way of saying this is that one must supply some other probability, some prior information that chooses between the cycles. In the lecture the cycles are labeled \(+1\) and \(-1\), and that label is interpreted as a conserved quantity. It could be a toy quantity, but it could just as well be energy.
+The labels \(+1\) and \(-1\) define a conserved quantity: once the system
+starts on one cycle, the update law never carries it to the other. One may
+call the quantity energy, or give it a placeholder name such as
+\emph{zilch}. Its name is secondary. Conservation means that state space is
+partitioned into regions the dynamics cannot cross.
 
-So let \(p_{+}\) be the prior probability for the \(+1\) cycle and \(p_{-}\) for the \(-1\) cycle, with
-\begin{equation}
-p_{+}+p_{-}=1.
-\end{equation}
-Then the probabilities inside each sector are still uniform, but the overall state probabilities are
-\begin{equation}
-p(R)=p(B)=p(G)=\frac{p_{+}}{3},
-\qquad
-p(P)=p(Y)=p(O)=\frac{p_{-}}{3}.
-\end{equation}
+The cycles need not contain the same number of states. A four-state orbit and
+a two-state orbit still define two conserved sectors. Equal-time sampling
+then gives \(1/4\) within the first and \(1/2\) within the second, multiplied
+in each case by the prior probability of that sector. Statistical mechanics
+must answer two logically separate questions:
+\begin{enumerate}
+\item Given a conserved sector, how much time does the dynamics spend in its
+states?
+\item What probability should be assigned to the conserved sector itself?
+\end{enumerate}
 
-This is the first real appearance of a conservation law. A conserved quantity partitions the space of states into sectors, and deterministic motion remains trapped inside one sector. Once that is so, there are really two distinct questions. First: within a given sector, how is time distributed among the available states? Second: what is the prior probability of being in that sector at all? The first question is answered by cycling. The second is not.
+\begin{classroomqa}
+\audiencequestion{Are we assuming that all states inside one conserved
+sector receive the same probability?}
+\lecturerresponse{For the discrete toy laws shown here, yes, because each
+state lasts for the same time interval and the motion is deterministic. The
+ignorance is in the initial phase of the orbit. A detector with millisecond
+timing cannot resolve microsecond updates, although a sufficiently fast
+snapshot can still identify the state that was caught. In a more general
+system, unequal dwell times must be included explicitly.
+\lecturetimestamp{00:36:16--00:37:17}}
+\end{classroomqa}
 
-The lecture even remarks that the cycles need not have the same size. One sector might contain four states while another contains two. That changes the probabilities within a sector, but it does not change the logic. A conserved quantity partitions the configuration space, and statistical mechanics must somehow determine the relative weights of the sectors.
+\begin{classroomqa}
+\audiencequestion{If two snapshots are taken and the first identifies one
+cycle, should the second identify the same cycle?}
+\lecturerresponse{Yes. That is precisely what conservation means. Once a
+measurement determines the value of the conserved quantity, future
+probabilities can be conditioned on that value, and states in the other
+sector receive probability zero.
+\lecturetimestamp{00:37:18--00:37:45}}
+\end{classroomqa}
 
-This is the bridge to honest energy. A single closed box may be treated as a universe unto itself, with a conserved energy. Two isolated boxes have two separately conserved energies. But if the boxes are connected by a narrow passage so that energy can pass between them, then only the total energy is conserved, and the new statistical question is forced upon us: given the total energy, what is the probability that one subsystem has a specified share?
+\subsection{Energy shared between two systems}
 
-\begin{figure}[h]
+Now replace the abstract label by energy. One isolated box is a closed system
+and has a conserved energy. Two isolated boxes have two separately conserved
+energies because they do not interact. Connect them by a narrow passage that
+allows energy to flow, and the separate energies can change while the total
+remains fixed.
+
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_01_figure_03.png}
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_03.png}
+\caption{Two subsystems connected by a narrow channel through which energy
+can pass.}
+\lectureframe{00:39:19}
+\end{figure}
 
-\begin{tikzpicture}[scale=0.95]
-\draw (-4,2.2) -- (-4,-1.4);
-\draw (-4,2.2) -- (-0.6,2.2);
-\draw (-4,-1.4) .. controls (-2.6,-1.9) and (-1.5,-1.9) .. (-0.6,-1.4);
-\draw (-0.6,2.2) -- (-0.6,0.8);
-\draw (-0.6,-1.4) -- (-0.6,-0.1);
-
-\draw (0.6,2.0) -- (4.1,2.0);
-\draw (4.1,2.0) -- (4.1,-1.6);
-\draw (4.1,-1.6) -- (0.6,-1.6);
-\draw (0.6,2.0) -- (0.6,0.8);
-\draw (0.6,-0.1) -- (0.6,-1.6);
-
-\draw (-0.6,0.8) -- (0.6,0.8);
-\draw (-0.6,-0.1) -- (0.6,-0.1);
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex]
+\draw[thick,rounded corners=4pt] (-4,1.8) rectangle (-0.7,-1.5);
+\draw[thick,rounded corners=4pt] (0.7,1.5) rectangle (4,-1.8);
+\draw[thick] (-0.7,0.45) -- (0.7,0.45);
+\draw[thick] (-0.7,-0.35) -- (0.7,-0.35);
+\draw[<->,very thick] (-0.45,0.05) -- (0.45,0.05);
+\node at (-2.35,0.15) {subsystem \(1\)};
+\node at (2.35,-0.15) {subsystem \(2\)};
+\node[above] at (0,0.5) {energy exchange};
 \end{tikzpicture}
-\caption{The lecture's sketch of two connected subsystems. Once the two parts can exchange energy, the statistical problem becomes the problem of how a fixed total energy is distributed between them.}
+\caption{Once the connection is opened, only \(E_1+E_2\) is conserved.
+The energy split becomes a probability problem.}
+\label{fig:sm1-connected-systems}
 \end{figure}
 
-If the two boxes are equal, one expects equal energy on average. But that is only the first moment of the problem. The real question is the distribution itself. This is exactly where the lecture wants us: dynamics has produced sectors, conservation laws have appeared, and now the statistical question is how to assign probabilities to those sectors in a physically meaningful way.
+Given a total energy, we may ask for the probability that subsystem \(1\)
+has \(E_1\) while subsystem \(2\) has the remainder. Equal boxes should have
+equal energy on average, but the average is not the whole distribution. One
+way to determine probabilities for a subsystem is therefore to embed it in a
+larger closed system whose conservation law supplies the missing information.
+This construction will recur throughout statistical mechanics.
 
-\section{Good Laws, Bad Laws, And The Minus First Law}
+\section{Good Laws, Bad Laws, and the Minus First Law}
 
-At this point Susskind takes a step that is diagnostic rather than constructive. Before deciding how to assign probabilities, he asks what kinds of laws are even allowed. Some laws are bad, not in a moral sense, but in the sense that physics forbids them.
-
-The prototype is the rule that sends every state to the same state:
-\begin{align}
-R &\to R, & B &\to R, & Y &\to R, \nonumber\\
-G &\to R, & O &\to R, & P &\to R. \label{eq:all_to_red}
-\end{align}
-This law predicts the future in a trivial way. Wherever you are, next you are at red. But it destroys the past. If the present state is red, you can no longer reconstruct where you came from. Distinctions between states have been erased.
-
-That is what Susskind means by loss of information. He gives the principle a name of his own: the minus first law of physics. Information is never lost. Differences between states propagate with time. A good law is therefore one in which every state has one incoming arrow and one outgoing arrow. In discrete language that is the mark of reversibility: one arrow tells you where you are going, the other tells you where you came from.
-
-The lecture then reformulates the same point probabilistically. Suppose that at some moment \(M\) out of \(N\) states carry equal nonzero probability \(1/M\), while the remaining states have probability zero. Under a good law, the occupied states may reshuffle, but there will later still be exactly \(M\) occupied states, each with probability \(1/M\). Under a bad law such as \eqref{eq:all_to_red}, that number can collapse. Distinct possibilities are merged. This observation is the bridge from information conservation to entropy.
-
-In continuum mechanics the corresponding theorem is Liouville's theorem. A region of occupied phase space may stretch, shear, and fold, but its phase-space volume is preserved. More than that, a probability distribution that is initially uniform on the occupied region remains uniform on the evolved region. The discrete rule ``\(M\) occupied states stay \(M\) occupied states'' and the continuous rule ``occupied phase-space volume is preserved'' are the same principle in two different languages.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why does friction not really violate conservation of information?
-
-\paragraph{Answer.} Because friction only looks like a fundamental information-destroying law when we describe too few degrees of freedom. Susskind's schematic example is a viscous-drag equation of the form
+Not every deterministic update rule is admissible as a fundamental law.
+Consider the map
 \begin{equation}
-m\ddot x=-\gamma \dot x.
+ R\mapsto R,\quad B\mapsto R,\quad Y\mapsto R,\quad
+ G\mapsto R,\quad O\mapsto R,\quad P\mapsto R.
+ \label{eq:sm1-all-to-red}
 \end{equation}
-Taken literally as a fundamental law for a closed many-particle system, such an equation would be disastrous: every particle would drift toward rest, energy would disappear, and the system would evolve toward a simpler, less informative description. It would be the continuum analog of ``everything goes to red.''
+It predicts the future perfectly: after one step the state is red. It fails
+in the opposite direction. Once the system is red, nothing reveals whether
+it came from blue, yellow, green, orange, purple, or red itself.
 
-But real friction is not that. When an eraser slows down on a table, the lost macroscopic motion is recorded in microscopic variables of the eraser, the table, and the surrounding air. If we look only at the visible coordinate \(x\) and its conjugate momentum, the distribution seems to contract. In the full higher-dimensional phase space, however, the distribution spreads into hidden directions. The apparent collapse is a projection. Liouville volume is preserved in the full closed system even though it is not preserved in the macroscopic variables we happen to be watching.
-
-That is the point of the example. The lecture does not need the exact drag coefficient. It needs the conceptual lesson: apparent irreversibility at the coarse level is compatible with information conservation at the microscopic level.
-
-\section{The First Law And The Additivity Caveat}
-
-After the minus first law, Susskind deliberately skips the zeroth law and states the first law in its simplest possible form. Energy is conserved:
-\begin{equation}
-\frac{dE}{dt}=0.
-\end{equation}
-That is all the first law says for a closed system.
-
-If the system is built from two weakly interacting parts, then the total energy is approximately additive,
-\begin{equation}
-E \approx E_1+E_2,
-\end{equation}
-and differentiation gives
-\begin{align}
-\frac{dE_1}{dt}+\frac{dE_2}{dt} &= 0, \\
-\frac{dE_1}{dt} &= -\frac{dE_2}{dt}.
-\end{align}
-Susskind explicitly writes the second form to make the physical interpretation vivid: what leaves one subsystem enters the other.
-
-He is equally explicit about the caveat. Exact additivity is not always true. If two bodies interact gravitationally, for example, the total energy is not merely the kinetic energy of one plus the kinetic energy of the other. There is also the potential energy of interaction, and it belongs to the pair rather than to either body separately.
-
-Why then is additivity so useful in thermodynamics? Because in many large systems the interaction term is a surface effect while the bulk energy is a volume effect. If we divide a large body into blocks, the energy in a block scales with its volume, whereas the interaction between neighboring blocks scales with the contact area of their surfaces. For large enough blocks the interaction term is negligible by comparison, and the additive approximation becomes excellent. The first law is always true. The two-subsystem form is true when interaction energies are small enough to ignore.
-
-This short section matters because it fixes the hierarchy of the lecture. Energy conservation is fundamental, but in this first lecture it is being inserted only after information conservation has been clarified. Entropy is then allowed to return in a sharper form.
-
-\section{Entropy As A Measure Of Ignorance}
-
-\subsection{Occupied States And The First Definition}
-
-Now the lecture explicitly returns to entropy. Up to this point Susskind has defined it only in a special case, but he has already motivated the key ingredient: the number of states that are genuinely available to us given our incomplete knowledge.
-
-Suppose there are \(N\) possible states altogether, but only \(M\) of them have nonzero probability, and suppose those \(M\) occupied states are equally likely. Then
-\begin{equation}
-p_i=\frac{1}{M}
-\quad\text{for the occupied states,}
-\qquad
-p_i=0
-\quad\text{for the others.}
-\end{equation}
-The entropy is defined by
-\begin{equation}
-S=\log M.
-\end{equation}
-
-This is already enough to capture the lecture's main idea. If \(M=N\), then all states are equally probable and our ignorance is maximal:
-\begin{equation}
-S_{\max}=\log N.
-\end{equation}
-If \(M=1\), then the system is known to be in one specific state and the entropy is zero.
-
-Susskind keeps returning to the same interpretation: \(M\) measures ignorance. The bigger \(M\) is, the less we know. And because a good law only reshuffles occupied states without changing their number, \(M\) is conserved under exact microscopic evolution. In that sense entropy is conserved if we can follow the system perfectly.
-
-But we usually cannot follow the system perfectly. We lose track of phases, timing, microscopic positions, and details of the dynamics. Then the entropy increases, not because the equations have destroyed information, but because our description has become coarser. That is why Susskind insists that entropy enters before temperature and, in a certain sense, before energy in the pedagogical order of the lecture. It is the measure of our statistical ignorance.
-
-\subsection{General Probability Distributions}
-
-The lecture then says, in effect: we are not finished with entropy. The special rectangular distribution is too narrow a case. Most probability distributions are not flat on their occupied set. To show what a more general situation looks like, Susskind draws the states schematically along a horizontal axis and plots the corresponding probabilities on the vertical axis.
-
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.74\textwidth]{lecture_01_figure_05.png}
-
-\begin{tikzpicture}[scale=0.9]
-\draw[->] (-4.2,0) -- (4.4,0);
-\draw[->] (-4,0) -- (-4,3.2);
-\node at (-4.45,3.0) {$p_i$};
-
-\draw (-3.6,0.1) -- (-3.6,-0.1);
-\draw (-3.1,0.1) -- (-3.1,-0.1);
-\draw (-2.6,0.1) -- (-2.6,-0.1);
-\draw (-2.1,0.1) -- (-2.1,-0.1);
-\draw (-1.6,0.1) -- (-1.6,-0.1);
-\draw (-1.1,0.1) -- (-1.1,-0.1);
-\draw (-0.6,0.1) -- (-0.6,-0.1);
-\draw (-0.1,0.1) -- (-0.1,-0.1);
-\draw (0.4,0.1) -- (0.4,-0.1);
-\draw (0.9,0.1) -- (0.9,-0.1);
-\draw (1.4,0.1) -- (1.4,-0.1);
-\draw (1.9,0.1) -- (1.9,-0.1);
-\draw (2.4,0.1) -- (2.4,-0.1);
-\draw (2.9,0.1) -- (2.9,-0.1);
-\draw (3.4,0.1) -- (3.4,-0.1);
-
-\draw plot[smooth] coordinates {
-(-3.7,0.18) (-3.0,0.25) (-2.4,0.55) (-1.7,1.25)
-(-1.0,2.05) (-0.4,2.45) (0.0,2.3) (0.5,1.95)
-(1.2,1.35) (1.9,0.8) (2.7,0.42) (3.5,0.18)
-};
-
-\draw (-1.9,-0.15) -- (-1.9,-0.45);
-\draw (1.8,-0.15) -- (1.8,-0.45);
-\draw (-1.9,-0.45) -- (1.8,-0.45);
-\node at (-0.05,-0.8) {$M$};
+\begin{tikzpicture}[
+  >=Latex,
+  state/.style={draw,circle,minimum size=8mm,inner sep=1pt}
+]
+\node[state,fill=red!12] (R) at (0,0) {$R$};
+\node[state] (B) at (-3,1.6) {$B$};
+\node[state] (Y) at (-3,0) {$Y$};
+\node[state] (G) at (-3,-1.6) {$G$};
+\node[state] (O) at (3,1.6) {$O$};
+\node[state] (P) at (3,-1.6) {$P$};
+\draw[->] (B) -- (R);
+\draw[->] (Y) -- (R);
+\draw[->] (G) -- (R);
+\draw[->] (O) -- (R);
+\draw[->] (P) -- (R);
+\draw[->,loop above] (R) to (R);
 \end{tikzpicture}
-\caption{The lecture's schematic probability graph over discrete state labels. The picture is qualitative, but its purpose is precise: a narrower distribution represents fewer significantly occupied states and therefore less entropy, while a broader one represents more and therefore more entropy.}
+\caption{A many-to-one law predicts the next state but erases distinctions
+among possible past states.}
+\label{fig:sm1-bad-law}
 \end{figure}
 
-The definition that handles the general case is
+By contrast, a closed cycle preserves the record. If the elapsed time is
+known, we can evolve the state forward or backward, even after many thousands
+of periods. The law preserves distinctions between initial conditions.
+Susskind calls this requirement the \emph{minus first law of physics}:
+information is not fundamentally lost.
+
+For a finite discrete state space, the diagrammatic criterion is simple:
+\begin{quote}
+Every state of a good law has exactly one outgoing arrow and exactly one
+incoming arrow.
+\end{quote}
+The outgoing arrow determines the future; the incoming arrow reconstructs
+the past. Mathematically, the update is a permutation of the states.
+
+\subsection{Friction is only an apparent counterexample}
+
+The continuous counterpart is Liouville's theorem. Friction appears to
+contradict it. Slide an eraser across a table and, wherever the eraser starts,
+it eventually comes to rest. A schematic drag equation is
 \begin{equation}
-S=-\sum_i p_i\log p_i.
+ m\ddot x=-\gamma\dot x,
+ \qquad \gamma>0.
+ \label{eq:sm1-drag}
 \end{equation}
-Susskind immediately remarks that this is minus the average of \(\log p_i\). That is why the earlier expectation-value machinery mattered. The new entropy formula is built directly out of it.
+Its velocity decays exponentially. If this were the rock-bottom law of every
+particle in a sealed room, all motion would die away, the temperature would
+fall to zero, and many initial states would collapse onto one final state.
+Energy conservation would fail, information would disappear, and disorder
+would decrease. This would be the continuum version of everything going to
+red.
 
-The minus sign is not mysterious. Probabilities are numbers less than \(1\), so their logarithms are negative. The overall minus sign is there so that entropy comes out positive in the cases of interest. The lecture then checks the formula against the original \(S=\log M\).
+Real friction does not do this. The eraser heats the table, itself, and the
+surrounding environment. Microscopic positions and momenta record the
+distinctions lost from the visible motion. Friction is an effective equation
+for a subsystem after unobserved degrees of freedom have been omitted; it is
+not a fundamental dissipative law for the complete closed system.
 
-If \(p_i=1/M\) on the occupied states and \(p_i=0\) elsewhere, then the states of zero probability contribute nothing because
+\begin{classroomqa}
+\classquestion{What does the differential equation
+\(m\ddot x=-\gamma\dot x\) represent, and why is it not a fundamental
+closed-system law?}
+\lecturerresponse{It represents viscous drag. By itself it drives every
+velocity toward zero, which would make a gas cool to zero regardless of its
+initial temperature. In an actual closed description, the lost mechanical
+energy and information move into microscopic degrees of freedom. The drag
+equation is reliable only after those variables have been suppressed.
+\lecturetimestamp{00:44:40--00:48:56}}
+\end{classroomqa}
+
+\section{Occupied States and the First Entropy}
+
+Information conservation has an equivalent probabilistic statement. Suppose
+\(M\) of \(N\) states are assigned equal probability,
 \begin{equation}
-\lim_{p\to 0^+} p\log p = 0.
+ p_i=
+ \begin{cases}
+ 1/M, & i\text{ in the occupied set},\\
+ 0, & i\text{ outside it}.
+ \end{cases}
+ \label{eq:sm1-uniform-occupied}
 \end{equation}
-For the occupied states,
-\begin{align}
-S
-&= -\sum_{\text{occupied }i}\frac{1}{M}\log\!\left(\frac{1}{M}\right) \\
-&= -M\left[\frac{1}{M}\log\!\left(\frac{1}{M}\right)\right] \\
-&= -\log\!\left(\frac{1}{M}\right) \\
-&= \log M.
-\end{align}
-So the new definition reduces exactly to the old one in the special case where it must.
+An information-preserving update may reshuffle which states are occupied,
+but it cannot merge them. At every later time there are still \(M\) states of
+probability \(1/M\). The bad map \eqref{eq:sm1-all-to-red}, by contrast,
+can collapse many occupied states into one.
 
-This is the moment at which the lecture gives its qualitative interpretation of the graph. The narrower the distribution, the smaller the entropy. The broader the distribution, the larger the entropy. The later frame below simply reinforces that visual point by drawing attention to the width marker \(M\).
+The number \(M\) measures ignorance. If \(M=N\), every state is possible and
+our ignorance is maximal. If \(M=1\), the microscopic state is known exactly.
+The first definition of entropy is therefore
+\begin{equation}
+ S=\log M.
+ \label{eq:sm1-entropy-logm}
+\end{equation}
+It gives
+\begin{equation}
+ S_{\max}=\log N,
+ \qquad
+ S_{\min}=0.
+\end{equation}
+If the state space is infinite, there need not be a finite upper bound.
 
-\begin{figure}[h]
+Entropy appears before temperature in this development, and even before the
+formal statement of energy conservation. In that sense it is more primitive.
+Yet it is not a property of the mechanical system alone. It depends jointly
+on the system and on the probability distribution representing what is
+known. The same mechanical system may be assigned different entropies by
+observers with different information.
+
+Under exact microscopic evolution, the occupied states are only rearranged,
+so this fine-grained entropy is conserved. In practice we lose timing,
+discard correlations, and fail to track enormous numbers of variables. Our
+probability distribution then spreads over more alternatives, and the
+entropy assigned to the coarse description increases. The equations need
+not destroy information for our usable description to lose it.
+
+\begin{classroomqa}
+\classquestion{What is the greatest possible entropy of a finite system
+with \(N\) states?}
+\lecturerresponse{It is \(\log N\), attained when all \(N\) states are
+equally probable. The least entropy is zero, attained when one state has
+probability one. Entropy therefore measures the state of knowledge as well
+as the available state space.
+\lecturetimestamp{00:56:46--00:58:19}}
+\end{classroomqa}
+
+\section{Liouville Flow in Continuous Phase Space}
+
+For particles with continuous positions and momenta, a microscopic state is
+a point in phase space. We write the coordinates as \(q_a\) and their
+conjugate momenta as \(p_a\). With many particles there are enormously many
+axes; a two-dimensional drawing with one \(q\) and one \(p\) is only a
+stand-in. Phase space is even-dimensional because every coordinate has a
+momentum partner.
+
+Suppose our knowledge is represented by a patch \(\Omega_0\): the probability
+density is uniform inside the patch and zero outside. For example, knowing
+that every particle lies in the room restricts the position coordinates,
+while bounds on their speeds restrict the momentum coordinates.
+
+Hamiltonian evolution carries each phase-space point along a trajectory.
+Nearby points move to nearby points, and the occupied patch flows like a
+parcel of incompressible fluid:
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_01_figure_06.png}
-\caption{A later frame of the same graph. The lecturer's gesture singles out the spread of the distribution, which is exactly the feature the surrounding discussion interprets as controlling the entropy.}
+\begin{tikzpicture}[>=Latex,scale=0.95]
+\draw[->] (-4.2,0) -- (4.3,0) node[right] {$q$};
+\draw[->] (-3.7,-2.2) -- (-3.7,2.4) node[above] {$p$};
+\draw[fill=blue!12,thick]
+  (-3.0,-0.5) .. controls (-2.7,1.0) and (-1.3,1.2) .. (-0.9,0.1)
+  .. controls (-0.6,-1.0) and (-2.2,-1.4) .. cycle;
+\node at (-1.9,0.0) {$\Omega_0$};
+\draw[->,very thick] (-0.3,0.2) -- (0.8,0.2);
+\draw[fill=orange!15,thick]
+  (1.2,-1.1) .. controls (1.5,0.3) and (2.3,1.8) .. (3.2,1.1)
+  .. controls (3.6,0.7) and (2.8,-0.4) .. (2.5,-1.5)
+  .. controls (2.1,-1.8) and (1.5,-1.6) .. cycle;
+\node at (2.35,0.1) {$\Omega_t$};
+\end{tikzpicture}
+\caption{Hamiltonian flow may stretch and shear an occupied phase-space
+region, but it preserves its volume.}
+\label{fig:sm1-liouville-flow}
 \end{figure}
 
-\subsection{Coins As Explicit Examples}
-
-The lecture now returns once more to coins, because they let us see the definitions work in explicit examples. To keep the notation straight, let \(n\) denote the number of coins, and let \(N\) denote the total number of states of the \(n\)-coin system. Then
+Liouville's theorem states
 \begin{equation}
-N=2^n.
+ \operatorname{Vol}(\Omega_t)
+ =
+ \operatorname{Vol}(\Omega_0).
+ \label{eq:sm1-liouville-volume}
 \end{equation}
+If the initial density is uniform on \(\Omega_0\), the transported density is
+uniform on \(\Omega_t\). This is the continuous analog of preserving the
+number and weights of occupied discrete states.
 
-If we know nothing at all, then every one of the \(2^n\) states is equally probable. Therefore
+The theorem also resolves the friction puzzle geometrically. Looking only at
+the eraser's visible momentum, a cloud of possibilities appears to squeeze
+toward \(p=0\). In the full phase space, the cloud spreads into the positions
+and momenta of molecules in the eraser and table. A projection can contract
+while the full high-dimensional volume remains constant.
+
+\begin{classroomqa}
+\classquestion{If every visible trajectory approaches rest, has the
+occupied phase-space region collapsed onto the axis \(p=0\)?}
+\lecturerresponse{Only in the reduced projection. The complete system
+contains the microscopic variables of the table, eraser, and surroundings.
+As the visible momentum range narrows, the distribution spreads through
+those hidden directions. Liouville's theorem applies to the full closed
+phase space, not to an incomplete set of macroscopic variables.
+\lecturetimestamp{01:04:37--01:06:29}}
+\end{classroomqa}
+
+\section{From the Minus First Law to the First Law}
+
+\subsection{A brief look at the zeroth law}
+
+Before stating the first law, it is useful to name the zeroth. Thermal
+equilibrium has not yet been defined, so for now the law is only a structural
+statement:
+\begin{quote}
+If system \(A\) is in thermal equilibrium with \(B\), and \(B\) is in thermal
+equilibrium with \(C\), then \(A\) is in thermal equilibrium with \(C\).
+\end{quote}
+This transitivity will later make temperature possible. For the moment we set
+it aside.
+
+\subsection{Energy conservation}
+
+The first law for a closed system is simply
 \begin{equation}
-S=\log(2^n)=n\log 2.
+ \frac{dE}{dt}=0.
+ \label{eq:sm1-first-law}
 \end{equation}
-This is the maximal entropy of the \(n\)-coin system.
+Its compact form conceals its power. Energy is a conserved quantity, and the
+word energy will acquire more thermodynamic content later.
 
-If the microscopic state is known completely, then only one state has nonzero probability. In that case
+If a closed system consists of two parts and their energies are additive,
 \begin{equation}
-S=0.
+ E=E_1+E_2,
 \end{equation}
-Perfect knowledge means zero entropy.
-
-The more interesting example is the one Susskind works through with the class. Suppose all \(n\) coins are heads except for exactly one tail, but we do not know which coin is tails. Then there are exactly \(n\) states with nonzero probability, all equally weighted, and therefore
+then
 \begin{equation}
-S=\log n.
+ \frac{dE_1}{dt}+\frac{dE_2}{dt}=0,
+ \qquad\text{or}\qquad
+ \frac{dE_1}{dt}=-\frac{dE_2}{dt}.
+ \label{eq:sm1-energy-exchange}
 \end{equation}
-This example matters because it shows that with natural logarithms entropy is not, in general, an integer multiple of \(\log 2\).
+The second form makes the exchange explicit: energy lost by one subsystem is
+gained by the other.
 
-The lecture also addresses the base of the logarithm. In these notes, as in the lecture, \(\log\) means the natural logarithm. In information theory one often uses base \(2\), in which case the entropy of a completely unknown single coin is \(1\) bit. The choice of base changes only an overall numerical factor. It does not change the structure of the theory.
+The additivity assumption requires care. Two gravitating particles have
+individual kinetic energies, but their interaction contributes a potential
+energy belonging to the pair. The total energy is conserved even though it
+cannot be written exactly as one body's energy plus the other's.
 
-\subsection{Continuous Phase Space}
+Thermodynamics often permits an excellent additive approximation because
+bulk energy scales with volume while short-range interaction energy between
+large neighboring pieces scales mainly with their contact area. Divide a
+large table into blocks: the internal energy of each block is a volume
+effect, while the coupling between adjacent blocks is a surface effect. For
+large blocks, the latter is comparatively small. Equation
+\eqref{eq:sm1-first-law} is exact for the closed whole; the subsystem form
+\eqref{eq:sm1-energy-exchange} assumes negligible interaction energy.
 
-The lecture then enlarges the whole discussion from discrete state spaces to classical phase space. A microscopic state is now a point specified by coordinates and momenta. Susskind uses both \(x\) and \(q\) verbally for coordinates; we will simply write the state space abstractly as phase space \(\Gamma\), and we will denote the phase-space volume element by \(d\Gamma\).
+\begin{classroomqa}
+\audiencequestion{Does the normalization \(\sum_i p_i=1\) also assume that
+the listed outcomes are mutually exclusive?}
+\lecturerresponse{Yes. A state label is defined so that the alternatives do
+not overlap: if the die is in the yellow state, it is not simultaneously in
+the red state. Colors can be mixed in ordinary language, but the state
+partition used in the probability calculation must consist of mutually
+exclusive alternatives.
+\lecturetimestamp{01:12:14--01:12:55}}
+\end{classroomqa}
 
-Suppose first that the probability distribution is uniform on some occupied blob of phase space and zero outside. Then the continuous analog of counting occupied states is measuring the phase-space volume of the occupied region. The entropy is defined by
+\section{Returning to Entropy}
+
+The lecture now returns explicitly to unfinished business. Temperature,
+although familiar to the senses, is a derived quantity. Entropy and energy
+must be in place before temperature can be defined cleanly.
+
+\subsection{General probability distributions}
+
+The special definition \(S=\log M\) applies when \(M\) states are equally
+probable and all others have probability zero. A general distribution need
+not be rectangular. Its weights may vary smoothly or irregularly across the
+state labels.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_05.png}
+\caption{A probability distribution drawn over discrete state labels. The
+spread, rather than the precise curve, is the feature needed for entropy.}
+\lectureframe{01:14:40}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex,scale=0.93]
+\draw[->] (-4.2,0) -- (4.4,0) node[right] {state label \(i\)};
+\draw[->] (-4,0) -- (-4,3.2) node[above] {$p_i$};
+\foreach \x in {-3.6,-3.1,...,3.6}
+  \draw (\x,0.08) -- (\x,-0.08);
+\draw[very thick]
+  plot[smooth] coordinates {
+  (-3.7,0.12) (-3.0,0.28) (-2.3,0.72) (-1.6,1.45)
+  (-0.9,2.25) (-0.2,2.65) (0.5,2.28) (1.2,1.55)
+  (1.9,0.88) (2.7,0.38) (3.5,0.14)};
+\draw (-1.8,-0.18) -- (-1.8,-0.5);
+\draw (1.8,-0.18) -- (1.8,-0.5);
+\draw[<->] (-1.8,-0.46) -- (1.8,-0.46);
+\node at (0,-0.82) {effective spread};
+\end{tikzpicture}
+\caption{A narrow distribution carries less uncertainty than a broad one.
+The entropy must measure the distribution as a whole.}
+\label{fig:sm1-probability-spread}
+\end{figure}
+
+The general definition is
 \begin{equation}
-S=\log V_{\Gamma},
+ S=-\sum_i p_i\log p_i.
+ \label{eq:sm1-shannon-entropy}
 \end{equation}
-where \(V_{\Gamma}\) is the phase-space volume of the blob.
-
-For a general probability density \(P\) on phase space, the normalization condition is
+Using \eqref{eq:sm1-expectation}, this is
 \begin{equation}
-\int d\Gamma\,P = 1,
+ S=-\langle\log p\rangle.
 \end{equation}
-and the entropy becomes
+The minus sign compensates for the fact that \(\log p_i<0\) when
+\(0<p_i<1\).
+
+\subsection{Recovering the Uniform Result}
+
+We must check that the general formula reproduces the first definition.
+For an unoccupied state, \(p_i=0\) while \(\log p_i\) diverges. The product
+has the well-defined limiting value
 \begin{equation}
-S=-\int d\Gamma\,P\log P.
+ \lim_{p\to0^+}p\log p=0.
+ \label{eq:sm1-plogp-limit}
 \end{equation}
-This is exactly the continuous analog of the discrete formula. One simply replaces the sum over discrete states by an integral over phase space.
+Thus states of zero probability contribute nothing.
 
-Susskind's interpretation remains the same. In first conceptual approximation, the entropy measures the logarithm of the volume of the probability blob. More generally, it measures how spread out the probability density is in phase space. It is still a property of a probability distribution, not a property of a microscopic state by itself. A single exact microstate has no entropy except in the trivial sense that the entropy of the corresponding probability distribution is zero.
+\begin{classroomqa}
+\audiencequestion{If \(p_i=0\), does the term really vanish? The logarithm
+of zero is minus infinity.}
+\lecturerresponse{The term is defined by the limit
+\(\lim_{p\to0^+}p\log p\), which is zero. The factor \(p\) approaches zero
+faster than the logarithm diverges. Hence arbitrarily improbable states make
+arbitrarily small contributions, and an exactly impossible state contributes
+none.
+\lecturetimestamp{01:18:27--01:19:46}}
+\end{classroomqa}
 
-\subsection{Correlation And Additivity}
+For each of the \(M\) occupied states, \(p_i=1/M\). Therefore
+\begin{align}
+ S
+ &=-\sum_{\mathrm{occupied}\ i}
+ \frac1M\log\!\left(\frac1M\right)\\
+ &=-M\frac1M\log\!\left(\frac1M\right)\\
+ &=-\log\!\left(\frac1M\right)
+ =\log M.
+ \label{eq:sm1-entropy-check}
+\end{align}
+The general expression agrees with the special one exactly. A broader
+distribution gives appreciable weight to more alternatives and therefore
+has larger entropy; a narrower distribution has smaller entropy.
 
-The lecture closes by sharpening the interpretation of entropy through correlation. If we truly know nothing about a collection of coins, then measuring one coin tells us nothing about the others. The remaining probabilities are unchanged. That is the uncorrelated case.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_06.png}
+\caption{The marked width \(M\) emphasizes the connection between the spread
+of significant probabilities and the entropy.}
+\lectureframe{01:16:42}
+\end{figure}
 
-But if we know that exactly one coin among \(n\) is tails, then a measurement of one coin changes our knowledge of the rest. If the measured coin is tails, the others are certainly heads. If the measured coin is heads, then the probability that any given remaining coin is the tail becomes
+Entropy belongs to a probability distribution on the state space. It is not
+a bare observable such as the energy or momentum of one microstate. An exact
+state may be represented by a distribution concentrated at that state and
+then has zero entropy, but the entropy changes when the state of knowledge
+changes.
+
+\section{Coins, Bits, and Explicit Counting}
+
+Let \(n\) be the number of coins. The number of microscopic configurations is
 \begin{equation}
-p(\text{tail on a given remaining coin}\mid \text{measured head})
-=
-\frac{1}{n-1}.
+ N=2^n.
+ \label{eq:sm1-coin-state-count}
 \end{equation}
-That is Susskind's definition of correlation: measuring one thing changes the probability distribution for another thing.
-
-This links directly back to the earlier discussion of conserved sectors. Once we determine a conserved quantity, the admissible set of states changes, and so the probability distribution changes with it. Correlation is therefore not an ornamental afterthought. It is part of the central logic of statistical mechanics: knowledge about one part of a system can constrain what remains possible elsewhere.
-
-Entropy is additive when there is no correlation. For uncorrelated subsystems the total entropy is the sum of the entropies of the parts. When there are correlations, additivity fails in exactly the way one would expect: some of the ignorance in one subsystem is no longer independent of the ignorance in another.
-
-The audience then asks about the relation to information theory. Susskind's answer is that the Boltzmann and Shannon entropies are the same formula up to the base of the logarithm and a sign convention. What is called entropy here is therefore a measure of lack of information. It is not the Heisenberg uncertainty principle. The lecture is explicit on that point: the entropy under discussion concerns probabilistic ignorance encoded in a mixed distribution over states, not the distinct quantum uncertainty attached to a pure state.
-
-\section{Summary}
-
-The first lecture unfolds in a very deliberate order. Statistical mechanics is first justified as a deep and central subject. Then probability is reviewed as the language of incomplete knowledge. Then deterministic laws are shown to generate probabilities through ignorance of the starting point. Then conservation laws partition the state space, and the conservation of information is elevated to the minus first law. Only after that does the lecture state the first law and return to entropy.
-
-Entropy begins as
+If nothing is known about the coins, all \(2^n\) configurations are equally
+probable, and
 \begin{equation}
-S=\log M,
+ S_{\max}=\log(2^n)=n\log2.
+ \label{eq:sm1-coin-max-entropy}
 \end{equation}
-the logarithm of the number of equally probable occupied states. It then broadens to
-\begin{equation}
-S=-\sum_i p_i\log p_i,
-\end{equation}
-and finally to the continuous phase-space form
-\begin{equation}
-S=-\int d\Gamma\,P\log P.
-\end{equation}
-In every case the meaning is the same: entropy is not a bare property of a microscopic state; it is a measure of our probabilistic ignorance, organized over the space of possible states.
+The entropy is additive in the number of independent coins.
 
-That is the real achievement of the lecture. By the end, entropy has been made concrete enough to calculate, broad enough to survive the passage from discrete to continuous systems, and precise enough to prepare the next step, where temperature and the Boltzmann distribution will enter.
+With logarithms to base \(2\), a completely unknown two-state system has
+entropy one bit. With natural logarithms it has entropy \(\log2\). The unit
+is conventional; the underlying ordering and additivity are unchanged.
+
+At the other extreme, if every coin is known, precisely one configuration
+has probability one:
+\begin{equation}
+ S=0.
+\end{equation}
+More knowledge means less entropy.
+
+Now suppose exactly one of the \(n\) coins is tails, all others are heads,
+and the position of the tail is unknown. There are \(n\) equally likely
+configurations, one for each possible position of the tail, so
+\begin{equation}
+ S=\log n.
+ \label{eq:sm1-one-tail-entropy}
+\end{equation}
+This is generally not an integer multiple of \(\log2\). A bit is a convenient
+unit, not a claim that every entropy occurs in whole-bit steps.
+
+\begin{classroomqa}
+\audiencequestion{Does \(\log2\) appear only because each coin has two
+possible states? Would a three-state element give \(\log3\)?}
+\lecturerresponse{Exactly. A uniformly unknown element with \(k\) possible
+states contributes \(\log k\). Binary switches are especially convenient in
+computers because physical switches naturally realize two stable states and
+because two is the smallest nontrivial integer.
+\lecturetimestamp{01:29:55--01:30:48}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What base is intended for the logarithm?}
+\lecturerresponse{In these physics formulas, \(\log\) means the natural
+logarithm. Information theorists often use base \(2\), so entropy is measured
+directly in bits. Changing the base multiplies every entropy by one fixed
+conversion factor and changes no physical conclusion.
+\lecturetimestamp{01:30:49--01:32:06}}
+\end{classroomqa}
+
+\section{Entropy in Continuous Phase Space}
+
+Return to a classical phase space \(\Gamma\). If the probability density is
+uniform on a region of volume \(V_\Gamma\) and zero outside, the analog of
+counting \(M\) equally likely states is
+\begin{equation}
+ S=\log\!\left(\frac{V_\Gamma}{V_0}\right).
+ \label{eq:sm1-continuous-uniform}
+\end{equation}
+Here \(V_\Gamma\) is volume in the full high-dimensional space of coordinates
+and momenta, not ordinary spatial volume. The fixed volume \(V_0\) is a
+reference phase-space cell that makes the logarithm dimensionless. Setting
+\(V_0=1\) gives the shorthand \(S=\log V_\Gamma\) used at the board.
+
+For a general probability density \(P(q,p)\), the discrete sum becomes a
+phase-space integral. Normalization is
+\begin{equation}
+ \int_\Gamma d\Gamma\,P(q,p)=1,
+ \label{eq:sm1-continuous-normalization}
+\end{equation}
+and the entropy is
+\begin{equation}
+ S=-\int_\Gamma d\Gamma\,
+ P(q,p)\log\!\bigl[P(q,p)V_0\bigr].
+ \label{eq:sm1-continuous-entropy}
+\end{equation}
+The density is probability per phase-space cell. Conceptually,
+\eqref{eq:sm1-continuous-entropy} still measures how broadly the probability
+is distributed; for a uniform blob it reduces to the logarithm of the
+occupied volume measured in units of the reference cell. Changing that fixed
+cell shifts every continuous entropy by the same additive constant and leaves
+entropy differences unchanged.
+
+\begin{classroomqa}
+\audiencequestion{Why did the coordinate symbol change from \(x\) to \(q\)?}
+\lecturerresponse{There is no physical change. Classical mechanics commonly
+uses either \(x\) or \(q\) for coordinates and \(p\) for conjugate momenta.
+The switch of notation was only a slip; the phase-space construction is the
+same.
+\lecturetimestamp{01:37:10--01:37:39}}
+\end{classroomqa}
+
+Temperature and the Boltzmann distribution are deliberately postponed. The
+next task will be to define thermal equilibrium and then identify its
+probability distribution.
+
+\section{Questions on Correlation, Additivity, and Information}
+
+\subsection{Correlation means that one measurement changes another
+distribution}
+
+Complete ignorance about independent coins assigns equal probability to
+every configuration. Measuring one coin then tells us nothing about any
+other coin. Their distributions are unchanged.
+
+The one-tail ensemble is different. If one measured coin is tails, every
+other coin is certainly heads. If the measured coin is heads, the unique tail
+must lie among the remaining \(n-1\) coins, so each remaining position has
+conditional probability
+\begin{equation}
+ p(\text{tail at a specified remaining position}\mid\text{measured head})
+ =\frac{1}{n-1}.
+ \label{eq:sm1-conditional-tail}
+\end{equation}
+This is correlation: learning one variable changes the probability
+distribution assigned to another.
+
+\begin{classroomqa}
+\audiencequestion{Was independence between the coins assumed in the entropy
+examples?}
+\lecturerresponse{Only when complete ignorance was represented by equal
+probabilities for all \(2^n\) configurations. In that case, measuring one
+coin leaves the distributions of the others unchanged. The one-tail example
+is explicitly correlated: a measurement updates what is possible elsewhere.
+The stated information determines which probability distribution is being
+used.
+\lecturetimestamp{01:38:43--01:41:58}}
+\end{classroomqa}
+
+The disconnected-cycle example has the same logical form. Measuring the
+conserved \(+1\) or \(-1\) label restricts all later states to one sector.
+Conditioning on conserved information changes the admissible distribution.
+
+Entropy is additive for uncorrelated systems. If
+\begin{equation}
+ p_{ij}=p_i^{(A)}p_j^{(B)},
+\end{equation}
+then
+\begin{align}
+ S_{AB}
+ &=-\sum_{i,j}p_i^{(A)}p_j^{(B)}
+ \log\!\left[p_i^{(A)}p_j^{(B)}\right]\\
+ &=S_A+S_B.
+ \label{eq:sm1-entropy-additivity}
+\end{align}
+Correlations prevent this factorization and reduce the independent
+uncertainty of the pair.
+
+As an exercise, imagine a row of binary variables for which an up-state makes
+each neighbor three-quarters likely to be down. Measuring one site
+immediately changes what is known about nearby sites. Such a distribution is
+correlated, and its entropy cannot be found by adding isolated one-site
+entropies without accounting for those correlations.
+
+\subsection{Boltzmann, Shannon, and quantum uncertainty}
+
+\begin{classroomqa}
+\audiencequestion{How is the older thermodynamic entropy related to
+Shannon's information-theoretic entropy?}
+\lecturerresponse{The same functional form appears in both:
+\(-\sum_i p_i\log p_i\). Shannon commonly used base \(2\), while physicists
+usually use natural logarithms and restore Boltzmann's constant when entropy
+is expressed in thermodynamic units. The mathematical difference is only a
+fixed conversion factor, although the physical questions supplying the
+probabilities can be very different.
+\lecturetimestamp{01:44:05--01:46:06}}
+\end{classroomqa}
+
+For equally likely microstates, the thermodynamic formula is often written
+\begin{equation}
+ S_{\mathrm{thermo}}=k_{\mathrm B}\log W,
+ \label{eq:sm1-boltzmann-formula}
+\end{equation}
+where \(W\) is the number of accessible microstates. In units with
+\(k_{\mathrm B}=1\), this is precisely \(S=\log W\). Boltzmann's constant
+converts between temperature units and energy units; the natural microscopic
+scale of temperature is energy.
+
+\begin{classroomqa}
+\audiencequestion{Is this entropy simply another form of Heisenberg's
+uncertainty principle?}
+\lecturerresponse{No. The present entropy measures uncertainty in a
+probability distribution over possible states. In quantum language it is the
+uncertainty of a mixed state, not the intrinsic measurement uncertainty that
+can remain even for a pure state. The two notions must be kept distinct.
+\lecturetimestamp{01:46:07--01:47:31}}
+\end{classroomqa}
+
+\section{What Has Been Established}
+
+The starting point was not randomness in the laws. Deterministic dynamics,
+combined with incomplete knowledge of the initial state, already produces
+probabilities. A single orbit assigns weights through time spent in each
+state; disconnected orbits reveal conserved quantities and require prior
+weights between sectors. Admissible microscopic laws preserve distinctions,
+which in a finite state space means one incoming and one outgoing arrow at
+every state and in continuous mechanics becomes Liouville's theorem.
+
+That structure leads first to
+\begin{equation}
+ S=\log M
+\end{equation}
+for \(M\) equally probable occupied states, then to
+\begin{equation}
+ S=-\sum_i p_i\log p_i,
+\end{equation}
+and finally to its phase-space integral. Entropy records a probability
+distribution and therefore a state of knowledge. Fine-grained information
+is preserved by the microscopic law even when a practical, coarse-grained
+description loses track of it.
+
+Energy conservation supplies the first law, while additivity of subsystem
+energies requires negligible interaction energy. Entropy is additive under
+a parallel condition: the subsystem probabilities must be uncorrelated.
+These two kinds of additivity prepare the next step, where thermal
+equilibrium, temperature, and the Boltzmann distribution will connect energy
+to probability.
