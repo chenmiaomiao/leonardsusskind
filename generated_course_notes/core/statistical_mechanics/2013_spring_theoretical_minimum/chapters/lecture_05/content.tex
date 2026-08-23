@@ -1,454 +1,789 @@
-\chapter{Pressure from the Partition Function}
+\chapter{Pressure, Free Energy, and Energy Fluctuations}
 
-This chapter follows Leonard Susskind's fifth lecture in Statistical Mechanics. The official problem is narrow enough to be concrete: we want the pressure of an ideal gas. But the lecture uses that problem to make a broader point about method. We begin with the usual kinetic picture of molecules striking a wall, only to set it aside in favor of a more robust statistical-mechanical route. The point is not to banish intuition forever; it is to postpone intuition until the mathematics has earned the answer. The preserved lecture frames are kept where the board layout matters, and the narrative that surrounds them follows Leonard Susskind's lecture, with documentary curation by LazyingArt LLC and Video2Book.
+\lectureoverview{We derive pressure from the partition function without
+assuming a kinetic picture of molecules striking a wall.  A geometric lemma
+converts an adiabatic derivative into fixed-temperature derivatives, the
+Helmholtz free energy supplies the bridge to \(\log Z\), and the ideal-gas law
+follows as the first application.  We then use the same partition function to
+derive the equilibrium energy fluctuation and its relation to heat capacity.}
 
-\section{Why Pressure Needs Statistical Mechanics}
+\section{Let the Mathematics Test the Intuition}
 
-The lecture opens by warning us that thermodynamics is full of calculus tricks and that this is not an accident. Pressure looks easy if we approach it kinetically: molecules bounce off the wall, transfer momentum, and therefore exert a force. If the average kinetic energy of a molecule is already known, then in the lecture units \(k_B=1\) we may write
+Thermodynamics has a peculiar reputation.  Its calculus is elementary, yet
+the choice of what to differentiate and what to hold fixed can be remarkably
+subtle.  Our problem is deliberately narrow: calculate the pressure of an
+ideal gas.  The route to that answer, however, is intended to be general
+enough for systems in which the familiar molecular picture is no longer
+reliable.
+
+The kinetic story is easy to tell.  Molecules strike a wall and reverse the
+normal component of their momentum.  Momentum delivered per unit time gives
+the force, and force per unit area gives the pressure.  We already know that
+the mean kinetic energy per molecule in three dimensions is
 \begin{equation}
-\frac{1}{2}mv^2=\frac{3}{2}T.
+ \left\langle \frac{p^2}{2m}\right\rangle=\frac{3}{2}T
+ \qquad (k_B=1).
+ \label{eq:sm5-mean-kinetic-energy}
 \end{equation}
-From there one can estimate collision rates, momentum transfer, force, and finally pressure.
+With an isotropic velocity distribution one can estimate the collision rate,
+the momentum transfer in each collision, and the resulting pressure.
 
-The lecture does not deny that this argument works for the ideal gas. What it denies is that we should trust it too quickly. Why should the velocity distribution near the wall be the same as in the interior? Why should the same temperature relation still be valid arbitrarily close to a boundary? Even in the ideal gas case, those are not questions to be settled by a picture. They are questions to be settled by statistical mechanics.
+But the wall itself seems to spoil isotropy.  Why should molecules very near
+the boundary have the same distribution of speeds and directions as
+molecules deep in the interior?  In equilibrium they do, to the accuracy
+relevant here, but that conclusion should follow from statistical mechanics
+rather than be smuggled into the calculation as intuition.  Collisions among
+the molecules make the kinetic argument still less transparent.  The
+noninteracting gas is easy precisely because it is an unusually simple
+system.
 
-This is why the lecture insists that we ``ride the mathematics.'' One first decides what one wants and then uses the available thermodynamic tricks until a recognizable formula emerges. Intuition may come back at the end as a check, but then it is the intuition that is being checked, not the calculus.
+There are occasions in physics when the safest procedure is to suppress the
+picture temporarily and ride the mathematics.  One identifies the quantity
+to be found, manipulates the general relations, and waits until a recognizable
+formula appears.  Intuition returns at the end, but then the mathematics is
+testing the intuition rather than the other way around.  The pleasure of
+thermodynamics lies in the surprising relations that emerge from this
+procedure.
 
-So the real target is not simply an amusing wall-collision exercise. The real target is an equation of state,
+The desired relation is an equation of state,
 \begin{equation}
-P=P(T,V,N),
+ P=P(T,V,N),
+ \label{eq:sm5-equation-of-state-target}
 \end{equation}
-or, with the number of particles held fixed, a relation among \(P\), \(T\), and \(V\). We want a method that would still make sense if the particles interacted, or if the matter in the cylinder were a liquid, a plasma, or even a solid. That shift in ambition is the first important transition in the lecture.
+where \(N\) is the amount of material, \(T\) the temperature, and \(V\) the
+volume.  A satisfactory derivation should continue to make sense when the
+particles interact, or when the material is a liquid, plasma, or solid.  Only
+the final evaluation of the partition function will specialize to an ideal
+gas.
 
-\section{Control Parameters, Entropy, and Helmholtz Free Energy}
+\section{Entropy and the Helmholtz Free Energy}
 
-Before introducing any new theorem, the lecture asks what variables we actually control. Temperature and volume are the central examples. Susskind calls them control parameters: macroscopic variables that an experimenter can change from the outside. Volume is changed by moving a piston. Magnetic field or electric field would play the same structural role in other systems, and even the number of particles may be regarded as a control parameter in a more general setup.
-
-Control parameters come with conjugate thermodynamic responses. For this lecture the relevant pair is volume and pressure. We change the volume; the system answers through the pressure. The lecture emphasizes that there is nothing uniquely gaseous about this way of thinking. The material in the cylinder could be mixed, condensed, or chemically complicated; the control-parameter logic is still the right one.
-
-Only after that macroscopic framing does the lecture return to the canonical formulas that will do the work. The entropy is
+Begin by retrieving the canonical formulas that will be needed later.  For
+microstates labelled by \(i\),
 \begin{equation}
-S=-\sum_i p_i\log p_i,
+ S=-\sum_i p_i\log p_i,
+ \qquad
+ p_i=\frac{e^{-\beta E_i}}{Z},
+ \qquad
+ Z=\sum_i e^{-\beta E_i}.
+ \label{eq:sm5-canonical-definitions}
 \end{equation}
-and for the canonical ensemble
+The logarithm of the probability is
 \begin{equation}
-p_i=Z^{-1}e^{-\beta E_i},
-\qquad
-\beta=\frac{1}{T}.
+ \log p_i=-\beta E_i-\log Z.
+ \label{eq:sm5-log-probability}
 \end{equation}
-Substituting the Boltzmann form gives
+Substitution into the entropy gives
 \begin{align}
-S
-&=
--\sum_i p_i\log p_i \\
-&=
--\sum_i p_i\left(-\beta E_i-\log Z\right) \\
-&=
-\beta\sum_i p_iE_i+\log Z\sum_i p_i \\
-&=
-\beta E+\log Z.
+ S
+ &=-\sum_i p_i\log p_i \notag\\
+ &=\beta\sum_i p_iE_i+\log Z\sum_i p_i \notag\\
+ &=\beta E+\log Z.
+ \label{eq:sm5-entropy-log-z}
 \end{align}
-Multiplying by \(T\) and rearranging, we obtain
+Here \(E=\sum_i p_iE_i\) is the mean energy.
+
+\begin{classroomqa}
+\audiencequestion{Why does the second term give only \(\log Z\), rather
+than the number of states times \(\log Z\)?}
+\lecturerresponse{The coefficient being summed is \(p_i\), not \(1\).
+Normalization gives \(\sum_i p_i=1\).  Equivalently, the numerator
+\(\sum_i e^{-\beta E_i}=Z\) cancels the \(Z\) in the denominator.  The
+number of states never appears in this step.
+\lecturetimestamp{00:14:25--00:14:55}}
+\end{classroomqa}
+
+In the energy units used through most of the lecture,
+\(\beta=1/T\).  Multiplying \eqref{eq:sm5-entropy-log-z} by \(T\) and
+rearranging gives
 \begin{equation}
-E-TS=-T\log Z.
+ E-TS=-T\log Z.
+ \label{eq:sm5-helmholtz-identity}
 \end{equation}
-The lecture then gives this combination a name,
+The combination on the left occurs so often that it deserves a name:
 \begin{equation}
-A\equiv E-TS,
+ A\equiv E-TS,
+ \qquad
+ A=-T\log Z.
+ \label{eq:sm5-helmholtz-definition}
 \end{equation}
-the Helmholtz free energy.
+It is the Helmholtz free energy.  The name is less important at this moment
+than the identity itself; we shall need the identity when pressure is
+converted into a derivative of the partition function.
 
-There is a characteristic bit of Susskindian emphasis here. The name itself is not yet the interesting part. What matters is the formula, and the lecture deliberately keeps it available on the board because it will return later in the pressure derivation. At this stage we also organize the variables in the way the next argument requires:
-\begin{equation}
-E=E(T,V),
-\qquad
-S=S(T,V).
-\end{equation}
-The independent variables are \(T\) and \(V\); the dependent thermodynamic functions are \(E\) and \(S\).
-
-\section{A Calculus Lemma for \(E(T,V)\) and \(S(T,V)\)}
-
-The lecture now arrives at what it openly advertises as a troublesome little theorem. Susskind says it drives people crazy, that he has to re-derive it each time he teaches the course, and that it looks silly before one sees what it is for. That warning is part of the pedagogy: we are meant to feel the oddness of the derivative before being shown how it is to be handled.
-
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.9\textwidth]{lecture_05_figure_03.png}
-\caption{Thermodynamic variables and the setup of \(\partial E/\partial V\). The board records the staging of the lemma: \(E,S\) as dependent variables, \(T,V\) as independent variables, and the beginning of the derivative that is about to be discussed.}
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_03.png}
+\caption{The canonical entropy relation reorganized into
+\(A=E-TS=-T\log Z\).}
+\lectureframe{00:16:50}
 \end{figure}
 
-At the moment captured in the frame, the board contains only the setup. The theorem itself is not fully visible there, so we write it in the clean form supported by the spoken derivation.
+\section{Control Parameters and Their Responses}
 
-\begin{theorem}
-Let \(E(T,V)\) and \(S(T,V)\) be two dependent functions of the independent variables \(T\) and \(V\). Then
+A control parameter is a macroscopic quantity that an experimenter can
+change from outside.  Moving a piston changes the volume without manipulating
+individual molecules.  Applied electric and magnetic fields are other
+examples.  In a more general ensemble, the number of particles can also be
+allowed to change.
+
+Thermodynamic variables naturally come in conjugate pairs.  Volume is the
+control parameter in the present problem, and pressure is its response.  We
+change \(V\); the pressure tells us how the system energetically resists that
+change.  Later the derivative of the energy will make this pairing precise.
+
+\begin{classroomqa}
+\audiencequestion{Can pressure itself be regarded as the control parameter?}
+\lecturerresponse{One may design an experiment that fixes the external
+pressure, but in the construction used here the piston position fixes the
+volume and the internal pressure is the response.  Pressure and volume are
+conjugate variables; which member is controlled depends on the ensemble and
+apparatus.
+\lecturetimestamp{00:19:22--00:20:01}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Are all the molecules assumed to be identical, or is the
+argument restricted to a gas?}
+\lecturerresponse{No such restriction is needed for the thermodynamic
+argument.  The cylinder may contain several species, a liquid, or even a
+solid being compressed.  The ideal-gas partition function will be a special
+application only after the general pressure formula has been established.
+\lecturetimestamp{00:20:02--00:20:39}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could the amount of material be changed as another
+external operation?}
+\lecturerresponse{Yes.  Particle number is another possible control
+parameter.  Treating it dynamically leads to its own conjugate variable, the
+chemical potential.  For the calculation tonight, \(N\) remains fixed.
+\lecturetimestamp{00:20:39--00:20:57}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can liquid water and steam be present simultaneously in
+equilibrium?}
+\lecturerresponse{At the coexistence temperature and pressure they can.
+Gravity may place the liquid below the vapor, yet the two phases can still
+share one temperature and remain in thermal equilibrium.  The same general
+statistical-mechanical framework applies.
+\lecturetimestamp{00:20:59--00:21:36}}
+\end{classroomqa}
+
+For the next argument, regard energy and entropy as dependent functions of
+two independently adjustable variables:
 \begin{equation}
-\left(\frac{\partial E}{\partial V}\right)_S
-=
-\left(\frac{\partial E}{\partial V}\right)_T
--
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial V}\right)_T.
+ E=E(T,V),
+ \qquad
+ S=S(T,V).
+ \label{eq:sm5-dependent-functions}
 \end{equation}
-\end{theorem}
+Temperature and volume provide coordinates on a thermodynamic state space.
+Energy and entropy assign numbers to every equilibrium point in that space.
 
-\subsection{Question \& Answer}
+\section{The Constant-Entropy Derivative}
 
-\paragraph{Question.} What does \(\left(\frac{\partial E}{\partial V}\right)_S\) mean if \(T\) and \(V\) are the independent variables?
+The derivative we ultimately need is unusual:
+\[
+ \left(\frac{\partial E}{\partial V}\right)_S.
+\]
+Although \(T\) and \(V\) are the independent coordinates, this derivative
+asks us to change \(V\) while constraining the dependent function \(S(T,V)\)
+to remain constant.  It is a derivative along a curve in the
+\((T,V)\)-plane, not along a coordinate axis.
 
-\paragraph{Answer.} It means that we are not varying \(V\) freely while keeping some other independent variable fixed. Instead we move along the curve in the \((T,V)\)-plane on which the entropy remains constant. Along that curve, changing \(V\) forces \(T\) to change as well. Thus \(\left(\frac{\partial E}{\partial V}\right)_S\) is the rate at which \(E\) changes with \(V\) under the constraint \(S=\mathrm{const}\). In the lecture Susskind writes \(\delta E/\delta V\) at this stage to remind himself that he is dealing with a ratio of constrained small differences, not just a formal symbol.
+\begin{classroomqa}
+\audiencequestion{How can \(T\) and \(V\) be independent if a derivative
+\(dT/dV\) is later used?}
+\lecturerresponse{They are independent on the full state space.  Once we
+impose the constraint \(S(T,V)=\mathrm{constant}\), the allowed states lie
+on a one-dimensional contour.  Along that contour, \(T\) becomes a function
+of \(V\), and its slope \(dT/dV\) is well defined.
+\lecturetimestamp{01:01:18--01:02:09}}
+\end{classroomqa}
+
+\begin{lemma}
+If \(E(T,V)\) and \(S(T,V)\) are differentiable, then wherever
+\((\partial S/\partial T)_V\neq0\),
+\begin{equation}
+ \left(\frac{\partial E}{\partial V}\right)_S
+ =
+ \left(\frac{\partial E}{\partial V}\right)_T
+ -
+ \left(\frac{\partial E}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial V}\right)_T.
+ \label{eq:sm5-calculus-lemma}
+\end{equation}
+\end{lemma}
 
 \begin{proof}
-For any infinitesimal displacement in the \((T,V)\)-plane,
+For an arbitrary infinitesimal displacement,
 \begin{equation}
-dE
-=
-\left(\frac{\partial E}{\partial V}\right)_T dV
-+
-\left(\frac{\partial E}{\partial T}\right)_V dT.
+ dE=
+ \left(\frac{\partial E}{\partial V}\right)_T dV
+ +
+ \left(\frac{\partial E}{\partial T}\right)_V dT.
+ \label{eq:sm5-total-differential-e}
 \end{equation}
-The second coefficient can be factorized by using \(S\) as an intermediate variable while holding \(V\) fixed:
+At fixed \(V\), the chain rule permits \(S\) to be used as an intermediate
+variable:
 \begin{equation}
-\left(\frac{\partial E}{\partial T}\right)_V
-=
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial T}\right)_V.
-\end{equation}
-
-Now imagine moving along a contour line of constant entropy. Along that curve,
-\begin{equation}
-0=dS=
-\left(\frac{\partial S}{\partial V}\right)_T dV
-+
-\left(\frac{\partial S}{\partial T}\right)_V dT.
-\end{equation}
-Hence the slope of the constant-entropy contour is
-\begin{equation}
-\left(\frac{dT}{dV}\right)_S
-=
--
-\frac{\left(\frac{\partial S}{\partial V}\right)_T}
-{\left(\frac{\partial S}{\partial T}\right)_V}.
+ \left(\frac{\partial E}{\partial T}\right)_V
+ =
+ \left(\frac{\partial E}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial T}\right)_V.
+ \label{eq:sm5-chain-rule-e-s-t}
 \end{equation}
 
-Along that same contour, the constrained derivative of \(E\) is
+Now restrict the displacement to a contour on which \(S\) is constant.
+Along that contour,
+\begin{equation}
+ 0=dS=
+ \left(\frac{\partial S}{\partial V}\right)_T dV
+ +
+ \left(\frac{\partial S}{\partial T}\right)_V dT.
+ \label{eq:sm5-constant-entropy-differential}
+\end{equation}
+Solving for the contour slope gives
+\begin{equation}
+ \left(\frac{dT}{dV}\right)_S
+ =
+ -
+ \frac{\left(\frac{\partial S}{\partial V}\right)_T}
+ {\left(\frac{\partial S}{\partial T}\right)_V}.
+ \label{eq:sm5-entropy-contour-slope}
+\end{equation}
+Divide \eqref{eq:sm5-total-differential-e} by \(dV\), use
+\eqref{eq:sm5-chain-rule-e-s-t}, and insert
+\eqref{eq:sm5-entropy-contour-slope}:
 \begin{align}
-\left(\frac{\partial E}{\partial V}\right)_S
-&=
-\left(\frac{\partial E}{\partial V}\right)_T
-+
-\left(\frac{\partial E}{\partial T}\right)_V
-\left(\frac{dT}{dV}\right)_S \\
-&=
-\left(\frac{\partial E}{\partial V}\right)_T
-+
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial T}\right)_V
-\left[
--
-\frac{\left(\frac{\partial S}{\partial V}\right)_T}
-{\left(\frac{\partial S}{\partial T}\right)_V}
-\right] \\
-&=
-\left(\frac{\partial E}{\partial V}\right)_T
--
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial V}\right)_T.
+ \left(\frac{\partial E}{\partial V}\right)_S
+ &=
+ \left(\frac{\partial E}{\partial V}\right)_T
+ +
+ \left(\frac{\partial E}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial T}\right)_V
+ \left(\frac{dT}{dV}\right)_S \notag\\
+ &=
+ \left(\frac{\partial E}{\partial V}\right)_T
+ -
+ \left(\frac{\partial E}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial V}\right)_T.
 \end{align}
-This is the lemma.
+The factor \((\partial S/\partial T)_V\) has cancelled, proving the result.
 \end{proof}
 
-\begin{remark}
-The lecture pauses over one quiet assumption in the proof: we divide by \(\left(\frac{\partial S}{\partial T}\right)_V\). In ordinary thermodynamic situations that quantity is nonzero because entropy is typically monotone in temperature at fixed volume. There are special cases where one must be more careful, but not in the regime under discussion here.
-\end{remark}
-
-This is more than algebra. The lecture's real point is that thermodynamic manipulations become transparent once one sees the geometry of the constraint. Susskind even remarks that he cannot prove this lemma without drawing the picture first and seeing what he is doing.
-
-\section{Pressure from a Piston and the Meaning of Adiabatic}
-
-With the lemma established, the lecture changes register completely. We leave the abstract \((T,V)\)-plane and return to a physical cylinder with a piston. This is the moment when pressure is rebuilt mechanically and then translated back into thermodynamic language.
-
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_05_figure_04.png}
-\caption{Piston work and the differential relation \(dE=-P\,dV\). The board preserves the piston geometry on the left and the partly occluded work formula across the right-hand side.}
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_04.png}
+\caption{The constant-entropy contour calculation at the cancellation that
+completes the derivative lemma.}
+\lectureframe{00:36:10}
 \end{figure}
 
-\begin{figure}[ht]
+The geometric picture is not ornamental.  It explains why an apparently
+strange fixed-\(S\) derivative can be evaluated with ordinary partial
+derivatives in the independent coordinates \(T\) and \(V\).  Writing
+\(\delta E/\delta V\) during the construction is a useful reminder that the
+symbols represent ratios of small changes along a specified path.
+
+\begin{classroomqa}
+\audiencequestion{Is the expansion of \(dE\) just the ordinary definition
+of partial derivatives?}
+\lecturerresponse{Yes.  Nothing special occurs in the total differential.
+The only extra ingredient is the later restriction to the contour
+\(dS=0\), which determines the relation between \(dT\) and \(dV\).
+\lecturetimestamp{00:29:26--00:29:32}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does the cancellation require
+\((\partial S/\partial T)_V\) to be nonzero?}
+\lecturerresponse{Yes.  For an ordinary stable system,
+\[
+ \left(\frac{\partial S}{\partial T}\right)_V
+ =\frac{C_V}{T}>0,
+\]
+so the division is legitimate.  Exceptional points require separate care.
+At fixed Hamiltonian, raising the temperature broadens the canonical energy
+distribution and normally increases the entropy; lowering the temperature
+narrows it.  This is the physically correct orientation of the monotonicity
+argument.
+\lecturetimestamp{00:36:50--00:37:47}}
+\end{classroomqa}
+
+\section{Piston Work and the Adiabatic Condition}
+
+We now give the derivative a physical meaning.  Consider a piston with
+cross-sectional area \(\mathcal A\).  If it moves outward by \(dx\), then
+\begin{equation}
+ dV=\mathcal A\,dx.
+ \label{eq:sm5-piston-volume}
+\end{equation}
+The gas exerts force \(P\mathcal A\) on the piston, so the work done by the
+gas is
+\begin{equation}
+ \delta W_{\mathrm{by}}=P\mathcal A\,dx=P\,dV.
+ \label{eq:sm5-piston-work}
+\end{equation}
+If no heat enters the gas, energy conservation gives
+\begin{equation}
+ dE=-P\,dV.
+ \label{eq:sm5-adiabatic-work}
+\end{equation}
+The sign is physical: during expansion the gas raises or accelerates the
+piston, and its own energy decreases.
+
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw (0,0) -- (0,3.2) -- (4,3.2) -- (4,0);
-\draw (0,0) -- (4,0);
-\draw (0,2.1) -- (4,2.1);
-\draw[dashed] (0,2.7) -- (4,2.7);
-\draw[->] (-0.7,2.1) -- (-0.7,2.7);
-\node at (-1.1,2.4) {$dx$};
-\node at (2,-0.4) {$A$};
-\node at (5.1,1.4) {$dV=A\,dx$};
-\end{tikzpicture}
-\caption{A clean reconstruction of the piston geometry used in the work argument. The piston of area \(A\) moves by \(dx\), so the volume changes by \(dV=A\,dx\).}
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_05.png}
+\caption{The piston geometry and the completed work relation
+\(dE=-P\,dV\).}
+\lectureframe{00:43:10}
 \end{figure}
 
-If the piston has area \(A\) and is displaced by a small amount \(dx\), then
-\begin{equation}
-dV=A\,dx.
-\end{equation}
-The force exerted by the gas on the piston is \(PA\), and the work done on the piston is therefore
-\begin{equation}
-dW=PA\,dx=P\,dV.
-\end{equation}
-By energy conservation, whatever work is done on the piston must be lost by the gas. Thus
-\begin{equation}
-dE=-P\,dV.
-\end{equation}
-This minus sign matters, and the lecture explicitly pauses over it. If the gas expands and pushes the piston outward, the gas does work and its energy decreases.
+Two qualifications are essential.  The piston must move slowly enough for
+the system to remain arbitrarily close to equilibrium, and the walls must be
+insulated so that energy is not supplied as heat.  A rapid pull can be so
+fast that no molecule reaches the receding piston during the motion.  A
+rapid compression launches shock waves.  Neither process is represented by
+a sequence of equilibrium states.
 
-At this point the lecture says that this relation defines pressure. More precisely, it tells us that pressure is the response conjugate to volume. The only subtlety is that we still have to decide what is held fixed when we differentiate \(E\) with respect to \(V\). That question leads directly to the lecture's extended discussion of adiabatic change.
+The word \emph{adiabatic} is sometimes used for no heat transfer and
+sometimes for slow change.  In the reversible process required here, both
+ideas enter: the change is quasistatic and thermally insulated.  Under those
+conditions it is also isentropic.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Why does an adiabatic change keep the entropy fixed?}
+\lecturerresponse{View the system quantum mechanically.  Its many-body
+energy levels depend on the volume.  When \(V\) changes slowly, the adiabatic
+theorem carries each occupied level continuously into its successor without
+transitions between level labels.  The energies \(E_i(V)\) move, but the
+occupation probabilities \(p_i\) remain fixed.  Since
+\(S=-\sum_i p_i\log p_i\) depends on those probabilities, the entropy remains
+constant.  Heat exchange or irreversible motion would invalidate this
+conclusion.
+\lecturetimestamp{00:43:37--00:49:15}}
+\end{classroomqa}
 
-\paragraph{Question.} Why is the derivative taken at fixed entropy, and why does adiabatic imply isentropic here?
-
-\paragraph{Answer.} The lecture insists on two conditions. First, the piston must move slowly. If we move it too fast, the system is driven out of equilibrium; shock waves can form, and in an extreme rapid expansion no molecule may even hit the piston while it is moving. In that regime the simple thermodynamic notion of pressure ceases to control the process. Second, the cylinder must be insulated, so that no heat enters or leaves the gas. This is the lecture's operational definition of an adiabatic change: slow and with no heat exchange.
-
-Then comes the quantum-mechanical justification. The lecture uses quantum mechanics only for one structural fact: the energy levels are discrete. As the volume changes, those levels move. Under slow change, however, the adiabatic theorem says that the occupation probabilities \(p_i\) do not jump from one level to another. The energy levels change; the probabilities do not. Since the entropy depends only on the \(p_i\),
-\begin{equation}
-S=-\sum_i p_i\log p_i,
-\end{equation}
-the entropy stays fixed. That is why the lecture identifies the relevant derivative as
-\begin{equation}
-P=-\left(\frac{\partial E}{\partial V}\right)_S.
-\end{equation}
-
-The lecture also remarks that this is not a minor technicality. If the motion is not adiabatic, then the system is in a genuinely non-equilibrium process, and the simple equilibrium derivative above is no longer the right object.
-
-\section{From the Lemma to Helmholtz Free Energy}
-
-Now we know what we want to hold fixed, but that only sharpens the next difficulty. The formula
-\begin{equation}
-P=-\left(\frac{\partial E}{\partial V}\right)_S
-\end{equation}
-is physically right and calculationally awkward. The lecture makes the point very explicitly: fixed-entropy derivatives are not the easy ones to compute. In the canonical ensemble, the easy thing to calculate is how quantities depend on temperature, because temperature appears directly in the Boltzmann factor.
-
-So we go back to the lemma and use it to trade the fixed-entropy derivative for fixed-temperature derivatives:
-\begin{align}
-P
-&=
--
-\left[
-\left(\frac{\partial E}{\partial V}\right)_T
--
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial V}\right)_T
-\right] \\
-&=
--
-\left(\frac{\partial E}{\partial V}\right)_T
-+
-\left(\frac{\partial E}{\partial S}\right)_V
-\left(\frac{\partial S}{\partial V}\right)_T.
-\end{align}
-At fixed control parameters we already know the thermodynamic identity
-\begin{equation}
-\left(\frac{\partial E}{\partial S}\right)_V=T,
-\end{equation}
-or in differential language \(dE=T\,dS\). Therefore
-\begin{equation}
-P
-=
--
-\left(\frac{\partial E}{\partial V}\right)_T
-+
-T\left(\frac{\partial S}{\partial V}\right)_T.
-\end{equation}
-
-This is the point in the lecture where the tone changes. Susskind says, in effect, that this now sounds promising: the only derivatives left are with respect to \(V\) at fixed \(T\), and those are precisely the sorts of derivatives one can hope to evaluate in the canonical ensemble.
-
-There is one more compression. Because \(T\) is being held fixed, the right-hand side is just the negative derivative of \(E-TS\):
-\begin{align}
-P
-&=
--
-\left(\frac{\partial E}{\partial V}\right)_T
-+
-T\left(\frac{\partial S}{\partial V}\right)_T \\
-&=
--
-\left(\frac{\partial (E-TS)}{\partial V}\right)_T.
-\end{align}
-The extra term that would come from differentiating \(T\) vanishes because the derivative is explicitly taken at fixed temperature. Using the Helmholtz free energy \(A=E-TS\), we obtain
-\begin{equation}
-P=-\left(\frac{\partial A}{\partial V}\right)_T.
-\end{equation}
-Finally, because
-\begin{equation}
-A=-T\log Z,
-\end{equation}
-we reach the lecture's general pressure formula,
-\begin{equation}
-P
-=
-T\left(\frac{\partial \log Z}{\partial V}\right)_T.
-\end{equation}
-
-Around this point the transcript becomes rough, but the mathematical line is clear and consistent with the lecture: pressure is minus the fixed-temperature derivative of Helmholtz free energy, and therefore temperature times the fixed-temperature derivative of \(\log Z\) with respect to volume.
-
-This is also where the lecture broadens again. Up to now nothing has been special to an ideal gas. Volume is only one familiar control parameter. In general, for any control parameter, the derivative of energy with respect to that parameter at fixed entropy defines its conjugate thermodynamic variable. Pressure is simply the volume-conjugate example.
-
-\section{Ideal Gas and the Equation of State}
-
-Only now does the lecture return to the ideal gas. This order matters. The ideal gas is not the principle; it is the first easy application once the general machinery is in place. Susskind even says that from this point on the calculation is very easy.
-
-For the ideal gas, the canonical partition function from the earlier discussion is
-\begin{equation}
-Z
-=
-\frac{1}{N!}
-\int d^{3N}x\,d^{3N}p\,
-\exp\!\left(
--\beta \sum_{a=1}^{N}\frac{p_a^2}{2m}
-\right).
-\end{equation}
-The momentum integral does not depend on the positions, and the position integral simply contributes one factor of \(V\) for each particle. Therefore
-\begin{equation}
-Z=\frac{V^N}{N!}f(\beta),
-\end{equation}
-where \(f(\beta)\) depends on temperature but not on volume. Taking the logarithm,
-\begin{equation}
-\log Z=N\log V-\log N!+\log f(\beta).
-\end{equation}
-Only the first term depends on \(V\), so
-\begin{equation}
-\left(\frac{\partial \log Z}{\partial V}\right)_T=\frac{N}{V}.
-\end{equation}
-
-\begin{figure}[ht]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.88\textwidth]{lecture_05_figure_05.png}
-\caption{Ideal-gas equation of state from the partition function. The left side of the board still carries the \(\log Z\) route, while the right side isolates the finished thermodynamic result.}
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_06.png}
+\caption{Many-body energy levels moving with the volume while their
+occupation probabilities retain their level labels.}
+\lectureframe{00:48:50}
 \end{figure}
 
-Substituting into the pressure formula gives
+Equation \eqref{eq:sm5-adiabatic-work}, evaluated along this
+constant-entropy path, identifies pressure as
+\begin{equation}
+ P=-\left(\frac{\partial E}{\partial V}\right)_S.
+ \label{eq:sm5-pressure-fixed-entropy}
+\end{equation}
+This is the conjugate relation between pressure and volume.
+
+\begin{classroomqa}
+\audiencequestion{What happens if the piston is moved rapidly instead?}
+\lecturerresponse{The system leaves equilibrium and its detailed dynamics
+matter.  Sudden compression generates a shock.  In an ideal free expansion,
+the piston can recede before any molecule strikes it, so no work is done and
+the energy remains fixed even though the volume changes.  The gas later
+relaxes to equilibrium with increased entropy.  Such processes cannot be
+described by the single equilibrium derivative in
+\eqref{eq:sm5-pressure-fixed-entropy}.
+\lecturetimestamp{00:58:30--01:01:15}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What quantitative condition decides whether a change is
+slow?}
+\lecturerresponse{The external variation time must be long compared with
+the relevant internal relaxation times.  For a gas, many molecular
+collisions and many wall impacts should occur during the macroscopic change.
+The precise time scale depends on the material and geometry, while the
+quasistatic limit itself is general.
+\lecturetimestamp{01:02:09--01:03:20}}
+\end{classroomqa}
+
+\section{From Adiabatic Energy to the Partition Function}
+
+The physical formula \eqref{eq:sm5-pressure-fixed-entropy} is not yet the
+easy one to calculate.  Canonical statistical mechanics naturally supplies
+functions of temperature, because \(T\) appears directly in the Boltzmann
+weight.  The calculus lemma converts the awkward fixed-entropy derivative
+into that calculational language:
 \begin{align}
-P
-&=
-T\left(\frac{\partial \log Z}{\partial V}\right)_T \\
-&=
-\frac{NT}{V}.
+ P
+ &=
+ -\left(\frac{\partial E}{\partial V}\right)_T
+ +
+ \left(\frac{\partial E}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial V}\right)_T.
+ \label{eq:sm5-pressure-lemma-substitution}
 \end{align}
-Therefore
+At fixed volume the first law gives \(dE=T\,dS\), and therefore
 \begin{equation}
-PV=NT.
+ \left(\frac{\partial E}{\partial S}\right)_V=T.
+ \label{eq:sm5-e-s-temperature}
 \end{equation}
-Equivalently,
+Thus
 \begin{equation}
-P=\rho T,
-\qquad
-\rho=\frac{N}{V}.
-\end{equation}
-Here \(\rho\) is the number density, not the mass density. The lecture briefly drifts between \(n\) and \(N\); in these notes we keep \(N\) for the number of particles throughout.
-
-If we restore laboratory units, we also restore Boltzmann's constant:
-\begin{equation}
-PV=Nk_B T_{\mathrm{lab}}.
+ P=
+ -\left(\frac{\partial E}{\partial V}\right)_T
+ +
+ T\left(\frac{\partial S}{\partial V}\right)_T.
+ \label{eq:sm5-pressure-fixed-temperature-pieces}
 \end{equation}
 
-Now the intuitive picture is allowed back in. Of course this is the familiar ideal-gas law. But the lecture's point is that we did not have to trust wall-collision intuition to get it. More than that, the method has real power: once one can calculate the partition function, pressure follows in a precise and general way.
+\begin{classroomqa}
+\audiencequestion{Where does the minus sign in the pressure formula come
+from?}
+\lecturerresponse{It originates in work done by the gas:
+\(dE=-P\,dV\) during adiabatic expansion.  The calculus lemma itself has a
+minus sign between its two terms; the overall minus in
+\(P=-(\partial E/\partial V)_S\) reverses both of them, producing
+\eqref{eq:sm5-pressure-fixed-temperature-pieces}.
+\lecturetimestamp{00:52:40--00:53:14}}
+\end{classroomqa}
 
-\section{Coda: Energy Fluctuations and Heat Capacity}
-
-The main line of the lecture ends here. Because the class finishes early, the lecture adds one more calculation: fluctuations. This part has a different rhythm. It is a coda rather than a new chapter of the main argument, but it serves the same moral. The partition function contains much more than the pressure.
-
-Suppose the system is in contact with a heat bath. Then the energy is not a sharp number. The quantity we have been calling \(E\) is the average energy, and the actual energy fluctuates from one measurement to another. The lecture begins from the standard definition of fluctuation.
-
-If a quantity \(x\) has vanishing mean, then its squared fluctuation is simply
-\begin{equation}
-\Delta x^2=\langle x^2\rangle.
-\end{equation}
-For a general quantity we shift by the mean, and the variance becomes
-\begin{equation}
-\Delta x^2=\langle x^2\rangle-\langle x\rangle^2.
-\end{equation}
-The lecture remarks that one may then take the square root and talk about the standard deviation, but for the calculation at hand the squared fluctuation is the natural object.
-
-Now apply this to the energy. The mean energy is already known:
+Because \(T\) is held fixed in both derivatives,
 \begin{align}
-\langle E\rangle
-&=
-\frac{1}{Z}\sum_i e^{-\beta E_i}E_i \\
-&=
--\frac{1}{Z}\frac{\partial Z}{\partial \beta} \\
-&=
--\frac{\partial \log Z}{\partial \beta}.
+ P
+ &=
+ -\left(\frac{\partial}{\partial V}(E-TS)\right)_T \notag\\
+ &=
+ -\left(\frac{\partial A}{\partial V}\right)_T.
+ \label{eq:sm5-pressure-free-energy}
 \end{align}
-To obtain the mean square energy we differentiate once more:
+Finally insert \(A=-T\log Z\):
+\begin{equation}
+ \boxed{
+ P=
+ T\left(\frac{\partial\log Z}{\partial V}\right)_T
+ }.
+ \label{eq:sm5-pressure-log-z}
+\end{equation}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_07.png}
+\caption{The fixed-temperature compression of the argument:
+\(P=-(\partial A/\partial V)_T
+=T(\partial\log Z/\partial V)_T\).}
+\lectureframe{00:55:55}
+\end{figure}
+
+Nothing in \eqref{eq:sm5-pressure-log-z} assumes an ideal gas.  If the
+partition function can be calculated for an interacting fluid, plasma, or
+solid, the same derivative gives its pressure.  More generally, every
+external control parameter has a conjugate response obtained by
+differentiating an appropriate thermodynamic potential.  The partition
+function packages many such responses: differentiating \(\log Z\) with
+respect to \(\beta\) gives energy, while differentiating it with respect to
+volume gives pressure.
+
+\section{The Ideal-Gas Equation of State}
+
+Only now specialize to \(N\) noninteracting particles.  With the classical
+phase-space normalization retained,
+\begin{equation}
+ Z_N=
+ \frac{1}{N!h^{3N}}
+ \int d^{3N}q\,d^{3N}p\,
+ \exp\!\left[
+ -\beta\sum_{a=1}^{N}\frac{\mathbf p_a^2}{2m}
+ \right].
+ \label{eq:sm5-ideal-gas-partition-integral}
+\end{equation}
+There are \(3N\) position coordinates and \(3N\) momentum coordinates.  The
+Hamiltonian is independent of position, so every particle contributes one
+factor of the container volume:
+\begin{equation}
+ Z_N=
+ \frac{V^N}{N!h^{3N}}I_p(\beta),
+ \label{eq:sm5-ideal-gas-factorization}
+\end{equation}
+where the entire momentum integral \(I_p(\beta)\) is independent of \(V\).
+
+\begin{classroomqa}
+\audiencequestion{Why are there \(3N\) position integrals and \(3N\)
+momentum integrals?}
+\lecturerresponse{Each of the \(N\) particles has three spatial coordinates
+and three conjugate momentum components.  The count is \(3N\) in each half
+of phase space, not \(N\) particles plus another \(3N\) particles.
+\lecturetimestamp{01:04:19--01:04:28}}
+\end{classroomqa}
+
+Taking a logarithm separates the volume dependence:
+\begin{equation}
+ \log Z_N
+ =
+ N\log V-\log N!-3N\log h+\log I_p(\beta).
+ \label{eq:sm5-log-ideal-gas-partition}
+\end{equation}
+The factors \(1/N!\), \(h^{-3N}\), and \(I_p(\beta)\) are all independent of
+volume.  They matter for absolute entropy and other questions, but not for
+this particular derivative.  Hence
+\begin{equation}
+ \left(\frac{\partial\log Z_N}{\partial V}\right)_T
+ =\frac{N}{V}.
+ \label{eq:sm5-log-z-volume-derivative}
+\end{equation}
+Equation \eqref{eq:sm5-pressure-log-z} immediately gives
+\begin{equation}
+ P=\frac{NT}{V},
+ \qquad
+ \boxed{PV=NT}.
+ \label{eq:sm5-ideal-gas-law}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Does \(N\) still count the replicas used to derive the
+Boltzmann distribution?}
+\lecturerresponse{No.  The replica construction was a counting device in
+the earlier derivation and is no longer present.  Here \(N\) is the number of
+physical particles in this one gas sample.
+\lecturetimestamp{01:07:38--01:08:05}}
+\end{classroomqa}
+
+Defining the number density
+\begin{equation}
+ \rho=\frac{N}{V}
+ \label{eq:sm5-number-density}
+\end{equation}
+gives the equivalent form
+\begin{equation}
+ P=\rho T.
+ \label{eq:sm5-density-equation-of-state}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Should the density form be obtained by dividing by \(N\)
+or by \(V\)?}
+\lecturerresponse{Divide \(PV=NT\) by \(V\):
+\(P=(N/V)T=\rho T\).  Here \(\rho\) is number density, not mass density.
+\lecturetimestamp{01:08:45--01:09:16}}
+\end{classroomqa}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_08.png}
+\caption{The volume derivative of \(\log Z\) and the resulting ideal-gas
+equation of state \(PV=NT\), or \(P=\rho T\).}
+\lectureframe{01:09:25}
+\end{figure}
+
+Restoring laboratory temperature \(T_K\),
+\begin{equation}
+ PV=Nk_BT_K.
+ \label{eq:sm5-ideal-gas-law-laboratory}
+\end{equation}
+The familiar result agrees with kinetic intuition, but its derivation now
+rests on a framework that survives far beyond the free gas.
+
+\section{A Second Dividend: Equilibrium Fluctuations}
+
+The pressure calculation is complete, but one promised question remains:
+what else can be extracted from the partition function?  Consider a system
+in thermal contact with a heat bath.  Its energy is not fixed.  Energy enters
+and leaves, so repeated measurements fluctuate around the canonical mean.
+
+\begin{classroomqa}
+\audiencequestion{Can we now calculate the fluctuations that were promised?}
+\lecturerresponse{Yes.  The extra time allows a second demonstration of the
+same principle: derivatives of \(Z\) encode measurable thermodynamic
+information.
+\lecturetimestamp{01:10:37--01:10:50}}
+\end{classroomqa}
+
+\subsection{Variance and Standard Deviation}
+
+For a random variable \(x\) with \(\langle x\rangle=0\), a measure of the
+distribution's width is \(\langle x^2\rangle\).  For a general distribution,
+shift the variable by its mean:
+\begin{equation}
+ \delta x=x-\langle x\rangle.
+ \label{eq:sm5-centered-variable}
+\end{equation}
+Its mean vanishes,
+\begin{equation}
+ \langle\delta x\rangle
+ =
+ \langle x\rangle-\langle x\rangle=0,
+ \label{eq:sm5-centered-mean}
+\end{equation}
+and its mean square is
 \begin{align}
-\langle E^2\rangle
-&=
-\frac{1}{Z}\sum_i e^{-\beta E_i}E_i^2 \\
-&=
-\frac{1}{Z}\frac{\partial^2 Z}{\partial \beta^2}.
+ (\Delta x)^2
+ &\equiv
+ \left\langle\left(x-\langle x\rangle\right)^2\right\rangle \notag\\
+ &=
+ \langle x^2\rangle
+ -2\langle x\rangle^2
+ +\langle x\rangle^2 \notag\\
+ &=
+ \langle x^2\rangle-\langle x\rangle^2.
+ \label{eq:sm5-variance}
 \end{align}
-Therefore the energy fluctuation is
+This is the variance.  Its positive square root \(\Delta x\) is the standard
+deviation.
+
+\begin{classroomqa}
+\audiencequestion{Why is the average of
+\(x-\langle x\rangle\) exactly zero?}
+\lecturerresponse{Averages are linear, and \(\langle x\rangle\) is already
+a number.  Therefore
+\(\langle x-\langle x\rangle\rangle
+=\langle x\rangle-\langle x\rangle=0\).
+\lecturetimestamp{01:14:02--01:14:22}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What is the distinction among squared fluctuation,
+variance, root-mean-square width, and standard deviation?}
+\lecturerresponse{The variance is
+\((\Delta x)^2=\langle x^2\rangle-\langle x\rangle^2\).
+The standard deviation is its square root, \(\Delta x\).  For a zero-mean
+variable the standard deviation is also its root-mean-square value.
+\lecturetimestamp{01:16:39--01:18:38}}
+\end{classroomqa}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_09.png}
+\caption{The shifted variable and the expansion that produces
+\((\Delta x)^2=\langle x^2\rangle-\langle x\rangle^2\).}
+\lectureframe{01:17:20}
+\end{figure}
+
+\subsection{Energy Moments from the Partition Function}
+
+For the canonical ensemble,
 \begin{align}
-\Delta E^2
-&=
-\langle E^2\rangle-\langle E\rangle^2 \\
-&=
-\frac{1}{Z}\frac{\partial^2 Z}{\partial \beta^2}
--
-\frac{1}{Z^2}\left(\frac{\partial Z}{\partial \beta}\right)^2 \\
-&=
-\frac{\partial^2 \log Z}{\partial \beta^2}.
+ \langle E\rangle
+ &=
+ \frac{1}{Z}\sum_i E_i e^{-\beta E_i} \notag\\
+ &=
+ -\frac{1}{Z}\frac{\partial Z}{\partial\beta}
+ =
+ -\frac{\partial\log Z}{\partial\beta}.
+ \label{eq:sm5-mean-energy-from-z}
 \end{align}
-Since \(\langle E\rangle=-\partial_\beta \log Z\), this may be written as
+Multiplication by one factor of \(E_i\) is produced by one negative
+\(\beta\)-derivative.  A second derivative generates \(E_i^2\):
 \begin{equation}
-\Delta E^2=-\frac{\partial \langle E\rangle}{\partial \beta}.
+ \langle E^2\rangle
+ =
+ \frac{1}{Z}\sum_i E_i^2e^{-\beta E_i}
+ =
+ \frac{1}{Z}\frac{\partial^2 Z}{\partial\beta^2}.
+ \label{eq:sm5-second-energy-moment}
 \end{equation}
-Now \(T=1/\beta\) in the lecture units, so
+The energy variance is consequently
+\begin{align}
+ (\Delta E)^2
+ &=
+ \langle E^2\rangle-\langle E\rangle^2 \notag\\
+ &=
+ \frac{1}{Z}\frac{\partial^2Z}{\partial\beta^2}
+ -
+ \frac{1}{Z^2}
+ \left(\frac{\partial Z}{\partial\beta}\right)^2 \notag\\
+ &=
+ \frac{\partial^2\log Z}{\partial\beta^2}
+ =
+ -\frac{\partial\langle E\rangle}{\partial\beta}.
+ \label{eq:sm5-energy-variance-beta}
+\end{align}
+Once again, a complicated-looking observable becomes a derivative of
+\(\log Z\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_10.png}
+\caption{The second \(\beta\)-derivative of \(\log Z\) identified with the
+energy variance.}
+\lectureframe{01:29:00}
+\end{figure}
+
+\subsection{Heat Capacity and the Size of Fluctuations}
+
+In lecture units \(T=1/\beta\), so
 \begin{equation}
--\frac{\partial}{\partial \beta}
-=
-T^2\frac{\partial}{\partial T}.
+ -\frac{\partial}{\partial\beta}
+ =
+ T^2\frac{\partial}{\partial T}.
+ \label{eq:sm5-beta-temperature-derivative}
 \end{equation}
-Hence
+At fixed volume define the heat capacity of the whole sample by
 \begin{equation}
-\Delta E^2
-=
-T^2\left(\frac{\partial E}{\partial T}\right)_V.
+ C_V\equiv
+ \left(\frac{\partial\langle E\rangle}{\partial T}\right)_V.
+ \label{eq:sm5-heat-capacity}
+\end{equation}
+Equation \eqref{eq:sm5-energy-variance-beta} becomes
+\begin{equation}
+ \boxed{(\Delta E)^2=T^2C_V}
+ \qquad (k_B=1).
+ \label{eq:sm5-energy-fluctuation-lecture-units}
+\end{equation}
+For laboratory temperature \(T_K\), where
+\(\beta=(k_BT_K)^{-1}\),
+\begin{equation}
+ \boxed{(\Delta E)^2=k_BT_K^2C_V}.
+ \label{eq:sm5-energy-fluctuation-laboratory}
 \end{equation}
 
-At this point the lecture first calls \(\left(\frac{\partial E}{\partial T}\right)_V\) the specific heat, then corrects itself. The corrected language is the right one: the quantity appearing here is the heat capacity of the sample at fixed volume. We therefore write
-\begin{equation}
-\Delta E^2=T^2 C_V.
-\end{equation}
-In laboratory units one restores a Boltzmann constant:
-\begin{equation}
-\Delta E^2=k_B T_{\mathrm{lab}}^2 C_V.
-\end{equation}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_05_figure_11.png}
+\caption{The conversion from the \(\beta\)-derivative to the fixed-volume
+heat capacity, including the restored factor of \(k_B\).}
+\lectureframe{01:31:10}
+\end{figure}
 
-The lecture lingers over the interpretation. This is not a definition without physical content. A system in contact with a heat bath really does fluctuate in energy, and the fluctuation is controlled by a thermodynamic quantity that can be measured macroscopically. The lecture also notes that one does not simply replace \(C_V\) by \(C_P\); the derivation has been carried out at fixed volume, that is, at fixed control parameters. And the eventual correction from ``specific heat'' to heat capacity is worth preserving, because the relevant quantity is extensive: it scales with the amount of material in the sample.
+\begin{classroomqa}
+\audiencequestion{Must the derivative specify fixed volume rather than fixed
+pressure?}
+\lecturerresponse{Yes.  This canonical derivation keeps the Hamiltonian's
+external control parameters fixed, including \(V\).  The resulting quantity
+is \(C_V\).  A constant-pressure ensemble allows volume and work to
+fluctuate and requires the corresponding thermodynamic potential; one
+cannot simply replace \(C_V\) by \(C_P\) in
+\eqref{eq:sm5-energy-fluctuation-laboratory}.
+\lecturetimestamp{01:29:01--01:29:28; 01:32:50--01:33:21}}
+\end{classroomqa}
 
-\section{Summary}
+\begin{classroomqa}
+\audiencequestion{Is \(C_V\) a material constant?}
+\lecturerresponse{Not in general.  It may depend on temperature, volume,
+phase, and composition.  Moreover, \(C_V\) here is the heat capacity of the
+entire sample and is extensive.  A specific heat is obtained only after
+dividing by mass, particle number, or amount of substance.
+\lecturetimestamp{01:31:47--01:32:21; 01:33:23--01:34:55}}
+\end{classroomqa}
 
-The lecture begins by asking us not to trust the kinetic picture too quickly and ends by showing just how much the partition function knows. We first recalled the canonical entropy formula and reorganized it into the Helmholtz free energy,
+For ordinary extensive matter, \(C_V\) is proportional to \(N\), so
+\((\Delta E)^2\) is proportional to \(N\) and \(\Delta E\) to
+\(\sqrt{N}\).  The mean energy itself is proportional to \(N\).  Therefore
 \begin{equation}
-A=E-TS=-T\log Z.
+ \frac{\Delta E}{\langle E\rangle}\sim\frac{1}{\sqrt{N}}.
+ \label{eq:sm5-relative-fluctuation-scaling}
 \end{equation}
-We then proved the strange but useful lemma that converts the fixed-entropy derivative \(\left(\frac{\partial E}{\partial V}\right)_S\) into derivatives at fixed temperature. After identifying pressure through a slow insulated piston motion, we found
-\begin{equation}
-P=-\left(\frac{\partial E}{\partial V}\right)_S
-=
--\left(\frac{\partial A}{\partial V}\right)_T
-=
-T\left(\frac{\partial \log Z}{\partial V}\right)_T.
-\end{equation}
-For the ideal gas this gives
-\begin{equation}
-PV=NT,
-\qquad
-P=\rho T.
-\end{equation}
-Because the lecture still had time left, it then turned the same machinery on fluctuations and found
-\begin{equation}
-\Delta E^2=T^2C_V
-\end{equation}
-in the lecture units. The thread connecting all of this is the one Susskind wants us to learn: define the right constrained derivative, convert it into a calculable form, and then let \(\log Z\) do the rest.
+Macroscopic relative fluctuations are tiny, while microscopic samples
+display them directly.  The appearance of \(k_B\) in
+\eqref{eq:sm5-energy-fluctuation-laboratory} marks this connection between
+thermodynamic observables and molecular discreteness; equivalently, it
+connects macroscopic units to Avogadro-scale counting.
+
+Pressure and fluctuations have now emerged from the same object:
+\[
+ P=T\left(\frac{\partial\log Z}{\partial V}\right)_T,
+ \qquad
+ (\Delta E)^2=\frac{\partial^2\log Z}{\partial\beta^2}.
+\]
+This is the central lesson.  Once the correct constraints are identified,
+the partition function does not merely normalize probabilities.  Its
+derivatives organize the measurable thermodynamics of the system.
