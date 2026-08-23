@@ -1,53 +1,145 @@
 # Figure Notes
-## Image Inventory
-- `lecture_03_figure_02.png`: Mid-board view from the Euler-Lagrange discussion. On the left board there is a large displayed term consisting of a total time derivative acting on a partial derivative of the Lagrangian with respect to a dotted coordinate. On the right board there is a partially visible trajectory sketch with a slanted segment and a curved path.
-- `lecture_03_figure_03.png`: Close board view during the introduction of canonical momentum. The main visible content is a definition of a \(\pi\)-like quantity with subscript \(i\) equal to a partial derivative of the Lagrangian with respect to \(\dot q_i\). Susskind points near the left side of the formula.
-- `lecture_03_figure_04.png`: Wide board view in the two-dimensional near-Earth example. The top line contains the kinetic-energy terms in \(\dot x\) and \(\dot y\). At the left there is a simple setup sketch with a horizontal baseline and a vertical coordinate line. On the far right Susskind is still writing a new term, so that part is incomplete.
 
-## Blackboard Equations
-- `lecture_03_figure_02.png`: \(\displaystyle \frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot q_i}\right)\) [visible]
-- `lecture_03_figure_02.png`: \(\displaystyle \frac{\partial \mathcal{L}}{\partial q_i}\) [standard reconstruction]
-  The transcript makes clear that the displayed left-hand term is being compared with the derivative of the Lagrangian with respect to the corresponding coordinate, even though that matching right-hand term is not fully shown in this frame.
-- `lecture_03_figure_03.png`: \(\displaystyle \Pi_i=\frac{\partial \mathcal{L}}{\partial \dot q_i}\) [visible]
-- `lecture_03_figure_03.png`: \(\displaystyle \pi_i=\frac{\partial \mathcal{L}}{\partial \dot q_i}\) [standard reconstruction]
-  The transcript supports the usual lowercase \(\pi_i\), though the board symbol can be read as a capital \(\Pi_i\).
-- `lecture_03_figure_04.png`: \(\displaystyle \frac12 m\dot x^{\,2}+\frac12 m\dot y^{\,2}\) [partially visible]
-- `lecture_03_figure_04.png`: \(\displaystyle T=\frac12 m\dot x^{\,2}+\frac12 m\dot y^{\,2}\) [standard reconstruction]
-  The transcript identifies this line as the kinetic energy for motion in two dimensions, but the leading symbol or equality on the board is not fully secure from the image alone.
+## Retained Blackboard Frames
 
-## Diagram And Layout Reading
-- `lecture_03_figure_02.png` is laid out as algebra on the left, geometry on the right. The left equation is large and isolated, as if Susskind is rewriting the Euler-Lagrange equation term by term. The right-hand sketch looks like a qualitative path or trajectory picture, not a precise geometric construction.
-- In `lecture_03_figure_02.png`, the right board shows a slanted line segment below and a curved path above, with a few small marks near the path. This reads as supporting intuition for motion or variation along a trajectory rather than as a separate formal derivation.
-- `lecture_03_figure_03.png` is a clean definition board. The equation is centered and pedagogically self-contained: first the symbol \(\pi_i\), then the equals sign, then the derivative of the Lagrangian with respect to the corresponding velocity component.
-- `lecture_03_figure_04.png` combines a setup sketch and a kinetic-energy expression. The left sketch appears to show a horizontal surface with a vertical direction marked upward from it and a point representing the particle. The top formula then translates that setup into the two-coordinate kinetic term.
-- In `lecture_03_figure_04.png`, the rightmost writing is still in progress and should be treated as process rather than as a stable transcription source. The frame is more valuable for the established top equation and the coordinate layout than for the fresh marks being added on the right.
+### lecture_03_figure_02.png - 00:45:02
 
-## TeX Reconstruction Plan
-- `lecture_03_figure_02.png` should remain visible in the notes. Nearby, typeset the clean Euler-Lagrange term
+- Content: total time derivative of the velocity derivative of the Lagrangian,
+  with a qualitative trajectory sketch on the adjacent board.
+- Reading:
   \[
-  \frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot q_i}\right)
+  \frac{d}{dt}\left(\frac{\partial L}{\partial\dot q_i}\right).
   \]
-  and, if the chapter uses the right-hand sketch, add a modest TikZ redraw of a qualitative trajectory or local path segment. The screenshot should remain the primary evidence for the board layout.
-- `lecture_03_figure_03.png` should remain visible in the notes. Nearby, typeset the canonical-momentum definition cleanly as
-  \[
-  \pi_i=\frac{\partial \mathcal{L}}{\partial \dot q_i}.
-  \]
-  No TikZ is needed here; the main value of the screenshot is the board witness for the notation and the moment of definition.
-- `lecture_03_figure_04.png` should remain visible in the notes. Nearby, reconstruct the kinetic-energy formula as a displayed equation,
-  \[
-  T=\frac12 m\dot x^{\,2}+\frac12 m\dot y^{\,2},
-  \]
-  and add a simple TikZ redraw of the two-dimensional near-Earth setup with horizontal \(x\), vertical \(y\), and a particle above the surface. Do not reconstruct the unfinished right-hand writing from the image alone.
+- Use: global-to-local interpretation of the Euler-Lagrange equation.
+- Verdict: keep. The equation and trajectory are both visible.
 
-## Caption Drafts
-- `lecture_03_figure_02.png`: Euler-Lagrange time-derivative term with trajectory sketch
-- `lecture_03_figure_03.png`: Canonical momentum from the Lagrangian
-- `lecture_03_figure_04.png`: Two-dimensional kinetic term and near-Earth setup
+### lecture_03_figure_03.png - 00:46:32
 
-## Uncertainties
-- In `lecture_03_figure_02.png`, the exact subscript structure in the denominator is not perfectly crisp; the transcript strongly supports reading the denominator as \(\dot q_i\).
-- In `lecture_03_figure_02.png`, the right-hand sketch is partly cropped and low-detail. It should be treated as a qualitative motion or variation picture, not as a metrically exact diagram.
-- In `lecture_03_figure_03.png`, the momentum symbol looks like an uppercase \(\Pi_i\) on the board, while the transcript and standard notation suggest lowercase \(\pi_i\).
-- In `lecture_03_figure_04.png`, the top kinetic-energy line is incomplete at its left and right edges; the image alone does not securely show whether a leading \(T=\) is written.
-- In `lecture_03_figure_04.png`, the coordinate labels in the left sketch are faint. The transcript is needed to regularize the intended interpretation as horizontal \(x\) and vertical \(y\).
-- In `lecture_03_figure_04.png`, the far-right writing is visibly in progress and should not be used as a stable source for the potential-energy formula.
+- Content: canonical momentum definition.
+- Reading:
+  \[
+  \pi_i=\frac{\partial L}{\partial\dot q_i}.
+  \]
+- Uncertainty: the handwritten symbol resembles uppercase \(\Pi_i\); spoken
+  language and standard notation support lowercase \(\pi_i\).
+- Verdict: keep with normalized typesetting in the text.
+
+### lecture_03_figure_04.png - 01:15:15
+
+- Content: near-Earth coordinate sketch and two-coordinate kinetic energy.
+- Reading:
+  \[
+  T=\frac12m\dot x^2+\frac12m\dot y^2.
+  \]
+- Use: setup for horizontal and vertical equations.
+- Verdict: keep. The unfinished far-right writing is not used as evidence.
+
+### lecture_03_figure_05.png - 00:10:20
+
+- Content: product-rule integral and endpoint-vanishing integration by parts.
+- Reading:
+  \[
+  \int\dot f\,g\,dt=[fg]-\int f\,\dot g\,dt.
+  \]
+- Verdict: keep. The established equations are legible despite the lecturer
+  standing below the upper line.
+
+### lecture_03_figure_06.png - 00:13:30
+
+- Content: \(\int a(t)f(t)\,dt=0\) and a localized test-function sketch.
+- Use: fundamental lemma of the calculus of variations.
+- Verdict: keep. The blip and chosen point are both visible.
+
+### lecture_03_figure_07.png - 00:22:55
+
+- Content: physical and deformed paths with fixed endpoints, together with
+  \(q_i=\hat q_i+\alpha f_i\) and endpoint conditions.
+- Verdict: keep. This frame is clearer and less occluded than the inherited
+  candidate at 00:22:45.
+
+### lecture_03_figure_08.png - 00:28:42
+
+- Content: action integral with \(L(q(t),\dot q(t))\).
+- Reading:
+  \[
+  A=\int_{t_1}^{t_2}L(q(t),\dot q(t))\,dt.
+  \]
+- Verdict: keep. The full integral is unobstructed.
+
+### lecture_03_figure_09.png - 00:34:10
+
+- Content: action and first variation before integration by parts.
+- Reading:
+  \[
+  \frac{dA}{d\alpha}
+  =
+  \int dt\sum_i
+  \left(
+  \frac{\partial L}{\partial q_i}f_i+
+  \frac{\partial L}{\partial\dot q_i}\dot f_i
+  \right).
+  \]
+- Verdict: keep. Both chain-rule contributions are visible.
+
+### lecture_03_figure_10.png - 01:08:50
+
+- Content: two-particle translation-invariant Lagrangian and two momentum
+  equations.
+- Reading:
+  \[
+  L=\frac12m_1\dot x_1^2+\frac12m_2\dot x_2^2-U(x_1-x_2).
+  \]
+- Verdict: keep. The frame supports equal-and-opposite coordinate derivatives.
+
+### lecture_03_figure_11.png - 01:19:15
+
+- Content: completed near-Earth Lagrangian, \(\partial U/\partial x=0\), and
+  \(\partial U/\partial y=mg\).
+- Verdict: keep. It directly supports the contrast between the two translation
+  directions.
+
+### lecture_03_figure_12.png - 01:27:50
+
+- Content: polar geometry, \(v_r=\dot r\), \(v_\perp=r\dot\theta\), and the
+  angular kinetic term.
+- Verdict: keep. Geometry and formulas appear together and are legible.
+
+### lecture_03_figure_13.png - 01:33:35
+
+- Content: angular equation completed as
+  \[
+  \frac{d}{dt}(mr^2\dot\theta)=0.
+  \]
+- Verdict: keep. This later frame replaces the incomplete 01:33:15 candidate.
+
+## Reconstructed Diagram
+
+The rigid-translation TikZ diagram shows two particles shifted by the same
+amount while their separation remains fixed. Every element follows directly
+from the argument at 00:59:12 to 01:03:49. It is explanatory, not a claimed
+copy of a particular board drawing.
+
+## Rejected Candidates
+
+- Opening Stanford announcement: no physics content.
+- 00:22:45 varied path: more occluded than the selected 00:22:55 frame.
+- 01:02:18 translation Lagrangian: writing is still in progress and occluded.
+- 01:10:20 momentum frame: only a partial force derivative remains visible.
+- 01:24:30 polar setup: lecturer occludes much of the sketch.
+- 01:31:12 radial board: the displayed schematic radial equation omits the
+  \(mr\dot\theta^2\) term required by the Lagrangian.
+- 01:33:15 angular board: right-hand side is not yet complete.
+- Closing Stanford announcement: no physics content.
+
+## Mathematical Correction
+
+From
+\[
+L=\frac12m\dot r^2+\frac12mr^2\dot\theta^2-U(r),
+\]
+the radial Euler-Lagrange equation is
+\[
+m\ddot r=mr\dot\theta^2-\frac{dU}{dr}.
+\]
+The chapter uses this complete equation rather than the isolated incomplete
+board line. Angular momentum conservation is unaffected.

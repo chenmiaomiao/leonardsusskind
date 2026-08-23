@@ -1,433 +1,703 @@
-\chapter{Least Action, Euler--Lagrange, and Symmetry}
+\chapter{Least Action, Local Equations, and Symmetry}
 
-We begin, as the lecture begins, at a surprisingly large scale. The subject is not merely the motion of one particle, nor even mechanics taken narrowly, but the claim that the laws of physics share a common form. From that wide opening the lecture narrows deliberately: first two small mathematical tools, then the variational derivation itself, and only after that the familiar force laws and conservation laws. The guiding idea throughout is that a global statement about an entire history can be converted into a local equation along the path. The retained board figures come from Leonard Susskind's lecture, with visual curation by LazyingArt LLC and Video2Book, and they are kept only where they witness notation, layout, or geometry that genuinely matters for the mathematics.
+The laws of physics have many subjects but a remarkably common form. Newtonian
+particles, electromagnetic fields, gravitation, and even the fields of modern
+physics can all be described by an action principle. Thermodynamics looks
+different because it is statistical, but its microscopic degrees of freedom
+still obey dynamical laws of this kind.
 
-\section{The Common Form of Physical Law}
+The phrase laws of physics is being used specifically here. Mathematical
+identities such as \(1+1=2\), and the internal rules of probability theory, are
+not dynamical laws of a physical system. The fact that probability describes
+nature may itself be a physical fact, but the laws at issue now are those that
+govern motion and fields.
 
-The lecture does not start with \(F=ma\). It starts with the broader claim that the laws of physics have a common form. There are mathematical truths, and there are theorems of probability theory, but these are not yet the laws of physics in the specific sense Susskind wants. The laws he has in mind are the dynamical laws: the motion of particles, gravity, electromagnetism, the motion of charged particles, and more generally the machinery by which physical systems evolve.
+This is a stronger claim than saying that least action is a clever alternative
+to \(F=ma\). The action is the organizing language; Newton's equations are one
+local expression of it. Our first task is therefore to understand how a global
+statement about an entire history can become a differential equation at each
+instant of time. Two elementary facts from calculus will do nearly all of the
+work.
 
-His claim is that all of these classical laws can be written in a common structural form, and that form is the principle of least action. Even thermodynamics, which is not usually written this way, is placed under the same umbrella: its laws are statistical laws of many degrees of freedom whose underlying microscopic dynamics are themselves governed by an action principle.
+\section{Two Small Theorems}
 
-This opening matters for the tone of the chapter. Least action is not presented as a decorative reformulation of Newtonian mechanics. It is presented as a common language of physics. Only after making that claim does the lecture step back and say, in effect, before we touch the main argument we need two little theorems.
+\subsection{Integration by parts}
 
-\section{Two Mathematical Tools Before the Main Derivation}
-
-The first theorem is integration by parts. The transcript is garbled in places here, so we regularize the notation into its standard form while keeping the lecture's actual purpose in view.
-
-We begin with the elementary fact that the definite integral of a derivative is the difference of the function at the endpoints:
+Begin with the fundamental theorem of calculus,
 \begin{equation}
-\int_{t_1}^{t_2}\dot F(t)\,dt = F(t_2)-F(t_1).
+ \int_{t_1}^{t_2}\dot F(t)\,dt=F(t_2)-F(t_1).
+ \label{eq:l03-fundamental-theorem}
 \end{equation}
-Now let \(F(t)=f(t)g(t)\). The product rule gives
-\begin{equation}
-\frac{d}{dt}\big(f(t)g(t)\big)=\dot f(t)\,g(t)+f(t)\,\dot g(t).
-\end{equation}
-Integrating from \(t_1\) to \(t_2\), we obtain
-\begin{equation}
-\int_{t_1}^{t_2}\big(\dot f\,g+f\,\dot g\big)\,dt=[fg]_{t_1}^{t_2},
-\end{equation}
-and therefore
-\begin{equation}
-\int_{t_1}^{t_2}\dot f\,g\,dt=[fg]_{t_1}^{t_2}-\int_{t_1}^{t_2}f\,\dot g\,dt.
-\end{equation}
-This is the form we shall use later. It lets us move the dot from one factor to the other, but only at the price of a minus sign and a boundary term.
-
-\subsection{Question \& Answer}
-
-\paragraph{Why is there a \(dt\) in the integral?}
-This is exactly the sort of interruption the lecture wants to preserve. The answer is simple and worth stating plainly: an integral must always be an integral with respect to something. In this discussion the independent variable is time, so one must write \(dt\). The expression
+There is a useful elementary picture behind this formula. Divide the interval
+into short steps. Each contribution to the integral is approximately a
+difference,
 \[
-\int \dot f(t)
+ F(t_{k+1})-F(t_k).
 \]
-is incomplete notation; the intended expression is
+On adding the differences, every intermediate value cancels:
 \[
-\int \dot f(t)\,dt.
+ \bigl(F_2-F_1\bigr)+\bigl(F_3-F_2\bigr)+\cdots
+   +\bigl(F_N-F_{N-1}\bigr)=F_N-F_1.
 \]
-The point is elementary, but the lecture uses it to slow the argument down and make the notation explicit before the harder variational step.
+Only the two endpoints survive.
 
-The special case we need repeatedly is the case in which one factor vanishes at both endpoints. Then the boundary term drops out and the formula becomes
+Now take \(F=fg\). The product rule gives
 \begin{equation}
-\int_{t_1}^{t_2}\dot f\,g\,dt=-\int_{t_1}^{t_2}f\,\dot g\,dt.
+ \frac{d}{dt}(fg)=\dot f\,g+f\,\dot g.
 \end{equation}
-This is exactly the version that will be used when the variation of the path is fixed to vanish at the initial and final times.
+Substitution into Eq.~\eqref{eq:l03-fundamental-theorem} yields
+\begin{equation}
+ \int_{t_1}^{t_2}\dot f\,g\,dt
+ =
+ [fg]_{t_1}^{t_2}
+ -
+ \int_{t_1}^{t_2}f\,\dot g\,dt.
+ \label{eq:l03-integration-by-parts}
+\end{equation}
+Thus a derivative may be moved from one factor to the other, at the cost of a
+minus sign and a boundary term.
 
-The second tool is even smaller, but in the derivation it is decisive.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_05.png}
+\caption{Integration by parts on the board at 00:10:20. The upper line retains
+the endpoint term; the lower line is being reduced to the endpoint-vanishing
+case used in the variation.}
+\lectureframe{00:10:20}
+\label{fig:l03-integration-by-parts}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why must the integral contain \(dt\)?}
+\lecturerresponse{An integral is always taken with respect to a variable. Here
+time is the independent variable, so the complete expression is
+\(\int \dot f(t)\,dt\). Writing only \(\int\dot f(t)\) leaves the integration
+measure unstated. Small notational questions are worth stopping for because
+they force every ingredient of the calculation into view.}
+\end{classroomqa}
+
+We shall use a special case repeatedly. If \(f\) vanishes at \(t_1\) and
+\(t_2\), then \([fg]_{t_1}^{t_2}=0\), and
+\begin{equation}
+ \int_{t_1}^{t_2}\dot f\,g\,dt
+ =
+ -\int_{t_1}^{t_2}f\,\dot g\,dt.
+ \label{eq:l03-integration-by-parts-fixed}
+\end{equation}
+It is enough that the product \(fg\) have the same value at both endpoints,
+but fixed-endpoint variations will make \(f\) vanish separately at each end.
+
+\subsection{An arbitrary test function}
+
+The second fact is almost obvious, but it is the step that turns an integral
+condition into a local law.
 
 \begin{proposition}
 If
 \begin{equation}
-\int_{t_1}^{t_2}a(t)f(t)\,dt=0
+ \int_{t_1}^{t_2}a(t)f(t)\,dt=0
+ \label{eq:l03-fundamental-lemma-hypothesis}
 \end{equation}
-for arbitrary functions \(f(t)\), then \(a(t)=0\) on the interval.
+for every sufficiently smooth function \(f(t)\) that vanishes at the
+endpoints, then \(a(t)=0\) throughout the interval.
 \end{proposition}
 
 \begin{proof}
-The lecture's argument is the right one. Choose \(f(t)\) to vanish everywhere except in a tiny neighborhood of one point \(t_*\). Then the integral is proportional to the value of \(a(t)\) near that point. If the integral must vanish for every such choice of \(f\), then \(a(t_*)=0\). Since the point \(t_*\) was arbitrary, \(a(t)\) must vanish everywhere.
+Choose \(f\) to be a narrow smooth blip around an arbitrary point \(t_*\) and
+zero away from that neighborhood. If \(a(t_*)\neq0\), choose the sign of the
+blip to agree with the sign of \(a\); for a sufficiently narrow neighborhood
+the integral cannot vanish. Hence \(a(t_*)=0\). Since the point was arbitrary,
+\(a\) vanishes everywhere.
 \end{proof}
 
-Together, these two small pieces of mathematics do one large job. Integration by parts moves the derivative, and the arbitrary-function lemma converts an integral statement into a pointwise one. With those in hand, the lecture says we are ready for the big one.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.76\textwidth]{lecture_03_figure_06.png}
+\caption{The arbitrary-function argument at 00:13:30. A narrow test function
+isolates the value of \(a(t)\) near any chosen point of the interval.}
+\lectureframe{00:13:30}
+\label{fig:l03-test-function}
+\end{figure}
 
-\section{Trajectories, Histories, and the Local--Global Tension}
+One does not verify Eq.~\eqref{eq:l03-fundamental-lemma-hypothesis} by trying
+functions one after another; that would take forever. In an application we
+prove the integral vanishes for an arbitrary \(f\), and the proposition then
+gives the pointwise conclusion in one step.
 
-A system is described by generalized coordinates
-\[
-q_1(t),\ q_2(t),\ \dots,\ q_n(t).
-\]
-A trajectory, or a history, is the entire collection of these functions of time. To know the history is to know all the \(q_i\) for all times in the interval of interest.
+\section{Histories: Local and Global Descriptions}
 
-The lecture is careful here about how to picture this. In elementary mathematics the independent variable is usually placed horizontally; in physics we often prefer to imagine time running upward. That pictorial choice is secondary, but the point it serves is not. A history is not a single point. It is a path in time.
-
-There are then two ways to formulate the laws of motion.
-
-The first is local. A local law tells us how to move forward from one small piece of the trajectory to the next. Newton's law \(F=ma\) is the example Susskind has in mind. If we know the coordinates and velocities at one instant, the differential equation tells us how the path continues.
-
-The second is global. A global formulation looks at the whole trajectory at once. It assigns to that trajectory a quantity called the action, and the true trajectory is the one for which the action is minimized, or more carefully, stationary, among nearby trajectories with the same endpoints.
-
-This is the tension the lecture wants to resolve: how can a global statement about a whole history be equivalent to a local differential law? The motivating answer is simple. If the true trajectory minimizes the action for the whole interval, it must also minimize the action between neighboring points of the path. Otherwise we could replace that local segment by a better one and lower the total action. So the global principle should imply a local equation. That is exactly what the derivation now does.
-
-\section{Varying the Path and Deriving the Euler--Lagrange Equation}
-
-Let \(\hat q_i(t)\) denote the true path. We deform it by adding a small multiple of an arbitrary function:
+Let a system have generalized coordinates
 \begin{equation}
-q_i(t)=\hat q_i(t)+\alpha f_i(t).
+ q_1(t),q_2(t),\ldots,q_n(t).
 \end{equation}
-Here \(\alpha\) is just a number, a parameter measuring how much we have deformed the path. The functions \(f_i(t)\) are otherwise arbitrary, except that they must vanish at the endpoints:
-\begin{equation}
-f_i(t_1)=f_i(t_2)=0.
-\end{equation}
-This keeps the initial and final points fixed while allowing the trajectory to vary in between.
+The complete collection of these functions is a \emph{history}, or a
+trajectory in configuration space. For a system of \(N\) unconstrained
+particles in three dimensions, \(n=3N\).
 
-At precisely this point the lecture pauses and asks the right question: what is the action whose minimum we are discussing?
+Whether time is drawn horizontally, as the independent variable often is in
+elementary mathematics, or vertically, as it often is in physics diagrams, is
+only a convention. The object represented is the same set of functions
+\(q_i(t)\).
 
-\begin{definition}
-For a trajectory \(q_i(t)\) between \(t_1\) and \(t_2\), the action is
-\begin{equation}
-A[q]=\int_{t_1}^{t_2}L(q,\dot q,t)\,dt.
-\end{equation}
-In the mechanical examples of this lecture,
-\begin{equation}
-L=T-U,
-\end{equation}
-kinetic energy minus potential energy.
-\end{definition}
+There are two apparently different ways to state a law of motion. A local law
+uses information near one instant to continue the trajectory. In Newtonian
+mechanics, knowledge of \(q_i\) and \(\dot q_i\), together with equations of
+the form \(F=ma\), determines the acceleration and advances the solution to the
+next instant.
 
-The lecture is also careful not to use \(L=T-U\) too early in the derivation. For the moment we let \(L\) be any function of the coordinates and velocities. The action is then the sum, all along the path, of these little incremental contributions.
+A global law considers the whole path between two endpoint configurations. It
+assigns a number, the action, to every candidate history and says that the
+physical history makes that number stationary. Instead of giving \(q_i\) and
+\(\dot q_i\) at one time, this boundary-value formulation fixes \(q_i\) at an
+initial and a final time.
 
-Once the path depends on \(\alpha\), the action becomes a function \(A(\alpha)\). The true path is the undeformed one, \(\alpha=0\). Since the true path is the stationary path,
+The two formulations must be equivalent when they describe the same physics.
+There is already a simple reason to expect locality to emerge. If a path is
+stationary on a long interval, its segment between any two neighboring points
+must also be stationary with those points held fixed. Otherwise that segment
+could be replaced and the action of the whole path would change to first
+order.
+
+\section{Varying a Path}
+
+Write the physical history as \(\hat q_i(t)\). A nearby history can be
+parameterized by
 \begin{equation}
-\left.\frac{dA}{d\alpha}\right|_{\alpha=0}=0.
+ q_i(t,\alpha)=\hat q_i(t)+\alpha f_i(t),
+ \qquad
+ f_i(t_1)=f_i(t_2)=0.
+ \label{eq:l03-varied-path}
+\end{equation}
+The number \(\alpha\) controls the size and sign of the deformation; it does
+not depend on time. The functions \(f_i(t)\) describe its shape and are
+otherwise arbitrary. The endpoint conditions nail the beginning and end of
+every candidate path in place.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.79\textwidth]{lecture_03_figure_07.png}
+\caption{A fixed-endpoint deformation at 00:22:55. The red curve is displaced
+in the interior while the endpoint conditions \(f_i(t_1)=f_i(t_2)=0\) remain
+visible on the board.}
+\lectureframe{00:22:55}
+\label{fig:l03-varied-path}
+\end{figure}
+
+For fixed \(\hat q_i\) and fixed deformation functions \(f_i\), the action is
+now an ordinary function \(A(\alpha)\). The physical path corresponds to
+\(\alpha=0\). If it is a minimum, then in particular it is stationary:
+\begin{equation}
+ \left.\frac{dA}{d\alpha}\right|_{\alpha=0}=0.
+ \label{eq:l03-stationarity}
+\end{equation}
+The first derivative is the condition we need; whether the stationary path is
+a minimum, maximum, or saddle requires additional information.
+
+\begin{classroomqa}
+\audiencequestion{What is the action being varied?}
+\lecturerresponse{For a history between \(t_1\) and \(t_2\), the action is
+\begin{equation}
+ A[q]=\int_{t_1}^{t_2}L(q,\dot q,t)\,dt.
+ \label{eq:l03-action}
+\end{equation}
+The Lagrangian \(L\) is evaluated at every point of the path. In the Newtonian
+examples below it is \(L=T-U\), but the variational calculation needs only that
+\(L\) be a function of the coordinates, velocities, and possibly time.}
+\end{classroomqa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_08.png}
+\caption{The action integral at 00:28:42, written before any particular
+mechanical form of the Lagrangian is needed.}
+\lectureframe{00:28:42}
+\label{fig:l03-action-board}
+\end{figure}
+
+Equation~\eqref{eq:l03-varied-path} immediately gives
+\begin{equation}
+ \frac{\partial q_i}{\partial\alpha}=f_i,
+ \qquad
+ \frac{\partial\dot q_i}{\partial\alpha}=\dot f_i.
+\end{equation}
+Applying the chain rule inside the action,
+\begin{align}
+ \frac{dA}{d\alpha}
+ &=
+ \int_{t_1}^{t_2}
+ \sum_i
+ \left(
+   \frac{\partial L}{\partial q_i}
+   \frac{\partial q_i}{\partial\alpha}
+   +
+   \frac{\partial L}{\partial\dot q_i}
+   \frac{\partial\dot q_i}{\partial\alpha}
+ \right)dt \\
+ &=
+ \int_{t_1}^{t_2}
+ \sum_i
+ \left(
+   \frac{\partial L}{\partial q_i}f_i
+   +
+   \frac{\partial L}{\partial\dot q_i}\dot f_i
+ \right)dt.
+ \label{eq:l03-first-variation-before-parts}
+\end{align}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{lecture_03_figure_09.png}
+\caption{The first variation at 00:34:10. Changes of both \(q_i\) and
+\(\dot q_i\) contribute, and the audience supplies the required sum over
+coordinates.}
+\lectureframe{00:34:10}
+\label{fig:l03-first-variation}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Should there be a sum over \(i\)?}
+\lecturerresponse{Yes. Each coordinate and its velocity are independent
+arguments of \(L\), so the chain rule contains one pair of terms for every
+\(i\). For a one-coordinate problem the sum is invisible; for a general
+system it is essential.}
+\end{classroomqa}
+
+The unwanted \(\dot f_i\) in the second term is precisely why integration by
+parts was prepared. Applying Eq.~\eqref{eq:l03-integration-by-parts},
+\begin{align}
+ \int_{t_1}^{t_2}
+ \frac{\partial L}{\partial\dot q_i}\dot f_i\,dt
+ &=
+ \left[
+ f_i\frac{\partial L}{\partial\dot q_i}
+ \right]_{t_1}^{t_2}
+ -
+ \int_{t_1}^{t_2}
+ f_i\frac{d}{dt}
+ \left(\frac{\partial L}{\partial\dot q_i}\right)dt.
+\end{align}
+In the earlier notation, \(f_i\) plays the role of \(f\), while
+\(\partial L/\partial\dot q_i\) plays the role of \(g\). The operation removes
+the dot from \(f_i\) and differentiates the momentum-like factor instead.
+The boundary term vanishes because \(f_i(t_1)=f_i(t_2)=0\). Consequently,
+\begin{equation}
+ \left.\frac{dA}{d\alpha}\right|_{\alpha=0}
+ =
+ \int_{t_1}^{t_2}\sum_i
+ \left[
+   \frac{\partial L}{\partial q_i}
+   -
+   \frac{d}{dt}
+   \left(\frac{\partial L}{\partial\dot q_i}\right)
+ \right]_{\hat q}
+ f_i(t)\,dt.
+ \label{eq:l03-first-variation-after-parts}
 \end{equation}
 
-Now differentiate the varied path with respect to \(\alpha\):
-\begin{equation}
-\frac{\partial q_i}{\partial \alpha}=f_i(t),
-\qquad
-\frac{\partial \dot q_i}{\partial \alpha}=\dot f_i(t).
-\end{equation}
-Using the chain rule, we obtain the first variation
-\begin{equation}
-\frac{dA}{d\alpha}
-=
-\int_{t_1}^{t_2}\sum_i
-\left(
-\frac{\partial L}{\partial q_i}f_i
-+
-\frac{\partial L}{\partial \dot q_i}\dot f_i
-\right)dt.
-\end{equation}
-The transcript is noisy at this stage, but the structure is clear: the first term comes from the change in the coordinates, the second from the change in the velocities.
+\begin{classroomqa}
+\audiencequestion{What happened to the endpoint contribution?}
+\lecturerresponse{It is exactly
+\(\left[f_i\,\partial L/\partial\dot q_i\right]_{t_1}^{t_2}\).
+The varied and physical paths have the same endpoints, so every \(f_i\)
+vanishes there and the contribution is zero. The endpoint condition was chosen
+at the start for this reason.}
+\end{classroomqa}
 
-We now use the earlier mathematical tool exactly where it was prepared for use. Integrating the second term by parts,
+Stationarity requires Eq.~\eqref{eq:l03-first-variation-after-parts} to vanish
+for every collection of functions \(f_i(t)\). The arbitrary-function
+proposition applies separately to every \(i\), giving
 \begin{equation}
-\int_{t_1}^{t_2}\frac{\partial L}{\partial \dot q_i}\dot f_i\,dt
-=
-\left[
-f_i\frac{\partial L}{\partial \dot q_i}
-\right]_{t_1}^{t_2}
--
-\int_{t_1}^{t_2}
-f_i\,\frac{d}{dt}\left(\frac{\partial L}{\partial \dot q_i}\right)dt.
+ \boxed{
+ \frac{d}{dt}
+ \left(\frac{\partial L}{\partial\dot q_i}\right)
+ =
+ \frac{\partial L}{\partial q_i}
+ }
+ \qquad (i=1,\ldots,n).
+ \label{eq:l03-euler-lagrange}
 \end{equation}
-The boundary term vanishes because every \(f_i\) vanishes at \(t_1\) and \(t_2\). Hence
-\begin{equation}
-\frac{dA}{d\alpha}
-=
-\int_{t_1}^{t_2}\sum_i
-\left[
-\frac{\partial L}{\partial q_i}
--
-\frac{d}{dt}\left(\frac{\partial L}{\partial \dot q_i}\right)
-\right]f_i\,dt.
-\end{equation}
-At \(\alpha=0\), stationarity requires this to be zero for every choice of the functions \(f_i(t)\). By the arbitrary-function lemma, the bracket itself must vanish pointwise. Therefore
-\begin{equation}
-\frac{d}{dt}\left(\frac{\partial L}{\partial \dot q_i}\right)
-=
-\frac{\partial L}{\partial q_i}.
-\end{equation}
-This is the Euler--Lagrange equation.
+These are the Euler--Lagrange equations. The global condition
+\(\delta A=0\) has become one local differential equation for each generalized
+coordinate.
 
-The lecture's central achievement is exactly this one. A global condition on the whole trajectory has been converted into a local equation that holds at each point along the path.
-
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.72\textwidth]{lecture_03_figure_02.png}
-\par
-\begin{tikzpicture}
-\draw[->] (0,0) -- (0,3.6) node[left] {$t$};
-\draw[->] (0,0) -- (4.3,0) node[below] {$q$};
-\fill (0.9,0.9) circle (1.4pt);
-\fill (3.3,3.0) circle (1.4pt);
-\draw (0.9,0.9) .. controls (1.5,1.8) and (2.4,2.2) .. (3.3,3.0);
-\draw[dashed] (0.9,0.9) .. controls (1.8,1.2) and (2.5,2.7) .. (3.3,3.0);
-\end{tikzpicture}
-\caption{The board isolates the time-derivative term in the Euler--Lagrange equation while keeping a nearby trajectory sketch in view. The redraw below is intentionally qualitative: it records only the lecture's local idea of comparing nearby paths between fixed points.}
+\caption{The Euler--Lagrange time-derivative term at 00:45:02, beside the
+trajectory picture used to connect the global path with its local equation.}
+\lectureframe{00:45:02}
+\label{fig:l03-euler-lagrange-board}
 \end{figure}
 
-As it appears on the board, in cleaned notation, the central structure is
+The result is not confined to point particles. Field theory, general
+relativity, and string theory use the same variational structure with more
+elaborate coordinates. Quantum mechanics also retains it in another form:
+Feynman's path integral assigns amplitudes to histories through their action.
+
+\section{Momentum and Generalized Force}
+
+The quantity differentiated with respect to time in
+Eq.~\eqref{eq:l03-euler-lagrange} has a name:
 \begin{equation}
-\frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot q_i}\right)
-=
-\frac{\partial \mathcal{L}}{\partial q_i}.
+ \pi_i\equiv\frac{\partial L}{\partial\dot q_i}.
+ \label{eq:l03-canonical-momentum}
 \end{equation}
-In the chapter we use \(L\) for the Lagrangian, but the board figure is worth keeping because it witnesses the way Susskind visually separates the algebra from the trajectory picture.
+It is the canonical momentum conjugate to \(q_i\). The corresponding
+\(\partial L/\partial q_i\) is the generalized force. The equation of motion
+therefore reads
+\begin{equation}
+ \dot\pi_i=\frac{\partial L}{\partial q_i}.
+ \label{eq:l03-momentum-force}
+\end{equation}
 
-\section{What the Euler--Lagrange Equation Says}
-
-Once the formal derivation is complete, the lecture immediately turns to language. The new quantities are named only after the structure is in place.
-
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.62\textwidth]{lecture_03_figure_03.png}
-\caption{The lecture introduces the momentum conjugate to \(q_i\) by differentiating the Lagrangian with respect to \(\dot q_i\). The board symbol can be read as a capital \(\Pi_i\), but the lecture and standard notation support the lowercase \(\pi_i\) used here.}
+\includegraphics[width=0.64\textwidth]{lecture_03_figure_03.png}
+\caption{Canonical momentum introduced on the board at 00:46:32. The standard
+lowercase notation is
+\(\pi_i=\partial L/\partial\dot q_i\).}
+\lectureframe{00:46:32}
+\label{fig:l03-canonical-momentum-board}
 \end{figure}
 
-We define
+\begin{classroomqa}
+\audiencequestion{What does the Euler--Lagrange equation say in ordinary
+language?}
+\lecturerresponse{First, it says that a global statement about the entire
+trajectory is equivalent to a local differential law. Second, after naming
+the two sides, it says that the time derivative of momentum equals generalized
+force. The concrete examples now show that this is \(F=ma\), written in a form
+that survives arbitrary choices of coordinates.}
+\end{classroomqa}
+
+One may try to picture the left side as a time change of the
+velocity-derivative of \(L\), and the right side as the coordinate-derivative
+at the present point. That intuition is useful, but the names momentum and
+force become convincing only after the first calculation.
+
+\section{Recovering Newton's Equation}
+
+For one particle of mass \(m\) moving on a line,
 \begin{equation}
-\pi_i=\frac{\partial L}{\partial \dot q_i}.
+ L(x,\dot x)=\frac12m\dot x^2-U(x).
+ \label{eq:l03-one-particle-lagrangian}
 \end{equation}
-This is the canonical momentum conjugate to \(q_i\). In the board figure the leading symbol is visually a little ambiguous, but both the lecture's language and standard usage support the lowercase \(\pi_i\), which we keep throughout.
-
-In parallel, the quantity
+The generalized coordinate \(q\) is simply \(x\), and its canonical momentum
+is the ordinary momentum:
 \begin{equation}
-\frac{\partial L}{\partial q_i}
+ \frac{\partial L}{\partial\dot x}=m\dot x=p.
 \end{equation}
-is called the generalized force. The Euler--Lagrange equation therefore reads
+The coordinate derivative is
 \begin{equation}
-\frac{d\pi_i}{dt}=\frac{\partial L}{\partial q_i}.
-\end{equation}
-Now the equation begins to sound familiar: the time derivative of a momentum equals a force.
-
-\subsection{Question \& Answer}
-
-\paragraph{What does the Euler--Lagrange equation say in English?}
-The lecture deliberately postpones this question until after examples, and that postponement is pedagogically right. The first answer is structural: the equation says that a global least-action principle is equivalent to a local differential law along the trajectory.
-
-The second answer is dynamical: once we identify \(\partial L/\partial \dot q_i\) as momentum and \(\partial L/\partial q_i\) as force, the equation becomes a generalized form of \(F=ma\). It says that the correct path, singled out globally by the action, is exactly the path whose local motion satisfies a force law.
-
-The quickest way to understand that statement is now to work through examples.
-
-\section{Worked Newtonian Examples and Translation Symmetry}
-
-We start with the simplest possible system: one particle of mass \(m\) moving along a line. The Lagrangian is
-\begin{equation}
-L=\frac12 m\dot x^2-U(x).
-\end{equation}
-Here the generalized coordinate is simply \(q=x\). Then
-\begin{equation}
-\frac{\partial L}{\partial \dot x}=m\dot x,
-\qquad
-\frac{\partial L}{\partial x}=-\frac{dU}{dx}.
-\end{equation}
-Substituting into the Euler--Lagrange equation gives
-\begin{equation}
-m\ddot x=-\frac{dU}{dx}.
-\end{equation}
-So the variational formalism reproduces the ordinary Newtonian equation of motion.
-
-At once the lecture inserts a useful warning. If we had chosen \(L=T+U\), the force law would have come out with the wrong sign. The Lagrangian is \(T-U\), not the conserved energy. Energy conservation will be discussed later, and the conserved quantity there will be \(T+U\), not \(L\) itself.
-
-For many Cartesian coordinates the same calculation simply repeats coordinate by coordinate. If
-\begin{equation}
-T=\sum_i \frac12 m_i \dot x_i^2,
-\qquad
-L=T-U(x_1,\dots,x_N),
-\end{equation}
-then
-\begin{equation}
-p_i=\frac{\partial L}{\partial \dot x_i}=m_i\dot x_i,
-\qquad
-\frac{dp_i}{dt}=-\frac{\partial U}{\partial x_i}.
-\end{equation}
-The label \(i\) now runs over all Cartesian coordinates of all particles. This is still \(F=ma\), but now it is written one component at a time for the entire system.
-
-The next example is where the lecture's deeper theme first becomes visible. Consider two particles on a line with a translation-invariant interaction:
-\begin{equation}
-L=\frac12 m_1\dot x_1^2+\frac12 m_2\dot x_2^2-U(x_1-x_2).
-\end{equation}
-Translation invariance means that the potential depends only on the separation of the particles, not on where the pair sits on the line as a whole.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\draw[thick] (-3.0,0) -- (3.0,0);
-\fill (-1.5,0) circle (1.6pt);
-\fill (1.1,0) circle (1.6pt);
-\draw (-1.5,0.35) node {$m_1$};
-\draw (1.1,0.35) node {$m_2$};
-\draw (-1.5,-0.35) node {$x_1$};
-\draw (1.1,-0.35) node {$x_2$};
-\draw[->] (-2.1,0.95) -- (-0.8,0.95) node[midway,above] {$a$};
-\draw[->] (0.5,0.95) -- (1.8,0.95);
-\end{tikzpicture}
-\caption{A rigid translation moves both particles by the same amount \(a\) while leaving the separation \(x_1-x_2\) unchanged.}
-\end{figure}
-
-To make the force relation explicit, set
-\[
-d=x_1-x_2.
-\]
-Then \(U=U(d)\), and
-\begin{align}
-\frac{\partial U}{\partial x_1}
-&=
-\frac{dU}{dd}\frac{\partial d}{\partial x_1}
-=
-\frac{dU}{dd},\\
-\frac{\partial U}{\partial x_2}
-&=
-\frac{dU}{dd}\frac{\partial d}{\partial x_2}
-=
--\frac{dU}{dd}.
-\end{align}
-Thus
-\begin{equation}
-\frac{\partial U}{\partial x_2}=-\frac{\partial U}{\partial x_1}.
-\end{equation}
-The two Euler--Lagrange equations are
-\begin{equation}
-\frac{dp_1}{dt}=-\frac{\partial U}{\partial x_1},
-\qquad
-\frac{dp_2}{dt}=-\frac{\partial U}{\partial x_2}.
-\end{equation}
-Adding them gives
-\begin{equation}
-\frac{d}{dt}(p_1+p_2)=0.
-\end{equation}
-So the total linear momentum is conserved.
-
-This is the lecture's first fully explicit symmetry-to-conservation argument. Because the action is invariant under a continuous translation, there is a conserved quantity. Here the symmetry is translation invariance, and the conserved quantity is total linear momentum.
-
-The lecture also notes, in passing, that if the potential were made a function of \(|x_1-x_2|\), there would be an inversion symmetry as well. But that is a discrete symmetry, and the present point is the continuous one: symmetries of the action produce conservation laws.
-
-\section{Two Coordinates, One Broken Symmetry, and Rotational Invariance}
-
-The next example is a particle moving near the surface of the Earth. We keep only two coordinates, \(x\) horizontally and \(y\) vertically. The kinetic term is securely visible on the board, and the transcript gives the potential:
-\begin{equation}
-T=\frac12 m\dot x^2+\frac12 m\dot y^2,
-\qquad
-U=mgy.
-\end{equation}
-Thus
-\begin{equation}
-L=\frac12 m\dot x^2+\frac12 m\dot y^2-mgy.
-\end{equation}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_03_figure_04.png}
-\par
-\begin{tikzpicture}
-\draw[->] (0,0) -- (4.2,0) node[below] {$x$};
-\draw[->] (0,0) -- (0,3.0) node[left] {$y$};
-\draw[thick] (-0.6,0) -- (4.2,0);
-\fill (2.2,1.8) circle (1.6pt);
-\draw (2.45,1.95) node[right] {$m$};
-\end{tikzpicture}
-\caption{The board frame witnesses the two-coordinate kinetic term and the near-Earth geometry. The redraw regularizes only the stable diagrammatic content; the unfinished writing on the far right is intentionally not reconstructed.}
-\end{figure}
-
-Because \(L\) does not depend explicitly on \(x\), the Euler--Lagrange equation for \(x\) gives
-\begin{equation}
-\frac{d}{dt}(m\dot x)=0.
-\end{equation}
-So the horizontal component of momentum is conserved. But for \(y\) we have
-\begin{equation}
-\frac{d}{dt}(m\dot y)=-mg.
-\end{equation}
-There is therefore no conservation of vertical momentum. One symmetry survives; the other does not.
-
-\subsection{Question \& Answer}
-
-\paragraph{Why does adding a constant to the potential not restore \(y\)-translation symmetry?}
-This is the cleaned mathematical content of the lecture's side discussion. We may always add a constant to \(U\) without changing the physics, because the force depends only on derivatives of \(U\). But translating the coordinate \(y\) is a different operation. If \(U=mgy\), then changing \(y\) changes \(U\) itself, not merely by a once-and-for-all harmless offset tied to the chosen zero of energy, but by a change that depends on the new value of \(y\). So the Lagrangian is not invariant under \(y\)-translations. That is why there is no conserved \(y\)-momentum.
-
-This example sets up the lecture's next pivot. The principle of least action is not tied to rectangular coordinates. If we choose another coordinate system, the formulas change clothes, but the action principle itself does not change.
-
-So let us pass to polar coordinates for a particle moving in a plane. The coordinates are \(r\) and \(\theta\), and the trajectory is now the pair \(r(t)\), \(\theta(t)\). The lecture derives the kinetic energy geometrically by decomposing the velocity into a radial piece and a perpendicular piece:
-\begin{equation}
-v_r=\dot r,
-\qquad
-v_\perp=r\dot\theta.
-\end{equation}
-Therefore
-\begin{equation}
-T=\frac12 m\left(\dot r^2+r^2\dot\theta^2\right).
-\end{equation}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}
-\draw[->] (-0.2,0) -- (4.4,0);
-\draw[->] (0,-0.2) -- (0,3.4);
-\draw[thick] (0,0) -- (3.2,2.0);
-\fill (3.2,2.0) circle (1.6pt);
-\draw (1.35,0.95) node[above left] {$r$};
-\draw (1.05,0) arc (0:32:1.05);
-\draw (0.92,0.28) node[right] {$\theta$};
-\draw[->] (3.2,2.0) -- (3.9,2.42) node[right] {$v_r=\dot r$};
-\draw[->] (3.2,2.0) -- (2.82,2.58) node[above] {$v_\perp=r\dot\theta$};
-\end{tikzpicture}
-\caption{Polar-coordinate geometry reconstructed from the lecture's argument. The velocity has a radial component \(\dot r\) and a perpendicular component \(r\dot\theta\).}
-\end{figure}
-
-Now take a central potential,
-\begin{equation}
-U=U(r),
-\end{equation}
-so that
-\begin{equation}
-L=\frac12 m\left(\dot r^2+r^2\dot\theta^2\right)-U(r).
-\end{equation}
-The transcript becomes noisy in the radial equation, and the lecture's stable emphasis lies elsewhere. The important point is that \(L\) does not depend explicitly on \(\theta\). Therefore \(\theta\) is a cyclic coordinate, and
-\begin{equation}
-\frac{\partial L}{\partial \dot\theta}=mr^2\dot\theta
-\end{equation}
-is conserved:
-\begin{equation}
-\frac{d}{dt}\left(mr^2\dot\theta\right)=0.
+ \frac{\partial L}{\partial x}=-\frac{dU}{dx}.
 \end{equation}
 Hence
 \begin{equation}
-mr^2\dot\theta=\text{constant}.
+ m\ddot x=-\frac{dU}{dx},
 \end{equation}
-This is conservation of angular momentum. It immediately explains the ice-skater effect invoked in the lecture: when \(r\) decreases, \(\dot\theta\) must increase to compensate.
+which is Newton's law for a conservative force.
 
-We have thus arrived at the lecture's closing pattern:
-\[
-\text{translation invariance}\ \longrightarrow\ \text{linear momentum conservation},
-\qquad
-\text{rotational invariance}\ \longrightarrow\ \text{angular momentum conservation}.
-\]
+The minus sign is not optional. Had we chosen \(L=T+U\), the force would have
+come out with the wrong sign. The Lagrangian \(T-U\) is not the energy and is
+not generally conserved along a trajectory. For a time-independent
+conservative system the familiar conserved energy is \(T+U\); its derivation
+from symmetry is deliberately postponed.
 
-\section{Summary}
-
-The lecture opens with a grand claim and then earns it step by step. First come two modest mathematical tools: integration by parts and the arbitrary-function lemma. Then comes the variational derivation:
+For many particles, combine every particle label and Cartesian direction into
+one index \(i\). Then
 \begin{equation}
-\frac{d}{dt}\left(\frac{\partial L}{\partial \dot q_i}\right)=\frac{\partial L}{\partial q_i}.
+ L=\sum_i\frac12m_i\dot x_i^2-U(x_1,\ldots,x_n),
 \end{equation}
-This equation is the bridge between a global least-action principle and a local differential law.
+and, coordinate by coordinate,
+\begin{equation}
+ p_i=m_i\dot x_i,
+ \qquad
+ \dot p_i=-\frac{\partial U}{\partial x_i}.
+ \label{eq:l03-many-particle-newton}
+\end{equation}
+For a physical particle the same mass occurs in its three Cartesian
+components, although the notation is general enough to attach a coefficient
+to every coordinate. A rigid body, an eraser, or a person can ultimately be
+viewed as a large collection of particles held together by internal forces,
+so this construction already covers an enormous class of mechanical systems.
 
-Only after that bridge is built does the lecture attach physical names to the objects in it. The derivative of the Lagrangian with respect to velocity becomes momentum; the derivative with respect to coordinate becomes generalized force; and the equation begins to read like \(F=ma\).
+\section{Translation Symmetry and Momentum}
 
-The examples then make the structure concrete. For one particle, the Euler--Lagrange equation reproduces Newton's law. For two interacting particles on a line, translation invariance yields conservation of total momentum. For a central force in polar coordinates, rotational invariance yields conservation of angular momentum. The chapter ends where the lecture ends: not with a single formula in isolation, but with the recognition of a pattern. Symmetry and conservation law belong together, and the principle of least action is the language in which that unity becomes visible.
+Consider two interacting particles on a line:
+\begin{equation}
+ L=
+ \frac12m_1\dot x_1^2+
+ \frac12m_2\dot x_2^2-
+ U(x_1-x_2).
+ \label{eq:l03-two-particle-lagrangian}
+\end{equation}
+The potential depends only on their separation. If both coordinates are
+shifted by the same constant \(a\),
+\begin{equation}
+ x_1\longmapsto x_1+a,
+ \qquad
+ x_2\longmapsto x_2+a,
+\end{equation}
+their velocities and the difference \(x_1-x_2\) are unchanged. The
+Lagrangian, and therefore the action, is invariant. This is translation
+symmetry.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Stealth,thick]
+  \draw (-3.4,0) -- (3.4,0);
+  \fill (-1.55,0) circle (1.8pt)
+    node[above=5pt] {$m_1$}
+    node[below=5pt] {$x_1$};
+  \fill (1.15,0) circle (1.8pt)
+    node[above=5pt] {$m_2$}
+    node[below=5pt] {$x_2$};
+  \draw[<->] (-1.55,-0.75) -- (1.15,-0.75)
+    node[midway,below] {$x_2-x_1$};
+  \draw[->,blue!65!black] (-2.4,1.0) -- (-1.2,1.0)
+    node[midway,above] {$a$};
+  \draw[->,blue!65!black] (0.3,1.0) -- (1.5,1.0);
+\end{tikzpicture}
+\caption{A rigid translation moves both particles by the same amount without
+changing their separation or velocities.}
+\label{fig:l03-rigid-translation}
+\end{figure}
+
+This form would fail if a third, external lump of matter exerted a
+position-dependent force. The potential would then depend on the distance from
+that external object as well as on the separation between the two particles.
+The two-particle subsystem would no longer be closed or translation invariant.
+
+Set \(d=x_1-x_2\). The chain rule gives
+\begin{align}
+ \frac{\partial U}{\partial x_1}
+ &=\frac{dU}{dd},
+ &
+ \frac{\partial U}{\partial x_2}
+ &=-\frac{dU}{dd}.
+ \label{eq:l03-opposite-potential-derivatives}
+\end{align}
+Therefore
+\begin{align}
+ \dot p_1&=-\frac{\partial U}{\partial x_1},
+ &
+ \dot p_2&=-\frac{\partial U}{\partial x_2}
+          =+\frac{\partial U}{\partial x_1}.
+\end{align}
+The forces are equal and opposite, and adding the equations gives
+\begin{equation}
+ \frac{d}{dt}(p_1+p_2)=0.
+ \label{eq:l03-total-momentum}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{lecture_03_figure_10.png}
+\caption{The translation-invariant Lagrangian and its two force equations at
+01:08:50. Dependence on \(x_1-x_2\) makes the derivatives equal and opposite.}
+\lectureframe{01:08:50}
+\label{fig:l03-translation-board}
+\end{figure}
+
+This is the first instance of the central pattern:
+\[
+ \text{translation symmetry}
+ \quad\Longrightarrow\quad
+ \text{conservation of linear momentum}.
+\]
+The symmetry is an active operation on the system that leaves the action
+unchanged. Here the operation can be made by an arbitrarily small amount and
+built up continuously, so it is a continuous symmetry.
+
+\begin{classroomqa}
+\audiencequestion{If \(U\) depends on \(\lvert x_1-x_2\rvert\), is inversion
+another symmetry?}
+\lecturerresponse{Yes. Interchanging the orientation of the separation leaves
+such a potential unchanged. Unlike translation, inversion is discrete: there
+is no continuously adjustable parameter connecting the two alternatives.
+Continuous symmetries generate the classical conservation laws being studied
+here. Discrete symmetries become especially consequential in quantum
+mechanics, which we leave for later.}
+\end{classroomqa}
+
+\section{One Translation Survives}
+
+Place a particle near Earth's surface and retain horizontal \(x\) and vertical
+\(y\) motion. With \(y\) measured upward,
+\begin{equation}
+ L=\frac12m\dot x^2+\frac12m\dot y^2-mgy,
+ \label{eq:l03-near-earth-lagrangian}
+\end{equation}
+where \(g\) is the approximately constant local gravitational acceleration.
+Numerically it is about \(9.8\,\mathrm{m\,s^{-2}}\), commonly rounded to
+\(10\,\mathrm{m\,s^{-2}}\) for this discussion.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_03_figure_04.png}
+\caption{The two-coordinate kinetic energy and near-Earth setup at 01:15:15.
+The stable board content is \(T=\tfrac12m\dot x^2+\tfrac12m\dot y^2\);
+the potential is completed immediately afterward.}
+\lectureframe{01:15:15}
+\label{fig:l03-near-earth-setup}
+\end{figure}
+
+The Lagrangian contains no \(x\), so horizontal translation is a symmetry:
+\begin{equation}
+ \frac{d}{dt}(m\dot x)=0.
+\end{equation}
+It does contain \(y\), so vertical translation is not a symmetry:
+\begin{equation}
+ \frac{d}{dt}(m\dot y)=-mg,
+ \qquad
+ \ddot y=-g.
+ \label{eq:l03-near-earth-equations}
+\end{equation}
+There is one translation symmetry and one corresponding conserved momentum,
+not two.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_03_figure_11.png}
+\caption{The completed near-Earth Lagrangian and coordinate derivatives at
+01:19:15. The absence of \(x\) gives horizontal momentum conservation, while
+\(\partial U/\partial y=mg\) gives downward acceleration.}
+\lectureframe{01:19:15}
+\label{fig:l03-near-earth-equations}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{For a very small vertical displacement, is there an
+approximate \(y\)-translation symmetry?}
+\lecturerresponse{No exact symmetry appears merely because the displacement is
+small. In the near-Earth approximation \(U=mgy\), any nonzero change of \(y\)
+changes the potential by \(mg\,\Delta y\). We may add one fixed constant to
+\(U\) and thereby choose a different zero of potential energy, but that does
+not remove the \(y\)-dependence or the vertical force.}
+\end{classroomqa}
+
+Adding \(C\) to the potential changes neither force nor trajectory:
+\begin{equation}
+ U(y)\longmapsto U(y)+C,
+ \qquad
+ -\frac{d}{dy}\bigl(U+C\bigr)=-\frac{dU}{dy}.
+\end{equation}
+Sea level, the floor, or any other fixed height may therefore be chosen as the
+zero of potential energy.
+
+\begin{classroomqa}
+\audiencequestion{Is this just the familiar falling-body problem and its
+energy conservation in another form?}
+\lecturerresponse{It is the same mechanics, but so far we have derived the
+equations of motion and identified momentum conservation. The conserved
+energy is \(T+U\), not the Lagrangian \(T-U\). Its origin will be traced to
+another symmetry, time translation, in a later step.}
+\end{classroomqa}
+
+\section{Changing Coordinates}
+
+The action does not depend on how we label the configurations. Rectangular,
+polar, parabolic, or curved coordinates may make the formulas look different,
+but a correctly transformed action assigns the same number to the same
+physical history. Stationarity of that action is therefore
+coordinate-independent.
+
+For planar motion, replace \(x,y\) by polar coordinates \(r,\theta\). At every
+instant the velocity has a radial component and a perpendicular component:
+\begin{equation}
+ v_r=\dot r,
+ \qquad
+ v_\perp=r\dot\theta.
+ \label{eq:l03-polar-velocity}
+\end{equation}
+The factor of \(r\) has a simple geometric origin. A fixed angular change
+\(d\theta\) sweeps the arc length \(r\,d\theta\), so the same angular speed
+corresponds to a larger linear speed farther from the origin. The fingertips
+of a rotating arm move faster than the elbow.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.83\textwidth]{lecture_03_figure_12.png}
+\caption{Polar-coordinate velocity components at 01:27:50. The board records
+\(v_r=\dot r\), \(v_\perp=r\dot\theta\), and the resulting kinetic-energy
+terms.}
+\lectureframe{01:27:50}
+\label{fig:l03-polar-kinetic-board}
+\end{figure}
+
+Hence
+\begin{equation}
+ T=\frac12m\left(\dot r^2+r^2\dot\theta^2\right).
+ \label{eq:l03-polar-kinetic}
+\end{equation}
+For a central potential \(U(r)\),
+\begin{equation}
+ L=
+ \frac12m\dot r^2+
+ \frac12mr^2\dot\theta^2-
+ U(r).
+ \label{eq:l03-central-lagrangian}
+\end{equation}
+It is useful to write both Euler--Lagrange equations. The radial one is
+\begin{equation}
+ m\ddot r
+ =
+ mr\dot\theta^2-\frac{dU}{dr}.
+ \label{eq:l03-radial-equation}
+\end{equation}
+The \(mr\dot\theta^2\) term comes from differentiating the angular kinetic
+energy with respect to \(r\). Radial momentum is not conserved: the central
+force and the changing radial direction both enter its evolution.
+
+The angular coordinate is different. The Lagrangian depends on
+\(\dot\theta\) but not on \(\theta\) itself. Thus \(\theta\) is a cyclic
+coordinate and
+\begin{equation}
+ p_\theta
+ =
+ \frac{\partial L}{\partial\dot\theta}
+ =
+ mr^2\dot\theta.
+ \label{eq:l03-angular-momentum}
+\end{equation}
+Its equation of motion is
+\begin{equation}
+ \frac{d}{dt}\left(mr^2\dot\theta\right)
+ =
+ \frac{\partial L}{\partial\theta}
+ =
+ 0.
+ \label{eq:l03-angular-conservation}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.60\textwidth]{lecture_03_figure_13.png}
+\caption{Angular momentum conservation completed on the board at 01:33:35:
+\(\frac{d}{dt}(mr^2\dot\theta)=0\).}
+\lectureframe{01:33:35}
+\label{fig:l03-angular-momentum-board}
+\end{figure}
+
+The conserved quantity \(mr^2\dot\theta\) is the angular momentum, usually
+denoted by \(\ell\) when \(L\) is already reserved for the Lagrangian. Solving
+for the angular speed,
+\begin{equation}
+ \dot\theta=\frac{\ell}{mr^2}.
+\end{equation}
+As \(r\) decreases, \(\dot\theta\) increases. This is the spinning-skater
+effect in its simplest form.
+
+We have now seen the same structure twice:
+\begin{align*}
+ \text{translation invariance}
+ &\quad\Longrightarrow\quad
+ \text{linear momentum conservation},\\
+ \text{rotational invariance}
+ &\quad\Longrightarrow\quad
+ \text{angular momentum conservation}.
+\end{align*}
+The action principle makes the pattern visible. A coordinate that does not
+appear in the Lagrangian has a conserved conjugate momentum, and the local
+equation expressing that fact is itself the consequence of stationarity of
+the entire history.
