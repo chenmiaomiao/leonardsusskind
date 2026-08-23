@@ -1,67 +1,39 @@
 # Figure Notes
-## Image Inventory
-- `lecture_07_figure_02.png`: Medium board view with Susskind at the left, pointing at a fraction on the board. The central visible expression is the one-dimensional free-particle Lagrangian written as a dotted \(x\) squared over \(2\), and the right side begins a canonical-momentum line with `\(P_x=\)`.
-- `lecture_07_figure_03.png`: Tight crop of a nearly blank board containing an action-like expression. The visible line shows an integral with the kinetic term \(mv^2/2\), followed by `\(dt\)`, and then the beginning of a vector-potential term written as `\(+ q A_i\)`.
-- `lecture_07_figure_04.png`: Tight board crop from the magnetic-field derivation. The clearest visible content is an equality whose right-hand side is a velocity times a derivative of the vector potential, readable as the \(x\)-component contribution \(q\dot x\,\partial A_x/\partial z\). Cropped earlier terms remain visible at the left edge.
 
-## Blackboard Equations
-- `lecture_07_figure_02.png`: \(L=\frac{\dot x^2}{2}\) [visible]
-- `lecture_07_figure_02.png`: \(P_x=\) [visible]
-- `lecture_07_figure_02.png`: \(P_x=\frac{\partial L}{\partial \dot x}=\dot x\) [standard reconstruction]
+## Retained Blackboard Frames
 
-- `lecture_07_figure_03.png`: \(\int \frac{mv^2}{2}\,dt + qA_i\) [partially visible]
-- `lecture_07_figure_03.png`: \(q\int A_i\,dx_i\) [standard reconstruction]
-- `lecture_07_figure_03.png`: \(q\int \mathbf{A}\cdot d\mathbf{x}\) [standard reconstruction]
-- `lecture_07_figure_03.png`: \(S=\int \frac12 mv^2\,dt + q\int A_i\,dx_i\) [standard reconstruction]
+| Asset | Time | Visible content | Verdict |
+| --- | --- | --- | --- |
+| `lecture_07_figure_01.png` | 00:13:16 | Square and sheared parallelogram | Keep: both shapes are unobstructed. |
+| `lecture_07_figure_02.png` | 00:43:55 | Mixed-partial Liouville cancellation | Keep: both canonical contributions are complete. |
+| `lecture_07_figure_03.png` | 00:49:45 | \(y=\alpha x\), \(p_y=p_x/\alpha\) | Keep: reciprocal scaling is readable together. |
+| `lecture_07_figure_04.png` | 01:03:40 | Compact patch and chaotic filaments | Keep: the intended contrast is visible. |
+| `lecture_07_figure_05.png` | 01:18:40 | Components of \(\bm v\times\bm B\) | Keep: cyclic signs can be checked. |
+| `lecture_07_figure_06.png` | 01:24:40 | \(F_z\) in terms of derivatives of \(\bm A\) | Keep: the first complete derivative combination is clear. |
+| `lecture_07_figure_07.png` | 01:28:50 | Magnetic line integral and path sketch | Keep: no lecturer occlusion. |
+| `lecture_07_figure_08.png` | 01:35:20 | \(p_x=m\dot x+qA_x\) | Keep: complete and centered. |
+| `lecture_07_figure_09.png` | 01:41:50 | Both sides of the Euler--Lagrange equation | Keep: the common term is visible. |
+| `lecture_07_figure_10.png` | 01:44:20 | Surviving combinations labeled \(B_y\) and \(-B_x\) | Keep: unobstructed final state. |
+| `lecture_07_figure_11.png` | 01:54:20 | Magnetic-coupling cancellation in energy | Keep: the cancellation is readable. |
+| `lecture_07_figure_12.png` | 01:57:00 | Hamiltonian definition and velocity inversion | Keep: selected before later ambiguous arithmetic. |
 
-- `lecture_07_figure_04.png`: \(= q\dot x\,\frac{\partial A_x}{\partial z}\) [visible]
-- `lecture_07_figure_04.png`: \(\frac{\partial L}{\partial z}=q\dot x\,\frac{\partial A_x}{\partial z}+q\dot y\,\frac{\partial A_y}{\partial z}+q\dot z\,\frac{\partial A_z}{\partial z}\) [standard reconstruction]
+## Typeset Reconstructions
 
-## Diagram And Layout Reading
-- None of the selected images is a geometric diagram in the usual sense; all three are equation-board moments.
-- `lecture_07_figure_02.png` is organized horizontally: the Lagrangian sits to the left, the fraction \(\dot x^2/2\) is centered, and the canonical-momentum statement begins on the right. The lecturer’s hand points at the denominator, which helps confirm that the board is reading the free-particle Lagrangian term-by-term.
-- `lecture_07_figure_03.png` is a single-line formula on an otherwise empty board. Its value is not layout complexity but documentary timing: it catches the transition from the usual kinetic action term to the extra magnetic coupling term.
-- `lecture_07_figure_04.png` centers an equals sign and a right-hand derivative term. The cropped left edge shows that this belongs to a longer multi-term line, but the frame’s real value is to certify the first explicit contribution \(q\dot x\,\partial A_x/\partial z\) in the \(z\)-derivative of the Lagrangian.
-- No axes, arrows, or standalone sketches are visible in these crops, so there is no need for board-faithful TikZ diagram reconstruction.
+- The rectangle-flux TikZ diagram reconstructs the argument at
+  00:29:20--00:36:15. Source candidates were rejected because the lecturer
+  covered the changing edge terms.
+- The coarse-graining TikZ diagram reconstructs 01:05:48--01:11:26. The
+  original chaotic-patch frame remains in the chapter; the redraw distinguishes
+  exact filaments from the larger fixed-cell cover.
 
-## TeX Reconstruction Plan
-- `lecture_07_figure_02.png` should remain visible in the notes. Nearby, the notes should typeset the cleaned equations
-  \[
-  L=\frac{\dot x^2}{2},
-  \qquad
-  P_x=\frac{\partial L}{\partial \dot x}=\dot x.
-  \]
-  The screenshot is useful as evidence for the board moment when the canonical momentum is introduced from the derivative with respect to \(\dot x\).
+## Rejected Candidates
 
-- `lecture_07_figure_03.png` should remain visible in the notes. It should be paired with a cleaned displayed reconstruction of the action term, for example
-  \[
-  S=\int \frac12 mv^2\,dt + q\int A_i\,dx_i
-  \]
-  or equivalently
-  \[
-  S=\int \left(\frac12 mv^2 + qA_i\dot x_i\right)\,dt.
-  \]
-  The screenshot itself only certifies the kinetic term and the start of the \(qA_i\) coupling, so the full line-integral structure should be typeset from cautious transcript-backed reconstruction rather than claimed as fully visible.
-
-- `lecture_07_figure_04.png` should remain visible in the notes. It should be paired with a cleaned displayed equation for the full derivative line, such as
-  \[
-  \frac{\partial L}{\partial z}
-  =
-  q\dot x\,\frac{\partial A_x}{\partial z}
-  +
-  q\dot y\,\frac{\partial A_y}{\partial z}
-  +
-  q\dot z\,\frac{\partial A_z}{\partial z}.
-  \]
-  The screenshot most strongly backs the first right-hand term and the board’s equality structure; the remaining terms should be reconstructed from the transcript and surrounding derivation.
-- No TikZ redraw is needed for any of these three assets. All three should be treated as `screenshot_plus_equation`, not as diagram figures.
-
-## Caption Drafts
-- `lecture_07_figure_02.png`: Free-particle Lagrangian and the definition of \(P_x\)
-- `lecture_07_figure_03.png`: Action guess with kinetic term and vector-potential coupling
-- `lecture_07_figure_04.png`: First term in \(\partial L/\partial z\) from the vector potential
-
-## Uncertainties
-- In `lecture_07_figure_02.png`, the leftmost symbol is a cursive \(L\)-like mark and could be written either as \(L\) or \(\mathcal{L}\) in clean typesetting. The completed derivative equation to the right is not fully visible in the frame and needs transcript-backed completion.
-- In `lecture_07_figure_03.png`, the integral sign is cropped at the far left, and the visible `\(+qA_i\)` does not by itself certify the following differential. The full line-integral form \(A_i\,dx_i\) or \(\mathbf A\cdot d\mathbf x\) should therefore be treated as a standard reconstruction rather than a direct transcription from the image alone.
-- In `lecture_07_figure_04.png`, the right-hand factor is best read as \(q\dot x\,\partial A_x/\partial z\), but the handwritten dot and \(x\) are close enough that the reading depends partly on the transcript. The left-side earlier terms are too cropped to transcribe confidently from the image by itself.
+- 00:00:06--00:00:14 and 02:00:13--02:00:19: institutional announcements.
+- 00:29:20--00:36:15: divergence equations were incomplete or occluded.
+- 01:09:30--01:12:40: hands and the lecturer obscured the coarse-graining
+  drawing; a source frame from 01:03:40 plus a labeled reconstruction is more
+  faithful.
+- 01:21:45--01:22:25: curl components were still being written.
+- 01:33:20--01:34:20: the Lagrangian line was incomplete or covered.
+- 01:57:20--01:59:40: the final board arithmetic contains a spoken/written
+  denominator slip; the earlier velocity-inversion frame is retained instead.
