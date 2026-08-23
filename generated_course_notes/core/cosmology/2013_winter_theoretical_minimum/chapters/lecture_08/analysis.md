@@ -54,18 +54,18 @@ End the chapter with the falling-stone analogy, the force-potential relation, th
 - The field equation in the lecture’s form \(\ddot{\phi} + 3H\dot{\phi} = F\), together with \(F = -V'(\phi)\), so that the cleaned standard form is \(\ddot{\phi} + 3H\dot{\phi} + V'(\phi)=0\) [transcript-backed]
 
 ## Diagram And Figure Plan
-- `lecture_08_figure_02.png` must remain visible in the baryon-number-violation section. It should sit next to a clean TikZ redraw of the proton-decay process \(p \to e^+ + \gamma\), and if the charge-conjugate comparison is drawn too, that redraw should appear in the same cluster while the screenshot remains nearby as board evidence.
-- `lecture_08_figure_03.png` must remain visible in the symmetry section. It should be paired with clean displayed notation for \(B = (N_q-N_{\bar q})/3\) and for \(C\) as charge conjugation, but it does not need a TikZ redraw.
-- `lecture_08_figure_04.png` must remain visible in the time-reversal discussion. The notes should include a cleaned displayed Schrödinger-equation cue nearby, but the ambiguous loop sketch on the right should not be elevated into a definitive TikZ figure unless it is explicitly labeled as a loose classroom-context sketch.
-- `lecture_08_figure_06.png` must remain visible in the friction and inflaton setup. Nearby, the notes should include the displayed equations \(V(\phi)\) and \(F=-dV/d\phi\), and a small TikZ pedagogical redraw of a shallow potential-hill or \(V(\phi)\)-versus-\(\phi\) curve is appropriate as long as the screenshot stays adjacent as visual evidence.
+- Reject `lecture_08_figure_02.png`: it shows only the first stroke of the proton line and is mostly obscured. Preserve the spoken topology with a clean TikZ reconstruction of \(p \to e^+ + \gamma\) and its charge-conjugate channel.
+- Keep `lecture_08_figure_03.png` with limits in the symmetry section. Pair its readable \(B = (N_q-N_{\bar q})/3\) with clean notation for \(C\), but do not treat the unfinished word after `C =` as evidence.
+- Reject `lecture_08_figure_04.png`: the Schrodinger equation is incomplete and the loop sketch is ambiguous. Reconstruct time reversal from the spoken sign argument without displaying this frame.
+- Keep `lecture_08_figure_06.png` in the friction setup. Pair the readable \(V(\phi)\) and \(F=-dV/d\phi\) with a clean TikZ shallow-potential diagram.
 - The density-contrast and gravity-amplifies-lumps discussion has no strong extracted frame here, so if a diagram is added it should be a fresh TikZ schematic of overdense and underdense regions, clearly presented as an explanatory redraw rather than as a transcription of a supplied screenshot.
 - The chapter should visually separate the two large lecture beats: baryogenesis figures early, friction/inflation figures late, with the transition between them handled in prose rather than by forcing one mixed figure plate.
 
 ## Caution Notes
 - The transcript is badly garbled around roughly 00:03:22 to 00:03:49. Do not extract substantive physics from that patch; resume only where the argument becomes clear again.
 - In the baryon-number formula, the frame handwriting can look like \(N_g\) rather than \(N_q\). The transcript makes clear that quarks are meant, so the notes should standardize to \(N_q\) and \(N_{\bar q}\).
-- `lecture_08_figure_02.png` only shows the beginning of the proton-decay diagram. The full decay topology must be reconstructed from the transcript, not inferred from the frame alone.
-- `lecture_08_figure_04.png` contains only a partial Schrödinger-equation fragment, and the right-hand loop sketch is too ambiguous to support a precise mathematical claim. Use it as contextual board evidence only.
+- `lecture_08_figure_02.png` only shows the beginning of the proton-decay diagram. The full topology is transcript-supported, and the unusable frame must not be reinserted.
+- `lecture_08_figure_04.png` contains only a partial Schrödinger-equation fragment and an ambiguous residual sketch. It is rejected rather than used as contextual evidence.
 - The B-meson example is verbally shaky: Susskind forgets some decay products while speaking. Preserve only the qualitative point that particle and antiparticle decay rates differ measurably; do not overcommit to exact channel labels.
 - The lecture contains live self-corrections that should survive in cleaned form: the factor-of-three issue in baryon number, and the later correction that the standard model does allow baryon violation at some level.
 - The friction derivation contains sign confusion on the board. The final notes should present the cleaned equations with an explicit sign convention, noting that downward motion corresponds to \(\dot{\phi}<0\) and the drag force opposes the motion.
