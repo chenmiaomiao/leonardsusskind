@@ -1,95 +1,132 @@
 \chapter{Light Cones, Geodesics, and the Schwarzschild Horizon}
 
-This lecture is constructed with some care. We do not begin with black holes, and we do not begin with Einstein's field equations. We begin by going back to special relativity and rebuilding the notions of time-like, space-like, and light-like intervals in the cleanest possible setting. Only then do we widen the metric to \(g_{\mu\nu}(x)\), turn geodesics into an action principle, check that the formalism reproduces Newton in the weak-field limit, and finally come to the Schwarzschild geometry and the horizon puzzle.
+The horizon problem begins with a distinction already present in special
+relativity.  Two nearby events may be separated in a time-like, space-like, or
+light-like direction.  Curvature does not abolish this classification.  It
+makes the light cone a local object, different at every event, and makes the
+metric itself dynamical.  Once the metric is known, the motion of a freely
+falling particle follows from the same proper-time principle that describes a
+free relativistic particle in flat spacetime.
 
-\section{Causal Structure in Minkowski Space}
+We shall use that principle twice.  First it must reproduce Newtonian motion in
+a weak field.  Then it will be applied to the Schwarzschild metric, where the
+meaning of time, radial distance, and velocity becomes unexpectedly subtle.
 
-For a small displacement in flat space-time, the proper-time element is
-\begin{equation}
-d\tau^2 = dt^2 - dx^2 - dy^2 - dz^2.
-\end{equation}
-Susskind briefly restores factors of \(c\), not for ornament but for bookkeeping:
-\begin{equation}
-d\tau^2 = dt^2 - \frac{dx^2+dy^2+dz^2}{c^2}.
-\end{equation}
-When we later take a nonrelativistic limit, those factors tell us what is small and what is not.
+\section{Time-like, Space-like, and Light-like Intervals}
 
-Now the crucial point is that \(d\tau^2\) is defined by this combination of differentials. It need not be positive just because the symbol looks like the square of something. Its sign depends on the balance between the time part and the space part. If
+In flat spacetime, with \(c=1\), the proper-time element is
 \begin{equation}
-d\tau^2 > 0,
+d\tau^2=dt^2-dx^2-dy^2-dz^2.
+\label{eq:l5-minkowski-proper-time}
 \end{equation}
-the displacement is time-like: it has, so to speak, more time than space. If \(d\tau^2<0\), we define
+Restoring \(c\) is useful whenever a nonrelativistic approximation is near:
 \begin{equation}
-ds^2 = -\,d\tau^2 = dx^2+dy^2+dz^2-dt^2,
+d\tau^2
+=dt^2-\frac{dx^2+dy^2+dz^2}{c^2}.
+\label{eq:l5-minkowski-c}
 \end{equation}
-and then a space-like displacement is one for which \(ds^2>0\). The light-like case is the boundary between the two:
+The notation \(d\tau^2\) does not guarantee that the right-hand side is
+positive.  Its sign classifies the displacement:
+\begin{align}
+d\tau^2>0
+&\quad\Longleftrightarrow\quad \text{time-like},\\
+d\tau^2=0
+&\quad\Longleftrightarrow\quad \text{light-like},\\
+d\tau^2<0
+&\quad\Longleftrightarrow\quad \text{space-like}.
+\end{align}
+For a space-like displacement it is convenient to define the positive proper
+distance
 \begin{equation}
-d\tau^2 = 0
-\qquad\Longleftrightarrow\qquad
-dt^2 = dx^2+dy^2+dz^2
-\quad (c=1).
+ds^2=-d\tau^2
+=dx^2+dy^2+dz^2-dt^2
+\qquad(c=1).
+\label{eq:l5-proper-distance}
 \end{equation}
 
-This classification is organized by the light cone. The surface of the cone is the light-like set, its interior is the time-like region, and its exterior is the space-like region. The lecture insists on a small geometric point that is worth keeping: the cone is the shell, not the filled interior. Light rays lie on the cone itself.
+The light cone organizes these three possibilities.  Its surface, not its
+filled interior, consists of the light-like directions.  Time-like directions
+lie inside the cone and space-like directions lie outside.  The upper and
+lower halves represent the future and past light cones.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{lecture_05_figure_02.png}
-\caption{Light cone and space-like interval in Minkowski space. The board groups the proper-time element, the space-like interval, and the causal diagram into a single classification picture.}
+\includegraphics[width=0.82\textwidth]{lecture_05_figure_02.png}
+\caption{Proper time, proper distance, and the causal cone assembled on the
+board.  Light rays occupy the cone itself; the interior is time-like and the
+exterior is space-like.}
+\lectureframe{00:05:44}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.0]
-\draw[->] (0,-2.3) -- (0,2.3);
-\draw[->] (-2.4,0) -- (2.4,0);
+\draw[->] (0,-2.3) -- (0,2.3) node[above] {\(t\)};
+\draw[->] (-2.4,0) -- (2.4,0) node[right] {\(x\)};
 \draw (-1.6,1.6) -- (0,0) -- (1.6,1.6);
 \draw (-1.6,-1.6) -- (0,0) -- (1.6,-1.6);
 \fill (0,0) circle (1.4pt);
-\draw[->,thick] (0,0) -- (0,1.2);
-\draw[->,thick] (0,0) -- (0,-1.2);
-\draw[->,thick] (0,0) -- (1.6,0.35);
+\draw[->,thick] (0,0) -- (0,1.2)
+  node[midway,left] {\(\text{time-like}\)};
+\draw[->,thick] (0,0) -- (1.7,0.35)
+  node[midway,below] {\(\text{space-like}\)};
+\node at (1.25,1.35) {\(\text{light-like}\)};
 \end{tikzpicture}
-\caption{A clean redraw of the causal classification used in the lecture. Time-like directions lie inside the cone, space-like directions outside it, and light-like directions on the cone itself.}
+\caption{The causal classification in a two-dimensional spacetime section.}
 \end{figure}
 
-Proper time is not a formal convenience. Along a time-like trajectory it is the time that a clock on the trajectory actually reads. Likewise, in the space-like case the quantity \(s\) is proper distance, the distance measured by meter sticks. These are already physical notions in special relativity, and the lecture wants them firmly in hand before curvature enters.
+These intervals are operational.  Proper time is what a clock carried along a
+time-like worldline reads.  Proper distance is what a suitable set of meter
+sticks measures between space-like separated events.  They are not merely
+names for signs in a quadratic form.
 
-\section{Signature, Metrics, and Local Light Cones}
+\section{Lorentzian Signature and a Cone at Every Event}
 
-The flat metric may be written in matrix form as
+Using the mostly-plus tensor convention, the flat metric has components
 \begin{equation}
-\eta_{\mu\nu}=\mathrm{diag}(-1,1,1,1).
+\eta_{\mu\nu}=\operatorname{diag}(-1,1,1,1),
+\label{eq:l5-eta}
 \end{equation}
-Here one should speak carefully. The metric is a rank-two tensor, not literally ``that matrix'' in every coordinate system. The matrix is its expression in a particularly simple coordinate frame. In the sign convention of this lecture,
+and
 \begin{equation}
-d\tau^2 = -\,g_{\mu\nu}\,dx^\mu dx^\nu,
+d\tau^2=-\eta_{\mu\nu}\,dx^\mu dx^\nu.
+\label{eq:l5-proper-time-eta}
 \end{equation}
-so that \(g_{\mu\nu}dx^\mu dx^\nu\) is positive on space-like displacements.
-
-At this point the lecture makes a conceptual correction. The invariant content is not that there is one preferred arrow on the board that deserves to be called time. The invariant content is that the metric has one negative eigenvalue and three positive ones. That is the Lorentzian signature:
+The displayed matrix is the expression of a rank-two tensor in one especially
+simple basis.  Its invariant feature is its signature: one negative and three
+positive directions,
 \begin{equation}
-\mathrm{signature}(g_{\mu\nu}) = (-,+,+,+).
+\operatorname{signature}(\eta)=(-,+,+,+).
+\label{eq:l5-lorentz-signature}
 \end{equation}
-A world with two negative eigenvalues would be a world with two time directions, and Susskind simply refuses to entertain it as physics.
+A metric with two negative signs would have two temporal directions.  Such
+signatures can be studied mathematically, but they do not describe the
+spacetime assumed here.
 
-Now we widen the scope. In curved space-time the metric is not \(\eta_{\mu\nu}\), but
+In curved spacetime the components vary:
 \begin{equation}
 g_{\mu\nu}=g_{\mu\nu}(x).
+\label{eq:l5-position-metric}
 \end{equation}
-At every event \(x\), there is a matrix \(g_{\mu\nu}(x)\), and at every event that matrix must still have one negative and three positive eigenvalues. This means that at every point there is a light cone. Its appearance may change from point to point; it may look tipped, tilted, or squashed. But the causal story remains the same: inside the cone time-like, outside space-like, on the cone light-like.
+At each event the metric must still have Lorentzian signature.  Consequently,
+each event has its own time-like directions, light-like boundary, and
+space-like directions.  A coordinate drawing may show cones tilted or
+squashed from point to point, but the causal classification remains.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_03.png}
-\caption{Position-dependent metric and local light-cone sketches. The left board still carries the time-like, space-like, and light-like classification, while the right board introduces \(g_{\mu\nu}(x)\) and the idea of a cone at each point.}
+\includegraphics[width=0.86\textwidth]{lecture_05_figure_03.png}
+\caption{The position-dependent metric \(g_{\mu\nu}(x)\), the causal labels,
+and sketches of local light cones.}
+\lectureframe{00:09:41}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1.0]
 \draw[thick] (-4,-0.5) .. controls (-2,0.2) and (0,0.6) .. (3.5,0.1);
-\foreach \x/\y/\a/\b in {-3/0/0.9/1.2, -0.6/0.35/0.55/1.25, 2.0/0.2/1.15/0.95} {
+\foreach \x/\y/\a/\b in {-3/0/0.9/1.2, -0.6/0.35/0.55/1.25,
+                          2.0/0.2/1.15/0.95} {
   \fill (\x,\y) circle (1.3pt);
   \draw (\x,\y) -- ++(-\a,1.2);
   \draw (\x,\y) -- ++(\a,1.2);
@@ -97,307 +134,554 @@ At every event \(x\), there is a matrix \(g_{\mu\nu}(x)\), and at every event th
   \draw (\x,\y) -- ++(\b,-1.2);
 }
 \end{tikzpicture}
-\caption{A cleaned companion drawing of neighboring local light cones. Their apparent shape changes with coordinates and with the local metric, but the causal classification does not.}
+\caption{Neighboring local cones.  Their coordinate shape can change without
+changing which vectors are time-like, light-like, or space-like.}
 \end{figure}
 
-What changes, then, when the cone seems to change shape? Often nothing but coordinates. One may squash a cone by rescaling the spatial axes, or tilt it by using more awkward coordinates, without changing the underlying geometry at all. The lecture returns to this point several times because it is exactly the sort of confusion that will come back later at the Schwarzschild horizon.
+\begin{classroomqa}
+\audiencequestion{Does the single negative eigenvalue select one unique
+time direction?}
+\lecturerresponse{A basis that diagonalizes the displayed matrix has one
+negative basis direction, but that does not select a preferred observer or a
+unique physical arrow.  Lorentz transformations mix the time coordinate with
+space coordinates, and every vector inside the cone is time-like.  The
+invariant object is the cone together with the one-minus, three-plus
+signature, not one distinguished time-like vector.
+\lecturetimestamp{00:12:17--00:17:24}}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Why can two drawings of the local cone have different
+shapes?}
+\lecturerresponse{Coordinates can change the drawing.  For example, replacing
+\(x\) by a rescaled coordinate changes the numerical slope assigned to a light
+ray and therefore makes the cone appear narrower or wider.  More general
+coordinates can tilt it.  The same event and the same causal relations are
+being represented.  In curved spacetime cones at distinct events also belong
+to distinct tangent spaces, so their comparison requires the metric and a
+transport rule.
+\lecturetimestamp{00:13:37--00:15:59}}
+\end{classroomqa}
 
-A natural question is this: if there is one negative eigenvalue, does that pick out one unique time-like vector?
+\section{Geodesics as a Variational Problem}
 
-No. The invariant statement is about the form, not about a unique physical arrow. In a diagonal coordinate system one may indeed point to the vector \((1,0,0,0)\), but that is a coordinate-basis statement. It is not the real content of the metric. All time-like vectors inside the cone are related to one another by Lorentz transformations. The point is not that the metric has chosen one preferred vector; the point is that the metric has Lorentzian signature.
-
-This is why one must be careful not to identify the shape drawn on the board with the invariant content. The board may display one axis as ``time,'' but the true statement is more abstract and more stable: one negative direction, three positive ones, and therefore a causal cone at each event.
-
-\section{Geodesics from Stationary Distance to Stationary Proper Time}
-
-The lecture now changes gears. Up to this point we have been fixing the causal vocabulary. The next step is to say how particles move. Susskind briefly recalls the earlier, more differential definition of a geodesic. In standard notation, with dots now denoting derivatives with respect to proper time,
+A freely moving particle follows a spacetime geodesic.  In differential form,
+using an affine parameter \(\lambda\),
 \begin{equation}
-\ddot x^\mu + \Gamma^\mu{}_{\sigma\rho}\dot x^\sigma\dot x^\rho = 0.
+\frac{d^2x^\mu}{d\lambda^2}
++\Gamma^\mu{}_{\rho\sigma}
+\frac{dx^\rho}{d\lambda}
+\frac{dx^\sigma}{d\lambda}=0.
+\label{eq:l5-geodesic}
 \end{equation}
-The spoken discussion around the sign of the Christoffel term is hesitant, so it is better to write the standard clean form and move on.
+The connection tells the tangent how to remain parallel to itself as the
+particle moves.
 
-For actual calculation, the lecture prefers a different definition. In ordinary space, a geodesic is the curve of stationary distance between two points. If the spatial metric is \(g_{mn}\), then
+There is a second formulation that is often easier to calculate with.  In a
+Riemannian space with metric \(g_{mn}\), the length of a curve is
 \begin{equation}
-ds^2 = g_{mn}\,dx^m dx^n,
-\qquad
-\int ds = \int \sqrt{g_{mn}\,dx^m dx^n}.
+s=\int ds
+=\int\sqrt{g_{mn}\,dx^m dx^n}.
+\label{eq:l5-spatial-length}
 \end{equation}
-The geodesic is the curve that makes this integral stationary.
+The geodesic makes this length stationary under small variations of the path
+with fixed endpoints.  The integral is simply the sum of infinitesimal lengths
+along the curve, and its Euler--Lagrange equation is a second-order
+differential equation analogous in form to a force law.
 
-Now comes the deliberate transition. We are no longer interested in ordinary distance on a surface. We are interested in proper time in space-time. So we write
+For a time-like worldline, spatial length is replaced by proper time:
 \begin{equation}
-\tau = \int \sqrt{-\,g_{\mu\nu}\,dx^\mu dx^\nu},
+\tau
+=\int\sqrt{-g_{\mu\nu}\,dx^\mu dx^\nu}.
+\label{eq:l5-proper-time-functional}
 \end{equation}
-and for a massive particle we define the action
+A time-like geodesic makes \(\tau\) stationary and, for nearby freely falling
+paths before conjugate points occur, locally maximal.  Multiplying by
+\(-m\) gives the particle action
 \begin{equation}
-A = -m\tau = -m\int \sqrt{-\,g_{\mu\nu}\,dx^\mu dx^\nu}.
+A=-m\tau
+=-m\int\sqrt{-g_{\mu\nu}\,dx^\mu dx^\nu}.
+\label{eq:l5-particle-action}
 \end{equation}
-This is the point at which geometry becomes mechanics.
+Thus the same path locally minimizes \(A=-m\tau\).  The distinction between a
+stationary proper time and the sign of the chosen action removes the apparent
+minimum-versus-maximum ambiguity.
 
-In the live lecture the proper-time functional is repeatedly described as something to minimize. The clean statement is slightly subtler. A time-like geodesic makes the proper time stationary and, locally, maximal. Because the action has the extra minus sign, the same curve minimizes \(A=-m\tau\). The sign is not decoration; it is exactly what makes the variational problem look like the familiar principle of least action.
+\section{From Proper Time to an Ordinary Lagrangian}
 
-\section{Particle Action, Lagrangian Form, and Euler--Lagrange Equations}
-
-At first sight the proper-time action looks strange. It does not look like an ordinary integral over a single variable with a recognizable integrand. This is why Susskind pauses here in the lecture and spends time on the rewrite. We divide the quadratic form inside the square root by \(dt^2\) and compensate by pulling one factor of \(dt\) outside:
+The action in \eqref{eq:l5-particle-action} is geometric, but it can be put in
+the familiar form used in mechanics.  Parameterize the worldline by the
+coordinate \(t\), divide each differential by \(dt\), and pull the remaining
+factor of \(dt\) outside the square root:
 \begin{align}
 A
-&= -m\int \sqrt{-\,g_{\mu\nu}(x)\,dx^\mu dx^\nu} \\
-&= -m\int \sqrt{-\,g_{\mu\nu}(x)\,\frac{dx^\mu}{dt}\frac{dx^\nu}{dt}}\,dt.
+&=-m\int\sqrt{-g_{\mu\nu}(x)\,dx^\mu dx^\nu}\\
+&=-m\int
+\sqrt{-g_{\mu\nu}(x)
+\frac{dx^\mu}{dt}\frac{dx^\nu}{dt}}\,dt.
+\label{eq:l5-action-t}
 \end{align}
-Here the time component contributes \(dt/dt=1\), while the spatial components contribute ordinary velocities.
-
-Now the action has the conventional form
+For the temporal component \(dt/dt=1\); the spatial components are ordinary
+coordinate velocities.  We may therefore write
 \begin{equation}
 A=\int L\,dt,
-\end{equation}
-with
-\begin{equation}
-L=-m\sqrt{-\,g_{\mu\nu}(x)\,\dot x^\mu\dot x^\nu},
 \qquad
-\dot x^\mu \equiv \frac{dx^\mu}{dt}.
+L=-m\sqrt{-g_{\mu\nu}(x)\dot x^\mu\dot x^\nu},
+\qquad
+\dot x^\mu=\frac{dx^\mu}{dt}.
+\label{eq:l5-relativistic-lagrangian}
 \end{equation}
-This is the real payoff of the rewrite. The square-root worldline functional is no longer exotic. It is simply a Lagrangian, a function of positions and velocities, exactly of the kind to which Euler--Lagrange applies.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_05.png}
-\caption{Relativistic particle action rewritten as an integral of the Lagrangian. The board preserves the live transition from the square-root worldline functional to the conventional action form \(A=\int L\,dt\).}
+\includegraphics[width=0.88\textwidth]{lecture_05_figure_05.png}
+\caption{The worldline action being converted into the conventional form
+\(A=\int L\,dt\).}
+\lectureframe{00:27:00}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_05_figure_06.png}
-\caption{The same action a little later, with the Lagrangian isolated more cleanly.}
+\includegraphics[width=0.88\textwidth]{lecture_05_figure_06.png}
+\caption{A later board state with the relativistic Lagrangian isolated.}
+\lectureframe{00:28:59}
 \end{figure}
 
-There is also a small sign question in the lecture at this point: is the quantity under the square root actually positive? Yes. For a genuine massive particle the trajectory is time-like, so \(-g_{\mu\nu}\dot x^\mu\dot x^\nu>0\). Real particles do not travel on space-like worldlines.
+\begin{classroomqa}
+\audiencequestion{Should the spacetime indices in this action be Greek?}
+\lecturerresponse{Yes.  Greek indices run over time and all spatial
+coordinates.  Latin indices may be reserved for the spatial coordinates when
+that distinction is useful.
+\lecturetimestamp{00:25:53--00:26:03}}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Why is the square-root expression called the Lagrangian?}
+\lecturerresponse{After the action has been written as \(A=\int L\,dt\), the
+integrand is the Lagrangian.  This is not only a definition: varying that
+integrand gives the Euler--Lagrange equations
+\[
+\frac{d}{dt}
+\left(\frac{\partial L}{\partial\dot x^\mu}\right)
+=\frac{\partial L}{\partial x^\mu},
+\]
+which are equivalent to the geodesic equation after the parameterization is
+handled consistently.
+\lecturetimestamp{00:28:36--00:29:02}}
+\end{classroomqa}
 
-Why does the expression under the square root count as the Lagrangian?
+For a massive particle the worldline is time-like, so the quantity under the
+square root is positive.  A space-like path would describe superluminal
+motion, not the trajectory of an ordinary massive particle.  Given a metric,
+one can now obtain the particle's path either by computing the Christoffel
+symbols and using \eqref{eq:l5-geodesic}, or by applying Euler--Lagrange to
+\eqref{eq:l5-relativistic-lagrangian}.  Showing their equivalence is a useful
+exercise; the action route is usually shorter.
 
-Because once the action has been rewritten in the conventional form \(A=\int L\,dt\), the integrand is, by definition, the Lagrangian. But there is more to it than a mere label. The entire point of the rewrite is that minimizing the action is now equivalent to applying the Euler--Lagrange equations to this specific function of positions and velocities.
+\section{The Newtonian Limit}
 
-Thus we recover the familiar machinery of mechanics:
+Consider the weak, static gravitational field outside a spherical source.
+Begin with flat spacetime and allow the coefficient of \(dt^2\) to differ
+slightly from one:
 \begin{equation}
-\frac{d}{dt}\left(\frac{\partial L}{\partial \dot x^\mu}\right)=\frac{\partial L}{\partial x^\mu}.
+d\tau^2
+=\left(1+\frac{2u(\mathbf{x})}{c^2}\right)dt^2
+-\frac{d\mathbf{x}^2}{c^2},
+\label{eq:l5-weak-metric}
 \end{equation}
-This is exactly the move the lecture wants to make: from ``here is an action'' to ``here is a differential equation.'' In that sense the geodesic equation becomes a force-like law, the relativistic analogue of an \(F=ma\)-type equation.
+where \(u\) is to become the Newtonian potential.  This ansatz must be checked,
+not merely named.
 
-\section{Weak-Field Metric and the Newtonian Limit}
-
-Now the lecture comes to the first real physical application. We want a metric for the gravitational field of a spherically symmetric object, but before trusting any guess we must check that it reproduces Newton when the field is weak and the motion is slow.
-
-We begin from flat space-time,
+The dimensionful particle action is
 \begin{equation}
-d\tau^2 = dt^2 - \frac{1}{c^2}(dx^2+dy^2+dz^2),
+A=-mc^2\int
+\sqrt{1+\frac{2u}{c^2}
+-\frac{\dot{\mathbf{x}}^{\,2}}{c^2}}\,dt.
+\label{eq:l5-weak-action}
 \end{equation}
-and we alter only the \(dt^2\) coefficient at first:
+Both \(u/c^2\) and \(\dot{\mathbf{x}}^{\,2}/c^2\) are small.  Keeping their
+first-order contributions,
 \begin{equation}
-d\tau^2 = \left(1+\frac{2u(x)}{c^2}\right)dt^2 - \frac{1}{c^2}(dx^2+dy^2+dz^2).
-\end{equation}
-The new function \(u(x)\) is the Newtonian gravitational potential. The lecture's point is explicit: let us check that this ansatz really gives Newton's equation when particles move slowly.
-
-Substituting this metric into the worldline action, and restoring the factor of \(c^2\) demanded by dimensions, we obtain
-\begin{equation}
-A=-mc^2\int \sqrt{1+\frac{2u(x)}{c^2}-\frac{\dot{\mathbf x}^{\,2}}{c^2}}\,dt,
+\sqrt{1+\epsilon}
+=1+\frac{\epsilon}{2}+O(\epsilon^2),
 \qquad
-\dot{\mathbf x}^{\,2}=\dot x^2+\dot y^2+\dot z^2.
+\epsilon=\frac{2u-\dot{\mathbf{x}}^{\,2}}{c^2},
 \end{equation}
-At this stage the lecture makes an important practical remark. If we simply threw away every \(1/c^2\) term, we would throw away the entire effect. The right thing to do is to expand the square root around \(1\):
-\begin{equation}
-\sqrt{1+\epsilon}\simeq 1+\frac{\epsilon}{2},
-\qquad
-\epsilon=\frac{2u-\dot{\mathbf x}^{\,2}}{c^2}.
-\end{equation}
-Therefore
+gives
 \begin{align}
 L
-&= -mc^2\sqrt{1+\frac{2u-\dot{\mathbf x}^{\,2}}{c^2}} \\
-&\simeq -mc^2\left(1+\frac{2u-\dot{\mathbf x}^{\,2}}{2c^2}\right) \\
-&\simeq -mc^2 - m\,u(x) + \frac{m}{2}\dot{\mathbf x}^{\,2}.
+&=-mc^2
+\sqrt{1+\frac{2u-\dot{\mathbf{x}}^{\,2}}{c^2}}\\
+&=-mc^2-mu+\frac{m}{2}\dot{\mathbf{x}}^{\,2}
++O(c^{-2}u^2,c^{-2}u\dot{\mathbf{x}}^{\,2},c^{-2}\dot{\mathbf{x}}^{\,4}).
+\label{eq:l5-newton-expansion}
 \end{align}
-The constant term \(-mc^2\) is irrelevant. A constant in the Lagrangian disappears when we differentiate. What remains is exactly the nonrelativistic Lagrangian \(T-U\):
+The constant rest-energy term has no effect on the equations of motion.  What
+remains is
 \begin{equation}
-L_{\mathrm{nr}} = \frac{m}{2}\dot{\mathbf x}^{\,2} - m\,u(x).
-\end{equation}
-Applying the Euler--Lagrange equations yields
-\begin{equation}
-m\ddot{\mathbf x} = -m\nabla u.
-\end{equation}
-
-This is the checkpoint the lecture needs before proceeding. The geometric action does indeed reduce to ordinary mechanics in the appropriate limit. In particular, we learn that to first order in \(1/c^2\),
-\begin{equation}
-g_{00}\approx 1+\frac{2u}{c^2}.
-\end{equation}
-For a source of mass \(M\),
-\begin{equation}
-u(r)=-\frac{GM}{r},
-\end{equation}
-so the time-time part of the metric becomes
-\begin{equation}
-g_{00}\approx 1-\frac{2GM}{rc^2}.
-\end{equation}
-This is not yet the full Schwarzschild metric, but it is the bridge from Newtonian intuition to the relativistic answer.
-
-\section{Schwarzschild Metric and the Horizon Puzzle}
-
-Only now do we turn to the main target: the metric outside a static, spherically symmetric gravitating body. Since this is a central-force problem, the lecture naturally switches to spherical coordinates. In the convention used on the board, \(\theta\) is measured from the equator rather than from the north pole, so
-\begin{equation}
-d\Omega^2 = d\theta^2 + \cos^2\theta\,d\phi^2,
-\end{equation}
-and flat three-space becomes
-\begin{equation}
-dx^2+dy^2+dz^2 = dr^2 + r^2 d\Omega^2.
-\end{equation}
-That is why we are doing polar coordinates here: not because they are prettier, but because they are the natural coordinates for the motion around a central mass.
-
-Using the weak-field result, the first guess is
-\begin{equation}
-d\tau^2 \approx \left(1-\frac{2GM}{rc^2}\right)dt^2
-- \frac{1}{c^2}\left(dr^2+r^2d\Omega^2\right).
-\end{equation}
-If we define the Schwarzschild radius
-\begin{equation}
-r_s = \frac{2GM}{c^2},
-\end{equation}
-this becomes
-\begin{equation}
-d\tau^2 \approx \left(1-\frac{r_s}{r}\right)dt^2
-- \frac{1}{c^2}\left(dr^2+r^2d\Omega^2\right).
-\end{equation}
-The lecture writes this down, pauses, and then says bluntly that something is terribly wrong with it.
-
-The problem is one of signature. Far from the source, all is well. But when \(r<r_s\), the coefficient of \(dt^2\) becomes negative. If the spatial terms are left untouched, then every diagonal term has the same sign. We would have lost the Lorentzian signature altogether. In effect, we would have wandered into a region with no time-like direction at all.
-
-\subsection{Question \& Answer}
-
-Why must the coefficient of \(dr^2\) change when the coefficient of \(dt^2\) changes sign?
-
-Because the metric must remain Lorentzian. If the \(dt^2\) coefficient flips sign, one of the other coefficients must flip with it. By spherical symmetry the radial term is the natural candidate. The angular sphere remains what it is; it is the radial piece that can exchange roles with the time piece.
-
-Einstein's equations give the precise correction:
-\begin{equation}
-d\tau^2
-=
-\left(1-\frac{r_s}{r}\right)dt^2
--
-\frac{1}{c^2\left(1-\frac{r_s}{r}\right)}dr^2
--
-\frac{r^2}{c^2}d\Omega^2.
-\end{equation}
-This is the Schwarzschild metric in the form used in the lecture. When \(r\) passes below \(r_s\), both the \(dt^2\) and \(dr^2\) coefficients change sign. The signature remains Lorentzian. In these coordinates the role of \(t\) and \(r\) flips: \(t\) becomes space-like and \(r\) becomes time-like.
-
-That sounds mysterious, and the lecture does not try to hide the mystery. But it immediately adds the crucial warning: this is a feature of Schwarzschild coordinates, not yet evidence that something locally disastrous happens at the horizon. In fact the lecture insists that the geometry is perfectly smooth there; it is the coordinates that have become awkward.
-
-To see how motion works, we first set \(c=1\). For purely radial infall the angular variables do not change, so \(d\Omega=0\), and the metric reduces to
-\begin{equation}
-d\tau^2
-=
-\left(1-\frac{r_s}{r}\right)dt^2
--
-\frac{1}{1-\frac{r_s}{r}}\,dr^2.
-\end{equation}
-Now divide through by \(dt^2\) and multiply by \(dt\). The action becomes ordinary again, and the radial Lagrangian is
-\begin{equation}
-L=-m\sqrt{\left(1-\frac{r_s}{r}\right)-\frac{\dot r^2}{1-\frac{r_s}{r}}},
-\qquad
-\dot r \equiv \frac{dr}{dt}.
-\end{equation}
-The lecture then uses the fact that energy is conserved. Let us set
-\begin{equation}
-a(r)=1-\frac{r_s}{r}.
-\end{equation}
-Then
-\begin{equation}
-L=-m\sqrt{a-\frac{\dot r^2}{a}}.
-\end{equation}
-The conjugate momentum is
-\begin{equation}
-p_r=\frac{\partial L}{\partial \dot r}
-=
-\frac{m\dot r}{a\sqrt{a-\dot r^2/a}},
-\end{equation}
-and the Hamiltonian is
-\begin{equation}
-H=p_r\dot r-L
-=
-\frac{ma}{\sqrt{a-\dot r^2/a}}.
-\end{equation}
-Since \(L\) has no explicit \(t\)-dependence, \(H\) is conserved. Writing \(H=E\) and solving for \(\dot r\) gives
-\begin{equation}
-\dot r^2
-=
-a^2\left(1-\frac{m^2}{E^2}a\right)
-=
-\left(1-\frac{r_s}{r}\right)^2
-\left[1-\frac{m^2}{E^2}\left(1-\frac{r_s}{r}\right)\right].
-\end{equation}
-The live algebra in the lecture becomes garbled here, but the clean reconstruction is straightforward. Its main consequence is the one the lecture emphasizes: near the horizon the bracket tends to \(1\), so
-\begin{equation}
-\dot r \sim \pm\left(1-\frac{r_s}{r}\right)
-\qquad
-(r\to r_s).
-\end{equation}
-Thus the infalling particle, described in Schwarzschild coordinate time \(t\), slows down and asymptotically freezes at the horizon.
-
-The lecture then says there is a much easier way to see the same effect. Forget the massive particle for a moment and look at a radial light ray. A light ray satisfies
-\begin{equation}
-d\tau^2=0.
-\end{equation}
-So in the radial Schwarzschild metric,
-\begin{equation}
-\left(1-\frac{r_s}{r}\right)dt^2
--
-\frac{1}{1-\frac{r_s}{r}}\,dr^2
-=0.
-\end{equation}
-Multiplying by \(1-r_s/r\) gives
-\begin{equation}
-\left(1-\frac{r_s}{r}\right)^2dt^2 = dr^2,
+L_{\mathrm{nr}}
+=\frac{m}{2}\dot{\mathbf{x}}^{\,2}-m u(\mathbf{x}),
+\label{eq:l5-newton-lagrangian}
 \end{equation}
 and therefore
 \begin{equation}
-\frac{dr}{dt}=\pm\left(1-\frac{r_s}{r}\right).
+m\ddot{\mathbf{x}}=-m\boldsymbol{\nabla}u.
+\label{eq:l5-newton-equation}
 \end{equation}
-The two signs correspond to outgoing and ingoing rays. In either case, as \(r\to r_s\),
+The test mass cancels, as it must for universal free fall.  The potential
+energy is \(m u\), while the acceleration is independent of \(m\).
+
+We have consequently identified the leading weak-field relation
 \begin{equation}
-\frac{dr}{dt}\to 0.
+g_{00}=1+\frac{2u}{c^2}+O(c^{-4}).
+\label{eq:l5-g00-newton}
 \end{equation}
-Even light appears to get stuck in these coordinates.
-
-\subsection{Question \& Answer}
-
-Why does the horizon take infinite Schwarzschild time to reach but only finite proper time to cross?
-
-Because the two times are not the same clock. The outside observer uses Schwarzschild coordinate time \(t\). The infalling observer uses proper time \(\tau\). Near the horizon,
+Outside a spherical mass \(M\),
 \begin{equation}
-\frac{dr}{dt}\sim -\left(1-\frac{r_s}{r}\right),
+u(r)=-\frac{GM}{r},
+\qquad
+g_{00}=1-\frac{2GM}{rc^2}+O(c^{-4}).
+\label{eq:l5-g00-spherical}
 \end{equation}
-so
+This determines the first correction to the time component.  It does not yet
+determine the complete strong-field metric.
+
+\section{Spherical Coordinates and the First Schwarzschild Guess}
+
+Spherical coordinates are natural for a central source.  The lecture measures
+\(\theta\) from the equatorial plane rather than from the pole, so its angular
+line element is
 \begin{equation}
-\frac{dt}{dr}\sim -\,\frac{1}{1-r_s/r}
-=
--\,\frac{r}{r-r_s}.
+d\Omega^2=d\theta^2+\cos^2\theta\,d\phi^2.
+\label{eq:l5-angular-metric}
 \end{equation}
-This has a logarithmic divergence at \(r=r_s\). So the coordinate time needed to reach the horizon is infinite.
+With this convention,
+\begin{equation}
+d\mathbf{x}^2=dr^2+r^2d\Omega^2.
+\label{eq:l5-flat-spherical}
+\end{equation}
+Nothing physical depends on choosing this latitude-like \(\theta\); using the
+more common polar angle would replace \(\cos^2\theta\) by
+\(\sin^2\theta\).
 
-But that does not mean the infalling observer waits forever. The coefficient multiplying \(dt^2\) in the metric goes to zero at the horizon, so a large coordinate interval \(dt\) can correspond to a small proper interval \(d\tau\). This is exactly the physical content of the late discussion in the lecture about clocks near the horizon: a given amount of outside time corresponds to a smaller and smaller proper time in the falling car. Hence the infalling observer reaches the horizon in finite proper time even while the outside observer says the crossing is never completed.
+Inserting the Newtonian time coefficient while leaving the spatial metric
+flat gives the first guess
+\begin{equation}
+d\tau^2
+=\left(1-\frac{r_s}{r}\right)dt^2
+-\frac{1}{c^2}\left(dr^2+r^2d\Omega^2\right),
+\qquad
+r_s=\frac{2GM}{c^2}.
+\label{eq:l5-naive-schwarzschild}
+\end{equation}
+This cannot be the exact answer.  For \(r<r_s\), the coefficient of \(dt^2\)
+changes sign while every spatial coefficient remains negative in the
+proper-time convention.  The metric would lose its one-time, three-space
+signature.
 
-The same distinction resolves the apparent contradiction about the speed of light. A photon has Schwarzschild coordinate speed \(dr/dt\to 0\), but that is not its local speed in a freely falling frame. Locally the photon still travels at the speed of light. The horizon does not turn photons into massive particles, and it does not make clocks stop. The pathology is in the Schwarzschild coordinates, not in the local physics.
+The vacuum field equations supply the required radial coefficient:
+\begin{equation}
+\boxed{
+d\tau^2
+=\left(1-\frac{r_s}{r}\right)dt^2
+-\frac{dr^2}{c^2\left(1-r_s/r\right)}
+-\frac{r^2}{c^2}d\Omega^2.
+}
+\label{eq:l5-schwarzschild}
+\end{equation}
+This is the exterior Schwarzschild metric.  When \(r\) passes through \(r_s\),
+the \(t\) and \(r\) coefficients change sign together, preserving Lorentzian
+signature.  In Schwarzschild coordinates the radial coordinate becomes
+time-like inside and the coordinate \(t\) becomes space-like.  This exchange
+signals a failure of the coordinate chart at the horizon, not a local failure
+of the spacetime geometry.
 
-This is also why the lecture insists that there is nothing geometrically singular at the horizon. The light cones are perfectly healthy there; one simply needs better coordinates to see that fact transparently. Radar tracking from outside becomes misleading because the reflected signal takes longer and longer to return and is redshifted more and more severely. The outside observer therefore describes the infalling object as flattening, slowing, and piling up near the horizon, while the infalling observer simply sails through.
+\begin{classroomqa}
+\audiencequestion{How long does a falling object take to cross the horizon?}
+\lecturerresponse{Measured by the Schwarzschild coordinate \(t\) used by a
+distant observer, the crossing is pushed to infinite time.  Measured by the
+proper time on the falling object's clock, it occurs in finite time.  The
+distinction between these clocks is the central horizon puzzle.
+\lecturetimestamp{00:54:45--00:55:35}}
+\end{classroomqa}
 
-One further caution is essential. The Schwarzschild solution is an exterior solution. For the Earth, the Schwarzschild radius is about a centimeter, far inside the real matter distribution. There is no Earth horizon. The Schwarzschild metric is the correct vacuum geometry outside the source. Only when the entire body collapses within its Schwarzschild radius does the horizon become physically relevant.
+\begin{classroomqa}
+\audiencequestion{Why alter the radial coefficient rather than some other
+part of the metric?}
+\lecturerresponse{The metric must retain Lorentzian signature, spherical
+symmetry distinguishes the radial direction from the angular sphere, and the
+vacuum field equations determine the reciprocal factor precisely.  Signature
+alone motivates where to look; Einstein's equations give the exact result.
+\lecturetimestamp{00:55:35--00:56:01}}
+\end{classroomqa}
 
-The lecture closes by leaving one last knot tied rather than untied. If nothing ever seems to cross the horizon in outside time, how can a black hole grow? Susskind says explicitly that the conclusion ``therefore a black hole can never grow'' sounds right but is wrong. The resolution is postponed. That is the right place to stop: with the geometry established, the coordinate artifact identified, and the deeper global question still alive.
+For the Earth, \(r_s\) is only of order a centimeter, deep inside the material
+body.  The exterior vacuum metric is not valid there, so the Earth has no
+Schwarzschild horizon.  An interior solution must replace it inside the
+matter and match it at the surface.
 
-\section{Summary}
+\begin{classroomqa}
+\audiencequestion{If \(t\) and \(r\) exchange coordinate roles, what happens
+to an ordinary clock?}
+\lecturerresponse{The clock continues to measure proper time along a
+time-like worldline.  It does not know that a chosen coordinate has become
+awkward.  A regular freely falling coordinate system shows smooth local
+geometry and ordinary local light propagation through the horizon.
+\lecturetimestamp{00:56:35--00:57:50}}
+\end{classroomqa}
 
-The lecture unfolds in a deliberately staged way. We begin in Minkowski space so that time-like, space-like, and light-like intervals are concrete before curvature enters. We then shift from the picture of a single drawn cone to the invariant statement about Lorentzian signature, and from there to a general metric \(g_{\mu\nu}(x)\) with a local light cone at each event.
+\subsection{Why the radial correction did not appear in Newton's equation}
 
-Next comes the methodological turn. Instead of treating geodesics only through Christoffel symbols, we turn the problem into a variational one. The proper-time functional becomes a particle action, the action becomes a Lagrangian, and Euler--Lagrange turns geometry into equations of motion. In the weak-field limit that machinery reproduces Newton and shows that \(g_{00}\approx 1+2u/c^2\) to first order.
+The exact metric changes the radial coefficient already at first order in the
+potential:
+\begin{equation}
+\frac{1}{1-r_s/r}
+=1+\frac{r_s}{r}
++O\!\left(\frac{r_s^2}{r^2}\right)
+=1-\frac{2u}{c^2}+O(c^{-4}).
+\label{eq:l5-radial-expansion}
+\end{equation}
+Why was it legitimate to ignore that change in the Newtonian derivation?
+Inside the particle action it multiplies \(\dot r^2/c^2\).  Its first
+correction is therefore proportional to
+\begin{equation}
+\frac{u\,\dot r^2}{c^4},
+\end{equation}
+which is beyond the order retained in
+\eqref{eq:l5-newton-expansion}.  The radial correction is negligible for the
+slow-motion Newtonian test, yet it becomes decisive for relativistic motion
+and near the horizon.  This is a useful warning: a term too small for one
+approximation may control the phenomenon of interest in another.
 
-Only then do we arrive at the Schwarzschild metric. The first guess, which modifies only the time component, fails because it destroys the Lorentzian signature near the Schwarzschild radius. The corrected metric preserves the signature, but in Schwarzschild coordinates it makes both infalling particles and light rays appear to freeze at the horizon. The lecture's real lesson is that this freezing is a coordinate effect. Proper time remains finite, local physics remains regular, and the horizon is not a place where the geometry breaks. It is a place where the argument, having become truly interesting, is ready to continue.
+\section{Radial Fall in Schwarzschild Time}
+
+Set \(c=1\) and first study radial motion.  Circular orbits are also important,
+but they require the angular terms and are postponed.  Radial motion is less
+an orbit than a direct crash toward the source, and it exposes the horizon
+behavior with the least algebra.
+
+\begin{classroomqa}
+\audiencequestion{Whose time appears in the radial velocity?}
+\lecturerresponse{The dot below means differentiation with respect to the
+Schwarzschild coordinate time \(t\), the time normalized to the distant
+static observer.  The falling observer's wristwatch measures proper time
+\(\tau\).  Confusing the two would turn a coordinate statement into a false
+local one.
+\lecturetimestamp{01:04:03--01:04:47}}
+\end{classroomqa}
+
+For \(d\Omega=0\), define
+\begin{equation}
+a(r)=1-\frac{r_s}{r}.
+\label{eq:l5-a-def}
+\end{equation}
+The radial metric and Lagrangian are
+\begin{align}
+d\tau^2&=a\,dt^2-\frac{dr^2}{a},\\
+L&=-m\sqrt{a-\frac{\dot r^2}{a}},
+\qquad
+\dot r=\frac{dr}{dt}.
+\label{eq:l5-radial-lagrangian}
+\end{align}
+Because \(L\) has no explicit \(t\)-dependence, its Hamiltonian is conserved.
+The radial momentum is
+\begin{equation}
+p_r=\frac{\partial L}{\partial\dot r}
+=\frac{m\dot r}{a\sqrt{a-\dot r^2/a}},
+\label{eq:l5-radial-momentum}
+\end{equation}
+and
+\begin{align}
+H
+&=p_r\dot r-L\\
+&=\frac{ma}{\sqrt{a-\dot r^2/a}}
+=E.
+\label{eq:l5-radial-energy}
+\end{align}
+Solving for the coordinate velocity gives
+\begin{equation}
+\boxed{
+\dot r^2
+=a^2\left(1-\frac{m^2}{E^2}a\right).
+}
+\label{eq:l5-radial-velocity}
+\end{equation}
+The board calculation tests several intermediate algebraic forms; the boxed
+expression is the consistent result.
+
+As \(r\) approaches \(r_s\), \(a(r)\) approaches zero while the factor in
+parentheses approaches one.  Hence
+\begin{equation}
+\frac{dr}{dt}
+\sim -\left(1-\frac{r_s}{r}\right)
+\longrightarrow 0
+\qquad(r\longrightarrow r_s^+)
+\label{eq:l5-infall-freeze}
+\end{equation}
+for an ingoing particle.  In Schwarzschild time, the particle appears to slow
+and freeze just outside the horizon.
+
+\begin{classroomqa}
+\audiencequestion{Does the decreasing value of \(dr/dt\) mean that gravity
+has become repulsive?}
+\lecturerresponse{No.  The particle is not locally pushed outward.  The
+coordinate \(t\) becomes increasingly ill-suited to describing the crossing,
+so radial progress per unit \(t\) tends to zero.  Proper acceleration along
+the freely falling worldline remains zero, and the horizon is reached in
+finite proper time.
+\lecturetimestamp{01:14:18--01:16:38}}
+\end{classroomqa}
+
+Indeed, near the horizon
+\begin{equation}
+\frac{dt}{dr}
+\sim-\frac{1}{1-r_s/r}
+=-\frac{r}{r-r_s}.
+\end{equation}
+Its integral diverges logarithmically.  This proves the infinite
+Schwarzschild-time statement without implying an infinite reading on the
+falling clock.
+
+\section{Radial Light Rays}
+
+Light gives the shortest version of the same calculation.  For a radial null
+ray,
+\begin{equation}
+d\tau^2
+=a\,dt^2-\frac{dr^2}{a}=0.
+\end{equation}
+Therefore
+\begin{equation}
+\boxed{
+\frac{dr}{dt}
+=\pm a(r)
+=\pm\left(1-\frac{r_s}{r}\right).
+}
+\label{eq:l5-radial-light}
+\end{equation}
+The plus sign describes an outgoing ray and the minus sign an ingoing ray.
+Both coordinate speeds tend to zero at the horizon.
+
+\begin{classroomqa}
+\audiencequestion{What speed does the formula give far from the source?}
+\lecturerresponse{As \(r\) tends to infinity, \(a(r)\) tends to one, so
+\(dr/dt\) tends to \(\pm1\), or \(\pm c\) when units are restored.
+\lecturetimestamp{01:21:01--01:21:29}}
+\end{classroomqa}
+
+General relativity is often like this: the principles fit in a few lines,
+while coordinates and calculations grow complicated.  Equation
+\eqref{eq:l5-radial-light} is simple, but interpreting its vanishing near
+\(r_s\) requires care.  It is a coordinate speed, not the speed measured by a
+local inertial observer.
+
+\section{What a Distant Observer Sees}
+
+\begin{classroomqa}
+\audiencequestion{Can light emitted near the horizon escape, and is that
+Hawking radiation?}
+\lecturerresponse{An outgoing classical ray emitted just outside the horizon
+can move outward, but its Schwarzschild coordinate speed begins extremely
+small and the signal reaches infinity only after a severe delay and
+redshift.  A ray on the horizon remains on the horizon in these coordinates;
+a ray inside cannot escape.  Hawking radiation is a quantum-field effect
+associated with the exterior geometry, not a classical light ray climbing
+out from inside, and it is not derived by the present calculation.
+\lecturetimestamp{01:22:08--01:24:28}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If a photon looks almost stationary, does it begin to look
+massive?}
+\lecturerresponse{No.  A freely falling local observer always measures the
+photon moving at \(c\).  Only the coordinate ratio \(dr/dt\) tends to zero.
+Mass, nullness, and the local speed of light are not changed by a bad
+coordinate chart.
+\lecturetimestamp{01:24:31--01:25:26}}
+\end{classroomqa}
+
+The Schwarzschild expression used here is a vacuum exterior solution.  A
+star, planet, or collapsing cloud has a different interior metric that must
+be matched to it.  If the material surface remains outside \(r_s\), as the
+Earth's does by an enormous margin, the exterior coordinate horizon lies
+outside the domain where the vacuum formula can be continued through the
+matter.  If the body collapses inside its Schwarzschild radius, the horizon
+becomes part of the physical spacetime.
+
+\begin{classroomqa}
+\audiencequestion{If an outside observer never sees matter cross, how can a
+black hole ever form or grow?}
+\lecturerresponse{The premise uses Schwarzschild time as though it were a
+global physical clock at the horizon.  The conclusion that a black hole can
+therefore never grow sounds plausible but is wrong.  A complete answer
+requires regular horizon-crossing coordinates and the global causal geometry
+of collapse; that resolution is deferred to the next stage of the course.
+\lecturetimestamp{01:27:57--01:29:36}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What would a radar gun report for a car falling toward the
+horizon?}
+\lecturerresponse{The coordinate speed first increases as the car falls, then
+turns over and decreases toward zero.  Radar pulses sent later can still catch
+the car outside the horizon, but the round trip takes progressively longer.
+The returned signal is increasingly redshifted, and the image appears slowed
+and compressed near \(r_s\).  This is not a reliable local picture of what
+the driver experiences; the driver crosses in finite proper time.
+\lecturetimestamp{01:29:39--01:32:14}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the speed of light constant only in special
+relativity?}
+\lecturerresponse{It is constant in every local inertial frame in general
+relativity as well.  An observer falling with local clocks and meter sticks
+measures a nearby photon at \(c\).  Coordinate speeds such as \(dr/dt\) may
+vary because \(r\) and \(t\) are not the readings of one local inertial
+laboratory over the whole spacetime.
+\lecturetimestamp{01:32:20--01:34:20}}
+\end{classroomqa}
+
+\section{Questions Beyond the Schwarzschild Calculation}
+
+\begin{classroomqa}
+\audiencequestion{What might it mean to unify gravity with the other
+forces?}
+\lecturerresponse{One geometric possibility is to enlarge spacetime with
+additional compact directions.  Components of a higher-dimensional metric
+can then appear in four dimensions as gauge fields and scalar fields, while
+momentum in an extra direction can appear as a charge.  This is a structural
+hint associated with Kaluza--Klein ideas, not a completed unification in the
+present lecture.
+\lecturetimestamp{01:34:22--01:36:08}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could different regions or universes have different metric
+signatures?}
+\lecturerresponse{Classical general relativity ordinarily fixes a
+nondegenerate Lorentzian signature.  Changing it would require the metric to
+pass through a degenerate configuration, where the standard classical
+description fails.  Quantum gravity may force a broader language, but there
+is no established theory here that predicts physical signature-changing
+regions.
+\lecturetimestamp{01:36:08--01:38:08}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How did Schwarzschild find this solution while serving
+during the First World War?}
+\lecturerresponse{The point made in class is human as much as historical:
+Schwarzschild was an astronomer and a highly accomplished mathematician, and
+working through Einstein's new equations offered an intellectual refuge amid
+wartime service.
+\lecturetimestamp{01:38:11--01:39:02}}
+\end{classroomqa}
+
+The central lesson is now sharp enough to carry forward.  The metric
+determines both causal cones and free motion.  Its weak-field time component
+contains Newton's potential, while its exact Schwarzschild form gives a
+coordinate horizon at \(r=r_s\).  Schwarzschild time stretches the crossing
+to infinity; the falling observer's proper time does not.  Resolving that
+contrast globally, and explaining how a black hole forms despite the frozen
+distant image, is the next problem.
