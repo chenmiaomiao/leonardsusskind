@@ -1,389 +1,893 @@
-\chapter{Weakly Interacting Gases and Inexact Differentials}
+\chapter{Weak Interactions, Virial Corrections, and Inexact Differentials}
 
-Susskind opens this lecture with a warning that sounds almost perverse: no physical device directly measures the mathematical quantity we say it measures. That is not a detachable preface. In this LazyingArt LLC and Video2Book companion chapter it is the first step of the argument, because it teaches us how to think about temperature before we ask when the ideal-gas law fails. The lecture then turns, at a student's prompting, to a dilute gas with weak interactions, and finally to a mathematical interlude on exact and inexact differentials that clarifies why heat and work are not state functions.
+\lectureoverview{We begin with the operational meaning of measurement and
+temperature, then ask how a dilute gas departs from the ideal-gas law when
+short-range interactions are weakly turned on.  The partition function gives
+the first interaction corrections to energy and pressure and identifies their
+range of validity.  A final mathematical interlude distinguishes state
+functions from path-dependent heat and work by means of exact differentials,
+closed loops, and a concrete ideal-gas test.}
 
-\section{Measurement, Calibration, and the Limited Meaning of Measuring Temperature}
+\section{What an Instrument Actually Measures}
 
-No instrument reports an abstract variable by magic. A spring balance does not literally measure force; it measures the stretch of a spring. A thermometer does not literally measure temperature; it measures the height of a column. What we trust is a controlled relation between an easily observed proxy and the quantity we want.
+No laboratory device reaches directly into nature and reports an abstract
+mathematical variable.  A spring balance reports an extension; a thermometer
+reports the height of a liquid column.  We call the first a force measurement
+and the second a temperature measurement only because a reproducible relation
+has been established between the visible response and the desired quantity.
 
-That relation is never exact over all ranges. A spring stretched too far stops being a good force meter; at worst it breaks. Likewise, any ordinary thermometer is reliable only over a regime in which its response is smooth and approximately linear. This is the operational logic of measurement. Over a sufficiently small interval,
+That relation has a limited range.  A spring obeys Hooke's law only while it
+remains elastic, and a sufficiently large force eventually deforms or breaks
+it.  More generally, if a smooth readout \(R\) depends on a physical variable
+\(X\), then near a chosen operating point
 \begin{equation}
-\delta \ell \propto \delta F,
-\qquad
-\delta h \propto \delta T,
+ \Delta R \simeq
+ \left.\frac{dR}{dX}\right|_{X_0}\Delta X.
+ \label{eq:sm6-local-linear-response}
 \end{equation}
-where \(\ell\) is the spring extension and \(h\) is the height of the thermometer column. The point is not that \(\ell\) equals \(F\), or that \(h\) equals \(T\), but that for a smooth response curve, small changes in the readout are proportional to small changes in the intended variable.
+Small changes in the readout are proportional to small changes in the target
+variable even when the full response curve is nonlinear.  This local
+linearization is the ordinary logic of calibration.
 
-The lecture is careful about what else the readout might depend on. A spring might depend weakly on temperature, air pressure, or all sorts of nuisances that one usually ignores. A thermometer might depend weakly on gravity, orientation, or very slow changes in the material. If one of these effects matters, one folds it into the protocol: hold the thermometer vertically, use it only over a suitable range, and do not pretend that the readout is independent of every other variable in the universe.
+The readout can also depend on nuisance variables.  A spring may respond
+weakly to temperature or pressure.  The height of mercury in a thermometer
+could respond to orientation through gravity, to properties of the glass, or
+to slow changes in the materials.  A measurement protocol does not prove
+that these dependencies are absent; it holds them fixed or shows that they
+are negligible on the required scale.
 
-Calibration is therefore conventional as well as physical. We choose two reference points, say the freezing and boiling points of water, and build a linear scale between them. If \(h_f\) and \(h_b\) are the corresponding column heights, then within the calibrated range one may write
+\begin{classroomqa}
+\audiencequestion{Could the local gravitational field, or the direction in
+which the thermometer is held, change the reading?}
+\lecturerresponse{Yes in principle.  If orientation has an appreciable
+effect, the instruction to hold the thermometer vertically becomes part of
+the instrument's definition.  Near Earth's surface the gravitational field
+is sufficiently stable that the remaining variation is normally negligible.
+\lecturetimestamp{00:04:08--00:05:00}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could aging or chemical change slowly alter the
+calibration?}
+\lecturerresponse{It could.  Mercury and glass are sufficiently inert for
+ordinary measurements, while changes on fantastically long time scales are
+irrelevant to the experiment.  Calibration is always a statement about a
+specified instrument, range, protocol, and duration.
+\lecturetimestamp{00:05:03--00:06:11}}
+\end{classroomqa}
+
+For a Celsius thermometer, two reproducible reference states supply a
+convenient scale.  If \(h_f\) and \(h_b\) are the column heights at the
+freezing and boiling points of water, respectively, then within a range where
+the response is nearly linear,
 \begin{equation}
-T_{\mathrm{C}}=100\,\frac{h-h_f}{h_b-h_f}.
+ T_{\mathrm C}=100\,\frac{h-h_f}{h_b-h_f}.
+ \label{eq:sm6-celsius-calibration}
 \end{equation}
-This is a perfectly good temperature scale, but it already shows what Susskind wants us to notice: the zero is chosen. It is not absolute zero. A Fahrenheit thermometer reading \(0^\circ\) in winter does not mean the outside world has fallen to the bottom of thermodynamics.
+The choice \(T_{\mathrm C}=0\) at the freezing point is conventional.  It is
+not the state of zero thermal energy, just as zero degrees Fahrenheit on a
+winter day is not absolute zero.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_03.png}
+\caption{A smooth but nonlinear thermometer response, with a short interval
+marked out for linear calibration.}
+\lectureframe{00:07:55}
+\end{figure}
 
 \section{Equilibrium and Temperature as an Energy Scale}
 
-The opening discussion sharpens when the class asks about equilibrium. A thermometer measures the temperature of its environment only after it has equilibrated with that environment. Before that, it is simply changing in response to it. Experimentally the rule is embarrassingly simple and completely correct: when the thermometer stops changing, it has equilibrated.
+A thermometer measures the temperature of its surroundings only after the
+thermometer and the nearby medium have reached thermal equilibrium.  Before
+then, its reading is merely changing toward equilibrium.  The practical test
+is elementary: wait until the reading stops changing.  The simplicity of
+that rule hides the physical processes that set the waiting time.
 
-This in turn explains why the same nominal temperature can be associated with very different equilibration times. A gas may have a high temperature and an extremely low density. That does not mean anything inconsistent. It means the molecules that are present carry a large kinetic energy, but there are few of them, so they strike the thermometer only rarely. The temperature can be high while equilibration is slow. What matters for the time scale is not only temperature but also the density and thermal conductivity of the surrounding medium.
+\begin{classroomqa}
+\audiencequestion{Does equilibration involve only a boundary layer around
+the bulb, and how long should one wait?}
+\lecturerresponse{Energy must cross the glass and be exchanged with the
+surrounding medium, so the time depends on the thermometer, its thermal
+conductivity, and the medium.  The immediate surroundings must also be
+representative of a uniform equilibrium state.  Experimentally, the reading
+is accepted when it has ceased to drift.
+\lecturetimestamp{00:08:45--00:10:13}}
+\end{classroomqa}
 
-The same point appears again when the lecture turns to radiation. The radiation field in a room need not be in thermal equilibrium with the air. If matter and radiation are not equilibrated, then one must not speak as though there were a single common temperature describing both. The hidden condition behind ordinary thermodynamic language is equilibrium.
+Temperature and density play different roles in this waiting time.  A very
+dilute gas can be very hot: the few molecules present may carry large kinetic
+energies.  Yet those molecules strike the thermometer rarely, so equilibration
+can be slow.  Lowering density by a factor of one hundred or one thousand
+while holding temperature fixed does not lower the molecular energy scale;
+it lowers the rate at which that energy is communicated to the instrument.
 
-Once that condition is met, the lecture makes its conceptual pivot. Temperature should be understood not merely as a column height or a number on a scale, but as an energy scale. Later, in the ideal gas, this becomes quantitative:
+\begin{classroomqa}
+\audiencequestion{Can the radiation in a room have a different temperature
+from the air?}
+\lecturerresponse{Yes.  Matter and radiation share one temperature only when
+they are in thermal equilibrium with one another.  Neutral air couples
+weakly to much of the optical radiation in an illuminated room, and the
+photon population need not be an equilibrium blackbody field at the air
+temperature.
+\lecturetimestamp{00:11:26--00:12:20}}
+\end{classroomqa}
+
+Once equilibrium is established, temperature is best regarded as an energy
+scale.  We continue to use units in which \(k_B=1\), so \(T\) itself has
+dimensions of energy.  For a monatomic ideal gas,
 \begin{equation}
-E_{\mathrm{ideal}}=\frac{3}{2}NT.
+ E_0=\frac{3}{2}NT.
+ \label{eq:sm6-ideal-energy}
 \end{equation}
-In the units of the lecture, \(T\) already has the dimensions of energy. At a given temperature the kinetic energy per particle is fixed, while the speed depends on the mass. That is why a heavy particle, or even a bowling ball immersed in a thermal environment, can have the same thermal energy scale as a light molecule and yet move much more slowly.
+The thermal energy per molecule is fixed by \(T\); the corresponding speed
+still depends on the molecular mass.
 
-\section{From the Ideal Gas to a Weakly Interacting Gas}
+\section{Turning On a Weak Interaction}
 
-The lecture's real problem begins with a student interruption: when does the ideal gas break down, and can we show it mathematically? Susskind answers in exactly the spirit of perturbation theory. We begin with a solved problem, the noninteracting gas, and then we change it a little. If the change is small enough, we expand. If the next term becomes as large as the one we started from, the approximation has broken down.
+\begin{classroomqa}
+\audiencequestion{Under what conditions does the ideal-gas approximation
+break down, and can the breakdown be shown mathematically?}
+\lecturerresponse{Start from the solved noninteracting gas and turn on a
+small interaction.  Expand in that change, calculate the first correction,
+and compare it with the ideal term.  The approximation fails when the
+correction is no longer small.
+\lecturetimestamp{00:12:25--00:14:40}}
+\end{classroomqa}
 
-That is why the gas is taken to be weakly interacting. The molecules are dilute, typically far apart, and the range of the force is assumed short compared with the mean separation. In that regime the potential energy is small compared with the kinetic energy. We turn on the interaction with a small knob, so to speak, and then let the calculation tell us when that knob has been turned too far.
-
-This is also why the lecture insists that the right small quantity is not introduced abstractly, but physically. The smallness comes from dilution. If the density is too high, particles are frequently near enough to feel one another and the ideal gas is poor. If the interaction reaches over very long distances, the ideal gas is poor even at low density. The perturbative expansion is justified only when both the interaction strength and its effective range are small in the appropriate sense.
-
-With that understood, the lecture says, in effect: let us set up the problem.
-
-\section{Pair Potentials, Pair Counting, and the Definition of \(U_0\)}
-
-We now write the energy of a configuration as a kinetic part plus a sum over pairs. On the blackboard the notation drifts a little: \(p^2\) is written schematically inside the sum, and the mass appears once as \(M\) and later as \(m\). We normalize this in the cleaned notes and write
+This is the standard perturbative strategy.  If a problem is soluble at
+\(\lambda=0\), introduce a coupling \(\lambda\), write
 \begin{equation}
-E=\sum_{n=1}^{N}\frac{p_n^2}{2m}+\sum_{n>m}U\!\left(|x_n-x_m|\right).
+ F(\lambda)=F(0)+\lambda F_1+\lambda^2F_2+\cdots,
+ \label{eq:sm6-perturbative-template}
 \end{equation}
-Here \(x_n\) is the three-dimensional position of particle \(n\), \(p_n\) is its momentum, and \(p_n^2\) means \(p_{nx}^2+p_{ny}^2+p_{nz}^2\).
+and ask whether each retained term is smaller than the preceding one.  Here
+the reference problem is the ideal gas.  The physical smallness comes from a
+dilute sample, a short interaction range compared with the mean separation,
+and a potential weak enough for the first interaction term to be useful.
+High density or a long-range force can invalidate the approximation even
+when any one encounter seems mild.
+
+Let \(x_i\in\mathbb R^3\) and \(p_i\in\mathbb R^3\) be the position and
+momentum of molecule \(i\).  For identical molecules of mass \(m\), take
+\begin{equation}
+ H(X,P)=
+ \sum_{i=1}^{N}\frac{p_i^2}{2m}
+ +\sum_{i<j}u\!\left(|x_i-x_j|\right),
+ \label{eq:sm6-interacting-hamiltonian}
+\end{equation}
+where \(X=(x_1,\ldots,x_N)\) and \(P=(p_1,\ldots,p_N)\).  The restriction
+\(i<j\) excludes self-pairs and counts \((i,j)\) only once:
+\begin{equation}
+ \sum_{i<j}1=\binom{N}{2}=\frac{N(N-1)}{2}.
+ \label{eq:sm6-pair-count}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Why not sum independently over both particle labels?}
+\lecturerresponse{The pair \((3,7)\) is the same physical pair as
+\((7,3)\), and a particle is not paired with itself.  Restricting the sum to
+\(i<j\) enforces both facts.  The mass symbol is kept as \(m\), while
+\(i,j\) label particles, to avoid the notational collision that can occur
+when \(m\) is used for both purposes.
+\lecturetimestamp{00:17:52--00:19:12}}
+\end{classroomqa}
+
+Write the total configurational potential as
+\begin{equation}
+ U(X)=\sum_{i<j}u\!\left(|x_i-x_j|\right).
+ \label{eq:sm6-total-potential}
+\end{equation}
+The interaction is assumed translationally invariant and short-ranged:
+\(u(r)\) becomes negligible when \(r\) is large compared with a molecular
+length.
+
+\section{The Integrated Pair Strength}
+
+Only one integral of the weak pair potential enters the first correction:
+\begin{equation}
+ U_0\equiv\int_{\mathbb R^3}d^3r\,u(r).
+ \label{eq:sm6-u0-definition}
+\end{equation}
+Its units are energy times volume.  It combines the typical strength of the
+interaction with the volume over which that interaction is appreciable.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_06_figure_04.png}
-\caption{Total energy split into kinetic and pair-potential terms, with the partition function begun below.}
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_04.png}
+\caption{The short-range pair potential compressed into the integrated
+strength \(U_0=\int d^3r\,u(r)\).}
+\lectureframe{00:25:15}
 \end{figure}
 
-The notation \(n>m\) is important. It excludes the fake pair \(n=m\), and it avoids double counting. The pair \((3,7)\) is the same physical pair as \((7,3)\), so only one of them belongs in the sum.
-
-It is convenient to gather the total potential energy into a single configuration-space quantity,
+To see why \(U_0\) is useful, consider one pair:
 \begin{equation}
-U(X)=\sum_{n>m}U\!\left(|x_n-x_m|\right),
-\qquad
-X=(x_1,\dots,x_N),
+ I_2=\int_V d^3x_1\,d^3x_2\,
+ u\!\left(|x_1-x_2|\right).
+ \label{eq:sm6-two-particle-integral}
 \end{equation}
-and to abbreviate the full \(3N\)-dimensional measures by
+Introduce a relative coordinate \(r=x_2-x_1\).  Away from the boundary, the
+relative integral gives \(U_0\), while the common position of the pair ranges
+through the full container.  Thus
 \begin{equation}
-dx=\prod_{i=1}^{N}d^3x_i,
-\qquad
-dp=\prod_{i=1}^{N}d^3p_i.
+ I_2=V U_0+\text{surface corrections}.
+ \label{eq:sm6-pair-integral-vu0}
 \end{equation}
-Then the partition function is
+The correction comes from particles within one interaction range of the
+wall, where part of the relative-coordinate neighborhood lies outside the
+box.  Its fractional importance scales as a surface-to-volume ratio and
+vanishes in the macroscopic limit.
+
+\begin{classroomqa}
+\audiencequestion{Does \(U_0\) refer to one selected pair, and is one
+particle kept at a fixed separation from the other?}
+\lecturerresponse{It refers to the common interaction law for any one pair.
+Hold the first particle fixed and integrate the second over every relative
+position.  The separation is not fixed during this integral.  Only the
+nearby interaction region contributes appreciably, producing \(U_0\).
+\lecturetimestamp{00:26:03--00:27:33}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does the second position integral give the full
+container volume while the first does not?}
+\lecturerresponse{After the relative configuration has been integrated into
+\(U_0\), the whole pair may be translated through the sample.  That common
+translation supplies the large factor \(V\).  The interaction neighborhood
+is a molecular-scale volume already contained inside \(U_0\), not another
+factor equal to the container volume.
+\lecturetimestamp{00:27:48--00:29:21}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Could the value depend on which point is held fixed,
+especially near a wall?}
+\lecturerresponse{Translational invariance makes the bulk value independent
+of the fixed point.  Near a wall the integral is slightly different because
+some neighboring positions are unavailable.  Only a surface layer of
+molecular thickness is affected, so the error is negligible when the box is
+macroscopic.
+\lecturetimestamp{00:29:24--00:31:22}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the result the potential energy integrated over every
+two-particle configuration, and why is it proportional to only one large
+volume?}
+\lecturerresponse{Yes.  Its units are energy times volume squared, since
+\(V U_0\) contains one container volume and one molecular interaction
+volume.  Only the first of those grows with the size of the sample.
+\lecturetimestamp{00:31:31--00:32:04}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does choosing a sphere, which minimizes area at fixed
+volume, change the bulk answer?}
+\lecturerresponse{It changes only the small boundary correction.  For any
+ordinary macroscopic shape, the number of particles within a molecular
+distance of the surface is negligible compared with the number in the bulk.
+The surface becomes important only when the container itself approaches
+molecular scales.
+\lecturetimestamp{00:32:04--00:33:58}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Have collisions been omitted by replacing particle
+trajectories with a potential?}
+\lecturerresponse{No.  The force is the derivative of the potential and is
+precisely what produces the collisions.  Equilibrium statistical mechanics
+does not require us to follow those collisions one by one; their effect is
+encoded in the energy and therefore in the Boltzmann weight.
+\lecturetimestamp{00:33:59--00:35:29}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What is lost by retaining pair forces but not genuine
+three-body interactions?}
+\lecturerresponse{A microscopic energy can contain genuine three-body
+terms, and higher orders of a pair potential also generate many-particle
+correlations.  In a dilute gas, however, three specified particles are much
+less likely than two to occupy one molecular neighborhood.  Pair effects
+therefore give the first density correction; the higher clusters enter at
+higher powers of density.
+\lecturetimestamp{00:35:29--00:38:14}}
+\end{classroomqa}
+
+\section{The Partition Function on Autopilot}
+
+The advantage of the statistical method is now visible.  Once the
+Hamiltonian is specified, there is no need to guess the detailed velocity
+distribution near walls or during collisions.  We write the canonical
+partition function and follow its algebra:
 \begin{equation}
-Z=\frac{1}{N!}\int dp\,dx\,
-e^{-\beta\sum_{n=1}^{N}p_n^2/(2m)}\,e^{-\beta U(X)},
-\qquad \beta=\frac{1}{T}.
+ Z=
+ \frac{1}{N!h^{3N}}
+ \int d^{3N}P\,d^{3N}X\,
+ e^{-\beta K(P)}e^{-\beta U(X)},
+ \qquad
+ K(P)=\sum_i\frac{p_i^2}{2m}.
+ \label{eq:sm6-full-partition-function}
 \end{equation}
-Only the kinetic exponential is clearly visible in the board frame; the extra factor \(e^{-\beta U(X)}\) is the transcript-supported completion of what the lecture is setting up.
+The factor \(h^{3N}\) makes the classical phase-space measure dimensionless,
+and \(N!\) removes the permutation overcounting of identical particles.
 
-At this point Susskind pauses over one integral and one number. The integral is the two-particle average of the pair potential over all positions:
-\begin{equation}
-\int d^3x_1\,d^3x_2\,U\!\left(|x_1-x_2|\right).
-\end{equation}
-The important number extracted from it is
-\begin{equation}
-U_0=\int d^3r\,U(r).
-\end{equation}
-The units of \(U_0\) are energy times volume. It is not just the height of the potential, and not just its range, but the combination of the two: strength times effective interaction volume.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_05.png}
+\caption{The many-particle energy and the corresponding kinetic and
+configurational factors in the partition function.}
+\lectureframe{00:40:35}
+\end{figure}
 
-The lecture's reconstructed relation is then
-\begin{equation}
-\int d^3x_1\,d^3x_2\,U\!\left(|x_1-x_2|\right)=V\,U_0.
-\end{equation}
-In the frame, the right-hand side is cropped after \(VU\ldots\), so \(V U_0\) should be read as the cautious clean completion rather than a literal full transcription.
-
-\subsection{Question \& Answer}
-
-Why does the two-particle integral scale like \(V U_0\) rather than \(V^2\)?
-
-Because only one of the two integrations explores the whole container. If we hold one particle fixed and integrate the other one over all space, the potential is appreciable only over the small region where the two particles are close enough to feel one another. That integral is therefore not of order the whole volume; it is the interaction strength integrated over the interaction region, and that is exactly \(U_0\). Only after doing that do we move the first particle through the whole sample, which produces the single factor of \(V\).
-
-This is also why the units work out. The full two-particle integral has units of volume squared times energy, but its large-scale dependence is only linear in the container volume; the second factor of volume is hidden inside \(U_0\).
-
-Boundary effects are real, and the lecture insists on admitting them. A particle close to the wall cannot have a full interaction neighborhood around it. But only a small fraction of particles lie within a molecular distance of the surface, so for a macroscopic sample the correction is a surface-to-volume effect and is negligible at the level of the present approximation.
-
-\section{Partition Function Expansion and the First Correction to the Equation of State}
-
-Having set up the energy, the lecture announces a change of mode: now we get on autopilot. Statistical mechanics is at its most mechanical here. We write the partition function, factorize it, expand in the small quantity, and then inspect the answer afterwards to see whether it makes sense.
-
-Because the kinetic and potential terms depend on different variables, the partition function factorizes:
+Momentum and position separate.  Multiplying and dividing the
+configurational integral by \(V^N\) isolates the ideal-gas result:
 \begin{align}
-Z
-&=\frac{1}{N!}\int dp\,dx\,
-e^{-\beta\sum_n p_n^2/(2m)}\,e^{-\beta U(X)} \\
-&=\left[\frac{V^N}{N!}\int dp\,e^{-\beta\sum_n p_n^2/(2m)}\right]
-\left[\frac{1}{V^N}\int dx\,e^{-\beta U(X)}\right].
+ Z
+ &=
+ \left[
+ \frac{V^N}{N!h^{3N}}
+ \int d^{3N}P\,e^{-\beta K(P)}
+ \right]
+ \left[
+ \frac{1}{V^N}
+ \int d^{3N}X\,e^{-\beta U(X)}
+ \right] \notag\\
+ &\equiv Z_0\,C(\beta,V,N).
+ \label{eq:sm6-z-factorization}
 \end{align}
-The reason for multiplying and dividing by \(V^N\) is purely practical: it isolates the old ideal-gas answer immediately. We recognize
+The familiar Gaussian factor is
 \begin{equation}
-Z_0=\frac{V^N}{N!}\int dp\,e^{-\beta\sum_n p_n^2/(2m)}
+ \int d^{3N}P\,e^{-\beta K(P)}
+ =\left(\frac{2\pi m}{\beta}\right)^{3N/2}.
+ \label{eq:sm6-gaussian-factor}
 \end{equation}
-as the partition function of the ideal gas, so that
-\begin{equation}
-Z=Z_0\left[\frac{1}{V^N}\int dx\,e^{-\beta U(X)}\right].
-\end{equation}
-
-The momentum integral is the same Gaussian integral as before:
-\begin{equation}
-\int dp\,e^{-\beta\sum_n p_n^2/(2m)}
-=\left(\frac{2\pi m}{\beta}\right)^{3N/2}.
-\end{equation}
-On the board it appears as a square root raised to the power \(3N\); the cleaned form above is equivalent.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.82\textwidth]{lecture_06_figure_05.png}
-\caption{Recalled ingredients for the factorized partition function: the pair-potential integral and the Gaussian momentum factor.}
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_06.png}
+\caption{The ideal-gas partition function isolated from the normalized
+configurational factor.}
+\lectureframe{00:43:45}
 \end{figure}
 
-The two lines visible in the figure summarize the two ingredients the lecture now reuses:
+The \(N!\) factor does not affect the normalized ratio \(C\), nor the
+particular fixed-\(N\) derivatives used below, but it is not dispensable from
+the thermodynamics as a whole: it is essential for correct state counting
+and extensive entropy.
+
+To first order in the interaction,
 \begin{equation}
-\int d^3x_1\,d^3x_2\,U\!\left(|x_1-x_2|\right)=V\,U_0,
-\qquad
-\left(\frac{2\pi m}{\beta}\right)^{3N/2}.
+ e^{-\beta U(X)}
+ =1-\beta U(X)+O(U^2).
+ \label{eq:sm6-boltzmann-expansion}
+\end{equation}
+Consequently,
+\begin{align}
+ C
+ &=
+ 1-\frac{\beta}{V^N}
+ \sum_{i<j}
+ \int d^{3N}X\,u(|x_i-x_j|)
+ +O(U^2) \notag\\
+ &=
+ 1-\frac{\beta}{V^N}
+ \frac{N(N-1)}{2}
+ V^{N-2}(V U_0)+O(U^2) \notag\\
+ &=
+ 1-\beta\frac{N(N-1)}{2V}U_0+O(U^2).
+ \label{eq:sm6-configurational-correction}
+\end{align}
+Each pair has the same \emph{integral}, not the same instantaneous
+separation or potential energy.  The remaining \(N-2\) position integrals
+each contribute one factor of \(V\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_07.png}
+\caption{Pair counting, spectator-coordinate volumes, and the first
+configurational correction \(1-\beta N^2U_0/(2V)\).}
+\lectureframe{00:53:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does the leading \(1\) assume that the potential vanishes
+at zero separation?}
+\lecturerresponse{No.  It is the zeroth-order term in the exponential
+series, independent of the value of \(u(0)\).  The potential enters in the
+next term, \(-\beta U(X)\).
+\lecturetimestamp{00:46:19--00:46:48}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why may every pair be replaced by the same expression if
+different pairs have different separations?}
+\lecturerresponse{Their pointwise values are not being equated.  Every term
+is integrated over the same full configuration space, and particle labels
+do not distinguish one pair from another.  The integrals have identical
+form and identical value.
+\lecturetimestamp{00:50:00--00:51:07}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the number of pairs \(N(N-1)/2\) or
+\(N(N+1)/2\)?}
+\lecturerresponse{It is \(N(N-1)/2\): after selecting one particle there are
+only \(N-1\) distinct partners, and division by two removes the reversed
+ordering.  For macroscopic \(N\), replacing \(N(N-1)\) by \(N^2\) changes
+only a relative \(1/N\) correction.
+\lecturetimestamp{00:48:33--00:49:56}}
+\end{classroomqa}
+
+Since \(\log(1-x)=-x-x^2/2-x^3/3-\cdots\), not an alternating series, the
+first-order logarithm is
+\begin{equation}
+ \log Z
+ =
+ \log Z_0
+ -\beta\frac{N(N-1)}{2V}U_0
+ +O(U^2).
+ \label{eq:sm6-logz-correction}
+\end{equation}
+At large \(N\) we may replace \(N(N-1)\) by \(N^2\) where no finite-\(N\)
+distinction is needed.
+
+\begin{remark}
+The controlled low-density formulation uses the Mayer function
+\(f(r)=e^{-\beta u(r)}-1\) and the second virial coefficient
+\begin{equation}
+ B_2(T)=-\frac{1}{2}\int d^3r\,f(r).
+ \label{eq:sm6-second-virial}
+\end{equation}
+For a weak potential, \(f(r)\simeq-\beta u(r)\), so
+\(B_2\simeq\beta U_0/2\) and the result below is recovered.  This form is
+needed for a hard repulsive core, where expanding \(e^{-\beta u}\) directly
+is not valid.
+\end{remark}
+
+\section{Energy, Pressure, and the Meaning of the Correction}
+
+The logarithm of \(Z\) is useful because its derivatives are measurable.
+Assuming the microscopic potential is independent of temperature,
+\begin{align}
+ E
+ &=-\left(\frac{\partial\log Z}{\partial\beta}\right)_{V,N} \notag\\
+ &=
+ \frac{3}{2}NT
+ +\frac{N(N-1)}{2V}U_0+O(U^2) \notag\\
+ &\simeq
+ N\left(\frac{3}{2}T+\frac{1}{2}\rho U_0\right),
+ \qquad
+ \rho=\frac{N}{V}.
+ \label{eq:sm6-energy-correction}
+\end{align}
+The apparently nonextensive \(N^2\) is accompanied by \(1/V\).  At fixed
+density, \(N^2/V=N\rho\), so the total energy remains proportional to the
+size of the system.  The extra energy per particle is proportional to
+density because a chosen molecule acquires pair energy only when another
+molecule lies nearby.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_08.png}
+\caption{The first interaction correction reorganized as an extensive
+energy \(N[3T/2+\rho U_0/2]\).}
+\lectureframe{01:03:25}
+\end{figure}
+
+Pressure is easier to measure.  Using the result of the preceding chapter,
+\begin{equation}
+ P=T\left(\frac{\partial\log Z}{\partial V}\right)_{T,N},
+ \label{eq:sm6-pressure-from-z}
+\end{equation}
+we obtain
+\begin{align}
+ P
+ &=
+ \frac{NT}{V}
+ +T\frac{\partial}{\partial V}
+ \left(-\beta\frac{N(N-1)}{2V}U_0\right)
+ +O(U^2) \notag\\
+ &=
+ \rho T+\frac{1}{2}\rho^2U_0
+ +O\!\left(\frac{\rho U_0}{N},U^2\right).
+ \label{eq:sm6-pressure-correction}
+\end{align}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_09.png}
+\caption{Pressure from the Helmholtz derivative, including the first
+quadratic-density correction.}
+\lectureframe{01:09:50}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why is \(\rho^2\), rather than another power, the natural
+first correction?}
+\lecturerresponse{The ideal term requires one particle to be present in a
+small region and therefore scales as \(\rho\).  An interaction requires two
+particles to occupy one molecular neighborhood, whose probability scales as
+\(\rho^2\).  The factor \(1/2\) is the same pair-counting factor that prevents
+\((i,j)\) and \((j,i)\) from being counted separately.
+\lecturetimestamp{01:24:27--01:26:00}}
+\end{classroomqa}
+
+At fixed temperature one can vary \(V\), measure \(\rho=N/V\), and plot the
+pressure.  The ideal law is the linear term.  Curvature of \(P(\rho)\) reveals
+the first interaction correction.  Within this weak-potential
+approximation, the correction has no explicit temperature dependence because
+the factor \(T\) in \eqref{eq:sm6-pressure-from-z} cancels
+\(\beta=1/T\).
+
+\begin{classroomqa}
+\audiencequestion{How large may the density become before three-body effects
+must be included?}
+\lecturerresponse{Density counting says that the next virial term is
+proportional to \(\rho^3\), but its coefficient cannot be inferred from
+\(U_0\) alone.  It receives contributions from correlated products of pair
+interactions and, if present, genuine three-body forces.  One must calculate
+the next cluster coefficient and compare it with the \(\rho^2\) term; a
+guessed formula should not be promoted to a result.
+\lecturetimestamp{01:10:50--01:13:38}}
+\end{classroomqa}
+
+The ideal-gas term dominates when the magnitude of the correction is small:
+\begin{equation}
+ \frac{1}{2}\rho^2|U_0|\ll \rho T,
+ \qquad\text{or parametrically}\qquad
+ |\rho U_0|\ll T.
+ \label{eq:sm6-ideal-validity}
+\end{equation}
+Both sides of the second inequality are energies.  The quantity
+\(\rho U_0\) is the interaction-energy scale per particle, while \(T\) is
+the kinetic-energy scale.  An ordinary dilute room-temperature gas lies far
+inside this regime; substantial deviations arise only when molecular
+neighborhoods are occupied often enough for interactions to compete with
+thermal motion.
+
+\begin{classroomqa}
+\audiencequestion{Can the criterion be estimated for the air in this room?}
+\lecturerresponse{Estimate \(U_0\) as a molecular interaction energy times a
+molecular volume, multiply by the number density, and compare the result
+with \(k_BT\).  The rough molecular numbers show that the interaction scale
+is much smaller in ordinary room air.  Considerable compression is required
+before molecules frequently crowd into one another's interaction range.
+\lecturetimestamp{01:16:24--01:18:54}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{May \(U_0\) have either sign?}
+\lecturerresponse{Yes.  A positive integrated interaction is net repulsive
+in this approximation and raises the pressure above \(\rho T\).  A negative
+one is net attractive and lowers it.  This sign test is an immediate physical
+check on \eqref{eq:sm6-pressure-correction}.
+\lecturetimestamp{01:18:56--01:20:29}}
+\end{classroomqa}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_10.png}
+\caption{Qualitative repulsive and attractive pair-potential profiles beside
+the pressure formula whose correction follows the sign of \(U_0\).}
+\lectureframe{01:21:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Can electrostatic repulsion, gravitational attraction, or
+real molecular forces be inserted into this calculation?}
+\lecturerresponse{The microscopic potential is input from atomic,
+molecular, or quantum physics.  Neutral molecules commonly exhibit a steep
+short-range repulsive core and a longer attractive van der Waals tail, often
+represented schematically by a 12--6 potential.  The full Mayer-function
+formula should be used for such a hard core.  Gravity is different: it is
+long-ranged, its spatial integral does not converge in the required way, and
+the ordinary short-range thermodynamic limit used here fails.
+\lecturetimestamp{01:20:40--01:23:03}}
+\end{classroomqa}
+
+The calculation illustrates a useful division of labor.  Microscopic physics
+supplies \(u(r)\).  Statistical mechanics turns that energy into \(Z\),
+derivatives of \(Z\) produce bulk observables, and physical reasoning checks
+their sign, density scaling, extensivity, and domain of validity.  The formal
+manipulation is mechanical only after the correct energy and approximation
+have been chosen.
+
+\section{Exact Differentials and Path Dependence}
+
+We now change mathematical language.  In the phrase \emph{exact
+differential}, exact does not mean numerically precise.  It means that a
+one-form is the differential of a genuine scalar function.
+
+Let \(f(x,y)\) be the altitude above a point in a landscape.  A small
+displacement changes it by
+\begin{equation}
+ df=
+ \frac{\partial f}{\partial x}\,dx+
+ \frac{\partial f}{\partial y}\,dy
+ =f_x\,dx+f_y\,dy.
+ \label{eq:sm6-total-differential}
+\end{equation}
+Suppose instead that we are merely handed
+\begin{equation}
+ \omega=F_x(x,y)\,dx+F_y(x,y)\,dy.
+ \label{eq:sm6-one-form}
+\end{equation}
+Does a scalar \(f\) exist with \(\omega=df\)?  Equality of mixed partials
+requires
+\begin{equation}
+ \frac{\partial F_y}{\partial x}
+ =
+ \frac{\partial F_x}{\partial y}.
+ \label{eq:sm6-exactness-condition}
+\end{equation}
+On a simply connected domain this zero-curl condition is also sufficient.
+The components \((F_x,F_y)\) then form the gradient of \(f\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_11.png}
+\caption{Altitude as a scalar function, its differential, and the
+mixed-partial condition for exactness.}
+\lectureframe{01:34:30}
+\end{figure}
+
+The same condition has an integral meaning.  If \(\omega=df\), then
+\begin{equation}
+ \int_{\gamma:1\to2}\omega=f(2)-f(1)
+ \label{eq:sm6-path-independent-integral}
+\end{equation}
+depends only on the endpoints, not on the path \(\gamma\).  In particular,
+\begin{equation}
+ \oint_\gamma\omega=0
+ \label{eq:sm6-closed-loop-zero}
+\end{equation}
+for every contractible closed loop.
+
+Altitude has this property.  Driving between the same two points by a level
+road or over a hill gives the same net change in altitude.  Fuel use does
+not.  A hilly route and a level route generally consume different amounts,
+and a closed trip does not restore the fuel that was burned.  The amount of
+fuel remaining is certainly a well-defined quantity in an enlarged state
+description, but it is not a function of the car's position \((x,y)\) alone;
+it carries memory of the route.  Tiredness supplies the same kind of
+analogy: descending a hill does not generally undo the fatigue of climbing
+it.
+
+\begin{classroomqa}
+\audiencequestion{Is exactness the same idea as a conservative force, and is
+it related to curvature?}
+\lecturerresponse{A force field with zero curl is locally conservative and
+admits a potential, so the language is closely related.  Parallel transport
+and curvature also connect closed-loop changes to local geometric data, but
+that is a broader subject.  Here only the elementary statement is needed:
+zero curl means local path independence, with the usual global condition on
+the domain.
+\lecturetimestamp{01:39:22--01:41:07}}
+\end{classroomqa}
+
+Two examples make the test concrete.  First take
+\begin{equation}
+ F_x=y,\qquad F_y=x.
+ \label{eq:sm6-exact-example}
+\end{equation}
+Both cross derivatives equal \(1\), and indeed
+\begin{equation}
+ \omega=y\,dx+x\,dy=d(xy).
+ \label{eq:sm6-exact-example-potential}
+\end{equation}
+Now change one sign:
+\begin{equation}
+ F_x=y,\qquad F_y=-x.
+ \label{eq:sm6-inexact-example}
+\end{equation}
+Then
+\begin{equation}
+ \frac{\partial F_x}{\partial y}=1,
+ \qquad
+ \frac{\partial F_y}{\partial x}=-1,
+ \label{eq:sm6-inexact-cross-derivatives}
+\end{equation}
+so no scalar \(f(x,y)\) has these two components as its gradient.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_12.png}
+\caption{An exact example generated by \(f=xy\) and an inexact example whose
+cross derivatives are \(1\) and \(-1\).}
+\lectureframe{01:44:50}
+\end{figure}
+
+\section{Heat and Work Are Not State Functions}
+
+For a simple compressible system with fixed particle number, two independent
+equilibrium variables determine the state.  We may use \((T,V)\), \((E,V)\),
+or, especially naturally for the fundamental relation, \((S,V)\).  Thus
+\begin{equation}
+ E=E(S,V),
+ \end{equation}
+and its exact differential is
+\begin{equation}
+ dE=
+ \left(\frac{\partial E}{\partial S}\right)_V dS+
+ \left(\frac{\partial E}{\partial V}\right)_S dV
+ =T\,dS-P\,dV.
+ \label{eq:sm6-fundamental-relation}
 \end{equation}
 
-The new part is the position-space factor. Since the interaction is weak, the lecture expands in the potential energy itself:
+\begin{classroomqa}
+\audiencequestion{Does adiabatic mean slow, insulated, reversible, or
+constant entropy?}
+\lecturerresponse{The terminology is used differently in different
+contexts.  For the equilibrium path considered here, the change is
+quasistatic and thermally insulated, hence reversible and isentropic.  A
+merely insulated irreversible process can still produce entropy, while the
+quantum adiabatic theorem emphasizes slow parameter variation.
+\lecturetimestamp{01:47:13--01:47:54}}
+\end{classroomqa}
+
+At fixed entropy, an expansion changes the gas energy by
+\(-P\,dV\).  At fixed volume, a reversible transfer of heat changes it by
+\(T\,dS\).  It is therefore useful to write
 \begin{equation}
-e^{-\beta U(X)}\approx 1-\beta U(X).
+ \delta W_{\mathrm{on}}=-P\,dV,
+ \qquad
+ \delta Q_{\mathrm{rev}}=T\,dS,
+ \qquad
+ dE=\delta Q_{\mathrm{rev}}+\delta W_{\mathrm{on}}.
+ \label{eq:sm6-first-law-increments}
+\end{equation}
+The symbol \(\delta\), rather than \(d\), anticipates that heat and work are
+path increments, not differentials of state functions.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_13.png}
+\caption{The first law for a piston system:
+\(dE=-P\,dV+T\,dS\).}
+\lectureframe{01:50:28}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does \(-P\,dV\) represent work done on the gas or by the
+gas?}
+\lecturerresponse{With the convention in
+\eqref{eq:sm6-first-law-increments}, it is work done on the gas.  During
+expansion \(dV>0\), the gas does positive work on the piston, so the work done
+on the gas is negative and the gas loses energy.  The two descriptions are
+equal and opposite.
+\lecturetimestamp{01:51:23--01:52:27}}
+\end{classroomqa}
+
+The equality \(\delta Q_{\mathrm{rev}}=T\,dS\) must not be extended
+unchanged to arbitrary irreversible heating.  In general,
+\begin{equation}
+ dS=\frac{\delta Q}{T_{\mathrm{boundary}}}+dS_{\mathrm{prod}},
+ \qquad dS_{\mathrm{prod}}\ge 0.
+ \label{eq:sm6-entropy-production}
+\end{equation}
+The exact-differential argument below concerns quasistatic equilibrium paths,
+for which the reversible relation is the appropriate one.
+
+\begin{classroomqa}
+\audiencequestion{Are all paths in the state-space argument assumed to pass
+through equilibrium states?}
+\lecturerresponse{Yes.  The operations are performed slowly enough that
+\(P\), \(T\), \(E\), \(S\), and \(V\) remain well-defined along the path.
+The path dependence of heat and work does not require the system to be driven
+far from equilibrium.
+\lecturetimestamp{01:54:30--01:54:39}}
+\end{classroomqa}
+
+To test heat for exactness, use \((E,V)\) as coordinates and rearrange the
+first law:
+\begin{equation}
+ \delta Q_{\mathrm{rev}}=dE+P(E,V)\,dV.
+ \label{eq:sm6-heat-one-form}
+\end{equation}
+If there were a state function \(Q(E,V)\) with \(dQ=\delta Q_{\mathrm{rev}}\),
+its partial derivatives would have to be
+\begin{equation}
+ \left(\frac{\partial Q}{\partial E}\right)_V=1,
+ \qquad
+ \left(\frac{\partial Q}{\partial V}\right)_E=P.
+ \label{eq:sm6-hypothetical-heat-derivatives}
+\end{equation}
+Equality of mixed derivatives would then require
+\begin{equation}
+ \frac{\partial}{\partial V}
+ \left(\frac{\partial Q}{\partial E}\right)_V
+ =
+ \frac{\partial}{\partial E}
+ \left(\frac{\partial Q}{\partial V}\right)_E,
+ \qquad\Longrightarrow\qquad
+ 0=\left(\frac{\partial P}{\partial E}\right)_V.
+ \label{eq:sm6-heat-exactness-requirement}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Is this precisely the same curl test used for
+\(F_x\,dx+F_y\,dy\)?}
+\lecturerresponse{Yes.  The coefficients of \(dE\) and \(dV\) are \(1\) and
+\(P(E,V)\).  Their cross derivatives are \(0\) and
+\((\partial P/\partial E)_V\).  Heat would be exact only if those derivatives
+agreed.
+\lecturetimestamp{01:54:39--01:54:52}}
+\end{classroomqa}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_14.png}
+\caption{The heat one-form \(dE+P\,dV\) and the mixed derivatives required
+if it were the differential of a state function.}
+\lectureframe{01:58:10}
+\end{figure}
+
+The requirement is already physically implausible: adding energy to a gas at
+fixed volume generally changes its pressure.  The ideal gas supplies a direct
+calculation:
+\begin{equation}
+ PV=NT,
+ \qquad
+ E=\frac{3}{2}NT
+ \quad\Longrightarrow\quad
+ P=\frac{2E}{3V}.
+ \label{eq:sm6-ideal-pressure-energy}
 \end{equation}
 Therefore
-\begin{align}
-\frac{1}{V^N}\int dx\,e^{-\beta U(X)}
-&\approx \frac{1}{V^N}\int dx\,\left[1-\beta \sum_{n>m}U\!\left(|x_n-x_m|\right)\right] \\
-&=1-\frac{\beta}{V^N}\sum_{n>m}\int dx\,U\!\left(|x_n-x_m|\right).
-\end{align}
-Now every term in the sum has the same form. Not the same value point by point, but the same integral. There is nothing special about the pair \((1,2)\) as compared with any other pair. The number of distinct pairs is
 \begin{equation}
-\sum_{n>m}1=\binom{N}{2}=\frac{N(N-1)}{2}\approx \frac{N^2}{2}.
+ \left(\frac{\partial P}{\partial E}\right)_V
+ =\frac{2}{3V}\ne0.
+ \label{eq:sm6-heat-curl-fails}
 \end{equation}
-For one chosen pair the remaining \(N-2\) coordinate integrals give \(V^{N-2}\), and the pair integral gives \(V U_0\). Thus
-\begin{align}
-\frac{1}{V^N}\int dx\,e^{-\beta U(X)}
-&\approx 1-\beta\,\frac{N(N-1)}{2}\,\frac{V^{N-2}(V U_0)}{V^N} \\
-&=1-\beta\,\frac{N(N-1)}{2V}\,U_0 \\
-&\approx 1-\beta\,\frac{N^2}{2V}\,U_0.
-\end{align}
-So
+The curl test fails: \(\delta Q_{\mathrm{rev}}\) is not exact.  The work
+increment \(\delta W_{\mathrm{on}}=-P\,dV\) fails for the same reason.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_15.png}
+\caption{The ideal-gas relations combined into
+\(P=2E/(3V)\).}
+\lectureframe{02:00:00}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{lecture_06_figure_16.png}
+\caption{The completed conclusion:
+\((\partial P/\partial E)_V\ne0\), so the heat one-form is inexact.}
+\lectureframe{02:00:35}
+\end{figure}
+
+For a closed equilibrium cycle,
 \begin{equation}
-Z\approx Z_0\left(1-\beta\,\frac{N^2}{2V}\,U_0\right).
+ \oint dE=0,
+ \qquad
+ \oint\delta Q_{\mathrm{rev}}
+ =-\oint\delta W_{\mathrm{on}}.
+ \label{eq:sm6-cycle-balance}
 \end{equation}
-Taking the logarithm and expanding once more for small \(U_0\),
-\begin{equation}
-\log Z\approx \log Z_0-\beta\,\frac{N^2}{2V}\,U_0.
-\end{equation}
+The system returns to the same energy, but heat and work need not vanish
+separately.  Their values depend on the route through state space.  This is
+why a cyclic engine can absorb heat and deliver net work even though its
+working substance returns to its initial thermodynamic state.
 
-At this point the lecture says, in effect, that we are never interested in \(\log Z\) for its own sake. We want what we can get from it. The first choice is the energy:
-\begin{equation}
-E=-\frac{\partial \log Z}{\partial \beta}
-\approx \frac{3}{2}NT+\frac{N^2}{2V}U_0.
-\end{equation}
-It is useful to factor out one power of \(N\):
-\begin{equation}
-E\approx N\left(\frac{3}{2}T+\frac{1}{2}\rho U_0\right),
-\qquad
-\rho=\frac{N}{V}.
-\end{equation}
-The apparently dangerous \(N^2\) has combined with the large volume to produce the density. Extensivity has been restored.
+\begin{classroomqa}
+\audiencequestion{Is this path dependence connected with engine efficiency,
+hysteresis, and memory?}
+\lecturerresponse{Engine cycles use it directly: the closed-cycle heat input
+balances the net work output while the state function \(E\) returns to its
+initial value.  Hysteresis and memory also involve path dependence, although
+they often require additional internal variables or nonequilibrium physics.
+The present conclusion is narrower and already holds for reversible
+equilibrium paths: heat and work are transfers, not properties stored in the
+thermodynamic state.
+\lecturetimestamp{02:02:21--02:03:17}}
+\end{classroomqa}
 
-Energy is not the easiest quantity to measure in a gas, so the lecture immediately turns to pressure. Using
-\begin{equation}
-P=T\left(\frac{\partial \log Z}{\partial V}\right)_T,
-\end{equation}
-we get the ideal-gas piece from \(\log Z_0\) and the interaction correction from the new term:
-\begin{equation}
-P\approx \rho T+\frac{1}{2}\rho^2 U_0.
-\end{equation}
-The spoken sign bookkeeping becomes loose here, but the formula used in the rest of the lecture is this one: the correction is \(+\frac12 \rho^2 U_0\).
-
-\subsection{Question \& Answer}
-
-Are we losing anything essential by keeping only pair interactions and not triplets or higher-body effects?
-
-We are certainly making an approximation, but for a dilute gas it is the natural first one. There may be genuine three-body forces, and even if the microscopic dynamics is built only from pair potentials, higher-order terms in the expansion probe configurations in which three or more particles happen to be close together at once. Those effects are smaller because such configurations are less probable in a dilute gas.
-
-The lecture is cautious here, and the notes should be equally cautious. Susskind suggests that the next correction ought to involve higher powers of the density, but then stops himself and refuses to canonize a formula he has not checked. The stable point is only this: pair terms dominate the first correction, and the probability of triplets is smaller by an extra power of dilution.
-
-\section{Interpreting the Correction and the Criterion for the Ideal Gas}
-
-Now the lecture slows down and asks the right question: does the answer make sense? The first check is the density dependence. The ideal-gas term in the pressure is proportional to \(\rho\), because it only asks whether particles are there to hit the wall. The correction term is proportional to \(\rho^2\), because it asks for two particles to come close enough to interact. Pair physics should carry one extra power of density, and it does.
-
-The second check is the interpretation of the energy formula. Dividing by \(N\), we have
-\begin{equation}
-\frac{E}{N}\approx \frac{3}{2}T+\frac{1}{2}\rho U_0.
-\end{equation}
-The first term is the familiar kinetic contribution per particle. The second term is an interaction energy per particle, and it depends on the density because a given particle only acquires interaction energy when another particle is nearby.
-
-\subsection{Question \& Answer}
-
-Why is \(\rho^2\) the right power of the density?
-
-Because the correction is about pairs. The probability of finding one particle in a small volume is proportional to \(\rho\). The probability of finding two particles in that same small volume is proportional to \(\rho^2\). The ideal-gas pressure only needs one particle; the interaction correction needs two. That is the whole story.
-
-The sign is equally sensible. If \(U_0>0\), the interaction is net repulsive, so compression meets extra resistance and the pressure rises:
-\begin{equation}
-U_0>0
-\qquad \Longrightarrow \qquad
-P>\rho T.
-\end{equation}
-If \(U_0<0\), the interaction is net attractive and the pressure is lowered:
-\begin{equation}
-U_0<0
-\qquad \Longrightarrow \qquad
-P<\rho T.
-\end{equation}
-This matches the lecture's qualitative discussion. Molecules are typically repulsive at very short distance and attractive in a tail farther out; one thinks here of the usual molecular potentials with a hard core and an attractive tail, the sort of profile modeled phenomenologically by a \(6\)-\(12\) potential. But statistical mechanics does not derive that profile. Molecular and atomic physics supply \(U(r)\); statistical mechanics tells us what bulk consequence follows from it.
-
-Another point stressed in the lecture is that the pressure correction, at this order, carries no explicit temperature dependence. That makes it experimentally accessible. One can keep the gas in thermal equilibrium at fixed temperature, vary the density by changing the volume, and look for the deviation from linearity in \(P(\rho)\).
-
-Finally we ask when the ideal gas is a good approximation. We compare the correction to the leading term:
-\begin{equation}
-\rho^2 U_0 \ll \rho T.
-\end{equation}
-Dividing through by \(\rho\),
-\begin{equation}
-\rho U_0 \ll T.
-\end{equation}
-Since \(U_0\) has units of energy times volume, the quantity \(\rho U_0\) has units of energy. It is the potential energy per particle. So the lecture's physical criterion is precise: the ideal gas works when the potential energy per particle is much smaller than the kinetic energy scale \(T\).
-
-That is why ordinary air in a room is so well approximated by an ideal gas. One would need to compress it until molecules had a substantial probability of crowding into one another's interaction range before the correction stopped being small.
-
-\section{Exact and Inexact Differentials: Why Heat Is Not a State Function}
-
-At this point the lecture shifts register entirely. Susskind says, more or less, that what comes next is much less straightforward and that it confused him badly when he first learned thermodynamics. The topic is exact versus inexact differentials.
-
-Take a function \(f(x,y)\), and think of it as the altitude of a landscape. If we take a small step \(dx,dy\), then the altitude changes by
-\begin{equation}
-df=\frac{\partial f}{\partial x}\,dx+\frac{\partial f}{\partial y}\,dy
-=f_x\,dx+f_y\,dy.
-\end{equation}
-The important question is this: given two functions \(F_x(x,y)\) and \(F_y(x,y)\), when does the expression
-\begin{equation}
-F_x\,dx+F_y\,dy
-\end{equation}
-really come from the differential of a genuine scalar function?
-
-The criterion is equality of mixed partials:
-\begin{equation}
-\frac{\partial F_y}{\partial x}=\frac{\partial F_x}{\partial y}.
-\end{equation}
-In vector language, this is the statement that the curl vanishes. In integral language, it is equivalent to path independence:
-\begin{equation}
-\int_{1}^{2}(F_x\,dx+F_y\,dy)
-\end{equation}
-depends only on the endpoints, and in particular
-\begin{equation}
-\oint (F_x\,dx+F_y\,dy)=0
-\end{equation}
-around any closed loop.
-
-The lecture then gives two clean examples. First,
-\begin{equation}
-F_x=y,
-\qquad
-F_y=x.
-\end{equation}
-Here
-\begin{equation}
-\frac{\partial F_x}{\partial y}=1,
-\qquad
-\frac{\partial F_y}{\partial x}=1,
-\end{equation}
-so the differential is exact. Indeed,
-\begin{equation}
-d(xy)=y\,dx+x\,dy.
-\end{equation}
-Second,
-\begin{equation}
-F_x=y,
-\qquad
-F_y=-x.
-\end{equation}
-Now
-\begin{equation}
-\frac{\partial F_x}{\partial y}=1,
-\qquad
-\frac{\partial F_y}{\partial x}=-1,
-\end{equation}
-so the condition fails and the differential is inexact.
-
-The lecture then subordinates the everyday analogies to the mathematics. Altitude is the exact case: if we walk from one point to another, the change in altitude does not depend on the path. Fuel consumption is different. One route may go straight, another over a hill, and the gas tank will not end up at the same reading. Tiredness is different for the same reason. These quantities are meaningful along a path, but they are not functions of position alone.
-
-Now we return to thermodynamics. Here Susskind briefly says ``energy and volume'' as the independent variables, then corrects himself. The natural thermodynamic state variables for the present discussion are entropy \(S\) and volume \(V\). The first law is
-\begin{equation}
-dE=-P\,dV+T\,dS.
-\end{equation}
-With the lecture's sign convention,
-\begin{equation}
-dW=-P\,dV,
-\qquad
-dQ=T\,dS.
-\end{equation}
-When \(dV>0\) at positive pressure, the gas expands and does work on the piston, so the work done on the gas is negative and the gas energy decreases. That is exactly what the sign in \(dE=-P\,dV+T\,dS\) says.
-
-To test whether heat is a state function, we rewrite
-\begin{equation}
-dQ=dE+P\,dV
-\end{equation}
-and now temporarily use \(E\) and \(V\) as coordinates in state space. Assume, for the sake of argument, that there existed a genuine state function \(Q(E,V)\). Then its derivatives would have to satisfy
-\begin{equation}
-\left.\frac{\partial Q}{\partial E}\right|_V=1,
-\qquad
-\left.\frac{\partial Q}{\partial V}\right|_E=P.
-\end{equation}
-If \(dQ\) were exact, the mixed partials would agree, so
-\begin{equation}
-\frac{\partial}{\partial V}\left(\left.\frac{\partial Q}{\partial E}\right|_V\right)
-=
-\frac{\partial}{\partial E}\left(\left.\frac{\partial Q}{\partial V}\right|_E\right).
-\end{equation}
-The left-hand side is zero, and the right-hand side is \(\left.\frac{\partial P}{\partial E}\right|_V\). Therefore exactness would require
-\begin{equation}
-\left.\frac{\partial P}{\partial E}\right|_V=0.
-\end{equation}
-
-Now the lecture does what it always does at the crucial moment: it checks a concrete model. For the ideal gas,
-\begin{equation}
-PV=NT,
-\qquad
-E=\frac{3}{2}NT.
-\end{equation}
-Eliminating \(NT\), we obtain
-\begin{equation}
-P=\frac{2}{3}\frac{E}{V}.
-\end{equation}
-Hence
-\begin{equation}
-\left.\frac{\partial P}{\partial E}\right|_V=\frac{2}{3V}\neq 0.
-\end{equation}
-The curl test fails. So \(dQ\) is not exact. Heat is not a state function. The same logic applies to work. What is exact is only \(dE\), the change in the genuine state function \(E\).
-
-\subsection{Question \& Answer}
-
-Why is heat not a property of the thermodynamic state?
-
-Because heat does not tell us only where the system is; it tells us something about how the system got there. Two processes can begin at the same state and end at the same state, yet exchange different amounts of heat with the surroundings. On a closed cycle the total change in energy is zero, because the system comes back to the same state, but the total heat and the total work need not vanish separately.
-
-That is why Susskind compares heat to fuel consumption or tiredness rather than altitude. Altitude is a property of position. Fuel consumption and tiredness record a path. Heat and work do the same. Only their combination in the first law gives a true change of state.
-
-\section{Summary}
-
-The lecture unfolds in two very different but tightly connected parts. First, we are reminded that measurement is indirect: a thermometer measures a proxy, and only within a controlled linear regime and after equilibration does that proxy become a reliable indicator of temperature. That prepares the later identification of temperature as an energy scale.
-
-Then, once a student asks when the ideal gas fails, the lecture turns on a weak pair potential and lets the statistical-mechanical machinery run. The first correction to the ideal-gas law is
-\begin{equation}
-P\approx \rho T+\frac{1}{2}\rho^2U_0,
-\end{equation}
-with
-\begin{equation}
-\rho U_0 \ll T
-\end{equation}
-as the criterion for the ideal-gas approximation. The correction scales like \(\rho^2\) because it is pair physics, and its sign follows the sign of the net integrated interaction \(U_0\).
-
-Finally, the lecture changes gears and clarifies a structural point in thermodynamics. Exact differentials belong to state functions; inexact differentials depend on path. Heat and work are inexact. Energy is exact. That distinction, once made cleanly, is not a side remark. It is part of what it means to speak precisely about thermodynamic states at all.
+The two halves of the argument now meet.  Measurement is meaningful only
+after its controls and equilibrium conditions are specified.  Approximation
+is meaningful only after its small parameter and failure criterion are
+specified.  A thermodynamic quantity is a state function only after its
+differential passes the path-independence test.  In each case, disciplined
+mathematics does not replace physical interpretation; it tells us exactly
+where that interpretation is justified.
