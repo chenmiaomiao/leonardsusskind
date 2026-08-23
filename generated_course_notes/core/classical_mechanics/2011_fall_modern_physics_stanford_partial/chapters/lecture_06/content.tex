@@ -1,403 +1,793 @@
-\chapter{Hamiltonian Mechanics}
+\chapter{Hamiltonian Mechanics and Phase-Space Flow}
 
-It is, as Susskind says, ``Hamilton's night,'' but the lecture does not begin with Hamilton's equations. It begins one step earlier, with the question of what a dynamical law ought to mean. These notes follow Leonard Susskind's lecture closely, using transcript and frame evidence preserved through LazyingArt LLC and Video2Book only to stabilize the mathematics when the board or audio become uncertain. For the moment we are still doing classical mechanics, not quantum mechanics. The aim is to see how ordinary mechanics can be repackaged as a reversible flow on phase space, and why the Hamiltonian is the object that generates that flow.
+Tonight we turn to Hamiltonian mechanics. This is still classical mechanics,
+not quantum mechanics, but the change of language will matter enormously when
+we reach quantum theory. The immediate purpose is more elementary: we want a
+description in which a complete state is a point in phase space and the law of
+motion carries that point along a reversible flow.
 
-\section{Reversible Evolution And The Meaning Of Phase Space}
+The route has three stages. First we ask what information a state must contain.
+Then a Legendre transformation replaces velocities by canonical momenta.
+Finally Hamilton's equations turn one function, the Hamiltonian, into the
+velocity field of the entire phase space.
 
-The lecture opens by backing up to the simplest possible systems. Think first of a coin. It has two states, heads and tails, and we imagine a discrete rule that updates the state every fixed interval of time. If the rule is ``nothing happens,'' then knowing the present state tells us the next state, but it also tells us the previous state. If the rule is ``flip every time step,'' the same thing is true. In both cases the evolution rule is precise, and the backdating rule is equally precise.
+\section{Reversible Laws and Complete States}
 
-Now enlarge the picture. Instead of two states, imagine many states, each represented by a point in some abstract space. Susskind immediately baptizes that space as phase space. A law of evolution becomes a set of arrows: from each point there is a unique arrow telling us where to go next. If the arrows form closed cycles, then every point lies on some orbit, and to know where we are is to know both where we will be and where we came from.
+Begin with a coin whose state is either heads or tails. Imagine that time
+advances in discrete steps. One possible rule leaves the coin unchanged:
+heads goes to heads and tails goes to tails. Another rule flips it at every
+step. In either case the present determines not only the next state but also
+the preceding one. The evolution can be run forward or backward without
+ambiguity.
 
-That already carries the seed of a conservation law. If the phase space splits into disconnected cycles or sectors, and those sectors are labeled by some property, then the property is conserved. A point in the \(+1\) sector never wanders into the \(-1\) sector. The lecture makes this point before any calculus appears, because Hamiltonian mechanics will later recover the same structure in continuous form.
+For a system with many possible states, represent each state by a point and
+draw an arrow from every point to its successor. A reversible rule permits
+exactly one arrow into and one arrow out of every point. For a finite state
+space, the arrows must therefore decompose into cycles. If the cycles are
+marked by different labels, such as \(+1\) and \(-1\), the label is conserved:
+a trajectory cannot jump from one cycle to another.
 
-\begin{definition}
-A phase space is a state space rich enough that the present point determines both the next state and the previous state.
-\end{definition}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_06_figure_01.png}
+\caption{Discrete evolution at 00:08:05. The central cycles belong to
+separate sectors, while the map at the left illustrates how several distinct
+histories can merge when backward evolution is not unique.}
+\label{fig:l06-discrete-flow}
+\end{figure}
 
-This is the operative definition in the lecture. Hamiltonian mechanics is not first introduced as a convenient trick for solving equations. It is introduced as a sharpened notion of reversible, information-preserving evolution.
+Now contrast this with a many-to-one rule. Several states may have the same
+successor. Forward prediction remains possible, but retrodiction does not:
+after reaching the common image, we cannot infer which predecessor was
+occupied. Distinguishable histories have been erased.
 
-The contrast case is just as important. Suppose several different points all map to the same next point. Forward evolution is still definite, but backward evolution is not unique. If we land at that common image, we do not know from which predecessor we came. Something has been lost.
+The same idea can be pictured by covering the state space with red dots and
+letting every dot move. Under a reversible rule no dot disappears, splits, or
+merges with another. In a continuous Hamiltonian system something stronger is
+true: phase-space volume is preserved. The points move as an incompressible
+fluid. Reversibility by itself does not prove incompressibility for every
+conceivable continuous flow; the canonical structure of Hamilton's equations
+does. We shall see the local reason for that structure in the crossed
+derivatives of those equations.
 
-Susskind then shifts to the ``red-dot'' picture. Populate every point of phase space with a dot and let the dots move according to the law. For a good Hamiltonian sort of evolution, the dots never disappear, never split, and never run into one another. The whole collection moves like an incompressible fluid. For a bad non-invertible law, dots merge and some phase-space points are effectively lost. In the lecture this is already linked to the idea of information conservation.
+The phrase \emph{phase space} will mean the space of complete instantaneous
+states. A point in it must carry enough information for the equations of
+motion to determine a unique trajectory. If the microscopic law is reversible,
+the same point also determines the past.
 
-So before any formulas appear, the target picture is fixed: Hamiltonian mechanics should describe a rigid, reversible flow of phase-space points.
+\section{Why Position Is Not a State}
 
-\section{Why Ordinary \(F=ma\) Is Not Yet Hamiltonian}
-
-With that target in hand, Susskind turns to ordinary Newtonian mechanics and asks the first real question of the lecture: why are the familiar \(F=ma\) equations not already of this form?
-
-Suppose we are told only where a particle is. We know its position in space, but do we know where it will be next? No. Position alone does not determine the future. We need one more piece of information: equivalently the velocity, or the position a moment earlier. In the lecture he calls this almost a ghost piece of information, but the point is simple and decisive. Configuration space is too small.
-
+Suppose a particle is observed at a position \(q\). Where will it be one
+second later? Position alone does not answer the question. The particle may be
+moving in any direction and at any speed. A complete state must include a
+second set of data,
 \begin{equation}
-\text{state}=(q_i,\dot q_i)
-\qquad \text{or equivalently} \qquad
-\text{state}=(q_i,p_i).
+ (q_i,\dot q_i)
+ \qquad\text{or, after a change of variables,}\qquad
+ (q_i,p_i).
+ \label{eq:l06-complete-state}
+\end{equation}
+The coordinates \(q_i\) form configuration space. The pairs \((q_i,p_i)\)
+form phase space.
+
+This distinction is already visible in Newton's law. For \(N\) Cartesian
+coordinates,
+\begin{equation}
+ m\ddot x_i=F_i,
+ \qquad i=1,\ldots,N,
+ \label{eq:l06-newton-second-order}
+\end{equation}
+is a set of \(N\) second-order equations. Define
+\begin{equation}
+ p_i=m\dot x_i.
+ \label{eq:l06-cartesian-momentum}
+\end{equation}
+The same physics becomes \(2N\) first-order equations,
+\begin{equation}
+ \boxed{
+ \dot x_i=\frac{p_i}{m},
+ \qquad
+ \dot p_i=F_i.}
+ \label{eq:l06-newton-first-order}
 \end{equation}
 
-The coordinates \(q_i\) by themselves therefore do not form a phase space. They describe configurations, not complete states. A genuine phase-space description must contain everything needed to say where the system goes next, and it must do so in a way that does not lose or create phase-space points.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_06_figure_02.png}
+\caption{The Newton equation rewritten as two first-order equations at
+00:18:48. No new physics has been added; the complete state has been made
+explicit.}
+\label{fig:l06-first-order-newton}
+\end{figure}
 
-\subsection{Question \& Answer}
+This rewriting is not yet the full Hamiltonian construction. Any ordinary
+second-order equation can be made first order by introducing an extra
+variable. Hamiltonian mechanics demands the more special pairing of
+coordinates and canonical momenta, with both first-order equations generated
+by derivatives of a single function.
 
-Question: Why are ordinary \(F=ma\) equations not already of Hamiltonian form?
+\begin{classroomqa}
+\audiencequestion{Why reformulate \(F=ma\) if it already predicts the
+motion?}
+\lecturerresponse{The Lagrangian formulation freed us from Cartesian
+coordinates. Motion on a plane may be described by \(x\) and \(y\), while a
+pendulum or a particle on a sphere is more naturally described by angles.
+Hamilton's formulation reveals an additional structure: mechanics becomes a
+flow on a space of canonical pairs. The reformulation is useful in classical
+mechanics and becomes indispensable in quantum mechanics. Historical motives
+are harder to reconstruct than the mathematics, so the important test is what
+the construction accomplishes.}
+\end{classroomqa}
 
-Answer: Because \(F=ma\) is second order in time. A second-order law does not determine the future from the coordinates alone. It determines the future only after we also specify the first time derivatives. So the configuration variables \(q_i\) are not yet the full state. Hamiltonian mechanics begins by enlarging the description from configuration space to phase space.
-
-\paragraph{Motivation.}
-A student then asks the historical question that naturally arises here: why bother reformulating Newtonian mechanics at all? Susskind's answer has two layers. Lagrange's motivation was practical. One wants equations that do not depend on a specially chosen Cartesian coordinate system. Motion on a plane may be well described by \(x\) and \(y\), but motion on a sphere is not. Hamilton's motivation, as Susskind presents it, is subtler: he seems to have seen a beautiful and extraordinarily elegant structure. Its deeper usefulness became unmistakable later, especially when quantum mechanics appeared. The lecture does not try to reconstruct Hamilton's private intuition; it asks us instead to follow the construction and then see why it matters.
-
-\section{From Second-Order Dynamics To First-Order Flow}
-
-Once we accept that the state must include both position and something velocity-like, the next step is straightforward. A system of second-order equations can be rewritten as twice as many first-order equations. The board work at this point is garbled in the transcript, so it is safest to present the standard form of the argument while keeping the lecture's point intact.
-
-For a particle with coordinates \(x_i\), define the momenta by
-\begin{equation}
-p_i = m \dot x_i .
-\end{equation}
-Then Newton's equations become
-\begin{align}
-\dot x_i &= \frac{p_i}{m}, \\
-\dot p_i &= F_i .
-\end{align}
-
-We now have twice as many equations, but each one is only first order in time. The variables have doubled as well: the state is no longer the collection of positions \(x_i\) alone, but the collection of pairs \((x_i,p_i)\). In general we write these as canonical pairs \((q_i,p_i)\).
-
-Susskind is careful to insist that this is not new physics. No new law of nature has been added. We have only changed the language in which the old law is expressed. But it is exactly the right language for the Hamiltonian point of view. A first-order system is the kind of system that tells us where to go next once we know where we are, and now ``where we are'' means a point in phase space.
-
-This is the place in the lecture where the word \emph{flow} becomes natural. If many identical systems start at many different points of phase space, then their collective evolution sweeps out a motion of the whole phase-space cloud. Hamiltonian mechanics is, from this point on, the study of that flow.
+Imagine placing one identical system at every phase-space point. Each copy
+has an instantaneous velocity \((\dot q_i,\dot p_i)\), so the equations define
+a vector field on phase space. Following that field carries the whole cloud
+of systems forward. Our task is to find the function that generates this
+flow.
 
 \section{The Legendre Transformation}
 
-Only after that conceptual preparation does the lecture introduce the formal tool it needs. Susskind calls it a small piece of mathematics, easy but formal: the Legendre transformation.
-
-We begin with a single pair of variables \(V\) and \(P\). Secretly one may think of velocity and momentum, but for the moment they are just abstract variables. The crucial assumption is that they determine one another uniquely. In other words, \(P\) is a one-to-one function of \(V\), and \(V\) is the inverse one-to-one function of \(P\). The graph may not double back. If it did, one variable would cease to determine the other.
-
-Now define a function \(L(V)\) by
+The required mathematical device is a Legendre transformation. Start with
+one variable \(V\) and a differentiable function \(L(V)\). Define the
+conjugate variable
 \begin{equation}
-\frac{dL}{dV}=P.
+ P=\frac{dL}{dV}.
+ \label{eq:l06-legendre-p}
 \end{equation}
-Equivalently,
+Assume, at least in the region of interest, that this relation can be inverted
+to give \(V=V(P)\). Geometrically the graph of \(P(V)\) must not double back
+in a way that assigns several relevant values of \(V\) to the same \(P\).
+
+With convenient additive constants one may write
 \begin{equation}
-L(V)=\int_0^V P(V')\,dV'.
+ L(V)=\int_0^V P(V')\,dV',
+ \qquad
+ H(P)=\int_0^P V(P')\,dP'.
+ \label{eq:l06-legendre-areas}
 \end{equation}
-The lower limit \(0\) is just a convenient reference point; it fixes an additive constant and nothing more.
-
-By symmetry we introduce a second function \(H(P)\) satisfying
+For a monotone graph through the chosen origin, these are complementary areas
+inside a rectangle of area \(PV\):
 \begin{equation}
-\frac{dH}{dP}=V,
-\qquad
-H(P)=\int_0^P V(P')\,dP'.
+ H(P)+L(V)=PV.
+ \label{eq:l06-complementary-area}
 \end{equation}
-
-Geometrically, \(L(V)\) is the area under the curve \(P(V)\) up to the point \(V\), while \(H(P)\) is the complementary area defined by the same curve when \(P\) is treated as the independent variable. Together they fill a rectangle of area \(PV\). Thus
+The invariant definition, independent of the choice of additive constants,
+is
 \begin{equation}
-H+L=PV,
-\qquad
-H=PV-L.
+ \boxed{H(P)=PV-L(V),}
+ \qquad P=L'(V),
+ \label{eq:l06-legendre-definition}
 \end{equation}
+where \(V\) on the right is to be expressed as a function of \(P\).
 
-The reciprocity can be proved algebraically in one line. Start from \(H=PV-L\) and vary \(P\):
-\begin{align}
-\delta H
-&= \delta(PV-L) \\
-&= P\,\delta V + V\,\delta P - \frac{dL}{dV}\,\delta V \\
-&= P\,\delta V + V\,\delta P - P\,\delta V \\
-&= V\,\delta P .
-\end{align}
-Therefore
-\begin{equation}
-\frac{dH}{dP}=V.
-\end{equation}
-
-This is the Legendre transformation in the lecture's form. We begin with a function \(L(V)\), differentiate it to define the conjugate variable \(P\), and then build the transformed function \(H(P)=PV-L\). The derivative relation reverses itself.
-
-For many variables the pattern is the same. If \(L=L(v_1,\dots,v_n)\), then
-\begin{equation}
-\frac{\partial L}{\partial v_i}=p_i.
-\end{equation}
-Define
-\begin{equation}
-H=\sum_i p_i v_i-L.
-\end{equation}
-Varying this and cancelling the terms proportional to \(\delta v_i\) yields
-\begin{equation}
-\frac{\partial H}{\partial p_i}=v_i.
-\end{equation}
-
-The lecture briefly remarks that thermodynamics is full of such Legendre pairs. But the real interest here is mechanics.
-
-\section{From The Abstract Transform To Mechanics}
-
-At this stage Susskind makes the decisive pivot. The abstract \(V\)--\(P\) story is now to be interpreted mechanically, with one important caveat: the coordinates \(q_i\) simply go along for the ride. The Legendre transformation is being carried out with respect to velocities, while the coordinates are treated as passive parameters.
-
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_03.png}
-\caption{Hamiltonian as the Legendre transform of the Lagrangian. The board preserves the abstract notation \(V_i,P_i,\mathcal{L}\) at the moment when the construction is carried into mechanics.}
+\includegraphics[width=0.72\textwidth]{lecture_06_figure_03.png}
+\caption{The complementary-area construction at 00:32:05. The area labeled
+\(L(V)\) lies under \(P(V)\); the remaining part of the \(PV\) rectangle is
+the transformed function \(H(P)\).}
+\label{fig:l06-legendre-area}
 \end{figure}
 
-The board evidence is documentary here, and it is worth preserving. In the lecture this stage is written as
-\begin{equation}
-\frac{\partial \mathcal{L}}{\partial V_i}=P_i,
-\qquad
-H(P)=\sum_i P_iV_i-\mathcal{L}.
-\end{equation}
-The frame does not certify more than this, so we keep exactly these visible equations and normalize the notation only in the surrounding prose.
-
-Now return to mechanics. Let
-\begin{equation}
-v_i=\dot q_i .
-\end{equation}
-Then the Lagrangian is a function of both coordinates and velocities:
-\begin{equation}
-L=L(q,\dot q,t)=L(q,v,t).
-\end{equation}
-The canonical momenta are defined by
-\begin{equation}
-p_i=\frac{\partial L(q,\dot q,t)}{\partial \dot q_i}
-=\frac{\partial L(q,v,t)}{\partial v_i}.
-\end{equation}
-This is exactly the mechanical realization of the Legendre-pair relation.
-
-The Hamiltonian is then defined by
-\begin{equation}
-H(q,p,t)=\sum_i p_i\dot q_i-L(q,\dot q,t),
-\end{equation}
-with the understanding that after the transform the velocities are to be expressed as functions of \(q\), \(p\), and \(t\).
-
-Here the one-to-one assumption returns in a concrete form. The relation between \(v_i\) and \(p_i\) must be invertible. If it is not, then \(H\) cannot be regarded as a well-defined function of \(q\) and \(p\), and the Hamiltonian picture loses its grip.
-
-\section{Hamilton's Equations, Their Structure, And The Ordinary Particle}
-
-Now the formal heart of the lecture arrives. Starting from
-\begin{equation}
-H(q,p,t)=\sum_i p_i v_i-L(q,v,t),
-\end{equation}
-with \(v_i=\dot q_i\) understood as functions of \(q\) and \(p\), we vary \(H\). Since \(L\) depends on both \(q_i\) and \(v_i\), while \(H\) is to be viewed as a function of \(q_i\) and \(p_i\), the change is
+The derivative of the transformed function follows by varying
+Eq.~\eqref{eq:l06-legendre-definition}:
 \begin{align}
-\delta H
-&=
-\sum_i \bigl(p_i\,\delta v_i + v_i\,\delta p_i\bigr)
--\sum_i \frac{\partial L}{\partial q_i}\,\delta q_i
--\sum_i \frac{\partial L}{\partial v_i}\,\delta v_i \\
-&=
-\sum_i v_i\,\delta p_i
--\sum_i \frac{\partial L}{\partial q_i}\,\delta q_i .
+ \delta H
+ &=P\,\delta V+V\,\delta P
+   -\frac{dL}{dV}\,\delta V \notag\\
+ &=P\,\delta V+V\,\delta P-P\,\delta V
+ =V\,\delta P.
+ \label{eq:l06-legendre-cancellation}
 \end{align}
-The entire mechanism is in the cancellation: because
-\begin{equation}
-p_i=\frac{\partial L}{\partial v_i},
-\end{equation}
-the \(\delta v_i\) terms disappear.
-
-From the remaining variation we read off
-\begin{equation}
-\frac{\partial H}{\partial p_i}=v_i=\dot q_i,
-\qquad
-\frac{\partial H}{\partial q_i}=-\frac{\partial L}{\partial q_i}.
-\end{equation}
-Now use Lagrange's equations,
-\begin{equation}
-\frac{d}{dt}\frac{\partial L}{\partial \dot q_i}=\frac{\partial L}{\partial q_i}.
-\end{equation}
-Since \(\partial L/\partial \dot q_i=p_i\), this becomes
-\begin{equation}
-\dot p_i=\frac{\partial L}{\partial q_i}.
-\end{equation}
 Therefore
 \begin{equation}
-\dot p_i=-\frac{\partial H}{\partial q_i}.
+ \boxed{\frac{dH}{dP}=V.}
+ \label{eq:l06-legendre-inverse}
 \end{equation}
+Differentiation created \(P\) from \(L(V)\); after the transform,
+differentiation creates \(V\) from \(H(P)\). This reciprocity is the point of
+the construction.
 
-So Hamilton's equations are
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_06_figure_04.png}
+\caption{The cancellation in the variation of \(H=PV-L\) at 00:36:30.
+The boxed terms cancel because \(dL/dV=P\), leaving
+\(\delta H=V\,\delta P\).}
+\label{fig:l06-legendre-variation}
+\end{figure}
+
+For several variables, let \(L=L(v_1,\ldots,v_N)\) and define
+\begin{equation}
+ p_i=\frac{\partial L}{\partial v_i}.
+ \label{eq:l06-multivariable-p}
+\end{equation}
+If these equations can be inverted for all the \(v_i\), the transform is
+\begin{equation}
+ H(p_1,\ldots,p_N)=\sum_i p_i v_i-L,
+ \label{eq:l06-multivariable-H}
+\end{equation}
+and the same cancellation gives
+\begin{equation}
+ \frac{\partial H}{\partial p_i}=v_i.
+ \label{eq:l06-multivariable-inverse}
+\end{equation}
+Legendre transformations appear repeatedly in thermodynamics, where changing
+which variables are held fixed produces the familiar thermodynamic
+potentials. Here we use the same mathematics to exchange velocities for
+momenta.
+
+\subsection{Coordinates Go Along for the Ride}
+
+In mechanics the Lagrangian is not merely \(L(v)\), but
+\begin{equation}
+ L=L(q,v,t),
+ \qquad v_i=\dot q_i.
+ \label{eq:l06-L-qvt}
+\end{equation}
+The transformation is performed only in the velocity variables. During it,
+the coordinates \(q_i\) and time \(t\) are held fixed as parameters:
+\begin{equation}
+ p_i=\frac{\partial L}{\partial v_i},
+ \qquad
+ H(q,p,t)=\sum_i p_i v_i-L(q,v,t).
+ \label{eq:l06-mechanical-transform}
+\end{equation}
+The inverted velocities \(v_i=v_i(q,p,t)\) are then substituted on the
+right, so \(H\) is genuinely a function of \(q,p,t\).
+
+\begin{classroomqa}
+\audiencequestion{May the velocity determined by the momentum also depend
+on position?}
+\lecturerresponse{Yes. The Legendre transformation holds \(q\) fixed, but
+the relation \(p_i=\partial L/\partial v_i\) may contain \(q\). A particle
+in curvilinear coordinates is a standard example: the coefficients in the
+kinetic energy depend on position, so solving for \(v_i\) generally produces
+\(v_i(q,p)\).}
+\end{classroomqa}
+
+Local invertibility is controlled by the velocity Hessian
+\begin{equation}
+ W_{ij}=\frac{\partial^2L}{\partial v_i\partial v_j}.
+ \label{eq:l06-velocity-hessian}
+\end{equation}
+For ordinary unconstrained mechanics, \(\det W\neq0\) allows the velocities
+to be solved locally in terms of the momenta. A singular Hessian does not mean
+that nature is inconsistent; it signals a constrained system requiring a
+more careful Hamiltonian treatment.
+
+\section{Hamilton's Equations}
+
+Now vary the mechanical transform while allowing both \(q_i\) and \(p_i\) to
+change. At fixed time,
 \begin{align}
-\dot q_i &= \frac{\partial H}{\partial p_i}, \\
-\dot p_i &= -\frac{\partial H}{\partial q_i}.
+ \delta H
+ &=
+ \sum_i\left(p_i\,\delta v_i+v_i\,\delta p_i\right)
+ -\sum_i\frac{\partial L}{\partial q_i}\,\delta q_i
+ -\sum_i\frac{\partial L}{\partial v_i}\,\delta v_i \notag\\
+ &=
+ \sum_i v_i\,\delta p_i
+ -\sum_i\frac{\partial L}{\partial q_i}\,\delta q_i.
+ \label{eq:l06-full-variation}
 \end{align}
-
-This is where the lecture slows down and admires the structure. Coordinates and momenta enter almost symmetrically. The whole asymmetry is concentrated into one minus sign. Even more strikingly, the derivatives are crossed: the \(q\)-velocity comes from a \(p\)-derivative, and the \(p\)-velocity comes from a \(q\)-derivative. That crossing is not an ornament. It is the source of the geometric properties that come later.
-
-\paragraph{A boundary question.}
-Before checking the formalism on an ordinary particle, the lecture pauses for a caution. Any second-order system can certainly be rewritten as a first-order system by introducing new variables; that part is trivial. But the elegant Hamiltonian structure is more than that. It requires a genuine Legendre transform, and therefore a one-to-one relation between the velocity variables and the momentum variables. If that relation cannot be inverted, the motion ceases to be well defined in the Hamiltonian sense. The lecture also stresses that friction lies outside the reduced Hamiltonian description: friction appears only after many microscopic degrees of freedom have been ignored.
-
-Now let us check the equations on familiar ground. Take the ordinary one-dimensional particle with
+The two terms proportional to \(\delta v_i\) cancel because
+\(p_i=\partial L/\partial v_i\). Reading off the coefficients gives
 \begin{equation}
-L=\frac12 m\dot x^2-U(x).
+ \frac{\partial H}{\partial p_i}=v_i=\dot q_i,
+ \qquad
+ \frac{\partial H}{\partial q_i}
+ =-\frac{\partial L}{\partial q_i}.
+ \label{eq:l06-H-partials}
 \end{equation}
-Then
+
+The Euler--Lagrange equations say
 \begin{equation}
-p=m\dot x,
-\qquad
-H=p\dot x-L=\frac{p^2}{2m}+U(x).
+ \frac{d}{dt}\frac{\partial L}{\partial\dot q_i}
+ =\frac{\partial L}{\partial q_i}.
+ \label{eq:l06-EL-again}
 \end{equation}
+Since the derivative on the left is \(\dot p_i\), we arrive at
+\begin{equation}
+ \boxed{
+ \dot q_i=\frac{\partial H}{\partial p_i},
+ \qquad
+ \dot p_i=-\frac{\partial H}{\partial q_i}.}
+ \label{eq:l06-hamilton-equations}
+\end{equation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_06_figure_05.png}
+\caption{The completed pair of Hamilton equations at 00:52:40. The crossed
+derivatives and the single minus sign encode the canonical phase-space
+structure.}
+\label{fig:l06-hamilton-board}
+\end{figure}
+
+The equations are first order and nearly symmetric in \(q_i\) and \(p_i\).
+Their derivatives are crossed: the rate of change of \(q_i\) comes from a
+momentum derivative, while the rate of change of \(p_i\) comes from a
+coordinate derivative. The minus sign is essential. It makes the phase-space
+velocity field
+\begin{equation}
+ \bm{u}_H=
+ \left(
+ \frac{\partial H}{\partial p_1},\ldots,
+ \frac{\partial H}{\partial p_N},
+ -\frac{\partial H}{\partial q_1},\ldots,
+ -\frac{\partial H}{\partial q_N}
+ \right)
+ \label{eq:l06-phase-velocity}
+\end{equation}
+divergence-free:
+\begin{equation}
+ \nabla_{q,p}\!\cdot\bm{u}_H
+ =\sum_i
+ \left(
+ \frac{\partial^2H}{\partial q_i\partial p_i}
+ -\frac{\partial^2H}{\partial p_i\partial q_i}
+ \right)=0.
+ \label{eq:l06-liouville-local}
+\end{equation}
+Thus the red-dot fluid is locally incompressible. This is the elementary
+coordinate form of Liouville's theorem.
+
+\begin{classroomqa}
+\audiencequestion{Is Hamiltonian mechanics merely the trick of replacing
+each second-order equation by two first-order equations?}
+\lecturerresponse{No. Doubling the variables is always possible, but an
+arbitrary doubled system need not have the crossed-gradient form in
+Eq.~\eqref{eq:l06-hamilton-equations}. The canonical form, with one
+Hamiltonian generating both equations, is the stronger statement.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What happens if the relation between velocity and
+momentum cannot be inverted?}
+\lecturerresponse{For the regular systems being discussed, the ordinary
+Legendre transform then fails and \(H(q,p)\) cannot be constructed by this
+recipe. Such a model may be pathological, but singular Lagrangians also arise
+in legitimate constrained and gauge systems. They require additional
+constraint equations rather than the naive transform.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Does friction, including terminal velocity, violate the
+Hamiltonian picture?}
+\lecturerresponse{A friction law for a reduced set of variables is generally
+not Hamiltonian: phase-space volumes contract and mechanical information is
+discarded. At the microscopic level, however, the object and its environment
+may form a larger Hamiltonian system. Energy and information then flow into
+unobserved molecular, acoustic, or radiative degrees of freedom.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Where, exactly, did the Legendre transformation enter the
+mechanics?}
+\lecturerresponse{It is the passage from \(L(q,v)\) to
+\(H(q,p)=\sum_i p_i v_i-L\), with
+\(p_i=\partial L/\partial v_i\) and the velocities eliminated in favor of
+the momenta. The geometric area picture explains the reciprocal derivatives;
+the cancellation in Eq.~\eqref{eq:l06-full-variation} is what turns that
+reciprocity into Hamilton's equations.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can a Legendre transform fail because the velocity becomes
+singular or several velocities correspond to one momentum?}
+\lecturerresponse{Yes. Global one-to-one behavior can fail even if a local
+branch exists, and the Hessian can become singular at special points. Before
+using the ordinary Hamiltonian construction one must specify a region where
+the momentum--velocity relation is regular, or adopt the constrained
+formalism appropriate to the system.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Do infinitely many degrees of freedom, as in a field,
+automatically produce friction?}
+\lecturerresponse{No. A classical field can have infinitely many canonical
+pairs and still evolve Hamiltonianly. Apparent damping arises when energy is
+carried away into modes that are omitted from the reduced description. An
+accelerating charge, for example, may lose mechanical energy to radiation,
+while the combined particle-plus-field system retains the full accounting.}
+\end{classroomqa}
+
+\section{The Ordinary Particle}
+
+For one particle in a potential \(U(x)\),
+\begin{equation}
+ L(x,\dot x)=\frac12m\dot x^2-U(x).
+ \label{eq:l06-particle-L}
+\end{equation}
+The canonical momentum is
+\begin{equation}
+ p=\frac{\partial L}{\partial\dot x}=m\dot x,
+ \qquad
+ \dot x=\frac{p}{m}.
+ \label{eq:l06-particle-p}
+\end{equation}
+Its Legendre transform is
+\begin{align}
+ H
+ &=p\dot x-L \notag\\
+ &=p\frac{p}{m}
+   -\left(\frac12m\frac{p^2}{m^2}-U(x)\right) \notag\\
+ &=\boxed{\frac{p^2}{2m}+U(x)}.
+ \label{eq:l06-particle-H}
+\end{align}
+For this familiar Lagrangian, the Hamiltonian is the total energy \(T+U\).
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.76\textwidth]{lecture_06_figure_06.png}
+\caption{The ordinary-particle Hamiltonian at 01:12:35. The velocity has
+been eliminated, leaving \(H=p^2/(2m)+U(x)\).}
+\label{fig:l06-particle-board}
+\end{figure}
+
 The first Hamilton equation gives
 \begin{equation}
-\frac{\partial H}{\partial p}=\frac{p}{m}=\dot x,
+ \dot x=\frac{\partial H}{\partial p}=\frac{p}{m},
+ \label{eq:l06-first-H-particle}
 \end{equation}
-which is just the relation between momentum and velocity.
-
-The second gives
+which is the momentum--velocity relation. The second gives
 \begin{equation}
-\dot p=-\frac{\partial H}{\partial x}=-\frac{dU}{dx}.
+ \dot p=-\frac{\partial H}{\partial x}
+ =-\frac{dU}{dx}.
+ \label{eq:l06-second-H-particle}
 \end{equation}
-Since \(p=m\dot x\), we recover
+Since \(p=m\dot x\), this is Newton's equation
 \begin{equation}
-m\ddot x=-\frac{dU}{dx}.
+ m\ddot x=-\frac{dU}{dx}.
 \end{equation}
-So the formalism does work. Typically, as the lecture emphasizes, the first Hamilton equation is the kinematic relation between momentum and velocity, while the second is the one that looks like Newton's equation.
+The reformulation has changed the organization of the equations, not their
+physical predictions.
 
-At this point the reader is meant to feel the subject shift. Mechanics has become a system of first-order equations for canonical pairs. Given a single function \(H(q,p)\), differentiation tells us the phase-space velocity of the system.
+\section{Energy and the Geometry of Its Contours}
 
-\section{Energy, Contours, And General Conservation Laws}
-
-Having checked the equations on the ordinary particle, the lecture turns to the first major payoff: energy conservation. If the Hamiltonian has no explicit time dependence, then
-\begin{equation}
-\frac{dH}{dt}
-=
-\sum_i
-\left(
-\frac{\partial H}{\partial p_i}\dot p_i
-+
-\frac{\partial H}{\partial q_i}\dot q_i
-\right).
-\end{equation}
-Now substitute Hamilton's equations:
+Suppose \(H(q,p)\) has no explicit time dependence. Along a trajectory,
 \begin{align}
-\frac{dH}{dt}
-&=
-\sum_i
-\left(
-\frac{\partial H}{\partial p_i}
-\left(-\frac{\partial H}{\partial q_i}\right)
-+
-\frac{\partial H}{\partial q_i}
-\left(\frac{\partial H}{\partial p_i}\right)
-\right) \\
-&=0.
+ \frac{dH}{dt}
+ &=\sum_i\left(
+ \frac{\partial H}{\partial q_i}\dot q_i
+ +\frac{\partial H}{\partial p_i}\dot p_i
+ \right) \notag\\
+ &=\sum_i\left(
+ \frac{\partial H}{\partial q_i}
+ \frac{\partial H}{\partial p_i}
+ -\frac{\partial H}{\partial p_i}
+ \frac{\partial H}{\partial q_i}
+ \right)=0.
+ \label{eq:l06-energy-cancellation}
 \end{align}
-Hence
+The cancellation is pairwise, so
 \begin{equation}
-\frac{dH}{dt}=0.
+ \boxed{H=\text{constant along the motion}.}
+ \label{eq:l06-H-conserved}
 \end{equation}
 
-Susskind pauses over how simple this is. Energy conservation is not here an added theorem sitting on top of the dynamics. It is a direct cancellation inside the Hamiltonian form of the equations. He also notes the logical direction carefully: Hamiltonian equations with a time-independent Hamiltonian imply conservation of energy, but not every energy-conserving system need be Hamiltonian.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{lecture_06_figure_07.png}
+\caption{Energy conservation at 01:16:10. Substituting Hamilton's equations
+into \(dH/dt\) makes the two products cancel term by term.}
+\label{fig:l06-energy-board}
+\end{figure}
 
-Now the geometric meaning becomes vivid. Think of phase space as filled with contours of constant energy. As the phase point moves in time, it remains on the contour on which it started. The phase-space dust flows along those constant-energy curves.
+\begin{classroomqa}
+\audiencequestion{Is the converse true? Does energy conservation by itself
+imply Hamiltonian dynamics?}
+\lecturerresponse{No. A time-independent Hamiltonian evolving by Hamilton's
+equations is conserved, but a dynamical rule may preserve some function
+called energy without possessing canonical Hamiltonian structure. Energy
+conservation is one consequence, not a complete characterization, of
+Hamiltonian flow.}
+\end{classroomqa}
 
-For the harmonic oscillator, suppressing inessential constants,
+For one degree of freedom, constant values of \(H(q,p)\) are curves in the
+\(q\)-\(p\) plane. The phase point must move along the curve on which it
+starts. For a harmonic oscillator,
 \begin{equation}
-H \propto p^2+x^2,
+ H=\frac{p^2}{2m}+\frac12m\omega^2q^2,
+ \label{eq:l06-oscillator-H}
 \end{equation}
-so the constant-energy contours are simply
+the curves are ellipses, or circles after rescaling the axes. The origin is a
+fixed point. Every nonzero bounded orbit closes around it.
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[x=1.05cm,y=1.05cm,>=Stealth]
+  \begin{scope}
+    \draw[->] (-3.0,0) -- (3.1,0) node[right] {\(q\)};
+    \draw[->] (0,-2.25) -- (0,2.35) node[above] {\(p\)};
+    \draw[blue!60!black,thick] (0,0) ellipse (1.15 and 0.75);
+    \draw[blue!60!black,thick] (0,0) ellipse (2.05 and 1.35);
+    \draw[blue!60!black,thick] (0,0) ellipse (2.75 and 1.85);
+    \draw[->,very thick,orange!75!black]
+      (2.05,0) arc[start angle=0,end angle=36,x radius=2.05,y radius=1.35];
+    \fill (0,0) circle (1.7pt);
+    \node at (0,-2.65) {harmonic oscillator};
+  \end{scope}
+  \begin{scope}[xshift=8.0cm]
+    \draw[->] (-3.0,0) -- (3.1,0) node[right] {\(q\)};
+    \draw[->] (0,-2.25) -- (0,2.35) node[above] {\(p\)};
+    \draw[gray!70,thick,samples=140,domain=-3:3]
+      plot (\x,{0.38*cos(90*\x)});
+    \draw[green!45!black,thick]
+      plot[smooth] coordinates {(-2.9,-1.65) (-2.1,-1.25)
+      (-1.35,-0.55) (-0.75,-0.08) (-0.2,0.24) (0.45,0.58)
+      (1.2,0.94) (2.0,1.25) (2.9,1.56)};
+    \draw[red!65!black,thick]
+      plot[smooth] coordinates {(-1.42,0) (-1.22,0.56) (-0.78,0.94)
+      (0,1.08) (0.78,0.94) (1.22,0.56) (1.42,0)
+      (1.22,-0.56) (0.78,-0.94) (0,-1.08)
+      (-0.78,-0.94) (-1.22,-0.56) (-1.42,0)};
+    \node[red!65!black] at (0,-1.45) {bounded};
+    \node[green!45!black] at (1.8,1.75) {running};
+    \node at (0,-2.65) {periodic potential};
+  \end{scope}
+\end{tikzpicture}
+\caption{Typeset phase portraits. Small energy in a stable well produces a
+closed orbit. Above a periodic potential barrier, the coordinate can keep
+running and the constant-energy curve is open.}
+\label{fig:l06-phase-portraits}
+\end{figure}
+
+Closed and open curves can coexist in one phase space. A pendulum below the
+separatrix oscillates and traces a closed curve. Above the barrier it rotates
+continuously, producing an open branch when the angle is unwrapped. The same
+distinction appears for a particle moving through a periodic washboard
+potential.
+
+\begin{classroomqa}
+\audiencequestion{If the phase-space fluid is incompressible, how can
+neighboring energy contours bunch together and spread apart?}
+\lecturerresponse{Think of an incompressible fluid passing through a narrow
+channel. Where the channel narrows, the fluid moves faster; where it widens,
+the fluid moves more slowly. Closely spaced contours mean that the gradient
+of \(H\) is large, and Hamilton's equations therefore give a large
+phase-space speed. The density need not change.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{May closed and open constant-energy curves occur in the
+same system?}
+\lecturerresponse{Yes. A periodic potential provides the simplest example.
+Below a barrier, the particle is trapped in one well and the orbit is closed.
+Above it, the particle passes from well to well and the corresponding branch
+is open. The pendulum has the same oscillating and rotating regimes.}
+\end{classroomqa}
+
+\subsection{Momentum Need Not Be Mass Times Velocity}
+
+The relation \(p=m\dot q\) belongs to the ordinary quadratic kinetic energy;
+it is not the definition of canonical momentum in general. Hamilton's first
+equation always says
 \begin{equation}
-p^2+x^2=\text{constant},
+ \dot q=\frac{\partial H}{\partial p}.
+ \label{eq:l06-general-p-v}
 \end{equation}
-namely circles around the origin. The origin itself is a degenerate circle: the oscillator sits there motionless.
-
-The contours need not all be closed. The lecture stresses this with simple examples. Small oscillations in a periodic well give closed curves. A particle with enough energy to run over a washboard potential gives open curves. The same phase space may therefore contain both bounded and unbounded motions.
-
-\subsection{Question \& Answer}
-
-Question: If the phase-space fluid is incompressible, how can the flow lines bunch up or spread out?
-
-Answer: The lecture answers this with the image of a fluid going through a narrow channel. The fluid need not compress. It may simply move faster where the channel narrows and slower where it widens. The same is true here. When the constant-energy contours crowd together, the derivatives of \(H\) are large, and therefore the phase-space velocity
+For the illustrative Hamiltonian written in the lecture,
 \begin{equation}
-(\dot q_i,\dot p_i)
+ H=p^3+q^3,
+ \label{eq:l06-cubic-H}
 \end{equation}
-is large. Where the contours spread apart, the motion slows down. The bunching of lines is compensated by speed, not by a change in density.
-
-This answer also meshes perfectly with Hamilton's equations. Close contours mean that \(H\) changes rapidly with \(p\) and \(q\), so the corresponding derivatives are large, which is exactly what makes the phase-space point move rapidly.
-
-The lecture now widens from energy to general conservation laws. Let \(A(q,p)\) be any quantity on phase space. Then
+one finds
 \begin{equation}
-\frac{dA}{dt}
-=
-\sum_i
-\left(
-\frac{\partial A}{\partial p_i}\dot p_i
-+
-\frac{\partial A}{\partial q_i}\dot q_i
-\right).
-\end{equation}
-Substituting Hamilton's equations gives
-\begin{equation}
-\frac{dA}{dt}
-=
-\sum_i
-\left(
-\frac{\partial A}{\partial q_i}\frac{\partial H}{\partial p_i}
--
-\frac{\partial A}{\partial p_i}\frac{\partial H}{\partial q_i}
-\right).
+ \dot q=3p^2,
+ \qquad
+ \dot p=-3q^2.
+ \label{eq:l06-cubic-flow}
 \end{equation}
 
-This suggests introducing a new piece of structure. In the convention we adopt here, following the lecture as reconstructed from the transcript,
-\begin{equation}
-\{A,B\}
-=
-\sum_i
-\left(
-\frac{\partial A}{\partial q_i}\frac{\partial B}{\partial p_i}
--
-\frac{\partial A}{\partial p_i}\frac{\partial B}{\partial q_i}
-\right).
-\end{equation}
-There are sign conventions in the literature, and the late discussion in the lecture is conversational and somewhat tangled, but one must make a convention, and this is the one used here.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.76\textwidth]{lecture_06_figure_08.png}
+\caption{A deliberately nonstandard Hamiltonian at 01:25:50. It shows
+directly that the canonical momentum need not be proportional to velocity.}
+\label{fig:l06-nonlinear-board}
+\end{figure}
 
-With that definition,
-\begin{equation}
-\frac{dA}{dt}=\{A,H\}.
-\end{equation}
-This is already a new formulation of mechanics. The Hamiltonian is no longer just the energy function written in new variables. It is the generator of time evolution through the Poisson bracket.
+\begin{classroomqa}
+\audiencequestion{Is canonical momentum always a constant multiple of
+velocity?}
+\lecturerresponse{No. It is defined by
+\(p_i=\partial L/\partial\dot q_i\), or equivalently related to velocity by
+\(\dot q_i=\partial H/\partial p_i\). That relation may be nonlinear and
+may depend on the coordinates. The cubic example makes the nonlinearity
+obvious, although its momentum--velocity map is not globally one-to-one and
+therefore does not come from one globally regular ordinary Lagrangian.}
+\end{classroomqa}
 
-Hamilton's equations themselves are recovered as special cases. If \(A=q_i\), then
-\begin{equation}
-\{q_i,H\}=\dot q_i.
-\end{equation}
-If \(A=p_i\), then
-\begin{equation}
-\{p_i,H\}=\dot p_i.
-\end{equation}
-So the Poisson-bracket law is indeed a generalization of Hamilton's equations.
+\begin{classroomqa}
+\audiencequestion{If microscopic Hamiltonian motion conserves energy, does
+that make every machine a perpetual-motion machine?}
+\lecturerresponse{No. Total energy conservation does not mean that all
+energy remains available as organized mechanical work. Energy can spread
+among enormous numbers of environmental degrees of freedom and become heat.
+Understanding that irreversibility and the distinction between total and
+usable energy requires statistical mechanics, entropy, and often chaotic
+dynamics.}
+\end{classroomqa}
 
-A quantity is conserved precisely when its time derivative vanishes. Therefore
-\begin{equation}
-\{A,H\}=0
-\end{equation}
-is the necessary and sufficient condition for \(A\) to be conserved. For instance, the angular momentum of a particle moving in a plane,
-\begin{equation}
-L_z=xp_y-yp_x,
-\end{equation}
-is conserved exactly when its Poisson bracket with the Hamiltonian vanishes.
+\section{Poisson Brackets and General Conservation Laws}
 
-The lecture then adds one last refinement. If the Hamiltonian depends explicitly on time, then the chain rule gives
+Energy is not the only quantity that may be conserved. Let \(A(q,p)\) be any
+function on phase space. Angular momentum in a plane is one example:
 \begin{equation}
-\frac{dH}{dt}
-=
-\sum_i
-\left(
-\frac{\partial H}{\partial p_i}\dot p_i
-+
-\frac{\partial H}{\partial q_i}\dot q_i
-\right)
-+
-\frac{\partial H}{\partial t}.
+ L_z=xp_y-yp_x.
+ \label{eq:l06-Lz}
 \end{equation}
-The first two terms still cancel, so
+For an observable with no explicit time dependence, the chain rule and
+Hamilton's equations give
+\begin{align}
+ \frac{dA}{dt}
+ &=\sum_i\left(
+ \frac{\partial A}{\partial q_i}\dot q_i+
+ \frac{\partial A}{\partial p_i}\dot p_i
+ \right) \notag\\
+ &=\sum_i\left(
+ \frac{\partial A}{\partial q_i}
+ \frac{\partial H}{\partial p_i}
+ -
+ \frac{\partial A}{\partial p_i}
+ \frac{\partial H}{\partial q_i}
+ \right).
+ \label{eq:l06-A-dot}
+\end{align}
+
+This combination is the Poisson bracket. With the convention used here,
 \begin{equation}
-\frac{dH}{dt}=\frac{\partial H}{\partial t}.
+ \boxed{
+ \{A,B\}
+ =\sum_i\left(
+ \frac{\partial A}{\partial q_i}
+ \frac{\partial B}{\partial p_i}
+ -
+ \frac{\partial A}{\partial p_i}
+ \frac{\partial B}{\partial q_i}
+ \right).}
+ \label{eq:l06-poisson-definition}
 \end{equation}
-This is the clean result the lecture wants. If an external source moves and thereby changes the potential even while the system's own coordinates are held fixed, then the Hamiltonian has explicit time dependence, and energy need not be conserved within the subsystem we chose to isolate.
-
-\section{Summary}
-
-Hamiltonian mechanics is introduced in this lecture not as a bag of formulas, but as a disciplined way of thinking about reversible evolution. The state must be rich enough to determine both future and past, and that requirement forces us from configuration space to phase space. The Legendre transformation then changes the dynamical variables from velocities to canonical momenta, so that the motion is encoded in a single function \(H(q,p)\).
-
-Once that change has been made, mechanics takes the remarkably compact form
+Consequently,
 \begin{equation}
-\dot q_i=\frac{\partial H}{\partial p_i},
-\qquad
-\dot p_i=-\frac{\partial H}{\partial q_i}.
+ \boxed{\dot A=\{A,H\}.}
+ \label{eq:l06-poisson-evolution}
 \end{equation}
-From there the main payoffs unfold exactly in the order of the lecture. The ordinary particle is recovered at once. Energy conservation becomes a direct cancellation. Motion is reinterpreted geometrically as flow along constant-energy contours. And finally the whole picture widens into the Poisson-bracket language, where the Hamiltonian generates the time dependence of every observable quantity.
+The Hamiltonian is the generator of time evolution.
 
-By the end of the lecture, Hamiltonian mechanics has been shown in three complementary ways at once: as a reformulation of Newtonian dynamics, as a geometry of phase-space flow, and as a general algebraic language for conservation laws.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_06_figure_09.png}
+\caption{The chain rule and Poisson-bracket definition at 01:35:20. The
+bracket packages the crossed derivatives that already appeared in Hamilton's
+equations.}
+\label{fig:l06-poisson-board}
+\end{figure}
+
+Taking \(A=q_i\) or \(A=p_i\) recovers Hamilton's equations:
+\begin{equation}
+ \{q_i,H\}=\frac{\partial H}{\partial p_i}=\dot q_i,
+ \qquad
+ \{p_i,H\}=-\frac{\partial H}{\partial q_i}=\dot p_i.
+ \label{eq:l06-bracket-Hamilton}
+\end{equation}
+The fundamental brackets are
+\begin{equation}
+ \{q_i,q_j\}=0,
+ \qquad
+ \{p_i,p_j\}=0,
+ \qquad
+ \{q_i,p_j\}=\delta_{ij}.
+ \label{eq:l06-canonical-brackets}
+\end{equation}
+
+A quantity \(A(q,p)\) is conserved precisely when
+\begin{equation}
+ \boxed{\{A,H\}=0.}
+ \label{eq:l06-conservation-bracket}
+\end{equation}
+For a rotationally invariant Hamiltonian, direct differentiation verifies
+\(\{L_z,H\}=0\). Later we will connect this calculation to symmetry; for now
+the bracket gives the mathematical test.
+
+\begin{classroomqa}
+\audiencequestion{How could Poisson have discovered such a combination of
+derivatives?}
+\lecturerresponse{Historical reconstruction is uncertain, but the
+combination is not arbitrary once Hamilton's equations are written. Apply
+the chain rule to an arbitrary \(A(q,p)\), substitute the two canonical
+equations, and the bracket appears. Its importance is then confirmed by the
+algebraic properties and conservation laws it organizes.}
+\end{classroomqa}
+
+\section{Explicit Time Dependence}
+
+So far time entered only implicitly through the moving variables \(q(t)\)
+and \(p(t)\). An external apparatus can also make the Hamiltonian depend on time
+explicitly. A potential \(U(q,t)\), for example, may be produced by a source
+whose prescribed position changes while the source itself is not included
+among the dynamical variables.
+
+For a general observable \(A(q,p,t)\),
+\begin{equation}
+ \frac{dA}{dt}=\{A,H\}+\frac{\partial A}{\partial t}.
+ \label{eq:l06-explicit-A}
+\end{equation}
+Setting \(A=H\) gives
+\begin{equation}
+ \frac{dH}{dt}
+ =\{H,H\}+\frac{\partial H}{\partial t}
+ =\boxed{\frac{\partial H}{\partial t}},
+ \label{eq:l06-explicit-H}
+\end{equation}
+because every function has zero Poisson bracket with itself. Thus a
+time-independent Hamiltonian is conserved, while explicit time dependence
+measures the energy supplied to or removed from the chosen subsystem.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_06_figure_10.png}
+\caption{Explicit and implicit time dependence separated at 01:45:55.
+Hamilton's equations cancel the terms involving \(\dot q_i\) and
+\(\dot p_i\), leaving \(dH/dt=\partial H/\partial t\).}
+\label{fig:l06-explicit-time-board}
+\end{figure}
+
+The same conclusion follows directly from the time-dependent Legendre
+transform:
+\begin{equation}
+ dH
+ =\sum_i v_i\,dp_i
+ -\sum_i\dot p_i\,dq_i
+ -\frac{\partial L}{\partial t}\,dt,
+ \label{eq:l06-dH-time}
+\end{equation}
+so
+\begin{equation}
+ \frac{\partial H}{\partial t}
+ =-\frac{\partial L}{\partial t}
+ \label{eq:l06-time-transform}
+\end{equation}
+when the canonical variables are held fixed on their respective sides of the
+transform.
+
+\begin{classroomqa}
+\audiencequestion{What is the difference between implicit and explicit time
+dependence?}
+\lecturerresponse{The value \(H(q(t),p(t))\) changes its arguments as the
+system moves; that is implicit dependence. Explicit dependence remains even
+when \(q\) and \(p\) are held fixed, as in \(U(q,t)\) produced by a moving
+external source. The canonical terms cancel in \(dH/dt\); only the explicit
+partial derivative remains.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why do some books reverse the order or sign of the
+Poisson bracket? Which slot represents momentum?}
+\lecturerresponse{The names \(A\) and \(B\) label whole phase-space
+functions; neither argument slot is the momentum slot. The canonical
+variables \(q_i,p_i\) occur inside the definition. Since
+\(\{A,B\}=-\{B,A\}\), reversing the order reverses the sign. Either convention
+is consistent if Hamilton's evolution equation is adjusted with it. Here we
+use \(\dot A=\{A,H\}\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is it the Poisson bracket that appears everywhere outside
+mechanics?}
+\lecturerresponse{The broad remark at this point concerns the Legendre
+transformation, which recurs throughout thermodynamics and other variational
+theories. Poisson brackets are fundamental in Hamiltonian mechanics and lead
+directly toward quantum commutators, but they are a different piece of the
+construction.}
+\end{classroomqa}
+
+We began with a reversible map of abstract states and ended with a precise
+continuous law. The Legendre transformation changes variables from
+\((q,\dot q)\) to \((q,p)\); Hamilton's equations generate an
+incompressible phase-space flow; constant \(H\) confines that flow to energy
+surfaces; and the Poisson bracket tells how every observable changes. These
+are not separate tricks. They are four views of the same canonical
+structure.
