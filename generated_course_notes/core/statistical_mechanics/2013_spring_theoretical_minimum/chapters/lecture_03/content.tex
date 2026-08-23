@@ -1,410 +1,751 @@
-\chapter{Entropy, Equilibrium, and the Maximum-Entropy Problem}
+\chapter{Multiplicity, Entropy, and Constrained Equilibrium}
 
-This lecture begins as a deliberate reset. We go back to the basic objects of statistical mechanics: a discrete set of states, a probability distribution over them, the corresponding energies, and the entropy of that distribution. But the reset is not merely definitional. Very quickly the lecture turns those definitions into a picture of equilibrium, then into the thermodynamic laws, then into a derivation of the direction of heat flow, and finally into the real mathematical problem of the subject: which probability distribution maximizes entropy when the total probability and the average energy are fixed?
+\lectureoverview{A probability distribution becomes a thermodynamic object
+once its states carry energies. We first connect entropy increase to
+equilibration and use \(dE=T\,dS\) to derive the direction of heat flow. We
+then replace one system by a large collection of replicas, count the
+arrangements associated with each set of occupation numbers, and show that
+the logarithm of this multiplicity is \(N\) times the entropy. Equilibrium is
+therefore a constrained maximum-entropy problem. Lagrange multipliers provide
+the method needed to solve it.}
 
-\paragraph{Credit.} These notes follow Leonard Susskind's lecture, with lecture curation by LazyingArt LLC and Video2Book.
+\section{The Three Basic Quantities}
 
-\section{Entropy, Probability, and Average Energy}
-
-We begin exactly as the lecture does. Suppose somebody simply hands us a probability distribution \(P(i)\) over a discrete set of states \(i\). We are not yet asking where the distribution came from; that question is postponed. For the moment we only assume that the states are discrete enough that they can be counted.
-
-Each state has a probability \(P(i)\), and each state has an energy \(E(i)\). The first relation is just normalization,
+Let \(i\) label the discrete states available to a system. For the moment,
+discreteness is useful because it lets us count states without introducing
+phase-space measures. If the probability of state \(i\) is \(P_i\), then
 \begin{equation}
-\sum_i P(i)=1,
+ \sum_i P_i=1.
+ \label{eq:sm3-normalization}
 \end{equation}
-and the second is the definition of the average energy,
+If the energy of that state is \(E_i\), the mean energy is
 \begin{equation}
-\sum_i P(i)E(i)=\langle E\rangle.
+ \overline E=\sum_iP_iE_i.
+ \label{eq:sm3-mean-energy}
 \end{equation}
-On the board this appears in precisely that notation, with \(E(i)\) rather than the cleaner \(E_i\). Later, when the algebra becomes heavier, it will be more convenient to write \(E_i\), but at the opening of the lecture it is helpful to keep the board notation in view.
+The word \emph{mean} matters. The system need not possess the value
+\(\overline E\) in any one microscopic state; it is the probability-weighted
+average over the possible values.
 
-Entropy is then defined by
+\begin{classroomqa}
+\classquestion{Is there a useful distinction here between probability and
+statistics?}
+\lecturerresponse{Probability supplies a model for possible outcomes, while
+statistics usually begins with observed data and asks what can be inferred
+from it. The present calculation uses probability distributions, although the
+same averages naturally appear in statistical data. The informal exchange in
+class treats the words lightly because that distinction does not affect the
+physics that follows.
+\lecturetimestamp{00:01:39--00:02:21}}
+\end{classroomqa}
+
+The entropy of the distribution is
 \begin{equation}
-S=-\sum_i P(i)\log P(i).
+ S[P]=-\sum_iP_i\log P_i.
+ \label{eq:sm3-entropy}
 \end{equation}
-The lecture pauses over the minus sign. At first sight the formula looks negative, but it is not. Since \(0<P(i)\le 1\), each \(\log P(i)\) is nonpositive, and therefore every term \(-P(i)\log P(i)\) is nonnegative. So the entropy is a positive quantity.
+This expression is nonnegative. Every nonzero probability obeys
+\(0<P_i\leq1\), so \(\log P_i\leq0\), and the conventional limiting value
+\(P_i\log P_i\to0\) applies when \(P_i\to0\).
 
-The opening board layout captures all of this at once: the entropy functional at upper left, the two constraints at upper right, and beneath them a family of distributions drawn against energy.
-
-\begin{figure}[htbp]
+\begin{figure}[t]
 \centering
 \includegraphics[width=0.88\textwidth]{lecture_03_figure_02.png}
-\caption{Entropy, the normalization and average-energy constraints, and a family of equilibrium probability distributions at increasing average energy.}
+\caption{The opening board collects the entropy, normalization, and
+mean-energy formulas together with a qualitative family of equilibrium
+distributions.}
+\lectureframe{00:06:44}
 \end{figure}
-
-Already the lecture is telling us that we should not think only of one distribution. We should think of a whole family of them.
 
 \section{Equilibrium as a Family of Distributions}
 
-Susskind immediately recalls the picture from the previous lecture: a one-parameter family of probability distributions, plotted against the energy of the state and parameterized by the average energy. As the distribution broadens and drifts toward larger \(E\), the average energy increases.
+The previous lecture left us with a one-parameter family of equilibrium
+distributions. One may label that family by temperature, but for now it is
+more useful to label it by the mean energy \(\overline E\). At the lowest
+possible energy the distribution is concentrated on a ground state:
+\[
+ P_i=\delta_{i0}.
+\]
+There is then no uncertainty about the state, and \(S=0\). As the equilibrium
+distribution spreads over more energy levels, both its mean energy and its
+entropy rise.
 
-There is also a distinguished endpoint of the family. At the minimum possible energy, the probability distribution is concentrated entirely at the ground state. Then there is no uncertainty left about which state the system occupies, and the entropy is exactly zero.
-
-The lecture leans on a qualitative interpretation of entropy here. Entropy is, roughly speaking, a measure of how many states matter underneath the distribution. A very narrow distribution singles out very few important states; a broader one spreads its weight over many of them. Thus, for the equilibrium families we care about, larger average energy comes together with larger entropy.
-
-It is useful to record that as the working assumption
+This is a statement about the thermal family, not about every distribution
+that can be invented. An arbitrary family could shift toward larger energies
+while becoming narrower. The equilibrium distributions to be derived do not
+behave that way in the ordinary positive-temperature regime. Along that
+family,
 \begin{equation}
-\frac{dS}{d\langle E\rangle}>0,
+ \frac{dS}{d\overline E}>0.
+ \label{eq:sm3-positive-temperature-branch}
 \end{equation}
-but only for the equilibrium family under discussion. This is not a theorem about arbitrary invented distributions.
+Systems with bounded spectra can also have branches on which this derivative
+is negative. Those negative-temperature regimes are real, but they are set
+aside during the present argument.
 
-The board sketch is qualitative, and a clean redraw should stay qualitative as well.
+Thermal equilibrium means more than microscopic stillness. Molecules continue
+to move, collide, and exchange energy. What has become stationary is the
+macroscopic description: the distribution no longer exhibits a net drift,
+and separated portions of the system no longer sustain a net energy flow.
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (0,0) -- (7.2,0) node[right] {$E$};
-\draw[->] (0,0) -- (0,4.1);
-\draw[smooth] plot coordinates {(0.35,0) (0.55,3.6) (0.74,1.55) (1.02,0.35) (1.30,0.04)};
-\draw[smooth] plot coordinates {(0.30,0) (0.58,2.8) (1.00,1.9) (1.60,0.72) (2.25,0.15) (2.70,0.03)};
-\draw[smooth] plot coordinates {(0.25,0) (0.62,2.1) (1.25,1.75) (2.05,1.02) (3.20,0.33) (4.20,0.08)};
-\draw[smooth] plot coordinates {(0.20,0) (0.72,1.55) (1.70,1.40) (2.95,0.92) (4.55,0.36) (6.10,0.08)};
-\end{tikzpicture}
-\caption{Interpretive redraw of the equilibrium family. The board makes the qualitative point: as the average energy increases, the distribution broadens and extends toward larger \(E\).}
-\end{figure}
+\section{The Thermodynamic Laws in Statistical Language}
 
-\subsection{Question \& Answer}
-
-Could a distribution move to the right and at the same time get narrower? Certainly. One can invent such a family without difficulty. The lecture says so explicitly. The point is not that probability theory forbids it. The point is that the thermal-equilibrium distributions we are after are not like that. For those distributions, broadening with increasing average energy is exactly the right picture.
-
-\section{Broadening, Coarse-Graining, and the Thermodynamic Laws}
-
-From this picture the lecture pivots to thermodynamics. Thermal equilibrium is characterized by the probability distribution of the states. Of course one may characterize equilibrium by a temperature, but one may also characterize it by an average energy. If a box of gas is in thermal equilibrium, then, in the lecture's phrase, whatever was going to happen has finished happening. Microscopically the molecules still move, but macroscopically the system is quiescent, mixed up, and no longer evolving in any dramatic way.
-
-In that state heat tends not to flow, because all parts of the system are in equilibrium with each other.
-
-Now the laws of thermodynamics can be read in the language of probability distributions. The first law is simply energy conservation. The second law says that entropy increases. But what does that mean in the present setting? It means that when a system starts away from equilibrium and is allowed to come to equilibrium, the probability distribution generally broadens.
-
-This is where the lecture introduces coarse-graining. To coarse-grain is, in effect, to be a little careless about the exact microscopic information. Once we lose track of details, the distribution tends to spread rather than sharpen. A narrowing distribution would mean that somehow we had learned more and more about an enormous complicated system without actually measuring it. That is not the natural direction of things. The natural direction is that we lose track, the distribution broadens, and entropy grows.
-
-The zeroth law is then presented in a modernized way. Historically it entered thermodynamics axiomatically, but here the lecture treats it as illuminated by the first and second laws together with the definition of temperature already introduced. There exists a notion of temperature such that energy flows from higher temperature to lower temperature, and in equilibrium all parts of the system have the same temperature.
-
-The lecture now asks the natural question: does the earlier definition of temperature really know which way heat flows? Let us test it.
-
-\section{Temperature and the Direction of Heat Flow}
-
-Take a system made of two connected parts, \(A\) and \(B\), able to exchange energy. Assume, just to fix conventions, that
+The first law is energy conservation. The second law says that the
+thermodynamic entropy of an isolated macroscopic system does not decrease:
 \begin{equation}
-T_B>T_A.
+ \Delta S_{\mathrm{tot}}\geq0.
+ \label{eq:sm3-second-law}
 \end{equation}
-If the opposite inequality held, we would merely interchange the labels.
+An equality describes equilibrium or an ideal reversible change; a spontaneous
+relaxation ordinarily gives a strict increase.
 
-The first law gives
+In the probabilistic picture, relaxation tends to spread weight over the
+macroscopic alternatives that we still distinguish. This statement requires
+the qualification emphasized in the lecture: we are \emph{coarse-graining}.
+Exact Hamiltonian evolution preserves fine-grained phase-space entropy.
+Macroscopic entropy grows because we cease to track microscopic correlations
+and details. Losing such information broadens the reduced description. A
+spontaneous narrowing would instead mean that we had learned microscopic
+information without performing a measurement.
+
+The zeroth law asserts that systems can reach thermal equilibrium and that
+equilibrium is transitive. If \(A\) is in equilibrium with \(B\), and \(B\)
+with \(C\), then \(A\) is in equilibrium with \(C\). Temperature supplies the
+number that makes this transitivity transparent:
+\[
+ T_A=T_B,\qquad T_B=T_C
+ \quad\Longrightarrow\quad
+ T_A=T_C.
+\]
+Out of equilibrium, energy flows from the subsystem with larger temperature
+to the subsystem with smaller temperature. At equal temperatures the net flow
+ceases. We now derive that operational statement from the entropy definition
+of temperature.
+
+\section{Why Energy Flows from Hot to Cold}
+
+Consider two weakly coupled subsystems \(A\) and \(B\). Each is internally
+equilibrated, but their temperatures differ. Choose the labels so that
 \begin{equation}
-dE_A+dE_B=0,
+ T_B>T_A>0.
+ \label{eq:sm3-temperature-order}
 \end{equation}
-because the total energy of the combined system is conserved.
-
+During a small exchange, conservation of the combined energy gives
+\begin{equation}
+ dE_A+dE_B=0.
+ \label{eq:sm3-energy-conservation}
+\end{equation}
 The second law gives
 \begin{equation}
-dS_A+dS_B\ge 0,
+ dS_A+dS_B\geq0.
+ \label{eq:sm3-entropy-change}
 \end{equation}
-with equality only in special cases. Generically the total entropy increases.
-
-Now use the earlier definition of temperature,
+For each internally equilibrated subsystem, temperature is defined by
 \begin{equation}
-dE=T\,dS.
+ dE_X=T_X\,dS_X,
+ \qquad X=A,B.
+ \label{eq:sm3-temperature-differential}
 \end{equation}
-Applied separately to the two subsystems,
+Substitution into \eqref{eq:sm3-energy-conservation} yields
 \begin{equation}
-dE_A=T_A\,dS_A,
-\qquad
-dE_B=T_B\,dS_B.
+ T_A\,dS_A+T_B\,dS_B=0,
 \end{equation}
-Substituting these into energy conservation, we obtain
+and hence
 \begin{equation}
-T_A\,dS_A+T_B\,dS_B=0.
+ dS_B=-\frac{T_A}{T_B}\,dS_A.
+ \label{eq:sm3-dsb}
 \end{equation}
-Solve for \(dS_B\):
-\begin{equation}
-dS_B=-\frac{T_A}{T_B}\,dS_A.
-\end{equation}
-Now eliminate \(dS_B\) from the entropy inequality:
+Putting this result into \eqref{eq:sm3-entropy-change},
 \begin{align}
-dS_A+dS_B &\ge 0, \\
-dS_A-\frac{T_A}{T_B}dS_A &\ge 0, \\
-\left(1-\frac{T_A}{T_B}\right)dS_A &\ge 0.
+ dS_{\mathrm{tot}}
+ &=dS_A-\frac{T_A}{T_B}dS_A\\
+ &=\frac{T_B-T_A}{T_B}\,dS_A\geq0.
+ \label{eq:sm3-flow-entropy}
 \end{align}
-For the moment we assume temperatures are positive. Multiplying by \(T_B>0\) gives
+Because \(T_B-T_A>0\) and \(T_B>0\), a spontaneous exchange requires
+\[
+ dS_A>0.
+\]
+Equation \eqref{eq:sm3-temperature-differential} then gives
 \begin{equation}
-(T_B-T_A)dS_A\ge 0.
+ dE_A=T_A\,dS_A>0,
+ \qquad
+ dE_B=-dE_A<0.
+ \label{eq:sm3-hot-to-cold}
 \end{equation}
-But \(T_B-T_A>0\) by assumption. Therefore
+Energy has flowed from \(B\), the hotter subsystem, to \(A\), the colder one.
+Here heat is simply energy in transit. The flow continues until
+\(T_A=T_B\), when the first-order entropy change no longer favors either
+direction.
+
+The same result can be displayed in one line:
 \begin{equation}
-dS_A>0.
+ dS_{\mathrm{tot}}
+ =dE_A\left(\frac{1}{T_A}-\frac{1}{T_B}\right)\geq0.
+ \label{eq:sm3-compact-flow}
 \end{equation}
-Multiplying once more by \(T_A\), we get
+The sign of the inverse-temperature difference fixes the sign of \(dE_A\).
+This compact form will later fit naturally with the canonical ensemble.
+
+\begin{classroomqa}
+\audiencequestion{Does this argument assume that \(A\) and \(B\) are each
+already in internal equilibrium?}
+\lecturerresponse{Yes. Assigning a single \(T_A\) or \(T_B\) makes that
+assumption. If a subsystem is not internally equilibrated, divide it into
+smaller regions and apply the argument locally wherever a temperature can be
+defined. The global relaxation is then assembled from exchanges among those
+regions.
+\lecturetimestamp{00:24:38--00:25:22}}
+\end{classroomqa}
+
+\section{What Counts as a State?}
+
+Before asking for the equilibrium probabilities, we must know what the label
+\(i\) means. A microscopic state is the most complete specification of the
+system allowed by the underlying laws of physics. In classical mechanics,
+one pictures the positions and momenta of all particles. In quantum
+mechanics, a state is instead a complete quantum state; the uncertainty
+principle prevents a simultaneous sharp specification of every classical
+position and momentum.
+
+For a quantum system in a finite box, the relevant state counting can be
+discrete. Classical statistical mechanics emerges in an appropriate limit,
+where sums over densely spaced quantum states become phase-space integrals.
+That limiting process also introduces the phase-space cell needed to make
+continuous entropy dimensionless; it is not obtained merely by replacing a
+summation sign with an integral sign.
+
+\begin{classroomqa}
+\audiencequestion{For a gas, should a state be imagined as the position and
+momentum of every molecule?}
+\lecturerresponse{That is the correct classical picture. More generally, a
+state means everything that could in principle be known about the system,
+subject to the laws of physics. Quantum mechanics changes the form of that
+maximal description and makes the finite-volume counting discrete. Recovering
+the classical integral from the quantum sum is a genuine limiting argument,
+not a one-line substitution.
+\lecturetimestamp{00:25:31--00:27:38}}
+\end{classroomqa}
+
+\section{A Heat Bath Made of Replicas}
+
+The hard question is now unavoidable: after equilibrium has been established,
+what determines \(P_i\)?
+
+Place the subsystem in contact with a very large heat bath. Energy may pass
+back and forth, but the bath has so many degrees of freedom that the transfer
+of a small amount of energy barely changes its temperature. A particularly
+convenient bath consists of many weakly coupled replicas of the subsystem
+itself. One replica is the system under study; the others constitute its
+environment.
+
+This construction often mirrors a real macroscopic system. Divide a large
+nearly homogeneous body into many similar cells. Each cell is a subsystem,
+and the remaining cells act as its bath. Denote the total number of replicas
+by \(N\). The classroom demonstration uses nine replicas and three colored
+state labels, but the counting is independent of those particular numbers.
+
+Let \(n_i\) be the number of replicas in state \(i\). These are the
+\emph{occupation numbers}. There may be infinitely many possible energy
+levels, but at finite total energy most very high levels have negligible or
+zero occupation.
+
+The first constraint is simply the number of replicas:
 \begin{equation}
-dE_A=T_A\,dS_A>0.
+ \sum_i n_i=N.
+ \label{eq:sm3-number-constraint}
 \end{equation}
-So subsystem \(A\) gains energy, and therefore subsystem \(B\) loses it. Energy flows from \(B\) to \(A\), that is, from the hotter subsystem to the colder one.
-
-This is the point of the calculation. Starting from energy conservation, entropy increase, and the definition \(dE=T\,dS\), we recover the physical meaning of temperature: it determines the direction of heat flow. In the lecture, when Susskind says ``heat'' here, he simply means energy transfer.
-
-The flow continues until the temperatures become equal. When
+The second is the total energy:
 \begin{equation}
-T_A=T_B,
+ \sum_i n_iE_i=N\overline E.
+ \label{eq:sm3-total-energy-constraint}
 \end{equation}
-there is no preferred direction for further transfer, and thermal equilibrium is established. The transitive part of the zeroth law then becomes obvious: if \(A\) is in equilibrium with \(B\), and \(B\) with \(C\), then all three have the same temperature.
+The right-hand side is extensive. If the number of replicas is doubled while
+their statistical state is held fixed, the total energy doubles, whereas the
+mean energy per replica remains \(\overline E\).
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Must the replica construction also satisfy an energy
+constraint?}
+\lecturerresponse{Yes. The occupation numbers must add to \(N\), and their
+energy-weighted sum must equal the fixed total energy \(N\overline E\).
+Those are precisely the two constraints that will later restrict the entropy
+maximum.
+\lecturetimestamp{00:37:12--00:39:54}}
+\end{classroomqa}
 
-Does this derivation assume that \(A\) and \(B\) are each individually in equilibrium? Yes, it does. The very use of \(T_A\) and \(T_B\) presupposes that each subsystem is internally equilibrated enough for a temperature to be assigned to it. If that is not true, then one must subdivide further. The same reasoning is then applied to smaller pieces until the local equilibrium assumption becomes appropriate.
+The probability that a randomly selected replica occupies state \(i\) is its
+relative frequency:
+\begin{equation}
+ P_i=\frac{n_i}{N},
+ \qquad
+ n_i=NP_i.
+ \label{eq:sm3-frequency-probability}
+\end{equation}
 
-\section{What a State Means}
-
-Only after the heat-flow argument is finished does the lecture stop and ask a more basic question: what is a state?
-
-A state, we are told, means as much as one can possibly know about the system if one were infinitely powerful, subject always to the actual laws of physics. That last clause matters. In classical mechanics one is tempted to say that a state of a gas is the complete list of positions and momenta of all the molecules. As a first picture, that is the right thing to have in mind. But quantum mechanics places limits on what can be known simultaneously, and in the quantum description the state counting for a finite box becomes discrete.
-
-So there are really two layers here. The conceptual layer is invariant: a state is the most refined description allowed by the theory. The technical layer depends on context: in a quantum treatment we sum over discrete states, while in a classical limit those sums are replaced by integrals. The lecture emphasizes that passing carefully from the quantum description to the classical one is subtle, but the broad statement is correct.
-
-\subsection{Question \& Answer}
-
-Should we literally think of the state of a gas as the position and momentum of every molecule? In the classical picture, yes, that is the right image. But one should immediately add the lecture's caveat: quantum mechanics changes what ``as much as can be known'' means. The useful definition is therefore the more general one. A state is not simply a list of classical variables; it is the finest specification of the system permitted by the laws of physics.
-
-\section{Replicas, Occupation Numbers, and Maximum Entropy}
-
-Now we come to what the lecture itself calls the hard question. Once equilibrium has been reached, what is the probability distribution \(P(i)\) over the microstates?
-
-To get a handle on that question, it is useful to imagine that the system of interest is not isolated but in contact with a very large reservoir, a heat bath, with which it can exchange energy. Because the bath is enormous, a small flow of energy into or out of the subsystem barely changes the bath's temperature.
-
-A particularly convenient model of the heat bath is then introduced. Instead of an amorphous reservoir, imagine a very large number \(N\) of identical copies of the subsystem, all weakly connected so that energy can flow among them. One of them is the subsystem we care about; the rest collectively play the role of the bath. This is not merely a trick. In many physical situations a large system really can be regarded as built from many similar smaller subsystems.
-
-\paragraph{From Counting to Probability.}
-
-Each replica is in some state \(i\). Let \(n_i\) denote the occupation number, the number of replicas found in the \(i\)-th state. The board at this point shows an energy axis with many discrete level marks and writes the basic identification very clearly:
-
-\begin{figure}[htbp]
+\begin{figure}[t]
 \centering
 \includegraphics[width=0.82\textwidth]{lecture_03_figure_03.png}
-\caption{Probability as the occupation fraction \(P(i)=n_i/N\).}
+\caption{The energy-level picture and the identification of probability with
+the occupation fraction \(P_i=n_i/N\).}
+\lectureframe{00:41:40}
 \end{figure}
 
-Thus
-\begin{equation}
-P(i)=\frac{n_i}{N}.
-\end{equation}
-In words: the probability that a given subsystem is in state \(i\) is simply the fraction of the replicas that are in that state.
+\begin{classroomqa}
+\audiencequestion{Is the notation \(N(i)\) on the board meant to differ from
+\(n_i\)?}
+\lecturerresponse{No. Both denote the occupation number of state \(i\). We
+use \(n_i\) consistently and reserve capital \(N\) for the total number of
+replicas.
+\lecturetimestamp{00:41:28--00:41:33}}
+\end{classroomqa}
 
-From here on it is convenient to write the state energies as \(E_i\). The occupation numbers satisfy two constraints. First, the total number of replicas is fixed:
+Dividing \eqref{eq:sm3-number-constraint} and
+\eqref{eq:sm3-total-energy-constraint} by \(N\) recovers the probability
+constraints:
 \begin{equation}
-\sum_i n_i = N.
+ \sum_iP_i=1,
+ \qquad
+ \sum_iP_iE_i=\overline E.
+ \label{eq:sm3-probability-constraints}
 \end{equation}
-Second, the total energy is fixed. If \(E\) denotes the average energy per subsystem, then
+The ensemble frequency interpretation has therefore reproduced the equations
+with which we began.
+
+\section{Multiplicity of an Occupation Pattern}
+
+Fix a set of occupation numbers \(\{n_i\}\). How many assignments of the
+\(N\) distinguishable replicas to the states realize exactly that set? The
+answer is the multinomial coefficient
 \begin{equation}
-\sum_i n_i E_i = N E.
+ C(\{n_i\})=\frac{N!}{\prod_i n_i!}.
+ \label{eq:sm3-multiplicity}
 \end{equation}
-Using \(n_i=NP_i\), these become
+To see the denominator, first arrange all \(N\) labeled replicas in \(N!\)
+orders. Permuting the \(n_i\) replicas that occupy the same state does not
+produce a new occupation assignment, so divide by \(n_i!\) for every state.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_04.png}
+\caption{The multinomial multiplicity
+\(C=N!/\prod_i n_i!\) written on the board.}
+\lectureframe{00:46:55}
+\end{figure}
+
+Unoccupied levels cause no problem because \(0!=1\). If all replicas occupy
+one state, then
+\[
+ C=\frac{N!}{N!}=1,
+\]
+as expected. If three replicas occupy three distinct specified states, then
+\[
+ C=\frac{3!}{1!\,1!\,1!}=6.
+\]
+With two replicas occupying two specified states, the formula gives two
+assignments: exchange which labeled replica occupies which state.
+
+\begin{classroomqa}
+\audiencequestion{Can more than one set of occupation numbers satisfy the two
+constraints?}
+\lecturerresponse{Usually many sets do. Equation
+\eqref{eq:sm3-multiplicity} first counts the arrangements for one fixed set
+\(\{n_i\}\), without yet deciding whether it satisfies the constraints. The
+next stage compares all constraint-compatible sets and finds which one has the
+largest multiplicity.
+\lecturetimestamp{00:48:07--00:48:43}}
+\end{classroomqa}
+
+The statistical assumption is that the microscopic assignments compatible
+with the isolated setup are treated symmetrically. A macroscopic occupation
+pattern realized by more assignments is therefore more probable. For large
+\(N\), the distribution over the fractions \(n_i/N\) becomes sharply peaked.
+The equilibrium fractions are the values that maximize \(C\), subject to
+\eqref{eq:sm3-number-constraint} and
+\eqref{eq:sm3-total-energy-constraint}.
+
+\section{Stirling's Approximation}
+
+Factorials become enormous long before \(N\) reaches a macroscopic value, so
+we work with their logarithms. Begin with
 \begin{equation}
-\sum_i P_i=1,
-\qquad
-\sum_i P_iE_i=E.
+ \log N!=\sum_{x=1}^{N}\log x.
+ \label{eq:sm3-log-factorial-sum}
 \end{equation}
-So the familiar constraints on probabilities are just the occupation-number constraints rewritten per subsystem.
-
-\paragraph{Multiplicity.}
-
-The next question is purely combinatorial: for a given set of occupation numbers \(\{n_i\}\), how many ways are there to distribute the \(N\) replicas among the states so as to realize exactly that set?
-
-The answer is
-\begin{equation}
-C=\frac{N!}{\prod_i n_i!},
-\end{equation}
-and the lecture suggests calling this \(C\), for the combinatorial factor. If some occupation numbers are zero, nothing blows up, because
-\begin{equation}
-0!=1.
-\end{equation}
-So unoccupied states simply contribute a factor of one to the denominator.
-
-The lecture pauses long enough to check the formula against simple cases. If all \(N\) replicas lie in one state and all other occupation numbers vanish, then
-\begin{equation}
-C=\frac{N!}{N!}=1,
-\end{equation}
-as it should: there is only one way to put everything in one cup. If three replicas occupy three different states, then
-\begin{equation}
-C=\frac{3!}{1!\,1!\,1!}=6.
-\end{equation}
-Again that is exactly right.
-
-Why do we care about \(C\)? Because of a symmetry argument. If all microscopic redistributions compatible with the setup are treated symmetrically, then the most probable macroscopic occupation pattern is the one realized in the largest number of ways. So the statistical-mechanical problem becomes: maximize \(C\), but maximize it subject to the two constraints above.
-
-\paragraph{Stirling's approximation.}
-
-To do that we need an approximation for large factorials. The lecture takes time to derive the simplified form of Stirling's approximation that is sufficient for this problem.
-
-Start from
-\begin{equation}
-\log N! = \sum_{x=1}^{N}\log x.
-\end{equation}
-For large \(N\), replace the sum by an integral:
+For large \(N\), the sum is approximated by the area under \(\log x\):
 \begin{align}
-\log N! &\approx \int_1^N \log x\,dx \\
-&= \left[x\log x-x\right]_1^N \\
-&= N\log N-N+1.
+ \log N!
+ &\simeq\int_1^N\log x\,dx\\
+ &=\left[x\log x-x\right]_1^N\\
+ &=N\log N-N+1.
+ \label{eq:sm3-stirling-integral}
 \end{align}
-The additive constant is negligible on the scale of \(N\), and the lecture keeps only the leading terms:
+The antiderivative follows immediately from
+\[
+ \frac{d}{dx}(x\log x-x)=\log x.
+\]
+At leading extensive order, the additive constant may be dropped:
 \begin{equation}
-\log N!\approx N\log N-N.
+ \log N!\simeq N\log N-N.
+ \label{eq:sm3-stirling-log}
 \end{equation}
-Exponentiating,
+Exponentiating gives the simplified form used in the lecture,
 \begin{equation}
-N!\approx N^N e^{-N}.
+ N!\simeq N^N e^{-N}.
+ \label{eq:sm3-stirling-simple}
 \end{equation}
-The familiar \(\sqrt{2\pi N}\) factor, together with other subleading corrections, is deliberately omitted. For the present argument only the leading exponential behavior matters.
 
-One may ask whether Stirling's approximation is justified in the denominator as well as the numerator. The lecture's answer is that, in the large-\(N\) regime of interest, the relevant occupation numbers scale proportionally with \(N\). As the total number of replicas grows, the typical \(n_i\) grow with it, so the same approximation applies to the important denominator terms.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_05.png}
+\caption{The leading Stirling approximation and its derivation by replacing
+the sum of \(\log x\) with an integral.}
+\lectureframe{01:03:45}
+\end{figure}
 
-\paragraph{From multiplicity to entropy.}
+\begin{classroomqa}
+\audiencequestion{Does evaluating \(x\log x-x\) at the lower limit leave an
+extra \(+1\)?}
+\lecturerresponse{Yes. Equation \eqref{eq:sm3-stirling-integral} contains that
+constant. It is negligible compared with the terms proportional to \(N\) as
+\(N\to\infty\), which is why the leading formula omits it. The sum itself
+must begin at \(x=1\); \(\log0\) is not defined.
+\lecturetimestamp{01:04:12--01:04:35}}
+\end{classroomqa}
 
-Apply the approximation upstairs and downstairs:
+\begin{classroomqa}
+\audiencequestion{Is a factor proportional to \(\sqrt{N}\) also missing?}
+\lecturerresponse{Yes. The sharper asymptotic formula is
+\[
+ N!\sim\sqrt{2\pi N}\left(\frac{N}{e}\right)^N.
+\]
+Its logarithm adds only \(\tfrac12\log(2\pi N)\), which is subextensive
+compared with \(N\log N-N\). It matters for accurate finite-\(N\)
+probabilities but not for the leading entropy calculation of a macroscopic
+system.
+\lecturetimestamp{01:04:35--01:05:40}}
+\end{classroomqa}
+
+Stirling's approximation must also be used with care in the denominator of
+\eqref{eq:sm3-multiplicity}. In the thermodynamic limit the states carrying
+nonzero limiting probabilities have \(n_i=NP_i\), so their occupations grow
+with \(N\). States with tiny or vanishing occupation can be handled by a
+finite-energy cutoff and then restored by a limit. The leading extensive
+entropy is unaffected by the omitted subleading terms.
+
+\section{The Logarithm of Multiplicity Is Entropy}
+
+Apply \eqref{eq:sm3-stirling-simple} to the numerator and all macroscopically
+occupied denominator factors:
 \begin{equation}
-C\approx
-\frac{N^N e^{-N}}{\prod_i n_i^{\,n_i}e^{-n_i}}.
+ C\simeq
+ \frac{N^Ne^{-N}}
+ {\prod_i n_i^{\,n_i}e^{-n_i}}.
+ \label{eq:sm3-c-stirling}
 \end{equation}
-Because \(\sum_i n_i=N\), the exponential factors cancel, leaving
+Since \(\sum_i n_i=N\), the leading exponential factors cancel:
 \begin{equation}
-C\approx \frac{N^N}{\prod_i n_i^{\,n_i}}.
+ C\simeq\frac{N^N}{\prod_i n_i^{\,n_i}}.
+ \label{eq:sm3-c-leading}
 \end{equation}
-Now take the logarithm:
+It is easier to maximize a logarithm than a product, and the logarithm is
+monotone, so both maxima occur at the same occupation pattern:
 \begin{equation}
-\log C = N\log N-\sum_i n_i\log n_i.
+ \log C=N\log N-\sum_i n_i\log n_i.
+ \label{eq:sm3-logc-occupations}
 \end{equation}
-Substitute \(n_i=NP_i\):
+Now substitute \(n_i=NP_i\):
 \begin{align}
-\log C
-&= N\log N-\sum_i NP_i\log(NP_i) \\
-&= N\log N-N\sum_i P_i\bigl(\log N+\log P_i\bigr) \\
-&= N\log N-N\log N\sum_i P_i-N\sum_i P_i\log P_i.
+ \log C
+ &=N\log N-\sum_iNP_i\log(NP_i)\\
+ &=N\log N-N\sum_iP_i\log N
+   -N\sum_iP_i\log P_i\\
+ &=-N\sum_iP_i\log P_i,
+ \label{eq:sm3-logc-entropy-derivation}
 \end{align}
-Using \(\sum_i P_i=1\), the \(N\log N\) terms cancel, and we find
+where normalization cancels the two \(N\log N\) terms. Thus, to leading
+order in \(N\),
 \begin{equation}
-\log C=-N\sum_i P_i\log P_i = NS.
+ \boxed{\log C=NS}.
+ \label{eq:sm3-logc-ns}
 \end{equation}
-This is the decisive turn of the lecture. Maximizing the number of ways of rearranging the replicas is the same as maximizing the entropy. Therefore the most probable occupation-number distribution is obtained by solving
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_06.png}
+\caption{The board calculation connecting
+\(\log C=N\log N-\sum_i n_i\log n_i\) to
+\(-N\sum_iP_i\log P_i=NS\).}
+\lectureframe{01:16:10}
+\end{figure}
+
+This relation is the conceptual center of the chapter. Entropy is not an
+unrelated quantity imposed on the counting problem. It is the multiplicity
+per replica, measured logarithmically. Maximizing the number of microscopic
+arrangements is therefore identical, at leading order, to maximizing the
+entropy of one replica.
+
+\begin{classroomqa}
+\audiencequestion{Would the multiplicity not be largest when all occupation
+numbers are equal?}
+\lecturerresponse{It is uniform when no state is distinguished and only
+\(\sum_i n_i=N\) is imposed over a finite set of states. The fixed-energy
+constraint changes the answer because the values \(E_i\) are different.
+Equal occupations generally fail to produce the specified mean energy.
+\lecturetimestamp{01:17:07--01:18:20}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Capital \(N\) is large, but why may Stirling's approximation
+be applied to every \(n_i\) in the denominator?}
+\lecturerresponse{For each state with a nonzero limiting probability,
+\(n_i=NP_i\) grows proportionally to \(N\). One may first retain a finite
+energy range, take the large-\(N\) limit there, and then enlarge the range.
+Sparse tail states require separate finite corrections, but they do not alter
+the leading extensive entropy.
+\lecturetimestamp{01:18:23--01:19:28}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is this large-\(N\) approximation what was meant earlier by
+coarse-graining?}
+\lecturerresponse{No. The thermodynamic limit controls large occupation
+numbers and asymptotic counting. Coarse-graining is the loss or deliberate
+discarding of microscopic resolution. They are distinct operations, even
+though both are often used in macroscopic statistical mechanics.
+\lecturetimestamp{01:19:29--01:19:46}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Since
+\(\log C=N\log N-\sum_i n_i\log n_i\), should the second term be minimized
+rather than maximized?}
+\lecturerresponse{Yes; with \(N\) fixed, maximizing \(\log C\) is equivalent
+to minimizing \(\sum_i n_i\log n_i\). After substituting \(n_i=NP_i\), the
+fixed \(N\log N\) terms cancel and what remains is
+\(-N\sum_iP_i\log P_i=NS\). Thus the same operation is described more
+naturally as maximizing the positive entropy \(S\).
+\lecturetimestamp{01:19:48--01:20:55}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why not finish the argument immediately by symmetry and set
+all the \(n_i\) equal?}
+\lecturerresponse{That shortcut ignores the energy labels. The normalization
+constraint treats the states symmetrically, but
+\(\sum_iP_iE_i=\overline E\) does not: states of different energy contribute
+differently. The energy constraint is exactly where the nonuniform
+equilibrium distribution enters.
+\lecturetimestamp{01:21:15--01:21:41}}
+\end{classroomqa}
+
+\section{The Maximum-Entropy Problem}
+
+We can now state the statistical-mechanical rule without ambiguity. Vary the
+probabilities \(P_i\) and maximize
 \begin{equation}
-\text{maximize } S(P_i)=-\sum_i P_i\log P_i
+ S[P]=-\sum_iP_i\log P_i
+ \label{eq:sm3-maximize-entropy}
 \end{equation}
 subject to
 \begin{equation}
-\sum_i P_i=1,
-\qquad
-\sum_i P_iE_i=E.
+ \sum_iP_i=1,
+ \qquad
+ \sum_iP_iE_i=\overline E.
+ \label{eq:sm3-maxent-constraints}
 \end{equation}
-That is the statistical-mechanical rule.
+The maximizing probabilities give the sharply preferred occupation fractions
+of a large replica ensemble. The occupation numbers fluctuate, but their
+relative deviations shrink as \(N\) grows, so the ratios \(n_i/N\) become
+well-defined thermodynamic probabilities.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Are the \(E_i\) fixed state energies while the constraint
+uses a separately given total energy?}
+\lecturerresponse{Yes. The spectrum \(\{E_i\}\) belongs to the subsystem.
+The complete replica collection has a fixed total energy, but energy
+continually moves among replicas. Dividing that total by \(N\) fixes the mean
+energy \(\overline E\) of one replica, not its energy in each microscopic
+realization.
+\lecturetimestamp{01:26:12--01:27:07}}
+\end{classroomqa}
 
-By symmetry, shouldn't all the occupation numbers simply be equal? They would, if there were no energy constraint. Without constraints, the arithmetic does push toward uniformity. But the states have different energies, and the condition
+The problem is easy to state and not yet solved. It is an extremization with
+two constraints, so one more mathematical tool is needed.
+
+\section{Lagrange Multipliers}
+
+For an unconstrained function \(F(x_1,x_2,\ldots)\), a stationary point
+satisfies
 \begin{equation}
-\sum_i P_iE_i=E
+ \frac{\partial F}{\partial x_i}=0
+ \qquad\text{for every }i.
+ \label{eq:sm3-unconstrained-stationary}
 \end{equation}
-breaks that symmetry. The asymmetry does not come from nowhere; it comes from the fact that not all states cost the same energy.
-
-\section{Lagrange Multipliers and the Problem Left for Next Time}
-
-The lecture does not solve the entropy-maximization problem yet. Instead it spends the rest of the time introducing the tool needed to solve it: Lagrange multipliers.
-
-Without constraints, the rule for extremizing a function \(F(x_1,x_2,\dots)\) is familiar:
+Now require in addition that
 \begin{equation}
-\frac{\partial F}{\partial x_i}=0
-\qquad
-\text{for all } i.
+ G(x_1,x_2,\ldots)=0.
+ \label{eq:sm3-one-constraint}
 \end{equation}
-But here the extremization is constrained. One wants to maximize or minimize a function while demanding that some other function vanish:
+
+\begin{classroomqa}
+\audiencequestion{What does \(x\) mean if the picture has coordinates \(x\)
+and \(y\)?}
+\lecturerresponse{Here \(x\) is shorthand for the whole coordinate vector
+\((x_1,x_2,\ldots)\). In the two-dimensional drawing its components are
+simply \(x\) and \(y\). Later the components will be the probabilities
+\(P_1,P_2,\ldots\).
+\lecturetimestamp{01:30:12--01:30:20}}
+\end{classroomqa}
+
+Geometrically, the level curves \(F=\text{constant}\) form a contour map,
+while \(G=0\) is the curve on which the system is allowed to move. A
+constrained extremum occurs where one contour of \(F\) is tangent to the
+constraint curve. At that point the gradients are parallel:
 \begin{equation}
-G(x_1,x_2,\dots)=0.
+ \nabla F=-\lambda\nabla G
+ \label{eq:sm3-parallel-gradients}
 \end{equation}
+for some number \(\lambda\).
 
-The lecture first explains the geometry. In two variables, the level curves of \(F\) are like contours on a map, while \(G=0\) is a constraint curve cutting across them. The constrained extremum lies where a level curve of \(F\) is tangent to the constraint curve.
-
-\begin{figure}[htbp]
+\begin{figure}[t]
 \centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->] (-0.2,0) -- (4.3,0);
-\draw[->] (0,-0.2) -- (0,4.2);
-\draw (1.55,1.55) ellipse (0.70 and 0.45);
-\draw (1.55,1.55) ellipse (1.25 and 0.85);
-\draw (1.55,1.55) ellipse (1.85 and 1.25);
-\draw[thick] (0.45,3.55) -- (3.55,0.45);
-\fill (2.10,2.00) circle (0.05);
-\node at (3.25,0.85) {$G=0$};
-\node at (2.70,2.80) {$F=\text{const.}$};
-\end{tikzpicture}
-\caption{Interpretive contour sketch for one constrained extremization problem. The constrained extremum occurs at tangency.}
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_07.png}
+\caption{The board's contour geometry and the augmented function
+\(F'=F+\lambda G\). A constrained extremum occurs at tangency.}
+\lectureframe{01:37:10}
 \end{figure}
 
-The analytic trick is the devilishly clever part. Instead of extremizing \(F\) subject to \(G=0\), define
+Equation \eqref{eq:sm3-parallel-gradients} can be obtained by defining the
+augmented function
 \begin{equation}
-F' = F+\lambda G,
+ F'=F+\lambda G
+ \label{eq:sm3-augmented-function}
 \end{equation}
-where \(\lambda\) is a new unknown, the Lagrange multiplier. One then extremizes \(F'\) as though there were no constraint, and afterwards imposes \(G=0\) to determine \(\lambda\).
+and demanding ordinary stationarity:
+\begin{equation}
+ \frac{\partial F'}{\partial x_i}=0.
+ \label{eq:sm3-augmented-stationarity}
+\end{equation}
+The multiplier \(\lambda\) is initially unknown. That does not leave the
+system underdetermined, because the original constraint \(G=0\) supplies one
+additional equation.
 
-The lecture works through a simple example:
-\begin{equation}
-F=\frac{x^2+y^2}{2},
-\qquad
-G=x+y-1.
-\end{equation}
-So
-\begin{equation}
-F'=\frac{x^2+y^2}{2}+\lambda(x+y-1).
-\end{equation}
-Now set the derivatives of \(F'\) to zero:
-\begin{equation}
-\frac{\partial F'}{\partial x}=x+\lambda=0,
-\qquad
-\frac{\partial F'}{\partial y}=y+\lambda=0.
-\end{equation}
-Hence
-\begin{equation}
-x=y=-\lambda.
-\end{equation}
-The remaining equation is simply the original constraint,
-\begin{equation}
-x+y=1.
-\end{equation}
-Therefore
-\begin{equation}
--2\lambda=1,
-\qquad
-\lambda=-\frac12,
-\end{equation}
-and so
-\begin{equation}
-x=y=\frac12.
-\end{equation}
-That is the point on the line \(x+y=1\) where \((x^2+y^2)/2\) is minimized.
+\begin{classroomqa}
+\classquestion{Why does adding a term proportional to \(G\) make the
+constrained point stationary?}
+\lecturerresponse{At the constrained extremum, motion tangent to \(G=0\)
+already produces no first-order change in \(F\). The only remaining slope is
+normal to the constraint. Since \(\nabla G\) points in that same normal
+direction, a suitable \(\lambda\) cancels it:
+\(\nabla F+\lambda\nabla G=0\).
+\lecturetimestamp{01:35:06--01:35:32}}
+\end{classroomqa}
 
-With several constraints one proceeds in the same way:
+\section{A Two-Variable Example}
+
+Minimize
 \begin{equation}
-F'=F+\lambda_1 G_1+\lambda_2 G_2+\cdots,
+ F(x,y)=\frac{x^2+y^2}{2}
+ \label{eq:sm3-example-f}
 \end{equation}
-and then solves the stationarity equations together with
+subject to
 \begin{equation}
-G_1=0,\qquad G_2=0,\qquad \dots
+ x+y=1.
+ \label{eq:sm3-example-constraint}
+\end{equation}
+Write the constraint as \(G=x+y-1=0\) and form
+\begin{equation}
+ F'=\frac{x^2+y^2}{2}+\lambda(x+y-1).
+ \label{eq:sm3-example-augmented}
+\end{equation}
+The stationary equations are
+\begin{align}
+ \frac{\partial F'}{\partial x}&=x+\lambda=0,\\
+ \frac{\partial F'}{\partial y}&=y+\lambda=0.
+ \label{eq:sm3-example-derivatives}
+\end{align}
+Thus \(x=y=-\lambda\). The remaining equation is the constraint,
+\[
+ x+y=-2\lambda=1,
+\]
+so
+\begin{equation}
+ \lambda=-\frac12,
+ \qquad
+ x=y=\frac12.
+ \label{eq:sm3-example-solution}
+\end{equation}
+The point \((1/2,1/2)\) is where the smallest circle centered at the origin
+touches the line \(x+y=1\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_08.png}
+\caption{The completed Lagrange-multiplier calculation for minimizing
+\((x^2+y^2)/2\) subject to \(x+y=1\).}
+\lectureframe{01:44:10}
+\end{figure}
+
+With several constraints, introduce one multiplier for each:
+\begin{equation}
+ F'=F+\lambda_1G_1+\lambda_2G_2+\cdots.
+ \label{eq:sm3-many-multipliers}
+\end{equation}
+Then solve
+\begin{equation}
+ \frac{\partial F'}{\partial x_i}=0
+ \quad\text{for every }i,
+ \qquad
+ G_a=0
+ \quad\text{for every constraint }a.
+ \label{eq:sm3-many-equations}
+\end{equation}
+The lecture proposes a deliberately artificial practice problem: extremize a
+quadratic function of \(x,y,z\) while imposing two independent linear
+constraints, such as \(x+y=1\) and \(z+x=1\). Its purpose is not the particular
+answer but the rule that each constraint brings both one multiplier and one
+equation.
+
+\section{The Problem Ready for the Next Lecture}
+
+For statistical mechanics, the coordinates are the probabilities
+\(\{P_i\}\), the function to be maximized is the entropy, and the constraints
+are normalization and fixed mean energy. Define
+\begin{align}
+ S[P]&=-\sum_iP_i\log P_i,\\
+ G_1[P]&=\sum_iP_i-1,\\
+ G_2[P]&=\sum_iP_iE_i-\overline E.
+ \label{eq:sm3-final-functions}
+\end{align}
+The augmented entropy may therefore be written
+\begin{equation}
+ \Phi[P]
+ =S[P]+\alpha G_1[P]+\beta G_2[P].
+ \label{eq:sm3-final-augmented}
+\end{equation}
+The equations to solve are
+\begin{equation}
+ \frac{\partial\Phi}{\partial P_i}=0
+ \quad\text{for every }i,
+ \qquad
+ G_1=0,
+ \qquad
+ G_2=0.
+ \label{eq:sm3-final-problem}
 \end{equation}
 
-Now the real statistical-mechanical problem can be written in precisely that language. We want to maximize
-\begin{equation}
-S(\{P_i\})=-\sum_i P_i\log P_i
-\end{equation}
-subject to the two constraints
-\begin{equation}
-G_1=\sum_i P_i-1=0,
-\qquad
-G_2=\sum_i P_iE_i-E=0.
-\end{equation}
-That is the mathematics problem the lecture leaves for next time. Once those equations are solved, the equilibrium probability distribution is known.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{lecture_03_figure_09.png}
+\caption{The closing board: entropy as a function of the probabilities,
+together with normalization and fixed mean energy.}
+\lectureframe{01:53:05}
+\end{figure}
 
-The lecture also makes a broader point here. At this stage we are not really doing the theory of gases or superconductors in any detailed sense. We are doing probability theory: maximizing an entropy, or equivalently a multiplicity, subject to constraints. The same mathematics appears in many contexts. Statistical mechanics is the physical arena in which those constrained probability problems become unavoidable.
-
-And there is one more hint before the lecture ends: temperature itself will turn out to be a Lagrange multiplier.
-
-\section{Summary}
-
-What began as a recap has turned into a precise program. We started from a probability distribution over states, wrote its average energy and entropy, and pictured a family of equilibrium distributions whose entropy grows with energy. We then translated the thermodynamic laws into the language of distributions and used \(dE=T\,dS\) to show that energy flows from hotter to colder subsystems until their temperatures equalize. After that the lecture changed point of view: from one system to many replicas, from probabilities to occupation numbers, and from occupation numbers to multiplicities. The key result was
-\begin{equation}
-\log C = NS,
-\end{equation}
-so that the most probable distribution is the one that maximizes entropy subject to normalization and fixed average energy. The lecture stops there, with the right problem fully posed and the method of Lagrange multipliers ready for the next step.
+At this point the problem is completely posed. Solving
+\eqref{eq:sm3-final-problem} produces the equilibrium distribution. The
+multiplier conjugate to energy will become the inverse temperature
+\(\beta=1/T\), up to the sign convention chosen in
+\eqref{eq:sm3-final-augmented}. The next lecture carries out that
+differentiation and obtains the Boltzmann weights.
