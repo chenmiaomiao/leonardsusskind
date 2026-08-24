@@ -1,44 +1,94 @@
-# Figure Notes
-## Image Inventory
-- `lecture_09_figure_02.png`: A tight board crop during the Poisson-bracket review. The upper line shows a partial product-rule formula for Poisson brackets, cropped at the right edge. The lower line clearly shows the special case \(\{P,P\}=0\), with Susskind’s hand pointing toward it.
-- `lecture_09_figure_03.png`: A local writing shot during the discussion of Poisson-bracketing a function of \(q\) with \(P\). The left-hand side \(\{F(q),P\}\) is on the board, followed by an equals sign, while the right-hand side is only just beginning to be written and is not yet legible.
+# Figure Interpretations
 
-## Blackboard Equations
-- `lecture_09_figure_02.png`: \(\{AB,C\}=A\{B,C\}\) [partially visible]
-- `lecture_09_figure_02.png`: \(\{P,P\}=0\) [visible]
-- `lecture_09_figure_02.png`: \(\{AB,C\}=A\{B,C\}+B\{A,C\}\) [standard reconstruction]
+## 1. Antisymmetry and Linearity
 
-- `lecture_09_figure_03.png`: \(\{F(q),P\}=\) [partially visible]
-- `lecture_09_figure_03.png`: \(\{F(q),P\}=\dfrac{dF}{dq}\) [standard reconstruction]
-- `lecture_09_figure_03.png`: \(\{F(q),P\}=\dfrac{\partial F}{\partial q}\) [standard reconstruction]
+At 00:09:12 the board places the sign-changing exchange rule beside the
+linear-combination rule. This frame anchors the abstract algebra before any
+coordinate derivative is introduced.
 
-## Diagram And Layout Reading
-- `lecture_09_figure_02.png` is not a geometric diagram; it is a two-level board layout. The upper line preserves the nearby abstract algebraic context, while the lower line isolates the concrete special case \(\{P,P\}=0\). The lecturer’s hand makes the lower equation the focus.
-- `lecture_09_figure_03.png` is a derivation-in-progress layout rather than a finished board statement. The left-hand side is complete, the equals sign is already present, and the large blank region to the right records the transition from bracket notation to differentiation language.
-- Neither image contains axes, arrows, or sketches that need independent TikZ treatment.
+## 2. Product Rule
 
-## TeX Reconstruction Plan
-- `lecture_09_figure_02.png` should remain visible in the notes. It is good documentary evidence for the lecture’s move from the abstract product rule to the concrete consequence \(\{P,P\}=0\). Nearby, typeset the clean displayed equation
-  \[
-  \{P,P\}=0.
-  \]
-  If the chapter also discusses the product rule at that point, pair it with the cleaned form
-  \[
-  \{AB,C\}=A\{B,C\}+B\{A,C\}.
-  \]
-- `lecture_09_figure_03.png` should also remain visible. Its value is not a fully finished formula, but the board rhythm of writing \(\{F(q),P\}\) and then converting it into a derivative statement. Nearby, reconstruct the mathematics as a clean display, for example
-  \[
-  \{F(q),P\}=\frac{dF}{dq},
-  \]
-  or in partial-derivative notation if the surrounding text prefers it.
-- No TikZ redraw is needed for either figure. Both are equation-board moments, so the notes should keep the screenshots and place cleaned equations beside them.
+At 00:11:18 the board reads
+\(\{AB,C\}=A\{B,C\}+\{A,C\}B\). Since classical functions commute, this is
+the same product rule used in the chapter.
 
-## Caption Drafts
-- `lecture_09_figure_02.png`: Poisson bracket of \(P\) with itself
-- `lecture_09_figure_03.png`: Poisson bracket with \(P\) as a derivative
+## 3. Canonical Brackets
 
-## Uncertainties
-- In `lecture_09_figure_02.png`, the upper product-rule line is cropped before the full second term is visible, so the completed formula must be restored from context rather than claimed as fully visible.
-- In `lecture_09_figure_03.png`, the right-hand side of the equation is not yet legible in the screenshot; only the left-hand side and the equals sign are secure from the image itself.
-- In `lecture_09_figure_03.png`, the exact letter case of the variable in \(F(q)\) versus \(F(Q)\) should be normalized from the lecture context; the image itself most naturally reads as \(F(q)\), but the transcript should settle the final notation.
-- In `lecture_09_figure_03.png`, the derivative notation on the right may be written in the lecture as either \(dF/dq\) or \(\partial F/\partial q\); the frame alone does not determine that choice.
+At 00:17:25 the board shows the zero coordinate and momentum brackets and
+\(\{q_i,p_j\}=\delta_{ij}\). The lecturer is clear of the central equations.
+
+## 4. Differentiation by Monomials
+
+At 00:22:43 the cases \(1\), \(q\), and \(q^2\) are visible beneath
+\(\{F(q),p\}=dF/dq\). The frame supports the induction rather than replacing
+it.
+
+## 5. Free-Particle Flow
+
+At 00:29:22 the board has \(\dot A=\{A,H\}\) and the free-particle result
+\(\dot q=p/m\). The chapter supplies the omitted product-rule steps.
+
+## 6. Compensated Scaling
+
+At 00:33:55 the reciprocal scaling of \(q\) and \(p\) is visible. It is the
+successful contrast to scaling both variables by two.
+
+## 7. Rotation in Phase Space
+
+At 00:36:10 both transformed variables are complete:
+\[
+P=\cos\theta\,p+\sin\theta\,q,\qquad
+Q=-\sin\theta\,p+\cos\theta\,q.
+\]
+
+## 8. Infinitesimal Canonical Condition
+
+At 00:50:44 the board shows
+\(\{\delta q,p\}=-\{q,\delta p\}\). This frame resolves an interval where the
+automatic captions are nonsensical.
+
+## 9. Generator Equations
+
+At 00:53:55 the complete pair is unobstructed:
+\[
+\delta q=\epsilon\{q,G\}=\epsilon\,\partial_pG,\qquad
+\delta p=\epsilon\{p,G\}=-\epsilon\,\partial_qG.
+\]
+
+## 10. Mixed-Partial Check
+
+At 00:55:50 the board compares the two derivatives required by the canonical
+condition. Equality follows from
+\(\partial_q\partial_pG=\partial_p\partial_qG\).
+
+## 11. Flow Geometry
+
+At 01:02:10 several trajectories and a crossing direction are visible. The
+TikZ reconstruction separates the generic crossing flow from a symmetry flow
+that remains on a constant-energy surface.
+
+## 12. Symmetry Condition
+
+At 01:05:44 the board displays both
+\(\{H,G\}=0\) and \(\{G,H\}=0\), making the reciprocal conservation statement
+visible.
+
+## 13. Free Particle and Angular Momentum
+
+At 01:09:35 the complete pair
+\[
+H=(p_x^2+p_y^2)/2,\qquad G=xp_y-yp_x
+\]
+is visible. The board uses \(m=1\); the chapter restores \(m\).
+
+## 14. Cancellation
+
+At 01:12:50 the bracket expansion has reached the equal terms with opposite
+signs. The chapter writes the full four-term expansion so the zero is
+auditable.
+
+## 15. Circular Motion
+
+At 01:16:35 the circle is complete after the equations
+\(\dot x=-y\), \(\dot y=x\). The chapter also records the corresponding
+momentum rotation.

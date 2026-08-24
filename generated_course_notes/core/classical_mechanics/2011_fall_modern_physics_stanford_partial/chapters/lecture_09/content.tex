@@ -1,421 +1,721 @@
-\chapter{Poisson Brackets, Canonical Transformations, and Symmetry}
+\chapter{Canonical Transformations, Generators, and Symmetry}
 
-We are continuing, not beginning, the discussion of Poisson brackets. In this lecture the subject is widened from a useful formula to a piece of the intrinsic structure of classical mechanics: phase space is a structured space, Poisson brackets describe flows on that space, and symmetries are to be understood as special flows that preserve the Hamiltonian. These notes follow Leonard Susskind's Lecture 9 closely, with the supporting frame evidence retained where the boardwork matters; the lecture is due to Leonard Susskind, and the supporting curation used here comes through LazyingArt LLC and Video2Book.
+Phase space is not merely a list of positions and momenta. It has a structure,
+and the structure is what remains meaningful when the coordinates used to
+describe it are changed. The Poisson bracket is the local expression of that
+structure. It tells us which changes of phase-space coordinates are allowed,
+how functions flow under those changes, and why a symmetry carries a conserved
+quantity with it.
 
-\section{Poisson Structure and the Idea of Flow}
+\section{Structure and Flow on Phase Space}
 
-Phase space is not just a pile of coordinates. It is not merely a list of \(q\)'s and \(p\)'s written next to one another. It is a space with structure, and what matters physically is the structure that survives the transformations we are allowed to perform.
+There are many kinds of structure one can place on a space. A Riemannian
+metric, for example, supplies a distance between neighboring points. A
+Poisson structure is different: it supplies an antisymmetric bracket between
+functions. For mechanics the coordinates of the space are not only
+\(q_1,\ldots,q_n\), but the full set
+\[
+ (q_1,\ldots,q_n,p_1,\ldots,p_n).
+\]
+The question is therefore richer than a change of coordinates in ordinary
+space. We want to know which transformations may mix the \(q\)'s and \(p\)'s
+without destroying the form of mechanics.
 
-A familiar comparison is metric structure. On a Riemannian space one has a notion of distance between neighboring points, and that metric data is part of what the space is. The Poisson structure of phase space is different. It is not about distance; it is about the special algebraic relations among the phase-space coordinates and about the transformations that preserve those relations.
+It is useful to think first about familiar transformations. A finite rotation
+is built from many small rotations, and a finite translation from many small
+translations. The intermediate configurations trace a flow. The flow need
+not be the actual motion of a physical system; it can simply carry one
+description into another.
 
-This is why the lecture opens with a geometric widening of the frame. Before speaking about phase space itself, one may already think of ordinary rotations and translations in coordinate space as flows. A rotation can be built from many small rotations. A translation can be built from many small translations. One passes continuously through a family of nearby coordinate systems. In that sense, even a familiar symmetry in ordinary space is a flow.
+The same idea applies to phase space. Hamiltonian evolution is one flow: a
+phase point moves with time under the influence of \(H\). Rotations,
+translations, and less familiar transformations that mix positions and
+momenta define other flows. Poisson brackets give one language for all of
+them. Newton's equations are the most concrete end of this story; the Poisson
+formulation is the abstract end needed here.
 
-Phase space inherits that idea and enlarges it. Now we are no longer restricted to motions that shuffle the coordinates \(x\), \(y\), and \(z\). We may consider transformations that mix positions and momenta. That is the richer setting in which Poisson brackets live.
+Ordinary mechanical systems most visibly exhibit translations and rotations,
+although special systems can hide additional symmetries. More advanced
+physics adds internal symmetries that are not motions of ordinary space at
+all. The common question is structural: what can be transformed while the
+laws retain their form? Hamilton and Poisson supplied the classical language
+in which that question can be asked directly on phase space.
 
-One such flow is the actual time evolution of a system under a Hamiltonian. But it is not the only one. A symmetry can also be viewed as a flow, even when it is not the physical time development of the system. This is the first real sales pitch of the lecture: Poisson brackets are the language of flows on phase space.
+\section{The Poisson Algebra}
 
-With that motivation in place, the lecturer does not want to begin in the middle. So he deliberately backs up and reviews the subject abstractly before returning to concrete calculations.
-
-\section{Abstract Rules for Poisson Brackets}
-
-At this point we do what Susskind jokingly calls the French-mathematician thing: we abstract. Let \(A\), \(B\), and \(C\) be functions on phase space. Then the Poisson bracket is characterized first by general algebraic rules.
-
-The first is antisymmetry:
+Let \(A\), \(B\), and \(C\) be functions on phase space. The first defining
+property is antisymmetry,
 \begin{equation}
-\{A,B\}=-\{B,A\}.
+ \{A,B\}=-\{B,A\}.
+ \label{eq:l09-antisymmetry}
+\end{equation}
+The second is linearity in each entry. For ordinary numbers
+\(\alpha\) and \(\beta\),
+\begin{equation}
+ \{\alpha A+\beta B,C\}
+ =\alpha\{A,C\}+\beta\{B,C\}.
+ \label{eq:l09-linearity}
 \end{equation}
 
-The second is linearity:
-\begin{equation}
-\{\alpha A+\beta B,C\}=\alpha\{A,C\}+\beta\{B,C\},
-\end{equation}
-where \(\alpha\) and \(\beta\) are ordinary numbers.
-
-The third is the product rule:
-\begin{equation}
-\{AB,C\}=A\{B,C\}+B\{A,C\}.
-\end{equation}
-
-The lecture spends a little time on a point that is easy to rush past. These functions are ordinary numerical-valued functions on phase space. In classical mechanics their multiplication is commutative. So if an expression contains \(A\) times a Poisson bracket, the order of that multiplication does not matter. What does matter is the order inside the bracket itself. Reversing the bracket reverses the sign. That warning will matter again when the lecture turns Poisson brackets into differentiation rules.
-
-One may allow complex-valued functions if one likes, but the essential point is simpler than that: outside the bracket we are multiplying commuting functions.
-
-Only after this abstract review do we return to the concrete derivative formula. When needed, the bracket is given by
-\begin{equation}
-\{A,B\}=\sum_i\left(
-\frac{\partial A}{\partial q_i}\frac{\partial B}{\partial p_i}
--
-\frac{\partial A}{\partial p_i}\frac{\partial B}{\partial q_i}
-\right).
-\end{equation}
-As in the lecture, we assume the functions are smooth enough for these manipulations to make sense.
-
-\section{Concrete Canonical Brackets and Differentiation}
-
-The abstract rules now have to meet the canonical variables themselves. At this stage of the lecture the board uses capital \(Q\)'s and \(P\)'s abstractly for canonical coordinates. Later, when explicit transformed variables are introduced, we will reserve capitals for the transformed coordinates and return to lower-case \(q\)'s and \(p\)'s for the original ones.
-
-The surviving board frame catches the exact moment when the lecture moves from the general product rule to the self-bracket of a canonical momentum.
-
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.56\textwidth]{lecture_09_figure_02.png}
-\caption{Poisson bracket of \(P\) with itself}
+\includegraphics[width=0.76\textwidth]{lecture_09_figure_01.png}
+\caption{Antisymmetry and linearity on the board at 00:09:12. The minus sign
+in the first rule is the feature that fixes the order of every later bracket.}
+\label{fig:l09-axioms-board}
 \end{figure}
 
-The upper line in the frame is cropped, but the nearby context makes clear that it is the product rule
+\begin{classroomqa}
+\audiencequestion{Should the first relation have a minus sign when \(A\) and
+\(B\) are interchanged?\lecturetimestamp{00:08:09--00:08:18}}
+\lecturerresponse{Yes. That minus sign is the essential point:
+\(\{A,B\}=-\{B,A\}\). Without it there would be no distinction between the
+two orders.}
+\end{classroomqa}
+
+The bracket also obeys the product rule,
 \begin{equation}
-\{AB,C\}=A\{B,C\}+B\{A,C\},
+ \{AB,C\}=A\{B,C\}+B\{A,C\}.
+ \label{eq:l09-product-rule}
 \end{equation}
-while the lower line isolates the concrete special case
-\begin{equation}
-\{P,P\}=0.
-\end{equation}
-This follows immediately from antisymmetry: a bracket equal to its own negative must vanish. The same argument gives
-\begin{equation}
-\{Q,Q\}=0.
-\end{equation}
+By antisymmetry the corresponding rule in the second entry follows as well.
 
-What antisymmetry does \emph{not} determine is the mixed bracket. For that one must use the derivative definition. In many degrees of freedom one finds
-\begin{equation}
-\{Q_i,P_j\}=\delta_{ij},\qquad \{P_i,Q_j\}=-\delta_{ij},
-\end{equation}
-together with
-\begin{equation}
-\{Q_i,Q_j\}=0,\qquad \{P_i,P_j\}=0.
-\end{equation}
-
-Two immediate consequences are worth recording. If both functions depend only on the coordinates, then their Poisson bracket vanishes; if both depend only on the momenta, it also vanishes:
-\begin{equation}
-\{F(Q),G(Q)\}=0,\qquad \{F(P),G(P)\}=0.
-\end{equation}
-To get something nonzero, a \(Q\) on one side must meet a \(P\) on the other.
-
-\subsection{Question \& Answer}
-
-Question. Why does antisymmetry immediately force \(\{P,P\}=0\), but not yet determine \(\{Q,P\}\)?
-
-Answer. Because for a self-bracket we have
-\[
-\{P,P\}=-\{P,P\},
-\]
-so the bracket equals its own negative and must be zero. But for two different variables antisymmetry only gives
-\[
-\{Q,P\}=-\{P,Q\}.
-\]
-That is a relation between two different brackets, not a value. The value comes from the concrete derivative definition, and that is where the canonical normalization enters.
-
-The lecture now turns that normalization into a useful operator identity. The second surviving frame shows the left-hand side of the next claim exactly where the lecturer writes it.
-
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.56\textwidth]{lecture_09_figure_03.png}
-\caption{Poisson bracket with \(P\) as a derivative}
+\includegraphics[width=0.76\textwidth]{lecture_09_figure_02.png}
+\caption{The product rule at 00:11:18. In classical mechanics the functions
+outside the bracket multiply as ordinary commuting numbers.}
+\label{fig:l09-product-board}
 \end{figure}
 
-Only the left-hand side and the equality sign are legible in the frame, but the transcript fixes the intended statement:
+The order of multiplication outside a bracket is immaterial:
+\(A\{B,C\}=\{B,C\}A\). The order \emph{inside} the bracket is not
+immaterial, because reversing it changes the sign. This distinction is easy
+to overlook in classical mechanics, where functions commute, but it
+anticipates the ordering questions that become unavoidable in quantum
+mechanics.
+
+\begin{classroomqa}
+\audiencequestion{What sort of objects are \(A\) and \(B\)? Must they be
+real-valued scalars?\lecturetimestamp{00:09:26--00:14:13}}
+\lecturerresponse{They are numerical-valued functions of all the phase-space
+coordinates. They may be added and multiplied pointwise, and complex-valued
+functions are allowed when useful. Here \emph{numerical} only means that their
+ordinary multiplication is commutative; it is separate from the physicist's
+use of \emph{scalar} to mean invariant under spatial rotations.}
+\end{classroomqa}
+
+For canonical coordinates the concrete derivative formula is
 \begin{equation}
-\{F(q),P\}=\frac{dF}{dq}.
+ \{A,B\}
+ =\sum_{i=1}^{n}\left(
+ \frac{\partial A}{\partial q_i}\frac{\partial B}{\partial p_i}
+ -\frac{\partial A}{\partial p_i}\frac{\partial B}{\partial q_i}
+ \right).
+ \label{eq:l09-poisson-definition}
 \end{equation}
-The lecture first states this, and only then proves it.
+We assume throughout that the functions are smooth enough for the indicated
+derivatives and limiting arguments.
 
-The proof is not done by a one-line appeal to the definition. Instead, it is done pedagogically, by working through monomials. By linearity, it is enough to prove the statement for monomials in \(q\).
+\section{Canonical Brackets as Derivatives}
 
-First take \(F(q)=1\). Then the claim is \(\{1,P\}=0\). The product rule gives
-\begin{equation}
-\{1^2,P\}=1\{1,P\}+1\{1,P\}=2\{1,P\}.
-\end{equation}
-But \(1^2=1\), so the left-hand side is just \(\{1,P\}\). Therefore \(\{1,P\}=2\{1,P\}\), which forces
-\begin{equation}
-\{1,P\}=0.
-\end{equation}
-
-Next take \(F(q)=q\). Then
-\begin{equation}
-\{q,P\}=1,
-\end{equation}
-which is just the fundamental canonical bracket.
-
-Now take \(F(q)=q^2\). The product rule gives
-\begin{equation}
-\{q^2,P\}=q\{q,P\}+\{q,P\}q=2q,
-\end{equation}
-which is exactly the derivative of \(q^2\). The induction to \(q^n\) is then straightforward. Linearity extends the result to polynomials, and from there the lecture passes to smooth functions by the usual approximation argument.
-
-Thus Poisson bracketing with the conjugate momentum is another way of differentiating. In many-variable notation the two basic differentiation rules may be written
-\begin{equation}
-\{F(q_1,\dots,q_n),p_i\}=\frac{\partial F}{\partial q_i},
-\qquad
-\{q_i,F(p_1,\dots,p_n)\}=\frac{\partial F}{\partial p_i}.
-\end{equation}
-Here again the lecture insists on the order. To differentiate with respect to \(q_i\), the momentum goes on the right. To differentiate with respect to \(p_i\), the coordinate goes on the left.
-
-\section{Time Evolution as a Poisson Flow}
-
-Only now does the lecture add the dynamical postulate
-\begin{equation}
-\dot A=\{A,H\},
-\end{equation}
-for any function \(A\) on phase space.
-
-The interpretation is geometric. A point moves along its orbit in phase space under the Hamiltonian flow. As it moves, the value of \(A(q,p)\) changes. That rate of change is the Poisson bracket of \(A\) with the Hamiltonian. In this way the time development of the system is itself just one special case of a flow generated by a function on phase space.
-
-A student asks whether this already assumes that the \(P\)'s and \(Q\)'s are functions of time. The lecture's answer is practical: once we apply the rule to \(P\) and \(Q\) themselves, they become time-dependent by construction.
-
-Take, for example,
-\begin{equation}
-H=\frac{P^2}{2M}.
-\end{equation}
-Then
-\begin{equation}
-\dot P=\left\{P,\frac{P^2}{2M}\right\}=0,
-\end{equation}
-because any function of \(P\) has vanishing Poisson bracket with any other function of \(P\). So momentum is conserved.
-
-For the coordinate we get
-\begin{align}
-\dot Q
-&=\left\{Q,\frac{P^2}{2M}\right\}
-=\frac{1}{2M}\{Q,P^2\} \\
-&=\frac{1}{2M}\left(P\{Q,P\}+\{Q,P\}P\right)
-=\frac{1}{2M}(P+P)
-=\frac{P}{M}.
-\end{align}
-So the familiar velocity-momentum relation reappears directly from the bracket algebra.
-
-This is the bridge from structure to mechanics. Without importing Hamilton's equations from outside, we recover them from the Poisson algebra itself. The lecture also pauses here to say something stronger in tone, if not in theorem form: these basic formulas are not parochial. They are part of the structural core of classical mechanics.
-
-\section{Canonical Transformations from Examples}
-
-The next turn in the lecture is a wider one. If Hamiltonian time evolution is a flow on phase space, then what other changes of phase-space coordinates preserve the Poisson structure? This is not yet the question of symmetry for a given Hamiltonian. It is the more basic question: which transformations preserve the form of classical mechanics itself?
-
-To keep signs under control, let us test the transformed variables in the normalized order
+Antisymmetry immediately gives every self-bracket:
 \[
-\{Q,P\}=1.
+ \{p_i,p_i\}=0,\qquad \{q_i,q_i\}=0.
 \]
-Now take a single canonical pair \((q,p)\) and try explicit examples.
+The derivative definition gives the complete canonical relations,
+\begin{equation}
+ \{q_i,q_j\}=0,\qquad
+ \{p_i,p_j\}=0,\qquad
+ \{q_i,p_j\}=\delta_{ij}.
+ \label{eq:l09-fundamental-brackets}
+\end{equation}
+Consequently \(\{p_i,q_j\}=-\delta_{ij}\). The Kronecker delta is one
+when \(i=j\) and zero otherwise.
 
-First,
-\begin{equation}
-Q=2q,\qquad P=2p.
-\end{equation}
-Then
-\begin{equation}
-\{Q,P\}=\{2q,2p\}=4\{q,p\}=4,
-\end{equation}
-so the canonical normalization is not preserved. Stretching both directions by the same factor ruins the Poisson structure.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.74\textwidth]{lecture_09_figure_03.png}
+\caption{The canonical brackets at 00:17:25. The mixed bracket is the
+Kronecker delta; brackets among two coordinates or two momenta vanish.}
+\label{fig:l09-canonical-board}
+\end{figure}
 
-Try instead
-\begin{equation}
-Q=2q,\qquad P=\frac12 p.
-\end{equation}
-Now
-\begin{equation}
-\{Q,P\}=\left\{2q,\frac12 p\right\}=\{q,p\}=1.
-\end{equation}
-This works. One direction has been stretched while the other has been squeezed by the compensating factor. In the one-pair picture, the area is preserved.
+Antisymmetry determines a self-bracket because it equals its own negative.
+For two different variables it says only
+\(\{q,p\}=-\{p,q\}\); the normalization \(\{q,p\}=1\) comes from the
+canonical derivative definition.
 
-The lecture pauses over that geometric intuition. For one \(p\) and one \(q\), area preservation is indeed the right picture. But once there are many pairs, the full condition is more subtle. Area preservation is the first intuition, not the whole story.
-
-A second successful example is a rotation in phase space:
+Two useful zeroes follow at once:
 \begin{equation}
-P=\cos\theta\,p+\sin\theta\,q,\qquad
-Q=-\sin\theta\,p+\cos\theta\,q.
+ \{F(q),K(q)\}=0,\qquad \{G(p),L(p)\}=0.
+ \label{eq:l09-same-type-zero}
 \end{equation}
-By antisymmetry we already know
-\[
-\{P,P\}=0,\qquad \{Q,Q\}=0.
-\]
-So only the mixed bracket must be checked. Expanding by linearity,
+Each term in a Poisson bracket contains one derivative with respect to a
+coordinate and one with respect to a momentum. A nonzero contribution
+therefore needs a coordinate dependence on one side to meet the conjugate
+momentum dependence on the other.
+
+The fundamental brackets and the product rule turn bracketing into
+differentiation. For one canonical pair,
+\begin{equation}
+ \{F(q),p\}=\frac{dF}{dq}.
+ \label{eq:l09-fq-p}
+\end{equation}
+Rather than simply reading this from
+Eq.~\eqref{eq:l09-poisson-definition}, let us recover it from the algebra.
+
+For the constant function,
 \begin{align}
-\{Q,P\}
-&=\{-\sin\theta\,p+\cos\theta\,q,\cos\theta\,p+\sin\theta\,q\} \\
-&=\cos^2\theta\,\{q,p\}-\sin^2\theta\,\{p,q\} \\
-&=\cos^2\theta+\sin^2\theta \\
-&=1.
+ \{1^2,p\}
+ &=1\{1,p\}+\{1,p\}1
+ =2\{1,p\}.
 \end{align}
-So the phase-space rotation preserves the canonical bracket relations as well.
+Since \(1^2=1\), this says \(\{1,p\}=2\{1,p\}\), hence
+\(\{1,p\}=0\). Next,
+\[
+ \{q,p\}=1.
+\]
+For the next monomial,
+\begin{equation}
+ \{q^2,p\}
+ =q\{q,p\}+\{q,p\}q
+ =2q.
+ \label{eq:l09-q2-proof}
+\end{equation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.70\textwidth]{lecture_09_figure_04.png}
+\caption{The monomial proof at 00:22:43: the cases \(1\), \(q\), and
+\(q^2\) reproduce their ordinary derivatives.}
+\label{fig:l09-monomial-board}
+\end{figure}
+
+Induction gives \(\{q^r,p\}=r q^{r-1}\). Linearity extends the result to
+polynomials and, under the smoothness assumption, to the functions used in
+mechanics. In many variables the paired identities hold for a general
+phase-space function:
+\begin{equation}
+ \{F(\bm q,\bm p),p_i\}=\frac{\partial F}{\partial q_i},
+ \qquad
+ \{q_i,F(\bm q,\bm p)\}=\frac{\partial F}{\partial p_i}.
+ \label{eq:l09-bracket-derivatives}
+\end{equation}
+The order is deliberate: \(p_i\) goes on the right to differentiate with
+respect to \(q_i\), whereas \(q_i\) goes on the left to differentiate with
+respect to \(p_i\).
+
+\begin{classroomqa}
+\audiencequestion{Does the extension from polynomials require continuity of
+the bracket and of the functions?\lecturetimestamp{00:24:11--00:24:38}}
+\lecturerresponse{Yes. We are assuming smooth, multiply differentiable
+functions and the usual continuity needed to pass from polynomial
+approximations to their limits.}
+\end{classroomqa}
+
+\section{Hamiltonian Evolution Is One Flow}
+
+Dynamics enters through one further relation:
+\begin{equation}
+ \dot A=\{A,H\}.
+ \label{eq:l09-hamiltonian-evolution}
+\end{equation}
+A phase point follows an orbit determined by \(H\). As the point moves, a
+function \(A(q,p)\) changes along that orbit, and
+Eq.~\eqref{eq:l09-hamiltonian-evolution} is its directional derivative along
+the Hamiltonian flow.
+
+\begin{classroomqa}
+\audiencequestion{From the abstract viewpoint, are the \(p\)'s and \(q\)'s
+being assumed to depend on time?\lecturetimestamp{00:27:20--00:27:52}}
+\lecturerresponse{Apply the same rule to the coordinates themselves:
+\(\dot q_i=\{q_i,H\}\) and \(\dot p_i=\{p_i,H\}\). Their time dependence is
+then defined by the Hamiltonian flow.}
+\end{classroomqa}
+
+For a free particle in one dimension,
+\begin{equation}
+ H=\frac{p^2}{2m}.
+\end{equation}
+The momentum equation is
+\begin{equation}
+ \dot p=\left\{p,\frac{p^2}{2m}\right\}=0,
+\end{equation}
+because both entries depend only on \(p\). The coordinate equation is
+\begin{align}
+ \dot q
+ &=\left\{q,\frac{p^2}{2m}\right\} \notag\\
+ &=\frac{1}{2m}\left(p\{q,p\}+\{q,p\}p\right)
+ =\frac{p}{m}.
+ \label{eq:l09-free-flow}
+\end{align}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.75\textwidth]{lecture_09_figure_05.png}
+\caption{The free-particle calculation at 00:29:22. The Poisson algebra gives
+\(\dot p=0\) and \(\dot q=p/m\) directly.}
+\label{fig:l09-free-flow-board}
+\end{figure}
+
+Thus the abstract bracket algebra reproduces Hamilton's equations and the
+ordinary velocity--momentum relation.
+
+\begin{classroomqa}
+\audiencequestion{Is this Poisson formulation restricted to nonrelativistic
+mechanics?\lecturetimestamp{00:29:57--00:30:45}}
+\lecturerresponse{No. The example \(H=p^2/(2m)\) is nonrelativistic, but the
+canonical structure applies much more broadly: relativistic particles,
+classical fields, electromagnetism, and general relativity all admit the
+appropriate Hamiltonian form. Quantum mechanics replaces the classical
+bracket by its operator counterpart.}
+\end{classroomqa}
+
+\section{Which Coordinate Changes Preserve Mechanics?}
+
+We now separate two questions. First, which changes of phase-space
+coordinates preserve the Poisson structure? Second, among those changes,
+which leave a particular Hamiltonian invariant? The first question defines a
+canonical transformation; the second will define a symmetry.
+
+Take one canonical pair \((q,p)\). A simultaneous stretch,
+\begin{equation}
+ Q=2q,\qquad P=2p,
+\end{equation}
+fails because
+\[
+ \{Q,P\}=4\{q,p\}=4.
+\]
+A compensated stretch and squeeze,
+\begin{equation}
+ Q=2q,\qquad P=\frac12 p,
+ \label{eq:l09-squeeze}
+\end{equation}
+succeeds:
+\[
+ \{Q,P\}=\left\{2q,\frac12p\right\}=1.
+\]
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_09_figure_06.png}
+\caption{The compensated rescaling at 00:33:55. Stretching \(q\) while
+squeezing \(p\) preserves the canonical bracket.}
+\label{fig:l09-squeeze-board}
+\end{figure}
+
+For one pair, the successful transformation preserves area in the
+\((q,p)\)-plane. The double stretch does not. In many dimensions, preserving
+total volume is not enough: the transformation must preserve the full
+symplectic form
+\[
+ \omega=\sum_i dq_i\wedge dp_i,
+\]
+or equivalently the complete canonical bracket relations.
+
+\begin{classroomqa}
+\audiencequestion{Is the squeeze-and-stretch condition basically conservation
+of area?\lecturetimestamp{00:34:51--00:35:20}}
+\lecturerresponse{For one \(q,p\) pair, yes: canonical transformations are
+area-preserving maps of that plane. With several pairs, ordinary volume
+preservation is only a consequence; preservation of the full symplectic
+structure is the stronger condition.}
+\end{classroomqa}
+
+A rotation of the phase-space plane also works:
+\begin{equation}
+ P=\cos\theta\,p+\sin\theta\,q,\qquad
+ Q=-\sin\theta\,p+\cos\theta\,q.
+ \label{eq:l09-phase-rotation}
+\end{equation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.74\textwidth]{lecture_09_figure_07.png}
+\caption{A phase-space rotation at 00:36:10. Positions and momenta are mixed,
+but the canonical structure survives.}
+\label{fig:l09-rotation-board}
+\end{figure}
+
+Self-brackets vanish by antisymmetry, so only the mixed bracket needs work:
+\begin{align}
+ \{Q,P\}
+ &=\{-\sin\theta\,p+\cos\theta\,q,\,
+       \cos\theta\,p+\sin\theta\,q\}\notag\\
+ &=\cos^2\theta\,\{q,p\}
+   -\sin^2\theta\,\{p,q\}\notag\\
+ &=\cos^2\theta+\sin^2\theta=1.
+ \label{eq:l09-rotation-check}
+\end{align}
 
 \begin{definition}
-A canonical transformation is a change of phase-space coordinates
+A transformation
 \[
-(q_i,p_i)\longmapsto (Q_i,P_i)
+ (q_i,p_i)\longmapsto(Q_i,P_i)
 \]
-that preserves the canonical Poisson-bracket relations
+is canonical when
 \[
-\{Q_i,Q_j\}=0,\qquad \{P_i,P_j\}=0,\qquad \{Q_i,P_j\}=\delta_{ij}.
+ \{Q_i,Q_j\}=0,\qquad
+ \{P_i,P_j\}=0,\qquad
+ \{Q_i,P_j\}=\delta_{ij}.
 \]
 \end{definition}
 
-This definition is algebraic, but the lecture adds an important conceptual restriction: we are talking about new coordinates for the same system. A canonical transformation is a re-description of the same phase space, not a mysterious map from one physical system into a completely different one. Nor is it a gauge redundancy. It is a change of phase-space coordinates that leaves the Poisson structure intact. If the Hamiltonian is rewritten in the new variables, the equations of motion retain their canonical form.
+\begin{classroomqa}
+\audiencequestion{Are the equations of motion unchanged after a canonical
+transformation?\lecturetimestamp{00:40:04--00:40:20}}
+\lecturerresponse{Their canonical form is unchanged, but the Hamiltonian must
+be re-expressed as a function of the new variables \(Q\) and \(P\). The
+numerical formula for \(H\) need not look the same.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Are canonical transformations examples of gauge
+transformations?\lecturetimestamp{00:40:21--00:41:05}}
+\lecturerresponse{No. A gauge transformation relates redundant
+descriptions of the same physical state. A canonical transformation is an
+ordinary change of coordinates on phase space that preserves its Poisson
+structure.}
+\end{classroomqa}
 
-Question. What kinds of changes of \(p\) and \(q\) preserve mechanics, and why does area preservation enter?
+\begin{classroomqa}
+\audiencequestion{Can a canonical transformation carry one arbitrary
+physical system into another?\lecturetimestamp{00:41:42--00:44:52}}
+\lecturerresponse{Here it means a change of phase-space coordinates for the
+same system. Phase spaces with the same number of degrees of freedom may be
+locally isomorphic, but a canonical re-description does not by itself turn a
+harmonic oscillator into an unrelated many-body system.}
+\end{classroomqa}
 
-Answer. In the one-pair case, the successful examples preserve area in phase space, and that is why the squeeze-stretch and the rotation work while the double stretch fails. But the true criterion is not geometric area alone; it is preservation of the canonical Poisson-bracket relations. Area preservation is the right first picture when there is one \(p\) and one \(q\), but the full many-variable condition is the canonical one.
+\section{Infinitesimal Transformations and Their Generators}
 
-\section{Infinitesimal Canonical Transformations and Generators}
+\begin{classroomqa}
+\audiencequestion{Is there a more constructive test than checking all the
+new Poisson brackets one by one?\lecturetimestamp{00:45:07--00:46:31}}
+\lecturerresponse{For an infinitesimal transformation there is. Build the
+change from a generator \(G(q,p)\). Finite transformations connected to the
+identity can then be assembled from these small steps.}
+\end{classroomqa}
 
-At this point a student asks a natural question: is there any more useful way to express the condition for a canonical transformation than simply checking that all the Poisson brackets are preserved? The lecture answers yes, but cautiously. Not every global statement is made with full generality. The really useful construction is infinitesimal.
-
-So let us build the transformation out of small steps:
+Write one small step as
 \begin{equation}
-Q=q+\delta q,\qquad P=p+\delta p.
+ Q=q+\delta q,\qquad P=p+\delta p,
+ \label{eq:l09-infinitesimal-change}
 \end{equation}
-Here \(\delta q\) and \(\delta p\) are small functions of \(q\) and \(p\). Small means that quadratic and higher powers may be neglected.
-
-Now demand that the transformed variables still satisfy the canonical relation. To first order,
+where \(\delta q\) and \(\delta p\) are themselves functions of phase space.
+Infinitesimal means that terms quadratic and higher in these changes may be
+discarded. Expanding the transformed bracket gives
 \begin{align}
-\{Q,P\}
-&=\{q+\delta q,p+\delta p\} \\
-&=\{q,p\}+\{\delta q,p\}+\{q,\delta p\}+\{\delta q,\delta p\}.
+ \{Q,P\}
+ &=\{q+\delta q,p+\delta p\}\notag\\
+ &=\{q,p\}+\{\delta q,p\}+\{q,\delta p\}
+   +\{\delta q,\delta p\}.
+ \label{eq:l09-first-order-expansion}
 \end{align}
-The last term is already quadratic in small quantities, so we drop it. Therefore the first-order canonical condition is
+The last term is second order. Therefore the first-order canonical condition
+is
 \begin{equation}
-\{\delta q,p\}=-\{q,\delta p\}.
+ \{\delta q,p\}=-\{q,\delta p\}.
+ \label{eq:l09-first-order-condition}
 \end{equation}
 
-This is still a condition to be checked. The lecture now turns it into a construction. Introduce a small parameter \(\epsilon\) and a function \(G(q,p)\), the generator, and define
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_09_figure_08.png}
+\caption{The first-order canonical condition at 00:50:44:
+\(\{\delta q,p\}=-\{q,\delta p\}\).}
+\label{fig:l09-first-order-board}
+\end{figure}
+
+Introduce a small parameter \(\epsilon\) and a function \(G(q,p)\). Define
 \begin{equation}
-\delta q=\epsilon\{q,G\},\qquad \delta p=\epsilon\{p,G\}.
+ \delta q=\epsilon\{q,G\},\qquad
+ \delta p=\epsilon\{p,G\}.
+ \label{eq:l09-generator-definition}
 \end{equation}
-Using the differentiation rules just established, this becomes
+Using Eq.~\eqref{eq:l09-bracket-derivatives},
 \begin{equation}
-\delta q=\epsilon\,\frac{\partial G}{\partial p},
-\qquad
-\delta p=-\epsilon\,\frac{\partial G}{\partial q}.
+ \delta q=\epsilon\frac{\partial G}{\partial p},
+ \qquad
+ \delta p=-\epsilon\frac{\partial G}{\partial q}.
+ \label{eq:l09-generator-derivatives}
 \end{equation}
 
-Now the canonical condition becomes automatic. Indeed,
-\[
-\{\delta q,p\}
-=\epsilon\left\{\frac{\partial G}{\partial p},p\right\}
-=\epsilon\,\frac{\partial^2 G}{\partial q\,\partial p},
-\]
-while
-\[
--\{q,\delta p\}
-=-\left\{q,-\epsilon\frac{\partial G}{\partial q}\right\}
-=\epsilon\,\frac{\partial^2 G}{\partial p\,\partial q}.
-\]
-These are the same mixed second derivative, so the first-order condition is satisfied identically.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{lecture_09_figure_09.png}
+\caption{The generator equations at 00:53:55. A single function \(G\)
+determines both components of the infinitesimal phase-space flow.}
+\label{fig:l09-generator-board}
+\end{figure}
 
-What has happened conceptually is more important than the algebra. An infinitesimal canonical transformation is a flow on phase space. Every point is shifted a little bit. The function \(G\) tells us how that shift takes place.
-
-Even better, the same generator controls the change of every phase-space function. If \(A(q,p)\) is any function, then
+These formulas solve the canonical condition automatically:
 \begin{align}
-\delta A
-&=\frac{\partial A}{\partial q}\,\delta q+\frac{\partial A}{\partial p}\,\delta p \\
-&=\epsilon\left(
-\frac{\partial A}{\partial q}\frac{\partial G}{\partial p}
--
-\frac{\partial A}{\partial p}\frac{\partial G}{\partial q}
-\right) \\
-&=\epsilon\{A,G\}.
+ \{\delta q,p\}
+ &=\epsilon\left\{\frac{\partial G}{\partial p},p\right\}
+ =\epsilon\frac{\partial^2G}{\partial q\,\partial p},\notag\\
+ -\{q,\delta p\}
+ &=\epsilon\left\{q,\frac{\partial G}{\partial q}\right\}
+ =\epsilon\frac{\partial^2G}{\partial p\,\partial q}.
+ \label{eq:l09-mixed-derivative-proof}
 \end{align}
-So Poisson bracketing with \(G\) does not merely test the flow; it generates it.
+The equality is simply equality of mixed partial derivatives.
 
-This is the point at which Hamiltonian motion is reabsorbed into the larger picture. If we write \(\epsilon=\delta t\), then Hamiltonian evolution is simply the special case \(G=H\). In that sense the time evolution of the system is a canonical transformation generated by the Hamiltonian.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_09_figure_10.png}
+\caption{The mixed-derivative check at 00:55:50. It proves that a
+generator-defined infinitesimal flow is canonical.}
+\label{fig:l09-mixed-proof-board}
+\end{figure}
 
-The lecture makes a strong-looking general remark here, then immediately softens it. The safe version is the one we keep: every infinitesimal canonical transformation is generated by some \(G\), and the finite canonical transformations of practical interest are built from such infinitesimal steps.
+\begin{classroomqa}
+\audiencequestion{Must the two variations use the bracket with \(G\) in the
+same order?\lecturetimestamp{00:52:08--00:52:15}}
+\lecturerresponse{Yes:
+\(\delta q=\epsilon\{q,G\}\) and
+\(\delta p=\epsilon\{p,G\}\). The opposite signs in their derivative forms
+come from the canonical bracket itself, not from reversing the order.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
-
-Question. If \(G\) generates a flow exactly the way \(H\) does, what distinguishes a general generator from the actual Hamiltonian?
-
-Answer. Mathematically, very little. The same formalism generates both flows. A generator can be treated as though it were a Hamiltonian for the purpose of producing a motion on phase space. But the actual Hamiltonian of a physical system is not selected by mathematics alone. It is selected by the physics of the system, ultimately by experiment.
-
-\section{Symmetry, Conservation, and the Free Particle}
-
-Only now does the lecture come to symmetries themselves. If canonical transformations are the transformations that preserve the structure of mechanics, then a symmetry is the subclass that also leaves the Hamiltonian unchanged.
-
-One may picture this geometrically. The Hamiltonian \(H\) generates the actual time flow of the system through phase space. Another generator \(G\) defines another flow, not necessarily the physical time flow. In general that \(G\)-flow will move the system from one energy surface to another. But if the \(G\)-flow happens to be tangent to the surfaces of constant energy, then it is a symmetry flow.
-
-In formulas, the change of any function under the \(G\)-flow is
-\[
-\delta A=\epsilon\{A,G\}.
-\]
-Taking \(A=H\), the condition that the energy not change is
-\begin{equation}
-\delta H=\epsilon\{H,G\}=0,
-\end{equation}
-so the symmetry condition is
-\begin{equation}
-\{H,G\}=0.
-\end{equation}
-By antisymmetry this is equivalent to
-\begin{equation}
-\{G,H\}=0.
-\end{equation}
-But \(\{G,H\}\) is exactly the time derivative of \(G\), so
-\begin{equation}
-\dot G=\{G,H\}=0.
-\end{equation}
-Thus the generator of a symmetry is conserved under time evolution. The lecture dwells on the reciprocity: the same vanishing Poisson bracket says that \(G\) does not change \(H\), and also that \(H\) does not change \(G\).
-
-\subsection{Question \& Answer}
-
-Question. Why does ``the flow generated by \(G\) leaves \(H\) unchanged'' turn into ``\(G\) is conserved''?
-
-Answer. Because it is the same equation read in the two possible orders. ``\(G\) leaves \(H\) unchanged'' means \(\{H,G\}=0\). Antisymmetry turns this into \(\{G,H\}=0\). But \(\{G,H\}\) is precisely \(\dot G\). The symmetry statement and the conservation statement are therefore two faces of the same vanishing Poisson bracket.
-
-The lecture closes by making the abstract discussion concrete. In two dimensions take the free-particle Hamiltonian
-\begin{equation}
-H=\frac{p_x^2+p_y^2}{2m},
-\end{equation}
-and the angular momentum
-\begin{equation}
-G=xp_y-yp_x.
-\end{equation}
-Susskind temporarily sets \(m=1\) at the board, but the factor is inessential, so we keep it explicit.
-
-Now compute:
+The same generator controls every function. By the chain rule,
 \begin{align}
-\{G,H\}
-&=\frac{1}{2m}\{xp_y-yp_x,p_x^2+p_y^2\} \\
-&=\frac{1}{2m}\left(
-\{xp_y,p_x^2\}
-+\{xp_y,p_y^2\}
--\{yp_x,p_x^2\}
--\{yp_x,p_y^2\}
-\right).
+ \delta A
+ &=\frac{\partial A}{\partial q}\delta q
+   +\frac{\partial A}{\partial p}\delta p\notag\\
+ &=\epsilon\left(
+ \frac{\partial A}{\partial q}\frac{\partial G}{\partial p}
+ -\frac{\partial A}{\partial p}\frac{\partial G}{\partial q}
+ \right)\notag\\
+ &=\epsilon\{A,G\}.
+ \label{eq:l09-general-generated-flow}
 \end{align}
-At this stage the lecture proceeds term by term, using only the basic brackets
+For many degrees of freedom the sum over \(i\) is understood, and each
+\(\delta q_i\) may depend on every \(q_j\) and \(p_j\), not only on the pair
+with the same index.
+
+Hamiltonian evolution is the special choice
 \[
-\{x,p_x\}=1,\qquad \{y,p_y\}=1,
+ G=H,\qquad \epsilon=\delta t.
 \]
-with all cross-brackets vanishing.
+Thus time evolution is itself a canonical transformation. More generally,
+finite canonical transformations in the component connected to the identity
+are built by composing infinitesimal generator flows. This is the precise
+local statement needed here; global topology can introduce qualifications.
 
-The mixed terms \(\{xp_y,p_y^2\}\) and \(\{yp_x,p_x^2\}\) vanish immediately, because no \(x\) meets a \(p_x\) in the first and no \(y\) meets a \(p_y\) in the second. For the remaining two terms, the product rule gives
+\begin{classroomqa}
+\audiencequestion{If \(G\) generates a flow in the same way as \(H\), is it
+just the Hamiltonian of another system?\lecturetimestamp{00:58:35--00:59:14}}
+\lecturerresponse{Mathematically it may be treated that way. Any suitable
+\(G\) defines a Hamiltonian-like flow. Which function is the actual energy
+of the physical system is additional physical information, fixed by the
+system and ultimately by experiment.}
+\end{classroomqa}
+
+\section{Symmetry and Conservation}
+
+A canonical transformation preserves the form of mechanics. A symmetry of a
+particular system must do more: it must preserve that system's Hamiltonian.
+Suppose \(H\) generates the physical time flow and \(G\) generates another
+canonical flow. In general the \(G\)-flow crosses surfaces of constant
+energy. It is a symmetry precisely when it runs along them.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_09_figure_11.png}
+\caption{The phase-space flow picture at 01:02:10. The curved trajectories
+represent Hamiltonian motion; a second flow is a symmetry when it remains on
+the same energy surface.}
+\label{fig:l09-flow-board}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[x=1.15cm,y=1.0cm,>=Latex]
+  \draw[->] (0,0) -- (6.4,0) node[right]{phase-space direction};
+  \draw[->] (0,0) -- (0,4.2);
+  \foreach \y/\lab in {0.8/{H=E_1},2.0/{H=E_2},3.2/{H=E_3}} {
+    \draw[thick]
+      plot[smooth] coordinates {(0.5,\y) (2.0,\y+0.18) (3.7,\y-0.08) (5.8,\y+0.14)};
+    \node[right] at (5.85,\y+0.14) {\(\lab\)};
+  }
+  \draw[blue!70!black,very thick,->]
+    (0.9,2.02) .. controls (2.0,2.28) and (3.4,1.88) .. (5.1,2.10)
+    node[midway,below=4pt]{\(X_H\)};
+  \draw[orange!85!black,very thick,->]
+    (2.1,0.72) .. controls (2.55,1.55) and (3.0,2.42) .. (3.55,3.18)
+    node[pos=0.62,right=4pt]{generic \(X_G\)};
+  \draw[green!45!black,very thick,->]
+    (1.2,3.23) .. controls (2.3,3.48) and (3.8,3.08) .. (5.0,3.30)
+    node[midway,above=4pt]{symmetry flow};
+\end{tikzpicture}
+\caption{Reconstruction of the board geometry: a generic generator crosses
+energy surfaces, whereas a symmetry generator is tangent to them.}
+\label{fig:l09-flow-reconstruction}
+\end{figure}
+
+Equation~\eqref{eq:l09-general-generated-flow} applied to \(A=H\) gives
+\begin{equation}
+ \delta H=\epsilon\{H,G\}.
+\end{equation}
+The symmetry condition is therefore
+\begin{equation}
+ \{H,G\}=0.
+ \label{eq:l09-symmetry-condition}
+\end{equation}
+By antisymmetry, \(\{G,H\}=0\). If \(G\) has no explicit time dependence,
+Hamiltonian evolution gives
+\begin{equation}
+ \dot G=\{G,H\}=0.
+ \label{eq:l09-conservation}
+\end{equation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_09_figure_12.png}
+\caption{The symmetry condition at 01:05:44:
+\(\{H,G\}=0\) is equivalently \(\{G,H\}=0\).}
+\label{fig:l09-symmetry-board}
+\end{figure}
+
+This is the reciprocal core of Noether's theorem in Hamiltonian language.
+The \(G\)-flow does not change \(H\), and the \(H\)-flow does not change
+\(G\). A generator of a continuous symmetry is a conserved quantity.
+
+The first statement, that \(G\) leaves the energy unchanged, is
+\(\{H,G\}=0\). Antisymmetry gives \(\{G,H\}=0\), and the latter bracket is
+precisely \(\dot G\). They are the same vanishing bracket read along the two
+flows.
+
+\begin{classroomqa}
+\audiencequestion{What is a concrete example of this abstract relation?
+\lecturetimestamp{01:07:56--01:08:40}}
+\lecturerresponse{Rotational symmetry and angular momentum. For a rotationally
+invariant Hamiltonian, the angular-momentum generator has zero Poisson bracket
+with \(H\), so angular momentum is conserved.}
+\end{classroomqa}
+
+\section{Angular Momentum and the Free Particle}
+
+Take a free particle in two dimensions:
+\begin{equation}
+ H=\frac{p_x^2+p_y^2}{2m},
+ \qquad
+ G=L_z=xp_y-yp_x.
+ \label{eq:l09-free-angular-pair}
+\end{equation}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.74\textwidth]{lecture_09_figure_13.png}
+\caption{The free-particle Hamiltonian and angular-momentum generator at
+01:09:35. The board sets \(m=1\); the derivation here retains \(m\).}
+\label{fig:l09-angular-pair-board}
+\end{figure}
+
+Only canonical pairs contribute:
+\[
+ \{x,p_x\}=1,\qquad \{y,p_y\}=1,
+\]
+while \(\{x,p_y\}=\{y,p_x\}=0\). Expanding,
 \begin{align}
-\{xp_y,p_x^2\}
-&=p_y\{x,p_x^2\}+x\{p_y,p_x^2\}
-=2p_xp_y, \\
-\{yp_x,p_y^2\}
-&=p_x\{y,p_y^2\}+y\{p_x,p_y^2\}
-=2p_xp_y.
+ \{G,H\}
+ &=\frac{1}{2m}
+ \{xp_y-yp_x,p_x^2+p_y^2\}\notag\\
+ &=\frac{1}{2m}\left(
+ \{xp_y,p_x^2\}
+ +\{xp_y,p_y^2\}
+ -\{yp_x,p_x^2\}
+ -\{yp_x,p_y^2\}\right).
 \end{align}
-Therefore
+The two cross-mismatched terms vanish. The remaining terms are
+\begin{align}
+ \{xp_y,p_x^2\}
+ &=p_y\{x,p_x^2\}=2p_xp_y,\notag\\
+ \{yp_x,p_y^2\}
+ &=p_x\{y,p_y^2\}=2p_xp_y.
+\end{align}
+They cancel:
 \begin{equation}
-\{G,H\}
-=\frac{1}{2m}\left(2p_xp_y-2p_xp_y\right)=0.
+ \{G,H\}
+ =\frac{1}{2m}\left(2p_xp_y-2p_xp_y\right)=0.
+ \label{eq:l09-angular-cancellation}
 \end{equation}
-So angular momentum is conserved for the free particle.
 
-The lecture immediately turns the reciprocity around. Suppose we invent a new system whose Hamiltonian is
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.76\textwidth]{lecture_09_figure_14.png}
+\caption{The cancellation at 01:12:50. The two surviving product-rule terms
+are equal and enter with opposite signs.}
+\label{fig:l09-cancellation-board}
+\end{figure}
+
+The same pair can be read in reverse. Invent a system whose Hamiltonian is
+the rotation generator,
 \begin{equation}
-H=xp_y-yp_x.
+ H_{\mathrm{rot}}=xp_y-yp_x.
 \end{equation}
-Then Hamilton's equations give
+
+\begin{classroomqa}
+\audiencequestion{What would it physically mean to use the generator
+\(xp_y-yp_x\) itself as a Hamiltonian?
+\lecturetimestamp{01:14:30--01:16:35}}
+\lecturerresponse{Work out Hamilton's equations. The generator then produces
+uniform rotation: the position and momentum vectors each move around a
+circle.}
+\end{classroomqa}
+
+Hamilton's equations give
 \begin{equation}
-\dot x=\{x,H\}=-y,\qquad \dot y=\{y,H\}=x.
+ \dot x=-y,\qquad \dot y=x,\qquad
+ \dot p_x=-p_y,\qquad \dot p_y=p_x.
+ \label{eq:l09-rotation-flow}
 \end{equation}
-That is circular motion. And because the Poisson bracket with \(p_x^2+p_y^2\) vanishes, that quantity is conserved in this new system. Whichever member of a vanishing Poisson-bracket pair is chosen as the Hamiltonian, the other becomes a conserved quantity.
+Both the position vector and the momentum vector rotate uniformly. In
+particular,
+\[
+ \ddot x=-x,\qquad \ddot y=-y,
+\]
+so the configuration-space orbit is a circle.
 
-One final remark belongs to the tone of the lecture. At several moments Susskind wants to say ``commute,'' then stops himself. In quantum mechanics that language will be irresistible. Here we keep the statement classical: the Poisson bracket vanishes.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.74\textwidth]{lecture_09_figure_15.png}
+\caption{The circular orbit drawn at 01:16:35 after choosing angular momentum
+itself as the Hamiltonian.}
+\label{fig:l09-circle-board}
+\end{figure}
 
-\section{Summary}
+Because
+\(\{p_x^2+p_y^2,H_{\mathrm{rot}}\}=0\), the squared momentum is conserved
+in this invented system. The algebra does not privilege either member of a
+vanishing-bracket pair; physics tells us which one is the actual Hamiltonian.
 
-The chapter has unfolded in the same rhythm as the lecture. We began by widening the subject from a bracket formula to the structure of phase space itself. We then reviewed the abstract algebra of Poisson brackets, descended to the canonical relations and the differentiation identities, added the time-evolution rule \(\dot A=\{A,H\}\), and finally widened again to canonical transformations and their generators.
+\begin{classroomqa}
+\audiencequestion{With many degrees of freedom, does each transformed
+coordinate depend only on the old pair carrying the same index?
+\lecturetimestamp{01:17:01--01:18:09}}
+\lecturerresponse{No. There is one transformed \(Q_i\) and \(P_i\) for each
+index, but each may be a function of all the old \(q_j\)'s and \(p_j\)'s. The
+full set of canonical bracket relations constrains those coupled functions.}
+\end{classroomqa}
 
-The reward for keeping that order is that symmetry and conservation emerge naturally from the flow picture. A generator \(G\) defines a canonical flow. If that flow leaves the Hamiltonian unchanged, then \(\{H,G\}=0\), and the same equation says that \(G\) is conserved under Hamiltonian time evolution. This is highly abstract in classical mechanics, and the lecture ends by hinting that the same structure becomes even more concrete in quantum mechanics. But even here, in classical mechanics, the point is already visible: the Poisson structure of phase space is what lets mechanics recognize itself under change.
+\begin{classroomqa}
+\audiencequestion{How is the momentum related to the velocity in Hamiltonian
+language? It is not always \(m\dot q\).
+\lecturetimestamp{01:18:12--01:21:08}}
+\lecturerresponse{Use the first Hamilton equation,
+\(\dot q_i=\partial H/\partial p_i\), and solve it for the momenta when that
+relation is invertible. For
+\(H=p^2/(2m)+U(q)\), it gives \(p=m\dot q\). The second equation,
+\(\dot p=-\partial U/\partial q\), then gives Newton's force law. More general
+Hamiltonians produce more general momentum--velocity relations.}
+\end{classroomqa}
+
+The bracket that was introduced as an abstract algebra has now done three
+jobs. It generated time evolution, characterized the coordinate changes that
+preserve mechanics, and converted symmetry into conservation. In quantum
+mechanics the corresponding algebra becomes even more concrete: vanishing
+Poisson brackets give way to commuting operators, and generators act directly
+on states and observables. The classical structure already contains the map.
