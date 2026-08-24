@@ -1,431 +1,864 @@
-\chapter{Proper Time, Local Flatness, and Curvature from Parallel Transport}
+\chapter{Local Flatness, Parallel Transport, and Curvature}
 
-The lecture begins by announcing two long-range goals: to say more about geodesics, and to connect geodesics more directly with gravity. But it does not move there immediately. First the space-time metric has to be rebuilt, because without proper time, signature, and covariant differentiation already in hand, the later discussion of curvature would float free of its physical meaning. Only after that reset does the lecture choose, after a brief hesitation, to take up curvature first. The result is a chapter whose logic is quite deliberate: proper time, then the distinction between curved coordinates and genuine curvature, then local flatness, then geodesics and parallel transport, and only then curvature as the failure of parallel transport to be path-independent.
+\lectureoverview{The equivalence principle lets us remove gravity at one
+event, but not throughout a region containing tidal forces. We will make
+that statement precise in two stages. First we use coordinate freedom to
+set the first derivatives of the metric, and hence the connection, to zero
+at one point. Then we transport vectors around closed curves and discover
+the obstruction to extending that local flattening: curvature.}
 
-\section{Space-Time Metric, Proper Time, and the Minkowski Signature}
+\section{Proper Time in Space-Time}
 
-For the first part of the lecture we are asked to think about space-time rather than space alone. The mathematical machinery is the same as before, but the notation shifts. Instead of the spatial indices \(m,n,\ldots\), Susskind now uses Greek indices \(\mu,\nu,\ldots\), running over \(0,1,2,3\), with \(0\) the time direction and \(1,2,3\) the spatial directions.
+There are two objectives for this lecture. We want to understand geodesics
+more fully, and we want to connect geodesic motion with gravitational
+force. Both objectives require us to work in space-time rather than space
+alone.
 
-There is, again, a metric, and therefore a notion of interval. In space-time the interval is written as proper time:
+Space-time has a metric just as an ordinary geometric space does. Greek
+indices run over the four coordinates,
+\begin{equation}
+  \mu,\nu=0,1,2,3,
+\end{equation}
+with \(0\) denoting time and \(1,2,3\) denoting space. Along a timelike
+worldline, the invariant interval is the proper time:
+\begin{equation}
+  d\tau^2=g_{\mu\nu}\,dx^\mu dx^\nu.
+  \label{eq:l06-proper-time}
+\end{equation}
+In an inertial frame of special relativity and in units \(c=1\),
+\begin{equation}
+  \eta_{\mu\nu}
+  =
+  \operatorname{diag}(1,-1,-1,-1),
+  \qquad
+  d\tau^2=dt^2-dx^2-dy^2-dz^2.
+  \label{eq:l06-minkowski}
+\end{equation}
+If \(\tau\) and \(t\) are measured in units of time while the spatial
+coordinates retain units of length, restoring the speed of light gives
+\begin{equation}
+  d\tau^2
+  =
+  dt^2-\frac{dx^2+dy^2+dz^2}{c^2}.
+  \label{eq:l06-c-restored}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_06_figure_01.png}
+  \caption{The proper-time interval, the Minkowski metric with signature
+  \((+---)\), and the component form of the interval.}
+  \lectureframe{00:04:00}
+\end{figure}
+
+For a particle with ordinary speed \(v\),
+\begin{equation}
+  d\tau
+  =
+  dt\sqrt{1-\frac{v^2}{c^2}}.
+  \label{eq:l06-time-dilation}
+\end{equation}
+When \(v\ll c\), proper time and coordinate time are nearly equal. More
+generally, \(d\tau\) is what a clock carried by the particle records. The
+coordinate \(t\) is a label assigned by the chosen frame.
+
+\begin{classroomqa}
+\audiencequestion{Does a clock moving with the object record \(dt\), or
+does it record \(d\tau\)?
+\lecturetimestamp{00:06:57--00:08:02}}
+\lecturerresponse{It records \(d\tau\). A tape measure laid along a curve
+records distance along that curve rather than either Cartesian coordinate.
+In the same way, the moving clock is a space-time tape measure: its ticks
+mark proper time along the worldline.}
+\end{classroomqa}
+
+The formal apparatus is now familiar. The metric, covariant and
+contravariant tensors, Christoffel symbols, and covariant derivatives are
+constructed in space-time exactly as in ordinary space. The essential
+difference is the Lorentzian signature: one direction has the opposite
+sign from the other three.
+
+\begin{classroomqa}
+\audiencequestion{Does enlarging the metric from four dimensions to five
+or more account for the extra dimensions discussed in string theory?
+\lecturetimestamp{00:09:38--00:10:22}}
+\lecturerresponse{The dimension is exactly the number of independent
+coordinates and therefore the size of the metric matrix. This statement
+is not peculiar to string theory; the tensor rules have the same form in
+any dimension. A particular theory must still explain why those
+dimensions are present and what geometry they possess.}
+\end{classroomqa}
+
+\section{Accelerated Coordinates Are Not Yet Curvature}
+
+In flat space-time we can always use inertial Cartesian coordinates, so
+curved coordinates may look like an unnecessary complication. They become
+useful when the observer is accelerated. Relative to inertial
+\((T,X)\)-coordinates, the coordinate lines of a uniformly accelerated
+family are hyperbolic. A freely moving body follows a straight worldline
+in the inertial chart but appears accelerated in the curved chart.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_06_figure_02.png}
+  \caption{Straight inertial axes and a family of curved accelerated
+  coordinate lines. A straight inertial worldline acquires coordinate
+  acceleration in the accelerated description.}
+  \lectureframe{00:12:18}
+\end{figure}
+
+This is the elevator lesson behind the equivalence principle. An
+accelerated frame produces an apparent gravitational field. Conversely,
+inside a freely falling laboratory, a nearly uniform gravitational field
+can be removed locally. Curved coordinates can therefore imitate gravity.
+They do not, by themselves, imply that space-time is curved.
+
+The word \emph{locally} is decisive. Near a star, different parts of a
+large elevator accelerate by slightly different amounts and directions.
+Those relative accelerations are tidal effects. By shrinking the elevator
+we can make them arbitrarily small at one event, but no single accelerated
+coordinate system removes the field throughout an extended region. The
+mathematical obstruction to doing so is curvature.
+
+\section{Global Flatness and Local Inertial Coordinates}
+
+A space is flat if there exists a coordinate system in which the metric
+components are constant throughout the region:
+\begin{equation}
+  \partial_r g_{mn}=0
+  \qquad
+  \text{everywhere in the region}.
+  \label{eq:l06-global-flatness}
+\end{equation}
+The constant matrix need not literally be \(\delta_{mn}\). Uniform
+oblique coordinates produce constant off-diagonal entries. A further
+linear change of basis can put a positive-definite metric into Euclidean
+form, or a Lorentzian metric into Minkowski form.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_03.png}
+  \caption{Flatness expressed by coordinates in which the first
+  derivatives of the metric vanish everywhere. The same condition can
+  always be achieved at one regular point even when the geometry is
+  curved.}
+  \lectureframe{00:19:32}
+\end{figure}
+
+Curved geometry does not permit Eq.~\eqref{eq:l06-global-flatness}
+throughout a neighborhood, but smooth coordinate freedom always permits
+the pointwise conditions
+\begin{equation}
+  g_{mn}(p)=\delta_{mn},
+  \qquad
+  \partial_r g_{mn}(p)=0
+  \label{eq:l06-normal-spatial}
+\end{equation}
+in a Riemannian space. In space-time, \(\delta_{mn}\) is replaced by
+\(\eta_{\mu\nu}\). These are normal coordinates, or local inertial
+coordinates in the Lorentzian case. They flatten the metric through first
+order at \(p\), not across a finite region.
+
+\section{Counting the Coordinate Freedom}
+
+The lecture's local argument begins after a linear transformation has
+already aligned and normalized the metric at \(p\). Put the common origin
+at \(x=0=y\), and consider a quadratic change of coordinates,
+\begin{equation}
+  y^m
+  =
+  x^m+C^m{}_{rs}x^r x^s+O(x^3).
+  \label{eq:l06-quadratic-map}
+\end{equation}
+Only the part of \(C^m{}_{rs}\) symmetric in \(r,s\) contributes, because
+\(x^r x^s=x^s x^r\). The quadratic term changes second derivatives of the
+coordinate map and therefore changes first derivatives of the metric at
+the origin, while leaving the origin and the leading linear basis fixed.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_04.png}
+  \caption{The quadratic coordinate change used to adjust first
+  derivatives of the metric at a chosen point.}
+  \lectureframe{00:22:58}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Has the linear term in the Taylor expansion been
+dropped?
+\lecturetimestamp{00:23:44--00:24:16}}
+\lecturerresponse{It is the \(x^m\) term in
+Eq.~\eqref{eq:l06-quadratic-map}. A general invertible linear matrix could
+stand there, but that freedom has already been used to choose the basis at
+the point. The quadratic coefficients are the new freedom needed to
+alter \(\partial g\).}
+\end{classroomqa}
+
+In \(D\) dimensions, a symmetric pair \(r,s\) has
+\begin{equation}
+  \frac{D(D+1)}{2}
+\end{equation}
+independent values. Since the upper index \(m\) has \(D\) values, the
+quadratic transformation contains
+\begin{equation}
+  N_C
+  =
+  D\,\frac{D(D+1)}{2}
+  =
+  \frac{D^2(D+1)}{2}
+  \label{eq:l06-coordinate-count}
+\end{equation}
+coefficients. The target conditions
+\begin{equation}
+  \left.
+  \frac{\partial g_{mn}(y)}{\partial y^s}
+  \right|_p
+  =0
+  \label{eq:l06-target-first-derivative}
+\end{equation}
+have exactly the same count: \(m,n\) form a symmetric pair and \(s\) is
+independent.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_05.png}
+  \caption{The unknowns-versus-equations count. The symmetric quadratic
+  coefficients match the number of first-derivative conditions on the
+  metric.}
+  \lectureframe{00:27:47}
+\end{figure}
+
+Counting alone warns us what should be possible; the explicit
+normal-coordinate construction proves that the relevant linear system is
+solvable for a smooth, nondegenerate metric. The same coordinate freedom
+does not generically remove every second derivative. Those surviving
+second-order effects are where curvature first appears.
+
+\section{The Connection at a Locally Inertial Point}
+
+For the torsion-free, metric-compatible connection,
+\begin{equation}
+  \Gamma^r{}_{mn}
+  =
+  \frac12 g^{rs}
+  \left(
+    \partial_m g_{sn}
+    +
+    \partial_n g_{sm}
+    -
+    \partial_s g_{mn}
+  \right).
+  \label{eq:l06-christoffel}
+\end{equation}
+Thus normal coordinates satisfy
+\begin{equation}
+  \Gamma^r{}_{mn}(p)=0.
+  \label{eq:l06-gamma-zero}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.91\textwidth]{lecture_06_figure_06.png}
+  \caption{The Christoffel formula beside the local condition
+  \(\partial g=0\). Every connection coefficient vanishes at the selected
+  point in normal coordinates.}
+  \lectureframe{00:30:20}
+\end{figure}
+
+This does not make the connection a tensor. In fact, the ability to make a
+nonzero set of connection coefficients vanish at one point by changing
+coordinates is direct evidence that \(\Gamma^r{}_{mn}\) is not tensorial.
+Curvature cannot be removed this way.
+
+The Levi--Civita connection also obeys metric compatibility:
 \begin{align}
-d\tau^{2} &= g_{\mu\nu}\,dx^{\mu}dx^{\nu}, \\
-\eta_{\mu\nu} &=
-\begin{pmatrix}
-1 & 0 & 0 & 0 \\
-0 & -1 & 0 & 0 \\
-0 & 0 & -1 & 0 \\
-0 & 0 & 0 & -1
-\end{pmatrix}.
+  \nabla_r g_{mn}
+  &=
+  \partial_r g_{mn}
+  -
+  \Gamma^s{}_{rm}g_{sn}
+  -
+  \Gamma^s{}_{rn}g_{ms}
+  \nonumber\\
+  &=0.
+  \label{eq:l06-metric-compatibility}
 \end{align}
-Here \(\eta_{\mu\nu}\) is the special-relativistic metric, constant everywhere, and the lecture uses the signature \((+---)\): one plus sign for the time direction and three minus signs for the spatial ones.
+In normal coordinates at \(p\), both \(\partial g\) and \(\Gamma\) vanish,
+so Eq.~\eqref{eq:l06-metric-compatibility} is immediate there. Because
+\(\nabla g\) is a tensor, its vanishing is then coordinate independent.
 
-Strictly speaking, one should not say that the metric simply \emph{is} this matrix once and for all. The metric is a tensor. What is true is that in these coordinates its components take this form. That is exactly why the lecture pauses over the point that the metric tensor is a tensor, even in this simplest case.
+\begin{classroomqa}
+\audiencequestion{Do the quadratic coefficients have to fit together
+continuously from point to point, and is the argument for
+\(\nabla g=0\) circular?
+\lecturetimestamp{00:32:58--00:35:01}}
+\lecturerresponse{A different normal chart may be chosen at each point,
+and for a smooth metric those local choices can be made smoothly on a
+sufficiently small patch. They do not combine into one chart with
+\(\Gamma=0\) everywhere unless the curvature vanishes. The apparent
+circularity is also real: metric compatibility is part of the definition
+of the Levi--Civita connection, together with zero torsion. The normal
+coordinate argument checks that this standard construction is
+consistent; it is not an independent derivation of every possible
+connection.}
+\end{classroomqa}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_02.png}
-\caption{Minkowski metric and the proper-time interval, written on the board from top to bottom as general contraction, explicit matrix, and component form.}
+\subsection{Coordinate and geometric singularities}
+
+All of this assumes a sufficiently smooth, nondegenerate metric. A bad
+coordinate chart may make an ordinary point look singular. Polar
+coordinates fail at the origin because the angle is undefined there, but
+Cartesian coordinates make the Euclidean metric perfectly regular.
+
+A genuine geometric singularity cannot be repaired by changing
+coordinates. The tip of an ideal cone is the lecture's first example: the
+surface is locally flat away from the tip, while no smooth chart turns the
+apex into an ordinary Euclidean point.
+
+\begin{classroomqa}
+\audiencequestion{Could the metric be infinitely wiggly, with derivatives
+that fail to exist, so that no locally flat coordinates can be found?
+\lecturetimestamp{00:35:02--00:38:18}}
+\lecturerresponse{Differential geometry assumes the regularity required
+for the derivatives under discussion. A rough coordinate expression may
+still be a coordinate artifact if another smooth chart repairs it. If no
+chart makes the metric regular, the point is genuinely singular and the
+normal-coordinate theorem does not apply there.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is solving for the quadratic coefficients the same as
+finding coordinates in which the Christoffel symbols vanish?
+\lecturetimestamp{00:38:18--00:39:17}}
+\lecturerresponse{At the selected regular point, yes. Choosing the
+coefficients so that \(\partial g=0\) makes
+Eq.~\eqref{eq:l06-christoffel} vanish there. The result is pointwise, not
+global, and it again shows why a connection coefficient is not itself a
+tensor.}
+\end{classroomqa}
+
+\section{Covariant Differentiation Along a Curve}
+
+We now return to the part of the preceding lecture that curvature needs.
+Let a spatial curve be \(x^m(s)\), with tangent
+\begin{equation}
+  t^p=\frac{dx^p}{ds}.
+  \label{eq:l06-tangent}
+\end{equation}
+For a contravariant vector \(v^m(s)\) defined along the curve, the
+covariant derivative along the curve is
+\begin{equation}
+  \frac{D v^m}{Ds}
+  =
+  \frac{dv^m}{ds}
+  +
+  \Gamma^m{}_{np}v^n\frac{dx^p}{ds}.
+  \label{eq:l06-path-derivative}
+\end{equation}
+The ordinary derivative measures changes of both the vector and the local
+coordinate basis. The connection term removes the latter.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_07.png}
+  \caption{The covariant derivative of a vector along a curve: ordinary
+  component change plus the connection correction contracted with the
+  tangent.}
+  \lectureframe{00:44:12}
 \end{figure}
 
-The last line on the board is slightly cramped, but the intended formula is clear from the lecture:
+A geodesic is obtained by transporting its own tangent parallel to itself:
 \begin{equation}
-d\tau^{2} = dt^{2} - \frac{dx^{2}+dy^{2}+dz^{2}}{c^{2}}.
+  \frac{D t^m}{Ds}=0.
+  \label{eq:l06-geodesic-invariant}
 \end{equation}
-If we choose units with \(c=1\), this reduces to
+With an affine parameter this becomes
 \begin{equation}
-d\tau^{2} = dt^{2} - dx^{2} - dy^{2} - dz^{2}.
+  \boxed{
+  \frac{d^2x^m}{ds^2}
+  +
+  \Gamma^m{}_{np}
+  \frac{dx^n}{ds}
+  \frac{dx^p}{ds}
+  =0
+  }.
+  \label{eq:l06-geodesic}
 \end{equation}
-The infinitesimal displacement \(dx^{\mu}\) is the little step along the worldline, and \(d\tau\) is the corresponding interval measured along that worldline.
 
-The lecture also pauses over the phrase that the speed of light is ``large.'' Of course \(c\) is neither large nor small in itself. What is meant is that the speeds of the objects we care about are small compared with \(c\). Under those circumstances the spatial correction is negligible, and so
-\begin{equation}
-d\tau \approx dt
-\end{equation}
-for slow motion. But that is only an approximation. In general the proper time along the trajectory is not the same thing as the coordinate time of a chosen frame.
-
-\subsection{Question \& Answer}
-
-\paragraph{Why does the moving clock record \(d\tau\) rather than \(dt\)?}
-
-Because the clock moves with the object. It does not measure the time coordinate of some externally chosen system of coordinates; it measures the interval along the object's own worldline. The lecture makes the point with a geometric analogy: a tape measure laid along a curve in space does not record \(x\) or \(y\), it records the distance \emph{along the curve}. In the same spirit, the moving clock is a kind of space-time tape measure. It marks off proper time along the trajectory itself. Coordinate time \(dt\) belongs to a coordinate system; proper time \(d\tau\) belongs to the motion.
-
-\section{Curved Coordinates Are Not Yet Curvature}
-
-With the interval and proper time back in place, the lecture makes the bridge to general relativity by analogy. Flat space is to curved space as special relativity is to curved space-time. The formal tools are the same: metric, tensors, Christoffel symbols, covariant derivatives. What changes is that the metric need no longer be constant, and therefore the geometry itself may be nontrivial.
-
-But there is a distinction the lecture is determined not to lose. Curved coordinates are not yet the same thing as genuine curvature.
-
-In flat space or flat space-time one does not ordinarily need curvilinear coordinates at all. If our only goal were to make life easy, introducing them would seem perverse. We introduce them because accelerated frames are physically important. In an inertial frame objects move on straight lines; in an accelerated frame the same motions look curved, and the coordinate lines themselves are bent.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=0.9]
-\draw[->] (0,0) -- (6.6,0) node[right] {$X$};
-\draw[->] (0,0) -- (0,6.4) node[above] {$T$};
-
-\draw (0.8,0) -- (2.7,6.0);
-\draw (2.0,0) -- (3.9,6.0);
-\draw (3.2,0) -- (5.1,6.0);
-
-\draw (1.0,0.2) .. controls (1.1,1.7) and (1.7,3.9) .. (3.2,5.9);
-\draw (1.8,0.15) .. controls (1.95,1.75) and (2.7,4.0) .. (4.3,5.9);
-\draw (2.6,0.1) .. controls (2.8,1.8) and (3.7,4.1) .. (5.4,5.9);
-
-\node at (4.8,4.9) {accelerated coordinates};
-\node at (4.6,1.1) {straight inertial motion};
-\end{tikzpicture}
-\caption{A schematic Minkowski diagram: straight inertial trajectories in \((T,X)\), together with a curved coordinate family adapted to accelerated motion.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_06_figure_08.png}
+  \caption{Substituting the tangent vector into the path derivative gives
+  the geodesic equation.}
+  \lectureframe{00:45:48}
 \end{figure}
 
-This is the old elevator story. An accelerated coordinate system can imitate a gravitational field. That is the content of the equivalence principle in its local form. Had Einstein not taken acceleration and gravity seriously together, nobody would have volunteered curved coordinates in otherwise flat physics.
+In a Euclidean plane the geodesics are straight lines; on a sphere they
+are great circles. Intrinsically, a geodesic is the curve that continues
+straight ahead according to the connection, whether or not it looks
+curved in an embedding space.
 
-But this imitation is only local. A fake gravitational field produced by acceleration can be removed by changing coordinates again. A real gravitational field cannot be removed everywhere in that way.
+\begin{classroomqa}
+\audiencequestion{Does the toy-car example mean that every vector being
+transported must be tangent to a shortest path?
+\lecturetimestamp{00:50:30--00:51:52}}
+\lecturerresponse{No. A car that advances without steering illustrates a
+geodesic because its direction is its tangent. Parallel transport is more
+general: any vector can be transported along any prescribed curve,
+whether or not that curve is geodesic and whether or not the vector is
+tangent to it.}
+\end{classroomqa}
 
-The lecture's example is a star pulling an elevator toward it. If the elevator is small and allowed to fall freely, experiments inside it look inertial. That is the local victory of free fall. But the victory is not complete. The field varies slightly across the elevator, and so tidal forces remain. One side of the elevator wants to fall differently from another. That residual variation is the first sign that something genuine is present. It is the obstruction to removing the gravitational field globally.
+\section{Parallel Transport of an Arbitrary Vector}
 
-At this point, after a brief hesitation and even a vote in the room, the lecture decides to do curvature before returning to geodesics. That is the right order for the story. Before we can say how things move in curved space-time, we must first say what it means for the geometry itself to be flat or curved.
-
-\section{What Does It Mean for Space or Space-Time to Be Flat?}
-
-Now the discussion shifts back to ordinary geometric notation, with Latin indices \(m,n,r,s,\ldots\). The first question is the obvious one: what does it mean for a space, or a space-time, to be flat?
-
-The answer is not that every coordinate system looks Cartesian. The answer is that one \emph{can find} coordinates in which the metric is constant. In the simplest Euclidean case one may choose coordinates with
-\[
-g_{mn}=\delta_{mn},
-\]
-but the lecture immediately points out that even this is stronger than necessary. If the coordinate axes are straight and uniformly spaced but not mutually perpendicular, the metric will not be \(\delta_{mn}\), yet it will still be constant from point to point. So the real definition is constancy, not orthonormality.
-
-To put it slightly differently, a geometry is flat if one can choose coordinates so that the derivatives of the metric vanish:
+Set Eq.~\eqref{eq:l06-path-derivative} to zero for a general vector:
 \begin{equation}
-\partial_{s}g_{mn}=0.
+  \frac{D v^m}{Ds}=0.
+  \label{eq:l06-parallel-condition}
 \end{equation}
-This is already a three-index object, with \(m\) and \(n\) symmetric. In a truly flat geometry one can make all such derivatives vanish everywhere.
-
-The lecture then turns the statement local. Even without having defined curvature formally, one can already assert that at a \emph{single point} it is always possible to choose coordinates so that the first derivatives of the metric vanish there. That is the mathematical counterpart of the freely falling elevator. One can always flatten the geometry locally. What curvature will measure is the obstruction to doing this everywhere at once.
-
-There is also an implicit regularity assumption here. The lecture says it plainly when a student asks about wildly wiggly metrics. We assume the metric is continuous and differentiable, at least in the region under discussion. There can be exceptions, and those exceptions are genuine singularities. But one must not confuse a singular coordinate system with a singular geometry. Polar coordinates are bad at the origin, yet the plane itself is perfectly smooth there. A true singularity is a place where no coordinate system makes the metric smooth. The cone tip will supply the example.
-
-\section{Local Coordinate Freedom and Vanishing First Derivatives}
-
-The local flattening argument is one of the lecture's technical centers. We begin with coordinates \(x^{m}\) in which the metric is not locally constant at the chosen point. We now look for new coordinates \(y^{m}\) with the same origin and write a local expansion
+Multiplying by \(ds\) gives the infinitesimal update rule
 \begin{equation}
-y^{m}=x^{m}+c^{m}{}_{rs}\,x^{r}x^{s}+\cdots.
+  \boxed{
+  dv^m=-\Gamma^m{}_{np}v^n\,dx^p
+  }.
+  \label{eq:l06-incremental-transport}
 \end{equation}
-The linear term has been chosen to be the identity simply to keep the discussion focused. The real freedom lies in the quadratic coefficients \(c^{m}{}_{rs}\). These are the knobs we adjust in order to influence the first derivatives of the transformed metric.
+Given \(v^m\) at one point, the connection and the next displacement
+determine its components one step later. Repeating this operation solves a
+first-order differential equation along the entire curve.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_04.png}
-\caption{The board layout makes the argument visual: the quadratic coordinate freedom sits above, and the target condition on the first derivatives of the metric sits below.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.89\textwidth]{lecture_06_figure_09.png}
+  \caption{The differential equation and incremental update law for
+  parallel transport.}
+  \lectureframe{00:49:30}
 \end{figure}
 
-The condition we want is
-\begin{equation}
-\frac{\partial g_{mn}(y)}{\partial y^{s}}=0
-\end{equation}
-at the chosen point. Why should this be possible? The lecture answers not by performing the full transformation, but by counting equations and unknowns.
+Metric compatibility guarantees that parallel transport preserves inner
+products. If \(u^m\) and \(v^m\) are both parallel transported, then
+\begin{align}
+  \frac{D}{Ds}\bigl(g_{mn}u^m v^n\bigr)
+  &=
+  (\nabla_p g_{mn})t^p u^m v^n
+  +
+  g_{mn}\frac{D u^m}{Ds}v^n
+  +
+  g_{mn}u^m\frac{D v^n}{Ds}
+  \nonumber\\
+  &=0.
+  \label{eq:l06-inner-product-preserved}
+\end{align}
+Lengths and mutual angles therefore remain fixed. The angle between a
+transported vector and the tangent of a nongeodesic curve need not remain
+fixed, because the tangent itself is turning.
 
-First, the coefficients \(c^{m}{}_{rs}\) may be taken symmetric in \(r\) and \(s\):
-\begin{equation}
-c^{m}{}_{rs}=c^{m}{}_{sr},
-\end{equation}
-since \(x^{r}x^{s}=x^{s}x^{r}\). For fixed \(m\), that means \(c^{m}{}_{rs}\) is a symmetric \(D\times D\) matrix, and therefore has
-\begin{equation}
-\frac{D(D+1)}{2}
-\end{equation}
-independent entries. In three dimensions that gives \(6\), which is exactly the arithmetic checked aloud in the lecture.
-
-\paragraph{Worked derivation.}
-\begin{enumerate}
-\item For fixed \(m\), the coefficients \(c^{m}{}_{rs}\) form a symmetric matrix in the indices \(r,s\).
-\item A symmetric \(D\times D\) matrix has \(D(D+1)/2\) independent entries.
-\item Since \(m\) itself runs over \(D\) values, the total number of independent quadratic coefficients is
-\begin{equation}
-D\cdot \frac{D(D+1)}{2}=\frac{D^{2}(D+1)}{2}.
-\end{equation}
-\item The object \(\partial_{s}g_{mn}\) also has three indices, with \(m,n\) symmetric.
-\item Therefore the number of first-derivative conditions matches the number of adjustable quadratic coefficients.
-\item So there is just enough local coordinate freedom to choose coordinates in which all first derivatives of the metric vanish at the selected point.
-\end{enumerate}
-
-This is deliberately a local statement. The lecture is explicit that the same counting does not continue indefinitely. Once one asks to eliminate second derivatives, third derivatives, and so on, there are simply too many independent conditions. Thus one can always kill the first derivatives at a point, but in general not the higher derivatives. That is precisely why the higher-order structure contains real geometry.
-
-\subsection{Question \& Answer}
-
-\paragraph{Why is there enough coordinate freedom to kill the first derivatives, but not all higher derivatives?}
-
-Because the quadratic part of the coordinate transformation carries exactly the same index structure as the first derivative of the metric: a three-index object with two symmetric slots. That makes the counting come out exactly right at first order. But higher derivatives bring in more independent components than the available coordinate freedom can absorb. So the lecture's conclusion is not that a curved geometry can be made flat, but only that every geometry can be made \emph{locally} flat through first order at a point.
-
-\section{Christoffel Symbols and Metric Compatibility}
-
-Once the first derivatives of the metric have been set to zero at a point, the next step follows at once. The Christoffel symbols are built from those first derivatives:
-\begin{equation}
-\Gamma^{r}{}_{mn}
-=
-\frac{1}{2}g^{rs}\left(
-\frac{\partial g_{sm}}{\partial x^{n}}
-+
-\frac{\partial g_{sn}}{\partial x^{m}}
--
-\frac{\partial g_{mn}}{\partial x^{s}}
-\right).
-\end{equation}
-So if
-\begin{equation}
-\frac{\partial g_{mn}(x)}{\partial x^{r}}=0
-\end{equation}
-at the point under discussion, then immediately
-\begin{equation}
-\Gamma^{r}{}_{mn}=0
-\end{equation}
-there as well.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_06_figure_05.png}
-\caption{The board now turns the counting argument into a geometric statement: vanishing first derivatives imply vanishing Christoffel symbols at the chosen point.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_06_figure_10.png}
+  \caption{A vector kept parallel in a flat plane while moving around a
+  circle. Its angle relative to the changing tangent is not constant.}
+  \lectureframe{00:52:50}
 \end{figure}
 
-This observation already carries one important lesson. Christoffel symbols cannot be tensors. A true tensor that is nonzero somewhere cannot be made to vanish at a point merely by changing coordinates, but the Christoffel symbols can. The lecture says this explicitly: the ability to transform them away at a point is itself evidence that they are not tensorial objects.
+\begin{classroomqa}
+\audiencequestion{Does parallel transport mean keeping a constant angle
+between the vector and the tangent to the curve?
+\lecturetimestamp{00:52:05--00:53:40}}
+\lecturerresponse{Not for an arbitrary curve. In a flat plane, a vector
+with fixed Cartesian direction is parallel transported around a circle,
+yet its angle to the circle's tangent changes continuously. If the curve
+is itself a geodesic, its tangent is also parallel transported, so the
+angle between the two transported vectors remains constant.}
+\end{classroomqa}
 
-The next move is the familiar one:
-\begin{equation}
-\nabla_{r}g_{mn}=0.
-\end{equation}
-In components, the covariant derivative of the metric takes the form
-\begin{equation}
-\nabla_{r}g_{mn}
-=
-\partial_{r}g_{mn}
--\Gamma^{s}{}_{rm}g_{sn}
--\Gamma^{s}{}_{rn}g_{ms}.
-\end{equation}
-At the chosen point, in the locally flattened coordinates, the ordinary derivative term vanishes and the Christoffel terms vanish as well. Hence \(\nabla g=0\) there. But \(\nabla g\) is a tensor. If a tensor vanishes in one coordinate system at a point, it vanishes in every coordinate system at that point. Since the point was arbitrary, the standard conclusion is that the metric is covariantly constant everywhere.
+\begin{classroomqa}
+\audiencequestion{Must \(s\) be arc length in the parallel-transport
+equation?
+\lecturetimestamp{00:53:42--00:53:55}}
+\lecturerresponse{No. Equation
+\eqref{eq:l06-incremental-transport} depends on the ordered displacements
+\(dx^p\), not on the label used to parameterize them. The geodesic equation
+in the simple form \eqref{eq:l06-geodesic}, by contrast, requires an affine
+parameter.}
+\end{classroomqa}
 
-This is also the place where the lecture reiterates the original purpose of the covariant derivative. The ordinary derivative of a tensor is not a tensor. The Christoffel symbols are not tensors. But the right combination of the two produces an object that really is tensorial.
+A gyroscope supplies a physical picture in ordinary space. Move its center
+along a complicated path without applying a torque, and its axis retains
+its inertial direction. More abstractly, a transported orthonormal frame
+remains orthonormal.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{If parallelism implies perpendicular directions, what
+happens to two initially perpendicular vectors?
+\lecturetimestamp{00:55:33--00:56:50}}
+\lecturerresponse{Transport both by the same Levi--Civita connection and
+their inner product remains zero. Three mutually perpendicular vectors
+likewise remain an orthonormal triad. This is the geometric content of
+Eq.~\eqref{eq:l06-inner-product-preserved}.}
+\end{classroomqa}
 
-\paragraph{Is the argument for \(\nabla g=0\) circular?}
+\section{Path Dependence and Holonomy}
 
-A student raises exactly that objection, and Susskind grants the point in part. The argument is a little circular. What it really establishes is the consistency of the standard construction. One assumes the usual Christoffel symbols built from the metric, defines covariant differentiation in the usual way, and then checks that with those definitions the metric is covariantly constant. That is not presented as an immaculate theorem from nowhere. It is presented as the standard, internally consistent choice, and the notes should keep that modest register.
+Now ask the decisive question. If a vector is transported from \(A\) to
+\(B\) along two different curves, must the final vectors agree? Equivalently,
+if it is transported around a closed curve, must it return unchanged?
 
-\section{Covariant Derivative Along a Curve, Geodesics, and Parallel Transport}
+The transport equation always refers to the chosen path. In flat
+Euclidean space with ordinary Cartesian connection, every contractible
+closed loop returns the vector to itself. On a curved surface, sufficiently
+small loops generally return it rotated. The resulting linear
+transformation of the tangent space is called the \emph{holonomy} of the
+loop.
 
-Only after this detour through local coordinates does the lecture return to the first topic it announced at the beginning: curves. The starting point is the covariant derivative of a vector field \(v^{m}\) along a curve \(x^{m}(s)\). Here \(s\) is simply a parameter along the curve; in the lecture it is thought of as distance along the curve, but the essential formulas do not depend on the special choice of parameter.
+\begin{classroomqa}
+\audiencequestion{After \(ds\) is canceled, why does the transport law
+still depend on a curve?
+\lecturetimestamp{00:57:44--00:58:04}}
+\lecturerresponse{The parameter has disappeared, but \(dx^p\) has not.
+Those infinitesimal displacements, in their order, are the curve. A
+different path supplies a different sequence of \(dx^p\) and can produce
+a different final vector.}
+\end{classroomqa}
 
-The tangent vector is
-\begin{equation}
-t^{p}=\frac{dx^{p}}{ds},
-\end{equation}
-and the covariant derivative of \(v^{m}\) along the curve is
-\begin{equation}
-\frac{D v^{m}}{Ds}
-=
-\frac{dv^{m}}{ds}
-+
-\Gamma^{m}{}_{np}\,v^{n}\frac{dx^{p}}{ds}.
-\end{equation}
-The first term by itself is not tensorial, because the coordinate axes can vary from point to point. The Christoffel term corrects for that change.
+For small contractible loops, nontrivial holonomy is a local diagnosis of
+curvature. For large loops, topology can also matter. Keeping those two
+effects separate will become important in the cone, the M\"obius band, and
+the torus examples.
 
-A geodesic is now recovered as a special case. We set the vector equal to the tangent vector itself,
-\[
-v^{m}=\frac{dx^{m}}{ds},
-\]
-and demand that this tangent vector be parallel transported along the curve:
-\begin{equation}
-\frac{D}{Ds}\left(\frac{dx^{m}}{ds}\right)=0.
-\end{equation}
-Then
-\begin{equation}
-\frac{d^{2}x^{m}}{ds^{2}}
-+
-\Gamma^{m}{}_{np}\frac{dx^{n}}{ds}\frac{dx^{p}}{ds}
-=0.
-\end{equation}
-This is the geodesic equation in the form used throughout the lecture. A geodesic is the straightest possible curve in the geometry. In flat space it is an ordinary straight line; on a sphere it is a great circle; in a general curved geometry it is whatever path results from going incrementally straight ahead.
+\begin{classroomqa}
+\audiencequestion{Does a M\"obius strip have a vector-return effect of
+this kind?
+\lecturetimestamp{01:00:44--01:01:14}}
+\lecturerresponse{Yes, but it is a global topological effect rather than
+ordinary local Gaussian curvature. A flat M\"obius band is locally
+Euclidean, yet transport around its noncontractible central loop can
+reverse the transverse direction because the surface is nonorientable.}
+\end{classroomqa}
 
-But the lecture does not linger there. It immediately widens the discussion. Parallel transport applies to any vector, not only to tangent vectors and not only along geodesics. If a vector \(v^{m}\) along a chosen curve satisfies
-\begin{equation}
-\frac{D v^{m}}{Ds}=0,
-\end{equation}
-then we say that \(v^{m}\) is parallel transported along that curve. In words, this is as close as one can come, in a curved geometry or a curved coordinate system, to saying that the vector is constant.
+\section{The Cone: Curvature Concentrated at One Point}
 
-The lecture then rewrites the condition in incremental form. Multiplying by \(ds\), we obtain
-\begin{equation}
-dv^{m}=-\Gamma^{m}{}_{np}\,v^{n}\,dx^{p}.
-\end{equation}
-This is the useful update rule. Once the vector is known at one point, together with the Christoffel symbols and the infinitesimal displacement \(dx^{p}\), it tells us how to advance the vector to the neighboring point so that the covariant derivative continues to vanish.
+Cut a wedge of angle \(\Theta\) from a flat sheet and identify the two cut
+edges. The result is a cone. When the cone is cut open again, it is a flat
+sector with an angular deficit \(\Theta\). Points on one cut edge are
+identified with corresponding points on the other.
 
-\paragraph{Worked derivation.}
-\begin{enumerate}
-\item Start with the parallel-transport condition
-\[
-\frac{D v^{m}}{Ds}=0.
-\]
-\item Expand the covariant derivative:
-\[
-\frac{dv^{m}}{ds}
-+
-\Gamma^{m}{}_{np}\,v^{n}\frac{dx^{p}}{ds}=0.
-\]
-\item Multiply by \(ds\).
-\item Rearranging gives
-\[
-dv^{m}=-\Gamma^{m}{}_{np}\,v^{n}\,dx^{p}.
-\]
-\item The parameter \(s\) has disappeared; what remains is the infinitesimal update along the actual curve through the differentials \(dx^{p}\).
-\end{enumerate}
-
-The lecture is very concrete here. A gyroscope provides the model. Carry it by its tip along a path, do not forcibly twist it, and it continues to point in the same direction. That is a physical implementation of parallel transport. It is also why the lecture says that parallel transport preserves the angles between vectors and, in fact, their magnitudes as well, although the direction is the point of interest here.
-
-\subsection{Question \& Answer}
-
-\paragraph{Does parallel transport mean keeping a fixed angle to the curve?}
-
-No. The lecture goes out of its way to correct this misunderstanding. If we transport a vector around an ordinary circle in flat space while keeping it parallel to itself, its angle relative to the tangent of the circle changes continuously. At one point it may be perpendicular to the tangent; later it may line up with it. What remains fixed is not the angle to the curve, but the infinitesimal relation between the vector and its neighboring transported value.
-
-There is one important special case. In two dimensions, if the curve itself is a geodesic, then a vector parallel transported along it does keep a fixed angle with the tangent. The lecture mentions that fact, and then deliberately refuses to turn it into a general discussion of torsion or twisting in higher dimensions. Here the point is simpler: geodesics are one special instance of parallel transport, not the whole story.
-
-\section{Curvature as Path Dependence of Parallel Transport}
-
-Now the lecture asks its central question. Suppose we start with a vector at one point and parallel transport it to another point. If we use one curve, we get some final answer. If we use a different curve, must we get the same answer? The sharpest version of the question is to use a closed curve. If we transport the vector all the way around a loop, does it come back to itself?
-
-In flat space, yes. In a curved space, not in general. That failure is the operational definition of curvature. A geometry is curved if there are closed curves around which a parallel transported vector does not return to its original direction.
-
-Before giving the model example, the lecture inserts an important distinction. A bad coordinate system is not the same thing as a bad geometry. Polar coordinates are singular at the origin, but the plane is not. A genuine singularity is a point where no coordinate system makes the metric smooth. The cone tip is the example to keep in mind.
-
-\begin{figure}[h]
-\centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=0.95]
-\draw (-4.2,0) arc[start angle=25,end angle=335,radius=2.0];
-\draw (-4.2,0) -- (-2.39,0.85);
-\draw (-4.2,0) -- (-2.39,-0.85);
-\draw[->] (-2.78,0.52) -- (-2.52,0.68);
-\draw[->] (-2.78,-0.52) -- (-2.52,-0.68);
-\node at (-2.65,0.0) {$\theta$};
-\node at (-4.2,-2.35) {flat sheet with wedge removed};
-
-\draw (2.8,2.1) -- (1.5,-1.1);
-\draw (2.8,2.1) -- (4.1,-1.1);
-\draw (1.5,-1.1) arc[start angle=200,end angle=340,x radius=1.35,y radius=0.45];
-\draw[dashed] (1.78,-0.75) -- (2.8,2.1);
-\draw[dashed] (3.82,-0.75) -- (2.8,2.1);
-\node at (2.8,-2.35) {identified edges make a cone};
-\end{tikzpicture}
-}%
-\caption{The cone as a flat sheet with an angular deficit and the corresponding identified surface.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_06_figure_11.png}
+  \caption{A cone and its opened representation as a flat sheet with an
+  angular wedge removed and the two radial edges identified.}
+  \lectureframe{01:04:45}
 \end{figure}
 
-The cone is produced by cutting an angular wedge out of a flat sheet and identifying the cut edges. Away from the tip the geometry is flat. Only the tip is special. The lecture uses this in exactly the right way: first to show how curvature may be concentrated at a point, then to show what parallel transport actually detects.
+Every point away from the apex has an ordinary flat neighborhood. A small
+loop that does not enclose the tip has trivial holonomy. A loop that winds
+once around the tip is different. On the opened sheet, keep the vector
+parallel in the usual Euclidean sense. When the identified edges are
+joined again, the final vector is rotated relative to the initial one.
 
-\begin{figure}[h]
-\centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=0.92]
-\draw (-4.0,0) arc[start angle=25,end angle=335,radius=2.0];
-\draw (-4.0,0) -- (-2.19,0.85);
-\draw (-4.0,0) -- (-2.19,-0.85);
-\draw (-4.8,0.0) circle (0.55);
-\draw[->] (-5.15,0.55) -- (-4.65,0.55);
-\draw[->] (-4.95,-0.55) -- (-4.45,-0.55);
-\node at (-4.0,-2.45) {loop avoiding the tip};
-
-\draw (3.0,0) arc[start angle=25,end angle=335,radius=2.0];
-\draw (3.0,0) -- (4.81,0.85);
-\draw (3.0,0) -- (4.81,-0.85);
-\draw (3.0,1.35) arc[start angle=90,end angle=280,radius=1.35];
-\draw[->] (4.20,0.55) -- (4.70,0.55);
-\draw[->] (4.00,-0.25) -- (4.30,-0.62);
-\node at (5.05,0.02) {$\theta$};
-\node at (3.0,-2.45) {loop enclosing the tip};
-\end{tikzpicture}
-}%
-\caption{A loop that avoids the cone tip returns the vector unchanged; a loop that encloses the tip returns it rotated by the angular deficit.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_12.png}
+  \caption{Parallel transport around the cone, shown on the opened flat
+  sector. Joining the cut edges turns the visible mismatch into a rotation
+  at the original point.}
+  \lectureframe{01:07:45}
 \end{figure}
 
-If the loop stays away from the tip, the relevant region can be opened out onto the flat sheet, and the transported vector comes back to itself. But if the loop encloses the tip, the identification of the cut edges forces a mismatch. The vector comes back rotated by the angular deficit:
+Up to the sign fixed by orientation, the rotation equals the angular
+deficit:
 \begin{equation}
-\Delta\theta=\theta.
+  \Delta\alpha=\Theta.
+  \label{eq:l06-cone-holonomy}
 \end{equation}
-The striking feature is that the detailed shape of the loop does not matter. What matters is whether the loop winds around the tip. The same point of curvature rotates the vector by the same amount.
+Any loop winding once around the apex gives the same result, while a loop
+that can be contracted without crossing the apex gives zero.
 
-The lecture then sharpens the example. Suppose we smooth off the cone tip instead of leaving it singular. A large loop around the same region will still detect curvature inside. So the closed-loop test locates the presence of curvature in the interior, but not necessarily its detailed distribution. On the sharp cone the curvature is concentrated at a single point. On the smoothed cone it is spread over a small cap. The loop knows there is curvature in there; it does not yet know precisely how it is distributed.
-
-There is another benefit to the cone. It lets us think about geodesics by cutting and pasting. In the opened flat picture, geodesics are just straight lines. If a line crosses the cut, we simply re-open the cone elsewhere so that the same intrinsic geodesic is represented by a straight line on the new flat chart. This is the lecture's preferred way to think about geodesics on the cone: not by forcing them into the original slit representation, but by moving the slit until the straightness becomes visible.
-
-The sphere supplies the smooth version of the same idea. Take a small loop on a sphere. The lecture asks us to imagine a cone tangent to the sphere all along that loop. A tiny creature living on the surface and carrying a little gyroscope cannot distinguish, by purely local measurements along the loop, whether it lives on the sphere or on that tangent cone. Therefore the transported vector undergoes the same net rotation in both cases.
-
-\begin{figure}[h]
-\centering
-\resizebox{\linewidth}{!}{%
-\begin{tikzpicture}[scale=1.0]
-\draw (0,0) circle (2.0);
-\draw (-2.0,0) arc[start angle=180,end angle=360,x radius=2.0,y radius=0.55];
-\draw[dashed] (0,2.0) -- (-0.92,0.85);
-\draw[dashed] (0,2.0) -- (0.92,0.85);
-\draw (0,0.85) ellipse (0.92 and 0.22);
-\draw[->] (0.92,0.85) arc[start angle=0,end angle=290,x radius=0.92,y radius=0.22];
-\node at (0,1.25) {$\delta A$};
-\node at (0,-2.45) {Small loop on the sphere and tangent-cone picture};
-\end{tikzpicture}
-}%
-\caption{For a sufficiently small loop on a smooth surface, the transport defect is controlled by the enclosed area.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_06_figure_13.png}
+  \caption{The angular deficit \(\Theta\) controls the rotation acquired
+  by a vector transported once around the cone tip.}
+  \lectureframe{01:10:45}
 \end{figure}
 
-For small loops the rotation is small, and the lecture states the local two-dimensional law
+Smoothing the tip spreads this curvature over a small cap. A loop outside
+the cap detects the same total rotation but cannot tell how curvature is
+distributed inside. A smaller loop within the cap detects only the
+curvature it encloses. In the ideal sharp-cone limit,
 \begin{equation}
-\delta\theta \propto \delta A.
+  \int_{\Sigma}K\,dA=\Theta
+  \label{eq:l06-cone-integrated-curvature}
 \end{equation}
-More precisely, one defines the local curvature \(R\) by
-\begin{equation}
-\delta\theta=R\,\delta A
-\end{equation}
-for an infinitesimal loop. This is not yet the general curvature tensor of four-dimensional space-time. It is the local curvature law for a two-dimensional surface. It says that curvature measures the infinitesimal rate at which parallel transport around a tiny loop rotates a vector.
+for any region \(\Sigma\) containing the apex. Thus the cone's curvature
+is concentrated there as a delta-function singularity. The lecture's
+phrase \emph{infinite curvature at the tip} is this singular limiting
+statement, not a finite pointwise value.
 
-The lecture is careful about the domain of this formula. It is a small-loop statement. For large loops one needs the full integral effect, not merely the infinitesimal coefficient. That is why the formula should be read as local.
+\begin{classroomqa}
+\audiencequestion{Can parallel transport be made more precise than
+keeping the vector in the same direction, and what happens along a
+geodesic?
+\lecturetimestamp{01:13:26--01:15:07}}
+\lecturerresponse{The precise definition is
+\(Dv^m/Ds=0\). One may approximate the path by tiny segments and apply the
+incremental law on each segment. Along a geodesic the tangent obeys the
+same equation, so in two dimensions a transported vector keeps a constant
+angle with that tangent. The lecture briefly mentions twisting in higher
+dimensions; the present connection remains the torsion-free
+Levi--Civita connection.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{What do geodesics on the cone look like, especially
+when they cross the identified cut?
+\lecturetimestamp{01:15:07--01:18:24}}
+\lecturerresponse{Open the cone along a cut that does not interrupt the
+segment of interest. Geodesics are straight lines on that flat sector.
+When the original cut is restored, such a line may look bent in the
+opened drawing, but its two pieces meet smoothly on the actual cone.
+Changing the cut changes the picture, not the intrinsic geodesic.}
+\end{classroomqa}
 
-\paragraph{Do the transported vectors have to lie in the surface, and is parallel transport just keeping them parallel in the embedding space?}
+\section{The Sphere and the Small-Loop Law}
 
-No on both counts, at least not in the naive sense. On a two-dimensional surface the vector is best thought of as an element of the tangent space at each point. It points along the surface, but it is not literally a little stick glued into some ambient three-dimensional space. That is why parallel transport is an intrinsic notion. It is not defined by keeping the vector parallel in the larger embedding space and then projecting back. If one did that, the whole intrinsic notion of curvature would be lost. The lecture returns to this point near the end: intrinsic parallel transport lives in the tangent spaces of the geometry itself.
+A sphere has smooth curvature everywhere. Begin with a closed line of
+latitude rather than a great circle. The great circles are geodesics; a
+line of latitude is not. Transporting a vector around it produces a net
+rotation.
 
-The lecture next introduces the sign of curvature. Give the enclosed area a sign by orienting the boundary of the loop. If we traverse the loop counterclockwise, say, we call the area positive; the opposite orientation is negative. Positive curvature means that the transported vector rotates in the same sense as the oriented loop, while negative curvature means it rotates in the opposite sense:
-\begin{equation}
-\operatorname{sign}(\delta\theta)=\operatorname{sign}(\delta A)
-\qquad \text{for positive curvature.}
-\end{equation}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw (-2.8,0) circle (1.0);
-\draw[->] (-1.8,0) arc[start angle=0,end angle=300,radius=1.0];
-\draw[->] (-3.55,0.10) arc[start angle=170,end angle=120,radius=0.55];
-\node at (-2.8,1.35) {$+\delta A,\ +\delta\theta$};
-\node at (-2.8,-1.45) {positive curvature};
-
-\draw (2.8,0) circle (1.0);
-\draw[->] (3.8,0) arc[start angle=0,end angle=300,radius=1.0];
-\draw[->] (2.05,0.10) arc[start angle=170,end angle=220,radius=0.55];
-\node at (2.8,1.35) {$+\delta A,\ -\delta\theta$};
-\node at (2.8,-1.45) {negative curvature};
-\end{tikzpicture}
-\caption{For an oriented loop, positive curvature rotates the transported vector in the same sense as the loop, while negative curvature rotates it in the opposite sense.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_06_figure_14.png}
+  \caption{Closed latitude curves on a hemisphere. Their transport
+  holonomy diagnoses the sphere's smooth curvature.}
+  \lectureframe{01:19:45}
 \end{figure}
 
-The sphere is the model of positive curvature. A saddle surface is the model of negative curvature. The lecture even gives a cut-and-paste version of negative curvature: instead of removing a wedge, insert an extra wedge. Then a counterclockwise circuit makes the vector rotate clockwise. The inner region of an ordinary torus is of this saddle type, while the outer region is sphere-like and positively curved. The torus is therefore useful as a mixed example: positive curvature outside, negative curvature inside. The Mobius strip is mentioned as a global oddity, but the lecture clearly treats it as a side remark rather than part of the main mathematical spine.
+To connect this with the cone, fit a cone tangent to the sphere along the
+chosen latitude. An observer confined to an infinitesimal neighborhood of
+that curve sees the same first-order geometry along the path. Near the
+north pole the tangent cone is nearly flat and its deficit is small;
+larger enclosed regions produce larger rotations.
 
-Finally the discussion lifts back to space-time. The words are the same, even if the visualization is not. There are curves in space-time, there is parallel transport, and the failure of a vector to return to itself around a closed loop is still the sign of curvature. The real gravitational field is precisely this space-time curvature, not merely the effect of funny coordinates. Mass, and more generally energy and momentum, create curvature. Particles then move on geodesics of the curved space-time. In the appropriate limit those geodesics reproduce Newtonian motion, with small relativistic corrections.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_06_figure_15.png}
+  \caption{A family of latitude loops and the tangent-cone construction
+  used to estimate their transport rotation.}
+  \lectureframe{01:21:32}
+\end{figure}
 
-That is where the lecture stops. The next step, deferred to the following lecture, is to convert this geometric picture into the curvature tensor itself.
+For a sufficiently small oriented loop enclosing area \(\delta A\),
+\begin{equation}
+  \delta\alpha
+  =
+  K(p)\,\delta A
+  +
+  \text{higher-order terms}.
+  \label{eq:l06-small-loop-curvature}
+\end{equation}
+The board writes this as
+\begin{equation}
+  \delta\theta=R\,a,
+  \label{eq:l06-board-curvature}
+\end{equation}
+where \(a\) denotes the small area and \(R\) is the local two-dimensional
+curvature coefficient. We use \(K\) for Gaussian curvature so that the
+board symbol is not confused with the later Riemann tensor or Ricci
+scalar. For a sphere of radius \(\rho\),
+\begin{equation}
+  K=\frac{1}{\rho^2};
+\end{equation}
+the same small area therefore gives less rotation on a larger sphere.
 
-\section{Summary}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_16.png}
+  \caption{The local two-dimensional law written on the board as
+  \(\delta\theta=R a\): holonomy angle equals curvature times a small
+  enclosed area.}
+  \lectureframe{01:25:30}
+\end{figure}
 
-The lecture does not begin with curvature tensors or field equations. It begins more patiently: with the space-time interval, proper time, and the Minkowski signature. From there it separates curved coordinates from genuine curvature by way of the accelerated elevator and tidal forces. Flatness is then defined as the ability to choose coordinates in which the metric is constant, or equivalently has vanishing first derivatives. At a single point this can always be done, and the Christoffel symbols can be made to vanish there as well. That local flattening is the mathematical form of the free-fall principle.
+\begin{classroomqa}
+\audiencequestion{Must the small loop be circular, and should its area be
+measured on the surface or in a projection?
+\lecturetimestamp{01:24:45--01:26:51}}
+\lecturerresponse{The leading term depends on the oriented surface area,
+not on the detailed shape of a sufficiently small loop. Surface area is
+the intrinsic choice. At infinitesimal scale it differs from a tangent
+plane projection only at higher order, which is why the distinction does
+not affect Eq.~\eqref{eq:l06-small-loop-curvature}.}
+\end{classroomqa}
 
-Only after that does the lecture return to curves. The tangent vector gives the geodesic equation, and the more general condition \(D v^{m}/Ds=0\) defines parallel transport for any vector along any curve. The central test for curvature is then path dependence: transport a vector around a closed loop and see whether it comes back unchanged. The cone gives the sharp example, the sphere the smooth one, and the small-loop law \(\delta\theta=R\,\delta A\) gives the local two-dimensional measure.
+\begin{classroomqa}
+\audiencequestion{For an embedded sphere, do the transported vectors lie
+on the curved surface or in the surrounding three-dimensional space?
+\lecturetimestamp{01:26:52--01:28:11}}
+\lecturerresponse{A vector at \(p\) belongs to the intrinsic tangent space
+\(T_pM\). In an embedding picture that tangent space is represented by the
+plane tangent to the sphere at \(p\); the vector need not be the tangent
+of the particular curve being followed. As the base point moves, the
+tangent plane changes.}
+\end{classroomqa}
 
-The final physical point is the one general relativity needs. Space-time curvature is the genuine gravitational field. Energy and momentum create that curvature, and particles move on the resulting geodesics. The next lecture will give that idea its tensorial form.
+\begin{classroomqa}
+\audiencequestion{What happens for a large loop such as the equator,
+where the small-area formula is no longer valid?
+\lecturetimestamp{01:28:11--01:28:35}}
+\lecturerresponse{One integrates the curvature over the enclosed region:
+\(\Delta\alpha=\int_\Sigma K\,dA\), with the angle understood modulo
+\(2\pi\) and with the appropriate orientation. The equator bounds a
+hemisphere whose integrated curvature is \(2\pi\), so a vector can return
+visibly unchanged without contradicting the nonzero curvature.}
+\end{classroomqa}
+
+\section{Topology and the Torus}
+
+Finite-loop holonomy can reveal topology as well as local curvature. The
+flat M\"obius band is nonorientable. The flat torus is different: identify
+opposite sides of a Euclidean rectangle by translations,
+\begin{equation}
+  (x,y)\sim(x+L_x,y),
+  \qquad
+  (x,y)\sim(x,y+L_y).
+  \label{eq:l06-flat-torus}
+\end{equation}
+The quotient is intrinsically flat even though it cannot be drawn as the
+usual smooth doughnut in three-dimensional Euclidean space without
+distorting distances.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_06_figure_17.png}
+  \caption{The torus as a rectangle with opposite edges identified,
+  contrasted with cylinder and doughnut pictures. The quotient metric can
+  be flat even though the familiar embedding is curved.}
+  \lectureframe{01:33:00}
+\end{figure}
+
+The familiar embedded torus has positive Gaussian curvature on its outer
+side and negative curvature near the inner rim. Its total Gaussian
+curvature is zero:
+\begin{equation}
+  \int_{\mathbb T^2}K\,dA=0.
+  \label{eq:l06-torus-gauss-bonnet}
+\end{equation}
+This is the torus case of the Gauss--Bonnet theorem. Zero total curvature
+does not mean zero curvature point by point.
+
+\begin{classroomqa}
+\audiencequestion{Can the flat rectangular torus be physically folded
+into an ordinary doughnut, and what curvature does a real torus have?
+\lecturetimestamp{01:30:34--01:36:20}}
+\lecturerresponse{The rectangle with translated edge identifications is
+an abstract flat torus. A smooth isometric embedding of that flat metric
+does not exist in ordinary three-dimensional Euclidean space; folding
+paper introduces creases or stretching. It can be embedded smoothly in
+higher dimension. The standard doughnut in three dimensions is not flat:
+its outer region has positive curvature, its inner region negative
+curvature, and the integral cancels to zero.}
+\end{classroomqa}
+
+\section{The Sign of Curvature}
+
+Give the boundary of a small area an orientation. Call counterclockwise
+positive and clockwise negative. Once a convention for vector rotation is
+fixed, positive curvature means that the holonomy rotation and the
+oriented area have the same sign; negative curvature means they have
+opposite signs.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.89\textwidth]{lecture_06_figure_18.png}
+  \caption{Oriented loops and vector rotations used to assign a sign to
+  the two-dimensional curvature coefficient.}
+  \lectureframe{01:39:45}
+\end{figure}
+
+Removing a wedge creates positive concentrated curvature at the cone tip.
+The complementary construction is to cut the sheet and insert an extra
+wedge, producing an angular excess. A vector transported counterclockwise
+then rotates in the opposite direction. This is a concentrated model of
+negative curvature.
+
+Smooth negative curvature has the local shape of a saddle rather than a
+sphere.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_06_figure_19.png}
+  \caption{A saddle-shaped patch, the characteristic local picture of
+  negative Gaussian curvature.}
+  \lectureframe{01:40:30}
+\end{figure}
+
+The embedded torus exhibits both signs on one connected surface. Its
+sphere-like exterior is positively curved; the saddle-like region near
+the hole is negatively curved.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_06_figure_20.png}
+  \caption{The torus cross-section used to distinguish the positively
+  curved outer region from the negatively curved inner region.}
+  \lectureframe{01:43:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{If small loops are drawn at different places on a real
+torus, do they all give the same curvature?
+\lecturetimestamp{01:35:25--01:36:20}}
+\lecturerresponse{No. The coefficient \(K(p)\) varies over the embedded
+torus. It is positive outside, negative inside, and passes through zero
+between those regions. Only its integral over the whole torus vanishes.}
+\end{classroomqa}
+
+\section{Back to Space-Time and Gravity}
+
+Everything we have done has a space-time counterpart. Replace the
+positive-definite spatial metric by a Lorentzian metric, transport
+four-vectors with its Levi--Civita connection, and examine what happens
+around small loops in different coordinate planes. In more than two
+dimensions both the plane of the loop and the plane in which the vector
+rotates matter. The object encoding all of those possibilities is the
+Riemann curvature tensor, which is the subject of the next lecture.
+
+The physical program of general relativity can now be stated without yet
+writing its field equation:
+\begin{equation}
+  \text{energy and momentum}
+  \longrightarrow
+  \text{space-time curvature}
+  \longrightarrow
+  \text{geodesic motion}.
+  \label{eq:l06-gr-program}
+\end{equation}
+Mass is one form of energy, and energy and momentum together source the
+curvature that cannot be removed by an accelerated frame throughout a
+region. Freely falling particles follow space-time geodesics. In the
+weak-field, slow-motion limit those geodesics reproduce Newtonian
+trajectories, with relativistic corrections. The Schwarzschild geometry
+will provide the central example.
+
+\begin{classroomqa}
+\audiencequestion{If a curved surface is embedded in a flat
+higher-dimensional space, is intrinsic parallel transport just keeping
+the vector parallel in the embedding space?
+\lecturetimestamp{01:48:54--01:51:33}}
+\lecturerresponse{No. Keeping an ambient vector fixed would generally
+make it leave the surface's tangent plane. Intrinsic Levi--Civita
+transport keeps the vector tangent and removes only the tangent component
+of its change. In an embedding picture, one may differentiate in the
+ambient space and project back onto the changing tangent plane. The
+definition itself needs only the metric on the surface, not the
+embedding.}
+\end{classroomqa}
+
+The central lesson is therefore local but powerful. At every regular event
+we can choose a freely falling frame in which the connection vanishes.
+After moving around a loop, those local frames need not fit back together.
+That mismatch is curvature, and in general relativity it is the invariant
+content of the gravitational field.

@@ -1,55 +1,53 @@
-# Narrative Map
-## Opening Setup
-The lecture opens with an announced double aim: geodesics, and the relation between geodesics and gravity. But Susskind does not begin by advancing that program directly. He backs up and rebuilds the space-time metric language first, because before we can talk about curved space-time, gravitational fields, or curvature as obstruction, we need the interval, the index conventions, and the distinction between coordinate time and proper time firmly back on the table.
+# Lecture 6 Narrative Map
 
-The opening therefore functions less as review than as reset. It establishes the spacetime version of the geometry already developed for ordinary space, so that when curvature arrives later it feels like the same machinery being pushed into a more serious arena.
+## 1. From Space to Space-Time
 
-## Beat Sequence
-1. Space-time metric recap and proper-time setup. He first establishes that space-time has a metric just as space does, with Greek indices and a proper-time interval built from \(g_{\mu\nu}dx^\mu dx^\nu\). It appears here because the lecture is about to move from ordinary geometry to space-time geometry, and the later curvature discussion would float free without this reset. This leads naturally into the operational question of what \(d\tau\) means physically.
+Begin with proper time, Lorentzian signature, restored units, and the clock
+interpretation. Preserve the dimensionality question before moving to
+gravity.
 
-2. [Q&A] Proper time versus coordinate time. A student asks whether a clock moving with the object records \(dt\), and Susskind uses that interruption to sharpen the distinction: the moving clock records \(d\tau\), like a tape measure laid along a curve. This appears exactly when the notation could otherwise stay formal and unmotivated, and it gives the metric a physical reading before the lecture turns abstract again. From there he can pivot from special relativity to general relativity by analogy rather than by declaration alone.
+## 2. Coordinates and Genuine Gravity
 
-3. Curved coordinates, accelerated frames, and the equivalence-principle motivation. He explains why one ever introduces curved coordinates in flat space-time at all: accelerated frames make them useful, and Einstein’s elevator makes them physically unavoidable. This appears before the formal discussion of curvature because he wants to separate two ideas that are easy to conflate: curved coordinates can mimic gravity, but they are not yet genuine curvature. That tension leads directly to the lecture’s first major reframing, namely curvature as the obstruction to removing gravity everywhere.
+Use accelerated coordinates to motivate the equivalence principle, then make
+tidal variation the physical obstruction to removing gravity over a region.
 
-4. [Q&A] Flatness, local flattening, and the coordinate-freedom counting argument. Once gravity has been recast as an obstruction problem, he asks what it means mathematically for a space to be flat and sharpens the answer from “constant metric” to “vanishing first derivatives of the metric.” This is where he inserts the local coordinate-transformation argument: quadratic freedom in the coordinates is counted against the first-derivative conditions, showing that at a single point one can always set those derivatives to zero, but not in general the higher ones. It appears here because the lecture needs a precise local version of “you can always fall freely at one point,” and it leads into the Christoffel-symbol discussion.
+## 3. Local Inertial Coordinates
 
-5. [Q&A] Christoffel symbols, vanishing first derivatives, and the controlled circularity of \(\nabla g=0\). Having arranged coordinates so that first derivatives of the metric vanish at a point, he immediately uses the Christoffel formula to conclude that the Christoffel symbols also vanish there, and from that he moves to the standard statement that the covariant derivative of the metric is zero. This appears now because the lecture wants the covariant-derivative machinery in its usual form before returning to curves and transport. The student objection that the argument is “a little circular” is essential to the rhythm here; Susskind partly concedes it and reframes the move as a consistency argument, which then licenses the next geometric step.
+Distinguish global constant-metric coordinates from pointwise normal
+coordinates. Follow the quadratic-coordinate counting argument, state its
+limits, and connect vanishing first derivatives to a vanishing connection.
 
-6. Geodesics recalled as curves whose tangent vector transports parallel to itself. Only after the local-coordinate groundwork is in place does he go back to the covariant derivative along a curve, remind the audience of the tangent vector, and rewrite the geodesic condition as vanishing covariant derivative of that tangent. This appears here because curvature will soon be defined through what happens to vectors along curves, and geodesics are the simplest special case of that story. It leads immediately into the broader notion of parallel transport for vectors that are not tangent vectors.
+## 4. Regularity and Singularities
 
-7. [Q&A] General parallel transport and the misconception about fixed angle to the curve. He now widens the discussion from the tangent vector to any vector along any curve, explains the incremental transport law, and insists that parallel transport is “as close as possible” to keeping a vector constant in curved coordinates. This is precisely where students ask the natural but misleading question: does parallel transport mean keeping a fixed angle with the tangent to the curve? The answer, reinforced with the circle example and then the gyroscope example, prepares the key diagnostic question about path dependence.
+Preserve the classroom objections about smooth coordinate choices,
+metric compatibility, rough metrics, and Christoffel symbols. Separate a bad
+polar chart from a genuinely singular cone apex.
 
-8. Path dependence as the operational definition of curvature, developed through the cone. With the transport law in hand, he asks the lecture’s central question: if we transport the same vector along different curves, or around a closed loop, do we get the same result back? This appears exactly when the machinery has finally become usable, and the answer “not in general” is what converts parallel transport from a definition into a curvature test. The cone then serves as the first fully concrete geometry: first a loop that avoids the tip and returns unchanged, then a loop around the tip that comes back rotated, with the angular deficit giving a visible measure of the effect.
+## 5. Transport Along Curves
 
-9. Sphere, small-loop curvature law, sign of curvature, side remarks, and the return to space-time. After the cone isolates curvature at a singular point, the sphere spreads the idea smoothly over a surface: small loops, tangent-cone intuition, and the claim that the rotation angle is proportional to enclosed area. This appears now because the lecture wants to pass from a striking example to a local law, and then to distinguish positive from negative curvature before touching Möbius strips and the torus as side examples. The final move lifts everything back to space-time: the same transport logic defines space-time curvature, curvature is the genuine gravitational field, and geodesics are the relativistic successors of Newtonian trajectories.
+Recover the covariant derivative along a curve and the affinely parameterized
+geodesic equation. Generalize from transporting a tangent to transporting any
+vector and prove preservation of inner products.
 
-## Transition Cues
-- He repeatedly opens new phases with plain resets such as “now,” “all right,” and “let’s see,” which make the lecture feel exploratory rather than pre-packaged.
-- He often pivots by narrowing a broad claim into a sharper question: from “gravity versus accelerated coordinates” to “what does it mean for a space to be flat?”
-- A characteristic cue is postponement without abandonment: “we’ll come to it,” “let’s go back,” “we’ll come back to it.” This keeps earlier themes active while changing level.
-- He marks conceptual tightening with phrases like “to put it slightly differently” and “in other words,” especially when moving from intuitive flatness to vanishing derivatives, or from transport law to geometric meaning.
-- Several major turns are framed as audience-driven: the proper-time question, the circularity objection, the angle-to-curve confusion, and the loop-independence question all become structural pivots rather than distractions.
-- He likes to change scale abruptly: from formal equation to physical picture, from gyroscope to cone, from cone to sphere, and finally from two-dimensional geometry back to space-time.
-- Near the end he uses explicit lifting language: all these words are “exactly the same” in space-time, even if harder to visualize. That is the cue that the chapter should stop treating the two-dimensional examples as merely illustrative.
+## 6. Closed Loops
 
-## Recurring Motifs
-- Curvature as obstruction. The lecture keeps returning to the claim that what matters is not whether coordinates look complicated, but whether some effect can be removed everywhere by a coordinate choice.
-- Local versus global removal. Again and again he allows a local flattening, a local free-fall frame, a local vanishing of first derivatives, and then shows why that is not the whole story.
-- Same rules, bigger arena. He repeatedly insists that the geometry of space-time is governed by the same formal machinery as the geometry of space, only with a different signature and a harder visualization problem.
-- Operational definition before tensor formalism. He does not define curvature first by a tensor; he defines it by what happens to vectors under transport around loops.
-- Physical props as mathematical clarifiers. Clock as tape measure, elevator as free-fall frame, gyroscope as transport device, cone as cut-and-paste geometry, bug on sphere as local observer.
-- Concrete examples before abstraction. The lecture repeatedly moves from formula to picture and only then back to a general statement.
-- Spoken self-correction. He often pauses, restarts notation, admits circularity, or changes examples midstream. A faithful chapter should retain some of that deliberate unfolding instead of sounding too polished too early.
+Ask whether two paths give the same transported vector. Introduce holonomy,
+then distinguish local curvature from the global topology of a flat
+Möbius band.
 
-## Pacing Risks
-- The opening metric recap is easy to compress into a few equations, but that would lose the lecture’s reset function and the physical meaning of proper time.
-- The proper-time student interruption should not be discarded as incidental. It is the moment that turns notation into measurement, and it deserves a standalone `Question & Answer` subsection.
-- The accelerated-frame discussion should not be flattened into a generic statement of the equivalence principle. What matters in the lecture is the contrast between removable fake gravity and non-removable real gravity because of tidal variation.
-- The coordinate-freedom argument is not just a theorem statement. Its pedagogical point is the counting of available coefficients against required conditions, and the chapter should preserve that heuristic rhythm.
-- The discussion of \(\nabla g=0\) should not be made cleaner than the lecture. The student’s circularity objection is structurally important and should survive as a `Question & Answer` subsection.
-- A draft writer may merge geodesics and parallel transport too quickly. In the lecture they are related but deliberately separated: first the tangent-vector case, then the general-vector case.
-- The fixed-angle misconception about parallel transport is a real tension point. If it is omitted, the later cone discussion becomes less intelligible.
-- The cone section should not be reduced to “transport around the tip gives a rotation.” Susskind first contrasts loops away from the tip and around the tip, then discusses smoothing the tip, then uses cutting-and-pasting to think about geodesics.
-- The sphere-to-area-law move is another likely compression point. He does not simply announce \(\delta\theta \propto \delta A\); he motivates it through the tangent-cone picture and the size of small circles.
-- The Möbius strip and torus material is easy either to overemphasize or to omit entirely. In the lecture they are side excursions: useful, memorable, but not the mathematical spine.
-- The final return to space-time and gravity must remain explicit. Without it, the chapter would read like a lecture on two-dimensional differential geometry rather than a General Relativity lecture preparing the ground for curvature tensors and geodesic motion.
+## 7. Cones and Spheres
+
+Use the cone to make angular deficit and concentrated curvature visible.
+Then smooth the construction on a sphere and derive the small-loop
+curvature-area law.
+
+## 8. Topology and Curvature Sign
+
+Distinguish the flat quotient torus from the embedded doughnut, explain
+positive and negative curvature, and use the torus to exhibit both signs with
+zero total Gaussian curvature.
+
+## 9. Return to Gravity
+
+End with spacetime parallel transport, the need for the Riemann tensor, and
+the chain from energy and momentum to curvature to geodesic motion.
