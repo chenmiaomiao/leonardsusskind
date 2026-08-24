@@ -1,506 +1,972 @@
-\chapter{Time Evolution, Interference, and the Schr\"odinger Equation}
+\chapter{Hamiltonian Time Evolution, Interference, and the Schr\"odinger Equation}
 
-This lecture sets out to do one thing: to begin the serious study of how quantum systems change with time. But Susskind does not begin by writing down the Schr\"odinger equation. He first backs up, gives a very compressed reminder of classical evolution, and isolates the one structural fact that matters for what follows: the Hamiltonian generates motion. From there the lecture moves in a tight sequence. We pass from preserved relations between states to unitary evolution, from infinitesimal evolution to a Hermitian generator, from that generator to the abstract Schr\"odinger equation, and then immediately into examples where the phases produced by time evolution become measurable through interference. These notes follow Leonard Susskind's lecture, with supporting board-frame evidence curated by LazyingArt LLC and Video2Book.
+\section{The Classical Hamiltonian Generates a Flow}
 
-\section{From Classical Flow To The Hamiltonian}
+We now begin the serious study of change with time. It is useful to start with
+the classical picture, not because we shall need every detail of classical
+mechanics, but because one structural idea survives intact: the Hamiltonian is
+the generator of time evolution.
 
-The opening classical recap is deliberately brief. For a discrete system, time evolution amounts to jumps from one state to another, and those jumps naturally come in sampled time intervals. Continuous time becomes natural only for systems with continuous variables. A particle moving on a line is the simplest example: at each instant it has a position $x$ and a momentum $p$, and its motion is described not by hops on a finite graph but by a flow in phase space.
+For a system with finitely many classical states, a law of evolution may be
+drawn as arrows from one state to the next. A coin could pass through a
+sequence such as heads, tails, heads, and so on. Since there is no continuous
+path between two isolated states, this picture naturally describes updates at
+discrete sampling times.
 
-The Hamiltonian is the object that describes that flow. For a particle on a line it is a function of $x$ and $p$, and in the standard mechanical example it takes the form
+Continuous classical motion requires a continuous state space. A particle on
+a line has, at each instant, a position \(x\) and momentum \(p\). Its state is
+therefore a point in the two-dimensional phase space with coordinates
+\((x,p)\). As time passes, that point follows a flow line.
+
+The flow is determined by a function of phase space called the Hamiltonian.
+For a particle of mass \(m\) in a potential \(V(x)\), the standard example is
 \begin{equation}
-H(x,p)=\frac{p^2}{2m}+U(x).
+  H(x,p)=\frac{p^2}{2m}+V(x).
+  \label{eq:l8-classical-H}
 \end{equation}
-In the board frame the equality sign and punctuation are not completely secure, but the printed expression is the natural completion of the visible formula.
+The momentum-dependent term is the kinetic energy and the
+position-dependent term is the potential energy. For many particles there is
+one momentum conjugate to each coordinate, but one pair is enough to display
+the structure.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_08_figure_02.png}
-\par
-\begin{tikzpicture}[scale=0.95]
-\draw[->] (0,0) -- (4.9,0) node[right] {$x$};
-\draw[->] (0.45,0.22) to[out=108,in=206] (1.02,0.98);
-\draw[->] (0.77,0.16) to[out=103,in=211] (1.72,1.48);
-\draw[->] (1.10,0.10) to[out=98,in=214] (2.48,1.95);
-\draw[->] (1.42,0.04) to[out=95,in=218] (3.22,2.22);
-\draw[->] (1.76,0.00) to[out=92,in=222] (4.00,2.38);
-\end{tikzpicture}
-\caption{Classical Hamiltonian and flow-line sketch. The redraw is intentionally conservative: the lecture frame clearly secures the curved flow and the $x$ label, but not a full axis system.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_02.png}
+  \caption{The classical Hamiltonian for a particle on a line, with the
+  kinetic and potential terms separated.}
+  \lectureframe{00:05:22}
 \end{figure}
 
-The flow is determined by Hamilton's equations,
+Hamilton's equations turn this energy function into motion:
+\begin{equation}
+  \dot x=\frac{\partial H}{\partial p},
+  \qquad
+  \dot p=-\frac{\partial H}{\partial x}.
+  \label{eq:l8-Hamilton-equations}
+\end{equation}
+For Equation~\eqref{eq:l8-classical-H},
+\(\partial H/\partial p=p/m\), which is the velocity. The second equation
+states that the rate of change of momentum is the force,
+\(-\partial V/\partial x\).
+
+Now let \(F(x,p)\) be any classical observable. The chain rule gives
 \begin{align}
-\dot x &= \frac{\partial H}{\partial p},
-&
-\dot p &= -\frac{\partial H}{\partial x}.
+  \frac{dF}{dt}
+  &=
+  \frac{\partial F}{\partial x}\dot x
+  +\frac{\partial F}{\partial p}\dot p\\
+  &=
+  \frac{\partial F}{\partial x}
+  \frac{\partial H}{\partial p}
+  -
+  \frac{\partial F}{\partial p}
+  \frac{\partial H}{\partial x}.
+  \label{eq:l8-classical-chain}
 \end{align}
-In particular, for the Hamiltonian above we have $\partial H/\partial p=p/m$, which is the velocity, while $-\partial H/\partial x$ is the force.
+The combination on the right is the Poisson bracket:
+\begin{equation}
+  \{F,H\}_{\mathrm{PB}}
+  =
+  \frac{\partial F}{\partial x}
+  \frac{\partial H}{\partial p}
+  -
+  \frac{\partial F}{\partial p}
+  \frac{\partial H}{\partial x}.
+  \label{eq:l8-Poisson}
+\end{equation}
+Thus
+\begin{equation}
+  \boxed{\frac{dF}{dt}=\{F,H\}_{\mathrm{PB}}.}
+  \label{eq:l8-classical-evolution}
+\end{equation}
 
-If $f(x,p)$ is any observable quantity, its time derivative is obtained from the chain rule:
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_03.png}
+  \caption{Hamilton's equations inserted into the chain rule produce the
+  Poisson-bracket law for an arbitrary observable.}
+  \lectureframe{00:08:38}
+\end{figure}
+
+One need not memorize the bracket at this stage. Its message is more
+important than its detailed form: once \(H\) is known, every phase-space
+quantity has a determined time derivative. The Hamiltonian generates the
+flow.
+
+\section{Quantum Evolution Preserves Relations Between States}
+
+The quantum statement begins from a different picture. A state is a vector,
+and the physically meaningful relation between two normalized states is their
+inner product. Orthogonal states can be distinguished with certainty;
+nonorthogonal states have a nonzero transition probability. Closed-system
+evolution must preserve all of these relations.
+
+Suppose that after an elapsed time \(T\),
+\begin{equation}
+  \ket{A}\longmapsto\hat U(T)\ket{A},
+  \qquad
+  \ket{B}\longmapsto\hat U(T)\ket{B}.
+  \label{eq:l8-evolution-map}
+\end{equation}
+The corresponding transformed bra is
+\begin{equation}
+  \bra{B}\longmapsto\bra{B}\hat U^\dagger(T).
+\end{equation}
+Preservation of the inner product requires
 \begin{align}
-\dot f
-&=
-\frac{\partial f}{\partial x}\dot x
-+
-\frac{\partial f}{\partial p}\dot p \\
-&=
-\frac{\partial f}{\partial x}\frac{\partial H}{\partial p}
--
-\frac{\partial f}{\partial p}\frac{\partial H}{\partial x}.
+  \braket{B}{A}
+  &=
+  \bra{B}\hat U^\dagger(T)\hat U(T)\ket{A}
+  \qquad\text{for every }\ket{A},\ket{B}.
 \end{align}
-This combination is the Poisson bracket with the Hamiltonian:
+Therefore
 \begin{equation}
-\dot f=\{f,H\}_{\mathrm{PB}}.
+  \boxed{\hat U^\dagger(T)\hat U(T)=\mathbf 1.}
+  \label{eq:l8-unitary-condition}
 \end{equation}
+In finite dimensions this also implies
+\(\hat U(T)\hat U^\dagger(T)=\mathbf1\). The evolution operator is unitary.
 
-Susskind immediately compresses all of this into the sentence that matters: the Hamiltonian generates time evolution. The Poisson-bracket formalism is not being reviewed for its own sake. It is there to prepare the quantum replacement.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_04.png}
+  \caption{The common evolution of two states preserves their inner product
+  and leads to \(\hat U^\dagger\hat U=\mathbf1\).}
+  \lectureframe{00:14:20}
+\end{figure}
 
-\section{From Preserved Relations To Unitary Evolution}
+There is a useful geometric image here. The vectors move, but the whole state
+space moves rigidly: norms and mutual angles remain fixed. In particular,
+orthogonal states remain orthogonal. For the linear evolution considered
+here, this preservation law is the governing principle.
 
-The pivot is sharp. Classical mechanics, Susskind says, always felt more obscure than it should have; something simpler must underlie it, and what underlies it is quantum mechanics. So instead of asking for trajectories in phase space, we ask what quantum time evolution preserves.
-
-The answer is: the relations between states are preserved. If two states are orthogonal, they remain orthogonal. If they overlap by a certain amount, that overlap is preserved. One may picture the whole space of states as rotating, but without changing the angles between vectors.
-
-Suppose a state $|A\rangle$ evolves over a time interval $T$. We write
+Writing the state at an arbitrary initial time \(t\), the evolution law is
 \begin{equation}
-|A\rangle \mapsto U(T)|A\rangle.
+  \ket{\psi(t+T)}
+  =
+  \hat U(T)\ket{\psi(t)}.
+  \label{eq:l8-finite-evolution}
 \end{equation}
-If a second state $|B\rangle$ evolves over the same interval, then
+No elapsed time means no change,
 \begin{equation}
-|B\rangle \mapsto U(T)|B\rangle,
-\qquad
-\langle B| \mapsto \langle B|U^\dagger(T).
+  \hat U(0)=\mathbf1.
+  \label{eq:l8-U-zero}
 \end{equation}
-Now require that the inner product be preserved:
+Successive intervals compose:
 \begin{equation}
-\langle B|A\rangle
-=
-\langle B|U^\dagger(T)U(T)|A\rangle
+  \hat U(T_2)\hat U(T_1)=\hat U(T_1+T_2)
+  \label{eq:l8-group-law}
 \end{equation}
-for arbitrary states $|A\rangle$ and $|B\rangle$. Therefore
-\begin{equation}
-U^\dagger(T)U(T)=1.
-\end{equation}
-So time evolution is governed by a unitary operator.
+when the Hamiltonian has no explicit time dependence. This is why a long
+evolution can be assembled from many short steps.
 
-In the lecture this is presented almost as the whole principle in one line: things which are orthogonal stay orthogonal. That is enough to force unitarity.
+\section{The Infinitesimal Generator}
 
-It is useful now to write the evolution law in the form used throughout the rest of the lecture:
+Let \(\epsilon\) be short enough that terms of order \(\epsilon^2\) may be
+neglected. Since \(\hat U(0)=\mathbf1\), the most general first-order form can
+be written
 \begin{equation}
-|\psi(t+T)\rangle = U(T)|\psi(t)\rangle.
+  \hat U(\epsilon)
+  =
+  \mathbf1-\frac{i\epsilon}{\hbar}\hat H
+  +O(\epsilon^2).
+  \label{eq:l8-infinitesimal-U}
 \end{equation}
-This says nothing more mysterious than that if we want to push a state ahead by an amount of time $T$, we do it by acting on it with the evolution operator $U(T)$.
+At first, \(\hat H\) is simply the name of an operator. The factors
+\(-i/\hbar\) are chosen so that \(\hat H\) has units of energy and so that the
+classical correspondence will later take its standard form.
 
-\section{Infinitesimal Time Steps And The Hermitian Generator}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_08_figure_05.png}
+  \caption{A short-time evolution differs from the identity by a term
+  proportional to \(-i\epsilon\hat H/\hbar\).}
+  \lectureframe{00:19:54}
+\end{figure}
 
-Once time evolution is known to be unitary for finite intervals, the next natural question is local: what is $U(\epsilon)$ for a very short interval $\epsilon$? Since no evolution at all should do nothing, we must have
+Taking the adjoint gives
 \begin{equation}
-U(0)=1.
+  \hat U^\dagger(\epsilon)
+  =
+  \mathbf1+\frac{i\epsilon}{\hbar}\hat H^\dagger
+  +O(\epsilon^2).
 \end{equation}
-Therefore the leading small-$\epsilon$ form must be
-\begin{equation}
-U(\epsilon)=1-\frac{i\epsilon}{\hbar}H+O(\epsilon^2).
-\end{equation}
-At this stage the notation is partly anticipatory. The factors of $i$ and $\hbar$ are chosen so that the operator $H$ will later be recognized as the Hamiltonian. Susskind is explicit about this: the formula has been written in a way that will eventually make contact with classical mechanics.
-
-A student immediately raises the classical-limit question: if $\hbar$ appears in the denominator, what can it mean to let $\hbar\to 0$? The answer is that the meaningful quantity is not $\hbar$ in isolation, but the dimensionless ratio $\epsilon H/\hbar$, or more broadly an action measured in units of $\hbar$. At this stage the placement of $\hbar$ is bookkeeping; later it will be precisely what allows $H$ to have a sensible classical meaning.
-
-Now take the Hermitian conjugate:
-\begin{equation}
-U^\dagger(\epsilon)=1+\frac{i\epsilon}{\hbar}H^\dagger+O(\epsilon^2).
-\end{equation}
-Imposing unitarity to first order,
+Unitarity through first order then says
 \begin{align}
-1
-&=
-U^\dagger(\epsilon)U(\epsilon) \\
-&=
-\left(1+\frac{i\epsilon}{\hbar}H^\dagger\right)
-\left(1-\frac{i\epsilon}{\hbar}H\right)
-+O(\epsilon^2) \\
-&=
-1+\frac{i\epsilon}{\hbar}(H^\dagger-H)+O(\epsilon^2),
+  \mathbf1
+  &=
+  \hat U^\dagger(\epsilon)\hat U(\epsilon)\\
+  &=
+  \left(
+    \mathbf1+\frac{i\epsilon}{\hbar}\hat H^\dagger
+  \right)
+  \left(
+    \mathbf1-\frac{i\epsilon}{\hbar}\hat H
+  \right)
+  +O(\epsilon^2)\\
+  &=
+  \mathbf1
+  +\frac{i\epsilon}{\hbar}
+  \left(\hat H^\dagger-\hat H\right)
+  +O(\epsilon^2).
 \end{align}
-so the first-order term must vanish:
+The linear term must vanish, so
 \begin{equation}
-H^\dagger=H.
+  \boxed{\hat H^\dagger=\hat H.}
+  \label{eq:l8-H-Hermitian}
 \end{equation}
 
-That is the first genuinely new conclusion. The generator of infinitesimal time evolution must be Hermitian. It follows that it is an observable: it has real eigenvalues and an orthonormal basis of eigenvectors. Only after deriving that fact does Susskind give the operator its physical name. We call it the Hamiltonian, and we call its eigenvalues energies. He is careful about the logical order: we are not yet proving that this is the same energy as in classical mechanics, only that this is the observable whose eigenvalues deserve the name.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_08_figure_06.png}
+  \caption{Expanding \(\hat U^\dagger\hat U=\mathbf1\) to first order leaves
+  the condition \(\hat H^\dagger-\hat H=0\).}
+  \lectureframe{00:22:48}
+\end{figure}
+
+The generator of continuous unitary evolution is Hermitian. Its eigenvalues
+are real and, in finite dimensions, its eigenvectors may be chosen as an
+orthonormal basis. We identify this observable as the Hamiltonian and call its
+eigenvalues energies. At this point that is an identification within quantum
+mechanics; recovering familiar classical energy requires a further
+correspondence argument.
+
+For a time-independent Hamiltonian, compounding the short-time step gives
+\begin{equation}
+  \hat U(T)
+  =
+  \exp\left(-\frac{i}{\hbar}\hat H T\right).
+  \label{eq:l8-exponential-U}
+\end{equation}
+The exponential is unitary precisely because \(\hat H\) is Hermitian.
+
+\begin{classroomqa}
+\audiencequestion{If \(\hbar\) appears in the denominator, what happens in
+the classical limit \(\hbar\to0\)?
+\lecturetimestamp{00:26:41--00:28:07}}
+\lecturerresponse{The classical limit is not obtained by setting a denominator
+to zero inside one fixed microscopic formula. What matters are
+dimensionless actions measured in units of \(\hbar\), such as
+\(\epsilon E/\hbar\). Classical behavior emerges when the relevant actions
+are large compared with \(\hbar\) and quantum phases combine by stationary
+phase or decoherence. The operator \(\hat H\) itself has a well-defined
+classical counterpart even though the phases become rapidly varying.}
+\end{classroomqa}
 
 \section{The Abstract Schr\"odinger Equation}
 
-Now we turn the infinitesimal update rule into a differential equation. Starting from
+Apply Equation~\eqref{eq:l8-infinitesimal-U} to a state:
 \begin{equation}
-|\psi(t+\epsilon)\rangle
-=
-\left(1-\frac{i\epsilon}{\hbar}H\right)|\psi(t)\rangle,
+  \ket{\psi(t+\epsilon)}
+  =
+  \left(
+    \mathbf1-\frac{i\epsilon}{\hbar}\hat H
+  \right)
+  \ket{\psi(t)}
+  +O(\epsilon^2).
+  \label{eq:l8-small-state-step}
 \end{equation}
-we bring the identity term to the left:
+Subtract \(\ket{\psi(t)}\), divide by \(\epsilon\), and take
+\(\epsilon\to0\):
 \begin{equation}
-|\psi(t+\epsilon)\rangle-|\psi(t)\rangle
-=
--\frac{i\epsilon}{\hbar}H|\psi(t)\rangle.
+  \frac{\partial}{\partial t}\ket{\psi(t)}
+  =
+  -\frac{i}{\hbar}\hat H\ket{\psi(t)}.
 \end{equation}
-Dividing by $\epsilon$ and letting $\epsilon\to 0$ gives
+Multiplication by \(i\hbar\) gives
 \begin{equation}
-\frac{\partial}{\partial t}|\psi\rangle
-=
--\frac{i}{\hbar}H|\psi\rangle.
-\end{equation}
-Multiplying by $i\hbar$, we obtain the canonical form
-\begin{equation}
-i\hbar\,\frac{\partial}{\partial t}|\psi\rangle=H|\psi\rangle.
+  \boxed{
+  i\hbar\frac{\partial}{\partial t}\ket{\psi(t)}
+  =
+  \hat H\ket{\psi(t)}.}
+  \label{eq:l8-abstract-Schrodinger}
 \end{equation}
 
-This is the abstract Schr\"odinger equation. Susskind pauses at exactly this point to stress what it is and what it is not. It is the general law of quantum time evolution. It is not yet the original wave equation Schr\"odinger wrote down for a particle moving in space. In this abstract form, it applies to any quantum system whatever, provided we know its Hamiltonian.
-
-The lecture later reuses the same equation in the simplified $\hbar=1$ convention. The board snapshot below captures that stripped-down ket form:
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.42\textwidth]{lecture_08_figure_04.png}
-\caption{Ket form of the Schr\"odinger equation in the lecture's temporary $\hbar=1$ convention.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_07.png}
+  \caption{The finite difference from \(t\) to \(t+\epsilon\) becomes the
+  abstract Schr\"odinger equation.}
+  \lectureframe{00:32:03}
 \end{figure}
 
-The cleaned board equation is
+This is the general law of quantum time evolution. It is abstract because
+\(\ket{\psi}\) may describe polarization, spin, a particle in space, or any
+other quantum system. Schr\"odinger's original wave equation will appear only
+after we choose a coordinate representation and specify \(\hat H\).
+
+There is a useful parallel with momentum. In the coordinate representation,
 \begin{equation}
-|\dot\psi\rangle=-iH|\psi\rangle,
+  \hat p=-i\hbar\frac{\partial}{\partial x}
 \end{equation}
-which is exactly the same statement as the previous equation with $\hbar$ suppressed.
+relates spatial translation to momentum, while
+Equation~\eqref{eq:l8-abstract-Schrodinger} relates time translation to
+energy. The sign conventions are conventional; their consistent use is what
+matters.
 
-At this point the lecture takes a deliberate turn. A differential equation only earns its keep when it predicts the future. So Susskind asks how this formalism is actually used.
+\section{A Polarization Doublet in an Anisotropic Medium}
 
-\section{Polarization Example: Energy Eigenstates And Phase Evolution}
+\subsection{The Energy Eigenstates}
 
-The first worked example returns to the familiar two-state system of photon polarization. Imagine a material in which a photon of fixed wavelength has different energies depending on its polarization. Let the $x$ polarization have energy $E_1$ and the $y$ polarization have energy $E_2$. Then the Hamiltonian has the basis states $|x\rangle$ and $|y\rangle$ as eigenvectors:
+Consider a photon of fixed wavelength moving through a material whose two
+preferred polarization axes have different energies. Choose those material
+axes as \(x\) and \(y\), and suppose
 \begin{equation}
-H|x\rangle=E_1|x\rangle,
-\qquad
-H|y\rangle=E_2|y\rangle.
+  \hat H\ket{x}=E_1\ket{x},
+  \qquad
+  \hat H\ket{y}=E_2\ket{y}.
+  \label{eq:l8-polarization-eigenstates}
 \end{equation}
+Here \(x\) and \(y\) label polarization, not position. The assumption is that
+the material itself distinguishes these two directions.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.74\textwidth]{lecture_08_figure_03.png}
-\caption{Polarization energy eigenstates and time-dependent state. The lower state vector is partly blocked in the board frame, so the printed form follows the transcript rather than the image alone.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_08.png}
+  \caption{The material assigns energies \(E_1\) and \(E_2\) to its two
+  orthogonal polarization eigenstates.}
+  \lectureframe{00:35:54}
 \end{figure}
 
-A general state of polarization is written as
+A general polarization state is
 \begin{equation}
-|\psi(t)\rangle=
-\begin{pmatrix}
-\alpha(t)\\
-\beta(t)
-\end{pmatrix},
+  \ket{\psi(t)}
+  =
+  \alpha(t)\ket{x}+\beta(t)\ket{y}
+  =
+  \begin{pmatrix}
+    \alpha(t)\\
+    \beta(t)
+  \end{pmatrix}.
+  \label{eq:l8-polarization-state}
 \end{equation}
-where $\alpha(t)$ is the amplitude for $x$ polarization and $\beta(t)$ is the amplitude for $y$ polarization.
+The probabilities of obtaining \(x\) and \(y\) polarization are
+\(|\alpha(t)|^2\) and \(|\beta(t)|^2\).
 
-From this point on in the live lecture Susskind temporarily sets $\hbar=1$. We will restore $\hbar$ in the printed formulas, but it is worth remembering that the corresponding board equations are written in the simplified convention.
-
-In the $(|x\rangle,|y\rangle)$ basis the Hamiltonian is diagonal:
+In the \((\ket{x},\ket{y})\) basis,
 \begin{equation}
-H=
-\begin{pmatrix}
-E_1 & 0\\
-0 & E_2
-\end{pmatrix}.
+  \hat H
+  =
+  \begin{pmatrix}
+    E_1&0\\
+    0&E_2
+  \end{pmatrix}.
+  \label{eq:l8-diagonal-H}
 \end{equation}
-The lecture briefly writes the diagonal entries in the wrong order and then corrects them; the matrix above is the corrected form.
+The diagonal order follows directly from
+Equation~\eqref{eq:l8-polarization-eigenstates}.
 
-Now apply the Schr\"odinger equation:
-\begin{equation}
-i\hbar\frac{d}{dt}
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix}
-=
-\begin{pmatrix}
-E_1 & 0\\
-0 & E_2
-\end{pmatrix}
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix}.
-\end{equation}
-Because the Hamiltonian is diagonal, the two amplitudes do not mix. We simply get
-\begin{equation}
-i\hbar\,\dot\alpha=E_1\alpha,
-\qquad
-i\hbar\,\dot\beta=E_2\beta.
-\end{equation}
-These are the simplest possible first-order differential equations, and their solutions are pure exponentials:
-\begin{equation}
-\alpha(t)=\alpha(0)e^{-iE_1 t/\hbar},
-\qquad
-\beta(t)=\beta(0)e^{-iE_2 t/\hbar}.
-\end{equation}
-Therefore
-\begin{equation}
-|\psi(t)\rangle=
-\begin{pmatrix}
-\alpha(0)e^{-iE_1 t/\hbar}\\
-\beta(0)e^{-iE_2 t/\hbar}
-\end{pmatrix}.
-\end{equation}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_09.png}
+  \caption{The polarization eigenvalue equations used to construct the
+  diagonal Hamiltonian.}
+  \lectureframe{00:39:31}
+\end{figure}
 
-Susskind now asks the obvious experimental question. What happens if we measure the polarization in the $x/y$ basis itself? The answer is almost perversely simple:
+The Schr\"odinger equation becomes
 \begin{equation}
-|\alpha(t)|^2=|\alpha(0)|^2,
-\qquad
-|\beta(t)|^2=|\beta(0)|^2.
+  i\hbar
+  \frac{d}{dt}
+  \begin{pmatrix}
+    \alpha\\
+    \beta
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    E_1&0\\
+    0&E_2
+  \end{pmatrix}
+  \begin{pmatrix}
+    \alpha\\
+    \beta
+  \end{pmatrix}.
 \end{equation}
-The phases drop out. At first sight it looks as if time evolution has done nothing at all.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-If the two components only pick up phases, and if the $x/y$ probabilities do not change, has anything observable happened?
-
-\paragraph{Answer.}
-Yes, but we have to look in the right basis. The phases disappear only when we measure in the basis in which the Hamiltonian is diagonal. If we rotate the measurement basis, the relative phase becomes visible through interference.
-
-Take the $45^\circ$ polarization state
+The two component equations decouple:
 \begin{equation}
-|/\rangle
-=
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-1
-\end{pmatrix}.
+  i\hbar\dot\alpha=E_1\alpha,
+  \qquad
+  i\hbar\dot\beta=E_2\beta.
+  \label{eq:l8-component-equations}
 \end{equation}
-The amplitude to pass a $45^\circ$ polarizer is
+Their solutions are
 \begin{equation}
-\langle /|\psi(t)\rangle
-=
-\frac{1}{\sqrt2}
-\left(
-\alpha(0)e^{-iE_1 t/\hbar}
-+
-\beta(0)e^{-iE_2 t/\hbar}
-\right).
+  \alpha(t)=\alpha(0)e^{-iE_1t/\hbar},
+  \qquad
+  \beta(t)=\beta(0)e^{-iE_2t/\hbar}.
+  \label{eq:l8-component-solutions}
+\end{equation}
+Thus
+\begin{equation}
+  \ket{\psi(t)}
+  =
+  \begin{pmatrix}
+    \alpha(0)e^{-iE_1t/\hbar}\\
+    \beta(0)e^{-iE_2t/\hbar}
+  \end{pmatrix}.
+  \label{eq:l8-evolved-polarization}
 \end{equation}
 
-Now specialize to the experimental arrangement emphasized in the lecture: the photon first passes through a $45^\circ$ polarizer, so at $t=0$ we have
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_10.png}
+  \caption{Each energy component accumulates its own phase,
+  \(e^{-iE_jt/\hbar}\).}
+  \lectureframe{00:43:55}
+\end{figure}
+
+If we measure in the energy basis itself, nothing seems to change:
 \begin{equation}
-\alpha(0)=\beta(0)=\frac{1}{\sqrt2}.
+  |\alpha(t)|^2=|\alpha(0)|^2,
+  \qquad
+  |\beta(t)|^2=|\beta(0)|^2.
+  \label{eq:l8-fixed-energy-probabilities}
 \end{equation}
-Then the amplitude becomes
+Each exponential has unit modulus. The relative phase is invisible to an
+\(x/y\) analyzer, but it is not physically irrelevant.
+
+\subsection{Interference in a Rotated Analyzer}
+
+Let
 \begin{equation}
-A_{/}(t)
-=
-\frac12
-\left(
-e^{-iE_1 t/\hbar}
-+
-e^{-iE_2 t/\hbar}
-\right).
+  \ket{d_+}
+  =
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}1\\1\end{pmatrix},
+  \qquad
+  \ket{d_-}
+  =
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}1\\-1\end{pmatrix}
+  \label{eq:l8-diagonal-polarizations}
 \end{equation}
-The corresponding probability is
+be the \(+45^\circ\) and \(-45^\circ\) linear polarizations. The amplitude
+to pass a \(+45^\circ\) analyzer after time \(t\) is
+\begin{equation}
+  \braket{d_+}{\psi(t)}
+  =
+  \frac{1}{\sqrt2}
+  \left[
+    \alpha(0)e^{-iE_1t/\hbar}
+    +\beta(0)e^{-iE_2t/\hbar}
+  \right].
+  \label{eq:l8-diagonal-amplitude-general}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_08_figure_11.png}
+  \caption{Projection of the evolved two-component state onto the
+  \(45^\circ\) analyzer.}
+  \lectureframe{00:49:24}
+\end{figure}
+
+Prepare the photon with a first \(+45^\circ\) polarizer. Then
+\begin{equation}
+  \alpha(0)=\beta(0)=\frac{1}{\sqrt2},
+\end{equation}
+and
+\begin{equation}
+  \mathcal A_+(t)
+  =
+  \frac12
+  \left(
+    e^{-iE_1t/\hbar}
+    +e^{-iE_2t/\hbar}
+  \right).
+  \label{eq:l8-diagonal-amplitude}
+\end{equation}
+The transmission probability is the absolute square:
 \begin{align}
-P(t)
-&=
-|A_{/}(t)|^2 \\
-&=
-\frac14
-\left(
-e^{-iE_1 t/\hbar}+e^{-iE_2 t/\hbar}
-\right)
-\left(
-e^{iE_1 t/\hbar}+e^{iE_2 t/\hbar}
-\right) \\
-&=
-\frac14
-\left(
-2
-+
-e^{i(E_2-E_1)t/\hbar}
-+
-e^{-i(E_2-E_1)t/\hbar}
-\right).
+  P_+(t)
+  &=
+  |\mathcal A_+(t)|^2\\
+  &=
+  \frac14
+  \left(
+    e^{-iE_1t/\hbar}
+    +e^{-iE_2t/\hbar}
+  \right)
+  \left(
+    e^{iE_1t/\hbar}
+    +e^{iE_2t/\hbar}
+  \right)\\
+  &=
+  \frac14
+  \left[
+    2
+    +e^{i(E_2-E_1)t/\hbar}
+    +e^{-i(E_2-E_1)t/\hbar}
+  \right].
+  \label{eq:l8-interference-expansion}
 \end{align}
-Defining
-\begin{equation}
-\Delta E=E_2-E_1,
-\end{equation}
-we arrive at
-\begin{equation}
-P(t)=\frac12\left(1+\cos\frac{\Delta E\,t}{\hbar}\right).
-\end{equation}
 
-This is the real payoff of the example. The state has certainly changed. The relative phase between the two components becomes a physically measurable oscillation when we project onto the rotated basis. At $t=0$ we get $P(0)=1$, as we should: two parallel $45^\circ$ polarizers with no time evolution between them transmit with certainty. Later the probability can fall all the way to zero. That means the photon certainly does \emph{not} pass the second polarizer in the original direction. The lecture interprets this physically as a rotation of the linear polarization as the photon moves downstream through the material.
-
-The central point is broader than this one example. Only the energy difference matters. If we add the same constant to both energies, then the state acquires only an overall phase, and that common phase cancels from every probability. Thus physics depends on $\Delta E$, not on the arbitrary zero of energy.
-
-This also resolves the student's worry that the choice of $x$ and $y$ seems arbitrary. It is the material itself that picks preferred axes. When our measurement basis is aligned with those axes, the Hamiltonian is diagonal and the probabilities in that basis stay fixed. When the basis is misaligned, the relative phase shows up as rotation and interference.
-
-\section{Expectation Values, Commutators, And Conserved Quantities}
-
-Before taking a break, Susskind does one more thing. He steps back from the polarization example and asks for a general theorem. Suppose $K$ is some observable. How does its expectation value
-\begin{equation}
-\langle K\rangle=\langle\psi|K|\psi\rangle
-\end{equation}
-change with time?
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_08_figure_05.png}
-\caption{Product-rule step toward the commutator formula. The board image secures the intermediate structure, while the full displayed formula below is reconstructed from the transcript.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_12.png}
+  \caption{The absolute square contains two direct terms and two
+  phase-sensitive cross terms.}
+  \lectureframe{00:54:54}
 \end{figure}
 
-The first step is utterly ordinary: the time derivative of a product is the sum of two terms. Since $K$ itself is held fixed, only the bra and ket change:
+Define the energy splitting
 \begin{equation}
-\frac{d}{dt}\langle\psi|K|\psi\rangle
-=
-\langle\psi|K|\dot\psi\rangle
-+
-\langle\dot\psi|K|\psi\rangle.
+  \Delta E=E_2-E_1.
 \end{equation}
-Now use the Schr\"odinger equation for the ket and its Hermitian conjugate for the bra:
-\begin{equation}
-|\dot\psi\rangle=-\frac{i}{\hbar}H|\psi\rangle,
-\qquad
-\langle\dot\psi|=\frac{i}{\hbar}\langle\psi|H.
-\end{equation}
-Substituting, we find
+Using \(e^{i\delta}+e^{-i\delta}=2\cos\delta\), we obtain
 \begin{align}
-\frac{d}{dt}\langle K\rangle
-&=
--\frac{i}{\hbar}\langle\psi|KH|\psi\rangle
-+\frac{i}{\hbar}\langle\psi|HK|\psi\rangle \\
-&=
--\frac{i}{\hbar}\langle\psi|(KH-HK)|\psi\rangle.
+  P_+(t)
+  &=
+  \frac12
+  \left[
+    1+\cos\left(\frac{\Delta E\,t}{\hbar}\right)
+  \right]\\
+  &=
+  \cos^2\left(\frac{\Delta E\,t}{2\hbar}\right).
+  \label{eq:l8-diagonal-probability}
 \end{align}
-With the convention
+The complementary analyzer has
 \begin{equation}
-[K,H]=KH-HK,
-\end{equation}
-the result becomes
-\begin{equation}
-\frac{d}{dt}\langle K\rangle
-=
--\frac{i}{\hbar}\langle[K,H]\rangle.
+  P_-(t)
+  =
+  \sin^2\left(\frac{\Delta E\,t}{2\hbar}\right),
+  \qquad
+  P_+(t)+P_-(t)=1.
+  \label{eq:l8-complementary-probability}
 \end{equation}
 
-That is the general law. In the lecture Susskind is pleased by how short the derivation is. Time-differentiate the sandwich, use the ket equation once and the bra equation once, and the opposite signs conspire to produce a commutator.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_08_figure_13.png}
+  \caption{The probability for the second parallel analyzer oscillates
+  between one and zero as the relative phase advances.}
+  \lectureframe{00:58:44}
+\end{figure}
 
-This is the direct quantum analog of the classical rule
+At \(t=0\), two adjacent parallel analyzers transmit with certainty. When
+\(\Delta E\,t/\hbar=\pi\), the state is orthogonal to its initial
+\(+45^\circ\) polarization and passes the \(-45^\circ\) analyzer with
+certainty.
+
+Between those two times the state is generally not linearly polarized.
+Removing a common phase from
+Equation~\eqref{eq:l8-evolved-polarization} gives
 \begin{equation}
-\dot f=\{f,H\}_{\mathrm{PB}}.
+  \ket{\psi(t)}
+  \sim
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}
+    1\\
+    e^{-i\Delta E t/\hbar}
+  \end{pmatrix}.
+  \label{eq:l8-relative-polarization-phase}
 \end{equation}
-In both theories, it is the Hamiltonian that controls time evolution. In classical mechanics the bracket is the Poisson bracket; in quantum mechanics it is the commutator.
+It begins at \(+45^\circ\) linear polarization, becomes circular when the
+relative phase is \(\pm\pi/2\), reaches \(-45^\circ\) linear polarization at
+\(\pi\), and passes through elliptical states in between. The analyzer
+oscillation is therefore an interference measurement of a continuously
+changing polarization state.
 
-\begin{proposition}
-If an observable $K$ commutes with the Hamiltonian, then its expectation value is conserved:
+\subsection{Only Energy Differences Are Observable}
+
+If a constant \(C\) is added to every energy,
 \begin{equation}
-[K,H]=0
-\qquad \Longrightarrow \qquad
-\frac{d}{dt}\langle K\rangle=0.
+  \hat H\longmapsto\hat H+C\mathbf1,
 \end{equation}
-\end{proposition}
+then
+\begin{equation}
+  \hat U(t)
+  \longmapsto
+  e^{-iCt/\hbar}\hat U(t).
+\end{equation}
+Every state acquires the same overall phase, which changes no transition
+probability. This is why the interference depends on \(\Delta E\), not on the
+arbitrary zero of energy.
 
-\begin{proof}
-If $[K,H]=0$, then the right-hand side of
+\begin{classroomqa}
+\audiencequestion{Must the material fill the entire region between the two
+polarizers?\lecturetimestamp{01:00:52--01:01:27}}
+\lecturerresponse{The idealized calculation assumes that the photon spends a
+known time in a uniform anisotropic region. A finite slab works just as well:
+replace \(t\) by the transit time through that slab. Outside it, any common
+vacuum phase does not alter the polarization probabilities.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{The graph uses time on its horizontal axis. How does that
+become a downstream position in the experiment?
+\lecturetimestamp{01:01:29--01:02:43}}
+\lecturerresponse{If the photon travels through the material with group
+velocity \(v\), a slab length \(L\) corresponds to an interaction time
+\(t=L/v\). Moving the second analyzer downstream, or changing the material
+thickness, therefore changes the accumulated relative phase
+\(\Delta E L/(\hbar v)\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What happens if the incident photon is circularly polarized
+instead of linearly polarized?\lecturetimestamp{01:02:44--01:03:40}}
+\lecturerresponse{A circular state is an equal-amplitude \(x/y\) superposition
+with relative phase \(\pm\pi/2\). The material adds
+\(-\Delta E t/\hbar\) to that phase, so the state moves through elliptical
+polarizations, becomes linearly polarized at appropriate times, and later
+reaches the opposite circular handedness. The same interference calculation
+applies after changing the initial coefficients.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If the labels \(x\) and \(y\) are arbitrary, why should a
+different choice change the prediction?
+\lecturetimestamp{01:03:43--01:05:15}}
+\lecturerresponse{The labels are conventional, but the axes are not. The
+material has two physical principal axes. We chose coordinates aligned with
+them so that \(\hat H\) is diagonal. Rotating only the coordinate labels
+changes no prediction; rotating the polarizers relative to the material
+changes the preparation and measurement basis and therefore reveals the
+relative phase.}
+\end{classroomqa}
+
+\section{Expectation Values and Commutators}
+
+Let \(\hat K\) be a fixed observable with no explicit time dependence. Its
+expectation value in the evolving state is
+\begin{equation}
+  \expect{\hat K}
+  =
+  \bra{\psi(t)}\hat K\ket{\psi(t)}.
+  \label{eq:l8-K-expectation}
+\end{equation}
+Only the bra and ket vary. The product rule gives
+\begin{equation}
+  \frac{d}{dt}\expect{\hat K}
+  =
+  \bra{\dot\psi}\hat K\ket{\psi}
+  +
+  \bra{\psi}\hat K\ket{\dot\psi}.
+  \label{eq:l8-expectation-product-rule}
+\end{equation}
+
+The ket equation and its adjoint are
+\begin{equation}
+  \ket{\dot\psi}
+  =
+  -\frac{i}{\hbar}\hat H\ket{\psi},
+  \qquad
+  \bra{\dot\psi}
+  =
+  \frac{i}{\hbar}\bra{\psi}\hat H,
+  \label{eq:l8-bra-ket-Schrodinger}
+\end{equation}
+where Hermiticity of \(\hat H\) has been used.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_08_figure_14.png}
+  \caption{The ket Schr\"odinger equation and the corresponding bra equation
+  carry opposite signs.}
+  \lectureframe{01:11:45}
+\end{figure}
+
+Substitution gives
+\begin{align}
+  \frac{d}{dt}\expect{\hat K}
+  &=
+  \frac{i}{\hbar}
+  \bra{\psi}\hat H\hat K\ket{\psi}
+  -
+  \frac{i}{\hbar}
+  \bra{\psi}\hat K\hat H\ket{\psi}\\
+  &=
+  \frac{i}{\hbar}
+  \expect{[\hat H,\hat K]}\\
+  &=
+  -\frac{i}{\hbar}
+  \expect{[\hat K,\hat H]}.
+  \label{eq:l8-Heisenberg-expectation}
+\end{align}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_15.png}
+  \caption{Differentiating the expectation-value sandwich produces the two
+  operator orderings \(\hat H\hat K\) and \(\hat K\hat H\).}
+  \lectureframe{01:13:20}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is the result written with
+\([\hat K,\hat H]\) or \([\hat H,\hat K]\), and which sign belongs in front?
+\lecturetimestamp{01:14:46--01:15:18}}
+\lecturerresponse{Both forms are equivalent because
+\([\hat H,\hat K]=-[\hat K,\hat H]\). With
+\([\hat K,\hat H]=\hat K\hat H-\hat H\hat K\),
 \[
-\frac{d}{dt}\langle K\rangle
-=
--\frac{i}{\hbar}\langle[K,H]\rangle
+  \frac{d}{dt}\expect{\hat K}
+  =
+  -\frac{i}{\hbar}\expect{[\hat K,\hat H]}.
 \]
-vanishes.
-\end{proof}
+Writing the commutator in the opposite order changes the prefactor to
+\(+i/\hbar\).}
+\end{classroomqa}
 
-Susskind remarks that one can prove a stronger statement about the full probability distribution, but he does not pursue it here. For present purposes the expectation-value theorem is enough. In particular, the Hamiltonian commutes with itself, so the Hamiltonian is conserved. Since the Hamiltonian is the energy, energy conservation appears here not as an additional postulate, but as a direct consequence of the formalism.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{lecture_08_figure_16.png}
+  \caption{The completed commutator form of the expectation-value evolution
+  law.}
+  \lectureframe{01:16:37}
+\end{figure}
 
-\section{Particle On A Line And The Free-Particle Schr\"odinger Equation}
+This is the quantum counterpart of
+Equation~\eqref{eq:l8-classical-evolution}. In classical mechanics, take a
+Poisson bracket with \(H\); in quantum mechanics, take a commutator with
+\(\hat H\). The precise correspondence is
+\begin{equation}
+  \{F,H\}_{\mathrm{PB}}
+  \quad\longleftrightarrow\quad
+  \frac{1}{i\hbar}[\hat F,\hat H]
+\end{equation}
+in the appropriate classical limit.
 
-Only after the two-state example and the commutator theorem does the lecture turn to Schr\"odinger's original setting: a particle moving on a line. The state can be described by a wave function $\psi(x,t)$, or equivalently by its Fourier transform $\tilde\psi(p,t)$. Nothing fundamental has changed. We have only traded an abstract ket for its coordinate representation. Functions of $x$ are vectors too.
+\section{Conserved Quantities}
 
-The rule of time evolution is the same rule as before:
+If
 \begin{equation}
-i\hbar\,\frac{\partial}{\partial t}\psi(x,t)=H\psi(x,t).
+  [\hat K,\hat H]=0,
+  \label{eq:l8-commuting-conserved}
 \end{equation}
-What remains is to identify the Hamiltonian for a free particle.
+then Equation~\eqref{eq:l8-Heisenberg-expectation} gives
+\begin{equation}
+  \frac{d}{dt}\expect{\hat K}=0
+\end{equation}
+in every state. More strongly, the spectral projectors of \(\hat K\) commute
+with \(\hat H\), so the full probability distribution of \(K\) is
+time-independent.
 
-We know that in classical mechanics the energy is
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_17.png}
+  \caption{A vanishing commutator with the Hamiltonian is the criterion for a
+  time-independent observable distribution.}
+  \lectureframe{01:18:49}
+\end{figure}
+
+The converse requires the same scope: if the expectation value is constant
+for every state, and \(\hat K\) has no explicit time dependence, then
+\([\hat K,\hat H]=0\). Constancy in one specially chosen state alone would not
+be enough.
+
+The Hamiltonian commutes with itself:
 \begin{equation}
-E=\frac{p^2}{2m}.
+  [\hat H,\hat H]=0.
 \end{equation}
-Susskind is careful here: classical mechanics does not prove the quantum Hamiltonian. At best it suggests a guess. The natural guess is
+Therefore a time-independent Hamiltonian is conserved. Since it represents
+energy, this is energy conservation. The corresponding classical statement
+is
 \begin{equation}
-\hat H=\frac{\hat p^2}{2m}.
+  \{H,H\}_{\mathrm{PB}}=0.
 \end{equation}
-The momentum operator is
+If the Hamiltonian depends explicitly on time, an additional term
+\(\expect{\partial\hat H/\partial t}\) appears and energy need not be
+conserved. The lecture's argument assumes no such explicit dependence.
+
+\section{A Free Particle on a Line}
+
+\subsection{From an Abstract Ket to a Wave Function}
+
+For a particle on a line, the state may be represented by
+\(\psi(x,t)\). Its position probability density is
 \begin{equation}
-\hat p=-i\hbar\frac{\partial}{\partial x}.
+  \rho(x,t)=|\psi(x,t)|^2.
 \end{equation}
-Therefore
+The Fourier transform \(\widetilde\psi(p,t)\) gives the momentum
+representation, with \(|\widetilde\psi(p,t)|^2\) as the momentum probability
+density. These are not new kinds of state; they are coordinate
+representations of the same abstract vector.
+
+Multiplication by \(x\) and differentiation with respect to \(x\) are linear
+operators on the vector space of wave functions:
 \begin{equation}
-\hat H
-=
-\frac{1}{2m}
-\left(-i\hbar\frac{\partial}{\partial x}\right)^2
-=
--\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}.
+  \hat x\psi=x\psi,
+  \qquad
+  \hat p\psi
+  =
+  -i\hbar\frac{\partial\psi}{\partial x}.
+  \label{eq:l8-x-p-operators}
 \end{equation}
 
-The live lecture then goes through exactly the kind of sign-and-factor tangle one expects in real time, notices a missing $\hbar$, loses track of a minus sign, and finally decides to do the calculation over carefully. The cleaned result is the standard free-particle Schr\"odinger equation:
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_08_figure_18.png}
+  \caption{The wave-function Schr\"odinger equation is paired with the
+  differential representation of momentum.}
+  \lectureframe{01:24:03}
+\end{figure}
+
+For a force-free particle, classical mechanics suggests
 \begin{equation}
-i\hbar\,\frac{\partial}{\partial t}\psi(x,t)
-=
--\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}\psi(x,t).
+  H=\frac{p^2}{2m}.
+\end{equation}
+This does not prove the quantum rule, but it gives the correspondence
+postulate
+\begin{equation}
+  \hat H
+  =
+  \frac{\hat p^2}{2m}.
+  \label{eq:l8-free-H}
+\end{equation}
+Acting twice with momentum,
+\begin{align}
+  \hat p^2\psi
+  &=
+  \left(
+    -i\hbar\frac{\partial}{\partial x}
+  \right)
+  \left(
+    -i\hbar\frac{\partial\psi}{\partial x}
+  \right)\\
+  &=
+  -\hbar^2
+  \frac{\partial^2\psi}{\partial x^2}.
+\end{align}
+Consequently
+\begin{equation}
+  \hat H
+  =
+  -\frac{\hbar^2}{2m}
+  \frac{\partial^2}{\partial x^2}.
+  \label{eq:l8-free-H-coordinate}
 \end{equation}
 
-Now solve it for a momentum eigenstate. We look for a wave function that remains an eigenfunction of momentum at every instant:
-\begin{equation}
-\psi_p(x,t)=f(t)e^{ipx/\hbar}.
-\end{equation}
-Differentiating with respect to time hits only $f(t)$:
-\begin{equation}
-\frac{\partial\psi_p}{\partial t}
-=
-\dot f(t)e^{ipx/\hbar}.
-\end{equation}
-Differentiating twice with respect to $x$ hits only the exponential:
-\begin{equation}
-\frac{\partial^2\psi_p}{\partial x^2}
-=
--\frac{p^2}{\hbar^2}f(t)e^{ipx/\hbar}.
-\end{equation}
-Substituting into the Schr\"odinger equation, we get
-\begin{equation}
-i\hbar\,\dot f(t)e^{ipx/\hbar}
-=
-\frac{p^2}{2m}f(t)e^{ipx/\hbar}.
-\end{equation}
-Cancel the common factor $e^{ipx/\hbar}$:
-\begin{equation}
-i\hbar\,\dot f=\frac{p^2}{2m}f,
-\qquad\text{or}\qquad
-\dot f=-\frac{i p^2}{2m\hbar}f.
-\end{equation}
-Hence
-\begin{equation}
-f(t)=e^{-ip^2 t/(2m\hbar)}
-\end{equation}
-up to normalization, and therefore
-\begin{equation}
-\psi_p(x,t)
-=
-\exp\!\left[\frac{i}{\hbar}\left(px-\frac{p^2}{2m}t\right)\right]
-\end{equation}
-up to an overall constant factor.
+\begin{classroomqa}
+\audiencequestion{Where do the minus sign and the powers of \(\hbar\) go in
+the free-particle equation?
+\lecturetimestamp{01:27:15--01:29:09}}
+\lecturerresponse{Keep the abstract equation and momentum operator visible at
+the same time:
+\[
+  i\hbar\,\partial_t\psi=\hat H\psi,
+  \qquad
+  \hat H=\frac{\hat p^2}{2m},
+  \qquad
+  \hat p=-i\hbar\,\partial_x.
+\]
+Squaring \(\hat p\) produces
+\((-i)^2\hbar^2\partial_x^2=-\hbar^2\partial_x^2\). No
+additional factor of \(i\) belongs to \(\hat H\).}
+\end{classroomqa}
 
-Once again the time dependence is a pure phase. For a single momentum eigenstate there is no change in the momentum probability distribution; the state simply accumulates the phase appropriate to its energy. The lecture closes by pointing out the simple exercise
+Substitution into the abstract equation yields Schr\"odinger's free-particle
+wave equation:
 \begin{equation}
-[p,H]=0
-\qquad\text{for}\qquad
-H=\frac{p^2}{2m},
+  \boxed{
+  i\hbar\frac{\partial\psi(x,t)}{\partial t}
+  =
+  -\frac{\hbar^2}{2m}
+  \frac{\partial^2\psi(x,t)}{\partial x^2}.}
+  \label{eq:l8-free-Schrodinger}
 \end{equation}
-so momentum is conserved for the free particle. The next natural questions, which Susskind leaves for later, concern what happens for superpositions: does the probability for a given momentum change, and what about the probability for a given position?
 
-\section{Summary}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_08_figure_19.png}
+  \caption{The complete free-particle Schr\"odinger equation with its
+  \(\hbar\), \(i\), and minus-sign factors restored.}
+  \lectureframe{01:30:44}
+\end{figure}
 
-The lecture has unfolded in a very specific order. We began with classical flow only long enough to isolate the structural role of the Hamiltonian. We then replaced phase-space flow by preservation of inner products, and from that preservation recovered unitary time evolution. Studying an infinitesimal time step forced the generator to be Hermitian, and from the infinitesimal update rule we obtained the abstract Schr\"odinger equation.
+The Hamiltonian is Hermitian on an appropriate domain because \(\hat p\) is
+Hermitian there and the square of a Hermitian operator is Hermitian. Boundary
+conditions and domains matter in a full treatment; on the line, wave
+functions are taken to decay sufficiently or are handled with the standard
+self-adjoint momentum domain.
 
-The polarization example then showed why the equation matters. A diagonal Hamiltonian makes the individual components pick up phases, and at first sight those phases seem invisible. But once we rotate the measurement basis, the relative phase becomes measurable through interference, and only energy differences survive. From there the commutator law for expectation values follows almost at once, together with the criterion for conserved quantities. Finally, by replacing kets with wave functions and guessing the Hamiltonian from the classical free-particle energy, we recover Schr\"odinger's original differential equation and its plane-wave solutions. The whole lecture is guided by one persistent idea: the Hamiltonian is the generator of time evolution.
+\subsection{A Momentum Eigenstate}
+
+Look for a solution that remains a momentum eigenstate:
+\begin{equation}
+  \psi_p(x,t)
+  =
+  f(t)e^{ipx/\hbar}.
+  \label{eq:l8-plane-wave-ansatz}
+\end{equation}
+The number \(p\) is the momentum eigenvalue, because
+\begin{equation}
+  -i\hbar\frac{\partial}{\partial x}
+  e^{ipx/\hbar}
+  =
+  p\,e^{ipx/\hbar}.
+\end{equation}
+The function \(f(t)\) is a spectator under spatial differentiation and
+contains all time dependence.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.46\textwidth]{lecture_08_figure_20.png}
+  \caption{The spatial factor \(e^{ipx/\hbar}\) is an eigenfunction of the
+  momentum operator.}
+  \lectureframe{01:32:24}
+\end{figure}
+
+Substituting Equation~\eqref{eq:l8-plane-wave-ansatz} into
+Equation~\eqref{eq:l8-free-Schrodinger} gives
+\begin{equation}
+  i\hbar\dot f(t)
+  =
+  \frac{p^2}{2m}f(t).
+\end{equation}
+Thus
+\begin{equation}
+  f(t)
+  =
+  f(0)
+  \exp\left(
+    -\frac{i}{\hbar}\frac{p^2}{2m}t
+  \right),
+\end{equation}
+and the full solution is
+\begin{equation}
+  \boxed{
+  \psi_p(x,t)
+  =
+  C
+  \exp\left[
+    \frac{i}{\hbar}
+    \left(
+      px-\frac{p^2}{2m}t
+    \right)
+  \right].}
+  \label{eq:l8-free-plane-wave}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.46\textwidth]{lecture_08_figure_21.png}
+  \caption{The time factor and spatial momentum eigenfunction combine into
+  the free plane wave.}
+  \lectureframe{01:36:59}
+\end{figure}
+
+\enlargethispage{\baselineskip}
+The energy is \(E=p^2/(2m)\), so the familiar phase is
+\((px-Et)/\hbar\). A single ideal momentum eigenstate changes only by an
+energy phase and retains definite momentum. Such a plane wave is
+delta-normalized rather than square-integrable; a physical localized state is
+a superposition of these waves. Its different momentum components acquire
+different phases, producing motion and spreading, which is the next step in
+the analysis.
+
+Finally,
+\begin{equation}
+  [\hat p,\hat H]
+  =
+  \left[
+    \hat p,\frac{\hat p^2}{2m}
+  \right]
+  =0.
+\end{equation}
+Momentum is therefore conserved for a free particle. The classical
+Hamiltonian flow, unitary state evolution, polarization interference,
+commutator conservation law, and free-particle wave equation are all
+different expressions of the same organizing principle: the Hamiltonian
+generates change with time.
