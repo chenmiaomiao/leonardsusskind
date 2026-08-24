@@ -1,415 +1,769 @@
-\chapter{From Discrete Observables to Interference}
+\chapter{Continuum States, Quantized Momentum, and Interference}
 
-This chapter follows Leonard Susskind's fourth lecture in the quantum mechanics sequence and keeps its order and emphasis: review first, replacement second, technical detour third, then the return to probabilities, then a new system, then the question of compatibility, and finally the two-slit experiment. The lecture itself is Leonard Susskind's; these notes also preserve selected blackboard evidence, with curation support acknowledged to LazyingArt LLC and Video2Book. The governing idea is that the postulates of quantum mechanics do not change when the observable becomes continuous, but the mathematical objects that express those postulates do.
+\section{When a Discrete Label Becomes Continuous}
 
-\section{Review: Discrete Observables, Probabilities, and Basis States}
-
-Let us begin exactly where the lecture begins: with a measurable quantity that can take discrete values. Call those values \(n=1,2,3,\dots\). If the system is in some state \(|\psi\rangle\), then a measurement returns one of these values with probability \(P(n)\), and the first rule is simply
+Begin with an observable whose possible values are labeled by integers
+\(n=1,2,\ldots\). Its probabilities obey
 \begin{equation}
-\sum_n P(n)=1.
+  \sum_n P(n)=1,
+  \label{eq:discrete-normalization}
 \end{equation}
-The second rule is that the basis vectors associated with the different values of the observable may be taken to form an orthonormal basis:
+and the corresponding basis vectors may be chosen orthonormally:
 \begin{equation}
-\langle m|n\rangle=\delta_{nm}.
+  \braket m n=\delta_{mn}.
+  \label{eq:kronecker}
 \end{equation}
-Here \(\delta_{nm}\) is the Kronecker delta, equal to \(1\) when \(m=n\) and \(0\) otherwise. Susskind pauses to note that one may think of it as depending only on the difference \(n-m\); it is really the vanishing or nonvanishing of that difference that matters.
+The Kronecker delta is one when its two labels agree and zero otherwise. It
+can equally well be regarded as a function of the difference \(m-n\).
 
-Probabilities are governed by amplitudes. In the discrete case the amplitude for obtaining the value \(n\) is \(\langle n|\psi\rangle\), and the probability is the squared magnitude of that amplitude:
-\begin{equation}
-P(n)=|\langle n|\psi\rangle|^2.
-\end{equation}
-So already, before any continuum enters, we have the full pattern: a basis of states, an inner product, amplitudes, and the rule that probabilities are obtained by squaring amplitudes.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_04_figure_02.png}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.54\textwidth]{lecture_04_figure_02.png}
+  \caption{Discrete probability normalization and basis orthonormality.}
+  \lectureframe{00:03:11}
 \end{figure}
 
-The blackboard here still has the character of a review. The normalization and orthonormality relations are written cleanly at the top, while the probability picture is only beginning below. That is faithful to the lecture's rhythm: the picture is secondary; the formal rules are being re-established first.
+For a state \(\ket\psi\), the probability of obtaining \(n\) is
+\begin{equation}
+  P(n)=\left|\braket n\psi\right|^{2}.
+  \label{eq:discrete-born}
+\end{equation}
+These three statements are the pattern we must preserve when the label is no
+longer discrete.
 
-If we plot the probability as a function of the discrete variable \(n\), the values live only on the integers. The picture is therefore not a continuous curve but a collection of heights, and it is those heights that add up to \(1\).
+Let the measured quantity now be the position \(x\) of a particle on a line.
+For an ordinary continuous distribution, a single point has zero
+probability. The useful object is therefore a probability density
+\(\rho(x)\). The probability of finding the particle in a short interval is
+\begin{equation}
+  \operatorname{Prob}\!\left(x_1\leq x\leq x_2\right)
+    =\int_{x_1}^{x_2}\rho(x)\,dx,
+  \qquad
+  \int_{-\infty}^{\infty}\rho(x)\,dx=1.
+  \label{eq:continuous-probability}
+\end{equation}
+Thus sums become integrals, and probability masses become densities.
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[x=1.25cm,y=1.1cm]
-\draw[->] (0,0) -- (5.0,0) node[right] {$n$};
-\draw[->] (0,0) -- (0,3.0) node[above] {$P(n)$};
-\foreach \x/\h in {1/1.8,2/0.9,3/1.35,4/0.6}
-{
-  \draw (\x,0) -- (\x,\h);
-  \fill (\x,\h) circle (0.05);
-}
-\node[below] at (1,0) {$1$};
-\node[below] at (2,0) {$2$};
-\node[below] at (3,0) {$3$};
-\node[below] at (4,0) {$4$};
-\node at (3.35,2.35) {$\sum_n P(n)=1$};
-\end{tikzpicture}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_04_figure_03.png}
+  \caption{For a continuous coordinate, probability belongs to an interval
+  and is represented by area under a density.}
+  \lectureframe{00:05:59}
 \end{figure}
 
-This review is not detachable background. It is the template for everything that follows. Once the observable becomes continuous, sums will be replaced by integrals and Kronecker deltas by Dirac deltas, but the structure of the argument remains the same.
+\section{The Dirac Delta}
 
-\section{From Discrete Probabilities to Continuous Probability Density}
-
-Now let the observable be the position of a particle on a line. The first change is conceptual rather than algebraic. It no longer makes sense to ask for the probability that the coordinate is exactly equal to one particular real number. A single point has measure zero, and the probability of one exact value is therefore zero.
-
-What does make sense is the probability that the particle lies in an interval. Susskind temporarily continues to use the symbol \(p\) for probability density, but to keep it separate from the later use of \(p\) for momentum, we will write the density as \(P(x)\). The probability that the particle is found between \(x\) and \(x+\Delta x\) is
+The continuum analogue of the Kronecker delta is the Dirac delta
+distribution. Its informal picture is an infinitely narrow spike at
+\(x=y\), zero away from that point, with unit area:
 \begin{equation}
-P\bigl(x\in[x,x+\Delta x]\bigr)=\int_x^{x+\Delta x} P(x')\,dx'.
+  \delta(x-y)=0\quad (x\neq y),
+  \qquad
+  \int_{-\infty}^{\infty}\delta(x-y)\,dx=1.
+  \label{eq:delta-unit-area}
 \end{equation}
-Accordingly, the normalization rule becomes
+No ordinary function has these properties. The precise definition is its
+action on a sufficiently regular test function:
 \begin{equation}
-\int P(x)\,dx=1.
+  \int_{-\infty}^{\infty}\delta(x-y)f(x)\,dx=f(y).
+  \label{eq:delta-sampling}
 \end{equation}
-This is the first replacement. In the discrete case the probabilities themselves add to \(1\); in the continuous case the area under the density curve adds to \(1\).
+The delta is therefore best understood as a distribution under an integral,
+not as a function with a literal infinite value.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_04_figure_03.png}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_04_figure_04.png}
+  \caption{A narrow unit-area spike samples the value of a smooth function at
+  \(x=y\).}
+  \lectureframe{00:12:00}
 \end{figure}
 
-The surviving frame is strong evidence for the geometry of the argument. The lecture is not yet doing something sophisticated here. It is making a simple point carefully: for a continuous variable, the physically meaningful probability is associated with a small interval and therefore with a small area under the graph.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[x=1.1cm,y=1.1cm]
-\draw[->] (0,0) -- (6.7,0) node[right] {$x$};
-\draw[->] (0,0) -- (0,3.0) node[above] {$P(x)$};
-\draw[thick]
-  (0.35,0.12)
-  .. controls (1.25,0.22) and (1.95,2.55) ..
-  (2.85,2.72)
-  .. controls (4.15,2.48) and (5.35,0.48) ..
-  (6.3,0.12);
-\fill[gray!25]
-  (1.95,0) --
-  (1.95,1.55) --
-  (2.35,2.15) --
-  (2.75,2.48) --
-  (2.75,0) -- cycle;
-\draw[dashed] (1.95,0) -- (1.95,1.55);
-\draw[dashed] (2.75,0) -- (2.75,2.48);
-\node[below] at (1.95,0) {$x$};
-\node[below] at (2.75,0) {$x+\Delta x$};
-\end{tikzpicture}
-\end{figure}
-
-At this stage one replacement has been made: discrete probabilities have become probability densities. But a second replacement is now forced on us. If the basis is labeled by a continuous variable, what replaces \(\langle m|n\rangle=\delta_{nm}\)? Before returning to probabilities, the lecture deliberately steps aside to introduce the Dirac delta.
-
-\section{The Dirac Delta and the Particle on a Line}
-
-The Dirac delta is introduced as the continuous analogue of the Kronecker delta. Susskind presents it first in the intuitive way and only then in the operational one. Intuitively, \(\delta(x-y)\) is zero whenever \(x\neq y\), but at \(x=y\) it is concentrated into an infinitely narrow, infinitely tall spike of unit area:
+A useful approximation makes the spike picture explicit. Let
+\(\delta_\epsilon(x-y)\) be a rectangle of width \(\epsilon\) and height
+\(1/\epsilon\), centered at \(y\). Its area is one, and for continuous \(f\),
 \begin{equation}
-\delta(x-y)=0 \quad \text{for } x\neq y,
-\qquad
-\int \delta(x-y)\,dx=1.
+  \int \delta_\epsilon(x-y)f(x)\,dx
+    \longrightarrow f(y)
+  \qquad (\epsilon\to0).
 \end{equation}
-As he says, no honest ordinary function behaves this way. But the spike picture is a good guide to how the object works.
+The unit area must not be confused with a unit Hilbert-space norm:
+\(\int\left|\delta_\epsilon\right|^{2}dx=1/\epsilon\) diverges in the limit.
 
-The more careful statement is that the delta is defined by what it does under integration:
+Position basis states are consequently delta-normalized:
 \begin{equation}
-\int \delta(x-y)f(x)\,dx=f(y).
+  \braket x y=\delta(x-y),
+  \qquad
+  \int_{-\infty}^{\infty}dx\,\ket x\bra x=\mathbf 1.
+  \label{eq:position-basis}
 \end{equation}
-Only the value of the function at \(x=y\) survives. The heuristic picture and the operational definition are not rivals here. In the lecture they play different roles. The spike picture carries the intuition; the integral rule carries the mathematics.
+Distinct positions are orthogonal. The formal quantity
+\(\braket x x=\delta(0)\) is divergent because \(\ket x\) is a generalized
+eigenstate, not a normalizable vector in the Hilbert space.
 
-With that in hand, we can now write the continuum analogue of orthogonality:
+\section{The Position Amplitude and Born Density}
+
+The abstract probability rule has not changed. In the discrete case,
+\(\left|\braket n\psi\right|^{2}\) is the probability for the outcome \(n\). In the
+continuous case,
 \begin{equation}
-\langle x|y\rangle=\delta(x-y).
+  \rho(y)=\left|\braket y\psi\right|^{2}
+  \label{eq:continuum-born}
 \end{equation}
-This is the natural replacement of \(\langle m|n\rangle=\delta_{nm}\) when the basis is labeled by position. If \(x\neq y\), the two position states are orthogonal; if \(x=y\), the overlap is concentrated at one point, exactly as the delta function prescribes.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} How can \(\langle x|y\rangle\) be a delta function, and in what sense can a position eigenvector have infinite norm?
-
-\paragraph{Answer.} The lecture answers this by not pretending the continuum is innocent. Instead, it backs up to a dense discrete approximation. Imagine replacing the line by a set of lattice sites separated by a tiny spacing \(a\), and let \(|n\rangle\) be the corresponding orthonormal basis:
-\[
-\langle n|m\rangle=\delta_{nm}.
-\]
-Now define the continuum-normalized position state by stretching the discrete state:
-\[
-|x\rangle=\frac{1}{\sqrt a}\,|n\rangle.
-\]
-If \(x\) corresponds to site \(n\) and \(y\) to site \(m\), then
+is the probability density at \(y\). To see what this means in the position
+representation, write
 \begin{equation}
-\langle x|y\rangle=\frac{1}{a}\,\delta_{nm}.
+  \psi(x):=\braket x\psi.
 \end{equation}
-This object is zero unless the two sites coincide. When they do coincide, its height is \(1/a\). As \(a\) becomes very small, we get exactly the picture of a spike of width \(a\) and height \(1/a\), that is, the Dirac delta.
-
-So yes, the continuum-normalized position states have divergent norm. But that is not a defect; it is the normalization convention adapted to continuum integration. One almost never needs \(\langle x|x\rangle\) by itself. What one actually uses is the delta function inside integrals, where it behaves perfectly well. The lecture's point is that the Dirac delta is not mysterious once one sees it as the rescaled limit of the Kronecker delta.
-
-\section{Born's Rule in the Continuum}
-
-Having inserted the delta-function detour, the lecture now returns, very explicitly, to the rules of probability. This return matters. Susskind is not content merely to quote \(P(y)=|\psi(y)|^2\). He wants to derive it from the same postulates used in the discrete case.
-
-The states are now wavefunctions, that is, complex functions of a real variable \(x\), and the inner product on this vector space is
-\begin{equation}
-\langle \phi|\psi\rangle=\int \phi^*(x)\psi(x)\,dx.
-\end{equation}
-A particle known to be localized at the point \(y\) is represented in the \(x\)-representation by the wavefunction \(\delta(x-y)\). Therefore the amplitude to detect the particle at \(y\) in the state \(|\psi\rangle\) is
+The wavefunction of the generalized position state \(\ket y\) is
+\(\braket x y=\delta(x-y)\). Hence
 \begin{align}
-\langle y|\psi\rangle
- &= \int \delta(x-y)\psi(x)\,dx \\
- &= \psi(y).
+  \braket y\psi
+    &=\int dx\,\braket yx\braket x\psi \\
+    &=\int dx\,\delta(x-y)\psi(x)
+      =\psi(y).
+  \label{eq:position-component}
 \end{align}
-This is the formal version of a statement that is often introduced heuristically: the wavefunction evaluated at \(y\) is the amplitude to find the particle at \(y\).
-
-Now we simply apply the probability postulate in its continuum form:
+Born's rule is therefore
 \begin{equation}
-P(y)=|\langle y|\psi\rangle|^2.
+  \rho(y)=\left|\psi(y)\right|^{2},
+  \qquad
+  \operatorname{Prob}(y\in[a,b])
+    =\int_a^b\left|\psi(y)\right|^{2}\,dy.
+  \label{eq:born-density}
 \end{equation}
-Using the previous result,
-\begin{equation}
-P(y)=|\psi(y)|^2=\psi^*(y)\psi(y).
-\end{equation}
-Susskind remarks that one could have begun with this formula directly. But the point of the lecture is different. The point is to show that nothing new has been added. We have simply taken the discrete postulates, replaced sums by integrals and Kronecker deltas by Dirac deltas, and then carried the same formal logic through.
 
-The wavefunction of a particle on a line is therefore a probability amplitude in precisely the same sense that \(\langle n|\psi\rangle\) is a probability amplitude in the discrete case. The difference is only that the label on the basis is now continuous.
-
-\section{Particle on a Circle: Periodicity, Momentum Eigenfunctions, and Quantization}
-
-The next transition in the lecture is from one system to another, not from one formalism to another. We now study a particle moving on a circle of radius \(R\). To connect it with the line notation, the circle is cut and laid out as the interval
-\[
-0\le x\le 2\pi R.
-\]
-Everything looks the same as for a particle on a line until one remembers that this interval really came from a circle. That memory is encoded in one extra condition:
-\begin{equation}
-\psi(x+2\pi R)=\psi(x).
-\end{equation}
-The allowed state space is therefore the vector space of periodic complex functions on the interval. The lecture stops to note that this is indeed a vector space: multiplying a periodic function by any complex number keeps it periodic, and the sum of two periodic functions is periodic as well.
-
-Now Susskind returns to momentum. In the \(x\)-representation, the momentum operator acts as
-\begin{equation}
-\hat p=-i\hbar\,\frac{\partial}{\partial x}.
-\end{equation}
-The frame below is the strongest board witness for the eigenvalue equation itself; the operator line above is only partly visible in the frame, but the transcript settles its standard form.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.68\textwidth]{lecture_04_figure_04.png}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_04_figure_05.png}
+  \caption{Delta sampling identifies the position amplitude
+  \(\braket y\psi\) with the wavefunction value \(\psi(y)\).}
+  \lectureframe{00:22:00}
 \end{figure}
 
-The momentum eigenvalue equation is
+\begin{classroomqa}
+\audiencequestion{Could the first probability postulate be stated once more
+for the continuous case?\lecturetimestamp{00:22:39--00:26:37}}
+\lecturerresponse{For a discrete observable, the probability of outcome
+\(n\) is \(\left|\braket n\psi\right|^{2}\). For position, the same expression
+\(\left|\braket y\psi\right|^{2}\) is a density. Since
+\(\braket y\psi=\psi(y)\), the probability of an interval is the integral of
+\(\left|\psi(y)\right|^{2}\) over that interval. Dirac's notation was designed so
+that the discrete and continuous statements have the same form.}
+\end{classroomqa}
+
+\section{A Lattice Explains Continuum Normalization}
+
+The divergent self-overlap of \(\ket x\) becomes transparent if the line is
+temporarily replaced by a lattice with spacing \(a\). Let
+\(x_n=na\), and let \(\ket n\) be ordinary normalized site states:
 \begin{equation}
--i\hbar\,\frac{\partial}{\partial x}\psi(x)=p\,\psi(x).
+  \braket n m=\delta_{nm},
+  \qquad
+  \sum_n\ket n\bra n=\mathbf 1.
 \end{equation}
-Solving it is immediate:
+Define continuum-normalized states at the lattice points by
+\begin{equation}
+  \ket{x_n}:=\frac{1}{\sqrt a}\ket n.
+  \label{eq:lattice-rescaling}
+\end{equation}
+Their overlap and completeness relations are
+\begin{equation}
+  \braket{x_n}{x_m}=\frac{\delta_{nm}}{a},
+  \qquad
+  \sum_n a\,\ket{x_n}\bra{x_n}=\mathbf 1.
+  \label{eq:lattice-delta}
+\end{equation}
+As \(a\to0\), the sum \(\sum_n a\) becomes an integral, while
+\(\delta_{nm}/a\) becomes \(\delta(x-y)\). The height \(1/a\) and width \(a\)
+again give unit area.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.61\textwidth]{lecture_04_figure_06.png}
+  \caption{Rescaling lattice kets by \(a^{-1/2}\) produces Dirac-delta
+  normalization in the continuum limit.}
+  \lectureframe{00:30:00}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{How can the overlap of a state with itself be infinite
+without ruining the probability interpretation?
+\lecturetimestamp{00:26:38--00:34:24}}
+\lecturerresponse{The position eigenstates are not physical normalized
+states; they are generalized basis vectors. On a lattice their normalized
+ancestors are perfectly ordinary. The factor \(a^{-1/2}\) converts a discrete
+probability into a density, and it converts \(\delta_{nm}\) into
+\(\delta_{nm}/a\). Finite wave packets remain normalized, and every delta
+appears under an integral where its unit-area property gives a finite
+answer.}
+\end{classroomqa}
+
+\section{A Particle on a Circle}
+
+Now constrain the particle to a circle of radius \(R\). Cutting the circle at
+one point turns it into the interval
+\begin{equation}
+  0\leq x<2\pi R,
+\end{equation}
+but the two ends represent the same physical point. The wavefunction must
+therefore satisfy
+\begin{equation}
+  \psi(x+2\pi R)=\psi(x).
+  \label{eq:periodic-boundary}
+\end{equation}
+Periodic functions form a complex vector space: scalar multiples and sums
+of periodic functions are still periodic.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.60\textwidth]{lecture_04_figure_07.png}
+  \caption{Cutting the circle gives an interval whose wavefunction values
+  must match after one circumference.}
+  \lectureframe{00:38:00}
+\end{figure}
+
+On this space the momentum operator is
+\begin{equation}
+  \hat p=-i\hbar\frac{d}{dx},
+  \label{eq:momentum-operator}
+\end{equation}
+with periodic boundary conditions included in its domain. Its eigenvalue
+equation,
+\begin{equation}
+  -i\hbar\frac{d\psi_p}{dx}=p\psi_p,
+\end{equation}
+has the plane-wave solution
+\begin{equation}
+  \psi_p(x)=C e^{ipx/\hbar}.
+  \label{eq:plane-wave-circle}
+\end{equation}
+The name momentum will acquire its full physical justification only after
+time evolution and the motion of wave packets are developed. For now it is
+the eigenvalue of the translation generator.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.54\textwidth]{lecture_04_figure_08.png}
+  \caption{The momentum eigenfunction is a complex plane wave.}
+  \lectureframe{00:41:40}
+\end{figure}
+
+Normalization on the finite circle fixes \(C\):
 \begin{align}
-\frac{d\psi}{dx}&=\frac{ip}{\hbar}\,\psi,\\
-\psi_p(x)&=C\,e^{ipx/\hbar}.
+  1
+    &=\int_0^{2\pi R}\left|\psi_p(x)\right|^{2}\,dx
+      =2\pi R\left|C\right|^{2},\\
+  \psi_p(x)
+    &=\frac{1}{\sqrt{2\pi R}}e^{ipx/\hbar}.
+  \label{eq:normalized-plane-wave}
 \end{align}
-So the momentum eigenfunctions are plane waves. This is one of the first places where the wave language of quantum mechanics becomes literal.
+The constant magnitude means that a momentum eigenstate has uniform position
+density around the circle.
 
-The lecture then normalizes the eigenfunctions on the circle.
+\section{Periodicity Quantizes Momentum}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.54\textwidth]{lecture_04_figure_05.png}
+The normalized plane wave is not automatically an allowed state. It must
+also obey the periodic boundary condition:
+\begin{align}
+  e^{ip(x+2\pi R)/\hbar}&=e^{ipx/\hbar},\\
+  e^{i2\pi Rp/\hbar}&=1.
+\end{align}
+The phase gained in one circuit must be an integer multiple of \(2\pi\):
+\begin{equation}
+  \frac{2\pi Rp}{\hbar}=2\pi n,
+  \qquad n\in\mathbb Z.
+\end{equation}
+Thus
+\begin{equation}
+  p_n=\frac{n\hbar}{R},
+  \qquad
+  \psi_n(x)=\frac{1}{\sqrt{2\pi R}}e^{inx/R}.
+  \label{eq:circle-spectrum}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_04_figure_09.png}
+  \caption{Single-valuedness around the circle restricts momentum to
+  \(p_n=n\hbar/R\).}
+  \lectureframe{00:50:00}
 \end{figure}
 
-The board shows the integrand \(\psi^*\psi\) and the measure \(dx\); the equality to \(1\) comes from the transcript rather than the frame. The normalization condition is
+The allowed functions are mutually orthogonal:
 \begin{equation}
-\int_0^{2\pi R}\psi_p^*(x)\psi_p(x)\,dx=1.
+  \int_0^{2\pi R}\psi_m^*(x)\psi_n(x)\,dx=\delta_{mn}.
 \end{equation}
-Since \(\psi_p(x)=C e^{ipx/\hbar}\), we have \(\psi_p^*\psi_p=|C|^2\). Therefore
+Here position is continuous while momentum is discrete. In this problem the
+discreteness is a consequence of compactness and periodicity; discrete
+spectra in other systems can arise from other boundary conditions or from a
+confining potential.
+
+The spacing between neighboring momenta is
 \begin{equation}
-1=|C|^2\int_0^{2\pi R}dx=2\pi R\,|C|^2.
+  \Delta p=\frac{\hbar}{R}.
 \end{equation}
-Hence
+As \(R\to\infty\), this spacing tends to zero. A continuum-normalized momentum
+basis may be obtained by the same rescaling used for position:
 \begin{equation}
-C=\frac{1}{\sqrt{2\pi R}}
-\end{equation}
-up to an irrelevant phase, and the normalized eigenfunction is
-\begin{equation}
-\psi_p(x)=\frac{1}{\sqrt{2\pi R}}\,e^{ipx/\hbar}.
+  \ket{p_n}_{\mathrm c}
+    :=\frac{1}{\sqrt{\Delta p}}\ket n,
+  \qquad
+  {}_{\mathrm c}\!\braket{p_m}{p_n}_{\mathrm c}
+    =\frac{\delta_{mn}}{\Delta p}
+    \longrightarrow\delta(p-p').
 \end{equation}
 
-For different eigenvalues \(p\neq q\), the corresponding eigenfunctions are orthogonal. One can check this directly, but the lecture prefers to emphasize the general reason: eigenvectors of a Hermitian operator with different eigenvalues are orthogonal. Thus
+For orbital motion on the circle, the angular momentum is
 \begin{equation}
-\int_0^{2\pi R}\psi_p^*(x)\psi_q(x)\,dx=0
-\qquad
-(p\neq q).
+  L=Rp,
+\end{equation}
+and therefore
+\begin{equation}
+  L_n=Rp_n=n\hbar.
+  \label{eq:angular-momentum}
+\end{equation}
+The radius cancels because angular momentum measures phase winding around an
+angle. This conclusion applies to a scalar orbital wavefunction with
+\(\psi(\phi+2\pi)=\psi(\phi)\). Half-integer spin belongs to a different
+representation and is a later subject.
+
+\begin{classroomqa}
+\audiencequestion{Does \(R\to\infty\) recover classical mechanics?
+\lecturetimestamp{00:56:58--00:57:20}}
+\lecturerresponse{No. It only makes the momentum spectrum dense. Classical
+behavior requires more than closely spaced eigenvalues; in particular, it
+requires suitable wave packets and a dynamical limit in which position and
+momentum can both be narrow compared with the relevant macroscopic scales.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why does \(R\) remain in the momentum spacing but disappear
+from the angular-momentum spectrum?
+\lecturetimestamp{00:57:37--00:58:48}}
+\lecturerresponse{A fixed phase winding \(n\) around a larger circle has a
+smaller tangential wave number and hence smaller \(p_n=n\hbar/R\).
+Multiplying by the lever arm \(R\) restores \(L_n=n\hbar\). The quantized
+object is the action associated with a full angular circuit.}
+\end{classroomqa}
+
+\section{Compatibility and Common Eigenstates}
+
+A classical particle may be assigned a position and a momentum at the same
+instant. Quantum mechanically, a position eigenstate is localized like a
+delta distribution, whereas a momentum eigenstate is a plane wave with
+uniform position density. These states cannot be the same.
+
+The algebraic question is whether two Hermitian operators \(\hat A\) and
+\(\hat B\) possess a complete common eigenbasis. If
+\begin{equation}
+  \hat A\ket n=a_n\ket n,
+  \qquad
+  \hat B\ket n=b_n\ket n,
+\end{equation}
+then
+\begin{equation}
+  \hat A\hat B\ket n=a_nb_n\ket n
+  =\hat B\hat A\ket n.
+\end{equation}
+Define the commutator
+\begin{equation}
+  [\hat A,\hat B]:=\hat A\hat B-\hat B\hat A.
+\end{equation}
+Compatible observables commute. Conversely, commuting Hermitian matrices can
+be simultaneously diagonalized, including within degenerate eigenspaces.
+For unbounded operators, the same statement requires compatible domains and
+the corresponding spectral conditions; those analytic details are
+suppressed here.
+
+\section{The Canonical Commutator}
+
+For position and momentum,
+\begin{equation}
+  (\hat x\psi)(x)=x\psi(x),
+  \qquad
+  (\hat p\psi)(x)=-i\hbar\psi'(x).
+\end{equation}
+Apply their commutator to an arbitrary differentiable wavefunction:
+\begin{align}
+  [\hat x,\hat p]\psi
+    &=x\left(-i\hbar\frac{d\psi}{dx}\right)
+      +i\hbar\frac{d}{dx}\bigl(x\psi\bigr)\\
+    &=-i\hbar x\psi'
+      +i\hbar\bigl(\psi+x\psi'\bigr)\\
+    &=i\hbar\psi.
+\end{align}
+Since this holds for every state in the common domain,
+\begin{equation}
+  [\hat x,\hat p]=i\hbar\,\mathbf 1.
+  \label{eq:canonical-commutator}
 \end{equation}
 
-The next frame is less legible mathematically, but it is valuable because it preserves the board layout: the explicit plane-wave form on one side and the bra-ket representation on the other.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{lecture_04_figure_06.png}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_04_figure_10.png}
+  \caption{The product rule supplies the uncancelled term in
+  \([\hat x,\hat p]\psi=i\hbar\psi\).}
+  \lectureframe{01:13:00}
 \end{figure}
 
-The exact bra-ket label in the screenshot is partly obscured, so the following is a cautious transcript-based reconstruction:
+The commutator is nonzero on every nonzero state. If a vector were a common
+eigenvector of \(\hat x\) and \(\hat p\), their commutator would annihilate
+it, contradicting \eqref{eq:canonical-commutator}. Position and momentum
+therefore have no common eigenvector. The uncertainty relation will later
+quantify this incompatibility.
+
+\begin{classroomqa}
+\audiencequestion{Is every state an eigenvector of the commutator, and can
+\(i\hbar\) be regarded as an observable value?
+\lecturetimestamp{01:15:33--01:16:45}}
+\lecturerresponse{Every vector is indeed an eigenvector of
+\([\hat x,\hat p]=i\hbar\mathbf 1\), with the same eigenvalue. But the
+commutator of two Hermitian operators is anti-Hermitian, so it is not itself
+an observable. The Hermitian combination
+\(-i[\hat x,\hat p]=\hbar\mathbf 1\) contains no state-dependent measurement
+information. Its importance is that it fixes the algebra relating position
+and momentum.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why is \(x\psi(x)\) not an eigenvalue times
+\(\psi(x)\)?\lecturetimestamp{01:16:51--01:19:07}}
+\lecturerresponse{An eigenvalue is one scalar constant for the whole vector.
+The coordinate \(x\) varies across the function. A generic Gaussian, for
+example, is therefore not an eigenfunction of the position operator.
+Only a generalized state supported at one point satisfies
+\(x\delta(x-x_0)=x_0\delta(x-x_0)\).}
+\end{classroomqa}
+
+\section{One Aperture and Two Alternatives}
+
+The two-slit experiment turns the linear structure of states into a visible
+probability pattern. An incoming particle meets a barrier with two small
+openings, and a screen records the position \(y\) at which it arrives.
+With only one opening available, the outgoing wave spreads. In three
+dimensions a schematic far-field contribution has the form
 \begin{equation}
-\langle x|p\rangle=\frac{1}{\sqrt{2\pi R}}\,e^{ipx/\hbar}.
+  \psi(r)\sim\frac{e^{ikr}}{r},
+  \qquad
+  r=\sqrt{\ell^2+y^2},
+  \label{eq:outgoing-wave}
 \end{equation}
-That is, a momentum eigenvector, when written in the position basis, is a normalized plane wave.
+where \(\ell\) is the distance from aperture to screen. Over a small region
+of the screen it may be approximated by a local plane wave.
 
-Now comes the crucial new step. Not every plane wave is allowed, because the state must be periodic. Imposing periodicity gives
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.64\textwidth]{lecture_04_figure_11.png}
+  \caption{A small opening produces an outgoing wave whose local phase
+  gradient changes across the screen.}
+  \lectureframe{01:23:00}
+\end{figure}
+
+Now open both holes. Let \(\psi_1(y)\) and \(\psi_2(y)\) be the amplitudes
+associated with the two alternatives. The state-space rule is
 \begin{equation}
-e^{ip(x+2\pi R)/\hbar}=e^{ipx/\hbar}.
+  \psi(y)=\psi_1(y)+\psi_2(y),
+  \label{eq:add-amplitudes}
 \end{equation}
-Cancelling the common factor \(e^{ipx/\hbar}\), we obtain
+not the addition of the separate probabilities. Locally, suppressing slowly
+varying envelopes and temporarily setting \(\hbar=1\), write
 \begin{equation}
-e^{i2\pi Rp/\hbar}=1.
-\end{equation}
-This happens precisely when the exponent is an integer multiple of \(2\pi i\):
-\begin{equation}
-\frac{2\pi Rp}{\hbar}=2\pi n,
-\qquad n\in\mathbb Z.
-\end{equation}
-Therefore the allowed momenta are
-\begin{equation}
-p_n=\frac{n\hbar}{R}.
-\end{equation}
-The position on the circle is continuous, but the momentum is discrete. The lecture insists on the origin of this discreteness: it comes from periodicity of the wavefunction.
-
-Now let \(L\) be the angular momentum. Classically,
-\begin{equation}
-L=Rp.
-\end{equation}
-Substituting the allowed momenta, we find
-\begin{equation}
-L_n=Rp_n=n\hbar.
-\end{equation}
-The factor of \(R\) disappears. Angular momentum is quantized in units of \(\hbar\), independent of the size of the circle.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Does the large-\(R\) limit give us classical mechanics, or only a dense momentum spectrum?
-
-\paragraph{Answer.} Only a dense spectrum. As \(R\to\infty\), the spacing
-\[
-\Delta p=\frac{\hbar}{R}
-\]
-between neighboring momentum values goes to zero. The discrete spectrum becomes dense, and the lecture says that it is then convenient to pass from Kronecker-delta normalization to Dirac-delta normalization in momentum space. But nothing essentially classical has happened yet.
-
-Classical mechanics would require that a particle could have a sharply defined position and a sharply defined momentum simultaneously. The large-\(R\) limit does not provide that. It merely makes the momentum eigenvalues closely packed. The real obstruction lies in the incompatibility of the position and momentum operators, which is the next topic.
-
-\section{Compatibility, Common Eigenvectors, and the Commutator \([x,p]\)}
-
-The lecture now answers the classical-limit question by shifting from eigenvalues to states. A dense spectrum is not enough. The issue is whether the system can be in a state that is simultaneously an eigenstate of position and momentum.
-
-Suppose two observables are represented by operators \(A\) and \(B\). They are compatible if there exists a complete basis of vectors that are eigenvectors of both at once. Write
-\begin{equation}
-A|n\rangle=\alpha_n|n\rangle,
-\qquad
-B|n\rangle=\beta_n|n\rangle.
+  \psi_1=e^{ipy},
+  \qquad
+  \psi_2=e^{iqy}.
 \end{equation}
 Then
-\begin{equation}
-AB|n\rangle=\alpha_n\beta_n|n\rangle,
-\qquad
-BA|n\rangle=\beta_n\alpha_n|n\rangle.
-\end{equation}
-Since ordinary numbers commute, these two results agree. This leads to the criterion
-\begin{equation}
-[A,B]\equiv AB-BA=0.
-\end{equation}
-The lecture states, without proving it, that this is both necessary and sufficient: two observables are compatible precisely when their commutator vanishes.
-
-Position and momentum do not satisfy this condition. Position eigenstates are sharply localized; momentum eigenstates are plane waves. On the circle, each momentum eigenstate has constant magnitude around the entire circle; on the infinite line, it is delocalized over the whole axis. So the lecture's physical point is immediate even before the algebra: these are not the same kind of states, and there are no common eigenvectors.
-
-The algebra confirms this. Let \(x\) act by multiplication and \(p\) act as \(-i\hbar\,d/dx\). To determine the commutator, apply it to an arbitrary wavefunction \(\psi(x)\):
 \begin{align}
-(xp-px)\psi(x)
-  &= x\left(-i\hbar\frac{d\psi}{dx}\right)
-   -\left(-i\hbar\frac{d}{dx}\right)\bigl(x\psi(x)\bigr) \\
-  &= -i\hbar\,x\frac{d\psi}{dx}
-   + i\hbar\,\frac{d}{dx}\bigl(x\psi(x)\bigr).
+  \left|\psi_1+\psi_2\right|^{2}
+    &=(e^{ipy}+e^{iqy})(e^{-ipy}+e^{-iqy})\\
+    &=2+e^{i(p-q)y}+e^{-i(p-q)y}\\
+    &=2+2\cos\bigl((p-q)y\bigr).
+  \label{eq:local-interference}
 \end{align}
-Now use the product rule,
+The cross terms retain the relative phase. They create alternating bright
+and dark fringes even though either local plane wave separately has constant
+magnitude.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_04_figure_12.png}
+  \caption{The cross terms in the squared sum generate a nonnegative
+  oscillating detection density.}
+  \lectureframe{01:30:00}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \begin{tikzpicture}[scale=0.9,>=Latex]
+    \draw[thick] (0,-2.2) -- (0,-0.45);
+    \draw[thick] (0,0.45) -- (0,1.15);
+    \draw[thick] (0,1.65) -- (0,2.2);
+    \fill (-3,0.6) circle (1.5pt) node[left] {source};
+    \draw[->] (-2.9,0.6) -- (-0.18,0.1);
+    \draw[->] (-2.9,0.6) -- (-0.18,1.4);
+    \draw[thick] (5,-2.3) -- (5,2.3);
+    \draw (0,0.1) -- (5,1.55);
+    \draw (0,1.4) -- (5,1.55);
+    \fill (5,1.55) circle (1.5pt) node[right] {\(y\)};
+    \draw[<->] (-0.35,0.1) -- (-0.35,1.4)
+      node[midway,left] {\(d\)};
+    \node[below] at (0,-2.2) {barrier};
+    \node[below] at (5,-2.3) {screen};
+    \node at (2.55,-1.55) {\(\ell\)};
+  \end{tikzpicture}
+  \caption{The relative path length from two separated openings changes with
+  the screen coordinate.}
+\end{figure}
+
+In the far field, if the slit separation is \(d\), the path difference at
+angle \(\theta\) is approximately \(d\sin\theta\). For wavelength
+\(\lambda=2\pi/k\), adjacent bright fringes satisfy
 \begin{equation}
-\frac{d}{dx}\bigl(x\psi(x)\bigr)=\psi(x)+x\frac{d\psi}{dx},
+  d\sin\theta_m=m\lambda.
 \end{equation}
-so that
-\begin{align}
-(xp-px)\psi(x)
-  &= -i\hbar\,x\frac{d\psi}{dx}
-   + i\hbar\left(\psi(x)+x\frac{d\psi}{dx}\right) \\
-  &= i\hbar\,\psi(x).
-\end{align}
-Because this is true for every \(\psi(x)\), we conclude that
+At small angles, \(y\approx\ell\theta\), so
 \begin{equation}
-[x,p]=xp-px=i\hbar.
+  \Delta y\approx\frac{\lambda\ell}{d}.
+  \label{eq:fringe-spacing}
 \end{equation}
+Moving the holes farther apart makes the fringes closer; moving them together
+spreads the fringes apart.
 
-This is the formal hinge of the lecture. As a statement about ordinary numbers it would be nonsense, because \(xp=px\). But as a statement about operators it is exact. Susskind emphasizes that the right-hand side is just a number, and that is about as strong a failure of commutativity as one could have. There are no common eigenvectors at all.
+\begin{classroomqa}
+\audiencequestion{What happens in the local model if \(p=q\)?
+\lecturetimestamp{01:32:25--01:33:08}}
+\lecturerresponse{Then the relative phase is constant:
+\(\psi_1+\psi_2=2e^{ipy}\). The intensity is the constant \(4\), in the
+chosen normalization. There are no alternating fringes, but the two
+contributions are everywhere fully constructive.}
+\end{classroomqa}
 
-The lecture also addresses a natural confusion here. Multiplication by \(x\) does not turn an arbitrary function into a constant multiple of itself. That is why generic functions are not eigenfunctions of the position operator. Only delta functions have the property that multiplication by \(x\) picks out one specific numerical value.
+\begin{classroomqa}
+\audiencequestion{Is this the Fraunhofer diffraction pattern?
+\lecturetimestamp{01:38:39--01:39:57}}
+\lecturerresponse{It is the far-field two-aperture part of that pattern. The
+local beat model isolates the rapidly varying two-path fringes. A full
+Fraunhofer calculation also retains the finite width of each opening, which
+multiplies those fringes by the broader one-aperture diffraction envelope.}
+\end{classroomqa}
 
-\section{Two-Slit Interference as Superposition of States}
+\section{Which-Path Information Must Wait}
 
-The lecture now cashes out all of this formalism in the two-slit experiment. The central idea is not diffraction theory in detail. It is superposition. Quantum states can be added, and the probability is computed only after the amplitudes have been added.
-
-Start with one hole open. The wave emerging from that hole spreads out and reaches the screen with a varying phase. Over a small region of the screen one may approximate the vertical dependence by something like \(e^{ipy}\), but Susskind is careful not to pretend that this is globally exact. A better heuristic description is
+Suppose a detector at the barrier records which opening the electron used.
+The detector must then become correlated with the alternative. Schematically,
 \begin{equation}
-\psi_{\text{1-hole}}(y)\sim e^{i\varphi(y)}\rho(y),
+  \ket\Psi
+    =\ket{\text{path }1}\ket{D_1}
+     +\ket{\text{path }2}\ket{D_2}.
+  \label{eq:path-detector}
 \end{equation}
-where \(\rho(y)\) is a slowly varying envelope and \(\varphi(y)\) is a rapidly varying phase. The lecture also gives a more geometric outgoing-wave model:
+When the detector records are distinguishable, the electron alone no longer
+has the same interference term. A full explanation requires composite
+systems and entanglement, so it belongs after the tensor-product structure
+has been developed.
+
+\begin{classroomqa}
+\audiencequestion{Why does a detector placed at the openings destroy the
+interference pattern?\lecturetimestamp{01:40:04--01:41:53}}
+\lecturerresponse{Detecting the path means leaving different imprints in
+another physical system. The electron and detector must then be described as
+one composite state, with each path correlated with a different detector
+record. The interference disappears when those records are distinguishable.
+The mechanism is entanglement, whose derivation must wait until composite
+systems are available.}
+\end{classroomqa}
+
+\section{Phase Gradients and Elastic Deflection}
+
+For a wave of the form \(e^{i\phi(y)}\), the local vertical momentum is the
+phase gradient
 \begin{equation}
-\psi(r)\sim \frac{e^{ipr}}{r},
-\qquad
-r=\sqrt{\ell^2+y^2}.
+  p_y(y)=\hbar\frac{d\phi}{dy}.
 \end{equation}
-The point of this formula is not to launch a full diffraction calculation. It is to explain why the local vertical frequency varies with \(y\). The phase is \(pr\), not simply \(py\), so as one moves away from the center the apparent oscillation in the vertical direction speeds up. In physical language, the particle must have picked up more vertical momentum.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why does one hole give a smooth blob, while two holes can create dark fringes where no particle ever lands?
-
-\paragraph{Answer.} For one hole, the phase may oscillate rapidly, but the probability is computed by multiplying the amplitude by its complex conjugate:
+Near the central axis the distance \(r=\sqrt{\ell^2+y^2}\) changes slowly
+with \(y\), so the vertical phase gradient is small. Farther from the axis,
+the wave has a larger vertical momentum component. This does not require an
+increase in kinetic energy. In an elastic scattering picture, the magnitude
+of the momentum remains fixed:
 \begin{equation}
-|\psi_{\text{1-hole}}(y)|^2
- \sim
- \bigl(e^{i\varphi(y)}\rho(y)\bigr)
- \bigl(e^{-i\varphi(y)}\rho(y)\bigr)
- = \rho(y)^2.
+  p_x^2+p_y^2=p^2.
 \end{equation}
-The oscillating phase cancels. What remains is the smooth envelope. That is why a single hole can produce a broad blob even though the amplitude itself carries rapid phase variation.
+An increase in \(\left|p_y\right|\) is accompanied by a decrease in
+\(\left|p_x\right|\); the momentum vector changes direction rather than length.
 
-With two holes open, however, the total state is the sum of two amplitudes:
-\[
-\psi=\psi_1+\psi_2.
-\]
-When we square that sum, cross-terms survive. Those cross-terms contain the relative phase, and that relative phase produces the interference pattern. So one hole gives a smooth probability because its phase disappears in \(|\psi|^2\); two holes give fringes because the relative phase does not disappear in \(|\psi_1+\psi_2|^2\).
+\begin{classroomqa}
+\audiencequestion{Where does the energy come from when the particle acquires
+vertical momentum?\lecturetimestamp{01:41:59--01:44:12}}
+\lecturerresponse{It need not acquire additional energy. The barrier can
+redirect the momentum elastically, much as a stationary wall changes the
+direction of a bouncing ball. The outgoing wavelength, and therefore the
+magnitude of the momentum, can remain the same while its horizontal and
+vertical components change.}
+\end{classroomqa}
 
-To see the algebra in the form used in the lecture, let us work locally on the screen and choose units in which \(\hbar=1\). Approximate the two contributions by
+\section{Particles Arrive One at a Time}
+
+The wavefunction describes both alternatives, but each detection event is a
+localized spot. Send one electron at a time and the screen records one spot
+at a time. Repeat the preparation many times and the accumulated spots
+approach the density \(\left|\psi_1+\psi_2\right|^{2}\). The density cannot be
+negative because it is an absolute square, but it can vanish where the two
+amplitudes cancel.
+
+\begin{classroomqa}
+\audiencequestion{Is it then meaningless to speak of a corpuscular particle
+in this experiment?\lecturetimestamp{01:44:19--01:45:35}}
+\lecturerresponse{No. The particle aspect is visible in each localized
+detection. The wave aspect is visible in the probability law governing many
+such detections. A single event is a spot; the interference pattern is the
+statistical arrangement of many spots.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{How does this compare with the interference of
+light?\lecturetimestamp{01:45:39--01:47:17}}
+\lecturerresponse{The same distinction appears with photons. An intense beam
+draws the fringe pattern quickly. If the beam is attenuated enough, the
+screen registers separated photon events, yet those events accumulate into
+the same interference distribution. Reducing the flux changes the number of
+particles present at once, not the underlying probability law.}
+\end{classroomqa}
+
+\section{The One-Aperture Envelope}
+
+A single opening does not give a featureless amplitude. A convenient local
+form is
 \begin{equation}
-\psi_1(y)\approx e^{ipy},
-\qquad
-\psi_2(y)\approx e^{iqy}.
+  \psi_1(y)=\rho(y)e^{i\phi(y)},
+  \label{eq:one-hole-envelope}
 \end{equation}
-Each one separately has constant magnitude. Hence each one separately would give a uniform probability over that small interval. But with both holes open,
-\begin{align}
-|\psi_1+\psi_2|^2
- &= (e^{ipy}+e^{iqy})(e^{-ipy}+e^{-iqy}) \\
- &= 1+1+e^{i(p-q)y}+e^{i(q-p)y} \\
- &= 2+2\cos\bigl((p-q)y\bigr).
-\end{align}
-This is not constant. It oscillates, and for those values of \(y\) where the cosine is \(-1\), the probability is zero. These are the dark fringes.
+where \(\rho(y)\) changes slowly while the phase may change rapidly. Its
+detection density is
+\begin{equation}
+  \left|\psi_1(y)\right|^2=\rho(y)^2.
+\end{equation}
+The rapid phase cancels against its complex conjugate, leaving a smooth
+envelope. With a second displaced opening,
+\begin{equation}
+  \psi_2(y)=\rho_2(y)e^{i\phi_2(y)},
+\end{equation}
+and the probability becomes
+\begin{equation}
+  \left|\psi_1+\psi_2\right|^{2}
+  =\rho_1^2+\rho_2^2
+   +2\rho_1\rho_2\cos(\phi_1-\phi_2).
+  \label{eq:enveloped-interference}
+\end{equation}
+The smooth one-aperture envelopes are modulated by the relative-phase
+fringes.
 
-That is the lecture's real payoff. Open one hole and a particle can arrive at a given point. Open the other hole and it can arrive there as well. Open both holes together and there are points that no particle reaches in the idealized limit. This is not because probabilities were added incorrectly; it is because amplitudes were added first, and only then squared.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_04_figure_13.png}
+  \caption{A rapidly varying phase multiplied by a smooth envelope gives a
+  smooth one-aperture probability density.}
+  \lectureframe{01:49:00}
+\end{figure}
 
-The lecture repeatedly returns to the particle character of the phenomenon. One sends particles through one at a time. Each event is just a spot on the screen. But after many repetitions the spots build up the probability distribution. The distribution is always nonnegative, because it comes from an amplitude times its complex conjugate, but it need not be strictly positive. In the ideal limit it can vanish.
+\begin{classroomqa}
+\audiencequestion{If the amplitude oscillates behind one opening, why does
+the screen show only a broad blob?\lecturetimestamp{01:47:28--01:51:36}}
+\lecturerresponse{The oscillation is in complex phase. Multiplication by the
+complex conjugate removes that phase, leaving the slowly varying
+\(\rho(y)^2\). With two openings, a relative phase remains in the cross term,
+and that is what produces fringes.}
+\end{classroomqa}
 
-The dependence on slit separation now reads like ordinary beats. If the two holes are very close together, the local vertical frequencies \(p\) and \(q\) are almost the same, so \(p-q\) is small and the cosine varies slowly. The fringe spacing is therefore large. If the holes are farther apart, \(p-q\) is larger and the fringes become more closely spaced.
+A finite aperture can also diffract by itself. Different points across a
+sharp opening contribute different phases, so a single-slit envelope may
+contain maxima and minima of its own. This is distinct from the finer
+two-slit modulation, although a real experiment displays both at once.
 
-The lecture also adds a useful caution. A single aperture with sharp edges can itself produce diffraction structure because each edge behaves as a secondary source. That is a different effect. The point here is the distinct and stronger interference that arises from the superposition of the states associated with two separate holes.
+\begin{classroomqa}
+\audiencequestion{Can the two edges of one sharp opening create their own
+interference pattern?\lecturetimestamp{01:51:37--01:52:41}}
+\lecturerresponse{Yes. A finite opening is a continuum of secondary
+contributions, and its edges make the phase structure especially visible.
+The resulting single-aperture diffraction determines the broad envelope;
+the separation of two openings determines the additional two-path fringes.}
+\end{classroomqa}
 
-Finally, the lecture stops at exactly the right place. It refuses, for the time being, to answer the which-path detector question. If a detector tells us which slit the particle went through, the interference pattern is destroyed, but to explain that properly one needs composite systems and entanglement. The same is true of the reversibility question that comes up at the end. Those topics are deferred until Hamiltonians, evolution, and tensor-product structure are in place.
+\section{Visibility, Wavelength, and Idealization}
 
-\section{Summary}
+Exact dark fringes require coherent contributions of equal magnitude. If the
+two apertures have unequal amplitudes \(A_1\) and \(A_2\), then
+\begin{equation}
+  I(y)=\left|A_1\right|^{2}+\left|A_2\right|^{2}
+       +2\left|A_1A_2\right|\cos\Delta\phi(y).
+\end{equation}
+The minimum is
+\((\left|A_1\right|-\left|A_2\right|)^2\), so unequal illumination fills in the dark
+fringes. Noise, finite source coherence, detector resolution, and imperfect
+geometry do the same. Under ideal conditions the minima can nevertheless be
+extremely dark.
 
-The lecture unfolds as one deliberate chain of replacements and payoffs. We begin with the discrete case: probabilities \(P(n)\), orthonormal basis states, amplitudes, and the Kronecker delta. We then pass to continuous variables: exact point-probabilities give way to interval probabilities, sums become integrals, and the Kronecker delta becomes the Dirac delta. With those replacements in hand, the continuum Born rule follows from the same abstract postulates:
-\[
-P(y)=\psi^*(y)\psi(y).
-\]
-The move from the line to the circle changes not the formalism but the allowed state space, and periodicity then forces momentum and angular momentum to be quantized. The student's natural question about the large-\(R\) limit pushes the lecture to the deeper issue of compatibility, culminating in the operator identity
-\[
-[x,p]=i\hbar.
-\]
-That identity explains why position and momentum are not simultaneously sharp. The two-slit experiment then gives the physical payoff: amplitudes add, probabilities do not, and the cross-term in
-\[
-|\psi_1+\psi_2|^2
-\]
-creates an interference pattern with genuine dark fringes. The lecture ends by leaving the detector question open, not because it is unimportant, but because it belongs to the next layer of the subject.
+\begin{classroomqa}
+\audiencequestion{Are there screen positions that will never be hit, even
+when particles are sent one at a time?
+\lecturetimestamp{01:52:43--01:53:43}}
+\lecturerresponse{In the ideal equal-amplitude model, yes: destructive
+interference makes the probability exactly zero at the dark fringes. Real
+apparatus introduces background, unequal amplitudes, and finite resolution,
+so observed minima are generally small rather than mathematically perfect.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Do unequal hole sizes matter, and how small must the
+openings be?\lecturetimestamp{01:53:44--01:55:54}}
+\lecturerresponse{Small, similarly illuminated openings give the clearest
+two-path pattern. Unequal sizes alter the two amplitudes and reduce fringe
+visibility. The relevant scales are the opening widths, their separation,
+the propagation distance, and the de Broglie wavelength
+\(\lambda=h/p\). Long-wavelength particles diffract through larger
+structures; short-wavelength electrons require correspondingly finer
+geometry.}
+\end{classroomqa}
+
+Passing through a sufficiently small opening prepares an approximate
+outgoing state centered at that opening. In this limited sense the later
+pattern can become insensitive to many details of the source. Coherence
+still matters: the source and apparatus must not carry distinguishable
+which-path information.
+
+\begin{classroomqa}
+\audiencequestion{Does the particle forget its source after passing through
+the small opening?\lecturetimestamp{01:55:55--01:56:41}}
+\lecturerresponse{The opening can prepare a new approximate outgoing state,
+so many earlier details cease to affect the downstream shape. That is an
+idealization, not complete independence from the source: momentum spread,
+coherence, and correlations with other systems can still matter.}
+\end{classroomqa}
+
+\section{Reuse Is Not Reversal}
+
+The final question separates two ideas that are easy to confuse. One may
+collect an electron, prepare it again, and repeat the experiment with that
+same particle; repeated trials do not require newly created electrons.
+Reversing an entire detected event is a different matter. The screen and all
+other correlated degrees of freedom would have to be included in the
+reversal.
+
+\begin{classroomqa}
+\audiencequestion{Could the same electron be sent through repeatedly, and is
+that the same as reversing the experiment?
+\lecturetimestamp{01:56:42--01:59:16}}
+\lecturerresponse{The same electron may be recovered, re-prepared, and used
+for another trial, producing the same statistics as any identically prepared
+electron. Reversing a completed detection is not the same operation. To
+decide whether the full evolution can be reversed, one must first introduce
+Hamiltonians, time evolution, and the detector as part of the quantum
+system.}
+\end{classroomqa}
+
+That is where the calculation properly stops. The kinematics has supplied
+continuous bases, delta normalization, quantized momentum on a circle,
+noncommuting position and momentum, and interference from added amplitudes.
+The next step is dynamics: a Hamiltonian must say how these states evolve in
+time.
