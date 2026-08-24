@@ -1,467 +1,758 @@
-\chapter{Periodic Line, Fourier Duality, and Polarization}
+\chapter{Fourier Duality, Wave Packets, and Photon Polarization}
 
-We begin not with the infinite line, but with a particle on a line whose ends are identified. That is the deliberate opening move of the lecture. One first solves a tame problem in which momentum is discretized and normalization is honest, and only then lets the size of the box go to infinity. From there the lecture unfolds in a very characteristic sequence: orthogonality, completeness, Fourier transforms, two equivalent representations of the same state, and then the incompatibility of position and momentum. After the break the same logic is repeated in miniature for the polarization of a photon. These notes follow Leonard Susskind's progression closely, with companion-note curation indebted to LazyingArt LLC and Video2Book.
+\section{A Periodic Line as a Regulator}
 
-\section{A Particle on a Periodic Line}
+Begin with a line segment of length \(L\), but identify its two ends. A
+particle that leaves at one end reappears at the other. This is equivalent
+mathematically to motion on a circle, although we need not imagine the
+particle literally travelling around a physical ring. The construction is a
+regulator: it makes momentum discrete and normalization ordinary, and the
+infinite line is recovered by taking \(L\) to infinity.
 
-A periodic line can be pictured in two ways. One may imagine a particle moving on a literal circle, but one may also imagine an ordinary line segment together with the rule that when the particle exits one end, it reappears at the other. The second picture is the one the lecture emphasizes: the geometry itself is not sacred; what matters is the identification rule. The infinite line will later be recovered as the limit in which the length grows without bound.
-
-The quantum-mechanical translation of that rule is immediate. If the line has length \(L\), then the wave function must satisfy
+The endpoint identification requires
 \begin{equation}
-\psi(x)=\psi(x+L).
+  \psi(x+L)=\psi(x).
+  \label{eq:periodic-line}
 \end{equation}
-This is the first mathematical statement of the lecture.
+It is convenient to write \(L=2\pi r\). The symbol \(r\) then resembles a
+circle radius, but only the circumference \(2\pi r\) matters.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_05_figure_02.png}
-\caption{Periodicity condition on a line of length \(L\).}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_05_figure_02.png}
+  \caption{The periodicity condition and the finite interval of length
+  \(L\).}
+  \lectureframe{00:02:17}
 \end{figure}
 
-The board here is useful evidence: the equation is written together with a finite line segment labeled \(L\), so the notation and the geometry arrive as one package. It is worth keeping that pairing visible.
+Momentum eigenfunctions are plane waves. Restoring units before simplifying
+the notation,
+\begin{equation}
+  e^{ipx/\hbar}=e^{ikx},
+  \qquad
+  k:=\frac{p}{\hbar}.
+  \label{eq:k-definition}
+\end{equation}
+Thus \(k\) is the wave number, while the physical momentum is \(p=\hbar k\).
+On one period, a normalized plane wave is
+\begin{equation}
+  \psi_k(x)=\braket{x}{k}_{\mathrm{box}}
+    =\frac{e^{ikx}}{\sqrt{2\pi r}},
+  \qquad 0\leq x<2\pi r.
+  \label{eq:box-plane-wave}
+\end{equation}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1]
-\node at (3,1.15) {\(\psi(x)=\psi(x+L)\)};
-\draw[thick] (0,0) -- (6,0);
-\node at (3,-0.35) {\(L\)};
-\end{tikzpicture}
-\caption{Cleaned redraw of the periodic-line schematic.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_05_figure_03.png}
+  \caption{The normalized plane wave written in \(p/\hbar\) and \(k\)
+  notation.}
+  \lectureframe{00:04:20}
 \end{figure}
 
-At this point the lecture backs up one step and says, in effect: let us write
-\begin{equation}
-L=2\pi r.
-\end{equation}
-This is introduced purely for notational convenience. One may think of the periodic line as a circle of circumference \(2\pi r\), but the point is not to insist that the particle is really moving on a circle. The point is to have a compact notation that makes the periodicity of plane waves easy to read.
+\begin{classroomqa}
+\audiencequestion{Why does the normalization contain a square root?
+\lecturetimestamp{00:04:29--00:05:26}}
+\lecturerresponse{Normalization is imposed on the absolute square. Since
+\(\lvert e^{ikx}\rvert^2=1\),
+\[
+  \int_0^{2\pi r}\lvert e^{ikx}\rvert^2\,dx=2\pi r.
+\]
+Dividing the amplitude by \(\sqrt{2\pi r}\) divides its absolute square by
+\(2\pi r\), leaving unit norm.}
+\end{classroomqa}
 
-Now the periodicity condition has implications for momentum. The wave function for a momentum eigenstate is first written in the naive form \(e^{ipx}\), and then immediately corrected:
+Periodicity now quantizes the wave number:
+\begin{align}
+  e^{ik(x+2\pi r)}&=e^{ikx},\\
+  e^{i2\pi rk}&=1,\\
+  k&=\frac{n}{r},
+  \qquad n\in\mathbb Z.
+  \label{eq:k-quantization}
+\end{align}
+The allowed values are separated by
 \begin{equation}
-e^{ipx/\hbar}=e^{ikx},
-\qquad
-k=\frac{p}{\hbar}.
+  \Delta k=\frac{1}{r}.
+  \label{eq:k-spacing}
 \end{equation}
-Susskind then switches to \(k\)-notation and stays with it, except for occasional lapses when \(\hbar\) is tacitly set to \(1\).
+As \(r\) grows, the spectrum becomes dense. A dense quantum spectrum is not
+by itself a classical limit; it is only the continuum limit of this
+kinematical basis.
 
-The plane wave, however, is not yet normalized. On the interval \(0\le x\le 2\pi r\), the normalized momentum eigenfunction is
+\section{Orthogonality Before the Continuum}
+
+The momentum operator is Hermitian on periodic functions with the
+appropriate domain, so eigenfunctions with different eigenvalues are
+orthogonal. Here the theorem can be checked directly. For
+\(k_n=n/r\) and \(k_m=m/r\),
+\begin{align}
+  \braket{k_m}{k_n}_{\mathrm{box}}
+  &=\frac{1}{2\pi r}\int_0^{2\pi r}
+      e^{i(k_n-k_m)x}\,dx \\
+  &=\delta_{mn}.
+  \label{eq:box-orthogonality}
+\end{align}
+When \(m=n\), the integrand is one. When \(m\neq n\), it completes an
+integer number of oscillations, and its positive and negative contributions
+cancel.
+
+\begin{classroomqa}
+\audiencequestion{Is orthogonality here a definition or a result?
+\lecturetimestamp{00:11:24--00:12:54}}
+\lecturerresponse{It is a result. Distinct eigenvalues of a Hermitian
+operator have orthogonal eigenvectors. The integral above verifies that
+general theorem for the periodic plane waves; it does not define
+orthogonality.}
+\end{classroomqa}
+
+The states \(\ket{k_n}_{\mathrm{box}}\) therefore form an orthonormal basis.
+At finite \(r\), the correct language is discrete: sums over \(n\) and
+Kronecker deltas \(\delta_{mn}\). We now stretch this basis into the
+continuum without losing its normalization bookkeeping.
+
+\section{From Kronecker to Dirac Normalization}
+
+Because \(\Delta k=1/r\), define continuum-normalized states at the sampled
+wave numbers by
 \begin{equation}
-\psi_k(x)=\frac{e^{ipx/\hbar}}{\sqrt{2\pi r}}
-=\frac{e^{ikx}}{\sqrt{2\pi r}}.
+  \ket{k_n}:=\frac{1}{\sqrt{\Delta k}}\,
+    \ket{k_n}_{\mathrm{box}}
+    =\sqrt r\,\ket{k_n}_{\mathrm{box}}.
+  \label{eq:continuum-rescaling}
 \end{equation}
+Their position-space kernels are
+\begin{equation}
+  \braket{x}{k_n}
+    =\sqrt r\,\frac{e^{ik_nx}}{\sqrt{2\pi r}}
+    =\frac{e^{ik_nx}}{\sqrt{2\pi}}.
+  \label{eq:continuum-plane-wave}
+\end{equation}
+The factor of \(\sqrt r\) has not vanished. It has converted a
+unit-normalized discrete state into a delta-normalized continuum state.
+Indeed,
+\begin{equation}
+  \braket{k_m}{k_n}
+    =\frac{\delta_{mn}}{\Delta k},
+  \label{eq:sampled-delta}
+\end{equation}
+which tends distributionally to
+\begin{equation}
+  \braket{k'}{k}=\delta(k-k').
+  \label{eq:momentum-delta}
+\end{equation}
+The peak grows like \(1/\Delta k=r\) while its width shrinks like
+\(\Delta k\), leaving unit area.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.62\textwidth]{lecture_05_figure_03.png}
-\caption{Normalized plane wave in \(p\)- and \(k\)-notation.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_05_figure_04.png}
+  \caption{The board transition from normalized plane waves to
+  \(\delta(k-k')\) normalization.}
+  \lectureframe{00:16:50}
 \end{figure}
 
-The frame is useful because it records the final board form: the normalized expression is shown side by side in \(p/\hbar\)- and \(k\)-notation, precisely at the moment when the lecture is explaining why the square root appears in the denominator.
+\begin{classroomqa}
+\audiencequestion{Where did the factor \(\sqrt r\) go in the overlap?
+\lecturetimestamp{00:17:37--00:18:39}}
+\lecturerresponse{There is one factor from the bra and one from the ket.
+Together they multiply the old overlap by \(r\). Thus unequal sampled wave
+numbers remain orthogonal, while the equal-wave-number overlap grows from
+\(1\) to \(r=1/\Delta k\), exactly the height needed for a Dirac delta in
+the continuum limit.}
+\end{classroomqa}
 
-\subsection{Question \& Answer}
+Completeness transforms consistently:
+\begin{align}
+  \mathbf 1
+    &=\sum_n \ket{k_n}_{\mathrm{box}}
+       {}_{\mathrm{box}}\!\bra{k_n}\\
+    &=\sum_n \Delta k\,\ket{k_n}\bra{k_n}
+      \longrightarrow
+      \int_{-\infty}^{\infty}dk\,\ket k\bra k.
+  \label{eq:continuum-completeness}
+\end{align}
+The rescaling, the delta function, and the replacement of a sum by an
+integral are three parts of one operation.
 
-Why is there a square root in the denominator? Because the normalization condition is imposed on \(\psi^*\psi\), not on \(\psi\) itself. For the bare plane wave \(e^{ikx}\) we have
+\section{Dyads and the Resolution of Identity}
+
+An inner product such as \(\braket ab\) is a number. Reversing the order
+creates a different kind of object:
 \begin{equation}
-|e^{ikx}|^2=1,
+  \ket b\bra a.
 \end{equation}
-and so over one full period,
+This outer product, or dyad, is an operator. Acting on a third vector,
 \begin{equation}
-\int_0^{2\pi r} |e^{ikx}|^2\,dx = 2\pi r.
+  \bigl(\ket b\bra a\bigr)\ket c
+    =\braket ac\,\ket b.
+  \label{eq:dyad-action}
 \end{equation}
-If we divide the wave function by \(\sqrt{2\pi r}\), then the square of that denominator is exactly \(2\pi r\), and the normalization condition becomes
+The bra extracts the component of \(\ket c\) along \(\ket a\), and the ket
+places that coefficient along \(\ket b\).
+
+For any orthonormal basis \(\{\ket n\}\),
 \begin{equation}
-\int_0^{2\pi r} |\psi_k(x)|^2\,dx = 1.
+  \ket v=\sum_n v_n\ket n,
+  \qquad
+  v_n=\braket n v.
 \end{equation}
-That is the whole reason for the square root. As Susskind remarks in class, the factor is not mysterious; it is simply where all those later \(2\pi\)'s come from.
-
-\section{Allowed Momenta and Discrete Orthogonality}
-
-Once the normalized plane wave has been written down, the periodicity condition can be imposed on the eigenfunction itself. This is where the periodic box begins to earn its keep. We require
+Substitution gives
 \begin{equation}
-e^{ik(x+2\pi r)}=e^{ikx}.
+  \ket v=\sum_n\ket n\bra n\ket v.
 \end{equation}
-Dividing out the common factor \(e^{ikx}\), we obtain
+Since the relation holds for every \(\ket v\),
 \begin{equation}
-e^{i2\pi rk}=1,
-\end{equation}
-and therefore the phase accumulated in one trip around the circle must be an integer multiple of \(2\pi\):
-\begin{equation}
-2\pi r\,k = 2\pi n,
-\qquad n\in \mathbb{Z}.
-\end{equation}
-Thus
-\begin{equation}
-rk=n,
-\qquad
-k=\frac{n}{r}.
-\end{equation}
-The allowed values of \(k\) are therefore discrete, with spacing
-\begin{equation}
-\Delta k=\frac{1}{r}.
-\end{equation}
-
-This is the staging ground for the continuum. At finite \(r\) the momentum spectrum is a lattice of evenly spaced values. As \(r\to\infty\), the spacing goes to zero, the lattice becomes dense, and we are led back toward the infinite line.
-
-Before taking that limit, however, the lecture pauses and says: before we do that, notice something first. These functions are eigenfunctions of a Hermitian operator, and therefore different eigenvalues must correspond to orthogonal eigenfunctions.
-
-\begin{theorem}
-If two eigenvectors of a Hermitian operator have distinct eigenvalues, then they are orthogonal.
-\end{theorem}
-
-The lecture then checks the statement explicitly for the periodic plane waves. For allowed values \(k=n/r\) and \(k'=n'/r\),
-\begin{equation}
-\frac{1}{2\pi r}\int_0^{2\pi r} e^{ikx}e^{-ik'x}\,dx
-=
-\delta_{nn'}.
-\end{equation}
-If \(k=k'\), the exponentials cancel and the integrand is \(1\), so the integral gives \(1\). If \(k\neq k'\), the product oscillates, with positive contributions canceling negative ones over a full period, and the integral gives \(0\).
-
-This is exactly the point where the lecture stops being merely about a list of allowed momenta. These normalized eigenfunctions are already an orthonormal set; in other words, they are already behaving like a basis of vectors.
-
-\subsection{Question \& Answer}
-
-Is the orthogonality relation a definition? No. This is one of the places where the lecture deliberately slows down. The integral is something we calculate. The deeper statement is the theorem: eigenvectors of a Hermitian operator with different eigenvalues are orthogonal. One may view the explicit integral as a confirmation, in this example, of the general theorem. But the theorem is prior.
-
-\section{From the Box to the Continuum}
-
-Now the lecture takes the next step: the transition from the finite periodic box to the continuum. This is also the point where the spoken derivation becomes a little tangled, so it is worth writing the clean version carefully.
-
-We begin with the box-normalized states
-\begin{equation}
-\psi_k(x)=\frac{e^{ikx}}{\sqrt{2\pi r}}.
-\end{equation}
-At finite \(r\), these are normalized to \(1\), and their inner products give Kronecker deltas on the integer labels \(n\).
-
-To prepare the continuum limit, Susskind rescales the states by \(\sqrt r\). Define
-\begin{equation}
-\phi_k(x)=\sqrt r\,\psi_k(x)=\frac{e^{ikx}}{\sqrt{2\pi}}.
-\end{equation}
-These are no longer normalized to \(1\) on the finite circle. That is intentional. They are being prepared for a different normalization, one suitable to a continuous spectrum.
-
-What does this rescaling do? For \(k\neq k'\), nothing essential changes: the inner product is still \(0\). But for \(k=k'\), the inner product, which used to be \(1\), becomes \(r\). As \(r\) becomes very large, the equal-\(k\) spike grows while the spacing \(\Delta k=1/r\) shrinks. This is the mechanism by which the Kronecker delta becomes a Dirac delta. In the continuum notation we write
-\begin{equation}
-\langle k|k'\rangle=\delta(k-k').
+  \mathbf 1=\sum_n\ket n\bra n.
+  \label{eq:discrete-completeness}
 \end{equation}
 
-At the same time, the momentum eigenfunction in the position basis becomes
-\begin{equation}
-\langle x|k\rangle=\frac{e^{ikx}}{\sqrt{2\pi}},
-\qquad
-\langle k|x\rangle=\frac{e^{-ikx}}{\sqrt{2\pi}}.
-\end{equation}
-The second equation is the complex conjugate of the first. The notation is now adapted to a continuum basis, and the \(r\) has disappeared from the kernel.
-
-The lecture does not attempt a rigorous theory of distributions here. Its real point is more practical: once the rescaling has been performed, one may pass comfortably to the continuum notation in which sums become integrals and Kronecker deltas become delta functions.
-
-\section{Dyads, Completeness, and Fourier's Trick}
-
-Before going on to Fourier transforms, the lecture inserts a simple but indispensable algebraic fact. The point is to make the coming manipulations lawful. We are not going to pull Fourier transforms out of thin air; we are going to insert the identity operator in a useful way.
-
-The inner product \(\langle a|b\rangle\) is a number. The outer product
-\begin{equation}
-|b\rangle\langle a|
-\end{equation}
-is an operator. Its action on a vector \(|c\rangle\) is
-\begin{equation}
-\bigl(|b\rangle\langle a|\bigr)|c\rangle
-=
-|b\rangle\,\langle a|c\rangle.
-\end{equation}
-The bra \(\langle a|\) first contracts with \(|c\rangle\) to produce a number, and that number multiplies the vector \(|b\rangle\). This is the dyad.
-
-Now let \(\{|n\rangle\}\) be an orthonormal basis. Any vector may be expanded as
-\begin{equation}
-|v\rangle=\sum_n v_n |n\rangle,
-\qquad
-v_n=\langle n|v\rangle.
-\end{equation}
-Substituting the second formula into the first gives
-\begin{equation}
-|v\rangle=\sum_n |n\rangle\langle n|v\rangle.
-\end{equation}
-Since this holds for every vector \(|v\rangle\), the operator in front must be the identity:
-\begin{equation}
-I=\sum_n |n\rangle\langle n|.
-\end{equation}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.52\textwidth]{lecture_05_figure_04.png}
-\caption{Resolution of the identity in a discrete basis.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.50\textwidth]{lecture_05_figure_05.png}
+  \caption{A complete orthonormal basis resolves the identity into
+  projectors.}
+  \lectureframe{00:25:02}
 \end{figure}
 
-This is exactly the centered board formula captured in the retained frame. In the continuum, the same statement becomes
+\begin{classroomqa}
+\audiencequestion{Does the repeated symbol \(n\) refer to one special
+state?\lecturetimestamp{00:25:58--00:27:40}}
+\lecturerresponse{No. It is a dummy summation label that runs over every
+vector in the chosen basis. Another complete orthonormal basis gives another
+resolution of the same identity. For a continuous label, the sum becomes an
+integral and Kronecker normalization becomes Dirac normalization.}
+\end{classroomqa}
+
+In particular,
 \begin{equation}
-I=\int dk\,|k\rangle\langle k|,
-\qquad
-I=\int dx\,|x\rangle\langle x|.
+  \mathbf 1=\int dx\,\ket x\bra x
+  =\int dk\,\ket k\bra k.
+  \label{eq:two-resolutions}
 \end{equation}
-The notation changes, but the idea does not. A complete basis resolves the identity.
+These two forms of the identity are the mechanism behind the Fourier
+transform.
 
-This is the trick the lecture now uses over and over. If a calculation looks hard in one basis, insert the identity written in another basis.
+\section{One State in Two Representations}
 
-\section{Position and Momentum as Two Representations}
-
-Let \(|\psi\rangle\) be the state of a particle on a line. The position-space wave function is defined by
+For an abstract state \(\ket\psi\), define
 \begin{equation}
-\psi(x)=\langle x|\psi\rangle.
+  \psi(x):=\braket x\psi,
+  \qquad
+  \widetilde\psi(k):=\braket k\psi.
+  \label{eq:two-wavefunctions}
 \end{equation}
-The momentum-space wave function is defined by
+They are not two states. They are the components of one state in two
+different bases. The change-of-basis kernel is
 \begin{equation}
-\tilde\psi(k)=\langle k|\psi\rangle.
+  \braket xk=\frac{e^{ikx}}{\sqrt{2\pi}},
+  \qquad
+  \braket kx=\frac{e^{-ikx}}{\sqrt{2\pi}}.
+  \label{eq:fourier-kernel}
 \end{equation}
-These are not two different states. They are two different descriptions of the same state vector.
 
-The first key observation is that the wave function of a definite momentum state \(|k\rangle\) in the position basis is just
-\begin{equation}
-\langle x|k\rangle=\frac{e^{ikx}}{\sqrt{2\pi}}.
-\end{equation}
-This is already a strong hint that position and momentum are going to be related by Fourier theory.
-
-To compute \(\tilde\psi(k)\) from \(\psi(x)\), insert the identity in the position basis:
+Insert the position resolution of identity into \(\braket k\psi\):
 \begin{align}
-\tilde\psi(k)
-&=\langle k|\psi\rangle \\
-&=\int dx\,\langle k|x\rangle\langle x|\psi\rangle \\
-&=\frac{1}{\sqrt{2\pi}}\int dx\,e^{-ikx}\psi(x).
+  \widetilde\psi(k)
+    &=\int dx\,\braket kx\braket x\psi\\
+    &=\frac{1}{\sqrt{2\pi}}
+      \int_{-\infty}^{\infty}dx\,e^{-ikx}\psi(x).
+  \label{eq:forward-fourier}
 \end{align}
-That is the Fourier transform. The minus sign in the exponential appears because \(\langle k|x\rangle\) is the complex conjugate of \(\langle x|k\rangle\).
-
-Now go in the other direction. Insert the identity in the momentum basis:
+Insert the momentum resolution into \(\braket x\psi\):
 \begin{align}
-\psi(x)
-&=\langle x|\psi\rangle \\
-&=\int dk\,\langle x|k\rangle\langle k|\psi\rangle \\
-&=\frac{1}{\sqrt{2\pi}}\int dk\,e^{ikx}\tilde\psi(k).
+  \psi(x)
+    &=\int dk\,\braket xk\braket k\psi\\
+    &=\frac{1}{\sqrt{2\pi}}
+      \int_{-\infty}^{\infty}dk\,e^{ikx}\widetilde\psi(k).
+  \label{eq:inverse-fourier}
 \end{align}
-This is the inverse Fourier transform. The asymmetry between plus and minus signs is the familiar asymmetry of the Fourier-transform pair.
+These are the forward and inverse Fourier transforms. Fourier analysis is
+older than quantum mechanics; quantum mechanics interprets the transform as
+a change between position and momentum descriptions.
 
-These formulas are, of course, older than quantum mechanics. The lecture explicitly notes that. But quantum mechanics gives them a new interpretation: they relate two descriptions of one and the same physical state. If somebody hands us \(\psi(x)\), we can immediately compute \(\tilde\psi(k)\); if somebody hands us \(\tilde\psi(k)\), we can recover \(\psi(x)\). The information is the same.
-
-It is also worth recording the operator actions in the two representations. In the position representation,
-\begin{align}
-\hat X\,\psi(x) &= x\,\psi(x), \\
-\hat k\,\psi(x) &= -i\frac{\partial}{\partial x}\psi(x).
-\end{align}
-In the momentum representation,
-\begin{align}
-\hat k\,\tilde\psi(k) &= k\,\tilde\psi(k), \\
-\hat X\,\tilde\psi(k) &= i\frac{\partial}{\partial k}\tilde\psi(k).
-\end{align}
-The board equation for \(\hat k\,\psi(x)\) is partly occluded in the retained frame, but the transcript makes the intended form unmistakable: \(-i\partial_x\) is the operator being identified with momentum in the \(x\)-representation.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_05_figure_06.png}
-\caption{Operator actions in position and momentum space.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_05_figure_06.png}
+  \caption{Inserting the position basis turns the momentum amplitude into a
+  Fourier integral.}
+  \lectureframe{00:34:30}
 \end{figure}
 
-The top line of the board, mapping the abstract state to a wave function, is only partly visible, but the intended pattern is clear enough: the lecture is laying the \(x\)-space and \(k\)-space rules side by side so that the symmetry can be seen rather than merely asserted.
+\begin{classroomqa}
+\audiencequestion{Can \(k\) be negative, and what does the symmetry between
+\(x\) and \(k\) mean physically?\lecturetimestamp{00:38:43--00:39:43}}
+\lecturerresponse{Negative \(k\) means momentum in the opposite direction.
+The deeper symmetry is that position and momentum are conjugate variables.
+Their reciprocity is natural in Fourier analysis and later appears in
+classical mechanics through canonical coordinates and Poisson brackets.}
+\end{classroomqa}
 
-Two remarks from the lecture are worth preserving here. First, \(k\) can certainly be negative; that simply corresponds to momentum in the opposite direction. Second, the symmetry between \(x\) and \(k\) is not something classical mechanics makes obvious at first sight. It looks strange until one has learned to think in terms of conjugate quantities.
-
-\subsection{Question \& Answer}
-
-Why do we represent the state as \(\psi(x)\) or as \(\tilde\psi(k)\), but not as a joint function of \(x\) and \(k\)? Because the two variables correspond to incompatible observables. No vector is simultaneously an eigenvector of \(\hat X\) and \(\hat k\). A state of definite momentum is completely spread out in position, and by the same symmetry a state of definite position is completely spread out in momentum. One may pass back and forth between the two representations, but one does not assign a single wave function of \(x\) and \(k\) as though both quantities were simultaneously sharp. This is one of the places where quantum mechanics replaces ``and'' by ``or.''
-
-\section{Wave Packets and the Deferred Classical Limit}
-
-At this point the lecture pauses and refuses to claim too much. We have not yet established a full bridge to classical mechanics. We have only seen that the quantum quantities called position and momentum are represented by the operators \(\hat X\) and \(\hat k\), and that they are incompatible. So why should they deserve the classical names at all?
-
-Susskind's answer is a promise rather than a proof. The bridge is provided by wave packets. A wave packet is a state whose position-space wave function is concentrated in some finite region, and whose momentum-space wave function is also concentrated, though of course not infinitely sharply, around some finite range of \(k\)-values.
-
-A convenient schematic form is
-\begin{equation}
-\psi(x)\sim e^{ik_0x}f(x),
-\end{equation}
-where \(f(x)\) is a localized envelope. The factor \(f(x)\) keeps the state concentrated in position space, while the oscillatory factor \(e^{ik_0x}\) makes it look locally like a plane wave, and hence gives it an approximate momentum \(k_0\).
-
-The lecture stresses three points. First, the envelope need not be exactly Gaussian, though a Gaussian is the standard example. Second, the packet is as sharp in both position and momentum as the uncertainty principle allows, but never sharper. Third, for sufficiently smooth potentials, such packets tend to propagate in a way that resembles classical motion: the center of the packet in position space and the center of the packet in momentum space move approximately as a classical particle would move.
-
-But all of that is postponed as a theorem to be proved later. Here the packet appears only as a preview, the first quantum object that looks even vaguely classical.
-
-\section{Photon Polarization: The Same Logic in Two Dimensions}
-
-After the break, the lecture makes a brief return to operator language. If \(A\) and \(B\) are complex vectors, then the inner product can be complex, and the outer product \(|A\rangle\langle B|\) need not be Hermitian. One should think in terms of Hermitian conjugation, not merely ordinary complex conjugation. This remark is short and somewhat noisy in the transcript, but its function is clear: it reopens the operator formalism just before the lecture pivots to a simpler system.
-
-That simpler system is the polarization of a photon. The physical setup is concrete. A polarizer transmits one polarization and blocks, reflects, or absorbs the orthogonal one. For a single photon the result is discrete: the photon either gets through or it does not. The apparatus may therefore be viewed in two ways. It prepares a state, because the transmitted photon emerges in a definite polarization. And it measures a property, because the next polarizer can test what that polarization is.
-
-In the lecture the classical electromagnetic-wave picture is used only long enough to define what is meant by polarization. The electric field oscillates in some transverse direction, and that direction labels the polarization. But once the single-photon description begins, the crucial point is that the outcome is indivisible. One photon does not partly pass and partly reflect. It does one or the other.
-
-Now ignore the motion of the photon and focus only on its polarization state. Choose two orthogonal directions, \(x\) and \(y\), and denote the corresponding states by
-\begin{equation}
-|x\rangle \leftrightarrow
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix},
-\qquad
-|y\rangle \leftrightarrow
-\begin{pmatrix}
-0\\
-1
-\end{pmatrix}.
-\end{equation}
-These are orthonormal basis vectors:
-\begin{equation}
-\langle x|x\rangle=1,
-\qquad
-\langle y|y\rangle=1,
-\qquad
-\langle x|y\rangle=0.
-\end{equation}
-The orthogonality is physically motivated. A single experiment can distinguish the two configurations, and so the corresponding vectors must be orthogonal.
-
-Now define an observable associated with an \(xy\)-oriented polarizer. Susskind chooses a convenient convention: assign \(+1\) to one outcome and \(-1\) to the other. The numbers themselves are arbitrary; the apparatus and the notebook convention are what matter. In the chapter we follow the lecture's mathematical content and write
-\begin{equation}
-\hat P_{xy}|x\rangle=+|x\rangle,
-\qquad
-\hat P_{xy}|y\rangle=-|y\rangle.
-\end{equation}
-This completely specifies the operator. In matrix form,
-\begin{equation}
-\hat P_{xy}=
-\begin{pmatrix}
-1 & 0\\
-0 & -1
-\end{pmatrix}.
-\end{equation}
-Equivalently, in the dyad language already introduced earlier,
-\begin{equation}
-\hat P_{xy}=|x\rangle\langle x|-|y\rangle\langle y|.
-\end{equation}
-That is a useful formula, because it ties the two-state polarization example back to the earlier discussion of outer products and completeness.
-
-\subsection{Question \& Answer}
-
-What state comes out of a \(45^\circ\) polarizer? The lecture handles this in exactly the right spirit: not by starting with a matrix, but by asking what the state ought to do. A photon emerging from a \(45^\circ\) polarizer is neither purely \(x\)-polarized nor purely \(y\)-polarized. But if we send it into an \(x\)- or \(y\)-aligned polarizer, we expect equal probabilities for the two outcomes. The natural guess is therefore the equal-amplitude superposition
-\begin{equation}
-|+\rangle=\frac{|x\rangle+|y\rangle}{\sqrt2}.
-\end{equation}
-Its orthogonal partner is
-\begin{equation}
-|-\rangle=\frac{|x\rangle-|y\rangle}{\sqrt2}.
-\end{equation}
-In column-vector form,
-\begin{equation}
-|+\rangle \leftrightarrow
-\begin{pmatrix}
-1/\sqrt2\\
-1/\sqrt2
-\end{pmatrix},
-\qquad
-|-\rangle \leftrightarrow
-\begin{pmatrix}
-1/\sqrt2\\
--1/\sqrt2
-\end{pmatrix}.
-\end{equation}
-
-The lecture then insists on doing the obvious probability calculation in the formalism, just to show that the machinery really works. Suppose the photon is in the state \(|+\rangle\), and we ask for the probability that it passes a \(y\)-polarizer. The amplitude is
+The operator rules display the same reciprocity. In the position
+representation,
 \begin{align}
-\langle y|+\rangle
-&=
-\left\langle y\middle|
-\frac{|x\rangle+|y\rangle}{\sqrt2}
-\right\rangle \\
-&=
-\frac{1}{\sqrt2}
-\bigl(\langle y|x\rangle+\langle y|y\rangle\bigr) \\
-&=
-\frac{1}{\sqrt2}.
+  \hat X\psi(x)&=x\psi(x),\\
+  \hat K\psi(x)&=-i\frac{\partial}{\partial x}\psi(x).
+  \label{eq:x-representation}
 \end{align}
-Therefore
+In the wave-number representation,
+\begin{align}
+  \hat K\widetilde\psi(k)&=k\widetilde\psi(k),\\
+  \hat X\widetilde\psi(k)&=
+    i\frac{\partial}{\partial k}\widetilde\psi(k).
+  \label{eq:k-representation}
+\end{align}
+The physical momentum operator is \(\hat P=\hbar\hat K\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_05_figure_07.png}
+  \caption{Multiplication and differentiation exchange roles in the
+  \(x\)- and \(k\)-representations.}
+  \lectureframe{00:42:15}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why is the state represented by \(\psi(x)\) or
+\(\widetilde\psi(k)\), rather than by one probability amplitude depending
+on both \(x\) and \(k\)?\lecturetimestamp{00:43:13--00:44:36}}
+\lecturerresponse{These are two complete representations of the same state,
+and they are related invertibly by a Fourier transform. Position and
+momentum are incompatible observables: no normalizable state has both
+exactly sharp. A definite-\(k\) state is spread over all \(x\), while a
+definite-position state is spread over all \(k\). Quantum mechanics does not
+assign simultaneous sharp values merely because either representation can
+be used.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the classical conservation of phase-space volume
+related to quantum time evolution?\lecturetimestamp{00:44:38--00:46:39}}
+\lecturerresponse{Yes, at the structural level emphasized in the lecture.
+Hamiltonian evolution is a canonical transformation and preserves
+phase-space volume. It cannot collapse a finite cloud of distinct initial
+conditions to one point. Quantum evolution is unitary and preserves inner
+products, so distinctions between state vectors are likewise maintained.
+The detailed dynamical statement is still ahead of us.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Where does the differential form
+\(\hat K=-i\partial_x\) come from?\lecturetimestamp{00:46:43--00:48:08}}
+\lecturerresponse{It is the position-representation form introduced for the
+momentum generator. Acting on a plane wave,
+\[
+  -i\frac{\partial}{\partial x}e^{ikx}=k e^{ikx},
+\]
+so \(e^{ikx}\) is an eigenfunction with eigenvalue \(k\). Fourier
+transformation then gives the reciprocal rule
+\(\hat X=i\partial_k\) in momentum space.}
+\end{classroomqa}
+
+\section{Wave Packets and the Classical Bridge}
+
+At this stage, the operators have been named position and momentum, but the
+connection with classical motion has not yet been proved. The bridge is a
+wave packet. Its magnitude is concentrated near some position \(x_0\), and
+its Fourier transform is concentrated near some wave number \(k_0\). A
+typical form is
 \begin{equation}
-|\langle y|+\rangle|^2=\frac12.
+  \psi(x)=f(x-x_0)e^{ik_0x},
+  \label{eq:wave-packet}
 \end{equation}
-Likewise,
+where \(f\) is a smooth localized envelope. The oscillations inside the
+envelope carry the approximate momentum, while the envelope locates the
+particle.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_05_figure_08.png}
+  \caption{A localized envelope modulates a nearly monochromatic plane wave,
+  producing a packet localized in both representations.}
+  \lectureframe{00:51:25}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Must the packet be Gaussian?
+\lecturetimestamp{00:50:23--00:50:34}}
+\lecturerresponse{No. A Gaussian is the cleanest example because its Fourier
+transform is also Gaussian and it can minimize
+\(\Delta x\,\Delta k\geq 1/2\). The lecture needs only a smooth packet
+localized in both representations; its exact shape is not essential.}
+\end{classroomqa}
+
+Under a sufficiently smooth potential, a narrow packet can retain its
+integrity for a useful interval. Its center moves through position space,
+and the center of its momentum distribution moves through momentum space.
+The theorem promised in the lecture is the Ehrenfest relation: under the
+conditions in which the packet remains narrow, these expectation values
+approximately obey the classical equations of motion. The packet may also
+spread or distort, so the classical description is an approximation, not a
+new postulate.
+
+\begin{classroomqa}
+\audiencequestion{What establishes that this quantum quantity really is
+classical momentum?\lecturetimestamp{00:48:13--00:54:02}}
+\lecturerresponse{Not the name alone. The connection is established when a
+localized wave packet evolves according to the Schrodinger equation and its
+centers in \(x\) and \(p=\hbar k\) follow the corresponding classical
+trajectory. That result is announced here and derived only after quantum
+dynamics has been introduced.}
+\end{classroomqa}
+
+\section{Incompatibility in a Two-State System}
+
+For complex vectors, \(\ket A\bra B\) is generally not Hermitian, and
 \begin{equation}
-|\langle x|+\rangle|^2=\frac12,
-\qquad
-|\langle x|-\rangle|^2=\frac12,
-\qquad
-|\langle y|-\rangle|^2=\frac12.
+  \bigl(\ket A\bra B\bigr)^\dagger=\ket B\bra A.
+  \label{eq:dyad-adjoint}
 \end{equation}
-So the diagonal states are exactly the states whose \(x\)- and \(y\)-probabilities are equal.
+Hermitian conjugation is the operator analogue of complex conjugation.
 
-Now define the observable associated with the \(45^\circ\) basis. Let \(|+\rangle\) have eigenvalue \(+1\) and \(|-\rangle\) have eigenvalue \(-1\):
+\begin{classroomqa}
+\audiencequestion{What is the outer product of two complex vectors?
+\lecturetimestamp{00:54:15--00:55:32}}
+\lecturerresponse{It is an operator, usually a non-Hermitian one. Reversing
+the vectors and converting each ket to its adjoint bra gives its Hermitian
+conjugate. The special dyad \(\ket A\bra A\) is Hermitian and, for normalized
+\(\ket A\), is a projector.}
+\end{classroomqa}
+
+The larger point is incompatibility. Classically one specifies position
+\textit{and} momentum. Quantum mechanically one may use the position
+representation \textit{or} the momentum representation. The state contains
+the probability information needed for either experiment, but it does not
+make incompatible quantities simultaneously definite.
+
+To see the same logic without infinite-dimensional function spaces, turn to
+photon polarization. Ignore the photon's position and retain only two
+polarization degrees of freedom.
+
+\section{From Electromagnetic Waves to a Polarizer}
+
+A classical light wave travelling along the \(z\)-axis has electric and
+magnetic fields transverse to its motion and perpendicular to one another.
+For a plane wave they oscillate in phase. The polarization direction is
+defined to be the direction in which the electric field oscillates; the
+opposite direction along the same axis is not a different linear
+polarization.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_05_figure_09.png}
+  \caption{Perpendicular electric and magnetic oscillations in a
+  plane-polarized electromagnetic wave.}
+  \lectureframe{01:00:45}
+\end{figure}
+
+A wire-grid polarizer makes this physical. If its conducting wires are
+vertical, a vertical electric field drives currents in the wires. Those
+currents reflect or absorb that component. A horizontal electric field
+cannot drive a horizontal current because no conducting path runs that way,
+so it is transmitted. Thus the transmission axis is perpendicular to the
+wires. More generally, an ideal polarizer transmits the electric-field
+component along one axis and removes the orthogonal component.
+
+The wave description gives continuously variable field amplitudes. The
+single-photon description gives discrete events. A photon incident on a
+polarizer is either transmitted or it is absorbed or reflected. Its energy
+does not split into two fractional photons.
+
+\section{Preparation and Measurement}
+
+A photon that emerges from an ideal vertical polarizer is vertically
+polarized. If it then meets a second vertical polarizer, it passes with
+probability one. If it meets a horizontal polarizer, it is blocked with
+probability one. The first apparatus prepares a state; the second tests it.
+The same physical device can therefore serve as a state preparer or as a
+measurement apparatus, depending on its role in the experiment.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_05_figure_10.png}
+  \caption{Two polarizers illustrate preparation followed by a polarization
+  measurement.}
+  \lectureframe{01:10:00}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is a reflected photon itself polarized?
+\lecturetimestamp{01:06:14--01:06:38}}
+\lecturerresponse{It may be. The lecture discards that output channel and
+counts only transmission. One may instead build a fuller experiment that
+detects both channels, but the two-outcome polarization logic for the
+transmitted beam is unchanged.}
+\end{classroomqa}
+
+Choose horizontal and vertical axes called \(x\) and \(y\). In this section
+they label polarization, not the particle's position. Represent the two
+orthogonal states by
 \begin{equation}
-\hat P_{45}|+\rangle=+|+\rangle,
-\qquad
-\hat P_{45}|-\rangle=-|-\rangle.
+  \ket{x}_{\mathrm{pol}}\leftrightarrow
+  \begin{pmatrix}1\\0\end{pmatrix},
+  \qquad
+  \ket{y}_{\mathrm{pol}}\leftrightarrow
+  \begin{pmatrix}0\\1\end{pmatrix}.
+  \label{eq:xy-polarization-basis}
 \end{equation}
-The simplest matrix that does this, in the \((|x\rangle,|y\rangle)\) basis, is
+They satisfy
 \begin{equation}
-\hat P_{45}=
-\begin{pmatrix}
-0 & 1\\
-1 & 0
-\end{pmatrix}.
+  \braket xx=\braket yy=1,
+  \qquad
+  \braket xy=0.
+  \label{eq:xy-orthogonality}
 \end{equation}
-One checks it immediately:
+They are orthogonal because a single ideal polarization experiment can
+distinguish them perfectly.
+
+\section{States, Outcomes, and the Polarization Operator}
+
+The state vectors are not themselves observables. To define an observable,
+associate numerical records with the two possible outcomes. Following the
+lecture, record \(+1\) for \(x\)-polarization and \(-1\) for
+\(y\)-polarization. The corresponding operator obeys
 \begin{equation}
-\hat P_{45}
-\begin{pmatrix}
-1/\sqrt2\\
-1/\sqrt2
-\end{pmatrix}
-=
-\begin{pmatrix}
-1/\sqrt2\\
-1/\sqrt2
-\end{pmatrix},
-\qquad
-\hat P_{45}
-\begin{pmatrix}
-1/\sqrt2\\
--1/\sqrt2
-\end{pmatrix}
-=
--
-\begin{pmatrix}
-1/\sqrt2\\
--1/\sqrt2
-\end{pmatrix}.
+  \hat P_{xy}\ket x=+\ket x,
+  \qquad
+  \hat P_{xy}\ket y=-\ket y.
+  \label{eq:Pxy-eigenvalue}
 \end{equation}
-Equivalently,
+In the \((\ket x,\ket y)\) basis,
 \begin{equation}
-\hat P_{45}=|+\rangle\langle +|-|-\rangle\langle -|.
+  \hat P_{xy}
+  =
+  \begin{pmatrix}
+    1&0\\
+    0&-1
+  \end{pmatrix}
+  =\ket x\bra x-\ket y\bra y.
+  \label{eq:Pxy-matrix}
 \end{equation}
 
-Now the lecture arrives at the real point. The eigenvectors of \(\hat P_{xy}\) are \(|x\rangle\) and \(|y\rangle\). The eigenvectors of \(\hat P_{45}\) are \(|+\rangle\) and \(|-\rangle\). There are no common eigenvectors. Therefore the two observables are incompatible. This is exactly the same logic as before, but now in a two-dimensional vector space rather than on the infinite line.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_05_figure_11.png}
+  \caption{The horizontal-vertical polarization observable is diagonal in
+  the \((\ket x,\ket y)\) basis.}
+  \lectureframe{01:19:45}
+\end{figure}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{If polarization is observable, why is the state not called
+an observable?\lecturetimestamp{01:14:56--01:16:03}}
+\lecturerresponse{The state describes the preparation and supplies
+probability amplitudes. The observable is the Hermitian operator tied to a
+measurement setup; its eigenvectors are states with definite outcomes, and
+its eigenvalues are the numbers recorded for those outcomes.}
+\end{classroomqa}
 
-Why is probability not itself an observable? Because an observable, in the technical sense used in the lecture, is something that gives a definite outcome in a single experiment. A photon sent through a polarizer yields a definite record in the notebook: through or not through, or equivalently \(+1\) or \(-1\). Probability does not appear in a single run. It is inferred only after many repeated runs.
+Knowing the action of \(\hat P_{xy}\) on the two basis vectors determines its
+action on every superposition. This is why specifying eigenvectors and
+eigenvalues is enough to specify an observable.
 
-The lecture's late discussion is worth recording in the cleaner dyad language. Define the projectors
+\section{Rotate the Apparatus}
+
+Nothing prevents us from rotating a polarizer by \(45^\circ\). A photon that
+emerges from it is neither in \(\ket x\) nor in \(\ket y\), but an
+\(x\)- or \(y\)-oriented test gives either result with equal probability.
+The normalized state is
 \begin{equation}
-\Pi_x=|x\rangle\langle x|,
-\qquad
-\Pi_y=|y\rangle\langle y|.
+  \ket{+}=\frac{\ket x+\ket y}{\sqrt2}.
+  \label{eq:plus-state}
 \end{equation}
-Then for a state \(|\psi\rangle\),
+The orthogonal linear polarization is
 \begin{equation}
-\langle \psi|\Pi_x|\psi\rangle
-=
-\langle \psi|x\rangle\langle x|\psi\rangle
-=
-|\langle x|\psi\rangle|^2,
+  \ket{-}=\frac{\ket x-\ket y}{\sqrt2}.
+  \label{eq:minus-state}
 \end{equation}
-and similarly
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_05_figure_12.png}
+  \caption{A diagonal preparation followed by a horizontal or vertical
+  polarization test.}
+  \lectureframe{01:23:45}
+\end{figure}
+
+The relative minus sign makes the two diagonal states orthogonal:
 \begin{equation}
-\langle \psi|\Pi_y|\psi\rangle
-=
-|\langle y|\psi\rangle|^2.
+  \braket{-}{+}
+  =\frac12\bigl(\braket xx+\braket xy-\braket yx-\braket yy\bigr)
+  =0.
+  \label{eq:diagonal-orthogonality}
 \end{equation}
-These expectation values are probabilities. But the output of the single-shot experiment associated with \(\Pi_x\) is \(1\) or \(0\), not the probability. The same distinction is what underlies the lecture's final insistence that an observable is tied to a particular apparatus and to the little number one writes down event by event after the system has interacted with that apparatus.
+In column form,
+\begin{equation}
+  \ket+\leftrightarrow
+  \frac{1}{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix},
+  \qquad
+  \ket-\leftrightarrow
+  \frac{1}{\sqrt2}\begin{pmatrix}1\\-1\end{pmatrix}.
+  \label{eq:diagonal-columns}
+\end{equation}
 
-The lecture closes by sharpening the language further: all observables are Hermitian operators, and all Hermitian operators are observables. But the observable is never the abstract probability itself. The observable is the single-run result associated with a definite measurement setup.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_05_figure_13.png}
+  \caption{The two diagonal polarization states form a second orthonormal
+  basis.}
+  \lectureframe{01:29:00}
+\end{figure}
 
-\section{Summary}
+The Born rule confirms the equal probabilities:
+\begin{align}
+  \operatorname{Prob}(y|+)
+    &=\left|\braket y+\right|^2
+      =\left|\frac{1}{\sqrt2}
+        \bigl(\braket yx+\braket yy\bigr)\right|^2
+      =\frac12,\\
+  \operatorname{Prob}(x|+)&=\frac12.
+  \label{eq:diagonal-probabilities}
+\end{align}
+For \(\ket-\), one amplitude changes sign, but its absolute square is again
+\(1/2\). Amplitudes carry signs and phases; probabilities do not retain
+them directly.
 
-The first half of the lecture takes a particle on a periodic line, normalizes the plane waves, quantizes the allowed momenta, and then carefully stretches the finite-box normalization into continuum normalization. With dyads and completeness in hand, the lecture derives the Fourier-transform relation between the position and momentum representations and uses that relation to sharpen the incompatibility of \(\hat X\) and \(\hat k\).
+Define the rotated observable by
+\begin{equation}
+  \hat P_{45}\ket+=+\ket+,
+  \qquad
+  \hat P_{45}\ket-=-\ket-.
+  \label{eq:P45-eigenvalue}
+\end{equation}
+In the original \(x,y\) basis,
+\begin{equation}
+  \hat P_{45}
+  =
+  \begin{pmatrix}
+    0&1\\
+    1&0
+  \end{pmatrix}
+  =\ket+\bra+-\ket-\bra-.
+  \label{eq:P45-matrix}
+\end{equation}
 
-The second half rebuilds the same logic in a much simpler system. A polarizer prepares states and measures outcomes; the orthogonal states \(|x\rangle\) and \(|y\rangle\) form a basis; rotated states such as \(|+\rangle\) and \(|-\rangle\) define new observables; and the absence of common eigenvectors expresses incompatibility once again.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_05_figure_14.png}
+  \caption{The off-diagonal matrix returns \(\ket+\) and reverses
+  \(\ket-\), giving the required eigenvalues.}
+  \lectureframe{01:38:30}
+\end{figure}
 
-What runs through the whole lecture is the same structural lesson. A state may be described in more than one representation, but incompatible observables do not fit into one simultaneous sharp picture. And an observable is not whatever number we infer from an ensemble after the fact; it is the definite outcome recorded in a single experiment by a particular apparatus.
+The eigenvectors of \(\hat P_{xy}\) are \(\ket x,\ket y\); those of
+\(\hat P_{45}\) are \(\ket+,\ket-\). No nonzero vector is an eigenvector of
+both operators. Equivalently,
+\begin{equation}
+  [\hat P_{xy},\hat P_{45}]\neq0.
+  \label{eq:polarization-commutator}
+\end{equation}
+The two polarization observables are incompatible, just as position and
+momentum are incompatible, but now the entire statement fits inside a
+two-dimensional vector space.
+
+For an arbitrary linear-polarization angle \(\theta\), the announced
+generalization is
+\begin{equation}
+  \ket{\theta}=\cos\theta\,\ket x+\sin\theta\,\ket y,
+  \qquad
+  \ket{\theta_\perp}=-\sin\theta\,\ket x+\cos\theta\,\ket y.
+  \label{eq:general-linear-polarization}
+\end{equation}
+The corresponding observable has these two states as eigenvectors. Rotating
+the axis by \(90^\circ\) merely exchanges the outcomes and reverses the sign
+of the same observable. Distinct nonorthogonal axes give genuinely
+incompatible tests. Complex relative coefficients introduce circular and
+elliptical polarization; that extension is reserved for the next lecture.
+
+\section{What One Experiment Records}
+
+The closing discussion distinguishes an outcome from a probability. A
+single photon gives one definite record: transmitted or blocked, represented
+here by \(+1\) or \(-1\). The probability of either record is inferred from
+many repetitions with identically prepared photons.
+
+\begin{classroomqa}
+\audiencequestion{Is the probability that a photon passes a polarizer itself
+an observable?\lecturetimestamp{01:42:27--01:45:03}}
+\lecturerresponse{Not in the single-shot technical sense used here. One run
+produces an outcome, not a probability. Probability is estimated from the
+relative frequency of outcomes over an ensemble of repeated preparations.}
+\end{classroomqa}
+
+The probability for a particular eigenstate \(\ket a\) is obtained directly
+from the overlap,
+\begin{equation}
+  \operatorname{Prob}(a|\psi)=\left|\braket a\psi\right|^2.
+  \label{eq:born-overlap}
+\end{equation}
+One does not first apply the observable to \(\ket\psi\) and then square an
+eigenvalue. The observable identifies the possible values and the
+eigenvectors associated with them; the state's overlaps with those
+eigenvectors determine the probabilities.
+
+\begin{classroomqa}
+\audiencequestion{Should the observable act on the state before the
+probability is calculated?\lecturetimestamp{01:45:03--01:48:02}}
+\lecturerresponse{No. To find the probability of a particular result, take
+the inner product of the prepared state with the eigenvector for that
+result, then square its magnitude. Applying the operator is useful for
+expectation values and eigenvalue equations, but it is not an extra step in
+the basic Born-rule calculation.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is an observable synonymous with a Hermitian operator?
+\lecturetimestamp{01:48:04--01:48:14}}
+\lecturerresponse{Within the finite-dimensional framework of this lecture,
+yes: observables are represented by Hermitian operators, and every
+Hermitian operator may be associated with an observable. In
+infinite-dimensional problems, the precise mathematical condition is
+self-adjointness with a specified domain.}
+\end{classroomqa}
+
+The numerical labels \(+1\) and \(-1\) are a convention. We could record
+\(1\) and \(0\), or any two distinct real numbers, provided the convention
+is used consistently. Choosing \(1\) and \(0\) produces the projector
+\begin{equation}
+  \Pi_x=\ket x\bra x
+  =
+  \begin{pmatrix}
+    1&0\\
+    0&0
+  \end{pmatrix}.
+  \label{eq:x-projector}
+\end{equation}
+For a normalized state \(\ket\psi\),
+\begin{align}
+  \bra\psi\Pi_x\ket\psi
+    &=\bra\psi x\rangle\braket x\psi\\
+    &=\left|\braket x\psi\right|^2.
+  \label{eq:projector-probability}
+\end{align}
+The expectation value equals the probability, but the result of one
+projector measurement is still \(1\) or \(0\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.42\textwidth]{lecture_05_figure_15.png}
+  \caption{A projector expectation gives the \(x\)-polarization
+  probability.}
+  \lectureframe{01:50:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{If the eigenvalue labels are arbitrary, what does the
+apparatus actually define?\lecturetimestamp{01:48:16--01:55:23}}
+\lecturerresponse{The apparatus defines the mutually exclusive outcomes and
+the states that give them with certainty. We then choose real numbers to
+record those outcomes. With the \(+1,-1\) convention the observable is a
+difference of projectors; with the \(1,0\) convention it is one projector,
+whose expectation value is the ensemble probability for that outcome.}
+\end{classroomqa}
+
+An observable is therefore inseparable from a specified experimental
+question. The polarizer orientation fixes the eigenvectors, the notebook
+convention fixes the eigenvalues, and one interaction yields one recorded
+event. Repetition reveals the probabilities. In this two-state example, the
+abstract language of vectors, operators, incompatible bases, and Born
+amplitudes has become a concrete laboratory procedure.
