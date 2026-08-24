@@ -1,426 +1,766 @@
-\chapter{Tensor Algebra, Metrics, and the First Step to Space-Time}
+\chapter{Tensor Algebra, Metrics, and Spacetime}
 
-This lecture marks a threshold in the course. Susskind says again that he is after the ``theoretical minimum,'' but now adds an important warning: if one were merely to announce the answers in words, that would be less than the minimum. From this point on, the minimum already requires patient calculation. We therefore follow the lecture's progression closely. We begin with transformation laws, not pictures; we build tensor algebra from those laws; we introduce the metric as the first genuinely geometric tensor in the story; and only then do we pivot to flat space, special relativity, and a first time-dependent cosmological metric. These companion notes follow Leonard Susskind's lecture closely and preserve selected documentary board frames associated with LazyingArt LLC and Video2Book.
+\section{The Minimum Is Technical}
 
-\section{Covariant and Contravariant Review}
+The theoretical minimum is not a list of conclusions stated in words. It is
+the least mathematics needed to move reliably to the next subject, which in
+this case is general relativity and then cosmology. No advanced machinery is
+required tonight, but the calculations must be followed patiently. Index
+placement, transformation laws, and contractions are not decoration; they
+are the grammar in which curved geometry is written.
 
-Susskind begins by slowing the room down. We are to review the transformation properties of covariant and contravariant components before trying to do anything more difficult. The reason is not bureaucratic. In curved geometry, and later in space-time, everything depends on knowing exactly what kind of object one is dealing with.
-
-Let \(x^m\) and \(y^m\) denote two coordinate systems. The convention in the lecture is that coordinates themselves carry upper indices. Once that choice is made, the transformation rules are easy to read.
-
-A covariant object transforms as
+Let \(x^{m}\) and \(y^{m}\) be two coordinate systems on the same space. A
+covariant vector transforms as
 \begin{equation}
-V_m(y)=\frac{\partial x^n}{\partial y^m}V_n(x),
+  V_{m}^{(y)}(y)
+  =
+  \frac{\partial x^{n}}{\partial y^{m}}
+  V_{n}^{(x)}(x),
+  \label{eq:l04-covariant-law}
 \end{equation}
-while a contravariant object transforms as
+whereas a contravariant vector transforms as
 \begin{equation}
-W^m(y)=\frac{\partial y^m}{\partial x^n}W^n(x).
+  W_{(y)}^{m}(y)
+  =
+  \frac{\partial y^{m}}{\partial x^{n}}
+  W_{(x)}^{n}(x).
+  \label{eq:l04-contravariant-law}
 \end{equation}
+The free index \(m\) appears on both sides and belongs to the \(y\)
+description. The repeated \(n\) is summed and belongs to the \(x\)
+description.
 
-This is the point at which Susskind insists that a vector is not ``any three numbers'' or ``anything that can be drawn as an arrow.'' Temperature, pressure, and humidity give three numbers, but they do not transform as components of a vector. They are just three scalars placed side by side. A vector is defined by its transformation law.
+A collection of numbers is not a vector merely because it can be arranged
+as an arrow. Temperature, pressure, and humidity are three scalars. Putting
+their numerical values along three axes does not make a geometric vector,
+because those values do not mix under a coordinate change according to
+Eq.~\eqref{eq:l04-covariant-law} or
+Eq.~\eqref{eq:l04-contravariant-law}. Transformation behavior defines the
+object.
 
-The two basic archetypes come straight from multivariable calculus. If \(\phi\) is a scalar field, then
+The two laws come directly from calculus. A scalar gradient satisfies
 \begin{equation}
-\frac{\partial \phi}{\partial y^m}
-=
-\frac{\partial \phi}{\partial x^n}
-\frac{\partial x^n}{\partial y^m},
+  \frac{\partial\phi}{\partial y^{m}}
+  =
+  \frac{\partial x^{n}}{\partial y^{m}}
+  \frac{\partial\phi}{\partial x^{n}},
+  \label{eq:l04-gradient-chain-rule}
 \end{equation}
-so the gradient transforms covariantly. And if \(y^m=y^m(x)\), then
+so gradients are covariant. Coordinate differentials satisfy
 \begin{equation}
-dy^m=\frac{\partial y^m}{\partial x^n}\,dx^n,
+  dy^{m}
+  =
+  \frac{\partial y^{m}}{\partial x^{n}}\,dx^{n},
+  \label{eq:l04-differential-chain-rule}
 \end{equation}
-so a differential displacement transforms contravariantly. These are not postulates invented to make tensor calculus elegant. They are chain rules.
+so infinitesimal displacements are contravariant. These chain rules are the
+archetypes from which the terminology is abstracted.
 
-It is worth preserving another small but useful convention from the lecture: once the coordinates are written with upper indices, it becomes difficult to get lost. A derivative \(\partial x^n/\partial y^m\) naturally carries one upper \(n\) and one lower \(m\), and those index positions tell us which kind of object it is prepared to convert into which other kind.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_01.png}
+  \caption{The two chain-rule archetypes: a scalar gradient transforms
+  covariantly, while a differential displacement transforms
+  contravariantly.}
+  \lectureframe{00:12:35}
+\end{figure}
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{If an object satisfies one vector transformation law,
+must it also satisfy the other?
+\lecturetimestamp{00:07:24--00:08:33}}
+\lecturerresponse{No. Before a metric is introduced, a covector such as
+\(\partial_{m}\phi\) and a vector such as \(dx^{m}\) are different kinds of
+object. The same letter should not be used to identify them. The metric will
+later provide a one-to-one map between their component descriptions.}
+\end{classroomqa}
 
-\paragraph{Question.} If an object satisfies one of the vector transformation laws, must it satisfy the other one too?
+Coordinates conventionally carry upper indices. A coordinate in the
+denominator of a derivative therefore contributes a lower index, while a
+coordinate differential naturally carries an upper one. The convention is
+arbitrary, but once adopted it makes the Jacobian patterns difficult to
+misread.
 
-\paragraph{Answer.} Not yet. The lecture is careful about this. At first, a covariant vector and a contravariant vector are simply different kinds of objects. A gradient,
-\[
-\frac{\partial \phi}{\partial x^m},
-\]
-is covariant. A small displacement,
-\[
-dx^m,
-\]
-is contravariant. We are not yet entitled to identify them as two forms of the same vector. That identification only becomes natural once the metric has been introduced and we learn how to raise and lower indices.
+\section{Higher-Rank Tensors and Contraction}
 
-\section{From Vectors to General Tensors}
-
-Once we understand the one-index case, the multi-index case is almost forced on us. Each index transforms, and each index brings its own Jacobian factor. For a rank-two covariant tensor,
+Each tensor index transforms independently. For a tensor with two lower
+indices,
 \begin{equation}
-T_{mr}(y)=
-\frac{\partial x^n}{\partial y^m}
-\frac{\partial x^s}{\partial y^r}
-T_{ns}(x).
+  T_{mr}^{(y)}
+  =
+  \frac{\partial x^{n}}{\partial y^{m}}
+  \frac{\partial x^{s}}{\partial y^{r}}
+  T_{ns}^{(x)}.
+  \label{eq:l04-covariant-rank-two}
 \end{equation}
-For a mixed tensor with one upper and one lower index,
+For one upper and one lower index,
 \begin{equation}
-T^m{}_{n}(y)=
-\frac{\partial y^m}{\partial x^s}
-\frac{\partial x^r}{\partial y^n}
-T^s{}_{r}(x).
+  \bigl(T^{m}{}_{r}\bigr)_{(y)}
+  =
+  \frac{\partial y^{m}}{\partial x^{n}}
+  \frac{\partial x^{s}}{\partial y^{r}}
+  \bigl(T^{n}{}_{s}\bigr)_{(x)}.
+  \label{eq:l04-mixed-rank-two}
 \end{equation}
+The general rule is one direct Jacobian for every upper index and one
+inverse Jacobian for every lower index.
 
-This is the general pattern Susskind wants us to absorb. Indices are not decoration. They are instructions for transformation.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_04_figure_02.png}
+  \caption{Covariant and mixed rank-two transformation laws. The completed
+  board displays one Jacobian factor for each tensor index.}
+  \lectureframe{00:17:45}
+\end{figure}
 
-He then turns to the next basic operation, contraction. If one upper and one lower index are identified and summed over, the rank drops. For example,
+\begin{classroomqa}
+\audiencequestion{May upper and lower indices be mixed on the same tensor?
+\lecturetimestamp{00:15:15--00:16:18}}
+\lecturerresponse{Yes. A mixed tensor is perfectly legitimate. Each index
+retains its own transformation rule, as
+Eq.~\eqref{eq:l04-mixed-rank-two} shows.}
+\end{classroomqa}
+
+The next operation is \emph{contraction}. Identify one upper index with one
+lower index and sum:
 \begin{equation}
-T^m{}_{m}=T^1{}_{1}+T^2{}_{2}+T^3{}_{3}+\cdots.
+  T^{m}{}_{m}
+  =
+  T^{1}{}_{1}+T^{2}{}_{2}+\cdots.
+  \label{eq:l04-trace}
 \end{equation}
-No free index remains, so one expects a scalar. The lecture then checks it explicitly.
-
-If we transform \(T^m{}_{n}\) and then set the two indices equal, the Jacobian factors combine to
-\begin{equation}
-\frac{\partial x^r}{\partial y^m}
-\frac{\partial y^m}{\partial x^s}
-=
-\delta^r{}_{s}.
-\end{equation}
-This is the Kronecker delta, the identity tensor, with one upper and one lower index. It tells us to set \(r=s\). Therefore
-\begin{equation}
-T^m{}_{m}(y)=T^r{}_{r}(x),
-\end{equation}
-and the contracted quantity is indeed a scalar.
-
-The same operation works more generally. If we start with a tensor carrying many upper and lower indices, identify one upper with one lower, and sum, the result is a tensor of lower rank. This is one of the main engines of tensor algebra.
-
-A familiar special case is the inner product. If \(v^m\) is contravariant and \(w_m\) is covariant, then
-\begin{equation}
-v^m w_m
-\end{equation}
-is a scalar.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} If we contract one index of a higher-rank tensor, does that mean the original tensor was simply a scalar times a smaller tensor?
-
-\paragraph{Answer.} No. The lecture pauses on exactly this point. Contraction is an operation that produces a new tensor of lower rank. In special cases the new object may factor in a simple way, but in general it does not mean the original tensor was merely a scalar multiple of some simpler one. The contraction throws away structure; it does not reveal a hidden trivial factorization.
-
-This is why contraction matters. It is not just notation. It manufactures coordinate-independent quantities and lower-rank tensors from more complicated ones.
-
-\section{The Metric Tensor as Distance}
-
-At this point the lecture turns from pure index bookkeeping to the first tensor with direct geometric meaning: the metric tensor. If two neighboring points are separated by the infinitesimal displacement \(dx^m\), then the squared distance between them is
-\begin{equation}
-ds^2=g_{mn}(x)\,dx^m dx^n.
-\end{equation}
-
-The form of this expression is already telling. The two \(dx\)'s contribute two contravariant indices; the metric contributes two covariant ones; everything is contracted; no free indices remain. Thus \(ds^2\) is a scalar.
-
-Now comes the decisive question: is \(g_{mn}\) really a tensor? Susskind does not answer by appeal to intuition. He answers by rewriting the same interval in another coordinate system.
-
-We have
-\begin{equation}
-dx^m=\frac{\partial x^m}{\partial y^r}\,dy^r.
-\end{equation}
-Substituting twice into the line element gives
+No free index remains, so the result should be a scalar. The transformation
+law verifies it:
 \begin{align}
-ds^2
-&=
-g_{mn}(x)\,dx^m dx^n \\
-&=
-g_{mn}(x)
-\frac{\partial x^m}{\partial y^r}
-\frac{\partial x^n}{\partial y^s}
-dy^r dy^s.
+  \bigl(T^{m}{}_{m}\bigr)_{(y)}
+  &=
+  \frac{\partial y^{m}}{\partial x^{r}}
+  \frac{\partial x^{s}}{\partial y^{m}}
+  \bigl(T^{r}{}_{s}\bigr)_{(x)}
+  \nonumber\\
+  &=
+  \delta^{s}{}_{r}\,T^{r}{}_{s}{}^{(x)}
+  =
+  \bigl(T^{r}{}_{r}\bigr)_{(x)}.
+  \label{eq:l04-trace-invariant}
 \end{align}
-Now define the coefficient of \(dy^r dy^s\) to be the metric in the \(y\)-coordinates:
-\begin{equation}
-g_{rs}(y)=
-\frac{\partial x^m}{\partial y^r}
-\frac{\partial x^n}{\partial y^s}
-g_{mn}(x).
-\end{equation}
-But this is exactly the transformation law for a covariant rank-two tensor. The metric is therefore a tensor in the strict sense used throughout the lecture.
+The paired Jacobians are inverse matrices. Their product is the identity,
+represented by the Kronecker delta.
 
-\paragraph{Worked derivation.} The derivation is short enough to summarize in the same clipped order in which the lecture presents it:
-\begin{enumerate}
-\item Write the squared distance as \(ds^2=g_{mn}(x)\,dx^m dx^n\).
-\item Rewrite each \(dx^m\) in terms of \(dy^r\).
-\item Substitute and collect the coefficient of \(dy^r dy^s\).
-\item Call that coefficient \(g_{rs}(y)\).
-\item Read off the tensor transformation law.
-\end{enumerate}
-
-The lecture is careful about what this proves. It proves that the same scalar interval may be expressed in different coordinates using metric components related by the tensor law. It does not mean that two unrelated formulas happen to agree.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Is \(ds^2\) ``the same regardless of the coordinates''?
-
-\paragraph{Answer.} Yes, but only in the precise sense just described. We are not computing two different distances and discovering a coincidence. We are taking one and the same scalar interval and rewriting it. That rewriting forces the relation between \(g_{mn}(x)\) and \(g_{rs}(y)\). The invariance of \(ds^2\) is therefore not a separate afterthought; it is the starting point of the metric transformation law.
-
-\section{Metric as Matrix, Inverse Metric, and Raising/Lowering}
-
-Once the metric has been established as a tensor, the lecture immediately shifts register. A rank-two tensor, viewed at a fixed point and in a fixed coordinate system, is also a matrix. Strictly speaking the tensor is not the matrix; rather, its components in a given coordinate system form a matrix. But Susskind moves freely between those two descriptions, and the notes should do the same.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.78\textwidth]{lecture_04_figure_04.png}
-\caption{Metric tensor as matrix and inverse}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_04_figure_03.png}
+  \caption{Contraction of a mixed tensor. The circled trace has no free
+  indices and is unchanged by the coordinate transformation.}
+  \lectureframe{00:22:35}
 \end{figure}
 
-Thus we may write
+The same argument works at any rank. Contracting one upper with one lower
+index removes those two indices and leaves a tensor whose remaining indices
+transform normally. A familiar special case is the inner product
 \begin{equation}
-g_{mn}\leftrightarrow
-\begin{pmatrix}
-g_{11} & g_{12} & g_{13} & \cdots \\
-g_{21} & g_{22} & g_{23} & \cdots \\
-g_{31} & g_{32} & g_{33} & \cdots \\
-\vdots & \vdots & \vdots & \ddots
-\end{pmatrix}.
+  V^{m}W_{m},
+  \label{eq:l04-inner-product}
 \end{equation}
-For the line element, the lecture takes the metric to be symmetric,
-\[
-g_{mn}=g_{nm},
-\]
-and then introduces its inverse as an ordinary matrix inverse.
+which is a scalar.
 
-At the matrix level one writes
-\begin{equation}
-g^{-1}g=I.
-\end{equation}
-In index notation that becomes
-\begin{equation}
-g^{mr}g_{rn}=\delta^m{}_{n}.
-\end{equation}
-Here the Kronecker delta must carry one upper and one lower index. The lecture explicitly stops to correct the temptation to write both indices downstairs. In tensor notation \(\delta^m{}_{n}\) is the identity tensor.
+\begin{classroomqa}
+\audiencequestion{Does contraction imply that the original tensor was a
+scalar times the lower-rank tensor that remains?
+\lecturetimestamp{00:25:00--00:26:50}}
+\lecturerresponse{No. Contraction constructs a new object and generally
+discards information. A special tensor may factor, but no such factorization
+follows from contraction alone.}
+\end{classroomqa}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_04_figure_02.png}
-\caption{Inverse metric contraction identity}
+\begin{classroomqa}
+\audiencequestion{Does a two-index tensor necessarily represent a plane?
+\lecturetimestamp{00:26:50--00:27:35}}
+\lecturerresponse{Sometimes a rank-two object admits that geometric
+interpretation, but rank by itself does not force it. The metric tensor is
+the important example here: its two indices encode the bilinear rule for
+distance.}
+\end{classroomqa}
+
+\section{The Metric from the Scalar Line Element}
+
+For two neighboring points separated by \(dx^{m}\), define the squared
+distance
+\begin{equation}
+  \boxed{
+  ds^{2}
+  =
+  g_{mn}(x)\,dx^{m}dx^{n}.}
+  \label{eq:l04-line-element}
+\end{equation}
+Both vector indices are contracted against the two lower metric indices, so
+\(ds^{2}\) is a scalar.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_04_figure_04.png}
+  \caption{The metric tensor enters as the bilinear coefficient that turns
+  an infinitesimal displacement into its squared length.}
+  \lectureframe{00:28:35}
 \end{figure}
 
-The upper-index object \(g^{mn}\) is then interpreted as the collection of components of the inverse matrix. This is not a new geometric structure carrying new information; it is another representation of the same metric. The nontrivial theorem, stated but not proved in the lecture, is that these inverse-matrix components themselves transform tensorially, now as a contravariant rank-two tensor.
-
-It is therefore legitimate to speak of the metric with lower indices and the metric with upper indices. They contain the same information.
-
-The lecture also gives a simple worked example. In polar coordinates on the plane,
+To prove that \(g_{mn}\) is a tensor, rewrite the same scalar in the
+\(y\)-coordinates:
 \begin{equation}
-ds^2=dr^2+r^2 d\theta^2.
+  dx^{m}
+  =
+  \frac{\partial x^{m}}{\partial y^{r}}\,dy^{r}.
 \end{equation}
-If \(r\) is the first coordinate and \(\theta\) the second, then
-\begin{equation}
-g_{11}=1,\qquad g_{22}=r^2,
-\end{equation}
-with no off-diagonal terms. The inverse metric is therefore
-\begin{equation}
-g^{11}=1,\qquad g^{22}=\frac{1}{r^2}.
-\end{equation}
-For a diagonal matrix, the inverse is found by inverting the diagonal entries.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Can the metric tensor fail to have an inverse?
-
-\paragraph{Answer.} A general tensor can fail to have an inverse, but the lecture insists that the metric is not of that kind. Susskind attributes this to symmetry together with the absence of zero eigenvalues, and then postpones the proof. For the purposes of the lecture, invertibility is part of the working definition of the metric structure we are using.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_04_figure_03.png}
-\caption{Inverse metric relation}
-\end{figure}
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.} Why may we take the metric to be symmetric?
-
-\paragraph{Answer.} Because only the symmetric part contributes to the quadratic form \(ds^2\). The cross terms appear as
-\begin{equation}
-g_{12}\,dx^1 dx^2+g_{21}\,dx^2 dx^1
-=
-(g_{12}+g_{21})\,dx^1 dx^2,
-\end{equation}
-since \(dx^1dx^2=dx^2dx^1\). The antisymmetric part cancels out of the line element. There is therefore no loss of generality, for the purposes of distance, in taking the metric symmetric.
-
-Now comes the first serious use of the metric. Given contravariant components \(V^m\), we define the corresponding covariant components by
-\begin{equation}
-V_n=g_{nm}V^m.
-\end{equation}
-Conversely,
-\begin{equation}
-V^m=g^{mn}V_n.
-\end{equation}
-Likewise, for a rank-two tensor,
-\begin{equation}
-T^m{}_{n}=g^{mr}T_{rn}.
-\end{equation}
-This is the operation of raising and lowering indices.
-
-The lecture then applies the same idea to the differential displacement:
-\begin{equation}
-dx_m=g_{mn}\,dx^n.
-\end{equation}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.76\textwidth]{lecture_04_figure_05.png}
-\caption{Lowering an index with the metric}
-\end{figure}
-
-The board at this stage is pedagogically valuable because the circled factor marks the lowering step. It is also slightly misleading: the first chalk line suggests a literal equality that Susskind later withdraws. What is intended is a contraction step, not an equality between unlike expressions. Written cleanly, the argument is
+Substitution gives
 \begin{align}
-dx^m dx_m
-&=
-dx^m\bigl(g_{mn}dx^n\bigr) \\
-&=
-g_{mn}\,dx^m dx^n \\
-&=
-ds^2.
+  ds^{2}
+  &=
+  g_{mn}^{(x)}
+  \frac{\partial x^{m}}{\partial y^{r}}
+  \frac{\partial x^{n}}{\partial y^{s}}
+  dy^{r}dy^{s}
+  \nonumber\\
+  &=
+  g_{rs}^{(y)}\,dy^{r}dy^{s},
+  \label{eq:l04-metric-rewrite}
 \end{align}
-There is also a third equivalent form:
+and therefore
 \begin{equation}
-g^{mn}dx_m dx_n=ds^2.
+  \boxed{
+  g_{rs}^{(y)}
+  =
+  \frac{\partial x^{m}}{\partial y^{r}}
+  \frac{\partial x^{n}}{\partial y^{s}}
+  g_{mn}^{(x)}.}
+  \label{eq:l04-metric-transform}
 \end{equation}
-So the same scalar interval may be written in three ways:
-\begin{equation}
-ds^2=g_{mn}\,dx^m dx^n=dx^m dx_m=g^{mn}dx_m dx_n.
-\end{equation}
+This is exactly the covariant rank-two law.
 
-This is the moment at which the early separation between covariant and contravariant components softens. Once the metric is given, the lecture is perfectly willing to speak of upper and lower components of the same vector.
-
-\section{Tensor Equalities and the End of Tensor Algebra}
-
-Having developed the metric and its inverse, the lecture briefly returns to the general algebra of tensors and extracts two useful principles.
-
-The first is a warning. Tensors may be added only if they are of the same type. It makes sense to add \(T_{mn}\) and \(W_{mn}\). It does not make sense to add, say, a tensor with lower indices to one with upper indices and expect the result to transform coherently. The index structure is part of the identity of the tensor.
-
-The second principle is much more powerful. If a tensor is zero in one coordinate system, it is zero in every coordinate system. The reason is immediate from the transformation law: the transformed components are Jacobian factors multiplying the original components. If the original components are zero, the transformed components are zero.
-
-From this it follows that if two tensors are equal in one coordinate system, they are equal in every coordinate system. Indeed, if
-\[
-T=W
-\]
-in one coordinate system, then
-\[
-T-W=0
-\]
-there; but a zero tensor is zero everywhere, so \(T=W\) everywhere.
-
-This is why tensor equations are so powerful. Each side may have complicated coordinate dependence in its separate components, but if the two sides are equal once, they remain equal after every legitimate coordinate transformation. The equality is geometric, not coordinate-bound.
-
-At this point the lecture gestures toward tensor calculus and then refuses to begin it. Ordinary derivatives of tensor components are not, in general, tensor components. One needs a more careful notion of differentiation. Susskind postpones that subject to the next lecture, and the postponement is deliberate. He wants the class to leave tensor algebra with a clean pivot into space-time.
-
-\section{Flat Space, Cartesian Frames, and the Pivot to Space-Time}
-
-The re-entry into geometry is through the simplest case: ordinary flat space. Even if we restrict ourselves entirely to Cartesian coordinates, there is still more than one Cartesian coordinate system. We may rotate the axes; we may translate them; and even if the origin is held fixed, there is still freedom to orient the coordinate frame differently.
-
-In two-dimensional Cartesian coordinates the line element is
-\begin{equation}
-ds^2=(dx^1)^2+(dx^2)^2=\delta_{mn}\,dx^m dx^n.
-\end{equation}
-Within this restricted class of Cartesian-to-Cartesian transformations there is no distinction between upper and lower indices, because the metric is just the identity. The lecture does, however, insert a caution: writing \(\delta_{mn}\) with both indices downstairs is tolerable only in this restricted flat-Cartesian setting. It is not the correct fully tensorial notation in general coordinates.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_04_figure_06.png}
-\caption{Flat line element and skew grid}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_04_figure_05.png}
+  \caption{The line element rewritten in \(y\)-coordinates. The boxed
+  coefficient of \(dy^{r}dy^{s}\) is the transformed metric
+  \(g_{rs}^{(y)}\).}
+  \lectureframe{00:31:25}
 \end{figure}
 
-The board picture here is especially useful because it puts formula and geometry side by side. On the left is the Euclidean interval; on the right is a second coordinate description of the same plane. The mathematical statement is that the allowable Cartesian transformations are precisely those that preserve the form of the Euclidean interval. In that sense they preserve the form of Pythagoras' theorem.
+\begin{classroomqa}
+\audiencequestion{Is \(ds^{2}\) really the same in every coordinate system?
+\lecturetimestamp{00:45:25--00:46:25}}
+\lecturerresponse{Yes. It is one scalar interval written in two coordinate
+languages. Its invariance is not a result discovered after the
+transformation law; it is the premise that forces
+Eq.~\eqref{eq:l04-metric-transform}.}
+\end{classroomqa}
 
-A schematic redraw helps make the coordinate geometry legible while keeping the original board evidence nearby.
+\section{The Inverse Metric}
 
-\begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=0.9]
-\draw[step=1,gray] (0,0) grid (4,4);
+At a fixed point, the components \(g_{mn}\) form a matrix. The metric used
+for geometry is symmetric and nondegenerate:
+\begin{equation}
+  g_{mn}=g_{nm},
+  \qquad
+  \det(g_{mn})\ne0.
+  \label{eq:l04-metric-properties}
+\end{equation}
+It therefore has an inverse matrix. Denote the inverse components by
+\(g^{mn}\). Matrix multiplication becomes
+\begin{equation}
+  \boxed{
+  g^{mr}g_{rn}
+  =
+  \delta^{m}{}_{n}.}
+  \label{eq:l04-inverse-metric}
+\end{equation}
+The inverse components transform as a contravariant rank-two tensor. Thus
+\(g_{mn}\) and \(g^{mn}\) contain the same geometric information.
 
-\foreach \k in {-1,0,1,2,3,4,5}
-  \draw[blue] (\k+0.6,0) -- (\k+2.0,4);
-
-\foreach \k in {-1,0,1,2,3,4,5}
-  \draw[blue] (0,0.72*\k+0.45) -- (4,0.72*\k+1.45);
-
-\fill (1.1,1.2) circle (1.5pt);
-\fill (2.8,3.0) circle (1.5pt);
-\draw[thick,red] (1.1,1.2) -- (2.8,3.0);
-\draw[red] (1.1,1.2) -- (2.0,1.2) -- (2.8,3.0);
-\end{tikzpicture}
-\caption{Schematic redraw of the flat-plane picture: an orthogonal grid together with a skew coordinate net describing the same plane, and a highlighted interval whose Euclidean length is preserved.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_04_figure_06.png}
+  \caption{Matrix inversion translated into tensor notation. The identity
+  tensor has one upper and one lower index.}
+  \lectureframe{00:36:55}
 \end{figure}
 
-Only after making these remarks about ordinary space does Susskind pivot to special relativity. A naive Euclidean guess in one time and one space dimension would be
-\[
-dt^2+dx^2.
-\]
-But this is not the quantity preserved by Lorentz transformations. The invariant interval is
+\begin{classroomqa}
+\audiencequestion{Should both indices on the Kronecker delta be lower?
+\lecturetimestamp{00:33:20--00:34:32}}
+\lecturerresponse{Not in the invariant identity-map notation used here.
+\(\delta^{m}{}_{n}\) carries one upper and one lower index because it maps a
+vector space to itself. In an orthonormal Cartesian calculation one often
+writes \(\delta_{mn}\), but that restricted convenience should not be
+confused with the general identity tensor.}
+\end{classroomqa}
+
+In polar coordinates on the plane,
 \begin{equation}
-d\tau^2=dt^2-dx^2.
+  ds^{2}=dr^{2}+r^{2}d\theta^{2},
 \end{equation}
+so
+\begin{equation}
+  (g_{mn})
+  =
+  \begin{pmatrix}
+    1&0\\
+    0&r^{2}
+  \end{pmatrix},
+  \qquad
+  (g^{mn})
+  =
+  \begin{pmatrix}
+    1&0\\
+    0&r^{-2}
+  \end{pmatrix}.
+  \label{eq:l04-polar-inverse}
+\end{equation}
+For a diagonal matrix, inversion simply reciprocates each diagonal entry.
+
+\begin{classroomqa}
+\audiencequestion{Is the angular metric component \(r\) or \(r^{2}\)?
+\lecturetimestamp{00:37:30--00:38:24}}
+\lecturerresponse{It is \(r^{2}\). The coordinate differential is already
+\(d\theta\); the squared physical arc length is
+\((r\,d\theta)^{2}=r^{2}d\theta^{2}\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Can a tensor fail to have an inverse?
+\lecturetimestamp{00:44:00--00:45:25}}
+\lecturerresponse{A general rank-two tensor can be singular. A metric, by
+definition, is nondegenerate and therefore has no zero eigenvalue. Symmetry
+alone is not enough; nondegeneracy is the condition that guarantees the
+inverse. The same statement holds for a Lorentzian metric despite its minus
+signs.}
+\end{classroomqa}
+
+Only the symmetric part contributes to the quadratic form. Indeed,
+\begin{equation}
+  g_{12}\,dx^{1}dx^{2}
+  +
+  g_{21}\,dx^{2}dx^{1}
+  =
+  (g_{12}+g_{21})\,dx^{1}dx^{2}.
+  \label{eq:l04-symmetric-part}
+\end{equation}
+An antisymmetric part would cancel because the coordinate differentials
+commute.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_04_figure_08.png}
+  \caption{The two off-diagonal contributions combine through
+  \(g_{12}+g_{21}\), showing why the line element depends only on the
+  symmetric part of the metric.}
+  \lectureframe{00:47:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Must \(g_{12}\) and \(g_{21}\) be equal?
+\lecturetimestamp{00:46:30--00:49:00}}
+\lecturerresponse{For the metric, we take them equal without loss of
+geometric information. Any antisymmetric difference contributes nothing to
+\(ds^{2}\), so retaining it would add redundant components rather than new
+distance data.}
+\end{classroomqa}
+
+\section{Raising and Lowering Indices}
+
+The metric now links the two vector descriptions:
+\begin{equation}
+  V_{n}=g_{nm}V^{m},
+  \qquad
+  V^{m}=g^{mn}V_{n}.
+  \label{eq:l04-raise-lower-vector}
+\end{equation}
+The first equation lowers an index and the second raises it. Because the
+metric is invertible, either set of components determines the other. In
+geometric terms, \(V_{n}\) is the covector obtained by taking the metric
+inner product of \(V\) with each coordinate basis vector. In an orthonormal
+basis this reduces to the familiar projection picture.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_04_figure_07.png}
+  \caption{Lowering a vector index with \(g_{mn}\). The metric turns the
+  contravariant components \(V^{m}\) into covariant components \(V_{n}\).}
+  \lectureframe{00:43:15}
+\end{figure}
+
+Indices on higher-rank tensors are handled one at a time. For example,
+\begin{equation}
+  T^{m}{}_{n}
+  =
+  g^{mr}T_{rn},
+  \label{eq:l04-raise-tensor-index}
+\end{equation}
+raises the first index of a covariant rank-two tensor.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_09.png}
+  \caption{The vector inverse relation and the corresponding operation of
+  raising one index on a rank-two tensor.}
+  \lectureframe{00:52:30}
+\end{figure}
+
+Apply the same operation to the displacement:
+\begin{equation}
+  dx_{m}=g_{mn}\,dx^{n}.
+  \label{eq:l04-lower-displacement}
+\end{equation}
+The squared interval then has three equivalent forms,
+\begin{equation}
+  \boxed{
+  ds^{2}
+  =
+  g_{mn}\,dx^{m}dx^{n}
+  =
+  dx^{m}dx_{m}
+  =
+  g^{mn}\,dx_{m}dx_{n}.}
+  \label{eq:l04-three-distance-forms}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_04_figure_10.png}
+  \caption{The completed board comparison of the three contracted forms of
+  the same scalar interval.}
+  \lectureframe{00:58:15}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Was the first expression on the board meant as an equality
+between \(dx^{m}dx_{n}\) and its contraction?
+\lecturetimestamp{00:56:30--00:57:45}}
+\lecturerresponse{No. That equals sign is withdrawn in the discussion. One
+first identifies an upper and lower index and sums; only after carrying out
+that contraction does one obtain the scalar
+\(dx^{m}dx_{m}=ds^{2}\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{What is the relation between the upper- and lower-index
+metrics in these formulas?
+\lecturetimestamp{00:58:20--00:59:55}}
+\lecturerresponse{They are inverse matrices, related by
+Eq.~\eqref{eq:l04-inverse-metric}. For a diagonal metric the entries are
+reciprocals. With off-diagonal components one performs an ordinary matrix
+inverse.}
+\end{classroomqa}
+
+\section{Tensor Equations and the Deferred Calculus}
+
+Tensors can be added only when their index types agree. The sum
+\(T_{mn}+W_{mn}\) transforms coherently; a formal sum of \(T_{mn}\) and
+\(W^{mn}\) does not.
+
+If every component of a tensor vanishes in one coordinate system, every
+component vanishes in all coordinate systems, because each transformed
+component is a linear combination of zeros. Hence if
+\begin{equation}
+  T_{mn}=W_{mn}
+\end{equation}
+in one chart, then
+\begin{equation}
+  T_{mn}-W_{mn}=0
+\end{equation}
+there and therefore everywhere. Tensor equality is geometric even though
+the separate components depend on coordinates.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_11.png}
+  \caption{A tensor equality recast as the vanishing of the difference.
+  Once the difference is the zero tensor in one chart, it is zero in every
+  chart.}
+  \lectureframe{01:02:40}
+\end{figure}
+
+This completes tensor algebra, not tensor calculus. Ordinary partial
+derivatives of tensor components do not generally transform as tensor
+components, because differentiating the Jacobians produces extra terms.
+The corrected derivative will be introduced later. For now the lecture
+deliberately turns from space to spacetime.
+
+\section{From Cartesian Space to Proper Time}
+
+Even flat Euclidean space has many Cartesian frames. They may be translated
+or rotated relative to one another. In two dimensions,
+\begin{equation}
+  ds^{2}
+  =
+  (dx^{1})^{2}+(dx^{2})^{2}
+  =
+  \delta_{mn}\,dx^{m}dx^{n}.
+  \label{eq:l04-euclidean-interval}
+\end{equation}
+Cartesian-to-Cartesian transformations preserve this Pythagorean form. In
+that restricted setting the identity metric makes upper and lower
+components numerically equal.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_12.png}
+  \caption{Two Cartesian frames on the same flat plane together with the
+  Euclidean interval they preserve.}
+  \lectureframe{01:09:25}
+\end{figure}
+
+Spacetime has one time coordinate and three spatial coordinates. In one
+space dimension, a Euclidean-looking sum \(dt^{2}+dx^{2}\) is not preserved
+by Lorentz transformations. The invariant quantity is the proper-time
+interval
+\begin{equation}
+  \boxed{
+  d\tau^{2}
+  =
+  dt^{2}-dx^{2}}
+  \qquad (c=1).
+  \label{eq:l04-proper-time-1plus1}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_04_figure_13.png}
+  \caption{Two nearby events on a worldline and the invariant proper-time
+  interval \(d\tau^{2}=dt^{2}-dx^{2}\).}
+  \lectureframe{01:13:35}
+\end{figure}
+
+Setting \(c=1\) makes time and distance use the same unit. Keeping different
+units would be like measuring one Cartesian direction in feet and another
+in inches: conversion factors would obscure the geometric symmetry. If
+\(c\) is restored,
+\begin{equation}
+  d\tau^{2}
+  =
+  dt^{2}-\frac{dx^{2}}{c^{2}},
+\end{equation}
+when \(d\tau\) is measured in time units.
+
+\begin{classroomqa}
+\audiencequestion{How can particle physicists express length, time, and mass
+in electron volts?
+\lecturetimestamp{01:16:00--01:17:32}}
+\lecturerresponse{Setting \(c=1\) identifies time units with length units.
+Setting \(\hbar=1\) additionally relates inverse length and inverse time to
+energy or mass. Only \(c=1\) is needed in the present relativistic
+discussion; the \(\hbar=1\) convention belongs to quantum theory.}
+\end{classroomqa}
+
 In three spatial dimensions,
 \begin{equation}
-d\tau^2=dt^2-dx^2-dy^2-dz^2.
+  \boxed{
+  d\tau^{2}
+  =
+  dt^{2}-dx^{2}-dy^{2}-dz^{2}.}
+  \label{eq:l04-proper-time-3plus1}
 \end{equation}
+Special relativity may be characterized as the theory of inertial
+coordinate transformations that preserve this indefinite interval.
 
-The lecture then pauses over units. Setting \(c=1\) is not just a convenience. It is the analog of measuring all spatial directions in the same units. If we insisted on measuring space and time in mismatched units, the formulas would be littered with conversion factors. In relativity, \(c\) is that conversion factor, and choosing \(c=1\) removes an artificial asymmetry.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_04_figure_14.png}
+  \caption{The proper-time interval extended to one time and three spatial
+  dimensions.}
+  \lectureframe{01:18:40}
+\end{figure}
 
-Special relativity is then summarized in one line: it is the theory of coordinate transformations that preserve the form of this indefinite interval.
+\section{General Spacetime Coordinates}
 
-\section{General Space-Time Metric and the First Cosmological Example}
-
-Now the lecture is ready to move from space to space-time. We switch from Latin to Greek indices and write the four coordinates as
-\[
-x^\mu,\qquad \mu=0,1,2,3,
-\]
-with \(x^0\) the time coordinate. This is the lecture's convention, and it is worth keeping because the notation itself helps mark the transition from spatial tensors to space-time tensors.
-
-The natural generalization of the special-relativistic interval is exactly what the earlier tensor algebra suggests:
+Accelerated coordinates have already shown that curvilinear coordinates are
+useful in spacetime even before genuine gravitational curvature is
+introduced. Write
 \begin{equation}
-d\tau^2=g_{\mu\nu}(x)\,dx^\mu dx^\nu.
+  x^{\mu}=(x^{0},x^{1},x^{2},x^{3}),
+  \qquad
+  x^{0}=t.
 \end{equation}
-At this stage one need not yet invoke genuine gravitation. One may already obtain nontrivial coordinate dependence by introducing curvilinear coordinates into flat space-time. The formalism comes first; the full gravitational interpretation comes later.
-
-The flat special case is Minkowski space. In Minkowski coordinates the metric is
+Greek indices run over spacetime coordinates. In arbitrary coordinates the
+proper-time element takes the tensorial form
 \begin{equation}
-\eta_{\mu\nu}=\mathrm{diag}(1,-1,-1,-1),
+  \boxed{
+  d\tau^{2}
+  =
+  g_{\mu\nu}(x)\,dx^{\mu}dx^{\nu}.}
+  \label{eq:l04-general-spacetime-metric}
 \end{equation}
-so that
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_04_figure_15.png}
+  \caption{The general spacetime line element and the \(x^{\mu}\) and
+  \(y^{\mu}\) coordinate labels.}
+  \lectureframe{01:22:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why number time by \(0\), and may a spacetime have more
+than one time coordinate?
+\lecturetimestamp{01:20:00--01:21:50}}
+\lecturerresponse{Starting with \(x^{0}=t\) is a convention that leaves
+\(x^{1},x^{2},x^{3}\) for the spatial coordinates. Higher-dimensional
+models may add spatial coordinates, but the Lorentzian geometry used here
+has one timelike direction. Multiple-time theories are outside the present
+framework.}
+\end{classroomqa}
+
+In Minkowski coordinates,
 \begin{equation}
-d\tau^2=\eta_{\mu\nu}\,dx^\mu dx^\nu.
+  \eta_{\mu\nu}
+  =
+  \operatorname{diag}(1,-1,-1,-1),
+  \label{eq:l04-eta}
 \end{equation}
-The symbol \(\eta_{\mu\nu}\) is the space-time analog of \(\delta_{mn}\), except that its signature is not all plus. In the convention of this lecture there is one positive eigenvalue and three negative ones. Because the diagonal entries are \(\pm1\), the inverse is the same matrix:
+and
 \begin{equation}
-\eta^{\mu\nu}=\eta_{\mu\nu}.
+  d\tau^{2}
+  =
+  \eta_{\mu\nu}\,dx^{\mu}dx^{\nu}.
+  \label{eq:l04-minkowski-line-element}
 \end{equation}
+The symbol \(\eta_{\mu\nu}\) is the spacetime counterpart of the Cartesian
+\(\delta_{mn}\), but its signs encode a Lorentzian rather than Euclidean
+geometry.
 
-The tensor rules themselves are unchanged. Contravariant objects still transform with \(\partial y/\partial x\), covariant ones with \(\partial x/\partial y\). The only novelty is the signature of the metric and the geometric meaning of the resulting scalar interval.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_16.png}
+  \caption{The Minkowski metric matrix with one positive and three negative
+  diagonal entries.}
+  \lectureframe{01:26:10}
+\end{figure}
 
-\subsection{Question \& Answer}
+Under every nonsingular real coordinate transformation, the numbers of
+positive and negative metric eigenvalues are preserved. With the convention
+used here, a physical four-dimensional spacetime metric has one positive
+and three negative directions.
 
-\paragraph{Question.} What does it mean, in the language of the metric, to say that space-time is expanding?
+\begin{classroomqa}
+\audiencequestion{Could a coordinate change simply interchange the labels
+\(x\) and \(t\)?
+\lecturetimestamp{01:27:50--01:29:18}}
+\lecturerresponse{Labels may be exchanged, and arbitrary smooth coordinates
+may mix space and time. The metric components then change accordingly.
+What cannot be changed by a regular coordinate transformation is the
+Lorentzian signature: there remains one timelike and three spacelike
+directions.}
+\end{classroomqa}
 
-\paragraph{Answer.} It means that the metric coefficients depend on time in such a way that the spatial geometry changes with time. The lecture writes the diagonal matrix rather loosely, with entries \(1,-A(t),-A(t),-A(t)\), but describes the interval as having a squared scale factor. To match the interval as stated, the clean normalization is
+\begin{classroomqa}
+\audiencequestion{Is the Minkowski metric its own inverse?
+\lecturetimestamp{01:29:18--01:30:00}}
+\lecturerresponse{Yes. Each diagonal entry is \(+1\) or \(-1\), and its
+reciprocal is itself, so
+\(\eta^{\mu\nu}=\operatorname{diag}(1,-1,-1,-1)\).}
+\end{classroomqa}
+
+\section{A First Expanding-Spacetime Metric}
+
+For a homogeneous and isotropic flat spatial geometry, choose comoving
+coordinates and write
 \begin{equation}
-d\tau^2=dt^2-a^2(t)\bigl(dx^2+dy^2+dz^2\bigr),
+  (g_{\mu\nu})
+  =
+  \begin{pmatrix}
+    1&0&0&0\\
+    0&-a^{2}(t)&0&0\\
+    0&0&-a^{2}(t)&0\\
+    0&0&0&-a^{2}(t)
+  \end{pmatrix}.
+  \label{eq:l04-flat-flrw-matrix}
 \end{equation}
-where \(a(t)\) is the scale factor. If \(a(t)\) grows, then at fixed coordinate separations the spatial part of the metric grows, and that is what the lecture means here by an expanding universe.
-
-Susskind then builds intuition by analogy rather than by curvature calculations. In two-dimensional space we already know
+The corresponding interval is
 \begin{equation}
-ds^2=dr^2+r^2 d\theta^2,
+  \boxed{
+  d\tau^{2}
+  =
+  dt^{2}
+  -
+  a^{2}(t)\left(dx^{2}+dy^{2}+dz^{2}\right).}
+  \label{eq:l04-flat-flrw}
 \end{equation}
-which is just the plane written in polar coordinates. If we replace \(r^2\) by \(\sin^2 r\), we obtain
+The single function \(a(t)\) is the scale factor. At a fixed cosmic time,
+two comoving points separated by coordinate distance \(\Delta\ell_{\rm com}\)
+have physical distance
 \begin{equation}
-ds^2=dr^2+\sin^2 r\,d\theta^2,
+  \Delta\ell_{\rm phys}(t)
+  =
+  a(t)\,\Delta\ell_{\rm com}.
+  \label{eq:l04-physical-distance}
 \end{equation}
-the metric of a sphere. If instead we take
+If \(a(t)\) grows, the physical separation grows even while the comoving
+coordinates remain fixed.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_04_figure_17.png}
+  \caption{A homogeneous time-dependent metric with one common spatial
+  scale factor controlling all three spatial directions.}
+  \lectureframe{01:32:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What does it mean geometrically to say that the universe
+is expanding?
+\lecturetimestamp{01:30:00--01:33:00}}
+\lecturerresponse{It means that the spatial part of the spacetime metric
+changes with time. In comoving coordinates, fixed coordinate separations
+correspond to physical distances proportional to \(a(t)\). Expansion is
+therefore a statement about the metric, not motion through a preexisting
+external space.}
+\end{classroomqa}
+
+Two-dimensional surfaces make the role of a changing metric coefficient
+visible. A rotationally symmetric surface can be written
 \begin{equation}
-ds^2=dr^2+e^{2r}d\theta^2,
+  ds^{2}
+  =
+  dr^{2}+f^{2}(r)\,d\theta^{2}.
+  \label{eq:l04-surface-profile}
 \end{equation}
-we obtain a horn-like surface whose circumference grows exponentially with \(r\).
+The circumference of the circle at fixed \(r\) is \(2\pi f(r)\).
 
-The lecture's point is not yet to compute curvature. It is to teach us how to read geometry directly from metric coefficients. In the surface examples the geometry changes as a function of \(r\); in the cosmological example the geometry changes as a function of \(t\). That is the first concrete meaning of ``expanding space-time'' in the language of the metric tensor.
+For the flat plane, \(f(r)=r\). For a unit sphere,
+\begin{equation}
+  f(r)=\sin r,
+  \qquad
+  ds^{2}=dr^{2}+\sin^{2}r\,d\theta^{2}.
+  \label{eq:l04-sphere-analogy}
+\end{equation}
+The circles grow from one pole to the equator and then shrink toward the
+other pole.
 
-\section{Summary}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_18.png}
+  \caption{The sphere and its metric. The factor \(\sin r\) controls the
+  circumference of circles at fixed polar distance \(r\).}
+  \lectureframe{01:35:30}
+\end{figure}
 
-This lecture does two things at once. First, it completes the tensor algebra that general relativity cannot do without: transformation laws, mixed tensors, contraction, the metric, the inverse metric, and the raising and lowering of indices. Second, it uses exactly that machinery to pivot from ordinary space to space-time. Flat Euclidean geometry becomes Minkowski geometry, and Minkowski geometry becomes the general space-time line element
-\[
-d\tau^2=g_{\mu\nu}(x)\,dx^\mu dx^\nu.
-\]
-The lecture ends by postponing tensor calculus and curvature, but that postponement is itself part of the structure. We leave this chapter with the algebraic machinery in hand and with the first metric picture of an expanding universe already on the board.
+For \(f(r)=e^{r}\),
+\begin{equation}
+  ds^{2}=dr^{2}+e^{2r}d\theta^{2},
+  \label{eq:l04-horn-analogy}
+\end{equation}
+the circumference grows exponentially and the surface has a horn-like
+profile. More complicated growing and oscillating choices of \(f(r)\)
+produce correspondingly complicated surfaces.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_04_figure_19.png}
+  \caption{A general radial profile and a horn-like surface. The coefficient
+  of \(d\theta^{2}\) determines how circumference changes along \(r\).}
+  \lectureframe{01:37:35}
+\end{figure}
+
+These surfaces vary with position \(r\); the cosmological metric varies
+with time \(t\). The analogy is not yet a curvature calculation. Its purpose
+is to make metric coefficients readable as geometry. The next steps are
+parallel transport, curvature, and eventually Einstein's field equations.
