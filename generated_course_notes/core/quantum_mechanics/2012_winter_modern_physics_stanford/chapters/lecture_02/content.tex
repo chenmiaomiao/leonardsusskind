@@ -1,482 +1,615 @@
 \chapter{Vector Spaces, Superposition, and the First Quantum Postulates}
 
-These notes follow Leonard Susskind's second quantum mechanics lecture as a guided argument rather than as a list of facts. The lecture begins by removing a conceptual obstruction left over from the discussion of the uncertainty principle, then turns to the formal language of complex vector spaces, bras and kets, inner products, bases, and finally the first quantum-mechanical postulates in the simple language of coins and dice. The selected lecture frames are kept where the board layout or the chalk geometry matters, but the transcript remains the primary source of order and emphasis. In that spirit we keep explicit credit to Leonard Susskind, together with the lecture-frame curation work of LazyingArt LLC and Video2Book.
+We ended the previous lecture with a question about the uncertainty
+principle. Before building any new formalism, let us settle it. The apparent
+loophole is instructive because it distinguishes the momentum a particle had
+before a measurement from the momentum it has after the measurement.
 
-\section{Uncertainty Principle Prelude}
+\section{Which Velocity Have We Measured?}
 
-The lecture does not begin with vector spaces. It begins by clearing away an objection. Suppose we measure the position of a particle only very poorly, to within a region of size \(\delta\), and then wait a very long time \(T\) before measuring its position again, again only to within a region of size \(\delta\). If the centers of the two fuzzy regions are separated by a distance \(L\), then one seems to know the average velocity very accurately:
-\begin{align}
-v_{\mathrm{avg}} &\sim \frac{L}{T},\\
-\Delta v_{\mathrm{avg}} &\sim \frac{\delta}{T}.
-\end{align}
-Since \(T\) may be made arbitrarily large, the uncertainty \(\delta/T\) may be made arbitrarily small. At first sight this looks like a way of knowing position only to accuracy \(\delta\), while knowing velocity essentially exactly.
-
-That, however, is not the quantity that the uncertainty principle is about. What we wanted was the position and momentum of the same state of the particle, or at least the momentum just before the position measurement. The two-measurement trick does not return that momentum.
-
-\subsection{Question \& Answer}
-
-Can two imprecise position measurements defeat the uncertainty principle?
-
-No. The first position measurement already disturbs the momentum. To localize a particle to scale \(\delta\), one must probe it with radiation of wavelength of order \(\delta\) or smaller, and this produces a momentum kick of order
+Suppose a first position measurement locates a particle only within a region
+of width \(\delta\). Wait a time \(T\), make a second measurement with the
+same resolution, and let the centers of the two regions be separated by
+\(L\). The inferred average velocity is
 \begin{equation}
-\Delta p \sim \frac{\hbar}{\delta}.
+ v_{\mathrm{avg}}\simeq \frac{L}{T},
+ \qquad
+ \Delta v_{\mathrm{avg}}\sim \frac{\delta}{T}.
+ \label{eq:l02-coarse-velocity}
 \end{equation}
-So the later motion reveals the velocity after the first measurement, not the original velocity of the undisturbed state. The uncertainty principle is not being evaded; rather, the wrong velocity is being inferred.
+Numerical factors in the second estimate are unimportant. By making \(T\)
+large, we can make \(\delta/T\) as small as we please. Have we measured
+position to accuracy \(\delta\) and velocity almost exactly?
 
-The lecture also presses the point of repeatability. One may say, ``I think I measured the velocity,'' but if one tries to check that velocity one changes it again by an amount of order \(\hbar/\delta\). In classical physics one imagines measuring position arbitrarily gently and leaving the velocity alone. In quantum mechanics, not so.
-
-With that conceptual obstacle removed, the lecture pivots very explicitly: now we are ready to begin.
-
-\section{Complex Numbers as the Simplest Complex Vector Space}
-
-The next step is intentionally modest. Susskind says he is not trying to teach complex numbers; he wants only a very quick review, just for notational reasons. The subject of linear vector spaces may be dry, he says, but the good news is that it is also easy. So we begin with the easiest complex vector space of all: the complex numbers themselves.
-
-A complex number is
-\begin{equation}
-z = x + i y,
-\qquad x,y \in \mathbb{R},
-\end{equation}
-and its complex conjugate is
-\begin{equation}
-z^* = x - i y.
-\end{equation}
-Geometrically, \(z^*\) is the reflection of \(z\) across the real axis in the complex plane. The lecture briefly reminds us not to confuse that plane with the vector space we ultimately care about. The point of the example is structural: complex numbers can be added, and they can be multiplied by complex numbers, so they already form a one-dimensional complex vector space.
-
-At this stage the bra-ket notation is introduced in embryo. In the one-dimensional case one may think of \(z\) as a ket and \(z^*\) as the corresponding bra. This is not yet deep; it is just a simple rehearsal for what will happen in more complicated vector spaces.
-
-The lecture then isolates one algebraic fact that will return later in a more abstract form. If
-\begin{equation}
-z_1 = x_1 + i y_1,
-\qquad
-z_2 = x_2 + i y_2,
-\end{equation}
-then
-\begin{equation}
-z_1 z_2
-=
-(x_1x_2 - y_1y_2) + i(x_1y_2 + y_1x_2).
-\end{equation}
-Complex conjugation flips only the sign of the imaginary part, and therefore
-\begin{equation}
-(z_1 z_2)^* = z_1^* z_2^*.
-\end{equation}
-A related identity, written in the notation that foreshadows bras and kets, is
-\begin{equation}
-(z_1^* z_2)^* = z_2^* z_1.
-\end{equation}
-For ordinary numbers the order is harmless, since the factors commute. But the lecture lingers on this order-swapping because it prepares the listener for the later statement that interchanging bra and ket corresponds to complex conjugation.
-
-Only after this warm-up does the lecture state the abstract idea. A complex vector space is made of objects that can be added and multiplied by arbitrary complex numbers, and that stay within the space under those operations. In particular, if \(A\) and \(B\) are vectors and \(\alpha,\beta \in \mathbb{C}\), then
-\begin{equation}
-\alpha A + \beta B
-\end{equation}
-is again a vector of the same space.
-
-That definition is deliberately spare. Vectors are not defined as arrows in physical space. They are defined by the operations we are allowed to perform on them. Ordinary arrows form only a real vector space, because multiplication by a general complex number is not defined for them. The real numbers form a real vector space, but not a complex one. Even the positive real numbers fail to form a real vector space, because multiplication by a negative number takes us out of the set. This operational point of view is the real beginning of the mathematics.
-
-\section{Complex Vector Spaces: Examples, Dimension, and Abstract Notation}
-
-Once the definition is on the table, the lecture immediately asks for examples. The first important example is the space of complex-valued functions of a real variable:
-\begin{equation}
-\psi(x) = \psi_{\mathrm{Re}}(x) + i\,\psi_{\mathrm{Im}}(x).
-\end{equation}
-Here \(x\) is real, but the value of \(\psi(x)\) is complex. If we multiply \(\psi(x)\) by a complex number, we get another complex-valued function. If we add two such functions, we get another. In this mathematical sense, functions are vectors.
-
-The second example is the column vector. A column vector is really a function of a discrete index. In the four-component case we may write
-\begin{equation}
-|a\rangle
-=
-\left(
-\begin{array}{c}
-a_1\\
-a_2\\
-a_3\\
-a_4
-\end{array}
-\right),
-\qquad
-|b\rangle
-=
-\left(
-\begin{array}{c}
-b_1\\
-b_2\\
-b_3\\
-b_4
-\end{array}
-\right),
-\end{equation}
-and define the vector-space operations component by component:
-\begin{align}
-|a\rangle + |b\rangle
-&=
-\left(
-\begin{array}{c}
-a_1+b_1\\
-a_2+b_2\\
-a_3+b_3\\
-a_4+b_4
-\end{array}
-\right),\\
-\alpha |a\rangle
-&=
-\left(
-\begin{array}{c}
-\alpha a_1\\
-\alpha a_2\\
-\alpha a_3\\
-\alpha a_4
-\end{array}
-\right).
-\end{align}
-Thus column vectors are simply the discrete analog of complex functions. The lecture is careful here: if one is used to thinking of vectors only as arrows, one may not be used to thinking of functions as vectors. But that unfamiliarity is psychological, not mathematical.
-
-Having supplied examples, the lecture turns to dimension. The dimension of a vector space is defined as the minimum number of vectors needed so that every vector in the space can be written as a linear combination of them. On a line, one nonzero vector suffices. On the blackboard plane, two non-collinear vectors suffice. This is the point at which the lecture draws the spanning picture.
-
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_02_figure_02.png}
-\caption{Linear combination from two spanning vectors. The chalk labels look closer to uppercase \(V_1,V_2\), while the notes normalize the mathematics to lowercase \(v_1,v_2\).}
+\includegraphics[width=0.68\textwidth]{lecture_02_figure_01.png}
+\caption{Two coarse position readings separated by a long time. The board
+displays the displacement \(L\), the resolution scale \(\delta\), and the
+velocity uncertainty of order \(\delta/T\).}
+\lectureframe{00:03:30}
 \end{figure}
 
-The chalk expression at the left of the board is partially obscured, but the clean mathematical statement is straightforward: if \(v_1\) and \(v_2\) are not on the same line, then every vector in the plane can be written as
-\begin{equation}
-r_1 v_1 + r_2 v_2.
-\end{equation}
-A third vector \(v_3\) drawn in the wedge between them would be redundant, because it can already be expressed in terms of the first two:
-\begin{equation}
-v_3 = r_1 v_1 + r_2 v_2.
-\end{equation}
-The selected frame does not actually show \(v_3\); that vector comes from the spoken argument and is drawn only in the cleaned reconstruction below.
+\begin{classroomqa}
+\audiencequestion{Can two imprecise position measurements, separated by a
+very long time, evade the uncertainty principle?
+\lecturetimestamp{00:00:17--00:04:17}}
+\lecturerresponse{No. Equation~\eqref{eq:l02-coarse-velocity} gives the
+velocity after the first position measurement. To localize the particle on
+the scale \(\delta\), the probe must contain wavelengths no larger than that
+scale. A photon capable of doing so carries momentum of order
+\(\hbar/\delta\), and its scattering gives the particle a kick of the same
+order. The later trajectory therefore reveals the momentum of the disturbed
+state, not the momentum immediately before localization.}
+\end{classroomqa}
 
-\begin{figure}[h]
+Trying to verify the result does not restore the missing information.
+Repeating the procedure changes the momentum again by an amount of order
+\(\hbar/\delta\). Classical physics permits an ideal limit in which position
+is observed ever more gently while the velocity is left alone. Quantum
+mechanics does not. This is the point of the uncertainty principle, and with
+it settled we can begin the mathematics needed for states.
+
+\section{The One-Dimensional Model: Complex Numbers}
+
+The next subject is dry, but it is not difficult. We need a quick review of
+complex numbers only to establish notation. Write
+\begin{equation}
+ z=x+iy,
+ \qquad
+ z^*=x-iy,
+ \qquad
+ i^2=-1.
+ \label{eq:l02-complex-number}
+\end{equation}
+In the complex plane, conjugation reflects a point across the real axis.
+Complex numbers can be added and multiplied by arbitrary complex scalars, so
+\(\mathbb C\) is itself a one-dimensional complex vector space. It is the
+simplest model of the structures we shall use.
+
+In this one-dimensional model, regard \(z\) as a ket and \(z^*\) as its
+corresponding bra. Complex conjugation exchanges the two. If
+\[
+ z_1=x_1+iy_1,
+ \qquad
+ z_2=x_2+iy_2,
+\]
+then
+\begin{align}
+ z_1z_2
+ &= (x_1x_2-y_1y_2)+i(x_1y_2+y_1x_2),\\
+ (z_1z_2)^*
+ &=z_1^*z_2^*.
+ \label{eq:l02-conjugate-product}
+\end{align}
+For scalar numbers the factors commute. It is nevertheless useful to write
+the related identity
+\begin{equation}
+ (z_1^*z_2)^*=z_2^*z_1,
+ \label{eq:l02-reversed-product}
+\end{equation}
+because the reversal of bra and ket will survive when the intervening
+objects no longer commute.
+
+\begin{figure}[tbp]
 \centering
-\begin{tikzpicture}[scale=1.2]
-\draw[->] (0,0) -- (1.65,2.25) node[above] {$v_1$};
-\draw[->] (0,0) -- (2.9,0.2) node[right] {$v_2$};
-\draw[->, dashed] (0,0) -- (1.7,0.95) node[right] {$v_3$};
+\includegraphics[width=0.66\textwidth]{lecture_02_figure_02.png}
+\caption{Complex conjugation of a product on the board. The corrected
+relation is given cleanly in Eqs.~\eqref{eq:l02-conjugate-product} and
+\eqref{eq:l02-reversed-product}.}
+\lectureframe{00:14:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Can the complex number be written in exponential form?
+\lecturetimestamp{00:15:12--00:15:18}}
+\lecturerresponse{Certainly. One may write \(z=re^{i\theta}\), but we do not
+need that form yet. The Cartesian form makes conjugation and the coming
+vector-space rules visible with less machinery.}
+\end{classroomqa}
+
+\section{What Makes a Complex Vector Space?}
+
+A complex vector space is a collection of objects that may be added and
+multiplied by complex numbers without leaving the collection. If
+\(|A\rangle\) and \(|B\rangle\) are vectors and
+\(\alpha,\beta\in\mathbb C\), then
+\begin{equation}
+ \alpha|A\rangle+\beta|B\rangle
+ \label{eq:l02-linear-combination}
+\end{equation}
+must be another vector in the same space. The vectors need not be arrows.
+What matters is the algebra of addition and scalar multiplication.
+
+Several near-examples make the definition precise. Ordinary arrows form a
+real vector space, but not a complex vector space unless an additional rule
+for multiplication by \(i\) is supplied. The real numbers form a real vector
+space, not a complex one. The positive real numbers do not even form a real
+vector space: multiplying a positive number by \(-1\) leaves the set.
+
+\subsection{Functions and Columns}
+
+Complex-valued functions of a real variable form a complex vector space. If
+\(\psi(x)\) and \(\phi(x)\) are such functions, then
+\begin{equation}
+ (\alpha\psi+\beta\phi)(x)
+ =\alpha\psi(x)+\beta\phi(x)
+ \label{eq:l02-function-combination}
+\end{equation}
+is another complex-valued function.
+
+A column vector is the same idea with a discrete argument. For four
+components,
+\begin{equation}
+ |a\rangle=
+ \begin{pmatrix}a_1\\a_2\\a_3\\a_4\end{pmatrix},
+ \qquad
+ |b\rangle=
+ \begin{pmatrix}b_1\\b_2\\b_3\\b_4\end{pmatrix},
+\end{equation}
+and
+\begin{equation}
+ \alpha|a\rangle+\beta|b\rangle
+ =
+ \begin{pmatrix}
+  \alpha a_1+\beta b_1\\
+  \alpha a_2+\beta b_2\\
+  \alpha a_3+\beta b_3\\
+  \alpha a_4+\beta b_4
+ \end{pmatrix}.
+ \label{eq:l02-column-combination}
+\end{equation}
+The index \(1,2,3,4\) plays the role of a discrete coordinate.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.70\textwidth]{lecture_02_figure_03.png}
+\caption{Componentwise addition of two column vectors. A column may be read
+as a function of a discrete index.}
+\lectureframe{00:24:30}
+\end{figure}
+
+\subsection{Dimension and Spanning}
+
+The dimension of a vector space is the minimum number of independent vectors
+needed to span it. One nonzero vector spans a line. Two noncollinear vectors
+span a plane: every vector \(|v\rangle\) in that plane can be written
+\begin{equation}
+ |v\rangle=r_1|v_1\rangle+r_2|v_2\rangle.
+ \label{eq:l02-plane-span}
+\end{equation}
+A third vector in the same plane adds no new direction, because it is already
+a linear combination of the first two. In three dimensions we need three
+noncoplanar vectors.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.67\textwidth]{lecture_02_figure_04.png}
+\caption{Two noncollinear vectors spanning a plane. The expression at left is
+partly obscured, while the geometric pair is clear.}
+\lectureframe{00:28:59}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[>=Latex,scale=1.0]
+  \coordinate (O) at (0,0);
+  \draw[->,thick] (O) -- (4.2,0.5) node[right] {$|v_2\rangle$};
+  \draw[->,thick] (O) -- (2.0,3.0) node[above] {$|v_1\rangle$};
+  \draw[->,very thick,blue!65!black] (O) -- (3.0,1.9)
+    node[above right] {$|v\rangle$};
+  \draw[dashed,gray] (2.0,3.0) -- (5.0,3.5);
+  \draw[dashed,gray] (4.2,0.5) -- (5.0,3.5);
 \end{tikzpicture}
-\caption{Clean reconstruction of the spanning argument. The dashed vector \(v_3\) is reconstructed from the lecture discussion and is not visibly completed in the screenshot.}
+\caption{A clean reconstruction of the spanning argument:
+\(|v\rangle=r_1|v_1\rangle+r_2|v_2\rangle\).}
 \end{figure}
 
-From here the lecture runs through a sequence of dimensions. A four-component column space is four-dimensional. A one-component column space is just the one-dimensional complex vector space of ordinary complex numbers. Smooth functions of a real variable form an infinite-dimensional vector space, because no finite set of functions can be combined to generate every smooth function.
+The four-component columns form a four-dimensional space. A convenient
+spanning set is
+\begin{equation}
+ \begin{pmatrix}1\\0\\0\\0\end{pmatrix},
+ \quad
+ \begin{pmatrix}0\\1\\0\\0\end{pmatrix},
+ \quad
+ \begin{pmatrix}0\\0\\1\\0\end{pmatrix},
+ \quad
+ \begin{pmatrix}0\\0\\0\\1\end{pmatrix}.
+ \label{eq:l02-standard-columns}
+\end{equation}
+Remove the last column and no linear combination can produce a nonzero
+fourth component. By contrast, one-component columns are just complex
+numbers and form a one-dimensional complex space.
 
-Only after that progression does the lecture shift notation. The point is to detach the reader from any one representation and move to the abstract vector itself.
+The space of smooth complex functions has no finite spanning set; it is
+infinite-dimensional. The details of bases in infinite-dimensional spaces
+will not concern us yet. For now, the essential point is that functions and
+columns are both concrete representations of abstract vectors:
+\begin{equation}
+ \psi(x)\longmapsto|\psi\rangle,
+ \qquad
+ \begin{pmatrix}\psi_1\\ \psi_2\\ \vdots\end{pmatrix}
+ \longmapsto|\psi\rangle.
+ \label{eq:l02-function-ket}
+\end{equation}
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=0.72\textwidth]{lecture_02_figure_03.png}
-\caption{Mapping \(\psi(x)\) to ket notation. The upper relation is fully visible on the board; the lower line is only partially visible and is completed cautiously in the text.}
+\includegraphics[width=0.69\textwidth]{lecture_02_figure_05.png}
+\caption{The board changes viewpoint from the function \(\psi(x)\) to the
+abstract ket \(|\psi\rangle\). The second line is still being written.}
+\lectureframe{00:34:50}
 \end{figure}
 
-The board shows the completed line
+\section{Bras, Kets, and the Dual Space}
+
+To every ket \(|A\rangle\) we associate a bra \(\langle A|\). A bra is a
+linear functional: when it acts on a ket, it produces a complex number. Once
+an inner product has been chosen, the Riesz correspondence identifies each
+ket with a bra antilinearly. In finite-dimensional coordinates this is the
+familiar conjugate transpose:
 \begin{equation}
-\psi(x) \Rightarrow |\psi\rangle
+ |A\rangle=
+ \begin{pmatrix}a_1\\a_2\\ \vdots\\a_d\end{pmatrix}
+ \quad\longleftrightarrow\quad
+ \langle A|=
+ \begin{pmatrix}a_1^*&a_2^*&\cdots&a_d^*\end{pmatrix}.
+ \label{eq:l02-ket-bra}
 \end{equation}
-and begins a second analogous line. In the text we complete that second line cautiously as
-\begin{equation}
-\phi(x) \mapsto |\phi\rangle.
-\end{equation}
-The arrow here is not a strict equality sign. It is a change of viewpoint. We are now to think of the function as a vector in an abstract complex vector space. In the same way, a column of entries may be thought of as the abstract vector determined by those entries. This is the point at which the lecture's working notation settles into place.
+For a function, the corresponding bra is represented by the conjugate
+function \(\psi^*(x)\).
 
-\section{Dual Vectors and Inner Products}
-
-Once abstract vectors are in place, the lecture introduces the dual vector space. For the purposes of this course, the dual space is the complex-conjugate partner of the original ket space. For every ket \(|A\rangle\) there is a corresponding bra \(\langle A|\). Mathematicians can define duals more generally, but the physical case under discussion is the complex-conjugate one.
-
-In the case of functions, the bra corresponding to \(|\psi\rangle\) is represented by the complex-conjugate function. In the case of column vectors, the corresponding bra is a row vector whose entries are the complex conjugates of the entries of the column. The lecture emphasizes that some of this is notation, but notation chosen to keep track of which objects live in the ket space and which in the bra space.
-
-The first nontrivial rule concerns scalar multiplication. If \(\langle A|\) corresponds to \(|A\rangle\), then the bra associated with \(\alpha |A\rangle\) is
-\begin{equation}
-\alpha^* \langle A|,
-\end{equation}
-not \(\alpha \langle A|\). This is just the familiar rule that complex conjugation of a product conjugates both factors. The lecture even pauses over a student's question about whether the \(\alpha^*\) has to be written on the right; for ordinary numbers it does not matter, though later it will matter once operators are introduced.
-
-The next construction is the inner product. Susskind introduces it by analogy with the ordinary dot product of real vectors. For ordinary vectors,
-\begin{equation}
-a \cdot b = a_x b_x + a_y b_y + a_z b_z + \cdots.
-\end{equation}
-The general inner product \(\langle A|B\rangle\) is the complex analogue of this idea, but now one must decide which vector is the bra and which is the ket. Once that choice is made, the inner product is required to satisfy the following properties:
+The correspondence is antilinear:
 \begin{align}
-\langle A|(\beta B)\rangle &= \beta \langle A|B\rangle,\\
-\langle A|(B+C)\rangle &= \langle A|B\rangle + \langle A|C\rangle,\\
-\langle A|B\rangle &= \langle B|A\rangle^*,\\
-\langle A|A\rangle &> 0 \qquad \text{for } |A\rangle \neq 0.
+ \alpha|A\rangle
+ &\longleftrightarrow
+ \langle A|\alpha^*,\\
+ |A\rangle+|B\rangle
+ &\longleftrightarrow
+ \langle A|+\langle B|.
+ \label{eq:l02-dual-rules}
 \end{align}
-From the third relation we learn immediately that \(\langle A|A\rangle\) is real, since it equals its own complex conjugate. But the lecture insists on something subtler: positivity does \emph{not} follow from the other properties. It is an additional part of the definition. Susskind even mentions relativity as an example where a bilinear form on a real vector space need not be positive.
 
-The scalar model for positivity is the elementary identity
-\begin{equation}
-z^* z = (x-iy)(x+iy) = x^2 + y^2,
-\end{equation}
-which is real and nonnegative. That is the pattern we carry into vector spaces.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.66\textwidth]{lecture_02_figure_06.png}
+\caption{Ket-to-bra correspondence and the conjugation of a scalar
+coefficient.}
+\lectureframe{00:41:00}
+\end{figure}
 
-The lecture then gives the concrete inner products we will actually use. For complex-valued functions of a real variable,
-\begin{equation}
-\langle \phi|\psi\rangle = \int dx\, \phi^*(x)\psi(x).
-\end{equation}
-The lecture allows that functions of several real variables would simply require several integrations, but keeps the arguments real and the example simple.
+\begin{classroomqa}
+\audiencequestion{Is there any significance to writing \(\alpha^*\) on the
+right of the bra?\lecturetimestamp{00:43:24--00:43:57}}
+\lecturerresponse{Not while \(\alpha\) is an ordinary complex number,
+because scalar multiplication commutes. It is partly a convention for
+keeping formulas orderly. Position will matter when noncommuting operators
+enter the calculation.}
+\end{classroomqa}
 
-For column vectors, if
-\begin{equation}
-|a\rangle
-=
-\left(
-\begin{array}{c}
-a_1\\
-a_2\\
-a_3
-\end{array}
-\right),
-\qquad
-\langle b|
-=
-\left(
-\begin{array}{ccc}
-b_1^* & b_2^* & b_3^*
-\end{array}
-\right),
-\end{equation}
-then
-\begin{equation}
-\langle b|a\rangle = b_1^* a_1 + b_2^* a_2 + b_3^* a_3 = \sum_i b_i^* a_i.
-\end{equation}
-The lecture briefly corrects itself on the blackboard here, because one must remember that the row entries are the conjugates. In the final notes it is best simply to present the corrected form.
+\section{Inner Products}
 
-\section{Orthonormal Bases and Expansion Coefficients}
-
-After the break the lecture becomes constructive again. We now introduce basis vectors, and again the order of ideas matters. First come unit length, then orthogonality, then orthonormality, and only then the practical use of the basis.
-
-Let \(\{|b_i\rangle\}_{i=1}^d\) be a collection of vectors in a \(d\)-dimensional vector space. They are normalized if
+For ordinary real vectors, the dot product is
 \begin{equation}
-\langle b_i|b_i\rangle = 1
-\qquad
-\text{for each } i,
+ \mathbf a\mathbin{\boldsymbol\cdot}\mathbf b
+ =|\mathbf a|\,|\mathbf b|\cos\theta
+ =\sum_i a_i b_i.
+ \label{eq:l02-real-dot}
 \end{equation}
-with no sum on \(i\). They are orthogonal if
-\begin{equation}
-\langle b_i|b_j\rangle = 0
-\qquad
-\text{for } i \neq j.
-\end{equation}
-Together these two conditions are summarized by
-\begin{equation}
-\langle b_i|b_j\rangle = \delta_{ij},
-\end{equation}
-where the Kronecker delta is defined by
-\begin{equation}
-\delta_{ij}
-=
-\left\{
-\begin{array}{ll}
-1, & i=j,\\
-0, & i\neq j.
-\end{array}
-\right.
-\end{equation}
-A set of vectors satisfying this relation is orthonormal, and if there are \(d\) of them in a \(d\)-dimensional space, they form a basis.
-
-The lecture illustrates this with the standard basis for a four-component column space. In cleaned notation we may write
-\begin{equation}
-|b_1\rangle
-=
-\left(
-\begin{array}{c}
-1\\
-0\\
-0\\
-0
-\end{array}
-\right),
-\quad
-|b_2\rangle
-=
-\left(
-\begin{array}{c}
-0\\
-1\\
-0\\
-0
-\end{array}
-\right),
-\quad
-|b_3\rangle
-=
-\left(
-\begin{array}{c}
-0\\
-0\\
-1\\
-0
-\end{array}
-\right),
-\quad
-|b_4\rangle
-=
-\left(
-\begin{array}{c}
-0\\
-0\\
-0\\
-1
-\end{array}
-\right).
-\end{equation}
-The corresponding bras are the conjugate row vectors. These vectors are normalized because each has only one nonzero entry, and they are orthogonal because two distinct basis vectors never overlap in the same slot. The lecture corrects a bra-versus-ket slip while discussing this example; here we simply present the corrected basis cleanly.
-
-Now comes the practical payoff. Any vector \(|v\rangle\) in a \(d\)-dimensional space can be expanded as
-\begin{equation}
-|v\rangle = \sum_{i=1}^d v_i |b_i\rangle.
-\end{equation}
-The coefficients \(v_i\) are determined by taking inner products with the basis vectors. If we multiply on the left by \(\langle b_j|\), we obtain
+The inner product \(\langle A|B\rangle\) is its complex counterpart. We use
+the convention standard in physics: it is linear in the ket and
+conjugate-linear in the bra. Thus
 \begin{align}
-\langle b_j|v\rangle
-&=
-\sum_{i=1}^d v_i \langle b_j|b_i\rangle \\
-&=
-\sum_{i=1}^d v_i \delta_{ji} \\
-&=
-v_j.
+ \langle A|(\beta B+\gamma C)\rangle
+ &=\beta\langle A|B\rangle+\gamma\langle A|C\rangle,\\
+ \langle \alpha A|B\rangle
+ &=\alpha^*\langle A|B\rangle.
+ \label{eq:l02-sesquilinearity}
 \end{align}
-So the expansion coefficients are
+It also obeys conjugate symmetry,
 \begin{equation}
-v_j = \langle b_j|v\rangle.
+ \langle A|B\rangle=\langle B|A\rangle^*.
+ \label{eq:l02-conjugate-symmetry}
 \end{equation}
-This is the sequence the lecture wants us to see: first expand, then take the inner product, then use orthonormality, then discover the coefficients. Substituting back gives the compact formula that will recur throughout the course:
+Setting \(B=A\) shows that \(\langle A|A\rangle\) is real. Positivity is an
+additional axiom:
 \begin{equation}
-|v\rangle = \sum_{i=1}^d |b_i\rangle \langle b_i|v\rangle.
+ \langle A|A\rangle\geq 0,
+ \qquad
+ \langle A|A\rangle=0\ \Longleftrightarrow\ |A\rangle=0.
+ \label{eq:l02-positive}
 \end{equation}
-In the lecture the local blackboard derivation is a little messy; in the notes it is best presented in this cleaned form while preserving the same logical order.
+It is not a consequence of conjugate symmetry alone. Relativity supplies a
+useful warning: the Minkowski metric admits positive, negative, and null
+norms, so it is not an inner product in this positive-definite sense.
 
-\section{Quantum States as Vectors: Coin, Die, Superposition, and Normalization}
-
-Only after the mathematics has been assembled does the lecture turn to physical meaning. The contrast with classical mechanics is drawn sharply. In classical mechanics, the space of states is a set. One speaks of unions and intersections, of AND and OR. In quantum mechanics, states are vectors, and the algebra is altogether different.
-
-The lecture begins with the coin. Classically there are two states, heads and tails. One may imagine labeling them by symbols, but there would be no point in taking linear combinations of those labels. In quantum mechanics, by contrast, we assign to the two distinguishable configurations two orthogonal basis vectors, which we denote by \(|H\rangle\) and \(|T\rangle\). These are not lengths \(+1\) and \(-1\); they are simply names for two basis states. Their mathematical properties are
+For complex-valued functions on a real interval \(I\),
 \begin{equation}
-\langle H|T\rangle = 0,
-\qquad
-\langle H|H\rangle = \langle T|T\rangle = 1.
+ \langle\phi|\psi\rangle
+ =\int_I dx\,\phi^*(x)\psi(x).
+ \label{eq:l02-function-inner-product}
 \end{equation}
 
-The orthogonality is not arbitrary. It is a postulate with physical meaning: states that can be distinguished by a single clean measurement are represented by orthogonal vectors. For the coin, the clean measurement is simply to look and ask whether the outcome is heads or tails. The same principle later applies to spin up and spin down, which is the real quantum-mechanical example lurking behind the coin.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_02_figure_07.png}
+\caption{The function-space inner product being assembled on the board. The
+complete formula is Eq.~\eqref{eq:l02-function-inner-product}.}
+\lectureframe{00:56:30}
+\end{figure}
 
-Once the basis states are in place, the new quantum feature appears. The expression
+For columns,
 \begin{equation}
-|cc\rangle = \alpha_H |H\rangle + \alpha_T |T\rangle
+ |a\rangle=
+ \begin{pmatrix}a_1\\a_2\\ \vdots\\a_d\end{pmatrix},
+ \qquad
+ \langle b|=
+ \begin{pmatrix}b_1^*&b_2^*&\cdots&b_d^*\end{pmatrix},
 \end{equation}
-is meaningful. Susskind calls this the state of a ``confused coin.'' In classical physics the linear combination would mean nothing at all. In quantum mechanics it is a genuine state, different from both \(|H\rangle\) and \(|T\rangle\). The same idea applies to the die:
+and therefore
 \begin{equation}
-|cd\rangle = \sum_{i=1}^6 \alpha_i |i\rangle,
+ \langle b|a\rangle=\sum_{i=1}^{d}b_i^*a_i.
+ \label{eq:l02-column-inner-product}
 \end{equation}
-where \(|1\rangle,\dots,|6\rangle\) are six orthonormal basis states corresponding to the six distinguishable outcomes of a die. Again, the labels \(1,\dots,6\) are names, not vector lengths.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Are the coordinates of the vector \(b\) the starred
+quantities?\lecturetimestamp{00:57:55--00:58:37}}
+\lecturerresponse{The ket \(|b\rangle\) has coordinates \(b_i\). The
+corresponding bra \(\langle b|\) has entries \(b_i^*\). The bra symbol already
+indicates that conjugation has been made; one does not rename the ket
+coordinates themselves.}
+\end{classroomqa}
 
-How do the amplitudes become probabilities?
+\begin{classroomqa}
+\audiencequestion{Must the variable \(x\) in the function inner product be
+real?\lecturetimestamp{00:58:59--00:59:42}}
+\lecturerresponse{In the present construction, yes. We may use several real
+variables, say \(x\) and \(y\), and integrate over each of them. Functions of
+complex arguments can also be studied, but they are not needed for this
+course at this point.}
+\end{classroomqa}
 
-At this stage the lecture treats this as a postulate, not as something derived. If the confused coin is in the state
-\begin{equation}
-|cc\rangle = \alpha_H |H\rangle + \alpha_T |T\rangle,
-\end{equation}
-then the probability of finding heads is
-\begin{equation}
-p_H = \alpha_H^* \alpha_H = |\alpha_H|^2,
-\end{equation}
-and the probability of finding tails is
-\begin{equation}
-p_T = \alpha_T^* \alpha_T = |\alpha_T|^2.
-\end{equation}
-This is the Born rule in its simplest discrete form.
+\section{Orthonormal Bases and Components}
 
-The lecture is very careful here. This is not said to be the whole meaning of the amplitudes \(\alpha_H\) and \(\alpha_T\). There is more in them than probabilities. But one feature of their meaning is already fixed: the squared moduli are the probabilities for measurement outcomes in the chosen orthonormal basis.
+Choose \(d\) vectors \(\{|b_i\rangle\}_{i=1}^{d}\) in a
+\(d\)-dimensional space. They are normalized when
+\(\langle b_i|b_i\rangle=1\), with no sum on \(i\), and mutually orthogonal
+when \(\langle b_i|b_j\rangle=0\) for \(i\neq j\). Both statements are
+contained in
+\begin{equation}
+ \langle b_i|b_j\rangle=\delta_{ij},
+ \qquad
+ \delta_{ij}=
+ \begin{cases}
+  1,&i=j,\\
+  0,&i\neq j.
+ \end{cases}
+ \label{eq:l02-orthonormal}
+\end{equation}
+An orthonormal set of \(d\) vectors in a \(d\)-dimensional space is a basis.
+The columns in Eq.~\eqref{eq:l02-standard-columns} provide the standard
+example. Their corresponding bras are rows. A blackboard slip between the
+row and column forms was caught in the room; the corrected notation is the
+one used here.
 
-Operationally, these probabilities are understood from large ensembles of identically prepared systems. One prepares many copies of the same state \(|cc\rangle\), performs the same measurement on each copy, and reads probabilities from the frequencies of outcomes. That is the level at which the postulate meets experiment.
+Any vector can be expanded in the basis:
+\begin{equation}
+ |v\rangle=\sum_{i=1}^{d}v_i|b_i\rangle.
+ \label{eq:l02-basis-expansion}
+\end{equation}
+Multiply from the left by \(\langle b_j|\):
+\begin{align}
+ \langle b_j|v\rangle
+ &=\sum_{i=1}^{d}v_i\langle b_j|b_i\rangle\\
+ &=\sum_{i=1}^{d}v_i\delta_{ji}
+ =v_j.
+ \label{eq:l02-component-extraction}
+\end{align}
+The component \(v_j\) is the inner product with the \(j\)-th basis vector.
+Substitution gives the form we shall use repeatedly,
+\begin{equation}
+ |v\rangle
+ =\sum_{i=1}^{d}|b_i\rangle\langle b_i|v\rangle.
+ \label{eq:l02-completeness-action}
+\end{equation}
 
-Normalization now becomes unavoidable:
-\begin{equation}
-|\alpha_H|^2 + |\alpha_T|^2 = 1.
-\end{equation}
-In bra-ket language this is simply
-\begin{equation}
-\langle cc|cc\rangle = 1.
-\end{equation}
-Likewise, for the confused die,
-\begin{equation}
-\sum_{i=1}^6 |\alpha_i|^2 = 1,
-\qquad
-\langle cd|cd\rangle = 1.
-\end{equation}
-Thus the lecture arrives at another postulate: physically admissible states are normalized.
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.69\textwidth]{lecture_02_figure_08.png}
+\caption{Extraction of a basis component and reconstruction of
+\(|v\rangle\). The board preserves the same sequence as
+Eqs.~\eqref{eq:l02-component-extraction} and
+\eqref{eq:l02-completeness-action}.}
+\lectureframe{01:13:45}
+\end{figure}
 
-A useful explicit example is the equal-probability state. If the confused coin gives heads and tails with equal probability, then
-\begin{equation}
-|\alpha_H| = |\alpha_T| = \frac{1}{\sqrt{2}}.
-\end{equation}
-But the amplitudes are complex, so the general equal-probability form is
-\begin{equation}
-\alpha_H = \frac{e^{i\theta_H}}{\sqrt{2}},
-\qquad
-\alpha_T = \frac{e^{i\theta_T}}{\sqrt{2}}.
-\end{equation}
-Similarly, an equal-probability die state may be written as
-\begin{equation}
-\alpha_i = \frac{e^{i\theta_i}}{\sqrt{6}}.
-\end{equation}
-The lecture stresses exactly this point: equal probability does not mean the amplitudes are literally \(1/\sqrt{2}\) or \(1/\sqrt{6}\); it means they have those moduli, up to unit complex phases.
+\section{Classical Alternatives and Quantum Superpositions}
 
-By the end of this section the first postulates have been stated in the language of simple discrete systems:
+We can now attach physical meaning to the vector space. A classical phase
+space is a set of possible states. Subsets support the ordinary logic of
+union and intersection, OR and AND. Quantum states carry additional linear
+structure. Adding two state vectors and multiplying them by complex numbers
+can produce another physical state; mere set membership cannot express this.
+
+Begin with a coin. Its classically distinguishable configurations are heads
+and tails. We may call them \(H\) and \(T\), or label them \(+1\) and \(-1\),
+but those labels are names, not vector lengths. The quantum model assigns
+orthonormal states
+\begin{equation}
+ \langle H|H\rangle=\langle T|T\rangle=1,
+ \qquad
+ \langle H|T\rangle=0.
+ \label{eq:l02-coin-basis}
+\end{equation}
+The real physical example behind the coin is an electron with two
+distinguishable spin outcomes.
+
+The orthogonality has operational content. Configurations that one ideal
+measurement can distinguish with certainty are represented by orthogonal
+vectors. This is one of the postulates we shall use. For a six-sided die, the
+same rule gives six states \(|1\rangle,\ldots,|6\rangle\) satisfying
+\begin{equation}
+ \langle i|j\rangle=\delta_{ij}.
+ \label{eq:l02-die-basis}
+\end{equation}
+
+Now comes the step that has no classical analogue:
+\begin{equation}
+ |C\rangle=\alpha_H|H\rangle+\alpha_T|T\rangle.
+ \label{eq:l02-confused-coin}
+\end{equation}
+This 'confused coin' is a genuine quantum state, neither heads nor tails.
+It is a coherent superposition, not a classical statistical mixture whose
+member secretly has one definite face. Likewise,
+\begin{equation}
+ |D\rangle=\sum_{i=1}^{6}\alpha_i|i\rangle
+ \label{eq:l02-confused-die}
+\end{equation}
+is a superposition of the six die outcomes.
+
+\section{Amplitudes, Probabilities, and Normalization}
+
+\begin{classroomqa}
+\audiencequestion{How did the coefficients \(\alpha_H\) and \(\alpha_T\)
+become probabilities?\lecturetimestamp{01:33:59--01:37:49}}
+\lecturerresponse{They do not themselves become probabilities. They are
+probability amplitudes, and the Born rule is a postulate:
+\[
+ P(H)=|\alpha_H|^2,
+ \qquad
+ P(T)=|\alpha_T|^2.
+\]
+This is not the whole meaning of the amplitudes; their phases contain more
+information than these two probabilities reveal. Operationally, prepare a
+large ensemble of systems in the same state, make the same measurement on
+each, and identify the probabilities with the limiting frequencies of heads
+and tails.}
+\end{classroomqa}
+
+If all outcomes are accounted for, their probabilities add to one:
+\begin{equation}
+ |\alpha_H|^2+|\alpha_T|^2=1.
+ \label{eq:l02-coin-normalization}
+\end{equation}
+Using Eq.~\eqref{eq:l02-coin-basis}, this is precisely
+\begin{equation}
+ \langle C|C\rangle=1.
+ \label{eq:l02-state-normalization}
+\end{equation}
+For the die,
+\begin{equation}
+ \sum_{i=1}^{6}|\alpha_i|^2=1,
+ \qquad
+ \langle D|D\rangle=1.
+ \label{eq:l02-die-normalization}
+\end{equation}
+Physical state vectors are therefore normalized.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.71\textwidth]{lecture_02_figure_09.png}
+\caption{Normalization of the two-state superposition written as both a sum
+of squared amplitudes and the norm \(\langle C|C\rangle\).}
+\lectureframe{01:32:10}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{For equal heads and tails probabilities, are both
+amplitudes \(1/\sqrt{2}\)?\lecturetimestamp{01:38:02--01:39:24}}
+\lecturerresponse{Their magnitudes are \(1/\sqrt{2}\), but the amplitudes may
+be complex:
+\[
+ \alpha_H=\frac{e^{i\theta_H}}{\sqrt{2}},
+ \qquad
+ \alpha_T=\frac{e^{i\theta_T}}{\sqrt{2}}.
+\]
+Every complex number on the unit circle has unit magnitude. Multiplying such
+a number by \(1/\sqrt{2}\) gives probability \(1/2\). For six equally likely
+die outcomes, each amplitude has magnitude \(1/\sqrt{6}\).}
+\end{classroomqa}
+
+We have not yet said how to prepare an electron in the analogue of this
+half-heads, half-tails state. That experimental question will return when
+spin replaces the toy coin. For the moment it is more efficient to state the
+rules, learn how they work, and then ask which experiments forced physicists
+to adopt them. The first rules are now visible:
 \begin{enumerate}
-\item Clearly distinguishable configurations correspond to orthogonal vectors.
-\item Physical states are normalized.
-\item In a basis of distinguishable states, probabilities are given by squared moduli of amplitudes.
+\item states are represented by vectors in a complex vector space;
+\item perfectly distinguishable alternatives are represented by orthogonal
+vectors;
+\item physical state vectors have unit norm; and
+\item squared amplitude magnitudes give probabilities in an orthonormal
+measurement basis.
 \end{enumerate}
-The deeper meaning of superposition is not yet exhausted, but the lecture has now established its first operational consequences.
 
-\section{Operators as the Next Mathematical Step}
+\section{The First Look at Operators}
 
-There is one more turn before the lecture ends. Susskind says he would like to get to operators, and he does, but only as an opening move. The subject is introduced first through ordinary blackboard vectors, before any full physical interpretation is attached to it.
+There is one more mathematical object to introduce. An operation assigns a
+new vector to every vector in the space. Fixed-angle rotation, uniform
+rescaling, and reflection about an axis are familiar examples. Squaring a
+vector's length is also an operation, but it is not linear: a vector of
+length \(2\) is sent to one of length \(4\), while a vector of length \(3\)
+is sent to one of length \(9\).
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.60\textwidth]{lecture_02_figure_06.png}
-\caption{Ordinary vectors drawn on the blackboard. The figure is diagrammatic rather than symbolic, and serves as evidence for the geometric setup used to introduce operators.}
-\end{figure}
-
-The sketch is intentionally elementary: a vertical guide and two ordinary vectors. The question is what kinds of operations one can do on all vectors in such a space. One may rotate every vector by the same angle, double every vector while keeping its direction fixed, or reflect every vector about an axis. These are genuine operations on the vector space.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.2]
-\draw (0,-1.2) -- (0,1.7);
-\draw[->] (0,0) -- (2.0,1.2);
-\draw[->] (0,0) -- (2.1,0.35);
-\end{tikzpicture}
-\caption{Clean redraw of the ordinary-vector sketch used in the lecture's first discussion of operations on vectors.}
-\end{figure}
-
-Not every operation is linear. The lecture gives a deliberately simple counterexample: replace every vector of length \(2\) by one of length \(4\), every vector of length \(3\) by one of length \(9\), and so on. That is certainly an operation, but it is not linear.
-
-A linear operator, denoted with a hat, is characterized by two properties:
+We denote a linear operator by a hatted letter, such as \(\hat L\). It obeys
+homogeneity and additivity:
 \begin{align}
-\hat L(\alpha a) &= \alpha\,\hat L(a),\\
-\hat L(a+b) &= \hat L(a) + \hat L(b).
+ \hat L\bigl(\alpha|A\rangle\bigr)
+ &=\alpha\,\hat L|A\rangle,\\
+ \hat L\bigl(|A\rangle+|B\rangle\bigr)
+ &=\hat L|A\rangle+\hat L|B\rangle.
+ \label{eq:l02-linearity}
 \end{align}
-The lecture checks these properties on the simplest geometric example. If \(R\) denotes rotation by a fixed angle, then
+Equivalently, for arbitrary complex \(\alpha,\beta\),
 \begin{equation}
-R(2a) = 2R(a),
+ \hat L\bigl(\alpha|A\rangle+\beta|B\rangle\bigr)
+ =\alpha\hat L|A\rangle+\beta\hat L|B\rangle.
+ \label{eq:l02-combined-linearity}
 \end{equation}
-and if \(a+b\) is drawn as the diagonal of the usual parallelogram, then rotating the whole parallelogram shows that
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.70\textwidth]{lecture_02_figure_10.png}
+\caption{The two defining rules for a linear operator: scalar multiplication
+passes through the operator, and the image of a sum is the sum of the
+images.}
+\lectureframe{01:49:20}
+\end{figure}
+
+Rotation by a fixed angle passes both tests. Rotating twice a vector gives
+twice the rotated vector. If \(\mathbf a+\mathbf b\) is the diagonal of a
+parallelogram, rotating the whole parallelogram shows
 \begin{equation}
-R(a+b) = R(a) + R(b).
+ R(\mathbf a+\mathbf b)=R\mathbf a+R\mathbf b.
 \end{equation}
-So fixed-angle rotation is linear. Uniform doubling is linear. Reflection is linear. Squaring the length is not.
+Uniform doubling and reflection are linear for the same reason. The
+length-squaring operation fails: scaling the input by \(\alpha\) changes the
+length squared by \(|\alpha|^2\), not by \(\alpha\).
 
-This final section is explicitly transitional. The lecture reaches just far enough to state the physical slogan: states are represented by vectors, but measurable quantities are represented by linear operators. In that sense observables such as the ``headsness'' or ``tailsness'' of the coin belong on the operator side of the formalism. The actual identification of observables with operators is postponed to the next lecture.
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}[>=Latex,scale=0.95]
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (3.4,0.4);
+  \coordinate (B) at (1.4,2.5);
+  \coordinate (S) at (4.8,2.9);
+  \draw[->,thick] (O) -- (A) node[midway,below] {$\mathbf a$};
+  \draw[->,thick] (O) -- (B) node[midway,left] {$\mathbf b$};
+  \draw[dashed] (A) -- (S);
+  \draw[dashed] (B) -- (S);
+  \draw[->,very thick,blue!65!black] (O) -- (S)
+    node[midway,above left] {$\mathbf a+\mathbf b$};
+  \node[align=left] at (7.2,1.45)
+    {rotate the whole\\parallelogram};
+  \draw[->,bend left=25] (5.0,2.9) to (6.4,2.2);
+\end{tikzpicture}
+\caption{The parallelogram proof of additivity for a fixed rotation.}
+\end{figure}
 
-\section{Summary}
-
-This lecture unfolds in two layers. First it clears away a conceptual misunderstanding about the uncertainty principle. Then it builds the mathematical language in which the first quantum postulates can be stated.
-
-We began by seeing why two poor position measurements far apart in time do not reveal the original momentum of a particle: the first position measurement itself changes the momentum by an amount of order \(\hbar/\delta\). From there the lecture reset and moved through complex numbers, complex vector spaces, concrete examples in functions and column vectors, the notion of dimension, the shift to abstract kets, the dual space, inner products, orthonormal bases, and the extraction of expansion coefficients.
-
-Only after that apparatus was in place did the lecture turn to physics. Classical states form a set; quantum states form a vector space. Distinguishable configurations correspond to orthogonal vectors, superpositions are new states, normalization encodes total probability one, and squared amplitudes give measurement probabilities in a basis of distinguishable states. Finally, the lecture opened the next mathematical subject, operators, just far enough to show the direction of travel. The formalism is still abstract here, but the chapter ends with the same forward pressure as the lecture itself: we are now very close to the point where these rules begin to make concrete predictions.
+State vectors describe the possible states of a quantum system. Linear
+operators will describe measurable quantities, or observables: the quantum
+version of asking whether the coin is heads or tails. The precise relation
+between an observable, its operator, and the outcomes of a measurement is the
+next step. We are now close enough to the formalism to begin making
+predictions.
