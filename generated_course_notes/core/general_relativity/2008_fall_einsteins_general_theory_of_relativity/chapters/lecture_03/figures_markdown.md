@@ -1,46 +1,72 @@
-# Figure Notes
-## Image Inventory
-- `lecture_03_figure_02.png` shows Susskind standing beside a black rectangular coordinate grid overlaid with a red rotated or skewed coordinate construction. A red point is marked inside the grid, and several red slanted guide lines and segments pass through it. The frame is mainly diagrammatic rather than algebraic.
-- `lecture_03_figure_03.png` shows a mostly clean whiteboard with the scalar relation `\phi(y)=\phi(x)` written across the top, an arrowed `dx` notation below, and two short free arrows drawn at different locations on the board. Susskind’s hand is partly in frame at left, but the visible content is still legible.
-- `lecture_03_figure_04.png` shows a clean board carrying a rank-two tensor transformation law with lower indices on the tensor and two Jacobian factors multiplying the old-coordinate tensor components. No diagram is present; this is pure equation evidence.
-- `lecture_03_figure_05.png` shows Susskind next to the line-element formula in Cartesian coordinates, with a circled Kronecker delta factor multiplying two differential coordinate factors. The equation is the main content; there is slight residual writing above left from an earlier board state.
-- `lecture_03_figure_06.png` shows a more developed board state for the metric under coordinate change. At the top is a differential transformation for `dx^m` in terms of derivatives with respect to `y` and `dy`; below is an expression for `ds^2` with a large circled parenthesized coefficient, and beneath that a second circled symbol identifying the transformed metric components.
+# Lecture 3 Figures
 
-## Blackboard Equations
-- `lecture_03_figure_02.png`: no fully legible equation is present; the content is geometric/diagrammatic rather than algebraic. [visible]
-- `lecture_03_figure_03.png`: `\phi(y)=\phi(x)` [visible]
-- `lecture_03_figure_03.png`: `d\vec{x}` or arrowed `dx` [visible]
-- `lecture_03_figure_04.png`: `T^{(y)}_{mn}=\dfrac{\partial x^r}{\partial y^m}\dfrac{\partial x^s}{\partial y^n}T^{(x)}_{rs}` [visible]
-- `lecture_03_figure_05.png`: `ds^2=\delta_{mn}\,dx^m dx^n` [visible]
-- `lecture_03_figure_06.png`: `dx^m=\dfrac{\partial x^m}{\partial y^r}\,dy^r` [visible]
-- `lecture_03_figure_06.png`: `ds^2=\left(g^{(x)}_{mn}\dfrac{\partial x^m}{\partial y^r}\dfrac{\partial x^n}{\partial y^s}\right)dy^r dy^s` [partially visible]
-- `lecture_03_figure_06.png`: `g^{(y)}_{rs}` [visible]
-- `lecture_03_figure_06.png`: `g^{(y)}_{rs}=g^{(x)}_{mn}\dfrac{\partial x^m}{\partial y^r}\dfrac{\partial x^n}{\partial y^s}` [standard reconstruction]
+## Physical Setup
 
-## Diagram And Layout Reading
-- `lecture_03_figure_02.png` organizes the board as a comparison between two coordinate systems on the same plane. The black grid provides the original rectangular reference frame, while the red slanted family of lines represents the transformed coordinates. The marked interior point and red connecting segments indicate that a single geometric vector or point is being described relative to more than one coordinate system. This is the key visual evidence for the lecture’s move from “a vector as a geometric object” to “components depend on coordinates.”
-- `lecture_03_figure_03.png` is laid out very economically. The top line states that a scalar has the same value in the `x` and `y` descriptions. Below that, the arrowed `dx` indicates a geometric displacement vector. The repeated short arrows at separated locations visually support Susskind’s statement that the vector itself is a geometric object independent of where it is drawn on the board.
-- `lecture_03_figure_04.png` is purely formula-centered. The left-hand side is a tensor in the `y` frame with two lower indices; the right-hand side factors into two Jacobians and a tensor in the `x` frame. The layout is already sufficiently clean that no auxiliary diagram is needed.
-- `lecture_03_figure_05.png` uses a single centered expression to identify the Cartesian metric. The Kronecker delta is visually emphasized by circling, which signals that Susskind is naming it as the metric tensor in this special coordinate system.
-- `lecture_03_figure_06.png` has a deliberate top-to-bottom pedagogical structure. The top equation gives the differential coordinate change. The middle equation substitutes that into the line element. The large circled parenthesized factor is the important extracted object, and the lower circled `g^{(y)}_{rs}` indicates that the parenthesized coefficient is being recognized as the new metric tensor. The board is effectively performing identification by visual grouping.
+1. **00:05:00 — Vertical-light elevator**
+   ![Vertical-light elevator](lecture_03_figure_01.png)
+   The completed elevator diagram retains the height \(h\), vertical ray,
+   and acceleration direction.
 
-## TeX Reconstruction Plan
-- `lecture_03_figure_02.png` must remain visible. It is valuable documentary evidence for the rotated/skew coordinate-grid setup. It should be paired with a clean TikZ redraw showing an original rectangular grid, a transformed skew grid, and a marked point or vector. The screenshot should not be asked to carry exact algebra; it supports the board layout and geometric idea.
-- `lecture_03_figure_03.png` must remain visible. It should be paired with a clean displayed scalar relation `\phi(y)=\phi(x)` and a small TikZ sketch or inline figure showing the same free vector drawn at two different locations. The screenshot is useful because it combines equation and geometric cue in one board moment.
-- `lecture_03_figure_04.png` should remain visible as equation evidence. It should also be typeset cleanly nearby as a displayed equation for the rank-two covariant tensor transformation law. No TikZ is needed here.
-- `lecture_03_figure_05.png` should remain visible as equation evidence. It should be paired with a clean displayed formula `ds^2=\delta_{mn}\,dx^m dx^n`, with brief prose noting that in Cartesian coordinates the metric tensor is the Kronecker delta. No redraw is necessary.
-- `lecture_03_figure_06.png` must remain visible. It should be paired with a clean displayed derivation or two-step display: first the differential coordinate transformation `dx^m=(\partial x^m/\partial y^r)\,dy^r`, then the transformed line element, and finally the identification `g^{(y)}_{rs}=g^{(x)}_{mn}(\partial x^m/\partial y^r)(\partial x^n/\partial y^s)`. The screenshot is particularly useful because the circling on the board documents the identification step.
+2. **00:12:05 — Free-fall cancellation**
+   ![Free-fall cancellation](lecture_03_figure_02.png)
+   The board records the freely falling apparatus and the opposing
+   frequency-shift effects.
 
-## Caption Drafts
-- `lecture_03_figure_02.png`: Skew coordinate grid and vector construction
-- `lecture_03_figure_03.png`: Scalar equality and free vector
-- `lecture_03_figure_04.png`: Rank-two tensor transformation law
-- `lecture_03_figure_05.png`: Metric tensor in Cartesian coordinates
-- `lecture_03_figure_06.png`: Metric tensor under coordinate change
+3. **00:14:25 — Accelerated coordinates**
+   ![Accelerated coordinates](lecture_03_figure_03.png)
+   Curved meter-stick trajectories represent the accelerating coordinate
+   grid.
 
-## Uncertainties
-- `lecture_03_figure_02.png`: the diagram is clear as a coordinate-system comparison, but exact labels for axes or components are not visible. The redraw should therefore remain schematic rather than over-labeled.
-- `lecture_03_figure_03.png`: the arrowed `dx` is visible, but whether Susskind intended the notation explicitly as `d\vec{x}` or an arrow placed over `dx` should be preserved cautiously. The idea is clear even if the precise chalk styling is not.
-- `lecture_03_figure_04.png`: the equation is legible, but the superscript labels indicating the coordinate frame are small; the transcript strongly supports reading them as `(y)` on the left and `(x)` on the right.
-- `lecture_03_figure_05.png`: the circled metric factor is clear, but faint residual writing above left could distract from the main equation. The notes should ignore that leftover material.
-- `lecture_03_figure_06.png`: the middle line is partly crowded by Susskind’s body and the board’s cropping, so the full transformed line element should be completed cautiously in standard notation. The identification of the parenthesized coefficient with `g^{(y)}_{rs}` is strongly indicated by the circles, but the exact final equality is better treated as a standard reconstruction from what is visibly staged on the board.
+4. **00:17:40 — Tidal obstruction**
+   ![Tidal obstruction](lecture_03_figure_04.png)
+   Local laboratories around a central source require different
+   acceleration directions.
+
+## Coordinate and Tensor Calculus
+
+5. **00:23:00 — Coordinates and scalar field**
+   ![Coordinates and scalar field](lecture_03_figure_05.png)
+
+6. **00:25:40 — Total differential**
+   ![Total differential](lecture_03_figure_06.png)
+
+7. **00:35:05 — Chain rule**
+   ![Chain rule](lecture_03_figure_07.png)
+
+8. **00:40:10 — Two coordinate grids**
+   ![Two coordinate grids](lecture_03_figure_08.png)
+
+9. **00:47:30 — Scalar and displacement vector**
+   ![Scalar and displacement vector](lecture_03_figure_09.png)
+
+10. **00:51:15 — Contravariant vector law**
+    ![Contravariant vector law](lecture_03_figure_10.png)
+
+11. **00:59:40 — Rank-two contravariant law**
+    ![Rank-two contravariant law](lecture_03_figure_11.png)
+
+12. **01:07:40 — Vector and covector laws**
+    ![Vector and covector laws](lecture_03_figure_12.png)
+
+13. **01:11:45 — Rank-two covariant law**
+    ![Rank-two covariant law](lecture_03_figure_13.png)
+
+## Metric and Geometry
+
+14. **01:22:20 — Cartesian metric**
+    ![Cartesian metric](lecture_03_figure_14.png)
+
+15. **01:28:10 — Transformed metric**
+    ![Transformed metric](lecture_03_figure_15.png)
+
+16. **01:36:40 — Cone and local patch**
+    ![Cone and local patch](lecture_03_figure_16.png)
+
+17. **01:41:55 — Polar differentials**
+    ![Polar differentials](lecture_03_figure_17.png)
+
+18. **01:45:45 — Polar metric components**
+    ![Polar metric components](lecture_03_figure_18.png)
+
+19. **01:49:30 — Sphere coordinates**
+    ![Sphere coordinates](lecture_03_figure_19.png)

@@ -1,61 +1,51 @@
-# Chapter Plan
-## Lecture Arc
-- The lecture opens by returning to a loose end from the equivalence-principle discussion: what happens to a vertical light ray in an accelerating elevator, and therefore in a gravitational field. Susskind first works by analogy with bullets, then pivots sharply to the genuinely relativistic point that light keeps speed \(c\) while its frequency changes.
-- He then turns the opening puzzle into a Doppler-shift argument in the accelerating elevator, using the detector’s changing velocity to motivate gravitational blue shift for downward light and red shift for upward light. This beat stays physical and conversational, with student objections driving the clarification.
-- A second pivot comes when free fall enters: now the lecture becomes about what gravity can and cannot be transformed away. Susskind insists on the exact local cancellation in a freely falling elevator, then uses tidal forces to introduce the idea of an obstruction.
-- That obstruction becomes the bridge into mathematics. The lecture explicitly recaps the physical lesson, then says that the obstruction to removing gravity is closely related to the obstruction to flattening a curved space, which motivates a long differential-geometric interlude.
-- The mathematical spine begins with a deliberately modest review of multivariable calculus: scalar fields, infinitesimal displacements, total differentials, summation convention, and the chain rule for changing coordinates. The tone here should stay pedagogical and cumulative, because he is building the notation live.
-- From there he moves in order from scalars to contravariant vectors, then to higher-rank tensors, then to covariant vectors and covariant tensors. The lecture’s rhythm is not abstractly axiomatic; it is constructive, with each new transformation law arising from the previous one.
-- After the break, the metric tensor appears as the key object. Susskind starts from Pythagoras in Cartesian coordinates, rewrites it with the Kronecker delta, transforms coordinates, and identifies the new coefficient as the metric tensor.
-- The lecture then broadens from formula to geometry: flatness means the metric can be brought back to the Kronecker delta form; curvature is the obstruction to doing so. He reinforces that point with local flatness, the cone tip, polar coordinates as a flat-but-curvilinear example, and finally the sphere as the next genuinely curved case.
-- The final notes should preserve this “physical puzzle to geometric obstruction to tensor machinery to metric and examples” progression, and should sound like the mathematics is being unfolded step by step rather than retrospectively summarized from above.
+# Lecture 3 Source Analysis
 
-## Section Outline
-- 1. Vertical Light Rays, Doppler Shift, and the Equivalence Principle. Start with the elevator thought experiment and the frequency shift of vertical light, keeping the argument close to Susskind’s physical reasoning rather than importing a finished GR formula too early. Insert a standalone `Question & Answer` subsection here: `Why don’t the Doppler shifts just cancel?`
-- 2. Free Fall, Local Cancellation, and Tidal Obstruction. Preserve the student exchange about the freely falling elevator, because it is where Susskind sharpens the claim that gravity can be transformed away only locally. End this section with the transition from physical obstruction to geometric obstruction.
-- 3. The Minimal Calculus Toolkit for Curved Coordinates. Introduce coordinates \(x^1,\dots,x^d\), scalar fields, infinitesimal displacements, the total differential \(d\phi\), Einstein summation, and the chain-rule transformation of derivatives. Keep the prose instructional and concrete, because this is the lecture’s explicit setup for everything that follows.
-- 4. Scalars, Vectors, and Coordinate Dependence of Components. Use the rotated/skew coordinate picture to explain that scalars are invariant while vector components depend on the chosen coordinates, then introduce the displacement vector as the archetypal contravariant vector. This section should carry the lecture’s insistence that the vector itself is geometric, while its components are not.
-- 5. From Vectors to Tensors, and from Contravariant to Covariant. Build rank-two tensors from products of vectors, then pivot to gradients as covariant vectors and explain upstairs/downstairs notation as bookkeeping for transformation law. Keep the tone constructive: each rule should feel like it grows out of the previous one.
-- 6. The Metric Tensor from Pythagoras. Begin in flat Cartesian space with \(ds^2\), rewrite it with the Kronecker delta, then transform coordinates and identify the new coefficient as the metric tensor. This is the right place to state cleanly that the metric is a covariant rank-two tensor.
-- 7. Flatness, Curvature, and the Meaning of an Obstruction. Ask when a general metric can be transformed back to the Kronecker-delta form, and define flat versus curved space in precisely that way. Include the local-flatness discussion and the cone-tip example here, because they sharpen the lecture’s distinction between local simplification and global obstruction.
-- 8. Polar Coordinates as a Worked Flat Example, then the Sphere as Curved Counterexample. Work through the plane in polar coordinates to obtain \(ds^2=dr^2+r^2d\theta^2\), then keep the late student exchange about the vanishing cross term. Insert a standalone `Question & Answer` subsection here: `What does the vanishing off-diagonal term actually tell us?` End with the sphere metric only as far as the transcript safely supports.
+## Central Argument
 
-## Mathematical Content To Include
-- Approximate elevator/redshift estimate using \(t\approx h/c\), \(v\approx gt\), and therefore a small fractional shift of order \(gh/c^2\), clearly labeled as the lecture’s assigned exercise rather than a blackboard-derived formula. [standard reconstruction]
-- Exact local cancellation in a freely falling elevator, with the note that Susskind treats exactness as requiring special relativity rather than a purely Newtonian estimate. [transcript-backed]
-- The claim that tidal forces are the obstruction to removing gravity globally by coordinate choice. [transcript-backed]
-- The total differential of a scalar field: \(d\phi=\frac{\partial \phi}{\partial x^m}dx^m\). [transcript-backed]
-- Einstein summation convention, dummy indices, and the warning that repeated indices should be handled carefully. [transcript-backed]
-- The coordinate-change chain rule for scalar derivatives: \(\frac{\partial \phi}{\partial y^n}=\frac{\partial \phi}{\partial x^m}\frac{\partial x^m}{\partial y^n}\). [transcript-backed]
-- Scalar invariance at a point: \(\phi(y)=\phi(x)\). [frame-backed]
-- The displacement vector as a contravariant vector, with component transformation \(dy^n=\frac{\partial y^n}{\partial x^m}dx^m\) and the general law \(V^{n}_{(y)}=\frac{\partial y^n}{\partial x^m}V^{m}_{(x)}\). [transcript-backed]
-- The covariant vector law motivated by the gradient: \(A^{(y)}_{n}=\frac{\partial x^m}{\partial y^n}A^{(x)}_{m}\). [transcript-backed]
-- The general upstairs/downstairs contraction pattern: sums pair one upper index with one lower index. [transcript-backed]
-- The covariant rank-two tensor transformation law \(T^{(y)}_{mn}=\frac{\partial x^r}{\partial y^m}\frac{\partial x^s}{\partial y^n}T^{(x)}_{rs}\). [frame-backed]
-- The Cartesian line element \(ds^2=\delta_{mn}\,dx^m dx^n\). [frame-backed]
-- The differential coordinate transformation \(dx^m=\frac{\partial x^m}{\partial y^r}dy^r\). [frame-backed]
-- The metric transformation law \(g^{(y)}_{rs}=g^{(x)}_{mn}\frac{\partial x^m}{\partial y^r}\frac{\partial x^n}{\partial y^s}\). [frame-backed]
-- The flatness criterion: a space is flat exactly when some coordinate system makes the metric equal to the Kronecker delta. [transcript-backed]
-- Local flatness versus global flatness, including the cone tip as a localized obstruction. [transcript-backed]
-- The polar-coordinate relations \(x=r\cos\theta\) and \(y=r\sin\theta\). [transcript-backed]
-- The polar-coordinate metric \(ds^2=dr^2+r^2d\theta^2\), together with \(g_{rr}=1\), \(g_{r\theta}=0\), and \(g_{\theta\theta}=r^2\). [transcript-backed]
-- The interpretation of \(g_{r\theta}=0\) as orthogonality of the coordinate lines, not by itself as a proof of intrinsic flatness. [transcript-backed]
-- The unit-sphere metric in the lecturer’s late notation, cautiously rendered as \(ds^2=d\phi^2+\sin^2\phi\,d\theta^2\), with notation explained rather than asserted dogmatically. [standard reconstruction]
+The lecture closes the elevator discussion and opens the tensor calculus
+needed for curved geometry. Its sequence is cumulative:
 
-## Diagram And Figure Plan
-- `lecture_03_figure_02.png` must remain visible in the section on coordinate change and vector components. It should also be redrawn in TikZ as a clean comparison of an orthogonal black grid and a skew red coordinate family with a marked point or vector, but the screenshot should stay nearby as the documentary source for the board layout.
-- `lecture_03_figure_03.png` must remain visible in the scalar/vector transition. It should also be echoed by a small TikZ or schematic redraw showing \(\phi(y)=\phi(x)\) together with the same free vector drawn in two different locations, with the screenshot kept nearby as visual evidence.
-- `lecture_03_figure_04.png` must remain visible where the notes present the covariant rank-two tensor transformation law. This one does not need TikZ; a clean displayed equation beside the screenshot is enough.
-- `lecture_03_figure_05.png` must remain visible where the Cartesian metric is introduced. It does not need TikZ, but the displayed equation should reproduce the line element cleanly and explicitly identify the Kronecker delta as the Cartesian metric tensor.
-- `lecture_03_figure_06.png` must remain visible where the metric is transformed under coordinate change. It should be paired with a typeset multi-line derivation and the identification of the parenthesized coefficient with \(g^{(y)}_{rs}\), because the board circling is itself part of the pedagogical evidence.
-- No attached frame in the present set documents the early elevator/redshift discussion, the cone sketch, or the polar/sphere drawings. Those beats should therefore be handled primarily with prose and displayed mathematics unless additional visual evidence is curated later.
+1. Vertical light keeps local speed \(c\) but changes frequency.
+2. The accelerated elevator predicts gravitational redshift.
+3. Free fall cancels the local frequency shift, leaving tidal effects.
+4. Tidal effects motivate an invariant description of curvature.
+5. Scalars, vectors, covectors, and tensors are defined by coordinate
+   transformation laws.
+6. The metric is derived from the invariant line element.
+7. Polar coordinates and the sphere separate complicated coordinates from
+   genuine curvature.
 
-## Caution Notes
-- Do not let the chapter open as a tensor-calculus summary; the real lecture begins with the physical redshift puzzle, and the later mathematics is explicitly motivated by that earlier obstruction language.
-- If the notes include a formula of order \(\Delta \nu/\nu \sim gh/c^2\), it should be marked as a cautious reconstruction of the exercise Susskind assigns, not as a board-written formula from the provided evidence.
-- The transcript becomes badly garbled in the sphere discussion around 01:49:26 onward. The sphere metric may be stated in its standard form, but the surrounding derivation and coordinate-description prose should be kept brief and cautious.
-- `lecture_03_figure_03.png` supports the idea of an arrowed \(dx\), but the exact chalk styling is ambiguous; treat it as a displacement vector without overcommitting to a typographic convention the frame does not fully settle.
-- `lecture_03_figure_04.png` clearly supports the tensor law, but the small frame labels are easier to read with transcript help than from the image alone. Keep the notation consistent with the lecture’s \(x\)-frame and \(y\)-frame distinction.
-- `lecture_03_figure_06.png` shows the transformed metric identification clearly in structure, but part of the middle equation is crowded and partially occluded. The clean final equation should therefore be typeset as a cautious standard completion of what the board is visibly doing.
-- Susskind repeatedly corrects himself on wording such as “spacetime” versus “space” and “flat space” versus “flat coordinates.” The notes should preserve those distinctions but not reproduce every verbal stumble.
-- The transcript contains repeated phrases, false starts, and an accidental foreign-language insertion near 01:02 and again in the sphere segment. Compress those away in the prose, but do not compress away the logical pivots they surround.
+## Source Corrections
+
+- The weak-field shift is completed as
+  \(\Delta\nu/\nu\simeq gh/c^{2}\), matching the exercise assigned in the
+  lecture.
+- Stellar redshift is organized by compactness
+  \(GM/(Rc^{2})=v_{\mathrm{esc}}^{2}/(2c^{2})\), not size alone.
+- Free-fall cancellation is stated locally and with the
+  special-relativistic qualification made in the classroom exchange.
+- Scalar invariance is written as equality of two coordinate
+  representations at the same point.
+- A rank-two tensor need not be a single product of vectors; the product
+  supplies the transformation pattern.
+- Normal coordinates flatten the metric at a point, not necessarily over a
+  finite neighborhood.
+- The cone is locally flat away from its tip but has a global conical
+  obstruction.
+- The final sphere notation is fixed to polar angle \(\phi\) and azimuth
+  \(\theta\), yielding
+  \(ds^{2}=d\phi^{2}+\sin^{2}\phi\,d\theta^{2}\) for unit radius.
+
+## Coverage
+
+All 31 chronological source movements are represented. Fourteen classroom
+exchanges retain the questions that materially change or clarify the
+argument. Noninstructional opening, break, closing, and personal asides are
+excluded.
+
+## Visual Evidence
+
+Nineteen frames were selected after reviewing the full video and adjacent
+candidates. Each retained image contains a diagram or equation used in the
+surrounding text. Incomplete boards, institutional cards, mid-erasure
+frames, and avoidable occlusions were rejected.
