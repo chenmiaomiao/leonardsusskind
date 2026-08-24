@@ -1,357 +1,893 @@
 \chapter{Tensor Calculus, Connections, and Geodesics}
 
-Susskind begins by warning us that the subject is slippery, abstract, and a little difficult. That warning is useful. The lecture is not merely a list of formulas. It is a careful shift from tensor algebra to tensor calculus, from knowing how tensors transform to knowing how to differentiate them without losing the coordinate-independence that made them useful in the first place. We first remind ourselves why tensors matter, then we watch the ordinary derivative fail for vectors, and only then do we introduce the connection and the covariant derivative. After that the lecture resets with a concrete polar-coordinate example, uses the metric to identify the Christoffel symbols, and finally turns toward curves, geodesics, and the gravitational interpretation.
+\lectureoverview{Tensor algebra tells us how components transform. Tensor
+calculus must do something harder: compare fields at neighboring points
+without confusing a change of the field with a change of the coordinate
+basis. We will see the ordinary derivative fail, repair it with a
+connection, determine the Levi--Civita connection from the metric, and use
+it to define geodesics.}
 
-\section{Why Tensor Calculus Enters General Relativity}
+\section{Why Tensor Equations Matter}
 
-We have already learned most of what tensor algebra can do for us. Compatible tensors can be added and subtracted: covariant components with covariant components, contravariant components with contravariant components, but not mismatched objects. That reminder is brief, and it serves only to clear the ground. The real question is why we introduce tensors at all.
+Compatible tensors may be added and subtracted, but their index structures
+must match. A covector cannot be added directly to a vector, and a
+two-index tensor cannot be added to a three-index tensor. This is more than
+bookkeeping: each index records one factor in the coordinate
+transformation law.
 
-The answer is geometric and practical at the same time. Geometric facts do not depend on coordinates. The Earth is almost spherical, the surface has bumps and curvature, Mount Everest is a lump on that surface: none of these statements requires coordinates to be true. But when we actually compute, we do use coordinates. We use components. Computation is about numbers, and tensors are the way geometry is translated into numbers without surrendering the geometry.
+The reason for organizing physics this way is that geometry exists before
+coordinates are chosen. A surface may be curved, a mountain may rise from
+it, and two points may have a definite separation even if no latitude or
+longitude has been assigned. Coordinates become indispensable when we
+want numbers and calculations. Tensors let us introduce those numbers
+without making the truth of an equation depend on the labels.
 
-So the goal is this: write equations whose numerical components may change from one coordinate system to another, but whose truth does not. Susskind makes the point in two equivalent ways. If two tensorial quantities are equal in one coordinate system, they are equal in all coordinate systems. And if a tensor is zero in one coordinate system, it is zero in all coordinate systems. This is why it is so natural to write laws in the form ``something equals zero.''
-
-To remind ourselves, consider a covariant vector:
+For example, a covector transforms according to
 \begin{equation}
-V_n(y)=\frac{\partial x^r}{\partial y^n}V_r(x).
+  V_m^{(y)}
+  =
+  \frac{\partial x^r}{\partial y^m}V_r^{(x)},
+  \label{eq:l05-covector-transform}
 \end{equation}
-If all components \(V_r(x)\) vanish, then all components \(V_n(y)\) vanish. The same is true for a mixed tensor:
+and a mixed tensor according to
 \begin{equation}
-T^m{}_n(y)=\frac{\partial y^m}{\partial x^r}\frac{\partial x^s}{\partial y^n}T^r{}_s(x).
+  \bigl(T^m{}_{n}\bigr)_{(y)}
+  =
+  \frac{\partial y^m}{\partial x^r}
+  \frac{\partial x^s}{\partial y^n}
+  \bigl(T^r{}_{s}\bigr)_{(x)}.
+  \label{eq:l05-mixed-transform}
 \end{equation}
-Again, zero in one frame means zero in every frame.
-
-This is the basic promise of tensors. General relativity will need that promise not just for algebraic relations, but for differential equations. The difficulty is that ordinary derivatives do not automatically preserve it.
-
-\section{Scalars First, Then the Trouble with Vectors}
-
-The lecture wisely begins with the easiest case. A scalar field \(\phi\) does not really transform at all. It is simply the same number attached to the same point, whatever coordinates we use to label that point. Its derivative therefore behaves well under a change of coordinates:
+If every component on the right vanishes, every component on the left
+vanishes. Thus a tensor equation such as
 \begin{equation}
-\frac{\partial \phi}{\partial y^n}
-=
-\frac{\partial x^m}{\partial y^n}
-\frac{\partial \phi}{\partial x^m}.
+  T^m{}_{n}=0
 \end{equation}
-So the derivative of a scalar transforms as a covariant vector.
+is either true in every coordinate system or false in every coordinate
+system. The same is true of an equality between tensors with matching
+indices.
 
-This is also exactly what intuition suggests. If the temperature in a room is constant everywhere, then it is constant in Cartesian coordinates, in polar coordinates, and in any other coordinates one cares to invent. If \(\partial \phi/\partial x^m=0\) everywhere, then \(\partial \phi/\partial y^n=0\) everywhere as well. For scalars, the derivative behaves exactly as we hoped.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_05_figure_01.png}
+  \caption{Transformation laws make the zero tensor coordinate
+  independent. The board displays covariant and mixed examples before the
+  lecture turns from tensor algebra to tensor calculus.}
+  \lectureframe{00:09:28}
+\end{figure}
 
-Now we turn to vectors, and the lecture deliberately creates some tension. Imagine a vector field in ordinary flat space that points in the same direction everywhere and has the same length everywhere. In Cartesian coordinates its components are constant from point to point, so their derivatives vanish. So far, so good.
+General relativity needs differential equations, not only algebraic
+relations. We therefore need a derivative of a tensor that is again a
+tensor. The ordinary partial derivative succeeds for scalars and fails for
+vectors; understanding that failure is the central problem of this
+lecture.
 
-But now lay a curvilinear coordinate grid on top of the same flat blackboard. The physical vector field is unchanged. What changes is the coordinate frame. The axes bend; they rotate from point to point. A component is a projection onto those local axes, so it depends not only on the vector itself but also on the orientation of the axes. A geometrically constant vector field can therefore have nonconstant components in curvilinear coordinates.
+\section{The Scalar Control Case}
 
-This is the first real obstruction. The derivative of a scalar detects genuine variation of the field. The derivative of vector components can also detect the motion of the coordinates themselves. That extra sensitivity is exactly what must be repaired.
-
-\section{Testing the Ordinary Derivative of a Vector}
-
-Susskind now slows the lecture down and performs the central calculation. We assume, temporarily, that the ordinary derivative of a vector component might transform as a tensor, and then we watch that assumption fail.
-
-Define
+A scalar field assigns one number to each point. Under a coordinate change
+the number is unchanged:
 \begin{equation}
-T_{mn}(x)\equiv \frac{\partial V_m(x)}{\partial x^n}.
+  \phi^{(y)}(y)=\phi^{(x)}(x).
 \end{equation}
-Suppose this really were the \(x\)-components of a tensor. Then in the \(y\)-coordinates it would have to transform as
+The chain rule gives
+\begin{equation}
+  \frac{\partial\phi}{\partial y^n}
+  =
+  \frac{\partial x^m}{\partial y^n}
+  \frac{\partial\phi}{\partial x^m}.
+  \label{eq:l05-scalar-gradient}
+\end{equation}
+This is precisely the transformation law for a covector. The gradient of
+a scalar is therefore a tensor.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{lecture_05_figure_02.png}
+  \caption{The scalar chain rule. The gradient acquires one inverse
+  Jacobian and hence one lower index.}
+  \lectureframe{00:13:53}
+\end{figure}
+
+The physical content is equally simple. If the temperature is constant
+throughout a room, all of its derivatives vanish in Cartesian
+coordinates. Changing to polar, spherical, or any other smooth
+coordinates cannot make the temperature vary. Equation
+\eqref{eq:l05-scalar-gradient} guarantees exactly that.
+
+\section{A Constant Vector in a Moving Frame}
+
+Now consider a vector field in an ordinary flat plane. Suppose every arrow
+has the same magnitude and points in the same geometric direction. In
+Cartesian coordinates its components are constant:
+\begin{equation}
+  \frac{\partial V_m^{(x)}}{\partial x^n}=0.
+  \label{eq:l05-cartesian-constant}
+\end{equation}
+
+Lay a curvilinear grid over the same plane. The field has not changed, but
+the coordinate directions turn from point to point. Components are
+projections onto those local directions, so the \(y\)-components generally
+change:
+\begin{equation}
+  \frac{\partial V_m^{(y)}}{\partial y^n}\neq 0.
+  \label{eq:l05-curvilinear-components}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{lecture_05_figure_03.png}
+  \caption{One geometrically constant vector field viewed through straight
+  and curving coordinate grids. The components change because the local
+  axes change.}
+  \lectureframe{00:20:35}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does saying that the vector has one fixed direction
+already assume some third reference frame common to both coordinate
+systems?
+\lecturetimestamp{00:18:28--00:20:17}}
+\lecturerresponse{The statement is geometric. In the flat plane we may
+compare arrows directly, independently of either curvilinear description.
+Cartesian coordinates make that comparison especially transparent, but
+the vector field does not acquire its direction from the coordinates. The
+coordinates only supply components.}
+\end{classroomqa}
+
+This example identifies the difficulty. The ordinary derivative of vector
+components measures two effects at once: variation of the vector and
+variation of the basis. A tensorial derivative must remove the second
+effect.
+
+\section{The Ordinary Derivative Fails the Tensor Test}
+
+Let the \(x\)-coordinates be Cartesian for the moment and define
+\begin{equation}
+  T_{mn}^{(x)}
+  \stackrel{?}{=}
+  \frac{\partial V_m^{(x)}}{\partial x^n}.
+  \label{eq:l05-tentative-tensor}
+\end{equation}
+If this were a genuine rank-two covariant tensor, its \(y\)-components
+would have to be
 \begin{align}
-T_{mn}(y)
-&=
-\frac{\partial x^r}{\partial y^m}
-\frac{\partial x^s}{\partial y^n}
-T_{rs}(x) \\
-&=
-\frac{\partial x^r}{\partial y^m}
-\frac{\partial x^s}{\partial y^n}
-\frac{\partial V_r(x)}{\partial x^s}.
+  T_{mn}^{(y)}
+  &=
+  \frac{\partial x^r}{\partial y^m}
+  \frac{\partial x^s}{\partial y^n}
+  T_{rs}^{(x)}
+  \nonumber\\
+  &=
+  \frac{\partial x^r}{\partial y^m}
+  \frac{\partial x^s}{\partial y^n}
+  \frac{\partial V_r^{(x)}}{\partial x^s}
+  \nonumber\\
+  &=
+  \frac{\partial x^r}{\partial y^m}
+  \frac{\partial V_r^{(x)}}{\partial y^n}.
+  \label{eq:l05-expected-transform}
 \end{align}
-Now the last two factors are exactly arranged for the chain rule, so this becomes
-\begin{equation}
-T_{mn}(y)
-=
-\frac{\partial x^r}{\partial y^m}
-\frac{\partial V_r(x)}{\partial y^n}.
-\end{equation}
 
-At this stage the lecture pauses and asks whether this is the same thing as the ordinary derivative of the transformed vector components. So let us calculate that directly. Since
-\begin{equation}
-V_m(y)=\frac{\partial x^r}{\partial y^m}V_r(x),
-\end{equation}
-we get
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_04.png}
+  \caption{The tentative tensor law for
+  \(T_{mn}=\partial_n V_m\). The question mark is essential: this is the
+  hypothesis being tested, not yet an identity.}
+  \lectureframe{00:26:45}
+\end{figure}
+
+Now calculate the ordinary derivative of the transformed covector
+directly. From Eq.~\eqref{eq:l05-covector-transform},
 \begin{align}
-\frac{\partial V_m(y)}{\partial y^n}
-&=
-\frac{\partial}{\partial y^n}
-\left(
-\frac{\partial x^r}{\partial y^m}V_r(x)
-\right) \\
-&=
-\frac{\partial x^r}{\partial y^m}\frac{\partial V_r(x)}{\partial y^n}
-+
-\frac{\partial}{\partial y^n}
-\left(
-\frac{\partial x^r}{\partial y^m}
-\right)V_r(x).
+  \frac{\partial V_m^{(y)}}{\partial y^n}
+  &=
+  \frac{\partial}{\partial y^n}
+  \left(
+    \frac{\partial x^r}{\partial y^m}V_r^{(x)}
+  \right)
+  \nonumber\\
+  &=
+  \frac{\partial x^r}{\partial y^m}
+  \frac{\partial V_r^{(x)}}{\partial y^n}
+  +
+  \frac{\partial^2 x^r}
+       {\partial y^n\partial y^m}
+  V_r^{(x)}.
+  \label{eq:l05-product-rule}
 \end{align}
-The first term is exactly what we wanted. The trouble is the second term:
-\begin{equation}
-\frac{\partial}{\partial y^n}
-\left(
-\frac{\partial x^r}{\partial y^m}
-\right)V_r(x).
-\end{equation}
+The first term is Eq.~\eqref{eq:l05-expected-transform}. The second term is
+new. It comes from differentiating the Jacobian that describes the moving
+coordinate basis.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_05_figure_05.png}
+  \caption{The product rule exposes the extra second-derivative term. This
+  term vanishes for a linear coordinate transformation but not for a
+  general curvilinear one.}
+  \lectureframe{00:32:50}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Has the derivative of the Jacobian already been counted
+inside the chain-rule term?
+\lecturetimestamp{00:31:34--00:32:29}}
+\lecturerresponse{No. The chain-rule term differentiates the vector
+components while holding the Jacobian factor outside. Directly
+differentiating their product also differentiates the Jacobian. That
+second derivative of the coordinate map is the missing term, and it is
+exactly why the two expressions are unequal.}
+\end{classroomqa}
+
 Thus
 \begin{equation}
-\frac{\partial V_m(y)}{\partial y^n}
-=
-T_{mn}(y)
-+
-\frac{\partial}{\partial y^n}
-\left(
-\frac{\partial x^r}{\partial y^m}
-\right)V_r(x),
+  \frac{\partial V_m^{(y)}}{\partial y^n}
+  \neq
+  \frac{\partial x^r}{\partial y^m}
+  \frac{\partial x^s}{\partial y^n}
+  \frac{\partial V_r^{(x)}}{\partial x^s}
 \end{equation}
-and therefore
-\begin{equation}
-\frac{\partial V_m(y)}{\partial y^n}\neq T_{mn}(y)
-\end{equation}
-in general.
+for a general coordinate transformation.
 
-This is the core calculation of the lecture. The ordinary derivative of vector components fails the tensor test because the derivative does not only act on the field. It also acts on the coordinate-transformation factor.
-
-\subsection{Question \& Answer}
-
-Why did the scalar case work, while the vector case failed?
-
-Because a scalar carries no changing basis information with it. A vector does. When we rewrite \(V_m(y)\) in terms of \(V_r(x)\), we must also rewrite how the basis itself is sitting inside the geometry. The factor \(\partial x^r/\partial y^m\) records that basis change. When the derivative hits that factor, it measures the fact that the coordinates are flopping around from point to point.
-
-This also explains why the trouble disappears if the coordinate transformation is linear. In that case \(\partial x^r/\partial y^m\) is constant, its derivative vanishes, and ordinary differentiation behaves as if the bases were rigid. So the failure is not mysterious. It is exactly the mathematical trace of a moving coordinate frame.
-
-\section{Covariant Derivatives of Vectors and Tensors}
-
-Once the failure has been exposed, the next move becomes natural. The ordinary derivative misses tensoriality by a definite extra term, so we try to repair the derivative by adding a correction of the same general form. That correction is called \(\Gamma\).
-
-This is the point at which the lecture stabilizes its new object on the board:
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_05_figure_02.png}
-\caption{Covariant derivative of a lower-index vector}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_06.png}
+  \caption{The completed comparison: the extra product-rule term prevents
+  the ordinary component derivative from being a tensor.}
+  \lectureframe{00:37:40}
 \end{figure}
 
-The cleaned version of the board equation is
+\begin{classroomqa}
+\audiencequestion{Can this failure be seen in a physical field, such as an
+electric field?
+\lecturetimestamp{00:33:58--00:34:47}}
+\lecturerresponse{Yes. A uniform electric field has constant Cartesian
+components. In curvilinear coordinates the same field generally has
+position-dependent components because the coordinate axes rotate. The
+ordinary derivatives then report a change even though the physical field
+is uniform.}
+\end{classroomqa}
+
+For a linear transformation the Jacobian is constant, so the extra term
+vanishes. That special case explains why ordinary component derivatives
+behave harmlessly under rotations and other rigid linear changes, while
+general coordinate transformations reveal the problem.
+
+\section{From the Extra Term to the Connection}
+
+The failure suggests its own cure. We seek a correction linear in the
+vector,
 \begin{equation}
-\nabla_n V_m
-=
-\frac{\partial V_m}{\partial y^n}
-+
-\Gamma^r{}_{nm}V_r.
+  \partial_n V_m + C^r{}_{nm}V_r,
+  \label{eq:l05-temporary-connection}
 \end{equation}
-The same line is also read as saying that the corrected derivative is a rank-two tensor:
-\begin{equation}
-\frac{\partial V_m}{\partial y^n}
-+
-\Gamma^r{}_{nm}V_r
-=
-T_{mn}.
-\end{equation}
+whose inhomogeneous transformation cancels the derivative of the
+Jacobian. The board initially denotes this temporary coefficient by
+\(\Gamma\) and writes it with a plus sign for a lower index.
 
-\begin{remark}
-The board formula for the lower-index vector carries a plus sign in front of the connection term, and that sign is clearly visible in the extracted frames. We retain that local lecture convention when quoting this stage of the argument.
-\end{remark}
-
-Susskind immediately emphasizes that ``covariant derivative'' does not mean ``derivative of a covariant vector.'' It is an unfortunate overlap of words. The phrase names the operation, not the index type of the thing to which it is applied.
-
-Now the lecture broadens the rule. If we differentiate a tensor with two lower indices, each lower index contributes its own correction term. The right way to think about it is exactly the way Susskind explains it in class: turn a blind eye to all but one index, pretend the visible index belongs to a vector, write the corresponding correction, and then repeat for the other indices. Thus for a rank-two covariant tensor,
-\begin{equation}
-\nabla_p T_{mn}
-=
-\frac{\partial T_{mn}}{\partial y^p}
-+
-\Gamma^r{}_{pm}T_{rn}
-+
-\Gamma^r{}_{pn}T_{mr}.
-\end{equation}
-
-The lecture then revisits the one-index example after relabeling the derivative index to \(p\):
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_05_figure_03.png}
-\caption{Reindexed covariant-derivative formula}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.84\textwidth]{lecture_05_figure_07.png}
+  \caption{The first corrected derivative on the board. To keep the later
+  Christoffel formula conventional, we denote the temporary plus-sign
+  coefficient here by \(C^r{}_{nm}=-\Gamma^r{}_{nm}\).}
+  \lectureframe{00:40:30}
 \end{figure}
 
+We now adopt the standard Levi--Civita sign convention by defining
 \begin{equation}
-\nabla_p V_m
-=
-\frac{\partial V_m}{\partial y^p}
-+
-\Gamma^r{}_{pm}V_r.
+  C^r{}_{nm}=-\Gamma^r{}_{nm}.
 \end{equation}
-The right-hand side tensor label is partly occluded in the frame, but the intended reading is that this object is the tensor \(T_{mp}\).
-
-The lecture later also writes the corresponding formula for an upper-index vector:
+The covariant derivative of a covector is therefore
 \begin{equation}
-\nabla_m V^n
-=
-\frac{\partial V^n}{\partial y^m}
-+
-\Gamma^n{}_{mr}V^r.
+  \boxed{
+  \nabla_n V_m
+  =
+  \partial_n V_m
+  -
+  \Gamma^r{}_{nm}V_r.}
+  \label{eq:l05-covector-derivative}
 \end{equation}
-This will be the form we need when we come to derivatives along curves.
+This one normalization resolves the apparent sign change between the early
+board equations and the conventional Christoffel formula written later.
+No geometry changes; only the name assigned to the temporary correction
+coefficient changes.
 
-\subsection{Question \& Answer}
+\begin{classroomqa}
+\audiencequestion{Was the correction obtained only because the starting
+\(x\)-coordinates were Cartesian, or does a connection exist in a general
+geometry?
+\lecturetimestamp{00:42:09--00:42:53}}
+\lecturerresponse{The Cartesian calculation is the cleanest way to expose
+the inhomogeneous term. A connection is defined in general coordinates and
+on curved spaces as well. For the metric geometry used here, the metric
+will determine the unique torsion-free, metric-compatible connection.}
+\end{classroomqa}
 
-At this point the audience raises a very good bookkeeping question: may we interchange a free index with a repeated one?
+The word \emph{covariant} in \emph{covariant derivative} describes the
+coordinate-respecting operation. It does not mean that the differentiated
+object must carry a lower index.
 
-No. A repeated index is a dummy summation index, and dummy indices may be renamed. A free index is not a dummy index, and in general it may not be swapped with another free index or with a repeated one. One may only interchange indices when there is an independent symmetry of the tensor that justifies it.
+\subsection{One correction for each index}
 
-So the rule is:
-\begin{itemize}
-\item repeated indices may be renamed;
-\item free indices may not be interchanged merely for convenience;
-\item if a tensor is symmetric or antisymmetric in certain slots, then one may use that symmetry, but not otherwise.
-\end{itemize}
-
-That warning matters because the entire middle part of the lecture is about index bookkeeping. The formulas are only trustworthy if the indices are treated honestly.
-
-\section{A Concrete Example: Polar Coordinates}
-
-After the abstract discussion, Susskind resets with a concrete example. Go to polar coordinates and ignore the origin, which he explicitly calls a nasty point. Consider a vector field with
+Each tensor index contributes its own connection term. With the standard
+sign convention, every lower index contributes a minus sign and every
+upper index contributes a plus sign. For a rank-two covariant tensor,
 \begin{equation}
-V_\theta=0,
-\qquad
-V_r=1.
-\end{equation}
-Its polar components are constant: one and zero everywhere. But the vector field itself is not constant, because at every point it points radially outward from the origin. The arrow on the right side of the plane is different from the arrow at the top, and different again from the arrow on the left.
-
-So here we have exactly the kind of example the lecture wanted. The components are constant, yet the vector field is clearly varying from place to place. In Cartesian coordinates those components would not be constant. In polar coordinates they are constant. The geometric field is the same in both descriptions. Therefore it is the covariant derivative, not the ordinary derivative of components, that captures the real variation.
-
-In standard polar coordinates on the flat plane,
-\begin{equation}
-ds^2=dr^2+r^2\,d\theta^2.
-\end{equation}
-Thus the metric has a nonconstant component, namely \(g_{\theta\theta}=r^2\). That is enough to generate nontrivial Christoffel symbols even though the underlying space is flat. So flatness does not mean that the Christoffel symbols vanish in every coordinate system. It means that one can find coordinates, namely Cartesian coordinates, in which they vanish.
-
-\section{Metric Compatibility and the Christoffel Symbols}
-
-Up to this point \(\Gamma\) has been introduced formally, as the thing that must be added to the ordinary derivative in order to make a tensor. The lecture now asks what determines \(\Gamma\) geometrically.
-
-The answer comes from the metric. In flat Cartesian coordinates,
-\begin{equation}
-g_{mn}=\delta_{mn},
-\end{equation}
-so the metric is constant from point to point. If the covariant derivative is really the correct derivative, then the covariant derivative of the metric ought to vanish there. But the covariant derivative of the metric is supposed to be a tensor. Therefore, if it vanishes in one coordinate system, it must vanish in all coordinate systems. This motivates metric compatibility:
-\begin{equation}
-\nabla_r g_{mn}=0.
+  \boxed{
+  \nabla_p T_{mn}
+  =
+  \partial_p T_{mn}
+  -
+  \Gamma^r{}_{pm}T_{rn}
+  -
+  \Gamma^r{}_{pn}T_{mr}.}
+  \label{eq:l05-rank-two-derivative}
 \end{equation}
 
-With the lecture's local sign convention for lower indices, the expansion reads
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_05_figure_08.png}
+  \caption{The board builds the rank-two rule one index at a time using
+  the temporary \(C=-\Gamma\) convention. In standard notation the two
+  lower-index corrections carry minus signs, as in
+  Eq.~\eqref{eq:l05-rank-two-derivative}.}
+  \lectureframe{00:49:45}
+\end{figure}
+
+The lecture's practical method is useful. Temporarily ignore all but one
+tensor index, apply the vector rule to that slot, and then repeat for every
+other slot. What must never change is the identity of the free indices.
+
+\begin{classroomqa}
+\audiencequestion{Which tensor index belongs in each correction term?
+\lecturetimestamp{00:46:14--00:53:21}}
+\lecturerresponse{The connection acts on one slot at a time. Acting on the
+\(m\)-slot replaces \(m\) by the dummy index \(r\), producing
+\(\Gamma^r{}_{pm}T_{rn}\). Acting on the \(n\)-slot produces
+\(\Gamma^r{}_{pn}T_{mr}\). The classroom corrections to the board are
+important: \(T_{rn}\) and \(T_{mr}\) cannot be interchanged without an
+independent symmetry.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{May a free index be swapped with a repeated index?
+\lecturetimestamp{00:53:55--00:54:51}}
+\lecturerresponse{No. A repeated index is a dummy summation label and may
+be renamed consistently within its term. A free index identifies a
+component of the result and must remain free in the same position in every
+term. Indices may be interchanged only when a stated symmetry permits it.}
+\end{classroomqa}
+
+For a vector with an upper index,
 \begin{equation}
-\frac{\partial g_{mn}}{\partial y^r}
-+
-\Gamma^s{}_{rm}g_{sn}
-+
-\Gamma^s{}_{rn}g_{ms}
-=
-0.
+  \boxed{
+  \nabla_m V^n
+  =
+  \partial_m V^n
+  +
+  \Gamma^n{}_{mr}V^r.}
+  \label{eq:l05-vector-derivative}
 \end{equation}
-This is now an equation for the connection in terms of the metric and its derivatives.
+A scalar has no tensor index on which the connection can act, so
+\(\nabla_m\phi=\partial_m\phi\).
 
-The board derivation of the solution is noisy in the transcript, and Susskind himself tells the audience that the algebra is tedious and that they should check the final answer at home. So here it is best to state the cleaned endpoint in its familiar normalized form:
+\section{The Polar-Coordinate Test}
+
+The abstract rule becomes visible in polar coordinates. On the flat plane,
 \begin{equation}
-\Gamma^A{}_{BC}
-=
-\frac{1}{2}g^{AD}
-\left(
-\partial_B g_{DC}
-+
-\partial_C g_{DB}
--
-\partial_D g_{BC}
-\right).
+  ds^2=dr^2+r^2d\theta^2,
+  \qquad
+  g_{rr}=1,
+  \qquad
+  g_{\theta\theta}=r^2.
+  \label{eq:l05-polar-metric}
+\end{equation}
+Ignore the singular origin and consider the radial field
+\begin{equation}
+  V^r=1,
+  \qquad
+  V^\theta=0.
+  \label{eq:l05-radial-field}
+\end{equation}
+Its polar components are constant, yet the arrows point in different
+Cartesian directions around the origin. The field is not geometrically
+constant.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_05_figure_09.png}
+  \caption{The radial field has constant polar components
+  \(V^r=1\), \(V^\theta=0\), but its direction changes from point to point.}
+  \lectureframe{00:56:52}
+\end{figure}
+
+The nonzero polar Christoffel symbols are
+\begin{equation}
+  \Gamma^r{}_{\theta\theta}=-r,
+  \qquad
+  \Gamma^\theta{}_{r\theta}
+  =
+  \Gamma^\theta{}_{\theta r}
+  =
+  \frac{1}{r}.
+  \label{eq:l05-polar-christoffel}
+\end{equation}
+Consequently,
+\begin{equation}
+  \nabla_\theta V^\theta
+  =
+  \Gamma^\theta{}_{\theta r}V^r
+  =
+  \frac{1}{r}\neq 0.
+\end{equation}
+The covariant derivative detects the turning of the field even though the
+ordinary derivatives of its polar components vanish.
+
+\begin{classroomqa}
+\audiencequestion{Does Cartesian simply mean that the coordinate lines
+look straight, as on a Mercator map?
+\lecturetimestamp{00:59:32--01:00:30}}
+\lecturerresponse{No. Here Cartesian means that the flat-space metric has
+constant components \(g_{mn}=\delta_{mn}\). A drawing may use straight
+grid lines while distorting the metric. Conversely, polar coordinates
+describe a flat plane even though their coordinate basis changes from
+point to point.}
+\end{classroomqa}
+
+\section{Metric Compatibility}
+
+The connection has so far been introduced as the correction needed for
+tensorial differentiation. We now determine it from the metric. In flat
+Cartesian coordinates the metric is constant, so its covariant derivative
+should vanish. Since \(\nabla_p g_{mn}\) is a tensor, vanishing in those
+coordinates implies vanishing in every coordinate system:
+\begin{equation}
+  \boxed{\nabla_p g_{mn}=0.}
+  \label{eq:l05-metric-compatibility}
+\end{equation}
+Using the standard convention,
+\begin{equation}
+  0
+  =
+  \partial_p g_{mn}
+  -
+  \Gamma^r{}_{pm}g_{rn}
+  -
+  \Gamma^r{}_{pn}g_{mr}.
+  \label{eq:l05-metric-compatibility-expanded}
 \end{equation}
 
-This is the Christoffel symbol. Susskind also calls it the connection, or affine connection. The important point in the lecture is not the memorization of the index pattern, but the fact that the connection is built from the metric and its first derivatives.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_05_figure_10.png}
+  \caption{Metric compatibility expanded on the board in the temporary
+  \(C=-\Gamma\) notation. Converting to the standard Christoffel symbol
+  yields Eq.~\eqref{eq:l05-metric-compatibility-expanded}.}
+  \lectureframe{01:03:30}
+\end{figure}
 
-It is equally important that the Christoffel symbols are not tensors. In flat space with Cartesian coordinates, all derivatives of the metric vanish and therefore \(\Gamma^A{}_{BC}=0\). But if we change to curvilinear coordinates in the same flat space, derivatives of the metric need not vanish, so the Christoffel symbols need not vanish. A genuine tensor that is zero in one frame would be zero in all frames. Hence the Christoffel symbols are not tensors.
+\begin{classroomqa}
+\audiencequestion{Why choose the covariant derivative of the metric to be
+zero?
+\lecturetimestamp{01:18:26--01:19:49}}
+\lecturerresponse{In homogeneous flat space the metric is the same at every
+point in Cartesian coordinates, so its ordinary derivative vanishes.
+The covariant derivative is designed to preserve that geometric statement
+in arbitrary coordinates. More deeply, \(\nabla g=0\) says that parallel
+transport preserves lengths and angles.}
+\end{classroomqa}
 
-The lecture then adds a geometric interpretation that is worth preserving. In any Riemannian space, curved or not, if we look at a small enough patch we can introduce coordinates as close to Cartesian as possible. At a chosen point the metric can be made equal to \(\delta_{mn}\), and its first derivatives can also be made to vanish there. At that point the Christoffel symbols vanish, and the covariant derivative reduces to the ordinary derivative. So the covariant derivative tells us how a tensor varies in coordinates that are, at the point in question, as flattened out as possible.
+Metric compatibility alone leaves the possibility of torsion. The
+connection used here is also taken to be torsion-free,
+\begin{equation}
+  \Gamma^a{}_{bc}=\Gamma^a{}_{cb}.
+\end{equation}
+These two conditions determine the Levi--Civita connection uniquely.
+Permuting the indices in
+Eq.~\eqref{eq:l05-metric-compatibility-expanded}, adding two equations,
+subtracting the third, and raising one index gives
+\begin{equation}
+  \boxed{
+  \Gamma^a{}_{bc}
+  =
+  \frac{1}{2}g^{ad}
+  \left(
+    \partial_b g_{dc}
+    +
+    \partial_c g_{db}
+    -
+    \partial_d g_{bc}
+  \right).}
+  \label{eq:l05-christoffel}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.91\textwidth]{lecture_05_figure_11.png}
+  \caption{The conventional Christoffel formula. Its lower indices
+  \(b,c\) are symmetric, and the upper index is produced by the inverse
+  metric \(g^{ad}\).}
+  \lectureframe{01:09:43}
+\end{figure}
+
+The Christoffel symbols are also called connection coefficients or an
+affine connection. They are built from the metric and its first
+derivatives. They are not themselves the components of a tensor.
+
+\begin{classroomqa}
+\audiencequestion{Are there two kinds of Christoffel symbol, and may their
+indices be raised and lowered with the metric?
+\lecturetimestamp{01:05:34--01:07:46}}
+\lecturerresponse{One often writes both
+\(\Gamma^a{}_{bc}\) and
+\(\Gamma_{abc}=g_{ad}\Gamma^d{}_{bc}\). They are related by the metric, but
+the connection is not a tensor, so this notation must not be mistaken for
+an ordinary tensor transformation law. The Levi--Civita formula makes the
+relationship well defined in the chosen coordinates.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Should the derivatives in the Christoffel formula use
+\(x\) or \(y\) coordinates?
+\lecturetimestamp{01:09:39--01:10:15}}
+\lecturerresponse{Use whichever coordinate system supplies the metric
+components. If the metric is written as \(g_{mn}(y)\), differentiate with
+respect to \(y\); the resulting numbers are the connection coefficients
+in the \(y\)-coordinates.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{If all three indices are lowered, is the result symmetric
+in all three?
+\lecturetimestamp{01:13:17--01:15:13}}
+\lecturerresponse{No. For the torsion-free Levi--Civita connection,
+\(\Gamma^a{}_{bc}\) is symmetric only in \(b\) and \(c\). Lowering \(a\)
+does not create symmetry with that slot; the minus sign in
+Eq.~\eqref{eq:l05-christoffel} already distinguishes it.}
+\end{classroomqa}
+
+The same connection acts on upper-index components with the opposite sign
+from lower-index components, as in
+Eq.~\eqref{eq:l05-vector-derivative}.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_12.png}
+  \caption{Covariant differentiation of an upper-index vector. In the
+  standard convention the connection term enters with a plus sign.}
+  \lectureframe{01:13:15}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Can the metric be used to lower an index on something
+that is not a tensor?
+\lecturetimestamp{01:15:38--01:17:23}}
+\lecturerresponse{For this metric-derived connection, the lowered
+coefficient is a useful and consistent abbreviation. But the result does
+not thereby become a tensor. Index lowering preserves tensorial character
+when one starts with a tensor; it cannot manufacture tensorial
+transformation behavior from a connection coefficient.}
+\end{classroomqa}
+
+In \(D\) dimensions there are \(D^3\) displayed connection coefficients:
+27 in three dimensions and 64 in four. Symmetry in the two lower indices
+reduces the number of independent coefficients, but practical
+calculations can still be lengthy. The point of the construction is the
+logic: the connection terms convert ordinary component differentiation
+into a geometric operation.
+
+\section{What the Connection Means Locally}
+
+The fact that \(\Gamma^a{}_{bc}\) is not a tensor can be seen immediately.
+In flat Cartesian coordinates the metric is constant, so all Christoffel
+symbols vanish. In polar coordinates on the same flat plane they do not
+vanish. A tensor that vanished in one coordinate system would vanish in
+all of them.
+
+The transformation law contains an inhomogeneous second-derivative term:
+\begin{align}
+  \Gamma'^a{}_{bc}
+  &=
+  \frac{\partial y^a}{\partial x^r}
+  \frac{\partial x^m}{\partial y^b}
+  \frac{\partial x^n}{\partial y^c}
+  \Gamma^r{}_{mn}
+  \nonumber\\
+  &\quad+
+  \frac{\partial y^a}{\partial x^r}
+  \frac{\partial^2 x^r}
+       {\partial y^b\partial y^c}.
+  \label{eq:l05-connection-transform}
+\end{align}
+That inhomogeneous term is not a defect. It is exactly what cancels the
+corresponding term from differentiating tensor components.
+
+\begin{classroomqa}
+\audiencequestion{Is there a coordinate-free way to understand the
+covariant derivative?
+\lecturetimestamp{01:19:51--01:23:55}}
+\lecturerresponse{At any chosen point \(p\), one may introduce normal
+coordinates for which
+\[
+  g_{mn}(p)=\delta_{mn}
+  \quad\text{and}\quad
+  \partial_r g_{mn}(p)=0
+\]
+in a Riemannian space, with the corresponding Minkowski metric in
+spacetime. Hence \(\Gamma^a{}_{bc}(p)=0\), and at that point the covariant
+derivative equals the ordinary derivative. The construction compares
+nearby tensors as they would be compared in the locally flattened frame.
+Only the statement at the chosen point is exact; curvature remains in
+second derivatives and prevents one normal frame from flattening an
+extended curved region.}
+\end{classroomqa}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_13.png}
+  \caption{Locally Cartesian coordinates at one point of a curved surface.
+  The metric and its first derivatives can be normalized there even when
+  no single coordinate system flattens the whole surface.}
+  \lectureframe{01:21:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{If the Christoffel symbols are zero, is that the
+definition of flat space?
+\lecturetimestamp{01:23:56--01:25:59}}
+\lecturerresponse{Not at a single point. Normal coordinates can make them
+zero at any chosen point even in curved space. Flatness means that one can
+find coordinates in which they vanish throughout a neighborhood, or
+equivalently that the curvature tensor vanishes there. Conversely,
+curvilinear coordinates can make the Christoffel symbols nonzero even in
+flat space. In polar coordinates it is
+\(g_{\theta\theta}=r^2\), not \(g_{rr}\), that varies with \(r\).}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Is the exterior derivative the same operation?
+\lecturetimestamp{01:26:02--01:26:58}}
+\lecturerresponse{No. The exterior derivative acts on differential forms
+and is tensorial without a connection. In three Euclidean dimensions, the
+exterior derivative of a one-form corresponds, after applying the Hodge
+dual, to the familiar curl. That is a related but distinct construction
+and is deferred here.}
+\end{classroomqa}
 
 \section{Differentiation Along a Curve}
 
-Now the lecture changes scale. Up to here we have differentiated tensor fields from point to point in space. The next problem is to differentiate along a particular curve.
-
-Take a curve and parameterize it by arc length \(s\). The first step is to understand the scalar case. If \(\phi\) is a scalar field, then its derivative along the curve is
+Let a curve be described by coordinates \(y^m(s)\), where \(s\) is arc
+length. Its tangent vector is
 \begin{equation}
-\frac{d\phi}{ds}
-=
-\frac{\partial \phi}{\partial y^m}\frac{dy^m}{ds}.
-\end{equation}
-The factor
-\begin{equation}
-t^m\equiv \frac{dy^m}{ds}
-\end{equation}
-is the tangent vector to the curve. Because \(s\) is arc length, \(t^m\) is a unit vector tangent to the curve.
-
-This is a nice moment in the lecture. Susskind pauses to make the geometry visible. The vector \(dy^m\) points along the curve, and dividing by the infinitesimal length \(ds\) produces the unit tangent vector. So the scalar derivative along the path is just the gradient contracted with the tangent direction.
-
-For a vector field the same plan must be corrected. The ordinary derivative of the components along the curve is not tensorial for the same reason as before: the coordinates may be moving around. So we simply replace the ordinary derivative by the covariant derivative. The covariant derivative of a vector along the curve is defined by
-\begin{equation}
-\frac{D V^n}{Ds}
-=
-\nabla_m V^n\,\frac{dy^m}{ds}.
-\end{equation}
-Expanding \(\nabla_m V^n\), we find
-\begin{equation}
-\frac{D V^n}{Ds}
-=
-\frac{dV^n}{ds}
-+
-\Gamma^n{}_{mr}V^r\frac{dy^m}{ds}.
-\end{equation}
-The first term is the ordinary derivative along the curve. The second term accounts for the fact that the coordinate frame itself may be turning as we move.
-
-This is exactly the pattern the lecture wanted us to see: take the ordinary derivative, then add the \(\Gamma\)-term, and finally contract with the tangent vector to specify the direction of differentiation.
-
-\section{Geodesics and the Road Toward Gravity}
-
-Now we go one step further and differentiate the tangent vector itself. Put
-\begin{equation}
-V^n=t^n=\frac{dy^n}{ds}.
-\end{equation}
-Then the covariant derivative of the tangent vector along the curve is
-\begin{equation}
-\frac{D t^n}{Ds}
-=
-\frac{d^2 y^n}{ds^2}
-+
-\Gamma^n{}_{mr}\frac{dy^m}{ds}\frac{dy^r}{ds}.
+  t^m
+  =
+  \frac{dy^m}{ds},
+  \qquad
+  g_{mn}t^m t^n=1.
+  \label{eq:l05-tangent}
 \end{equation}
 
-In flat space with Cartesian coordinates, a straight line has constant tangent vector, so this quantity is zero. But the lecture now asks the more interesting question: can this still happen in a genuinely curved space? Can there be curves in a curved space whose tangent vector is covariantly constant?
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{lecture_05_figure_14.png}
+  \caption{A curve parameterized by arc length \(s\), with the tangent
+  direction marked along the path.}
+  \lectureframe{01:29:10}
+\end{figure}
 
-The answer is yes.
+For a scalar field, differentiation along the curve is an ordinary chain
+rule:
+\begin{equation}
+  \frac{d\phi}{ds}
+  =
+  \frac{\partial\phi}{\partial y^m}
+  \frac{dy^m}{ds}
+  =
+  t^m\partial_m\phi.
+  \label{eq:l05-scalar-path}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_15.png}
+  \caption{The derivative of a scalar along a curve is the contraction of
+  its gradient with the tangent vector.}
+  \lectureframe{01:30:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Is \(dy^m/ds\) the slope, and why does it have unit
+length?
+\lecturetimestamp{01:30:33--01:31:49}}
+\lecturerresponse{It is the tangent vector rather than a single coordinate
+slope. A slope such as \(dy/dx\) compares two coordinates; \(dy^m/ds\)
+lists all components of the tangent. Because \(s\) is arc length,
+\(g_{mn}(dy^m/ds)(dy^n/ds)=1\).}
+\end{classroomqa}
+
+For a vector, the ordinary derivative along the curve is still not
+tensorial. We first take the covariant derivative and then contract its
+derivative index with the tangent:
+\begin{equation}
+  \boxed{
+  \frac{D V^n}{Ds}
+  \equiv
+  t^m\nabla_m V^n.}
+  \label{eq:l05-path-derivative-definition}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_16.png}
+  \caption{The pathwise covariant derivative is obtained by contracting
+  the ordinary covariant derivative with the tangent direction.}
+  \lectureframe{01:36:30}
+\end{figure}
+
+Expanding the definition,
+\begin{align}
+  \frac{D V^n}{Ds}
+  &=
+  \left(
+    \partial_m V^n
+    +
+    \Gamma^n{}_{mr}V^r
+  \right)
+  \frac{dy^m}{ds}
+  \nonumber\\
+  &=
+  \frac{dV^n}{ds}
+  +
+  \Gamma^n{}_{mr}V^r\frac{dy^m}{ds}.
+  \label{eq:l05-path-derivative-expanded}
+\end{align}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_05_figure_17.png}
+  \caption{The expanded path derivative: ordinary change of the vector
+  components plus the connection correction along the tangent.}
+  \lectureframe{01:39:15}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Are the coordinates along this curve assumed to be
+Cartesian?
+\lecturetimestamp{01:34:26--01:34:49}}
+\lecturerresponse{No. The point of
+Eq.~\eqref{eq:l05-path-derivative-expanded} is that it works in arbitrary
+coordinates. In Cartesian coordinates on flat space the Christoffel
+symbols vanish and the familiar ordinary derivative is recovered.}
+\end{classroomqa}
+
+\section{Geodesics}
+
+Now differentiate the tangent vector itself. Set
+\begin{equation}
+  V^n=t^n=\frac{dy^n}{ds}.
+\end{equation}
+Then
+\begin{equation}
+  \frac{D t^n}{Ds}
+  =
+  \frac{d^2y^n}{ds^2}
+  +
+  \Gamma^n{}_{mr}
+  \frac{dy^m}{ds}
+  \frac{dy^r}{ds}.
+  \label{eq:l05-tangent-derivative}
+\end{equation}
+In flat Cartesian coordinates, this vanishes along a straight line because
+the tangent is constant. The tensorial form lets us use the same criterion
+in curvilinear coordinates and in genuinely curved spaces.
 
 \begin{definition}
-A geodesic is a curve whose tangent vector is covariantly constant. Equivalently,
+A geodesic is an affinely parameterized curve whose tangent vector is
+covariantly constant:
 \begin{equation}
-\frac{D t^n}{Ds}=0,
+  \boxed{
+  \frac{D t^n}{Ds}=0.}
+  \label{eq:l05-geodesic-definition}
 \end{equation}
-or in second-order form,
+Equivalently,
 \begin{equation}
-\frac{d^2 y^n}{ds^2}
-+
-\Gamma^n{}_{mr}\frac{dy^m}{ds}\frac{dy^r}{ds}
-=
-0.
+  \boxed{
+  \frac{d^2y^n}{ds^2}
+  +
+  \Gamma^n{}_{mr}
+  \frac{dy^m}{ds}
+  \frac{dy^r}{ds}
+  =
+  0.}
+  \label{eq:l05-geodesic-equation}
 \end{equation}
 \end{definition}
 
-This is not yet curvature theory, but it is already the geometry of motion. A geodesic is the straightest possible curve in the space. In coordinates that are locally as flat as possible, its tangent vector has constant components for a short distance, until the coordinates begin to bend again.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{lecture_05_figure_18.png}
+  \caption{The geodesic equation on the board. A geodesic is the curve
+  whose tangent transports itself without turning relative to the
+  connection.}
+  \lectureframe{01:44:45}
+\end{figure}
 
-The lecture then explicitly bridges to physics. In special relativity, straight lines in space-time are the world-lines of particles on which no force acts. In general relativity, free particles move on geodesics. The geodesic equation therefore plays the role of an equation of motion. The left-hand side looks like an acceleration term, and the connection term looks like a force term. Since the Christoffel symbols are built from derivatives of the metric, the derivatives of the metric become the relativistic analog of the gravitational force.
+In flat space the geodesics are straight lines. In a curved space they are
+the straightest available curves: their tangent vectors are parallel
+transported along themselves. This condition can hold even though no
+coordinate system makes the whole space flat.
 
-Susskind is careful here: he is not yet proving the full gravitational dynamics. He is telling us where the formalism is going. We already have the apparatus needed to talk about motion. What comes next is parallel transport, and then curvature, the obstruction to flattening a space globally.
+\begin{classroomqa}
+\audiencequestion{Could one use a contravariant derivative instead of the
+covariant derivative in the definition?
+\lecturetimestamp{01:46:19--01:47:11}}
+\lecturerresponse{The terminology is causing the confusion.
+\emph{Covariant derivative} names the coordinate-covariant operation; here
+it is acting on the contravariant tangent \(t^n\). Lowering the tangent
+with the metric gives the equivalent lower-index equation because the
+Levi--Civita connection satisfies \(\nabla g=0\).}
+\end{classroomqa}
 
-\section{Summary}
+\subsection{The road to gravity}
 
-This lecture unfolds a single argument step by step. We begin with the reason tensors matter: they let us write equations whose truth survives a change of coordinates. The derivative of a scalar respects that principle, but the ordinary derivative of a vector does not, because the derivative sees the variation of the coordinates themselves. The product rule exposes the failure explicitly.
+In special relativity, a force-free particle follows a straight worldline
+in flat spacetime. In general relativity, a freely falling particle follows
+a spacetime geodesic. With proper time \(\tau\) as affine parameter,
+\begin{equation}
+  \frac{d^2x^\mu}{d\tau^2}
+  =
+  -
+  \Gamma^\mu{}_{\alpha\beta}
+  \frac{dx^\alpha}{d\tau}
+  \frac{dx^\beta}{d\tau}.
+  \label{eq:l05-spacetime-geodesic}
+\end{equation}
+The left side resembles acceleration, while the right side contains first
+derivatives of the metric through the Christoffel symbols.
 
-From that failure the cure emerges. We introduce the connection, build the covariant derivative, and then generalize it index by index. The polar-coordinate example shows why constant components are not enough. Metric compatibility then ties the connection to the metric and leads to the Christoffel symbols, which are not tensors but are exactly the objects needed to differentiate tensors correctly.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.88\textwidth]{lecture_05_figure_19.png}
+  \caption{The closing comparison with Newtonian motion. Coordinate
+  acceleration is related to a spatial derivative of the gravitational
+  potential, while the relativistic geodesic equation contains first
+  derivatives of the metric through \(\Gamma\).}
+  \lectureframe{01:50:15}
+\end{figure}
 
-Finally, by contracting the covariant derivative with a tangent vector, we learn how to differentiate along a curve. Setting the covariant derivative of the tangent vector to zero gives the geodesic equation. At that point the geometry is already leaning toward physics: the Christoffel symbols, hence derivatives of the metric, enter as the force-like terms governing the motion of free particles in a gravitational field.
+Newtonian gravity writes
+\begin{equation}
+  m\frac{d^2\bm{x}}{dt^2}
+  =
+  -m\bm{\nabla}\Phi,
+  \label{eq:l05-newton}
+\end{equation}
+so the mass cancels. In the weak, slowly varying field limit,
+\begin{equation}
+  g_{00}
+  \simeq
+  1+\frac{2\Phi}{c^2},
+  \qquad
+  \Gamma^i{}_{00}
+  \simeq
+  \frac{1}{c^2}\partial_i\Phi,
+\end{equation}
+and the spatial part of
+Eq.~\eqref{eq:l05-spacetime-geodesic} reduces to
+\begin{equation}
+  \frac{d^2x^i}{dt^2}
+  \simeq
+  -\partial_i\Phi.
+\end{equation}
+This is only a preview of the derivation, but it makes the destination
+clear: what Newtonian language calls gravitational force is encoded in
+the spacetime metric and its connection. A freely falling particle feels
+no nongravitational proper force; its worldline is straight in the
+geometric sense expressed by the geodesic equation.
+
+One concept remains before curvature can be defined operationally:
+parallel transport around different paths. Curvature will measure the
+obstruction to making those comparisons path independent, and therefore
+the obstruction to flattening the geometry beyond a single point.
