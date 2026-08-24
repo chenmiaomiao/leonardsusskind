@@ -1,538 +1,973 @@
-\chapter{Phase, Polarization, and Unitary Evolution}
+\chapter{Global Phase, Polarization Ellipses, and Unitary Evolution}
 
-This lecture begins with unfinished business and ends with the basic structure of quantum dynamics. We start by returning to photon polarization, because that two-state system is still the cleanest laboratory for the ideas on the board. From there the lecture pauses to ask what state-vectors are actually for, why multiplying a state by an overall phase changes nothing observable, how many parameters are needed to specify the polarization of a photon, and finally what kind of transformations can move states forward in time without disturbing their physical relations. What follows keeps close to that progression. The original lecture is due to Leonard Susskind, and the supporting curation pipeline is credited to LazyingArt LLC and Video2Book.
+\section{Completing the Polarization Observable}
 
-\section{Polarization Observables Revisited}
-
-The lecture opens by asking for the homework answer: what operator has the circular polarization states as its eigenvectors? Before going on, Susskind quickly reconstructs the three polarization observables that have been developed in the preceding lectures. This is not merely review. He wants the two-state example back on the board before any more formalism is introduced.
-
-For horizontal and vertical polarization we take
+We begin with the unfinished exercise from the preceding lecture. The
+horizontal and vertical polarization states are
 \begin{equation}
-\hat P_{xy}=
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix},
-\qquad
-|x\rangle=
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix},
-\qquad
-|y\rangle=
-\begin{pmatrix}
-0\\
-1
-\end{pmatrix}.
+  \ket{x}=
+  \begin{pmatrix}1\\0\end{pmatrix},
+  \qquad
+  \ket{y}=
+  \begin{pmatrix}0\\1\end{pmatrix},
 \end{equation}
-Thus $|x\rangle$ and $|y\rangle$ are eigenvectors of $\hat P_{xy}$ with eigenvalues $+1$ and $-1$.
-
-For linear polarization along an axis making angle $\theta$ with the $x$-direction, the state is written
+and the observable that records \(+1\) for horizontal transmission and
+\(-1\) for vertical transmission is
 \begin{equation}
-|\theta\rangle=
-\begin{pmatrix}
-\cos\theta\\
-\sin\theta
-\end{pmatrix}.
+  \hat P_0=
+  \begin{pmatrix}
+    1&0\\
+    0&-1
+  \end{pmatrix}.
+  \label{eq:l7-P0}
 \end{equation}
-An orthogonal partner may be chosen as
+At \(45^\circ\), the two eigenstates
 \begin{equation}
-|\theta+\pi/2\rangle=
-\begin{pmatrix}
-\sin\theta\\
--\cos\theta
-\end{pmatrix},
+  \ket{d_\pm}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\ \pm1\end{pmatrix}
 \end{equation}
-or with the opposite overall sign. The lecture explicitly remarks that the sign choice does not matter. That is a local comment at first, but by the end of the lecture it becomes a special case of the general irrelevance of overall phase.
-
-The special $45^\circ$ states are therefore
+belong to
 \begin{equation}
-|45^\circ,+\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-1
-\end{pmatrix},
-\qquad
-|45^\circ,-\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
--1
-\end{pmatrix},
-\end{equation}
-and the corresponding observable is
-\begin{equation}
-\hat P_{45}=
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix}.
+  \hat P_{\pi/4}
+  =
+  \begin{pmatrix}
+    0&1\\
+    1&0
+  \end{pmatrix}.
+  \label{eq:l7-P45}
 \end{equation}
 
-Then comes the genuinely new case, the first place in this story where complex numbers are unavoidable:
+The homework was to construct the observable for the circular basis
 \begin{equation}
-|C_+\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-i
-\end{pmatrix},
-\qquad
-|C_-\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
--i
-\end{pmatrix}.
+  \ket{c_+}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\i\end{pmatrix},
+  \qquad
+  \ket{c_-}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\-i\end{pmatrix}.
+  \label{eq:l7-circular-basis}
 \end{equation}
-These are again orthogonal, provided we remember the rule that inner products involve complex conjugation. The circular-polarization observable is
+The spectral rule gives the answer immediately:
+\begin{align}
+  \hat P_c
+  &=
+  \ket{c_+}\bra{c_+}
+  -\ket{c_-}\bra{c_-}\\
+  &=
+  \begin{pmatrix}
+    0&-i\\
+    i&0
+  \end{pmatrix}.
+  \label{eq:l7-Pc}
+\end{align}
+Indeed,
 \begin{equation}
-\hat P_{\mathrm{circ}}=
-\begin{pmatrix}
-0&-i\\
-i&0
-\end{pmatrix},
+  \hat P_c\ket{c_\pm}=\pm\ket{c_\pm}.
 \end{equation}
-and one checks directly that
-\begin{equation}
-\hat P_{\mathrm{circ}}|C_\pm\rangle=\pm |C_\pm\rangle.
-\end{equation}
+The only delicate point in the check is \(i^2=-1\), together with complex
+conjugation when a ket becomes a bra.
 
-Already the lecture is stressing an operational reading of the mathematics. Orthogonality is not being introduced as a decorative algebraic relation. Two polarization states are orthogonal when they are distinguishable in a single ideal experiment.
-
-\section{What Quantum States Are For}
-
-Now the lecture steps back and asks a broader question: where are we relative to the first discussion of classical mechanics? In the classical setting of a coin, a die, or any finite collection of states, a state was just a point in a set. An observable was merely a numerical label assigned to each point. Time evolution then carried one point to another.
-
-Quantum mechanics has already gone beyond that. The space of states is now a vector space, and observables are operators on that space. But we are not quite ready for dynamics. First we need to say clearly what physically interesting things one does with states once one has them.
-
-There are, in this lecture, two central uses.
-
-First, if the system is in the state $|\psi\rangle$ and we are interested in an observable $\hat K$, we form the expectation value
-\begin{equation}
-\langle \hat K\rangle_\psi=\langle\psi|\hat K|\psi\rangle.
-\end{equation}
-This is the quantity we would obtain by preparing the same state over and over and averaging many measurements of $K$.
-
-Second, suppose $|a\rangle$ and $|b\rangle$ are eigenvectors of two different observables:
-\begin{equation}
-\hat K|a\rangle=\alpha |a\rangle,
-\qquad
-\hat L|b\rangle=\beta |b\rangle.
-\end{equation}
-If we prepare the system with a definite value $K=\alpha$ and then measure $L$, the probability to find $L=\beta$ is
-\begin{equation}
-P(a\to b)=|\langle b|a\rangle|^2
-=\langle a|b\rangle\langle b|a\rangle.
-\end{equation}
-The lecture notes that the same number is obtained if we reverse the order of preparation and measurement. At this level the two great questions are ensemble averages and transition probabilities.
-
-This is the bridge to the phase discussion. If some change in the state-vector does not alter expectation values or transition probabilities, then it has no physical significance.
-
-\section{Overall Phase Has No Physical Meaning}
-
-Before discussing phase, Susskind inserts the normalization rule. Physical state-vectors are taken to be unit vectors:
-\begin{equation}
-\langle\psi|\psi\rangle=1.
-\end{equation}
-That fixes the total probability to be one. But it does not yet exhaust the redundancies in the description.
-
-To make the next point precise, the lecture briefly reviews complex numbers. A complex number can be written in rectangular form as $x+iy$ and in polar form as
-\begin{equation}
-z=re^{i\theta}.
-\end{equation}
-Its complex conjugate is
-\begin{equation}
-z^*=re^{-i\theta}.
-\end{equation}
-A \emph{pure phase} is a complex number of unit modulus, so $r=1$ and
-\begin{equation}
-z=e^{i\theta},
-\qquad
-z^*=e^{-i\theta},
-\qquad
-zz^*=1.
-\end{equation}
-These are the points on the unit circle in the complex plane.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.72\textwidth]{lecture_07_figure_02.png}
-\caption{Phase-related state vectors and unit-circle sketch from the lecture board.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_07_figure_02.png}
+  \caption{The three polarization bases and the circular observable at the
+  end of the homework review.}
+  \lectureframe{00:05:20}
 \end{figure}
 
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=1.35]
-\draw (0,0) circle (1.25);
-\draw (-1.5,0)--(1.5,0);
-\draw (0,-1.5)--(0,1.5);
-\draw[->] (0,0)--(35:1.25);
-\fill (35:1.25) circle (1.2pt);
-\node at (0.65,0.38) {$\theta$};
-\end{tikzpicture}
-\caption{Clean reconstruction of the phase-circle picture used in the lecture.}
+Orthogonality has an operational meaning throughout this discussion. Two
+orthogonal polarization states can be distinguished with certainty in one
+ideal analyzer: an apparatus that transmits one rejects the other. This is
+why the inner product is not decorative notation. It records a measurable
+relation between preparations.
+
+\section{What States and Observables Are For}
+
+It is useful to pause and compare our present position with the opening
+classical discussion. For a coin or die, the state is one member of a finite
+set. A classical observable is simply a numerical function on that set. We
+might assign \(+1\) to heads and \(-1\) to tails, while the die arrives with
+the labels \(1,\ldots,6\). Relabelling the outcomes changes the numerical
+convention, not the underlying states.
+
+The same idea survives in continuous classical mechanics. A state is a point
+\((q,p)\) in phase space, and an observable is a function
+\begin{equation}
+  F=F(q,p).
+\end{equation}
+Position \(q\), momentum \(p\), and \(p+q\) are elementary examples. As the
+phase-space point moves, the numerical value of each function changes.
+
+Quantum mechanics replaces the set of states by a complex vector space and
+the numerical functions by Hermitian operators. Before discussing motion in
+that space, however, we should isolate the two principal questions that a
+state vector already answers.
+
+First, for a normalized state \(\ket{\psi}\) and observable \(\hat K\), the
+ensemble average is
+\begin{equation}
+  \expect{\hat K}_\psi
+  =\bra{\psi}\hat K\ket{\psi}.
+  \label{eq:l7-expectation}
+\end{equation}
+Prepare the same state repeatedly, measure \(K\) on each member of the
+ensemble, and the empirical mean approaches this number.
+
+Second, suppose
+\begin{equation}
+  \hat K\ket{a}=\alpha\ket{a},
+  \qquad
+  \hat L\ket{b}=\beta\ket{b}.
+\end{equation}
+If the preparation makes \(K=\alpha\) definite and the subsequent
+measurement asks whether \(L=\beta\), then
+\begin{equation}
+  \operatorname{Prob}(b|a)
+  =|\braket{b}{a}|^2
+  =\braket{a}{b}\braket{b}{a}.
+  \label{eq:l7-transition-probability}
+\end{equation}
+Reversing the preparation and test gives the same numerical probability,
+because \(|\braket{a}{b}|^2=|\braket{b}{a}|^2\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_07_figure_03.png}
+  \caption{Expectation value, eigenstate preparations, and the squared
+  overlap as the two physical uses of a state vector.}
+  \lectureframe{00:14:20}
 \end{figure}
 
-On the board this geometric picture is paired with a comparison of two vectors,
+\begin{classroomqa}
+\audiencequestion{Does the order of the two overlaps in the probability
+matter?\lecturetimestamp{00:14:54--00:15:18}}
+\lecturerresponse{The two amplitudes are complex conjugates:
+\(\braket{a}{b}=\braket{b}{a}^{*}\). Their product is therefore the same
+nonnegative real number in either order. The correction on the board changes
+the amplitude, but not the transition probability.}
+\end{classroomqa}
+
+Average values and transition probabilities both refer to repeated
+experiments. A single trial returns one allowed outcome; the probability and
+the average emerge from an ensemble. This common structure leads directly to
+the question of phase.
+
+\section{A Physical State Is a Ray}
+
+\subsection{Pure Phases}
+
+A physical state vector is normalized:
 \begin{equation}
-|A\rangle,
-\qquad
-e^{i\theta}|A\rangle.
+  \braket{\psi}{\psi}=1.
+  \label{eq:l7-normalization}
 \end{equation}
-Mathematically they are different vectors. The second is the first multiplied by a complex number. But physically the lecture insists that they describe the same state. The point is not asserted as a slogan; it is checked against the two things states are used for.
+If \(\ket{\psi}=\sum_n c_n\ket{n}\) in an orthonormal basis, this is
+\(\sum_n|c_n|^2=1\), the statement that the total probability is one.
+
+Normalization does not remove every redundancy. To see what remains, write a
+complex number in polar form,
+\begin{equation}
+  z=x+iy=re^{i\chi}
+  =r(\cos\chi+i\sin\chi).
+\end{equation}
+Multiplication multiplies moduli and adds angles:
+\begin{equation}
+  r_1e^{i\chi_1}r_2e^{i\chi_2}
+  =r_1r_2e^{i(\chi_1+\chi_2)}.
+\end{equation}
+Complex conjugation reflects the number across the real axis,
+\begin{equation}
+  z^*=re^{-i\chi}.
+\end{equation}
+A complex number of unit modulus is a \emph{pure phase}:
+\begin{equation}
+  e^{i\chi},
+  \qquad
+  e^{i\chi}e^{-i\chi}=1.
+  \label{eq:l7-pure-phase}
+\end{equation}
+The word phase may refer either to the angle \(\chi\) or to the unit complex
+number \(e^{i\chi}\); the context tells us which is intended.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_07_figure_04.png}
+  \caption{The unit circle beside the comparison of
+  \(\ket{A}\) and \(e^{i\chi}\ket{A}\).}
+  \lectureframe{00:21:40}
+\end{figure}
+
+\subsection{Why the Overall Phase Cancels}
+
+Mathematically, \(\ket{\psi}\) and \(e^{i\chi}\ket{\psi}\) are different
+vectors. Physically, they represent the same pure state. Let
+\begin{equation}
+  \ket{\psi'}=e^{i\chi}\ket{\psi}.
+\end{equation}
+The corresponding bra is
+\begin{equation}
+  \bra{\psi'}=e^{-i\chi}\bra{\psi}.
+\end{equation}
+Every expectation value is unchanged:
+\begin{align}
+  \bra{\psi'}\hat K\ket{\psi'}
+  &=
+  e^{-i\chi}\bra{\psi}\hat K
+  e^{i\chi}\ket{\psi}\\
+  &=
+  \bra{\psi}\hat K\ket{\psi}.
+  \label{eq:l7-phase-expectation}
+\end{align}
+The phase is an ordinary scalar and commutes through \(\hat K\).
+
+The transition probability is equally insensitive. If
+\(\ket{b'}=e^{i\eta}\ket{b}\), then
+\begin{align}
+  |\braket{b'}{a}|^2
+  &=
+  e^{-i\eta}\braket{b}{a}
+  e^{i\eta}\braket{a}{b}\\
+  &=
+  |\braket{b}{a}|^2.
+  \label{eq:l7-phase-probability}
+\end{align}
+Independent phase choices for either state disappear from the absolute
+square.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_07_figure_05.png}
+  \caption{The two phase factors cancel in both the operator sandwich and
+  the squared overlap.}
+  \lectureframe{00:23:35}
+\end{figure}
+
+The physical object is therefore not one normalized vector but the
+equivalence class
+\begin{equation}
+  \ket{\psi}\sim e^{i\chi}\ket{\psi}.
+  \label{eq:l7-ray-equivalence}
+\end{equation}
+Such an equivalence class is called a \emph{ray} in Hilbert space. In
+particular,
+\begin{equation}
+  \begin{pmatrix}0\\1\end{pmatrix}
+  \sim
+  \begin{pmatrix}0\\-1\end{pmatrix},
+\end{equation}
+because \(-1=e^{i\pi}\). Likewise,
+\begin{equation}
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}1\\i\end{pmatrix}
+  \sim
+  \frac{1}{\sqrt2}
+  \begin{pmatrix}i\\-1\end{pmatrix},
+  \label{eq:l7-circular-phase-example}
+\end{equation}
+because the second vector is \(i\) times the first.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_07_figure_06.png}
+  \caption{Multiplying both circular-polarization components by \(i\)
+  changes the vector but not the physical ray.}
+  \lectureframe{00:28:40}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{What notation should express that two vectors have the
+same physical significance without saying that they are equal?
+\lecturetimestamp{00:25:49--00:27:50}}
+\lecturerresponse{Ordinary equality is too strong, because the vectors
+really differ. The standard statement is that they represent the same ray,
+written here as \(\ket{\psi}\sim e^{i\chi}\ket{\psi}\). What is preserved is
+every expectation value and transition probability.}
+\end{classroomqa}
+
+\section{Two Parameters Describe Polarization}
+
+Begin with the general two-component vector
+\begin{equation}
+  \ket{\psi}
+  =
+  \begin{pmatrix}\alpha\\\beta\end{pmatrix},
+  \qquad
+  \alpha,\beta\in\mathbb C.
+  \label{eq:l7-general-spinor}
+\end{equation}
+The two complex entries contain four real parameters. Normalization removes
+one:
+\begin{equation}
+  |\alpha|^2+|\beta|^2=1.
+\end{equation}
+The irrelevant common phase removes another. Except at the coordinate pole
+\(\alpha=0\), choose that phase so that \(\alpha=a\) is real and
+nonnegative. Then
+\begin{equation}
+  \beta=\sqrt{1-a^2}\,e^{i\phi},
+  \qquad
+  0\leq a\leq1,
+\end{equation}
+and
+\begin{equation}
+  \ket{\psi}
+  =
+  \begin{pmatrix}
+    a\\
+    \sqrt{1-a^2}\,e^{i\phi}
+  \end{pmatrix}.
+  \label{eq:l7-gauge-fixed-state}
+\end{equation}
+Exactly two real parameters remain: \(a\) and the relative phase \(\phi\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_07_figure_07.png}
+  \caption{Normalization and phase fixing reduce two complex amplitudes to
+  two physical real parameters.}
+  \lectureframe{00:32:45}
+\end{figure}
+
+An equivalent parameterization makes the geometry especially transparent:
+\begin{equation}
+  \ket{\psi}
+  =
+  \begin{pmatrix}
+    \cos(\vartheta/2)\\
+    e^{i\phi}\sin(\vartheta/2)
+  \end{pmatrix},
+  \qquad
+  0\leq\vartheta\leq\pi.
+  \label{eq:l7-bloch-parameterization}
+\end{equation}
+The rays of a two-state system form a sphere, often called the Bloch sphere
+or, for polarization, the Poincare sphere. The lecture does not require that
+name, but its two-parameter count is precisely this geometry.
+
+\section{From the State Vector to a Polarization Ellipse}
+
+For a monochromatic wave moving along \(z\), write the transverse electric
+field as
+\begin{equation}
+  \bm E(z,t)
+  =
+  \operatorname{Re}
+  \left[
+    E_0
+    \left(
+      \alpha\,\hat{\bm x}
+      +\beta\,\hat{\bm y}
+    \right)
+    e^{i(kz-\omega t)}
+  \right].
+  \label{eq:l7-Jones-field}
+\end{equation}
+The normalized pair \((\alpha,\beta)^T\) is the Jones vector. If the two
+components have the same phase, the tip of \(\bm E\) moves back and forth
+along a line. A quarter-cycle relative phase with equal magnitudes produces
+a circle. General amplitudes and relative phases produce an ellipse.
+
+The examples on the board may be written dimensionally as
+\begin{align}
+  E_x&=E_0\cos(kz-\omega t),\\
+  E_y&=E_0\sin(kz-\omega t),
+  \label{eq:l7-circle-field}
+\end{align}
+which traces a circle at fixed \(z\), and
+\begin{align}
+  E_x&=E_0\cos(kz-\omega t),\\
+  E_y&=\frac{E_0}{2}\sin(kz-\omega t),
+  \label{eq:l7-ellipse-field}
+\end{align}
+which traces an ellipse with its major axis along \(x\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_07_figure_08.png}
+  \caption{Equal quadrature amplitudes give a circle; reducing one amplitude
+  gives an ellipse.}
+  \lectureframe{00:35:25}
+\end{figure}
+
+The ellipse needs two independent real parameters. One gives the orientation
+of its major axis. The other gives its shape together with the sense of
+rotation. The lecture informally calls the latter a signed eccentricity. In
+standard optics it is cleaner to use the \emph{signed ellipticity angle}
+\(\epsilon\):
+\begin{equation}
+  -\frac{\pi}{4}\leq\epsilon\leq\frac{\pi}{4},
+  \qquad
+  \left|\tan\epsilon\right|
+  =\frac{\text{minor semiaxis}}{\text{major semiaxis}}.
+  \label{eq:l7-ellipticity-angle}
+\end{equation}
+The sign records handedness. Linear polarization has \(\epsilon=0\);
+circular polarization has \(|\epsilon|=\pi/4\), where the major-axis
+direction becomes meaningless.
+
+\begin{classroomqa}
+\audiencequestion{Do clockwise and counterclockwise polarization require a
+third parameter?\lecturetimestamp{00:37:52--00:39:00}}
+\lecturerresponse{No. The shape parameter may carry a sign. As an ellipse is
+squeezed through the linear-polarization limit, changing the sign reverses
+the sense in which the field traverses the curve. Standard optics expresses
+this with signed ellipticity rather than literal signed geometric
+eccentricity.}
+\end{classroomqa}
+
+\subsection{Reading the Ellipse from Analyzer Probabilities}
 
 Let
 \begin{equation}
-|\psi'\rangle=e^{i\chi}|\psi\rangle.
+  b=\sqrt{1-a^2},
+  \qquad
+  \ket{\psi}
+  =
+  \begin{pmatrix}a\\be^{i\phi}\end{pmatrix},
 \end{equation}
-Then the corresponding bra is
+and compare it with a linearly polarized analyzer state
 \begin{equation}
-\langle\psi'|=e^{-i\chi}\langle\psi|.
+  \ket{\theta}
+  =
+  \begin{pmatrix}
+    \cos\theta\\
+    \sin\theta
+  \end{pmatrix}.
 \end{equation}
-So the expectation value of any observable is unchanged:
+The two conjugate amplitudes are
 \begin{align}
-\langle\psi'|\hat K|\psi'\rangle
-&=
-e^{-i\chi}\langle\psi|\hat K\,e^{i\chi}|\psi\rangle \\
-&=
-e^{-i\chi}e^{i\chi}\langle\psi|\hat K|\psi\rangle \\
-&=
-\langle\psi|\hat K|\psi\rangle.
+  \braket{\theta}{\psi}
+  &=a\cos\theta+be^{i\phi}\sin\theta,\\
+  \braket{\psi}{\theta}
+  &=a\cos\theta+be^{-i\phi}\sin\theta.
+  \label{eq:l7-ellipse-overlaps}
 \end{align}
-The phase cancels because it is only an ordinary number.
 
-The same happens for transition probabilities. If, for example, we replace $|b\rangle$ by $e^{i\chi}|b\rangle$, then
+\begin{classroomqa}
+\audiencequestion{Should one of the phase factors in the overlap be complex
+conjugated?\lecturetimestamp{00:41:48--00:42:02}}
+\lecturerresponse{Yes. The sign depends on the bra-ket order. In
+\(\braket{\psi}{\theta}\), the coefficient from \(\ket{\psi}\) is
+conjugated, giving \(e^{-i\phi}\). The opposite order gives \(e^{i\phi}\).
+Their absolute squares agree.}
+\end{classroomqa}
+
+The transmission probability is
 \begin{align}
-|\langle e^{i\chi}b|a\rangle|^2
-&=
-\langle a|e^{i\chi}b\rangle \langle e^{i\chi}b|a\rangle \\
-&=
-e^{i\chi}e^{-i\chi}\langle a|b\rangle\langle b|a\rangle \\
-&=
-|\langle b|a\rangle|^2.
+  P_\theta
+  &=
+  |\braket{\theta}{\psi}|^2\\
+  &=
+  a^2\cos^2\theta
+  +b^2\sin^2\theta
+  +2ab\cos\phi\,\sin\theta\cos\theta\\
+  &=
+  \frac12
+  \left[
+    1
+    +(a^2-b^2)\cos2\theta
+    +2ab\cos\phi\,\sin2\theta
+  \right].
+  \label{eq:l7-linear-analyzer-probability}
 \end{align}
-Again the phase disappears.
-
-This is why the lecture is willing to say that there is no physical significance to the overall phase of the wave function. The physical state is not a single vector but an equivalence class under multiplication by a pure phase.
-
-A simple example is already available:
+The lecture leaves this multiplication and maximization as homework. Finishing
+that step makes its geometric prescription exact. The major-axis angle
+\(\theta_{\mathrm{maj}}\) obeys
 \begin{equation}
-|y\rangle=
-\begin{pmatrix}
-0\\
-1
-\end{pmatrix},
-\qquad
--|y\rangle=
-\begin{pmatrix}
-0\\
--1
-\end{pmatrix}.
+  2\theta_{\mathrm{maj}}
+  =
+  \operatorname{atan2}
+  \left(2ab\cos\phi,\ a^2-b^2\right)
+  \pmod{2\pi}.
+  \label{eq:l7-major-axis}
 \end{equation}
-The second vector is $e^{i\pi}|y\rangle$. It is not equal to the first one, but it has the same physical significance.
+Thus the analyzer most likely to transmit the photon points along the major
+axis of the polarization ellipse.
 
-Likewise
-\begin{equation}
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-i
-\end{pmatrix}
-\qquad\text{and}\qquad
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-i\\
--1
-\end{pmatrix}
-\end{equation}
-differ by the phase $i=e^{i\pi/2}$ and therefore represent the same circular polarization state.
-
-\subsection{Question \& Answer}
-
-If $|\psi\rangle$ and $e^{i\theta}|\psi\rangle$ are mathematically different vectors, why are they physically the same?
-
-Because all the physical questions under discussion in this lecture are built from bra-ket sandwiches and squared overlaps. In every such expression an overall phase meets its complex conjugate and cancels. So the distinction is real mathematically but empty physically. The lecture briefly experiments with an ad hoc symbol for this equivalence; in the notes it is safer simply to say that the two vectors have the same physical significance.
-
-\section{Counting the Parameters of Photon Polarization}
-
-At this point phase indifference begins to do real work. It is not merely that phase happens to cancel from a few formulas; we may now divide by that redundancy and count the truly physical parameters of photon polarization.
-
-Start from the most general two-component state,
-\begin{equation}
-|\psi\rangle=
-\begin{pmatrix}
-\alpha\\
-\beta
-\end{pmatrix},
-\end{equation}
-with $\alpha$ and $\beta$ complex. That is four real parameters. Normalization imposes one condition,
-\begin{equation}
-\alpha^*\alpha+\beta^*\beta=1,
-\end{equation}
-so we are left with three.
-
-Now use the fact that overall phase carries no physical information. By multiplying the whole state by a suitable phase, we can always choose the upper component to be real. Call it $a\in\mathbb R$. Then normalization becomes
-\begin{equation}
-a^2+\beta^*\beta=1.
-\end{equation}
-Hence
-\begin{equation}
-\beta^*\beta=1-a^2,
-\end{equation}
-and so the lower component may be written as
-\begin{equation}
-\beta=\sqrt{1-a^2}\,e^{i\phi}.
-\end{equation}
-Here the lecture repairs the notation: the phase is now renamed $\phi$ so that $\theta$ may continue to denote a linear-polarization angle.
-
-Thus the general physical polarization state may be written in the gauge-fixed form
-\begin{equation}
-|\psi\rangle=
-\begin{pmatrix}
-a\\
-\sqrt{1-a^2}\,e^{i\phi}
-\end{pmatrix}.
-\end{equation}
-There are exactly two real parameters left: the real number $a$ and the phase angle $\phi$.
-
-The important point is not merely the counting itself. The lecture immediately asks what those two parameters mean physically. That question is what carries us from state-vector coordinates back to the actual geometry of electromagnetic waves.
-
-\section{From State Vectors to Elliptical Polarization Geometry}
-
-The lecture now shifts language. Up to this point we have been talking in the coordinates of a two-dimensional complex vector space. But photon polarization is not only an algebraic construction. It is also the motion of the electric field of an electromagnetic wave in the plane transverse to propagation.
-
-A plane-polarized wave has its electric field along a single axis. If the wave is moving into the board, the direction of that axis is one parameter. So purely linear polarization gives only a one-parameter family.
-
-If we combine two linear polarizations whose components are in phase, the result is still plane polarization, just along a different axis. But if the two components are out of phase, the electric field need no longer move on a line. It may move on a circle, and more generally on an ellipse.
-
-The lecture gives simple examples. If
-\begin{equation}
-E_x=\cos(x-ct),
-\qquad
-E_y=\sin(x-ct),
-\end{equation}
-then at fixed $x$, say $x=0$, the tip of the electric field moves on a circle. That is circular polarization. If instead we take
-\begin{equation}
-E_x=\cos(x-ct),
-\qquad
-E_y=\frac12\sin(x-ct),
-\end{equation}
-then at fixed $x$ the field traces an ellipse, in this case with major axis along the $x$-direction.
-
-So the geometry carries two physical parameters:
-\begin{enumerate}
-\item the direction of the major axis,
-\item the shape of the ellipse, described in the lecture by its eccentricity or aspect-ratio parameter.
-\end{enumerate}
-This matches the algebraic count perfectly. The two real parameters in the state-vector are not literally the angle and the eccentricity, but there is a one-to-one correspondence: some functions of them are the angle of the long axis and the shape parameter of the ellipse.
-
-The lecture also pauses over the limiting cases. When the ellipse collapses to a line, we recover plane polarization. When it becomes a circle, the major axis ceases to matter because no axis is distinguished.
-
-\subsection{Question \& Answer}
-
-Where did clockwise versus counterclockwise polarization go if there are only two real parameters?
-
-The lecture answers this in a deliberately geometric way. Start from circular polarization and squeeze the circle into an ellipse. Continue squeezing until the ellipse collapses to a line. If one keeps going past that point, the upper and lower branches exchange roles and the sense of rotation reverses. So the single shape parameter is extended through zero and into negative values. In that lecture language, one may think of the second sense of rotation as being encoded by \emph{negative eccentricity}. It is a heuristic description, but it is exactly the one used to show that two real parameters are enough.
-
-\section{Overlap With Linear Polarization and the Major Axis}
-
-The lecture now asks a more practical question. Suppose a photon is in a general elliptically polarized state. How do we recover the direction of its major axis from measurement probabilities?
-
-We compare the elliptic state with the linearly polarized state at analyzer angle $\theta$:
-\begin{equation}
-|\theta\rangle=
-\begin{pmatrix}
-\cos\theta\\
-\sin\theta
-\end{pmatrix},
-\qquad
-|\psi\rangle=
-\begin{pmatrix}
-a\\
-\sqrt{1-a^2}\,e^{i\phi}
-\end{pmatrix}.
-\end{equation}
-Operationally this means: put a linear polarizer at angle $\theta$ in the path of the photon and ask for the probability that the photon passes through.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.82\textwidth]{lecture_07_figure_03.png}
-\caption{State-vector overlap and geometric sketches as laid out across the lecture boards.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.78\textwidth]{lecture_07_figure_09.png}
+  \caption{The overlap amplitude and the geometric search for the
+  linear-analyzer direction of maximum transmission.}
+  \lectureframe{00:45:20}
 \end{figure}
 
-On the board the bra-ket order is partly obscured, and in the spoken derivation Susskind corrects himself by remembering that one factor must be complex conjugated. In a cleaned form consistent with that correction, we may record the overlap as
+It is useful to collect the same information in the normalized Stokes
+parameters
 \begin{equation}
-\langle\psi|\theta\rangle
-=
-a\cos\theta+\sqrt{1-a^2}\,e^{-i\phi}\sin\theta.
+  S_1=a^2-b^2,
+  \qquad
+  S_2=2ab\cos\phi,
+  \qquad
+  S_3=2ab\sin\phi,
+  \label{eq:l7-stokes}
 \end{equation}
-If one writes the overlap in the opposite order, the phase is conjugated accordingly; the probability is the same either way.
+for which \(S_1^2+S_2^2+S_3^2=1\). With a fixed propagation and time
+convention,
+\begin{equation}
+  2\theta_{\mathrm{maj}}=\operatorname{atan2}(S_2,S_1),
+  \qquad
+  \sin2\epsilon=S_3.
+  \label{eq:l7-orientation-ellipticity}
+\end{equation}
+Changing the convention for viewing the wave reverses the sign assigned to
+handedness, but not the two-parameter count.
 
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}[scale=1.15]
-\draw[->] (-2.2,0)--(2.3,0);
-\draw[->] (0,-1.6)--(0,1.7);
-\draw (0,0) ellipse (1.35 and 0.72);
-\draw[dashed] (-1.65,-0.85)--(1.65,0.85);
-\draw[thick] (-1.2,-0.62)--(1.2,0.62);
-\fill (1.2,0.62) circle (1.2pt);
-\node at (1.55,0.95) {$\theta$};
-\end{tikzpicture}
-\caption{Conservative reconstruction of the geometric guide used in the lecture: vary the analyzer direction until the overlap with the elliptic state is maximal.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_07_figure_10.png}
+  \caption{Squeezing through the linear limit reverses the traversal sense,
+  which is encoded by the sign of ellipticity.}
+  \lectureframe{00:46:40}
 \end{figure}
 
-The transmission probability is therefore
+\begin{classroomqa}
+\audiencequestion{Orientation and ordinary eccentricity still seem to omit
+clockwise versus counterclockwise motion. Where is it stored?
+\lecturetimestamp{00:45:31--00:47:14}}
+\lecturerresponse{It is stored in the sign of the second parameter. The
+major-axis angle gives the orientation; signed ellipticity gives both the
+axis ratio and the traversal sense. At the linear limit the sign can change,
+and at the circular limit the axis angle is irrelevant.}
+\end{classroomqa}
+
+\section{Time Evolution Must Preserve Distinctions}
+
+\subsection{The Classical Analogy}
+
+We now turn from the description of states to their motion. A finite
+classical state set admits only jumps if time is viewed microscopically, but
+the quantum vector space contains continuous paths even when a measurement
+has only two possible outcomes. A linear polarization axis can rotate
+continuously with time although every fixed analyzer still records only
+\(+1\) or \(-1\).
+
+For a closed reversible classical system, evolution is one-to-one. It may
+permute the states, but it cannot send two distinct initial states to the
+same final state. If both \(5\) and \(2\) on a die evolved to \(3\), the final
+state would not reveal which initial state had been prepared. The distinction
+would have been erased.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_07_figure_11.png}
+  \caption{A forbidden many-to-one rule would send both \(5\) and \(2\) to
+  \(3\), erasing the initial distinction.}
+  \lectureframe{00:51:15}
+\end{figure}
+
+Quantum states have more structure than simply same or different. For
+normalized vectors, the invariant transition probability
 \begin{equation}
-P_\theta(\psi)=|\langle\psi|\theta\rangle|^2.
+  |\braket{B}{A}|^2
+  \label{eq:l7-ray-overlap}
 \end{equation}
-Here the lecture deliberately stops short of a fully polished computation. Susskind does not expand the modulus squared on the board; instead he assigns that algebra as homework. But the next step is perfectly clear. We keep $\phi$ fixed, regard $\theta$ as the variable analyzer angle, and maximize:
+measures their operational overlap. Orthogonal states have zero overlap and
+can be distinguished with certainty. States on the same ray have
+\(|\braket{B}{A}|=1\). Intermediate values mean that no single ideal test
+distinguishes the preparations with certainty.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_07_figure_12.png}
+  \caption{Zero overlap represents orthogonal, perfectly distinguishable
+  polarization states.}
+  \lectureframe{00:54:40}
+\end{figure}
+
+\subsection{Preserving the Inner Product}
+
+Prepare two identical systems in \(\ket{A}\) and \(\ket{B}\), and let both
+evolve for the same time:
 \begin{equation}
-\frac{d}{d\theta}P_\theta(\psi)=0.
+  \ket{A}\longrightarrow\ket{A'},
+  \qquad
+  \ket{B}\longrightarrow\ket{B'}.
 \end{equation}
-The value of $\theta$ that maximizes $P_\theta(\psi)$ gives the direction of the major axis.
-
-The lecture says much less about the ellipse parameter itself. The suggestion is qualitative rather than finished: compare the probabilities for transmission along the major and minor directions, and their difference measures the asymmetry of the ellipse. Since the lecture does not derive a closed formula here, the notes should not invent one.
-
-\section{Time Evolution, Hermitian Operators, and the Unitary Pivot}
-
-Up to this point the states have been standing still on the board. The next step is the big one: how do quantum states change with time? The lecture begins from the classical analogy and then formalizes the quantum answer.
-
-\subsection{Relations Between States}
-
-In classical mechanics with finitely many states, time evolution is essentially a permutation of those states. Different initial states remain different. If two distinct states both evolved into the same final state, information about the initial condition would be lost.
-
-Quantum mechanics has a richer notion of relation between states. Two normalized states may be the same, orthogonal, or somewhere in between. The operational example remains polarization. A vertically polarized photon does not pass a horizontal polarizer, so
+Closed-system quantum evolution preserves their inner product:
 \begin{equation}
-\langle y|x\rangle=0
+  \boxed{\braket{B'}{A'}=\braket{B}{A}.}
+  \label{eq:l7-inner-product-preservation}
 \end{equation}
-expresses a definite physical distinction. By contrast, for normalized states,
-\begin{equation}
-\langle B|A\rangle=1
-\end{equation}
-means that the two states are the same state, up to the phase distinction that we have already agreed to ignore physically.
+Consequently equal rays remain equal rays, orthogonal states remain
+orthogonal, and every transition probability remains unchanged. This is the
+quantum form of preserving distinctions.
 
-So the lecture identifies the basic relation between states with the inner product. Zero means orthogonal, one means identical normalized states, and intermediate values measure partial overlap and therefore partial distinguishability.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_07_figure_13.png}
+  \caption{The overlap of two states is unchanged when both undergo the same
+  closed-system evolution.}
+  \lectureframe{00:57:40}
+\end{figure}
 
-The quantum analog of classical distinction-preservation is then that inner products remain fixed in time. If
-\begin{equation}
-|A\rangle\to |A'\rangle,
-\qquad
-|B\rangle\to |B'\rangle,
-\end{equation}
-then
-\begin{equation}
-\langle B'|A'\rangle=\langle B|A\rangle.
-\end{equation}
-In particular, states that start orthogonal stay orthogonal.
+\begin{classroomqa}
+\audiencequestion{If one photon fails a horizontal analyzer, how do we know
+it was vertical rather than a \(45^\circ\) state that happened to fail?
+\lecturetimestamp{00:58:17--00:59:00}}
+\lecturerresponse{From one event, we do not. Orthogonality is tested by
+certainty across identically prepared trials. Every genuinely vertical
+photon is rejected by an ideal horizontal analyzer; a \(45^\circ\) state is
+rejected only with probability one half. The ensemble distinguishes the
+preparations.}
+\end{classroomqa}
 
-This is presented in the lecture as a physical principle rather than a theorem derived from something more primitive. It is taken as an observed fact, one that fits together with deeper conservation ideas and, above all, with the requirement that quantum time evolution not destroy distinctions between states.
+\begin{classroomqa}
+\audiencequestion{Does the uncertainty principle force a small chance that a
+perfectly horizontal photon passes a vertical polarizer?
+\lecturetimestamp{00:59:01--01:00:31}}
+\lecturerresponse{No. One polarization observable can be prepared with
+arbitrary precision in the ideal theory. The uncertainty concerns
+incompatible observables: no state has definite outcomes for two genuinely
+different analyzer axes at once. It does not blur an eigenstate of one chosen
+axis.}
+\end{classroomqa}
 
-\subsection{Hermitian Conjugation And Hermitian Operators}
+In an ordinary real vector space, a transformation preserving all inner
+products looks like a rigid rotation or reflection: vectors move, but their
+lengths and mutual angles do not. The complex quantum version is a unitary
+transformation.
 
-To implement that idea we need more mathematics. The lecture now reviews linear operators with some care.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.60\textwidth]{lecture_07_figure_14.png}
+  \caption{The geometric analogy: vectors move while their lengths and
+  mutual angles remain fixed.}
+  \lectureframe{01:01:25}
+\end{figure}
 
-Let $L$ be a linear operator defined by its action on kets. If
-\begin{equation}
-L|A\rangle=|C\rangle,
-\end{equation}
-then we also want a consistent way to let such an operator appear in bra-ket sandwiches. In a complete orthonormal basis,
-\begin{equation}
-\sum_n |n\rangle\langle n|=I.
-\end{equation}
-This allows us to define matrix elements
-\begin{equation}
-\langle B|L|A\rangle,
-\end{equation}
-which the lecture emphasizes can be interpreted either by first acting with $L$ on the ket and then taking the inner product with $\langle B|$, or by using the corresponding action on bras and then pairing with $|A\rangle$.
+\section{Operators on Bras and the Adjoint}
 
-From there the lecture introduces the Hermitian conjugate. Cleanly stated, the rule is
+Let \(\hat L\) be a linear operator on kets:
 \begin{equation}
-\langle n|L^\dagger|m\rangle=\langle m|L|n\rangle^*,
+  \hat L\ket{A}=\ket{C}.
+  \label{eq:l7-LA-C}
 \end{equation}
-or in matrix notation,
+Linearity means
 \begin{equation}
-(L^\dagger)_{nm}=L_{mn}^*.
+  \hat L(\alpha\ket{A}+\beta\ket{B})
+  =
+  \alpha\hat L\ket{A}
+  +\beta\hat L\ket{B}.
 \end{equation}
-So Hermitian conjugation is obtained by transposing and then complex conjugating.
+For any bra \(\bra{B}\), the matrix element
+\begin{equation}
+  \bra{B}\hat L\ket{A}
+\end{equation}
+may be read associatively as the inner product of \(\bra{B}\) with
+\(\hat L\ket{A}\), or as the bra \(\bra{B}\hat L\) applied to
+\(\ket{A}\).
+
+Inserting a complete orthonormal basis makes the latter bra explicit:
+\begin{equation}
+  \bra{B}\hat L
+  =
+  \sum_n
+  \bra{B}\hat L\ket{n}\bra{n}.
+  \label{eq:l7-operator-on-bra}
+\end{equation}
+The coefficients are numbers, so the right side is a linear combination of
+bras.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_07_figure_15.png}
+  \caption{A completeness insertion defines the bra
+  \(\bra{B}\hat L\) from the known action of \(\hat L\) on kets.}
+  \lectureframe{01:06:50}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Does this construction assume that \(\hat L\) is
+Hermitian?\lecturetimestamp{01:05:51--01:06:00}}
+\lecturerresponse{No. The matrix element and the bra
+\(\bra{B}\hat L\) are defined for a general linear operator. Hermiticity is
+the additional condition \(\hat L^\dagger=\hat L\), introduced later.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Are we assuming associativity when the brackets are
+regrouped?\lecturetimestamp{01:06:01--01:06:18}}
+\lecturerresponse{Yes. Operator composition and its action on vectors are
+associative wherever the products are defined:
+\(\bra{B}(\hat L\ket{A})=(\bra{B}\hat L)\ket{A}\). This is what lets the
+notation be manipulated consistently.}
+\end{classroomqa}
+
+\subsection{Hermitian Conjugation}
+
+Taking the adjoint of Equation~\eqref{eq:l7-LA-C} gives
+\begin{equation}
+  \bra{A}\hat L^\dagger=\bra{C}.
+  \label{eq:l7-adjoint-map}
+\end{equation}
+The defining matrix-element identity is
+\begin{equation}
+  \boxed{
+  \bra{B}\hat L\ket{A}
+  =
+  \left(
+    \bra{A}\hat L^\dagger\ket{B}
+  \right)^*.}
+  \label{eq:l7-adjoint-definition}
+\end{equation}
+It combines two operations already familiar from inner products:
+interchange bra and ket, then complex conjugate.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_07_figure_16.png}
+  \caption{The adjoint relation obtained by reversing the bra-ket order and
+  complex conjugating the matrix element.}
+  \lectureframe{01:12:50}
+\end{figure}
+
+In an orthonormal basis, define
+\begin{equation}
+  L_{mn}=\bra{m}\hat L\ket{n}.
+\end{equation}
+Then
+\begin{equation}
+  (\hat L^\dagger)_{mn}=L_{nm}^*.
+  \label{eq:l7-dagger-components}
+\end{equation}
+Thus the matrix of \(\hat L^\dagger\) is the complex-conjugate transpose:
+\begin{equation}
+  L^\dagger=(L^*)^T.
+\end{equation}
+Rows and columns are interchanged, and every entry is conjugated.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_07_figure_17.png}
+  \caption{The matrix rule for the adjoint: transpose and complex
+  conjugate.}
+  \lectureframe{01:17:25}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Are we assuming a finite-dimensional state space here?
+\lecturetimestamp{01:13:44--01:14:05}}
+\lecturerresponse{For the displayed matrices, yes. The same adjoint identity
+extends to Hilbert spaces, but infinite-dimensional operators require care
+about domains and completeness. The finite-dimensional case contains the
+algebra needed for the present argument without those analytic
+qualifications.}
+\end{classroomqa}
+
+\section{Hermitian Operators Represent Observables}
 
 An operator is Hermitian when
 \begin{equation}
-L=L^\dagger.
+  \hat L=\hat L^\dagger.
+  \label{eq:l7-Hermitian}
 \end{equation}
-This immediately implies two componentwise facts:
+In components,
 \begin{equation}
-L_{ii}=L_{ii}^*,
+  L_{mn}=L_{nm}^*.
 \end{equation}
-so the diagonal entries are real, and
+The diagonal entries are therefore real,
 \begin{equation}
-L_{ij}=(L_{ji})^*,
+  L_{nn}=L_{nn}^*\in\mathbb R,
 \end{equation}
-so entries reflected across the diagonal are complex conjugates of one another.
+while entries reflected across the diagonal are complex conjugates.
 
-The lecture then checks the polarization observables one by one:
-\begin{equation}
-\hat P_{xy}=
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix},
-\qquad
-\hat P_{45}=
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix},
-\qquad
-\hat P_{\mathrm{circ}}=
-\begin{pmatrix}
-0&-i\\
-i&0
-\end{pmatrix}.
-\end{equation}
-All three are plainly Hermitian.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_07_figure_18.png}
+  \caption{The conjugate-symmetry condition
+  \(L_{mn}=L_{nm}^{*}\) for a Hermitian matrix.}
+  \lectureframe{01:19:30}
+\end{figure}
 
-At this point the lecture recalls the standard physical content of Hermitian operators. Their expectation values are real, their eigenvalues are real, and their eigenvectors form a complete orthonormal basis. That is why observables are represented by Hermitian operators.
+In finite dimensions, the spectral theorem gives the properties needed of
+an observable:
+\begin{enumerate}
+  \item every eigenvalue is real;
+  \item eigenvectors belonging to distinct eigenvalues are orthogonal;
+  \item an orthonormal eigenbasis exists.
+\end{enumerate}
+The eigenvectors need not have real components. Circular polarization is the
+immediate counterexample: the Hermitian matrix \(\hat P_c\) has eigenvectors
+containing \(\pm i\).
 
-The lecture also remarks that real quantum systems are usually infinite-dimensional. The finite-dimensional matrix language is being used because it displays the structure clearly, and because in practice even infinite-dimensional problems are often approximated by very large matrices.
-
-\subsection{Unitary Operators}
-
-But Hermitian operators are not the transformations we need for time evolution. Observables tell us what can be measured. Time evolution requires operators that preserve relations between states.
-
-Let $U$ be such a transformation:
-\begin{equation}
-U|A\rangle=|A'\rangle,
-\qquad
-U|B\rangle=|B'\rangle.
-\end{equation}
-Then the corresponding bras transform with $U^\dagger$:
-\begin{equation}
-\langle A'|=\langle A|U^\dagger,
-\qquad
-\langle B'|=\langle B|U^\dagger.
-\end{equation}
-Now impose the physical requirement that the inner product be preserved:
+The expectation value of a Hermitian operator is real:
 \begin{align}
-\langle B'|A'\rangle
-&=
-\langle B|U^\dagger U|A\rangle \\
-&=
-\langle B|A\rangle.
+  \left(
+    \bra{\psi}\hat L\ket{\psi}
+  \right)^*
+  &=
+  \bra{\psi}\hat L^\dagger\ket{\psi}\\
+  &=
+  \bra{\psi}\hat L\ket{\psi}.
 \end{align}
-If this is true for every pair of states $|A\rangle$ and $|B\rangle$, then the operator between them must be the identity:
+Conversely, in finite dimensions, if
+\(\bra{\psi}\hat L\ket{\psi}\) is real for every \(\ket{\psi}\), then
+\(\hat L\) is Hermitian.
+
+\begin{classroomqa}
+\audiencequestion{How large is the matrix representing an observable?
+\lecturetimestamp{01:20:28--01:22:28}}
+\lecturerresponse{It matches the dimension of the state space under study.
+Polarization alone is two-dimensional. A full photon state also carries
+continuous momentum or position labels and is generally
+infinite-dimensional. Finite truncations are often used for calculation,
+but finite systems such as an isolated spin degree of freedom are not merely
+approximations.}
+\end{classroomqa}
+
+The three polarization observables make a compact check:
 \begin{equation}
-U^\dagger U=I.
+  \hat P_0=
+  \begin{pmatrix}1&0\\0&-1\end{pmatrix},
+  \quad
+  \hat P_{\pi/4}=
+  \begin{pmatrix}0&1\\1&0\end{pmatrix},
+  \quad
+  \hat P_c=
+  \begin{pmatrix}0&-i\\i&0\end{pmatrix}.
+  \label{eq:l7-three-Pauli}
 \end{equation}
-Equivalently,
+Each equals its adjoint. They are, respectively, the Pauli matrices
+\(\sigma_z,\sigma_x,\sigma_y\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_07_figure_19.png}
+  \caption{The axial, diagonal, and circular polarization observables are
+  all Hermitian.}
+  \lectureframe{01:24:45}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{Why is Hermiticity the right condition for an observable?
+\lecturetimestamp{01:25:08--01:26:20}}
+\lecturerresponse{Laboratory outcomes and their averages are real numbers.
+Hermiticity guarantees real eigenvalues and real expectation values. In
+finite dimensions the converse condition on all quadratic forms also
+recovers Hermiticity, so the mathematical requirement is tightly matched to
+the operational one.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Must the eigenvectors of an observable span the whole
+state space?\lecturetimestamp{01:26:22--01:27:43}}
+\lecturerresponse{Yes in the finite-dimensional Hermitian case: the spectral
+theorem supplies a complete orthonormal eigenbasis, including an orthonormal
+choice inside degenerate eigenspaces. A general non-Hermitian operator may
+have nonorthogonal eigenvectors or may fail to have a complete eigenbasis.}
+\end{classroomqa}
+
+\section{Unitary Operators Preserve Quantum Relations}
+
+Hermitian operators represent quantities that can be measured. They are not,
+in general, the transformations that move states while preserving their
+relations. Let one linear operator \(\hat U\) act on every state:
 \begin{equation}
-U^\dagger=U^{-1}.
+  \hat U\ket{A}=\ket{A'},
+  \qquad
+  \hat U\ket{B}=\ket{B'}.
+  \label{eq:l7-U-map}
 \end{equation}
-That is the defining property of a unitary operator.
+The transformed bras are
+\begin{equation}
+  \bra{A'}=\bra{A}\hat U^\dagger,
+  \qquad
+  \bra{B'}=\bra{B}\hat U^\dagger.
+\end{equation}
+Therefore
+\begin{equation}
+  \braket{B'}{A'}
+  =
+  \bra{B}\hat U^\dagger\hat U\ket{A}.
+\end{equation}
+Demanding equality with \(\braket{B}{A}\) for every pair
+\(\ket{A},\ket{B}\) forces
+\begin{equation}
+  \boxed{\hat U^\dagger\hat U=\mathbf 1.}
+  \label{eq:l7-isometry}
+\end{equation}
 
-The lecture insists on the right reading of this equation. A unitary operator is not itself the identity. It can move vectors around the state space, rotate polarization directions, or represent time evolution. What makes it unitary is that it moves vectors around without altering the inner products that encode physical relations and probabilities.
+In finite dimensions this condition makes \(\hat U\) invertible and implies
+\begin{equation}
+  \hat U^\dagger=\hat U^{-1},
+  \qquad
+  \hat U\hat U^\dagger
+  =\hat U^\dagger\hat U
+  =\mathbf 1.
+  \label{eq:l7-unitary}
+\end{equation}
+In an infinite-dimensional Hilbert space, the definition of a unitary
+operator includes both equalities; \(\hat U^\dagger\hat U=\mathbf1\) alone
+defines an isometry that need not be onto.
 
-This is the closing message of the lecture. Systems change with time by unitary transformations. The detailed properties of unitary eigenvalues are left for the next lecture, together with the introduction of Hamiltonians. Here we stop at the threshold: the correct mathematical form of quantum evolution has now been identified.
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.74\textwidth]{lecture_07_figure_20.png}
+  \caption{Preservation of every inner product leads to the unitary
+  condition \(\hat U^\dagger\hat U=\mathbf1\).}
+  \lectureframe{01:34:50}
+\end{figure}
 
-\section{Summary}
+A unitary transformation is not the identity. It may rotate polarization,
+implement a symmetry, or carry a state from one time to another. Its adjoint
+undoes it, and throughout the motion
+\begin{equation}
+  \braket{UB}{UA}
+  =
+  \bra{B}\hat U^\dagger\hat U\ket{A}
+  =
+  \braket{B}{A}.
+\end{equation}
+Thus every norm, orthogonality relation, and transition probability is
+preserved.
 
-The lecture begins by tying up the polarization story and ends by opening the door to quantum dynamics. Along the way we see three ideas lock together. First, the physically meaningful uses of a state-vector are expectation values and transition probabilities. Second, both are insensitive to an overall phase, so the physical state is represented by a normalized vector only up to multiplication by a pure phase. Third, once the relation between states is recognized as the inner product, the natural transformations of state space are those that preserve that inner product, namely the unitary operators. Photon polarization remains the anchor throughout, but the lesson is much broader: the geometry of state space, not just the list of possible outcomes, is what controls the way quantum mechanics evolves in time.
+\begin{classroomqa}
+\audiencequestion{Does preserving relationships mean anything broader than
+preserving inner products?\lecturetimestamp{01:35:13--01:35:53}}
+\lecturerresponse{Mathematically, inner-product preservation is the precise
+condition used here. Physically it preserves the absolute squares of those
+inner products and therefore every transition probability between
+simultaneously evolved preparations.}
+\end{classroomqa}
+
+The lecture closes just as the eigenvalue structure of a unitary operator is
+introduced:
+\begin{equation}
+  \hat U\ket{n}=\lambda_n\ket{n}.
+\end{equation}
+The unanswered question has a short consequence of unitarity:
+\begin{align}
+  1
+  &=
+  \braket{n}{n}
+  =
+  \bra{n}\hat U^\dagger\hat U\ket{n}\\
+  &=
+  |\lambda_n|^2\braket{n}{n},
+\end{align}
+so
+\begin{equation}
+  |\lambda_n|=1,
+  \qquad
+  \lambda_n=e^{i\omega_n}.
+  \label{eq:l7-unitary-eigenvalue}
+\end{equation}
+Finite-dimensional unitary matrices are normal and therefore possess a
+complete orthonormal eigenbasis, but their eigenvalues are phases rather than
+necessarily real numbers.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_07_figure_21.png}
+  \caption{The final board question: the eigenvalues of a unitary operator
+  lie on the unit circle.}
+  \lectureframe{01:37:20}
+\end{figure}
+
+We have reached the threshold of dynamics. Closed systems evolve by unitary
+transformations. The next step is to discover how continuous unitary
+evolution is generated by a Hermitian Hamiltonian and how that statement
+becomes the Schrodinger equation.

@@ -1,48 +1,34 @@
 # Figure Notes
 
-## Image Inventory
+## Accepted Blackboard Frames
 
-- `lecture_07_figure_02.png` shows a large circle drawn on the board with horizontal and vertical diameters through its center, a small mark on the circumference, a single letter-like label above left of the circle, and to the right two copies of the ket `|A\rangle` with a phase factor written between them. Susskind is standing in front of the left side of the board, but the circle and the ket notation remain legible.
-- `lecture_07_figure_03.png` shows a broader multi-board layout. On the left board there is a bra-ket expression at the top, a second line beneath it containing a sum with trigonometric factors and a phase factor, a star-like radial sketch below, and on the adjacent right board a simple axis-and-arrow sketch with a slanted line and point. The far-right board edge contains a cropped parenthesized expression.
+| Asset | Time | Content |
+|---|---:|---|
+| lecture_07_figure_02.png | 00:05:20 | Three polarization bases and circular observable |
+| lecture_07_figure_03.png | 00:14:20 | Expectation value and transition probability |
+| lecture_07_figure_04.png | 00:21:40 | Unit circle and phase-related state vectors |
+| lecture_07_figure_05.png | 00:23:35 | Phase cancellation in physical quantities |
+| lecture_07_figure_06.png | 00:28:40 | Circular state multiplied by a common phase |
+| lecture_07_figure_07.png | 00:32:45 | Two-parameter count for a normalized ray |
+| lecture_07_figure_08.png | 00:35:25 | Circular and elliptical field components |
+| lecture_07_figure_09.png | 00:45:20 | Analyzer overlap and major-axis geometry |
+| lecture_07_figure_10.png | 00:46:40 | Handedness through signed ellipticity |
+| lecture_07_figure_11.png | 00:51:15 | Forbidden many-to-one classical evolution |
+| lecture_07_figure_12.png | 00:54:40 | Orthogonality as zero overlap |
+| lecture_07_figure_13.png | 00:57:40 | Preservation of a pairwise inner product |
+| lecture_07_figure_14.png | 01:01:25 | Rigid vector-space rotation analogy |
+| lecture_07_figure_15.png | 01:06:50 | Completeness insertion for an operator on a bra |
+| lecture_07_figure_16.png | 01:12:50 | Adjoint matrix-element relation |
+| lecture_07_figure_17.png | 01:17:25 | Transpose and complex-conjugate matrix rule |
+| lecture_07_figure_18.png | 01:19:30 | Hermitian conjugate symmetry |
+| lecture_07_figure_19.png | 01:24:45 | Three Hermitian polarization observables |
+| lecture_07_figure_20.png | 01:34:50 | Inner-product preservation and unitarity |
+| lecture_07_figure_21.png | 01:37:20 | Unitary eigenvalue question |
 
-## Blackboard Equations
+## Review Result
 
-- `lecture_07_figure_02.png`: `|A\rangle` [visible]
-- `lecture_07_figure_02.png`: `e^{i\theta}` [visible]
-- `lecture_07_figure_02.png`: `e^{i\theta}|A\rangle` [standard reconstruction]
-- `lecture_07_figure_02.png`: comparison of `|A\rangle` with the phase-shifted vector `e^{i\theta}|A\rangle` [standard reconstruction]
-
-- `lecture_07_figure_03.png`: `\langle \theta|\psi\rangle` or `\langle \psi|\theta\rangle` [partially visible]
-- `lecture_07_figure_03.png`: `= a\cos\theta + \sqrt{1-a^2}\,e^{\cdots i\phi}\sin\theta` [partially visible]
-- `lecture_07_figure_03.png`: `\langle \theta|\psi\rangle = a\cos\theta + \sqrt{1-a^2}\,e^{-i\phi}\sin\theta` [standard reconstruction]
-- `lecture_07_figure_03.png`: `a`, `\cos\theta`, `\sqrt{1-a^2}`, `e^{i\phi}`, and `\sin\theta` appear as visible ingredients of the line below the bra-ket [partially visible]
-
-## Diagram And Layout Reading
-
-- In `lecture_07_figure_02.png`, the circle is not decorative. It is a phase-circle sketch: the crossed horizontal and vertical axes make it read like the complex plane or unit circle, and the marked point on the circumference supports the nearby `e^{i\theta}` notation. The board organization matters: the geometric phase picture is on the left, while the ket notation comparison is on the right.
-- In `lecture_07_figure_02.png`, the two ket expressions are vertically separated rather than written as one long equation. That layout makes the board read rhetorically as a comparison between two vectors rather than a single derivation line.
-- In `lecture_07_figure_03.png`, the board is spread across adjacent panels. The upper-left equation carries the algebra, while the lower-left and right-board sketches carry geometric intuition. The image is useful not because any one sketch is pristine, but because it documents how Susskind is alternating between overlap formulas and polarization geometry.
-- The star-like lower-left sketch in `lecture_07_figure_03.png` appears to be a schematic axis or radial reference drawing rather than a finished physical diagram. It should be treated cautiously.
-- The right-board sketch in `lecture_07_figure_03.png` is a simple axis with a slanted direction and marked point, likely serving as a geometric guide for polarization angle or major-axis discussion rather than a full standalone construction.
-
-## TeX Reconstruction Plan
-
-- `lecture_07_figure_02.png` should remain visible in the notes. It is good evidence for the lecture’s specific pairing of the phase-circle picture with the state-vector comparison.
-- Near `lecture_07_figure_02.png`, the notes should typeset the clean mathematical statement that a state and the same state multiplied by a pure phase are mathematically different vectors but have the same physical significance. A nearby TikZ redraw should show a unit circle with horizontal and vertical diameters and a marked phase point; the ket relation should be typeset cleanly in display math rather than redrawn by hand.
-- `lecture_07_figure_03.png` should also remain visible. Even though some symbols are partly obscured, the screenshot preserves the blackboard layout of algebra plus geometric sketches and is therefore useful evidence for how the lecture unfolds.
-- Near `lecture_07_figure_03.png`, the main overlap amplitude should be reconstructed as a clean displayed equation in LaTeX. The right-board geometric sketch can be redrawn conservatively in TikZ as a simple axis-and-direction schematic if the chapter needs a clean companion figure, but the screenshot should remain because the board contains multiple partial sketches that are better documented than fully reinvented.
-- For `lecture_07_figure_03.png`, the lower star-like sketch should not be overinterpreted. If it is used at all, it should be redrawn only as a minimal schematic marker, with the main emphasis placed on the cleaned formula and the clearer axis sketch.
-
-## Caption Drafts
-
-- `lecture_07_figure_02.png`: Phase-related state vectors and unit-circle sketch
-- `lecture_07_figure_03.png`: State-vector overlap with geometric sketches
-
-## Uncertainties
-
-- In `lecture_07_figure_02.png`, the single label above the circle is not fully secure; it looks like a capital letter but is not central enough to trust without caution.
-- In `lecture_07_figure_02.png`, the board layout strongly implies the relation between `|A\rangle` and `e^{i\theta}|A\rangle`, but the multiplication is not written as one perfectly continuous legible expression in the bitmap.
-- In `lecture_07_figure_03.png`, the order of bra and ket in the top expression is not fully legible from the screenshot alone; the transcript is needed to disambiguate the intended overlap.
-- In `lecture_07_figure_03.png`, the sign in the phase factor exponent is not secure from the image. The transcript indicates that Susskind corrected the term to the conjugated phase, so the cleaned formula should be treated as a cautious standard reconstruction.
-- In `lecture_07_figure_03.png`, the far-right parenthesized material is cropped and should not be transcribed as if complete.
-- In `lecture_07_figure_03.png`, the lower star-like sketch and the right-board axis sketch are clearly intentional but not fully self-explanatory from the bitmap alone; they should be used as layout evidence rather than as the sole basis for a detailed derivation.
+Every retained image shows board content used in the neighboring prose or
+equations. Opening institutional images, empty boards, heavily occluded
+alternatives, repeated frames, and closing credits were rejected. The low
+source resolution is handled by keeping the frame as evidence and typesetting
+the mathematics independently.
