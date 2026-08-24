@@ -1,596 +1,768 @@
-\chapter{Photon Polarization and the Logic of a Two-State System}
+\chapter{Linear and Circular Polarization, Operators, and Expectation Values}
 
-Quantum mechanics has already looked odd through interference and uncertainty, but in this lecture Susskind turns to a setting in which the oddness can be isolated with almost no technical overhead: the polarization of a photon. These notes follow Leonard Susskind's lecture closely, with explicit gratitude to Leonard Susskind, LazyingArt LLC, and Video2Book for the preserved lecture record from which the mathematical order and the blackboard evidence are reconstructed. The progression is the lecture's own: first the physical picture, then the symmetry puzzle, then the two-dimensional state space, then the enlargement from horizontal and vertical polarization to arbitrary angle, complex phase, and finally average value.
+\section{The Smallest Useful Quantum System}
 
-\section{Why Polarization Is the Right Starting Point}
+Take a photon moving in the \(z\)-direction with definite momentum and set
+aside its translational motion. What remains is its transverse polarization.
+Classically we picture an electric field oscillating along an axis in the
+\(xy\)-plane. For a single photon that transverse degree of freedom becomes
+a particularly clean quantum system: the state space is only
+two-dimensional, but it already contains superposition, incompatible
+measurements, complex amplitudes, and probabilistic outcomes.
 
-The lecture opens by narrowing the photon to its simplest essential content. Let us imagine that the photon moves in a definite direction, say along the \(z\)-axis, with definite momentum. Then we are not discussing its motion at all; we are discussing only the remaining internal degree of freedom, namely polarization. In Susskind's language, the photon carries a little flag, and that flag lives in the plane perpendicular to the motion, the \(xy\)-plane.
+Begin with an ideal linear polarizer. The conducting direction of a
+wire-grid polarizer supports a current and therefore suppresses the electric
+field component parallel to the wires. The perpendicular component is
+transmitted. Consequently the \emph{transmission axis}, rather than the wire
+direction, labels the polarizer.
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->,thick] (-2.0,0)--(2.0,0) node[right] {$x$};
-\draw[->,thick] (0,-1.6)--(0,1.6) node[above] {$y$};
-\draw[thick] (0,0) circle (0.12);
-\draw[thick] (-0.08,-0.08)--(0.08,0.08);
-\draw[thick] (-0.08,0.08)--(0.08,-0.08);
-\draw[very thick] (0,0)--(1.2,0.75);
-\draw[thick] (1.2,0.75)--(1.0,1.02)--(1.42,0.96)--cycle;
-\draw (0.6,-0.35) node {$z\text{ into the page}$};
-\end{tikzpicture}
-\caption{A photon moving along the \(z\)-axis carries a transverse polarization ``flag'' in the \(xy\)-plane.}
+The same apparatus has two roles. If a photon emerges from a polarizer, the
+apparatus has prepared a state. If a prepared photon is sent into a second
+polarizer, that apparatus tests the state. Equal preparation and test axes
+give certain transmission; orthogonal axes give certain rejection.
+
+\begin{classroomqa}
+\audiencequestion{Could ordinary classical particles imitate this first
+experiment?\lecturetimestamp{00:09:01--00:09:25}}
+\lecturerresponse{Yes. One could imagine bullets carrying little flags and
+a mechanical slit that passes one flag orientation while blocking the
+other. Nothing nonclassical has appeared while the only preparations and
+tests are the same two orthogonal directions.}
+\end{classroomqa}
+
+The difficulty begins with rotational symmetry. A polarizer can be turned
+to any angle, so a photon can be prepared along a continuum of linear
+polarization axes. A fixed analyzer nevertheless has only two outcomes:
+the photon passes or it does not. No single photon divides into a
+transmitted fraction and a rejected fraction. Continuous preparations and
+discrete outcomes must coexist.
+
+This is the central puzzle. A classical wave divides continuously, and the
+flagged-bullet model remains deterministic. A photon at an intermediate
+angle instead gives one indivisible event whose probability depends on the
+relative orientation of the apparatus.
+
+Mathematically this polarization problem is isomorphic to a spin-one-half
+system: both use a two-dimensional complex state space and noncommuting
+two-outcome observables. Polarization axes are somewhat easier to picture,
+so they provide the cleaner geometry for the present discussion.
+
+\section{The Axial Basis and Its Observable}
+
+Choose horizontal and vertical transmission axes and call them \(x\) and
+\(y\). Linear polarization is axial: horizontal-to-the-right is not
+different from horizontal-to-the-left. Reversing the drawn arrow leaves the
+same polarization axis.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.38\textwidth]{lecture_06_figure_02.png}
+  \caption{The double-headed mark records a polarization axis without
+  assigning it a preferred direction.}
+  \lectureframe{00:14:32}
 \end{figure}
 
-This is a physical picture, not yet a quantum formalism. It is useful precisely because it is so economical. We do not need the full machinery of particle motion; we need only one clean degree of freedom. The reward is that polarization gives us, in miniature, the logic of quantum mechanics itself.
+Represent the two orthogonal states by
+\begin{equation}
+  \ket{x}=
+  \begin{pmatrix}1\\0\end{pmatrix},
+  \qquad
+  \ket{y}=
+  \begin{pmatrix}0\\1\end{pmatrix}.
+  \label{eq:l6-xy-basis}
+\end{equation}
+They obey
+\begin{equation}
+  \braket{x}{x}=\braket{y}{y}=1,
+  \qquad
+  \braket{x}{y}=0.
+  \label{eq:l6-xy-orthogonality}
+\end{equation}
+These are two basis vectors, not the only two state vectors. Every
+normalized superposition
+\begin{equation}
+  \ket{\psi}=a\ket{x}+b\ket{y},
+  \qquad
+  |a|^2+|b|^2=1,
+  \label{eq:l6-general-two-state}
+\end{equation}
+is a possible pure polarization state. Multiplication of the entire vector
+by one common phase does not change the physical state.
 
-At the same time Susskind is careful not to let the picture harden into naive classical language. We may say provisionally that the little flag points in some direction in the \(xy\)-plane, but the exact meaning of that sentence will only become clear after we translate the story into state vectors and observables. Before that translation, we first need to see how polarizers prepare and test the states.
+\begin{classroomqa}
+\audiencequestion{Are the entries \(1,0\) and \(0,1\) completely
+arbitrary?\lecturetimestamp{00:16:50--00:18:38}}
+\lecturerresponse{The coordinate convention is chosen with the axes, but
+the vectors must be normalized and mutually orthogonal. Those conditions
+encode total probability one and perfect distinguishability. Their common
+overall phase is irrelevant, so several column vectors can represent the
+same physical ray.}
+\end{classroomqa}
 
-\section{Classical Polarizers and the Quantum Tension}
+To turn a test into an observable, attach numbers to its outcomes. Record
+\(+1\) when an \(x\)-analyzer transmits the photon and \(-1\) when it rejects
+it. The labels are conventional; \(7\) and \(12\) would distinguish the
+outcomes too. The symmetric choice \(\pm1\) gives
+\begin{equation}
+  \hat P_0\ket{x}=+\ket{x},
+  \qquad
+  \hat P_0\ket{y}=-\ket{y},
+  \label{eq:l6-P0-eigenvalues}
+\end{equation}
+and therefore
+\begin{equation}
+  \hat P_0=
+  \begin{pmatrix}
+    1&0\\
+    0&-1
+  \end{pmatrix}
+  =\ket{x}\bra{x}-\ket{y}\bra{y}.
+  \label{eq:l6-P0}
+\end{equation}
 
-A wire-grid polarizer is introduced only as far as the lecture needs it. The grid can support electric current in one direction but not in the orthogonal one. As a result, one component of the electric field is reflected and the perpendicular component passes through. Thus the grid prepares a transmitted wave polarized along a definite axis. It is that transmitted axis, not the grid lines themselves, that we use to label the polarizer.
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (0,-1)--(0,1);
-\draw (0,-1.35) node {\(x\)};
-\draw[thick,rotate around={90:(3,0)}] (3,-1)--(3,1);
-\draw (3,-1.35) node {\(y\)};
-\end{tikzpicture}
-\caption{The horizontal and vertical polarizers that give the first two basis experiments.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_06_figure_03.png}
+  \caption{Orthogonality and the first matrix action in the
+  \((\ket{x},\ket{y})\) basis.}
+  \lectureframe{00:22:00}
 \end{figure}
 
-Now send photons through one at a time. A horizontal polarizer prepares a photon in the horizontal state. If we place a second horizontal polarizer behind it, the photon goes through again. If we instead put a vertical polarizer behind the first, the photon does not go through. So a polarizer acts both as a preparer and as a measuring apparatus. It prepares a state when the photon passes, and it measures by pass-or-fail when the photon is tested by a later apparatus.
+The operator can be constructed from known eigenstates and recorded
+values, as we have just done. In other problems the order is reversed:
+one begins with an operator and solves for its eigenvectors and eigenvalues.
+For example, the wave-number operator
+\(-i\,d/dx\) is given first, and its plane-wave eigenstates are then found.
+Either route expresses the same postulate: an observable has definite value
+\(\lambda\) in a state satisfying
+\(\hat A\ket{\lambda}=\lambda\ket{\lambda}\).
 
-Up to this point there is nothing especially nonclassical. One could imagine bullets with little flags on them, together with an apparatus that lets one flag orientation through and blocks the other. The setup is deterministic. If the polarization matches the analyzer, the photon passes. If it does not, the photon is blocked, reflected, or absorbed. End of story.
+\section{A Second Basis at Forty-Five Degrees}
 
-But that is only the calm before the real difficulty. The lecture's explicit pivot is symmetry. If a polarizer may be held horizontally, and it may be held vertically, then rotational symmetry says it may be held at any intermediate angle. A photon can therefore be prepared with polarization axis at any direction in the \(xy\)-plane. Yet a fixed analyzer still produces only two outcomes: pass or fail. The photon is never chopped into pieces, partly transmitted and partly blocked. The outcomes are discrete even though the preparation angle varies continuously.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-If polarization can point in any direction, why does a fixed measurement still return only two outcomes?
-
-\paragraph{Answer.}
-That is the first real quantum question of the lecture. Continuity belongs to the space of possible preparations. Discreteness belongs to the outcome of a particular measurement. The classical picture tries to force both into the same mold, as if every intermediate polarization already carried a preexisting yes-or-no answer for every analyzer. Quantum mechanics does not do that. It assigns amplitudes to states, and a chosen analyzer converts those amplitudes into probabilities for its two possible outcomes.
-
-This is why Susskind says the mystery begins here. We have a continuum of possible polarization states, but only two outcomes for any fixed polarizer. The tension between symmetry and discreteness is exactly what the two-dimensional quantum formalism must capture.
-
-\section{The \(x\)-\(y\) Basis and the First Observable}
-
-The lecture now restarts in a more formal register. We choose the simplest basis: horizontal and vertical polarization. Susskind labels them \(x\) and \(y\). Before he writes vectors, however, he pauses over a notation choice that matters conceptually. There is no distinction between horizontal polarization ``to the right'' and horizontal polarization ``to the left.'' A polarization axis is an axis, not a signed arrow. That is why he draws a double arrow.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.32\textwidth]{lecture_06_figure_02.png}
-\par
-\begin{tikzpicture}[scale=1.0]
-\draw[-latex,thick] (0,0)--(1.1,0);
-\draw[-latex,thick] (1.1,0)--(0,0);
-\end{tikzpicture}
-\caption{Bidirectional mark for a polarization axis.}
-\end{figure}
-
-With that convention in hand, we define
+Turn the preparation polarizer through \(45^\circ\). The transmitted state
+has equal \(x\)- and \(y\)-components:
 \begin{equation}
-|x\rangle=\begin{pmatrix}1\\0\end{pmatrix},
-\qquad
-|y\rangle=\begin{pmatrix}0\\1\end{pmatrix}.
+  \ket{d_+}
+  =\frac{\ket{x}+\ket{y}}{\sqrt2}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\1\end{pmatrix}.
+  \label{eq:l6-diagonal-plus}
 \end{equation}
-They are normalized and orthogonal:
+Its orthogonal companion, the backslash polarization, can be chosen as
 \begin{equation}
-\langle x|x\rangle=1,
-\qquad
-\langle y|y\rangle=1,
-\qquad
-\langle x|y\rangle=0.
+  \ket{d_-}
+  =\frac{\ket{x}-\ket{y}}{\sqrt2}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\-1\end{pmatrix}.
+  \label{eq:l6-diagonal-minus}
 \end{equation}
-The space of states is therefore two-dimensional. That does not mean there are only two possible pure states; it means that every polarization state will be built from two basis vectors.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.55\textwidth]{lecture_06_figure_03.png}
-\caption{Orthogonality and matrix action in the \(x,y\) basis.}
-\end{figure}
-
-The blackboard fragment above is useful precisely because it preserves the board layout: orthogonality at upper left, operator action in the main field. The visible multiplication is
+Putting the minus sign on the other component multiplies the whole state by
+\(-1\) and changes no physics. Directly,
 \begin{equation}
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix},
-\end{equation}
-and the standard continuation of that displayed step is
-\begin{equation}
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix}
-=
-\begin{pmatrix}
-1\\
-0
-\end{pmatrix}.
+  \braket{d_-}{d_+}=\frac12(1-1)=0.
+  \label{eq:l6-diagonal-orthogonality}
 \end{equation}
 
-The first observable is built directly from the measuring procedure. Send the photon through an \(x\)-polarizer. Record \(+1\) if it passes and \(-1\) if it does not. Those numbers are conventional; Susskind emphasizes that we could have chosen others. But \(\pm1\) are natural. The operator is defined by
+The amplitude that a slash-polarized photon passes an \(x\)-analyzer is
 \begin{equation}
-\hat P_{xy}|x\rangle=+|x\rangle,
-\qquad
-\hat P_{xy}|y\rangle=-|y\rangle.
+  \braket{x}{d_+}=\frac{1}{\sqrt2}.
 \end{equation}
-In the \((|x\rangle,|y\rangle)\) basis this means
+The probability is the absolute square,
 \begin{equation}
-P_{xy}=
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}.
+  \operatorname{Prob}(x|d_+)
+  =|\braket{x}{d_+}|^2=\frac12,
+  \qquad
+  \operatorname{Prob}(y|d_+)=\frac12.
+  \label{eq:l6-diagonal-probabilities}
+\end{equation}
+The amplitude and the probability are not interchangeable. Amplitudes may
+be negative or complex; probabilities are nonnegative real numbers.
+
+Now attach \(+1\) to the slash outcome and \(-1\) to the backslash outcome.
+The corresponding observable is
+\begin{equation}
+  \hat P_{\pi/4}
+  =\ket{d_+}\bra{d_+}-\ket{d_-}\bra{d_-}
+  =
+  \begin{pmatrix}
+    0&1\\
+    1&0
+  \end{pmatrix}.
+  \label{eq:l6-P45}
+\end{equation}
+Exchanging which diagonal outcome is called \(+1\) simply replaces this
+operator by \(-\hat P_{\pi/4}\).
+Indeed,
+\begin{equation}
+  \hat P_{\pi/4}
+  \begin{pmatrix}1\\1\end{pmatrix}
+  =
+  \begin{pmatrix}1\\1\end{pmatrix},
+  \qquad
+  \hat P_{\pi/4}
+  \begin{pmatrix}1\\-1\end{pmatrix}
+  =-
+  \begin{pmatrix}1\\-1\end{pmatrix}.
+  \label{eq:l6-P45-check}
 \end{equation}
 
-This is the first concrete example of the general postulate. An observable is represented by an operator. Its eigenvectors are the states in which the observable is definite, and its eigenvalues are the definite outcomes. The language is abstract, but the content here is still very physical: pass gives \(+1\), fail gives \(-1\).
+\begin{classroomqa}
+\audiencequestion{Does knowing the state determine what is
+observable?\lecturetimestamp{00:35:14--00:37:32}}
+\lecturerresponse{No. The state determines which observables, if any, have
+definite values. In \(\ket{d_+}\), the diagonal observable is definite while
+\(\hat P_0\) gives two outcomes with equal probability. Similarly, a
+position delta state makes position definite, whereas a plane wave makes
+momentum definite; a generic wavefunction usually makes neither definite.}
+\end{classroomqa}
 
-\section{From \(45^\circ\) to Arbitrary Angles}
+\section{Arbitrary Linear Polarization}
 
-The lecture now extends the basis in the most controlled way possible. What if we rotate the polarizer by \(45^\circ\)? The outgoing state is neither \(|x\rangle\) nor \(|y\rangle\). Since it lies halfway between the two axes, it is natural that it have equal probabilities to pass an \(x\)-analyzer and a \(y\)-analyzer. This motivates
-\begin{equation}
-|/\rangle=\frac{1}{\sqrt2}\bigl(|x\rangle+|y\rangle\bigr)
-=
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-1
-\end{pmatrix}.
-\end{equation}
-Its orthogonal companion may be taken as
-\begin{equation}
-|\backslash\rangle=\frac{1}{\sqrt2}\bigl(|x\rangle-|y\rangle\bigr)
-=
-\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
--1
-\end{pmatrix}.
-\end{equation}
-The overall sign is inessential; one could equally well put the minus sign on the first component. What matters is orthogonality:
-\begin{equation}
-\langle /|\backslash\rangle=\frac12-\frac12=0.
-\end{equation}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->,thick] (-1.6,0)--(1.6,0) node[right] {$x$};
-\draw[->,thick] (0,-1.6)--(0,1.6) node[above] {$y$};
-\draw[very thick] (-1.1,-1.1)--(1.1,1.1);
-\draw[very thick] (-1.1,1.1)--(1.1,-1.1);
-\draw (1.35,1.05) node {\(|/\rangle\)};
-\draw (1.35,-1.05) node {\(|\backslash\rangle\)};
-\end{tikzpicture}
-\caption{The slash and backslash polarization axes, rotated by \(45^\circ\) with respect to the \(x,y\) basis.}
-\end{figure}
-
-The measurement rule now shows its first genuinely quantum face. The amplitude to find the photon in the \(x\)-state is
-\begin{equation}
-\langle x|/\rangle=\frac{1}{\sqrt2},
-\end{equation}
-so the probability that a slash-polarized photon passes an \(x\)-polarizer is
-\begin{equation}
-|\langle x|/\rangle|^2=\frac12.
-\end{equation}
-Likewise
-\begin{equation}
-|\langle y|/\rangle|^2=\frac12.
-\end{equation}
-
-Now we may ask for the observable that is definite in the slash/backslash basis. The transcript is visibly garbled at the moment the matrix is written, so the clean matrix must be presented cautiously. The natural reconstruction, and the unique symmetric matrix consistent with the stated eigenvalue equations, is
-\begin{equation}
-P_{/\backslash}=
-\begin{pmatrix}
-0&1\\
-1&0
-\end{pmatrix},
-\end{equation}
-since
+Let the transmission axis make angle \(\theta\) with the \(x\)-axis. Its
+state and orthogonal partner are
 \begin{align}
-P_{/\backslash}
-\begin{pmatrix}
-1\\
-1
-\end{pmatrix}
-&=
-\begin{pmatrix}
-1\\
-1
-\end{pmatrix},
-&
-P_{/\backslash}
-\begin{pmatrix}
-1\\
--1
-\end{pmatrix}
-&=
--
-\begin{pmatrix}
-1\\
--1
-\end{pmatrix}.
+  \ket{\theta}
+    &=\cos\theta\,\ket{x}+\sin\theta\,\ket{y}
+      =
+      \begin{pmatrix}
+        \cos\theta\\
+        \sin\theta
+      \end{pmatrix},
+      \label{eq:l6-theta-state}\\
+  \ket{\theta_\perp}
+    &=\ket{\theta+\pi/2}
+      =-\sin\theta\,\ket{x}+\cos\theta\,\ket{y}
+      =
+      \begin{pmatrix}
+        -\sin\theta\\
+        \cos\theta
+      \end{pmatrix}.
+      \label{eq:l6-theta-perp}
+\end{align}
+Both have unit norm, and
+\begin{equation}
+  \braket{\theta}{\theta_\perp}
+  =-\cos\theta\sin\theta+\sin\theta\cos\theta=0.
+  \label{eq:l6-theta-orthogonality}
+\end{equation}
+Also \(\ket{\theta+\pi}=-\ket{\theta}\), confirming that a linear
+polarization axis has period \(\pi\), not \(2\pi\).
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_06_figure_04.png}
+  \caption{The arbitrary linear-polarization state and its orthogonal
+  companion written in the axial basis.}
+  \lectureframe{00:43:30}
+\end{figure}
+
+Suppose the first polarizer prepares \(\ket{\theta}\) and the second tests
+the \(x\)-direction. Then
+\begin{equation}
+  \operatorname{Prob}(x|\theta)
+  =|\braket{x}{\theta}|^2
+  =\cos^2\theta,
+  \qquad
+  \operatorname{Prob}(y|\theta)=\sin^2\theta.
+  \label{eq:l6-Malus-xy}
+\end{equation}
+Their sum is one. Reversing the inner product does not change the
+probability because
+\(\braket{\theta}{x}=\braket{x}{\theta}^{*}\).
+
+For two arbitrary axes \(\alpha\) and \(\beta\), the needed trigonometric
+identity is
+\begin{equation}
+  \cos(\alpha-\beta)
+  =\cos\alpha\cos\beta+\sin\alpha\sin\beta.
+  \label{eq:l6-cos-difference}
+\end{equation}
+The related sum, sine, and double-angle identities are useful enough to keep
+beside it.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.72\textwidth]{lecture_06_figure_05.png}
+  \caption{The trigonometric identities used to compare two rotated
+  polarization bases.}
+  \lectureframe{00:54:30}
+\end{figure}
+
+The transition amplitude is
+\begin{align}
+  \braket{\beta}{\alpha}
+  &=
+  \begin{pmatrix}
+    \cos\beta&\sin\beta
+  \end{pmatrix}
+  \begin{pmatrix}
+    \cos\alpha\\
+    \sin\alpha
+  \end{pmatrix}\\
+  &=\cos\alpha\cos\beta+\sin\alpha\sin\beta\\
+  &=\cos(\alpha-\beta).
+  \label{eq:l6-angle-amplitude}
+\end{align}
+Therefore the single-photon form of Malus's law is
+\begin{equation}
+  \boxed{\operatorname{Prob}(\beta|\alpha)
+  =|\braket{\beta}{\alpha}|^2
+  =\cos^2(\alpha-\beta).}
+  \label{eq:l6-Malus}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_06_figure_06.png}
+  \caption{The overlap is an amplitude; its absolute square is the
+  transmission probability.}
+  \lectureframe{00:57:30}
+\end{figure}
+
+Only the relative angle appears, as rotational symmetry requires. At equal
+angles the probability is one; at orthogonal angles it is zero. For every
+intermediate angle each photon still gives one of two discrete records.
+
+\section{How an Extra Polarizer Opens a Closed Path}
+
+Prepare \(\ket{\theta}\) and test it directly with the orthogonal analyzer
+\(\theta+\pi/2\). The transmission probability vanishes:
+\begin{equation}
+  \operatorname{Prob}(\theta+\pi/2|\theta)
+  =\cos^2(\pi/2)=0.
+  \label{eq:l6-direct-block}
+\end{equation}
+Now insert an \(x\)-polarizer between them. Passing the intermediate
+polarizer has probability \(\cos^2\theta\), and passage prepares the new
+state \(\ket{x}\). Conditional on that event, transmission through the last
+analyzer has probability
+\begin{equation}
+  \operatorname{Prob}(\theta+\pi/2|x)
+  =\cos^2(\theta+\pi/2)=\sin^2\theta.
+\end{equation}
+The probability of completing both stages is therefore
+\begin{equation}
+  \operatorname{Prob}
+  (\theta\longrightarrow x\longrightarrow\theta+\pi/2)
+  =\cos^2\theta\,\sin^2\theta.
+  \label{eq:l6-intermediate-polarizer}
+\end{equation}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.66\textwidth]{lecture_06_figure_07.png}
+  \caption{An intermediate horizontal polarizer changes the state and
+  produces the nonzero product
+  \(\cos^2\theta\,\sin^2\theta\).}
+  \lectureframe{01:02:30}
+\end{figure}
+
+\begin{classroomqa}
+\audiencequestion{How can inserting another obstacle increase the chance of
+transmission?\lecturetimestamp{00:59:29--01:03:40}}
+\lecturerresponse{Without the middle apparatus the initial and final states
+are orthogonal. The intermediate polarizer is not a passive filter on an
+unchanged state: successful passage prepares \(\ket{x}\), which has a
+nonzero overlap with the final state. The two conditional probabilities
+multiply. Adding a measurement can therefore open a route that was absent
+in the direct experiment.}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{Why can crossed polarizers show colors when stressed
+transparent material is placed between them?
+\lecturetimestamp{01:03:42--01:05:00}}
+\lecturerresponse{The exchange in the lecture leaves the mechanism open and
+notes that real optical elements can have wavelength-dependent efficiency.
+More specifically, stressed transparent materials are often birefringent:
+they give two polarization components a wavelength-dependent relative phase.
+The final analyzer converts that phase delay into wavelength-dependent
+intensity. The photon frequency is not changed by an ideal static
+polarizer; different frequencies are transmitted with different
+probabilities.}
+\end{classroomqa}
+
+\section{The Observable at Angle \texorpdfstring{\(\theta\)}{theta}}
+
+The general analyzer must have \(\ket{\theta}\) and
+\(\ket{\theta_\perp}\) as eigenvectors:
+\begin{equation}
+  \hat P_\theta\ket{\theta}=+\ket{\theta},
+  \qquad
+  \hat P_\theta\ket{\theta_\perp}=-\ket{\theta_\perp}.
+  \label{eq:l6-Ptheta-eigenvalues}
+\end{equation}
+Its spectral form is already the answer:
+\begin{equation}
+  \hat P_\theta
+  =\ket{\theta}\bra{\theta}
+   -\ket{\theta_\perp}\bra{\theta_\perp}.
+  \label{eq:l6-Ptheta-spectral}
+\end{equation}
+In the \(x,y\) basis,
+\begin{align}
+  \hat P_\theta
+  &=
+  \begin{pmatrix}
+    \cos^2\theta-\sin^2\theta&
+    2\sin\theta\cos\theta\\
+    2\sin\theta\cos\theta&
+    \sin^2\theta-\cos^2\theta
+  \end{pmatrix}\\
+  &=
+  \begin{pmatrix}
+    \cos2\theta&\sin2\theta\\
+    \sin2\theta&-\cos2\theta
+  \end{pmatrix}.
+  \label{eq:l6-Ptheta-matrix}
 \end{align}
 
-This is also the moment at which Susskind cleans up a conceptual point that is easy to lose. A state does not tell us what is observable; everything represented by an observable is observable. A state tells us what is definite. In the slash state, the slash/backslash observable is definite, but the original \(x,y\) observable is only probabilistic.
-
-From here the lecture proceeds to an arbitrary angle \(\theta\). If the polarization axis is rotated by \(\theta\) from horizontal, the corresponding unit vector has components \(\cos\theta\) and \(\sin\theta\). Thus
-\begin{equation}
-|\theta\rangle=\cos\theta\,|x\rangle+\sin\theta\,|y\rangle
-=
-\begin{pmatrix}
-\cos\theta\\
-\sin\theta
-\end{pmatrix}.
-\end{equation}
-The orthogonal companion is the state at \(\theta+\pi/2\):
-\begin{equation}
-|\theta+\pi/2\rangle
-=
--\sin\theta\,|x\rangle+\cos\theta\,|y\rangle
-=
-\begin{pmatrix}
--\sin\theta\\
-\cos\theta
-\end{pmatrix}.
-\end{equation}
-These are normalized because \(\cos^2\theta+\sin^2\theta=1\), and orthogonal because
-\begin{equation}
-\langle\theta|\theta+\pi/2\rangle
-=
-\cos\theta(-\sin\theta)+\sin\theta\cos\theta
-=
-0.
-\end{equation}
-
-Now we ask the experimental question that quantum mechanics is built to answer. A photon emerges from a \(\theta\)-polarizer. What is the probability that it passes an \(x\)-polarizer? The amplitude is
-\begin{equation}
-\langle x|\theta\rangle=\cos\theta,
-\end{equation}
-so
-\begin{equation}
-P(\theta\to x)=|\langle x|\theta\rangle|^2=\cos^2\theta.
-\end{equation}
-Likewise
-\begin{equation}
-P(\theta\to y)=|\langle y|\theta\rangle|^2=\sin^2\theta,
-\end{equation}
-and the total probability is \(1\).
-
-\paragraph{Trigonometric interlude.}
-At this point the lecture pauses for a small table of trigonometric identities, not as a digression but because the general two-polarizer experiment now demands them:
+Let \(c=\cos\theta\) and \(s=\sin\theta\). Acting on the proposed
+\(+1\) eigenvector gives
 \begin{align}
-\cos(\alpha+\beta)&=\cos\alpha\cos\beta-\sin\alpha\sin\beta,\\
-\cos(\alpha-\beta)&=\cos\alpha\cos\beta+\sin\alpha\sin\beta,\\
-\sin(\alpha+\beta)&=\sin\alpha\cos\beta+\sin\beta\cos\alpha,\\
-\sin(\alpha-\beta)&=\sin\alpha\cos\beta-\sin\beta\cos\alpha,\\
-\cos 2\alpha&=\cos^2\alpha-\sin^2\alpha,\\
-\sin 2\alpha&=2\sin\alpha\cos\alpha.
+  \hat P_\theta
+  \begin{pmatrix}c\\s\end{pmatrix}
+  &=
+  \begin{pmatrix}
+    c^2-s^2&2sc\\
+    2sc&s^2-c^2
+  \end{pmatrix}
+  \begin{pmatrix}c\\s\end{pmatrix}\\
+  &=
+  \begin{pmatrix}
+    c(c^2+s^2)\\
+    s(c^2+s^2)
+  \end{pmatrix}
+  =
+  \begin{pmatrix}c\\s\end{pmatrix}.
+  \label{eq:l6-Ptheta-check}
 \end{align}
 
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->,thick] (-0.8,0)--(7.8,0);
-\draw[thick,rotate around={25:(1,0)}] (1,-1)--(1,1);
-\draw[thick,rotate around={70:(5,0)}] (5,-1)--(5,1);
-\draw (1,-1.35) node {$\alpha$};
-\draw (5,-1.35) node {$\beta$};
-\draw (3.0,0.45) node {$|\alpha\rangle$};
-\end{tikzpicture}
-\caption{A photon prepared by an \(\alpha\)-polarizer and tested by a second polarizer at angle \(\beta\).}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_06_figure_08.png}
+  \caption{The board check of the general polarization matrix on
+  \((\cos\theta,\sin\theta)^T\).}
+  \lectureframe{01:10:30}
 \end{figure}
 
-If the first polarizer prepares
+Rotating the analyzer by \(90^\circ\) exchanges the two outcomes:
 \begin{equation}
-|\alpha\rangle=
-\begin{pmatrix}
-\cos\alpha\\
-\sin\alpha
-\end{pmatrix},
-\qquad
-\langle \beta|=
-\begin{pmatrix}
-\cos\beta&\sin\beta
-\end{pmatrix},
+  \hat P_{\theta+\pi/2}=-\hat P_\theta.
+  \label{eq:l6-orthogonal-sign}
 \end{equation}
-then the amplitude to pass the second polarizer is
-\begin{equation}
-\langle\beta|\alpha\rangle
-=
-\cos\alpha\cos\beta+\sin\alpha\sin\beta
-=
-\cos(\alpha-\beta).
-\end{equation}
-This is not yet the probability. The lecture makes a point of this: the quantity can be negative, so it cannot itself be a probability. The transmission probability is the square of the amplitude,
-\begin{equation}
-P(\alpha\to\beta)=|\langle\beta|\alpha\rangle|^2=\cos^2(\alpha-\beta).
-\end{equation}
-The answer depends only on the relative angle, as symmetry says it must, and yet the actual outcome of each trial remains one of two discrete possibilities. This is exactly the pattern the lecture set out to display.
+The trigonometric reason is that both
+\(\cos(2\theta+\pi)\) and \(\sin(2\theta+\pi)\) acquire a minus sign. The
+physical reason is simpler: the state formerly labelled \(+1\) is now
+labelled \(-1\), and conversely.
 
-\section{Intermediate Polarizers and the Observable \(P_\theta\)}
-
-After the break the lecture reopens not with a new theorem but with a puzzle raised by students. That is the right rhythm for the notes as well.
-
-\subsection{Question \& Answer}
-
-\paragraph{Question.}
-How can adding another polarizer increase the chance of transmission?
-
-\paragraph{Answer.}
-Suppose a photon has passed a \(\theta\)-polarizer, so it is in the state \(|\theta\rangle\). If we test it immediately with a \(\theta+\pi/2\) polarizer, the probability of transmission is
-\begin{equation}
-P(\theta\to \theta+\pi/2)=\cos^2(\pi/2)=0.
-\end{equation}
-The direct channel is completely closed.
-
-Now insert a horizontal polarizer in between. First the photon must pass the middle polarizer:
-\begin{equation}
-P(\theta\to x)=\cos^2\theta.
-\end{equation}
-But if it does pass, the state has changed. It is no longer \(|\theta\rangle\); it has been prepared anew as \(|x\rangle\). The probability that this new state passes the final polarizer is therefore
-\begin{equation}
-P(x\to \theta+\pi/2)=\sin^2\theta.
-\end{equation}
-Hence the total probability is not an addition but a product of successive conditional probabilities:
-\begin{equation}
-P(\theta\to x\to \theta+\pi/2)=\cos^2\theta\,\sin^2\theta.
-\end{equation}
-
-\begin{figure}
-\centering
-\begin{tikzpicture}[scale=1.0]
-\draw[->,thick] (-0.8,0)--(8.8,0);
-\draw[thick,rotate around={30:(1,0)}] (1,-1)--(1,1);
-\draw[thick] (4,-1)--(4,1);
-\draw[thick,rotate around={120:(7,0)}] (7,-1)--(7,1);
-\draw (1,-1.35) node {$\theta$};
-\draw (4,-1.35) node {$x$};
-\draw (7,-1.55) node {$\theta+\pi/2$};
-\end{tikzpicture}
-\caption{The inserted horizontal polarizer prepares a new state. That is why the forbidden direct channel can reopen with nonzero probability.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.58\textwidth]{lecture_06_figure_09.png}
+  \caption{The two orthogonal analyzer axes whose outcome labels are
+  exchanged by a \(90^\circ\) rotation.}
+  \lectureframe{01:15:15}
 \end{figure}
 
-The surprise is not that extra apparatus creates photons that were not there. The surprise is that measurement changes the state. By inserting a polarizer in between, we do not merely diminish an existing channel; we alter the state on which the next analyzer acts. That is why Susskind calls this one of the mildly freaky interference phenomena.
+\section{Complex Amplitudes and Circular Polarization}
 
-The lecture then returns to the general observable \(\hat P_\theta\). Here Susskind is candid: solving for the matrix component by component is not very illuminating, but seeing the answer and checking it is reassuring. We want an operator with
+Real coefficients describe every linear polarization, but not every vector
+in a complex two-dimensional Hilbert space. Consider
 \begin{equation}
-\hat P_\theta|\theta\rangle=+|\theta\rangle,
-\qquad
-\hat P_\theta|\theta+\pi/2\rangle=-|\theta+\pi/2\rangle.
+  \ket{c_+}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\i\end{pmatrix},
+  \qquad
+  \ket{c_-}
+  =\frac{1}{\sqrt2}
+    \begin{pmatrix}1\\-i\end{pmatrix}.
+  \label{eq:l6-circular-states}
 \end{equation}
-The transcript is partially garbled where the matrix is first written, but the cleaned result is standard and fully consistent with the stated eigenvalue equations:
+Complex conjugation is essential:
 \begin{equation}
-P_\theta=
-\begin{pmatrix}
-\cos 2\theta & \sin 2\theta\\
-\sin 2\theta & -\cos 2\theta
-\end{pmatrix}.
+  \braket{c_+}{c_+}
+  =\frac12\bigl(1+(-i)i\bigr)=1,
 \end{equation}
-
-To check it, set
+and
 \begin{equation}
-c=\cos\theta,
-\qquad
-s=\sin\theta,
-\qquad
-|\theta\rangle=
-\begin{pmatrix}
-c\\
-s
-\end{pmatrix}.
+  \braket{c_-}{c_+}
+  =\frac12\bigl(1+i^2\bigr)=0.
+  \label{eq:l6-circular-orthogonality}
 \end{equation}
-Then
-\begin{align}
-P_\theta|\theta\rangle
-&=
-\begin{pmatrix}
-c^2-s^2 & 2sc\\
-2sc & s^2-c^2
-\end{pmatrix}
-\begin{pmatrix}
-c\\
-s
-\end{pmatrix} \\
-&=
-\begin{pmatrix}
-(c^2-s^2)c+2sc\,s\\
-2sc\,c+(s^2-c^2)s
-\end{pmatrix} \\
-&=
-\begin{pmatrix}
-c(c^2+s^2)\\
-s(c^2+s^2)
-\end{pmatrix}
-=
-\begin{pmatrix}
-c\\
-s
-\end{pmatrix}
-=
-|\theta\rangle.
-\end{align}
-The companion vector \(|\theta+\pi/2\rangle\) is similarly sent to minus itself. Thus the matrix has exactly the required eigenvectors and eigenvalues.
+The tempting product without conjugating the bra gives the wrong answer.
 
-The \(90^\circ\) rotation now has a clean operator statement:
-\begin{equation}
-P_{\theta+\pi/2}=-P_\theta.
-\end{equation}
-That is just the exchange of the positive and negative eigenvalues. The orthogonal analyzer does not introduce a wholly different observable; it flips the sign convention for the same pair of eigenstates.
-
-\section{Complex Coefficients and Circular Polarization}
-
-At this point Susskind widens the state space one more time. We have not yet used complex numbers, and quantum mechanics is built from them. So we introduce a new state,
-\begin{equation}
-|c_+\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
-i
-\end{pmatrix},
-\end{equation}
-together with its orthogonal partner
-\begin{equation}
-|c_-\rangle=\frac{1}{\sqrt2}
-\begin{pmatrix}
-1\\
--i
-\end{pmatrix}.
-\end{equation}
-Normalization requires complex conjugation:
-\begin{equation}
-\langle c_+|c_+\rangle
-=
-\frac12\bigl(1\cdot 1+(-i)\cdot i\bigr)=1.
-\end{equation}
-Orthogonality does too:
-\begin{equation}
-\langle c_-|c_+\rangle
-=
-\frac12\bigl(1\cdot 1+i\cdot i\bigr)=0.
-\end{equation}
-This is a point the lecture emphasizes strongly. If we forget the bra and simply dot the columns together, we get the wrong answer. The bra is already the complex-conjugated object.
-
-From the wave point of view, these states correspond to a phase difference between the \(x\)- and \(y\)-components of the electric field. If
-\begin{equation}
-E_y=\cos(z-ct),
-\qquad
-E_x=\cos(z-ct),
-\end{equation}
-then the two components are in phase and the result is just linear polarization at \(45^\circ\). Circular polarization appears when the components are out of phase by \(90^\circ\):
-\begin{equation}
-E_y=\cos(z-ct),
-\qquad
-E_x=\sin(z-ct),
-\end{equation}
-or with the opposite sign in the second equation. At a fixed point in space the electric field rotates in time. That is the wave picture behind the complex state vector.
-
-The lecture informally calls the two states left and right circular polarization, but Susskind explicitly remarks that he may have the handedness labels mixed up. The important thing for us is the pair of states \(\frac1{\sqrt2}(1,\pm i)^T\), not the convention for the names.
-
-Now test a circularly polarized photon with a linear polarizer at angle \(\theta\). Since
-\begin{equation}
-|\theta\rangle=
-\begin{pmatrix}
-\cos\theta\\
-\sin\theta
-\end{pmatrix},
-\end{equation}
-the amplitude is
-\begin{equation}
-\langle\theta|c_+\rangle
-=
-\frac{1}{\sqrt2}\bigl(\cos\theta+i\sin\theta\bigr).
-\end{equation}
-The probability is the modulus squared,
-\begin{align}
-|\langle\theta|c_+\rangle|^2
-&=
-\frac12\bigl(\cos\theta+i\sin\theta\bigr)\bigl(\cos\theta-i\sin\theta\bigr) \\
-&=
-\frac12\bigl(\cos^2\theta+\sin^2\theta\bigr)
-=
-\frac12.
-\end{align}
-So a circularly polarized photon passes any linearly polarized analyzer with probability \(1/2\). That is the precise fact the lecture uses. Beyond that lies the wider family of elliptically polarized states, but Susskind only gestures toward them here and postpones the corresponding observables.
-
-A quarter-wave plate is mentioned as the device that produces circular polarization by shifting the two linear components out of phase. The details are left for the next lecture, which is exactly right: the mathematical point needed here is only that complex phase opens new states which are not visible in the real two-parameter picture of linear polarization alone.
-
-\section{Incompatible Observables and Average Value}
-
-By now we have a whole family of polarization observables: horizontal/vertical, slash/backslash, the general \(P_\theta\), and a circular observable left as homework. The common structural fact is that different polarization observables generally do not commute. The reason is already visible at the level of eigenvectors. Horizontal and vertical states are one basis. Slash and backslash are another. Circular states are a third. In general they do not share eigenvectors, so they are not simultaneously definite.
-
-The special case is the orthogonal pair \(\theta\) and \(\theta+\pi/2\). Their observables are just negatives of each other:
-\begin{equation}
-P_{\theta+\pi/2}=-P_\theta.
-\end{equation}
-Therefore they commute. Measuring one automatically tells us the other, since the eigenvalue has simply changed sign. But for genuinely different angles, or for linear versus circular polarization, the observables are incompatible. One cannot have a polarizer that prepares definite \(x\)-polarization and definite \(\theta\)-polarization at the same time.
-
-The lecture now makes its final pivot. We have been calculating probabilities. What about average value? Susskind immediately objects to the standard terminology. ``Expectation value'' is, he says, a poor choice of words, because it often names the last value one should expect to see in a single trial.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.58\textwidth]{lecture_06_figure_04.png}
-\par
-\begin{tikzpicture}[scale=1.0]
-\draw[thick] (-4.1,0)--(4.1,0);
-\draw[thick,smooth] plot coordinates {
-(-3.7,0.04) (-3.3,0.28) (-2.95,0.82) (-2.6,1.18) (-2.25,0.66)
-(-1.95,0.14) (-1.3,0.03) (-0.5,0.00) (0.5,0.02) (1.3,0.08)
-(1.85,0.62) (2.2,1.02) (2.55,0.78) (2.95,0.30) (3.25,0.08)};
-\end{tikzpicture}
-\caption{Symmetric two-lump wavefunction profile.}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.60\textwidth]{lecture_06_figure_10.png}
+  \caption{The two normalized complex vectors that form the circular
+  polarization basis.}
+  \lectureframe{01:21:00}
 \end{figure}
 
-The sketch above carries no algebra on the board, but it carries the geometry of the example. A symmetric wavefunction with one lump on the left and one on the right has
+To see their wave meaning, restore a dimensionally explicit phase
+\(\phi=kz-\omega t\), with \(\omega=ck\). Equal in-phase components,
 \begin{equation}
-\langle x\rangle=0,
+  E_x=E_0\cos\phi,
+  \qquad
+  E_y=E_0\cos\phi,
 \end{equation}
-yet the particle is least likely to be found at the middle. So the expectation value is not the value one should expect to observe on a single shot. It is an average value.
+make a linearly polarized wave at \(45^\circ\). A relative quarter-cycle
+shift gives
+\begin{equation}
+  E_x=E_0\sin\phi,
+  \qquad
+  E_y=E_0\cos\phi.
+  \label{eq:l6-circular-field}
+\end{equation}
+At a fixed point in space, the tip of
+\(\bm E=E_x\hat{\bm x}+E_y\hat{\bm y}\) moves around a circle. Reversing the
+sign of one quadrature reverses the sense of rotation. The magnetic field
+is transverse as well; in vacuum,
+\(\bm B=\hat{\bm z}\times\bm E/c\).
 
-Now let \(K\) be any Hermitian observable with eigenvectors \(|n\rangle\) and eigenvalues \(\lambda_n\):
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.68\textwidth]{lecture_06_figure_11.png}
+  \caption{The \(x\)- and \(y\)-components are displaced by one quarter
+  cycle.}
+  \lectureframe{01:24:30}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.54\textwidth]{lecture_06_figure_12.png}
+  \caption{At fixed \(z\), the two quadratures make the electric-field
+  vector rotate.}
+  \lectureframe{01:25:30}
+\end{figure}
+
+Which state is called right- or left-circular depends on the propagation,
+time, and viewing conventions. The invariant content here is the orthogonal
+pair \((1,\pm i)^T/\sqrt2\).
+
+\begin{classroomqa}
+\audiencequestion{What optical device creates the relative phase required
+for circular polarization?\lecturetimestamp{01:26:37--01:27:05}}
+\lecturerresponse{A quarter-wave plate. Its two principal axes accumulate
+different phases; a linear state with equal components along those axes
+emerges with a relative phase of \(\pi/2\), producing circular
+polarization. Unequal component magnitudes generally produce an ellipse.}
+\end{classroomqa}
+
+For any linear analyzer,
 \begin{equation}
-K|n\rangle=\lambda_n|n\rangle.
+  \braket{\theta}{c_+}
+  =\frac{1}{\sqrt2}
+    \bigl(\cos\theta+i\sin\theta\bigr).
 \end{equation}
-If \(|\psi\rangle\) is any state, define the average value by the sandwich
-\begin{equation}
-\langle K\rangle_\psi=\langle\psi|K|\psi\rangle.
-\end{equation}
-There is no extra star on \(K\); the bra already carries the complex conjugation. Insert the identity in the form
-\begin{equation}
-\sum_n |n\rangle\langle n|=I.
-\end{equation}
-Then
+Hence
 \begin{align}
-\langle K\rangle_\psi
-&=
-\langle\psi|K|\psi\rangle \\
-&=
-\left\langle\psi\left|K\left(\sum_n |n\rangle\langle n|\right)\right|\psi\right\rangle \\
-&=
-\sum_n \langle\psi|K|n\rangle\langle n|\psi\rangle \\
-&=
-\sum_n \lambda_n\,\langle\psi|n\rangle\langle n|\psi\rangle \\
-&=
-\sum_n \lambda_n\,|\langle n|\psi\rangle|^2.
+  |\braket{\theta}{c_+}|^2
+  &=
+  \frac12
+  (\cos\theta+i\sin\theta)
+  (\cos\theta-i\sin\theta)\\
+  &=\frac12(\cos^2\theta+\sin^2\theta)
+  =\frac12.
+  \label{eq:l6-circular-linear-probability}
 \end{align}
-This is exactly the ordinary weighted average of all possible outcomes: eigenvalue times probability, summed over the basis of outcomes.
+A circularly polarized photon therefore passes every linear analyzer with
+probability one half. Its statistics reveal no preferred linear axis.
 
-For polarization the simplest example uses the original operator \(P_{xy}\) in the state \(|\theta\rangle\):
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{lecture_06_figure_13.png}
+  \caption{The complex-conjugate product removes the phase and leaves
+  transmission probability \(1/2\).}
+  \lectureframe{01:29:50}
+\end{figure}
+
+The general normalized pair \(a,b\in\mathbb C\), modulo a common phase,
+describes elliptical polarization. A real relative phase gives linear
+polarization. Equal magnitudes with relative phase \(\pm\pi/2\) give the two
+circular polarizations. Intermediate magnitudes and phases give ellipses.
+
+\begin{classroomqa}
+\audiencequestion{What observable distinguishes the two circular states?
+\lecturetimestamp{01:32:19--01:32:36}}
+\lecturerresponse{The lecture leaves this construction as an exercise. With
+\(\ket{c_+}\) assigned eigenvalue \(+1\) and \(\ket{c_-}\) assigned
+\(-1\), the spectral rule gives
+\[
+  \hat P_c
+  =\ket{c_+}\bra{c_+}-\ket{c_-}\bra{c_-}
+  =
+  \begin{pmatrix}
+    0&-i\\
+    i&0
+  \end{pmatrix}.
+\]
+Changing the handedness convention or exchanging the labels multiplies the
+operator by \(-1\).}
+\end{classroomqa}
+
+\section{Compatible and Incompatible Polarization Tests}
+
+The axial, diagonal, arbitrary linear, and circular observables do not
+usually share eigenvectors. In the present two-state space,
+\begin{equation}
+  \hat P_\theta
+  =\cos2\theta\,\sigma_z+\sin2\theta\,\sigma_x,
+\end{equation}
+so two linear analyzers satisfy
+\begin{equation}
+  [\hat P_\alpha,\hat P_\beta]
+  =2i\sin\!\bigl(2(\beta-\alpha)\bigr)\sigma_y.
+  \label{eq:l6-linear-commutator}
+\end{equation}
+They commute only when their axes are the same or orthogonal, modulo the
+\(\pi\)-periodicity of a linear polarization axis. In the orthogonal case
+\(\hat P_{\theta+\pi/2}=-\hat P_\theta\), so measuring one immediately fixes
+the other with the opposite label.
+
+\begin{classroomqa}
+\audiencequestion{Can \(x\)- and \(y\)-polarization be measured
+simultaneously, and what changes at \(45^\circ\)?
+\lecturetimestamp{01:33:31--01:35:20}}
+\lecturerresponse{The \(x\) and \(y\) outcome labels belong to one common
+basis and are negatives of one another in the \(\pm1\) convention. Knowing
+one fixes the other. The \(x\)- and \(45^\circ\)-analyzers are genuinely
+different: their operators do not commute and have no common eigenstate.
+The same incompatibility holds between a linear analyzer and the circular
+observable.}
+\end{classroomqa}
+
+Incompatibility is therefore not vagueness about an apparatus. Each
+apparatus is perfectly definite. It is the impossibility of one state being
+a simultaneous eigenstate of two noncommuting tests.
+
+\section{Expectation Value Means Average Value}
+
+The standard term \emph{expectation value} can be misleading. Imagine a
+position probability density concentrated in two symmetric, separated
+lobes. Its average position is zero, even if the probability of finding the
+particle near zero is tiny or vanishes. The average need not be a likely
+single outcome.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_06_figure_14.png}
+  \caption{A symmetric two-lobe profile can have average position zero even
+  though its central probability is very small.}
+  \lectureframe{01:36:09}
+\end{figure}
+
+Let \(\hat K\) be a Hermitian observable with a complete orthonormal
+eigenbasis,
+\begin{equation}
+  \hat K\ket{n}=\lambda_n\ket{n},
+  \qquad
+  \sum_n\ket{n}\bra{n}=\mathbf 1.
+  \label{eq:l6-K-spectrum}
+\end{equation}
+For a normalized state \(\ket{\psi}\), define
+\begin{equation}
+  \expect{\hat K}_\psi
+  :=\bra{\psi}\hat K\ket{\psi}.
+  \label{eq:l6-expectation-definition}
+\end{equation}
+
+\begin{classroomqa}
+\audiencequestion{Should there be a complex-conjugation star on
+\(\hat K\)?\lecturetimestamp{01:38:17--01:38:41}}
+\lecturerresponse{No additional star is needed. Turning
+\(\ket{\psi}\) into \(\bra{\psi}\) already takes the complex conjugate
+transpose. The observable itself is Hermitian,
+\(\hat K^\dagger=\hat K\), which ensures that the expectation value is
+real.}
+\end{classroomqa}
+
+Insert the eigenbasis resolution of identity between \(\hat K\) and
+\(\ket{\psi}\):
 \begin{align}
-\langle P_{xy}\rangle_\theta
-&=
-\langle\theta|P_{xy}|\theta\rangle \\
-&=
-\begin{pmatrix}
-\cos\theta & \sin\theta
-\end{pmatrix}
-\begin{pmatrix}
-1&0\\
-0&-1
-\end{pmatrix}
-\begin{pmatrix}
-\cos\theta\\
-\sin\theta
-\end{pmatrix} \\
-&=
-\cos^2\theta-\sin^2\theta \\
-&=
-\cos 2\theta.
+  \expect{\hat K}_\psi
+  &=
+  \bra{\psi}\hat K
+  \left(\sum_n\ket{n}\bra{n}\right)
+  \ket{\psi}\\
+  &=
+  \sum_n
+  \bra{\psi}\hat K\ket{n}
+  \braket{n}{\psi}\\
+  &=
+  \sum_n
+  \lambda_n
+  \braket{\psi}{n}
+  \braket{n}{\psi}\\
+  &=
+  \sum_n\lambda_n
+  |\braket{n}{\psi}|^2.
+  \label{eq:l6-expectation-spectral}
 \end{align}
-This lies between \(+1\) and \(-1\), as it should. But again, it is not a new measurement outcome. The actual outcomes are still \(+1\) and \(-1\). The quantity \(\cos 2\theta\) is their average over many repetitions.
 
-\section{Summary}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.62\textwidth]{lecture_06_figure_15.png}
+  \caption{The expectation-value sandwich after inserting the eigenbasis
+  resolution of identity.}
+  \lectureframe{01:39:45}
+\end{figure}
 
-Polarization is the right starting point because it is small enough to see clearly and rich enough to contain the full logical structure of quantum mechanics. We begin with a photon moving along \(z\), carrying a transverse flag in the \(xy\)-plane. We then discover the central tension: symmetry allows a continuum of preparation directions, but every fixed analyzer still returns only two outcomes. From that point the lecture unfolds methodically. We choose a basis, construct observables, rotate the basis, extract amplitudes and probabilities, see how measurements update the state, admit complex phase and circular polarization, and finally learn to distinguish a probability from an average value. The system is minimal, but the logic is already complete.
+The factor
+\begin{equation}
+  p_n=|\braket{n}{\psi}|^2
+\end{equation}
+is the probability of obtaining \(\lambda_n\). Thus
+\(\expect{\hat K}_\psi=\sum_n p_n\lambda_n\) is exactly an ordinary weighted
+average of the possible outcomes.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.60\textwidth]{lecture_06_figure_16.png}
+  \caption{Possible eigenvalues weighted by their probabilities give the
+  average \(\sum_n p_n\lambda_n\).}
+  \lectureframe{01:42:50}
+\end{figure}
+
+Return finally to the axial polarization observable in the state
+\(\ket{\theta}\):
+\begin{align}
+  \expect{\hat P_0}_\theta
+  &=
+  \bra{\theta}
+  \begin{pmatrix}
+    1&0\\
+    0&-1
+  \end{pmatrix}
+  \ket{\theta}\\
+  &=
+  \begin{pmatrix}
+    \cos\theta&\sin\theta
+  \end{pmatrix}
+  \begin{pmatrix}
+    \cos\theta\\
+    -\sin\theta
+  \end{pmatrix}\\
+  &=
+  \cos^2\theta-\sin^2\theta
+  =\cos2\theta.
+  \label{eq:l6-P0-expectation}
+\end{align}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.52\textwidth]{lecture_06_figure_17.png}
+  \caption{The axial polarization expectation value in the state
+  \(\ket{\theta}\).}
+  \lectureframe{01:45:50}
+\end{figure}
+
+The same answer follows directly from the two outcomes:
+\begin{equation}
+  (+1)\cos^2\theta+(-1)\sin^2\theta=\cos2\theta.
+\end{equation}
+No single detector click reports \(\cos2\theta\). Each run still records
+\(+1\) or \(-1\); \(\cos2\theta\) emerges only as the average over repeated
+identically prepared photons. That distinction between a state, a
+single-shot outcome, a probability, and an ensemble average completes the
+two-state polarization example.
