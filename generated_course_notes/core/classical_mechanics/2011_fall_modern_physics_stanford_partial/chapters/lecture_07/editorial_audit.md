@@ -32,7 +32,7 @@ removing only institutional announcements and the scheduling interruption.
 ## Build Checks
 
 - Two clean pdflatex passes
-- 21 pages
+- 20 pages
 - No overfull or underfull boxes
 - No undefined references or LaTeX warnings
 - qpdf structural check passed

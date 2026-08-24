@@ -39,7 +39,7 @@ discussion at 01:46:51--01:51:03 because none contains physics.
 
 - Deterministic hard scan: pass
 - Two clean pdflatex passes
-- PDF pages: 21
+- PDF pages: 20
 - Overfull or underfull boxes: 0
 - Undefined references and LaTeX warnings: 0
 - qpdf structure: pass

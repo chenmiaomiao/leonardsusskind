@@ -41,7 +41,7 @@ the timestamped transcript.
 ## Build Review
 
 - Output: lecture.pdf
-- Pages: 20
+- Pages: 21
 - Page size: 612 by 792 points
 - LaTeX errors: none
 - Undefined references: none

@@ -37,7 +37,7 @@ summaries, and corrupted automatic-caption wording.
 ## Build Checks
 
 - Two clean pdflatex passes
-- 18 pages
+- 19 pages
 - No overfull or underfull boxes
 - No undefined references or LaTeX warnings
 - qpdf structural check passed

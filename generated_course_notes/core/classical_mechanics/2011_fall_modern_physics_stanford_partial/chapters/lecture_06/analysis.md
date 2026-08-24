@@ -56,4 +56,4 @@ The lecture develops Hamiltonian mechanics in one continuous argument:
 - Inspected blackboard frames retained: 10
 - Reconstructed explanatory diagrams: 1
 - Unresolved mathematical or provenance findings: 0
-- Compiled pages: 18
+- Compiled pages: 19

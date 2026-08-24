@@ -106,6 +106,13 @@ def rebuild_course_pdf(course_dir: Path) -> Path:
     return course_dir / "course.pdf"
 
 
+def publish_chapter_pdfs(generated_dir: Path, root_dir: Path) -> int:
+    chapter_pdfs = sorted((generated_dir / "chapters").glob("lecture_*/lecture.pdf"))
+    for chapter_pdf in chapter_pdfs:
+        hardlink_or_copy(chapter_pdf, root_dir / f"{chapter_pdf.parent.name}.pdf")
+    return len(chapter_pdfs)
+
+
 def main() -> int:
     args = parse_args()
     repo_root = args.repo_root.resolve()
@@ -120,11 +127,13 @@ def main() -> int:
     nutstore_pdf = args.nutstore_root.resolve() / filename
 
     hardlink_or_copy(source_pdf, root_dir / filename)
+    chapter_count = publish_chapter_pdfs(generated_dir, root_dir)
     hardlink_or_copy(source_pdf, all_notes_pdf)
     nutstore_pdf.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source_pdf, nutstore_pdf)
 
     print(f"published {course_rel} -> {root_dir / filename}")
+    print(f"chapters -> {root_dir} ({chapter_count} PDFs)")
     print(f"all_notes -> {all_notes_pdf}")
     print(f"nutstore -> {nutstore_pdf}")
     return 0

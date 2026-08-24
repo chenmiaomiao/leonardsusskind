@@ -106,6 +106,6 @@ video still is used.
 - Direct lecture-note voice: required
 - Classroom exchanges: retained as standalone question-and-answer blocks
 - Mathematical corrections: disclosed in source records
-- PDF compile: clean, 16 letter-size pages
+- PDF compile: clean, 17 letter-size pages
 - Overfull/underfull boxes: none
 - Missing figures or references: none
