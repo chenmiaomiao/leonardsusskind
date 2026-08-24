@@ -1,38 +1,46 @@
 # Visual Evidence
-## Frame Inventory
-- `lecture_03_figure_02.png` shows a simple three-arrow sketch from a common origin, used as an ordinary real-space stand-in for a basis; this screenshot should remain in the final notes and should also be paired with a TikZ redraw.
-- `lecture_03_figure_03.png` shows the centered bra-ket matrix element \(\langle m|\hat K|n\rangle\) with cropped older writing above it; this screenshot should remain in the final notes as direct notation evidence.
-- `lecture_03_figure_04.png` shows the operator-on-state expression first in bra-ket form and then as the indexed sum \(\sum_m K_{nm}A_m\), with Susskind pointing at the final coefficient term; this screenshot should remain in the final notes.
-- `lecture_03_figure_06.png` shows a parenthesized matrix with entries beginning \(H_{11},H_{12},H_{21}\) acting on a parenthesized column vector with entries beginning \(A_1,A_2\); this screenshot should remain in the final notes as board-layout evidence for matrix-times-column notation.
 
-## Equation Extraction
-- `lecture_03_figure_03.png`: \(\langle m|\hat K|n\rangle\) [visible]
-- `lecture_03_figure_04.png`: \(\langle n|\hat K|A\rangle = \sum_m \langle n|\hat K|m\rangle \langle m|A\rangle\) [visible]
-- `lecture_03_figure_04.png`: \(\sum_m K_{nm}A_m\) [visible]
-- `lecture_03_figure_04.png`: \(\langle n|\hat K|A\rangle = \sum_m K_{nm}A_m\) [standard completion]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} H_{11} & H_{12} & \cdots \\ H_{21} & \cdots & \cdots \\ \vdots & & \end{pmatrix}\) [partially visible]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} A_1 \\ A_2 \\ \vdots \end{pmatrix}\) [visible]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} H_{11} & H_{12} & \cdots \\ H_{21} & \cdots & \cdots \\ \vdots & & \ddots \end{pmatrix}\begin{pmatrix} A_1 \\ A_2 \\ \vdots \end{pmatrix}\) [standard completion]
+## Accepted Frames
 
-## Diagram Extraction
-- `lecture_03_figure_02.png` contains the only real diagram in this set: three unlabelled arrows from a common origin, which should be shown both as the original screenshot and as a clean TikZ redraw.
-- The sketch in `lecture_03_figure_02.png` should stay geometrically simple in TikZ: one arrow up, one to the right, one down-left, with no labels unless the surrounding transcript-driven prose introduces them.
-- `lecture_03_figure_03.png` is not a diagram candidate; its value is the isolated bra-ket notation, so it should be preserved as a screenshot and supported by typeset mathematics rather than redrawn graphically.
-- `lecture_03_figure_04.png` is best treated as board-structure evidence: an upper abstract line and a lower component line. It should remain as a screenshot, with clean displayed equations alongside it rather than a TikZ redraw.
-- `lecture_03_figure_06.png` is also board-layout evidence rather than a figure to redraw: its importance is the spatial arrangement of matrix and column vector, so it should remain as a screenshot and be accompanied by a clean matrix product in LaTeX.
+| Asset | Time | Visible evidence | Use |
+|---|---:|---|---|
+| lecture_03_figure_02.png | 00:04:29 | Three arrows from a common origin | Basis sketch plus clean TikZ reconstruction |
+| lecture_03_figure_03.png | 00:06:22 | \(\langle m\rvert\hat K\lvert n\rangle\) | Basis matrix element |
+| lecture_03_figure_04.png | 00:13:37 | Bra-ket expansion and \(\sum_mK_{nm}A_m\) | Operator action in components |
+| lecture_03_figure_05.png | 00:18:30 | Completeness inserted into \(\hat K\hat L\) | Operator product and matrix multiplication |
+| lecture_03_figure_07.png | 00:33:40 | Eigenvalue equation and three spectral facts | Hermitian spectral theorem |
+| lecture_03_figure_08.png | 00:54:50 | Squared projection and probability notation | Discrete Born rule |
+| lecture_03_figure_09.png | 01:08:33 | Narrow spike at \(x=\lambda\), width epsilon | Dirac delta heuristic |
+| lecture_03_figure_10.png | 01:31:37 | Derivative transferred by integration by parts | Hermiticity of \(-i\,d/dx\) |
+| lecture_03_figure_11.png | 01:34:50 | \(\psi(x)=e^{ikx}=\cos kx+i\sin kx\) | Plane-wave eigenfunction |
+| lecture_03_figure_12.png | 01:43:50 | Wavelength sketch and \(p=h/L=(h/2\pi)k\) | de Broglie identification |
 
-## Reconstruction Guidance
-- Use `lecture_03_figure_02.png` as the visual witness for the basis sketch, but redraw it in TikZ so the notes can reproduce the geometry cleanly; keep the screenshot nearby because the board sketch is part of the lecture’s pacing and not just an abstract textbook diagram.
-- Typeset `lecture_03_figure_03.png` as a clean displayed bra-ket \(\langle m|\hat K|n\rangle\), and do not attempt to reconstruct the cropped line above it from the screenshot.
-- For `lecture_03_figure_04.png`, preserve both levels of notation in the notes: first the bra-ket expansion, then the indexed component form. The screenshot should remain visible because it documents how Susskind visually bridges abstract operator language and ordinary matrix notation.
-- For `lecture_03_figure_06.png`, treat the visible matrix and vector as evidence for layout, not for a literal full transcription of every entry. The final notes should typeset a standard completed matrix-times-column-vector product with ellipses, while making clear that only the upper-left corner of the matrix is actually visible in the frame.
-- Where the lecture has already moved from \(\hat K\) notation to \(H_{ij}\) entries, keep that shift rather than forcing all frames into one notation. If the prose wants to generalize, do so in the text, not by altering what the screenshot itself is evidence for.
+Every accepted frame was read at its native 320 by 240 resolution. The images
+serve as blackboard evidence; all essential mathematics is independently
+typeset.
 
-## Uncertainties
-- `lecture_03_figure_02.png` has no visible labels on the arrows, so any identification of them as basis vectors is transcript-backed rather than directly visible.
-- `lecture_03_figure_03.png` contains cropped chalk above the main matrix element, but that upper material is too incomplete to reconstruct reliably.
-- In `lecture_03_figure_04.png`, the main equation is readable, but the far-left and far-right edges are tight enough that spacing and bracket shape should be normalized in the typeset version.
-- In `lecture_03_figure_04.png`, the lower line clearly reads \(\sum_m K_{nm}A_m\), but the exact equality chaining between the upper and lower lines is better treated as standard completion than as a literal chalk transcription.
-- In `lecture_03_figure_06.png`, only the first few entries of the matrix are securely visible; the continuation of rows, columns, and ellipses must be supplied cautiously in standard matrix form.
-- `lecture_03_figure_06.png` uses \(H_{ij}\) entries rather than \(K_{ij}\), which reflects the lecture’s later Hermitian-operator discussion; the notes should preserve that local notation rather than silently replacing it.
-- The cropped marks at the far left of `lecture_03_figure_06.png` are leftovers from earlier board work and should not be merged into the reconstructed matrix expression.
+## Reconstructed Diagrams
+
+- The three-arrow basis drawing is reconstructed without labels because the
+  frame contains none.
+- The complex plane wave is reconstructed as a helix using the audience
+  observation at 01:50:04 and the lecturer's explanation through 01:53:05.
+  The source video does not provide a distinct, completed three-dimensional
+  helix drawing.
+
+## Rejected Candidates
+
+- lecture_03_figure_06.png accurately shows a matrix acting on a column, but
+  it repeats information already visible more clearly in the component and
+  spectral frames.
+- The candidate at 00:24:50 is heavily occluded and exposes only a fragment
+  of the Hermitian definition.
+- The candidate at 01:52:30 repeats the wavelength sketch and does not add a
+  legible helix. It is not used as evidence for the reconstructed diagram.
+
+## Source Limitations
+
+The video is 320 by 240 pixels. Cropped or unclear chalk is never completed
+from the image alone. Standard reconstructions are tied to the audible
+derivation, and mathematical corrections are documented in the source map
+and audit.

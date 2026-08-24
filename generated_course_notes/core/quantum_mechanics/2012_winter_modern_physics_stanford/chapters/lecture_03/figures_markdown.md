@@ -1,41 +1,74 @@
 # Figure Notes
-## Image Inventory
-- `lecture_03_figure_02.png` shows Leonard Susskind standing beside a simple three-arrow sketch on the blackboard. Three rays emerge from a common origin: one upward, one to the right, and one down-left. No symbolic labels are visible.
-- `lecture_03_figure_03.png` shows a clean bra-ket matrix element written prominently on the board: a bracketed expression centered in the frame, with a cropped remnant of earlier notation above.
-- `lecture_03_figure_04.png` shows two related lines of board work. The upper line is a bra-ket expansion for the action of an operator on a state, and the lower line rewrites the same content as an indexed sum involving \(K_{nm}\) and \(A_m\). Susskind points at the final coefficient term.
-- `lecture_03_figure_06.png` shows a parenthesized matrix on the left and a parenthesized column vector on the right. The visible matrix entries begin with \(H_{11}\) and \(H_{12}\), while the vector entries begin with \(A_1\) and \(A_2\).
 
-## Blackboard Equations
-- `lecture_03_figure_03.png`: \(\langle m|\hat K|n\rangle\) [visible]
-- `lecture_03_figure_04.png`: \(\langle n|\hat K|A\rangle = \sum_m \langle n|\hat K|m\rangle \langle m|A\rangle\) [visible]
-- `lecture_03_figure_04.png`: \(\sum_m K_{nm} A_m\) [visible]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} H_{11} & H_{12} & \cdots \\ H_{2\cdots} & \cdots \end{pmatrix}\) [partially visible]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} A_1 \\ A_2 \\ \vdots \end{pmatrix}\) [visible]
-- `lecture_03_figure_06.png`: \(\begin{pmatrix} H_{11} & H_{12} & \cdots \\ H_{21} & \cdots & \cdots \\ \vdots & & \ddots \end{pmatrix}\begin{pmatrix} A_1 \\ A_2 \\ \vdots \end{pmatrix}\) [standard reconstruction]
+## Blackboard Readings
 
-## Diagram And Layout Reading
-- In `lecture_03_figure_02.png`, the board contains a deliberately ordinary geometric sketch rather than quantum notation. The three arrows from a common origin function as a real-space stand-in for a basis, matching the spoken point that complex vector spaces are hard to draw directly.
-- In `lecture_03_figure_03.png`, the blackboard layout isolates a single matrix element in the middle of the writing surface. The cropped notation above is secondary; the figure’s value is the centered, readable bra-ket expression itself.
-- In `lecture_03_figure_04.png`, the board is organized as a translation from abstract operator notation to component notation. The upper line carries the bra-ket derivation, while the lower line compresses it into the concrete matrix-times-components form.
-- In `lecture_03_figure_06.png`, the board shows the concrete matrix picture very explicitly: a parenthesized array on the left and a separate parenthesized column vector on the right, spaced so the multiplication is visually clear even though no equals sign or resulting vector is shown in-frame.
-- The left edge of `lecture_03_figure_06.png` still contains cropped remnants of earlier notation, but the central matrix-vector layout is the main usable content.
+### lecture_03_figure_02.png
 
-## TeX Reconstruction Plan
-- `lecture_03_figure_02.png` must remain visible. It should be paired with a clean TikZ redraw of the three-arrow sketch, kept unlabeled unless the surrounding prose introduces labels from the transcript.
-- `lecture_03_figure_03.png` must remain visible. Nearby, the notes should typeset the displayed equation \(\langle m|\hat K|n\rangle\) cleanly in LaTeX rather than relying on the screenshot alone.
-- `lecture_03_figure_04.png` must remain visible. The notes should reconstruct the upper bra-ket line and the lower indexed sum as clean displayed equations, since this figure is valuable both as board evidence and as a bridge between the two notations.
-- `lecture_03_figure_06.png` must remain visible. The notes should typeset a cleaned matrix-times-column-vector product beside it, using a standard finite-dimensional matrix layout with ellipses, since the board only shows the upper-left corner and the opening entries of the column.
-- Only `lecture_03_figure_02.png` calls for TikZ. The other three figures are better supported by displayed equations rather than diagram redraws.
+Three unlabeled arrows leave one origin: upward, rightward, and down-left.
+The transcript identifies the sketch as an ordinary geometric stand-in for
+an orthonormal basis in a complex vector space.
 
-## Caption Drafts
-- `lecture_03_figure_02.png`: Ordinary three-vector basis sketch
-- `lecture_03_figure_03.png`: Matrix element \(\langle m|\hat K|n\rangle\)
-- `lecture_03_figure_04.png`: Operator action rewritten in components
-- `lecture_03_figure_06.png`: Matrix acting on a column vector
+### lecture_03_figure_03.png
 
-## Uncertainties
-- `lecture_03_figure_02.png` contains no legible labels, so any symbolic naming of the three arrows would be a transcript-guided addition rather than a direct visual transcription.
-- `lecture_03_figure_03.png` includes a cropped line of earlier notation above the main expression; that upper material should not be reconstructed from the image alone.
-- In `lecture_03_figure_04.png`, the upper line is readable, but the far-left edge is slightly tight, so a clean LaTeX rendering should normalize spacing and bracket shape rather than imitate the chalk exactly.
-- In `lecture_03_figure_06.png`, only the first few matrix entries are securely visible. The lower rows and full pattern of ellipses are implied by the layout and subtitle context, so the full matrix product should be treated as a cautious standard reconstruction rather than a literal full transcription.
-- The leftmost cropped chalk fragments in `lecture_03_figure_06.png` are unrelated leftovers from previous writing and should not be incorporated into the note reconstruction.
+The central readable expression is
+\(\langle m\rvert\hat K\lvert n\rangle\). Earlier writing at the top edge is
+cropped and is not reconstructed.
+
+### lecture_03_figure_04.png
+
+The upper line expands
+\(\langle n\rvert\hat K\lvert A\rangle\) by inserting basis states. The lower
+line reads \(\sum_mK_{nm}A_m\). The frame records the exact transition from
+abstract operator notation to matrix components.
+
+### lecture_03_figure_05.png
+
+The board inserts a complete set of basis states between \(\hat K\) and
+\(\hat L\), then gives
+\((KL)_{nm}=\sum_rK_{nr}L_{rm}\). The right edge of the top line is cropped,
+but the lower matrix-product formula is complete.
+
+### lecture_03_figure_07.png
+
+The eigenvalue equation is followed by three statements: Hermitian
+eigenvalues are real, eigenvectors associated with distinct eigenvalues are
+orthogonal, and a complete set of mutually orthogonal eigenvectors exists.
+
+### lecture_03_figure_08.png
+
+The fifth postulate appears as the absolute square of a projection. A second
+line rewrites the product using bra-ket factors and labels it as a
+probability. The far-right argument of the probability notation is cropped,
+so the clean equation follows the audible statement.
+
+### lecture_03_figure_09.png
+
+A tall narrow rectangle is centered at \(x=\lambda\). Its width is marked
+epsilon and the height is marked \(1/\epsilon\). This is a unit-area
+approximation to a delta distribution, not a unit-norm wavefunction.
+
+### lecture_03_figure_10.png
+
+The board shows the expectation integral containing
+\(-i\,\partial\psi/\partial x\), followed by the expression obtained after
+integration by parts. The clean TeX proof restores the boundary term and
+uses two test functions to state Hermiticity correctly.
+
+### lecture_03_figure_11.png
+
+The board gives
+\(\psi(x)=e^{ikx}=\cos kx+i\sin kx\). The lecturer points to the exponential
+while checking the derivative eigenvalue equation.
+
+### lecture_03_figure_12.png
+
+A wave sketch is labeled \(L=2\pi/k\), and the board derives
+\(p=h/L=(h/2\pi)k\). The notes write the signed relation as \(p=\hbar k\)
+and use \(L=2\pi/|k|\) for the positive wavelength.
+
+## Reconstruction Policy
+
+Source frames remain visible whenever they contribute readable board
+evidence. Equations are retypeset rather than inferred from pixels. The two
+TikZ diagrams are explicitly reconstructions: one reproduces the visible
+basis geometry, and one realizes the spoken complex-plane helix.
