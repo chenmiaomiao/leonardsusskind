@@ -1,28 +1,16 @@
 # LaTeX Overflow Report
 
-- Generated: 2026-04-17T22:14:38+08:00
+- Generated: 2026-08-25T05:26:43+08:00
 - Variant: pocket (normal, 6in x 9in, margin 0.55in)
-- Log: `/tmp/tmp.4wEjkfrmlA/build/pdflatex.log`
-- Actionable overfull warnings: `1`
+- Log: `/tmp/tmp.0eXpOBNtBg/build/pdflatex.log`
+- Actionable overfull warnings: `0`
 - Page-builder overfull warnings: `0`
-- Underfull paragraph warnings: `1`
+- Underfull paragraph warnings: `0`
 
 ## Actionable Overfull Warnings
 
-| Width | File | Line | Kind | Suggestion |
-| --- | --- | --- | --- | --- |
-| 19.9688pt too wide | /home/lachlan/ProjectsLFS/leonardsusskind/generated_course_notes/core/cosmology/2009_winter_legacy_cosmology/chapters/lecture_07/content.tex | 316 | paragraph | Rewrite the sentence around the long span or apply a local `\sloppypar` only where the warning occurs. |
+No source-mapped overfull `\hbox` warnings were found in this build.
 
-## Source Excerpts
+## Underfull Paragraph Warnings
 
-### `/home/lachlan/ProjectsLFS/leonardsusskind/generated_course_notes/core/cosmology/2009_winter_legacy_cosmology/chapters/lecture_07/content.tex:316`
-
-- Width: `19.9688pt too wide`
-- Kind: `paragraph`
-- Suggestion: Rewrite the sentence around the long span or apply a local `\sloppypar` only where the warning occurs.
-
-```tex
-\phi \text{ drifts slowly}.
-\end{equation}
-While that happens, \(V(\phi)\) changes only a little, so the expansion remains approximately exponential. That is the inflationary phase.
-```
+No source-mapped underfull `\hbox` warnings were found in this build.

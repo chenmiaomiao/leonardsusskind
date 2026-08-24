@@ -1,8 +1,8 @@
 # LaTeX Overflow Report
 
-- Generated: 2026-08-25T03:35:00+08:00
+- Generated: 2026-08-25T05:40:48+08:00
 - Variant: pocket_1_2x (onepointtwo, 6in x 9in, margin 0.55in)
-- Log: `/tmp/tmp.njeI056Pez/build/pdflatex.log`
+- Log: `/tmp/tmp.iGP9DPackf/build/pdflatex.log`
 - Actionable overfull warnings: `0`
 - Page-builder overfull warnings: `0`
 - Underfull paragraph warnings: `0`
