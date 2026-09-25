@@ -377,3 +377,7 @@ Las contribuciones deben usar commits enfocados e identificar exactamente las ca
 ## Licencia
 
 Este repositorio está licenciado bajo la GNU General Public License v3.0. Consulta [LICENSE](../LICENSE).
+
+## Leer en Bunko
+
+El [lector web de Bunko](https://lachlan.lazying.art/Bunko/) incluye 19 libros complementarios independientes en inglés, incluidos los nueve cursos suplementarios. La [app en App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) está disponible, pero la sección de Física aún está en la versión interna de prueba. La publicación pública en Google Play sigue pendiente.

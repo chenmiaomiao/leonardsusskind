@@ -376,3 +376,7 @@ Leonard Susskind 関連の学習資料について、数学的品質、明瞭さ
 ## ライセンス
 
 このリポジトリは GNU General Public License v3.0 の下でライセンスされています。[LICENSE](../LICENSE) を参照してください。
+
+## Bunko で読む
+
+[Bunko のウェブリーダー](https://lachlan.lazying.art/Bunko/)では、補講9コースを含む独立編集の英語版伴読書19冊を読めます。[App Store のアプリ](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919)は公開中ですが、物理学の書棚は現在内部テスト版のみです。Google Play での一般公開は審査待ちです。

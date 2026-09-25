@@ -377,3 +377,7 @@ Vous avez l'enregistrement d'un cours qui vous appartient ou que vous êtes auto
 ## Licence
 
 Ce dépôt est distribué sous licence GNU General Public License v3.0. Voir [LICENSE](../LICENSE).
+
+## Lire dans Bunko
+
+Le [lecteur web Bunko](https://lachlan.lazying.art/Bunko/) propose 19 volumes d’accompagnement indépendants en anglais, dont les neuf cours complémentaires. L’[application sur l’App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) est disponible, mais la section Physique reste dans la version de test interne. La publication publique sur Google Play est en attente.

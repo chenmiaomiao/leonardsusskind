@@ -15,6 +15,8 @@
 
 This archive brings Leonard Susskind lecture subtitles, timestamped transcripts, editable TeX notes, and published PDFs together by course. It covers the *Theoretical Minimum* sequence and supplementary lectures.
 
+**Read on a phone:** [Bunko's web reader](https://lachlan.lazying.art/Bunko/) includes all 19 independently edited English companion books, including the nine supplementary courses, with local equation rendering and figures. The [iPhone/iPad App Store listing](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) is live, while the physics shelf is still in the app's internal test build. Google Play package `art.lazying.bunko` is awaiting public release. These are LazyingArt companion notes, not Susskind-authored or endorsed books.
+
 > 🛠️ The reusable download, transcription, and notes pipeline lives in [Video2Book](https://github.com/lachlanchen/Video2Book), included here as a submodule.
 >
 > **Repository status:** [lachlanchen/leonardsusskind](https://github.com/lachlanchen/leonardsusskind) is the canonical repository. [chenmiaomiao/leonardsusskind](https://github.com/chenmiaomiao/leonardsusskind) is a temporary legacy mirror planned for deprecation; use the canonical repository for clones, issues, and pull requests.

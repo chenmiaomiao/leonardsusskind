@@ -377,3 +377,7 @@ Hast du eine eigene Vorlesungsaufnahme oder die Erlaubnis, sie zu verwenden? Das
 ## Lizenz
 
 Dieses Repository ist unter der GNU General Public License v3.0 lizenziert. Siehe [LICENSE](../LICENSE).
+
+## In Bunko lesen
+
+Der [Bunko-Webreader](https://lachlan.lazying.art/Bunko/) enthält 19 unabhängig bearbeitete englische Begleitbände, darunter alle neun ergänzenden Kurse. Die [App-Store-Version](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) ist verfügbar; das Physik-Regal befindet sich noch im internen Testbuild. Die öffentliche Veröffentlichung bei Google Play steht noch aus.

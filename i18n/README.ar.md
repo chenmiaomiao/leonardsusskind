@@ -377,3 +377,7 @@
 ## الترخيص
 
 هذا المستودع مرخّص بموجب GNU General Public License v3.0. انظر [LICENSE](../LICENSE).
+
+## اقرأ في Bunko
+
+يضم [قارئ Bunko على الويب](https://lachlan.lazying.art/Bunko/) 19 كتابًا مرافقًا مستقلًا باللغة الإنجليزية، بما فيها الدورات التكميلية التسع. تطبيق [App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) متاح، لكن رف الفيزياء لا يزال في نسخة الاختبار الداخلية. إصدار Google Play العام قيد الانتظار.
