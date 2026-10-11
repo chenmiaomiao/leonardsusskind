@@ -60,7 +60,9 @@ class TranslationTests(unittest.TestCase):
     def test_display_math_must_not_move(self):
         source = '@@T000000@@A@@T000001@@'
         self.assertFalse(p.token_integrity(source, '@@T000001@@A@@T000000@@',
-                                          [r'\begin{equation}x\end{equation}', '$y$']))
+                                          [r'\begin{equation}x\end{equation}', r'\begin{equation}y\end{equation}']))
+        self.assertTrue(p.token_integrity(source, '@@T000001@@A@@T000000@@',
+                                         [r'\begin{equation}x\end{equation}', '$y$']))
 
     def test_accented_name_is_atomic(self):
         source = r'Fran\c{c}ois Englert found it.'
@@ -68,6 +70,9 @@ class TranslationTests(unittest.TestCase):
         self.assertNotIn('Fran', masked)
         self.assertEqual(frozen[0], r'Fran\c{c}ois')
         self.assertEqual(p.restore(masked, frozen), source)
+        masked, frozen = p.protect(r'Schr\"odinger equation')
+        self.assertNotIn('Schr', masked)
+        self.assertEqual(frozen[0], r'Schr\"odinger')
 
     def test_retry_only_failed_segment_then_resume_without_calls(self):
         with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):

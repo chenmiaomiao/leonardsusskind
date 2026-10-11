@@ -125,7 +125,7 @@ def protect(tex):
     for node in nodes:
         visit(node)
     # Preserve the whole accented name, not a command in the middle of a word.
-    accents = [(m.start(), m.end()) for m in re.finditer(r"[A-Za-z]+\\(?:c|v|H|u|k|'|`|\^|\"|~)\{[A-Za-z]\}[A-Za-z]*", tex)]
+    accents = [(m.start(), m.end()) for m in re.finditer(r"[A-Za-z]+\\(?:c|v|H|u|k|'|`|\^|\"|~)(?:\{[A-Za-z]\}|[A-Za-z])[A-Za-z]*", tex)]
     for left, right in accents:
         spans = [(a, b) for start, end in spans
                  for a, b in [(start, min(end, left)), (max(start, right), end)] if a < b]
@@ -182,13 +182,16 @@ def token_integrity(source, translated, protected):
     movable = {token for token in before if movable_token(protected[int(token[3:9])])}
     if [t for t in before if t not in movable] != [t for t in after if t not in movable]:
         return False
+    displays = {token for token in before if re.fullmatch(
+        r'\\\[.*\\\]|\\begin\{(?:equation\*?|align\*?|gather\*?|multline\*?)\}.*\\end\{[^{}]+\}',
+        protected[int(token[3:9])].strip(), re.S)}
 
     def zones(sequence):
         result, anchor = {}, None
         for token in sequence:
             if token in movable:
                 result[token] = anchor
-            else:
+            elif token not in displays:
                 anchor = token
         return result
     return zones(before) == zones(after)
