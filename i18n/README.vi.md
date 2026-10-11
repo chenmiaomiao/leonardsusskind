@@ -362,3 +362,12 @@ Bạn có bản ghi bài giảng do mình sở hữu hoặc được phép sử 
 ## Đọc bằng Bunko
 
 [Trình đọc web Bunko](https://lachlan.lazying.art/Bunko/) có 19 sách đồng hành tiếng Anh được biên tập độc lập, gồm cả chín khóa bổ sung. [Ứng dụng trên App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) đã phát hành, nhưng kệ Vật lý hiện chỉ có trong bản thử nghiệm nội bộ. Bản phát hành công khai trên Google Play vẫn đang chờ.
+
+
+<!-- polished-translations:start -->
+## Bản dịch từ bản hiệu đính cuối
+
+Đang chuẩn bị bản tiếng Nhật và tiếng Trung từ bản tiếng Anh đã hiệu đính. Giữ nguyên công thức và hình; chỉ công bố PDF đã kiểm tra.
+
+[Tiến độ và kiểm tra](../README.md#final-polished-translations)
+<!-- polished-translations:end -->

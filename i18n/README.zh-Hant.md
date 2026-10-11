@@ -363,3 +363,12 @@ xdg-open supplemental_particle_physics_1/ch1/main.pdf
 ## 在 Bunko 閱讀
 
 [Bunko 網頁閱讀器](https://lachlan.lazying.art/Bunko/)現有 19 本獨立編輯的英文伴讀書，包含九門補充課程。[App Store 應用](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919)已經上架，但物理書架目前仍在內部測試版本中。Google Play 正等待公開發佈。
+
+
+<!-- polished-translations:start -->
+## 最終潤色版譯本
+
+正在根據最終潤色的英文講義，依次製作日文版與簡體中文版。保留公式與圖版，僅發布通過檢查的PDF。這些譯本未經原講師認可。
+
+[日文與中文版發布進度](../README.md#final-polished-translations)
+<!-- polished-translations:end -->

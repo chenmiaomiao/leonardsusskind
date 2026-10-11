@@ -232,3 +232,31 @@ Have a lecture recording you own or have permission to use? The separate [Biling
 ## License
 
 This repository is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
+
+
+<!-- polished-translations:start -->
+## Final Polished Translations
+
+Japanese and Simplified Chinese editions are being prepared from the accepted final English companion TeX only. These are AI-assisted translations, not lecturer-endorsed editions. Equations and original board figures are preserved; labels within them remain as in the English source. A download is marked available only after complete segment coverage, a clean build, outline/overflow checks, and sampled semantic review.
+
+| Final polished book | 日本語 | 中文 |
+| --- | --- | --- |
+| Demystifying the Higgs Boson (2012 summer) | [Available PDF](translations/supplementary--higgs_boson--2012_summer/ja/book.pdf) | [Available PDF](translations/supplementary--higgs_boson--2012_summer/zh/book.pdf) |
+| Advanced Quantum Mechanics (2013 fall) | In preparation (0/840 segments) | In preparation (0/840 segments) |
+| Quantum Entanglement Part 1 (2006 fall part 1) | In preparation (0/729 segments) | In preparation (0/729 segments) |
+| Quantum Entanglement Part 3 (2006 fall part 3) | In preparation (0/642 segments) | In preparation (0/642 segments) |
+| Particle Physics 1: Basic Concepts (2009 fall) | In preparation (0/1120 segments) | In preparation (0/1120 segments) |
+| Particle Physics 2: Standard Model (2010 winter) | In preparation (0/1066 segments) | In preparation (0/1066 segments) |
+| Particle Physics 3: Supersymmetry and Grand Unification (2010 spring) | In preparation (0/878 segments) | In preparation (0/878 segments) |
+| Topics in String Theory (2011 winter topics in string theory) | In preparation (0/848 segments) | In preparation (0/848 segments) |
+| String Theory and M-Theory (2010 fall string theory and m theory) | In preparation (0/953 segments) | In preparation (0/953 segments) |
+| Classical Mechanics (2011 fall theoretical minimum) | In preparation (0/888 segments) | In preparation (0/888 segments) |
+| Quantum Mechanics (2012 winter theoretical minimum alt title) | In preparation (0/868 segments) | In preparation (0/868 segments) |
+| Special Relativity (2012 spring theoretical minimum) | In preparation (0/1097 segments) | In preparation (0/1097 segments) |
+| General Relativity (2012 fall theoretical minimum) | In preparation (0/921 segments) | In preparation (0/921 segments) |
+| Statistical Mechanics (2013 spring theoretical minimum) | In preparation (0/911 segments) | In preparation (0/911 segments) |
+| Cosmology (2013 winter theoretical minimum) | In preparation (0/825 segments) | In preparation (0/825 segments) |
+| Cosmology (2009 winter legacy cosmology) | In preparation (0/553 segments) | In preparation (0/553 segments) |
+
+[Workflow and limitations](references/POLISHED_TRANSLATIONS.md)
+<!-- polished-translations:end -->

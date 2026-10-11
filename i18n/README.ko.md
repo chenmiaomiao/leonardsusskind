@@ -361,3 +361,12 @@ xdg-open supplemental_particle_physics_1/ch1/main.pdf
 ## Bunko에서 읽기
 
 [Bunko 웹 리더](https://lachlan.lazying.art/Bunko/)에서 보충 강의 9권을 포함한 독립 편집 영어 해설서 19권을 읽을 수 있습니다. [App Store 앱](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919)은 공개되어 있지만 물리학 서가는 현재 내부 테스트 빌드에만 있습니다. Google Play 공개는 아직 대기 중입니다.
+
+
+<!-- polished-translations:start -->
+## 최종 교정판 번역
+
+최종 교정된 영어 강의 노트를 바탕으로 일본어판과 중국어판을 준비합니다. 수식과 그림을 유지하며 검증된 PDF만 공개합니다.
+
+[번역판 공개 현황](../README.md#final-polished-translations)
+<!-- polished-translations:end -->

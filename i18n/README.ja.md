@@ -380,3 +380,12 @@ Leonard Susskind 関連の学習資料について、数学的品質、明瞭さ
 ## Bunko で読む
 
 [Bunko のウェブリーダー](https://lachlan.lazying.art/Bunko/)では、補講9コースを含む独立編集の英語版伴読書19冊を読めます。[App Store のアプリ](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919)は公開中ですが、物理学の書棚は現在内部テスト版のみです。Google Play での一般公開は審査待ちです。
+
+
+<!-- polished-translations:start -->
+## 最終推敲版の翻訳
+
+最終推敲済みの英語講義ノートから、日本語版と簡体字中国語版を順次作成しています。数式・図版を保持し、検証済みのPDFのみ公開します。原講師が公認した翻訳ではありません。
+
+[日本語・中国語版の公開状況](../README.md#final-polished-translations)
+<!-- polished-translations:end -->

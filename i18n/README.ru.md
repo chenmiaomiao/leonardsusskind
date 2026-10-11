@@ -362,3 +362,12 @@ xdg-open supplemental_particle_physics_1/ch1/main.pdf
 ## Читать в Bunko
 
 В [веб-читалке Bunko](https://lachlan.lazying.art/Bunko/) доступны 19 независимо подготовленных англоязычных учебных томов, включая девять дополнительных курсов. [Приложение в App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) опубликовано, но раздел физики пока есть только во внутренней тестовой сборке. Публичный выпуск в Google Play ожидается.
+
+
+<!-- polished-translations:start -->
+## Переводы окончательной редакции
+
+Готовятся японское и китайское издания окончательно отредактированных английских конспектов. Формулы и рисунки сохраняются; публикуются только проверенные PDF.
+
+[Доступность и проверка](../README.md#final-polished-translations)
+<!-- polished-translations:end -->

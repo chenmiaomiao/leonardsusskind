@@ -381,3 +381,12 @@ Ce dépôt est distribué sous licence GNU General Public License v3.0. Voir [LI
 ## Lire dans Bunko
 
 Le [lecteur web Bunko](https://lachlan.lazying.art/Bunko/) propose 19 volumes d’accompagnement indépendants en anglais, dont les neuf cours complémentaires. L’[application sur l’App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) est disponible, mais la section Physique reste dans la version de test interne. La publication publique sur Google Play est en attente.
+
+
+<!-- polished-translations:start -->
+## Traductions de la version finale
+
+Des versions japonaises et chinoises sont en préparation à partir du texte anglais révisé. Les équations et figures sont conservées ; seuls les PDF vérifiés sont proposés.
+
+[Disponibilité et vérification](../README.md#final-polished-translations)
+<!-- polished-translations:end -->
