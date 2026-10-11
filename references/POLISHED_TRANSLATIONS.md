@@ -18,6 +18,9 @@ error-free translation throughout a book.
 3. Use pylatexenc's structured parser to preserve all syntax, equations,
    numeric values, references, asset paths and environments. Translate prose,
    titles, introductions, captions, questions and responses with DeepSeek.
+   Inline math/reference tokens can reorder within the same structural block
+   for natural Japanese syntax; display equations, braces and environments
+   cannot move. Reordered and retried rows receive additional semantic review.
 4. Cache valid segments, retry only invalid segments once, and stop on unresolved
    failures. API transport errors have three bounded attempts. There is no
    perpetual quota retry loop or hidden Codex reviewer fleet.
@@ -26,7 +29,8 @@ error-free translation throughout a book.
    inside frozen mathematical displays are intentionally retained, not redrawn.
 6. Build three passes; require a nonempty PDF and outline, CJK text, no missing
    glyphs, unresolved references or overfull boxes. Run a sampled semantic audit
-   covering opening and technical paragraphs from each chapter. Unresolved issues
+   covering opening and technical paragraphs from each chapter plus repaired or
+   reordered rows, in bounded ten-pair review batches. Unresolved issues
    stop the queue and do not create an available download.
 7. Update the README availability table, with PDF links only for validated output.
 
@@ -34,6 +38,8 @@ No source English file is overwritten. Per-language output is under
 `translations/<course-id>/{ja,zh}/`; intermediate requests, caches, usage logs,
 build artifacts and queue state are under ignored `.translation-work/`.
 Original figure directories are referenced by relative TeX paths, not duplicated.
+Availability is bound to the PDF and translated-TeX hashes. Preparation and manual
+compilation share the queue lock and cannot race a live worker run.
 
 ## Commands
 

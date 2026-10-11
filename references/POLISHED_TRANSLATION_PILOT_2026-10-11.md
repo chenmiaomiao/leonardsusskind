@@ -33,6 +33,10 @@ images and text inside frozen mathematical displays remains as in the source.
   Do not activate all Greek characters globally, which interferes with microtype.
 - Semantic reviewers must report actual errors with evidence, not put statements
   that a translation is correct into a failing issue list.
+- The next course exposed valid Japanese inline-math reordering and the spelling
+  `spin-one-half` / `1/2`. The validator now accepts these without relaxing
+  structural/equation preservation. Reordered rows receive extra semantic review;
+  the expanded regression suite has 13 passing tests.
 
 ## Verification Scope
 

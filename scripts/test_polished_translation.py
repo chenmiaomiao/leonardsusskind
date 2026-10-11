@@ -47,6 +47,20 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNone(p.validate('the six quark flavors', '6種類のクォークフレーバー', 'ja'))
         self.assertIsNotNone(p.validate('the six quark flavors', '7種類のクォークフレーバー', 'ja'))
         self.assertIsNone(p.validate('one and a half times, at two standard deviations', '1.5倍で2標準偏差', 'ja'))
+        self.assertIsNone(p.validate('Spin-One-Half', 'スピン1/2', 'ja'))
+
+    def test_inline_math_can_move_but_not_across_structural_boundaries(self):
+        source = '@@T000000@@One @@T000001@@ two @@T000002@@@@T000003@@'
+        protected = [r'\section{', '$x$', '$y$', '}']
+        good = '@@T000000@@日本語@@T000002@@、@@T000001@@@@T000003@@'
+        bad = '@@T000000@@日本語@@T000002@@@@T000003@@@@T000001@@'
+        self.assertIsNone(p.validate(source, good, 'ja', protected))
+        self.assertIsNotNone(p.validate(source, bad, 'ja', protected))
+
+    def test_display_math_must_not_move(self):
+        source = '@@T000000@@A@@T000001@@'
+        self.assertFalse(p.token_integrity(source, '@@T000001@@A@@T000000@@',
+                                          [r'\begin{equation}x\end{equation}', '$y$']))
 
     def test_accented_name_is_atomic(self):
         source = r'Fran\c{c}ois Englert found it.'

@@ -242,7 +242,7 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Final polished book | 日本語 | 中文 |
 | --- | --- | --- |
 | Demystifying the Higgs Boson (2012 summer) | [Available PDF](translations/supplementary--higgs_boson--2012_summer/ja/book.pdf) | [Available PDF](translations/supplementary--higgs_boson--2012_summer/zh/book.pdf) |
-| Advanced Quantum Mechanics (2013 fall) | In preparation (0/840 segments) | In preparation (0/840 segments) |
+| Advanced Quantum Mechanics (2013 fall) | In preparation (461/840 segments) | In preparation (414/840 segments) |
 | Quantum Entanglement Part 1 (2006 fall part 1) | In preparation (0/729 segments) | In preparation (0/729 segments) |
 | Quantum Entanglement Part 3 (2006 fall part 3) | In preparation (0/642 segments) | In preparation (0/642 segments) |
 | Particle Physics 1: Basic Concepts (2009 fall) | In preparation (0/1120 segments) | In preparation (0/1120 segments) |

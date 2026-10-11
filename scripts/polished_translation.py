@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import ExitStack
+from fractions import Fraction
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import Counter
 import fcntl
@@ -167,10 +168,36 @@ def needs_translation(text):
     return bool(re.search(r'[A-Za-z]{2}', TOKEN.sub('', text)))
 
 
-def validate(source, translated, lang):
+def movable_token(value):
+    value = value.strip()
+    return bool(re.fullmatch(r'\d+(?:[.,]\d+)*|\$(?:[^$]|\\\$)+\$|\\\(.*\\\)|\\(?:eqref|ref|pageref)\{[^{}]*\}', value, re.S))
+
+
+def token_integrity(source, translated, protected):
+    before, after = TOKEN.findall(source), TOKEN.findall(translated)
+    if Counter(before) != Counter(after):
+        return False
+    if protected is None:
+        return before == after
+    movable = {token for token in before if movable_token(protected[int(token[3:9])])}
+    if [t for t in before if t not in movable] != [t for t in after if t not in movable]:
+        return False
+
+    def zones(sequence):
+        result, anchor = {}, None
+        for token in sequence:
+            if token in movable:
+                result[token] = anchor
+            else:
+                anchor = token
+        return result
+    return zones(before) == zones(after)
+
+
+def validate(source, translated, lang, protected=None):
     if not isinstance(translated, str) or not translated.strip():
         return 'empty translation'
-    if TOKEN.findall(source) != TOKEN.findall(translated):
+    if not token_integrity(source, translated, protected):
         return 'protected token order/coverage changed'
     prose = TOKEN.sub('', translated)
     if re.search(r'[{}\\%$&#_^~]|```|@@T', prose):
@@ -178,12 +205,20 @@ def validate(source, translated, lang):
     number_prose = TOKEN.sub('', source).lower()
     source_words = Counter()
     for phrase, number in {'one and a half': '1.5', 'two and a half': '2.5',
+                           'one-half': '1/2', 'one half': '1/2', 'three quarters': '3/4',
                            'half': '0.5', 'quarter': '0.25', 'twice': '2', 'thrice': '3'}.items():
         pattern = r'\b' + re.escape(phrase) + r'\b'
         source_words[number] += len(re.findall(pattern, number_prose))
         number_prose = re.sub(pattern, '', number_prose)
     source_words.update(NUMBER_WORDS[w] for w in re.findall(r'\b[A-Za-z]+\b', number_prose) if w in NUMBER_WORDS)
-    if Counter(re.findall(r'\d+(?:\.\d+)?', prose)) - source_words:
+    normalized_source = Counter()
+    for number, count in source_words.items():
+        normalized_source[str(Fraction(number))] += count
+    try:
+        candidate_numbers = Counter(str(Fraction(n)) for n in re.findall(r'\d+(?:\.\d+)?(?:/\d+)?', prose))
+    except ZeroDivisionError:
+        return 'invalid numerical fraction'
+    if candidate_numbers - normalized_source:
         return 'introduced unprotected number'
     if len(TOKEN.sub('', source).strip()) > 60 and not re.search(r'[\u3400-\u9fff\u3040-\u30ff]', prose):
         return 'untranslated prose'
@@ -273,7 +308,7 @@ def load_results(book, lang, rel, prepared):
     if result['source_sha256'] != prepared['source_sha256']:
         raise ValueError('Stale translation cache')
     for key, text in result['accepted'].items():
-        issue = validate(prepared['parts'][int(key)], text, lang)
+        issue = validate(prepared['parts'][int(key)], text, lang, prepared['protected'])
         if issue:
             raise ValueError(f'Invalid accepted cache: {key}: {issue}')
     return result
@@ -310,7 +345,9 @@ def translate_file(book, lang, rel, args):
                 'Translate faithfully, not summarize: preserve every qualification, negation, physical distinction, '
                 'question and answer. Never add facts. Keep standard physics terminology consistent. '
                 'Every @@T000000@@-style token is immutable TeX, math, a reference, or a number. '
-                'Copy all tokens EXACTLY ONCE in original order within each row; do not translate their contents. '
+                'Copy all tokens EXACTLY ONCE; do not translate their contents. Keep structural tokens in '
+                'original order. Inline math, numeric and cross-reference tokens may change order ONLY '
+                'within the same structural boundaries when required for natural target-language syntax. '
                 'Use the read-only token legend to understand the physics and formatting. Even tokens '
                 'representing quote marks, dashes or empty-looking braces MUST remain. For example '
                 'left@@T000001@@right becomes 左@@T000001@@右, not 左右. '
@@ -321,7 +358,8 @@ def translate_file(book, lang, rel, args):
                 'Use Japanese scientific style (である調) or readable modern Chinese as appropriate. '
                 'In Japanese use 標準模型 for Standard Model, 弱ゲージボソン for weak boson, '
                 'カイラリティ for chirality; render year dates as 年に, not で. '
-                'In Chinese retain the 年 year marker after a year token; never write 在YEAR中 for a date.\n'
+                'In Chinese retain the 年 year marker after a year token; never write 在YEAR中 for a date. '
+                'Distinguish applying an operator from holding it constant; do not change the physical action.\n'
                 + json.dumps({'paragraphs': pending, 'previous_errors': errors,
                     'read_only_token_legend': {token: p['protected'][int(token[3:9])]
                         for source in pending.values() for token in TOKEN.findall(source)}}, ensure_ascii=False))
@@ -333,11 +371,13 @@ def translate_file(book, lang, rel, args):
             errors = {}
             for key, source in list(pending.items()):
                 translated = translations.get(key)
-                issue = validate(source, translated, lang)
+                issue = validate(source, translated, lang, p['protected'])
                 if issue:
                     errors[key] = issue
                 else:
                     result['accepted'][key] = translated
+                    if attempt or TOKEN.findall(source) != TOKEN.findall(translated):
+                        result['review_ids'] = sorted(set(result.get('review_ids', []) + [key]), key=int)
                     del pending[key]
             write(result_path(book, lang, rel), result)
             print(json.dumps({'book': book['id'], 'lang': lang, 'file': rel,
@@ -431,28 +471,39 @@ def review_sample(book, lang, args):
         if not rel.endswith('content.tex'):
             continue
         p = read(WORK / 'prepared' / book['id'] / (rel + '.json'))
-        accepted = load_results(book, lang, rel, p)['accepted']
+        result = load_results(book, lang, rel, p)
+        accepted = result['accepted']
         eligible = [(k, t) for k, t in accepted.items() if len(TOKEN.sub('', p['parts'][int(k)])) > 200]
         # Fixed middle technical paragraph from every chapter, plus opening prose.
-        for key, t in [eligible[0], eligible[len(eligible)//2]] if eligible else []:
+        selected = dict([eligible[0], eligible[len(eligible)//2]] if eligible else [])
+        selected.update({key: accepted[key] for key in result.get('review_ids', []) if key in accepted})
+        for key, t in selected.items():
             pairs.append({'chapter': rel, 'source': restore(p['parts'][int(key)], p['protected']),
-                          'translation': restore(t, p['protected'])})
+                          'translation': restore(t, p['protected']), 'segment_id': key})
     report = WORK / 'reviews' / book['id'] / f'{lang}.json'
     sample_hash = digest(json.dumps(pairs, ensure_ascii=False))
     if report.exists() and read(report).get('sample_sha256') == sample_hash:
         return read(report)
-    reply = chat('Audit these source/translation pairs for material physics mistranslation, missing '
+    issues = []
+    for start in range(0, len(pairs), 10):
+        batch = pairs[start:start + 10]
+        batch_path = report.with_name(lang + '.' + digest(json.dumps(batch, ensure_ascii=False))[:20] + '.batch.json')
+        if batch_path.exists():
+            reply = read(batch_path)
+        else:
+            reply = chat('Audit these source/translation pairs for material physics mistranslation, missing '
                  'qualifications or added claims. Ignore style preferences and preserved English math labels. '
                  'Return JSON {"pass": true/false, "issues": [{"chapter": "...", '
                  '"source_quote": "...", "translation_quote": "...", "correction": "...", "reason": "..."}]}. '
                  'For accurate pairs, do NOT create issue entries. A sentence saying there is no error '
                  'must never be listed as an issue. If all pairs are accurate, return pass=true and issues=[]. '
-                 'This is sampled semantic review, not full-book review.\n' + json.dumps(pairs, ensure_ascii=False),
-                 report.with_suffix('.raw.json'), args)
-    reply['sample_sha256'] = sample_hash
-    reply['pairs_reviewed'] = len(pairs)
-    write(report, reply)
-    return reply
+                 'This is sampled semantic review, not full-book review.\n' + json.dumps(batch, ensure_ascii=False),
+                 batch_path, args)
+        if reply.get('pass') is not True or reply.get('issues') != []:
+            issues.extend(reply.get('issues') or [{'reason': 'Invalid reviewer response', 'batch': start}])
+    report_data = {'pass': not issues, 'issues': issues, 'sample_sha256': sample_hash, 'pairs_reviewed': len(pairs)}
+    write(report, report_data)
+    return report_data
 
 
 def compile_book(book, lang, args):
