@@ -26,9 +26,12 @@ error-free translation throughout a book.
    Inline math/reference tokens can reorder within the same structural block
    for natural Japanese syntax; display equations, braces and environments
    cannot move. Reordered and retried rows receive additional semantic review.
-4. Cache valid segments, retry only invalid segments once, and stop on unresolved
-   failures. API transport errors have three bounded attempts. There is no
-   perpetual quota retry loop or hidden Codex reviewer fleet.
+4. Cache valid segments and retry only invalid segments once. Up to two targeted
+   reasoning-model repairs may then address the failed segments. Attempts are
+   persisted before requests, so restarting cannot silently reset the budget.
+   API transport errors have three bounded attempts; exhaustion stops new calls
+   across all workers. There is no perpetual quota retry loop or hidden Codex
+   reviewer fleet.
 5. Reassemble real TeX, retaining source figure assets and the accepted layout.
    Use XeLaTeX with Noto CJK fonts. Original blackboard writing and English labels
    inside frozen mathematical displays are intentionally retained, not redrawn.
@@ -36,7 +39,9 @@ error-free translation throughout a book.
    glyphs, unresolved references or overfull boxes. Run a sampled semantic audit
    covering opening and technical paragraphs from each chapter plus repaired or
    reordered rows, in bounded ten-pair review batches. Unresolved issues
-   stop the queue and do not create an available download.
+   receive up to two source-bound, paragraph-only semantic repairs followed by
+   a fresh review. Unresolved issues block that language's publication, not the
+   remaining chapters or later books, and never create an available download.
 7. Update the README availability table, with PDF links only for validated output.
 
 No source English file is overwritten. Per-language output is under
@@ -69,12 +74,20 @@ requests, staggered one second apart; books advance sequentially, not in paralle
 Compile jobs are serial. `touch .translation-work/STOP` stops at the next book
 boundary. Remove that marker to resume. Accepted caches survive interruptions.
 Check `.translation-work/status.json` and `queue.log` before restarting.
+Per-book failures and publication state are retained under
+`.translation-work/book-state/`. Final queue state distinguishes `complete`,
+`finished_with_blockers`, `provider_blocked`, and user-requested `paused`.
+An interrupted request with a saved valid response is recovered without a new
+API call. Malformed or missing responses still consume the finite content
+attempt budget; transport failures refund it because they produced no content.
 
 ## Validation Repairs
 
 Number-word validation recognizes zero through ninety-nine (including compound
 forms), first through twelfth, single occurrences, common fractions, and
-mathematical unity/unit magnitude. Japanese denominator-first fractions such as
+mathematical unity/unit magnitude. It also recognizes "once", ordinal centuries
+through twentieth, and spelled-out fractions such as "two-thirds".
+Japanese denominator-first fractions such as
 `4分の1` are compared as rational values; penny/dime denominations are recognized
 when those exact source words occur. It still
 rejects unsupported new quantities. Immutable accented names and nonbreaking
@@ -159,6 +172,22 @@ English source sets were verified unchanged. This is sampled semantic evidence,
 not a claim of exhaustive error-free translation. The next Quantum Entanglement
 book resumes from its cached segments; remaining books still require generation
 and all finalization gates.
+
+### Part 3 Recovery And Queue Hardening
+
+Eight source-checked passages in Quantum Entanglement Part 3 were recovered on
+2026-10-12. Ordinal/fraction representations were validator false positives;
+indefinite unit expressions were translated naturally without introducing
+digits. One Chinese paragraph duplicated its frozen electric/magnetic-field
+tokens: the prose was corrected to keep each expression exactly once. All eight
+are included in the next semantic review.
+
+The controller now drains every chapter, records all failures, finalizes each
+complete language independently, and advances to later books. It never exports
+an incomplete language or labels a skipped book complete. Repairs cannot change
+frozen TeX or equations, and prior accepted wording is retained in the local
+repair history. Deterministic publication/compile failures remain explicit
+blockers; no agent is authorized to weaken checks or rewrite pipeline code.
 
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,

@@ -7,6 +7,12 @@ import polished_translation as p
 
 
 class TranslationTests(unittest.TestCase):
+    def setUp(self):
+        p.PROVIDER_STOP.clear()
+
+    def tearDown(self):
+        p.PROVIDER_STOP.clear()
+
     def test_lossless_math_and_paths(self):
         source = r'\section{Motion} A field $x^2$ has 2 states.\begin{equation}E=mc^2\end{equation}\includegraphics[width=.8\textwidth]{board_1.png}'
         text, frozen = p.protect(source)
@@ -96,6 +102,11 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNotNone(p.validate('a quarter turn', '3分の1回転', 'ja'))
         self.assertIsNone(p.validate('a penny and a dime', '1セント硬貨と10セント硬貨', 'ja'))
         self.assertIsNotNone(p.validate('a penny and a dime', '5セント硬貨と10セント硬貨', 'ja'))
+        self.assertIsNone(p.validate('differentiate once', '1回微分する', 'ja'))
+        self.assertIsNone(p.validate('Nineteenth-century physics', '19世紀の物理学', 'ja'))
+        self.assertIsNone(p.validate('the two-thirds law', '3分の2の法則', 'ja'))
+        self.assertIsNotNone(p.validate('the two-thirds law', '3分の1の法則', 'ja'))
+        self.assertIsNotNone(p.validate('a year of time', '時間の2年', 'ja'))
 
     def test_reference_glue_and_accented_names_can_move_with_prose(self):
         source, frozen = p.protect(r'Now set \(y=x\) in Eq.~\eqref{test}.')
@@ -221,6 +232,144 @@ class TranslationTests(unittest.TestCase):
             source.write_text('changed')
             with self.assertRaisesRegex(RuntimeError, 'source changed'):
                 p.verify_sources({'course': 'demo', 'source_files': {'content.tex': p.digest('original')}})
+
+    def test_failed_segments_use_bounded_reasoning_repair_and_preserve_success(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics', 'ja': '物理'}}
+            rel = 'chapter.tex'
+            prepared = {'source_sha256': 'test', 'parts': ['A year of time.', '\n\n', 'A simple statement.'], 'protected': []}
+            p.write(p.WORK / 'prepared/fixture' / (rel + '.json'), prepared)
+            calls = []
+
+            def reply(prompt, dest, args, **kwargs):
+                calls.append(kwargs.get('model', 'writer'))
+                if len(calls) == 1:
+                    return {'translations': {'0': '時間の2年。', '2': '単純な文。'}}
+                self.assertNotIn('A simple statement.', prompt)
+                return {'translations': {'0': '時間の2年。' if len(calls) == 2 else '年という時間。'}}
+
+            with patch.object(p, 'chat', side_effect=reply):
+                p.translate_file(book, 'ja', rel, SimpleNamespace())
+                p.translate_file(book, 'ja', rel, SimpleNamespace())
+            self.assertEqual(calls, ['writer', 'writer', 'deepseek-reasoner'])
+            result = p.read(p.result_path(book, 'ja', rel))
+            self.assertEqual(result['accepted'], {'0': '年という時間。', '2': '単純な文。'})
+            self.assertIn('0', result['review_ids'])
+
+    def test_persistent_budget_prevents_resume_retry_amplification(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics', 'ja': '物理'}}
+            rel = 'chapter.tex'
+            p.write(p.WORK / 'prepared/fixture' / (rel + '.json'), {
+                'source_sha256': 'test', 'parts': ['A field.'], 'protected': []})
+            with patch.object(p, 'chat', return_value={'translations': {'0': '場999'}}) as chat:
+                for _ in range(3):
+                    with self.assertRaisesRegex(RuntimeError, 'Needs segment repair'):
+                        p.translate_file(book, 'ja', rel, SimpleNamespace())
+                self.assertEqual(chat.call_count, 4)
+
+    def test_interrupted_completed_response_is_recovered_without_new_call(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics', 'ja': '物理'}}
+            rel = 'chapter.tex'
+            p.write(p.WORK / 'prepared/fixture' / (rel + '.json'), {
+                'source_sha256': 'test', 'parts': ['A field.'], 'protected': []})
+            response = Path(tmp) / 'response.json'
+            p.write(response, {'translations': {'0': 'ある場。'}})
+            p.write(p.result_path(book, 'ja', rel), {'source_sha256': 'test', 'accepted': {},
+                'inflight': {'path': str(response), 'ids': ['0'], 'stage': 'writer', 'source_sha256': 'test'}})
+            with patch.object(p, 'chat') as chat:
+                p.translate_file(book, 'ja', rel, SimpleNamespace())
+                chat.assert_not_called()
+            self.assertEqual(p.read(p.result_path(book, 'ja', rel))['accepted'], {'0': 'ある場。'})
+
+    def test_provider_failure_stops_calls_and_refunds_content_attempt(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics', 'ja': '物理'}}
+            prepared = {'source_sha256': 'test', 'parts': ['A field.'], 'protected': []}
+            result = {'source_sha256': 'test', 'accepted': {}}
+            with patch.object(p, 'chat', side_effect=p.ProviderUnavailable('balance')):
+                with self.assertRaises(p.ProviderUnavailable):
+                    p.request_segments(book, 'ja', 'chapter.tex', prepared, result,
+                                       {'0': 'A field.'}, SimpleNamespace(), 'writer', {}, 'prompt')
+            self.assertEqual(result['attempts']['0']['writer'], 0)
+            self.assertNotIn('inflight', result)
+            args = SimpleNamespace(toolkit_root=Path(tmp), model='fixture')
+            with patch.dict(p.sys.modules, {'llm_chat_backend': SimpleNamespace(
+                    run_chat_completion=lambda *a, **k: (_ for _ in ()).throw(RuntimeError('402')))}):
+                with self.assertRaises(p.ProviderUnavailable):
+                    p.chat('prompt', Path(tmp) / 'reply.json', args)
+                self.assertTrue(p.PROVIDER_STOP.is_set())
+
+    def test_one_blocked_language_does_not_prevent_other_finalization(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'source_files': {'chapter.tex': 'sha'}}
+            args = SimpleNamespace(workers=1, ramp_seconds=0)
+            with patch.object(p, 'translate_file', side_effect=[RuntimeError('bad ja'), None]), \
+                 patch.object(p, 'update_readmes'), patch.object(p, 'validated_output', return_value=False), \
+                 patch.object(p, 'language_complete', side_effect=[False, True]), \
+                 patch.object(p, 'compile_book') as compile_book:
+                errors = p.run_book(book, args)
+            self.assertEqual(len(errors), 1)
+            compile_book.assert_called_once_with(book, 'zh', args)
+
+    def test_semantic_repair_retains_original_until_candidate_validates(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp) / 'work'), \
+             patch.object(p, 'OUT', Path(tmp) / 'out'):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics'}, 'source_files': {'chapter.tex': 'sha'}}
+            source, frozen = p.protect(r'The charge is \(q\).')
+            token = p.TOKEN.findall(source)[0]
+            old = '電荷は' + token + '。'
+            p.write(p.WORK / 'prepared/fixture/chapter.tex.json', {
+                'source_sha256': 'sha', 'parts': [source], 'protected': frozen})
+            p.write(p.result_path(book, 'ja', 'chapter.tex'), {'source_sha256': 'sha', 'accepted': {'0': old}})
+            report = {'issues': [{'chapter': 'chapter.tex', 'segment_id': '0', 'reason': 'Fixture only'}]}
+            with patch.object(p, 'chat', return_value={'translations': {'0': '電荷の説明。'}}):
+                self.assertFalse(p.repair_review(book, 'ja', report, SimpleNamespace()))
+            self.assertEqual(p.read(p.result_path(book, 'ja', 'chapter.tex'))['accepted']['0'], old)
+            with patch.object(p, 'chat', return_value={'translations': {'0': '電荷は' + token + 'である。'}}):
+                self.assertTrue(p.repair_review(book, 'ja', report, SimpleNamespace()))
+            result = p.read(p.result_path(book, 'ja', 'chapter.tex'))
+            self.assertEqual(result['superseded']['0'], [old])
+            self.assertEqual(result['review_ids'], ['0'])
+            self.assertEqual(p.read(p.OUT / 'fixture/ja/quality.json')['status'], 'needs_rebuild')
+
+    def test_failed_batch_does_not_abandon_remaining_chapter(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture', 'titles': {'en': 'Physics', 'ja': '物理'}}
+            p.write(p.WORK / 'prepared/fixture/chapter.tex.json', {
+                'source_sha256': 'sha', 'parts': ['First paragraph. ' * 300, '\n\n', 'Second paragraph.'], 'protected': []})
+
+            def reply(prompt, *args, **kwargs):
+                return {'translations': {'2': '第二の段落。'}} if 'Second paragraph.' in prompt else {'translations': {}}
+
+            with patch.object(p, 'chat', side_effect=reply):
+                with self.assertRaisesRegex(RuntimeError, 'Needs segment repair'):
+                    p.translate_file(book, 'ja', 'chapter.tex', SimpleNamespace())
+            self.assertEqual(p.read(p.result_path(book, 'ja', 'chapter.tex'))['accepted'], {'2': '第二の段落。'})
+
+    def test_blocked_book_does_not_stop_later_books(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)), \
+             patch.object(p, 'MANIFEST', Path(tmp) / 'manifest.json'):
+            books = [{'id': 'first'}, {'id': 'second'}]
+            p.write(p.MANIFEST, {'books': books})
+            p.write(p.WORK / 'pilot-approved.json', {})
+            args = SimpleNamespace(pilot_only=False, workers=5, publish=False)
+            complete = set()
+
+            def process(book, args):
+                if book['id'] == 'second':
+                    complete.add('second')
+                    return []
+                return [{'stage': 'translation', 'error': 'bad paragraph'}]
+
+            with patch.object(p, 'verify_sources'), patch.object(p, 'update_readmes'), \
+                 patch.object(p, 'validated_output', side_effect=lambda b, l: b['id'] in complete), \
+                 patch.object(p, 'run_book', side_effect=process) as runner:
+                p.run(args)
+            self.assertEqual(runner.call_count, 2)
+            self.assertEqual(p.read(p.WORK / 'status.json')['blocked_books'], ['first'])
+            self.assertEqual(p.read(p.WORK / 'book-state/second.json')['state'], 'complete')
 
     def test_preamble_retains_custom_macros_and_localizes_labels(self):
         source = r'\usepackage[utf8]{inputenc}' + '\n' + r'\newcommand{\custom}[1]{#1}\newcommand{\lectureoverview}[1]{\paragraph{Overview.} #1}'
