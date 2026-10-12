@@ -253,7 +253,7 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Classical Mechanics (2011 fall theoretical minimum) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/zh/book.pdf) |
 | Quantum Mechanics (2012 winter theoretical minimum alt title) | [Available PDF](translations/core--quantum_mechanics--2012_winter_theoretical_minimum_alt_title/ja/book.pdf) | [Available PDF](translations/core--quantum_mechanics--2012_winter_theoretical_minimum_alt_title/zh/book.pdf) |
 | Special Relativity (2012 spring theoretical minimum) | [Available PDF](translations/core--special_relativity--2012_spring_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--special_relativity--2012_spring_theoretical_minimum/zh/book.pdf) |
-| General Relativity (2012 fall theoretical minimum) | In preparation (0/921 segments) | In preparation (0/921 segments) |
+| General Relativity (2012 fall theoretical minimum) | [Available PDF](translations/core--general_relativity--2012_fall_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--general_relativity--2012_fall_theoretical_minimum/zh/book.pdf) |
 | Statistical Mechanics (2013 spring theoretical minimum) | In preparation (0/911 segments) | In preparation (0/911 segments) |
 | Cosmology (2013 winter theoretical minimum) | In preparation (0/825 segments) | In preparation (0/825 segments) |
 | Cosmology (2009 winter legacy cosmology) | In preparation (0/553 segments) | In preparation (0/553 segments) |
