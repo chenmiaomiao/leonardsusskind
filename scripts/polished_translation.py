@@ -38,9 +38,13 @@ for _tens, _value in zip('twenty thirty forty fifty sixty seventy eighty ninety'
         if _number != '0':
             NUMBER_WORDS[_tens + '-' + _ones] = str(_value + int(_number))
             NUMBER_WORDS[_tens + ' ' + _ones] = str(_value + int(_number))
+CARDINAL_WORDS = dict(NUMBER_WORDS)
+CARDINAL_PATTERN = '(?:' + '|'.join(re.escape(w) for w in sorted(CARDINAL_WORDS, key=len, reverse=True)) + ')'
+SCALES = {'hundred': 100, 'thousand': 1000, 'million': 10**6, 'billion': 10**9, 'trillion': 10**12}
 NUMBER_WORDS.update(dict(zip(
     'first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth'.split(), map(str, range(1, 21)))))
-NUMBER_WORDS.update({'single': '1', 'once': '1', 'penny': '1', 'pennies': '1', 'dime': '10', 'dimes': '10'})
+NUMBER_WORDS.update({'single': '1', 'once': '1', 'penny': '1', 'pennies': '1', 'dime': '10', 'dimes': '10',
+                     'double': '2', 'doubles': '2', 'doubled': '2', 'triple': '3', 'triples': '3', 'tripled': '3'})
 NUMBER_WORD_PATTERN = re.compile(r'\b(?:' + '|'.join(
     re.escape(w) for w in sorted(NUMBER_WORDS, key=len, reverse=True)) + r')\b')
 PROVIDER_STOP = threading.Event()
@@ -278,6 +282,20 @@ def validate(source, translated, lang, protected=None):
                 return 'heading text escaped its title argument'
     number_prose = TOKEN.sub('', source).lower()
     source_words = Counter()
+    scale_pattern = '(?:' + '|'.join(SCALES) + ')'
+    def scaled_range(match):
+        scale = SCALES[match[3]]
+        source_words[str(int(CARDINAL_WORDS[match[1]]) * scale)] += 1
+        source_words[str(int(CARDINAL_WORDS[match[2]]) * scale)] += 1
+        return ''
+    number_prose = re.sub(r'\b(' + CARDINAL_PATTERN + r') (?:to|or|through) ('
+                         + CARDINAL_PATTERN + r') (' + scale_pattern + r')\b', scaled_range, number_prose)
+    def scaled_quantity(match):
+        number = int(CARDINAL_WORDS.get(match[1], '1'))
+        source_words[str(number * SCALES[match[2]])] += 1
+        return ''
+    number_prose = re.sub(r'\b(?:(' + CARDINAL_PATTERN + r'|a|an) )?(' + scale_pattern + r')\b',
+                         scaled_quantity, number_prose)
     for denominator, value in {'halves': 2, 'thirds': 3, 'fourths': 4, 'fifths': 5,
                                'sixths': 6, 'sevenths': 7, 'eighths': 8, 'ninths': 9,
                                'tenths': 10}.items():
@@ -300,6 +318,11 @@ def validate(source, translated, lang, protected=None):
     try:
         # Japanese names the denominator first: 4分の1 is exactly one quarter.
         number_text = re.sub(r'(\d+)分の(\d+)', lambda m: m[2] + '/' + m[1], prose)
+        scale_units = {'百': 100, '千': 1000, '万': 10**4, '萬': 10**4,
+                       '億': 10**8, '亿': 10**8, '兆': 10**12}
+        # 千克/千米/兆帕 are unit names, not powers multiplying the written coefficient.
+        number_text = re.sub(r'(\d+(?:\.\d+)?)(百|千(?![克米瓦伏安焦帕赫升卡字电電])|[万萬億亿]|兆(?![帕瓦欧歐焦赫米伏字]))',
+                             lambda m: str(Fraction(m[1]) * scale_units[m[2]]), number_text)
         candidate_numbers = Counter(str(Fraction(n)) for n in re.findall(r'\d+(?:\.\d+)?(?:/\d+)?', number_text))
     except ZeroDivisionError:
         return 'invalid numerical fraction'

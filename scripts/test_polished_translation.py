@@ -114,6 +114,18 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNone(p.validate(source, '式' + tokens[1] + 'において' + tokens[0] + 'と置く。', 'ja', frozen))
         self.assertTrue(p.movable_token(r'Schr\"odinger'))
 
+    def test_large_number_units_preserve_values_not_writing_system(self):
+        self.assertIsNone(p.validate('ten to twelve billion years; the size doubles', '100億年から120億年で2倍', 'ja'))
+        self.assertIsNone(p.validate('a thousand times longer', '1000倍長い', 'ja'))
+        self.assertIsNone(p.validate('a million years', '100万年', 'ja'))
+        self.assertIsNone(p.validate('two billion years', '20亿年', 'zh'))
+        self.assertIsNotNone(p.validate('ten to twelve billion years', '10億年から12億年', 'ja'))
+        self.assertIsNotNone(p.validate('a thousand times longer', '100倍長い', 'ja'))
+        self.assertIsNone(p.validate('doubles in size, acquiring a doubled wavelength', '大きさが2倍、波長も2倍', 'ja'))
+        self.assertIsNone(p.validate('a one-kilogram object', '一个1千克的物体', 'zh'))
+        self.assertIsNone(p.validate('two kilowatts', '2千瓦', 'zh'))
+        self.assertIsNone(p.validate('three thousand years', '3千年', 'zh'))
+
     def test_inline_math_can_pass_around_but_not_enter_emphasis(self):
         source, frozen = p.protect(r'The integer \(n_i\) is the \emph{occupation number} of oscillator \(i\).')
         a, opening, closing, b = p.TOKEN.findall(source)

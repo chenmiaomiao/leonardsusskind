@@ -87,6 +87,10 @@ Number-word validation recognizes zero through ninety-nine (including compound
 forms), first through twelfth, single occurrences, common fractions, and
 mathematical unity/unit magnitude. It also recognizes "once", ordinal centuries
 through twentieth, and spelled-out fractions such as "two-thirds".
+Large spelled-out quantities and shared ranges such as "ten to twelve billion"
+are compared to their values in target notation (`100億` to `120億`), not just
+the visible digits. Unit names such as `千克` retain their coefficient rather
+than being mistaken for a numeric multiplier. Wrong magnitudes still fail.
 Japanese denominator-first fractions such as
 `4分の1` are compared as rational values; penny/dime denominations are recognized
 when those exact source words occur. It still
