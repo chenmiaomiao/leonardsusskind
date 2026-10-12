@@ -1,0 +1,537 @@
+\chapter{旋转、旋量与色对称性}
+
+\section{作为群的旋转}
+
+空间中的旋转是对称性，它们作用于许多种类的对象。它们作用于刚体、速度矢量、矢量场以及量子态。普通矢量是最简单的起点，因为它的变换可以直接被想象出来。
+
+旋转也可以组合。使一个物体绕某一轴旋转一个角度，然后再使它绕第二个轴旋转第二个角度。最终的取向等价于绕某个第三轴旋转某个第三个角度的单一旋转。因此，两个旋转的乘积仍是另一个旋转。
+
+这个乘积是对变换的一种运算，而不是两个轴矢量的相加。第一个旋转改变了第二个旋转所作用的对象。如果先施行\(R_1\)，再施行\(R_2\)，则组合运算写作\(R_2R_1\)。它本身是某个\(R_3\)，尽管求出\(R_3\)的轴和角度可能并不方便。这种在复合下的封闭性，是把旋转视为一个群、而不仅仅视为一列几何运动的第一个理由。
+
+首先用几何方式描述一个旋转是有用的。选取沿旋转轴的单位矢量\(\hat{\boldsymbol n}\)和一个角度\(\theta\)。我们采用右手约定。一个角度为\(\theta\)的左手旋转，同样可以写成一个角度为\(-\theta\)的右手旋转，或者写成绕\(-\hat{\boldsymbol n}\)的右手旋转。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.58\textwidth]{lecture_03_figure_02.png}
+\caption{一个轴\(\hat{\boldsymbol n}\)和一个角度\(\theta\)指定一个空间旋转。}
+\lectureframe{00:02:34}
+\end{figure}
+
+单位球面上的一个方向需要两个参数，例如经度和纬度。绕该方向的角度提供第三个参数。因此旋转构成一个三参数族。我们暂且不必担心由相差\(2\pi\)的角度所引起的整体等同；这里重要的是局部参数的数目。
+
+轴-角描述有一些冗余。反转轴同时反转角度给出相同的操作，而足够大的角度可以按一整圈取模来约化。这些都不改变如下事实：在恒等变换附近，一个旋转有三个连续变化的参数。这个局部数目稍后将与矩阵表示中独立参数的数目相匹配。
+
+现在可以依次检验群的性质：
+\begin{enumerate}
+\item \emph{封闭性。} 接连施行两个旋转产生另一个旋转。
+\item \emph{恒等元。} 什么都不做就是恒等旋转。
+\item \emph{逆元。} 绕\(\hat{\boldsymbol n}\)旋转\(\theta\)，可由绕同一轴旋转\(-\theta\)来抵消。
+\item \emph{结合性。} 三个相继的旋转满足
+\[
+(R_1R_2)R_3=R_1(R_2R_3).
+\]
+\end{enumerate}
+
+旋转是不可交换的。绕\(x\)轴旋转之后再绕\(y\)轴旋转，一般会给出与同样两个操作按相反顺序施行不同的取向：
+\begin{equation}
+R_x(\alpha)R_y(\beta)\ne R_y(\beta)R_x(\alpha).
+\end{equation}
+当两个角度都非常小时，差异变为二阶，这就是为什么无穷小旋转看起来几乎可交换。尽管如此，整个群是非阿贝尔的。
+
+不用任何方程也可以检验这种不可交换性。拿一本书或一个盒子，把一个面标记为正面，使它绕\(x\)轴旋转九十度，然后再绕\(y\)轴旋转九十度。回到原来的取向，并颠倒顺序。标记的面最终指向不同的方向。对于小角度，这种差异更难看出，但它并没有消失；它从两个小角度的乘积开始。
+
+\begin{classroomqa}
+\audiencequestion{这些旋转是相继的而不是同时的吗？\lecturetimestamp{00:04:45}}
+\lecturerresponse{是的。群的乘法意味着一个操作接着另一个操作。这些相继旋转的顺序，正是可能不交换的东西。}
+\end{classroomqa}
+
+这是我们的第一个非阿贝尔群。最终的应用不是普通物体的颜色，而是夸克的红、绿、蓝三种色态。那是一个三态内部系统，其有趣的变换混合这三种颜色。普通旋转提供了一个熟悉的模型，说明一个连续群如何通过矩阵作用。
+
+群本身是抽象的。要在物理学中使用它，我们必须说明它作用于什么对象。一个{表示}给每个群元素指定一个算符或矩阵，使得群元素的乘法由所指定矩阵的乘法再现。不同的物理对象可以承载同一个群的不同表示。矢量、自旋一态和自旋二分之一态将提供三个例子。
+
+\section{三维矢量表示}
+
+设一个普通矢量具有分量
+\begin{equation}
+\boldsymbol V=(V_x,V_y,V_z),\qquad V_i,\quad i=1,2,3.
+\end{equation}
+可以保持坐标轴固定而旋转物理矢量，也可以保持矢量固定而旋转坐标轴。两种约定不同，但在任一种描述中，分量都由一个\(3\times3\)矩阵混合。
+对每一对轴-角\((\hat{\boldsymbol n},\theta)\)，写出
+\begin{equation}
+V_i'=R_{ij}(\hat{\boldsymbol n},\theta)V_j,
+\label{eq:l3-vector-rotation}
+\end{equation}
+其中重复指标求和。
+
+重复指标\(j\)是哑标。方程~\eqref{eq:l3-vector-rotation}明确表示
+\begin{equation}
+V_i'=R_{i1}V_1+R_{i2}V_2+R_{i3}V_3
+\end{equation}
+对每个输出分量\(i\)成立。自由指标\(i\)标记正在计算的是哪个分量；重复的\(j\)被求和，可以改名而不改变方程。将这两种角色分开，可以避免长度保持论证中的大多数指标错误。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_03_figure_03.png}
+\caption{旋转矩阵将原始矢量分量映射为旋转后的分量。}
+\lectureframe{00:07:41}
+\end{figure}
+
+真正的旋转保持长度。目前\(V_i\)和\(R_{ij}\)都是实的，因此
+\begin{equation}
+V_i'V_i'=V_iV_i
+\end{equation}
+对每个矢量成立。为了揭示矩阵条件，用不同的哑指标写出同一变换：
+\begin{equation}
+V_i'=R_{ij}V_j,\qquad V_i'=R_{ik}V_k.
+\end{equation}
+相乘并对\(i\)求和，得到
+\begin{align}
+V_i'V_i'
+ &=R_{ij}V_jR_{ik}V_k\\
+ &=R_{ij}R_{ik}V_jV_k.
+\end{align}
+对\(V\)的每一种选择，这都等于\(V_jV_j\)，仅当
+\begin{equation}
+R_{ij}R_{ik}=\delta_{jk}.
+\label{eq:l3-orthogonality-index}
+\end{equation}
+时成立。用矩阵记号表示，
+\begin{equation}
+R^TR=\boldsymbol 1,
+\label{eq:l3-orthogonal}
+\end{equation}
+因而
+\begin{equation}
+R^{-1}=R^T.
+\end{equation}
+转置只是交换行与列。
+
+为什么系数必须是\(\delta_{jk}\)？克罗内克{\proseunicodefont δ}在求和下设定\(j=k\)：
+\begin{equation}
+\delta_{jk}V_jV_k=V_1^2+V_2^2+V_3^2.
+\end{equation}
+如果\(R_{ij}R_{ik}\)不同于\(\delta_{jk}\)，某个方向或某个交叉项\(V_jV_k\)就会改变长度。由于该等式必须对每一个可能的矢量成立，而不仅仅是对某个选定的矢量成立，矩阵系数本身就必须等于单位矩阵。
+
+方程~\eqref{eq:l3-orthogonal}是这个实矩阵表示的定义性正交条件。矩阵相乘再现了空间旋转的乘法表。这并不是旋转群的唯一表示；它只是最容易可视化的一种。
+
+逆关系具有直接的几何意义。无需解新的矩阵方程就可以撤销一个旋转：交换行与列。如果\(R_1\)和\(R_2\)表示两个旋转，那么\(R_2R_1\)表示它们的相继作用，并且仍然是正交的。因此，矩阵运算保持了与几何上建立起来的相同的封闭性、单位元、逆元和结合结构。
+
+\section{自旋一与矢量表示}
+
+三维表示也作用于量子态。自旋为一的粒子有三个可能的自旋投影，
+\begin{equation}
+m=+1,\quad 0,\quad -1.
+\end{equation}
+因此它的自旋态是一个三分量的概率幅列。旋转粒子，或改变用来定义自旋轴的磁场取向，会通过旋转群的三维表示混合这三个振幅。
+
+自旋态的数目遵循熟悉的规则\(2s+1\)。自旋零有一个态，自旋二分之一有两个，自旋一有三个，自旋二分之三有四个。因此态矢量的维数随自旋而改变。同一个物理旋转作用于这些不同的态空间时，必须由不同大小的矩阵来表示。
+
+对于自旋为一的粒子，选择基
+\begin{equation}
+\lvert 1,+1\rangle,qquad
+\lvert 1,0\rangle,qquad
+\lvert 1,-1\rangle.
+\end{equation}
+一个态是
+\begin{equation}
+\lvert\psi\rangle
+=c_{+}\lvert1,+1\rangle+c_0\lvert1,0\rangle+c_{-}\lvert1,-1\rangle.
+\end{equation}
+旋转装置不会产生第四个自旋态；它只是在三个系数\(c_+,c_0,c_-\)之间进行混合。因此相应的旋转算符必须是一个\(3\times3\)矩阵。
+
+对于自旋一，这个表示与普通空间矢量的变换方式相同。这就是把自旋为一的粒子称为\emph{矢量粒子}的精确含义：它的三个自旋振幅与矢量的三个分量遵循相同的旋转规律。量子态不必被想象成字面意义上的箭头；这一陈述涉及的是它的分量如何混合。
+
+这种对应并非偶然。一个三维矢量和一个自旋一态承载着旋转群的等价三维表示。{矢量粒子}这些词概括了那种变换性质。它们并不声称量子极化态是隐藏在粒子内部的微小刚性箭头。
+
+\section{离散对称性与连续对称性}
+
+在转向自旋二分之一之前，先区分两大类群是有帮助的。反射给出了一个简单的离散例子。有恒等操作，也有反射\(P\)；要么翻转，要么不翻转。相比之下，相位
+\begin{equation}
+e^{i\phi}
+\end{equation}
+连续依赖于\(\phi\)，而空间旋转连续依赖于其轴和角度。这类连续群称为\emph{李群}，以Sophus Lie命名；这个名字读作\emph{Lee}。连续对称性将是主要关注的对象，尽管离散对称性仍然重要。
+
+对于二元反射群，
+\begin{equation}
+P^2=1.
+\end{equation}
+在\(1\)与\(P\)之间不存在连续可调的反射量。相位群则不同：在\(e^{i\phi_1}\)与\(e^{i\phi_2}\)之间连续地存在许多其他相位。空间旋转具有同样的连续特征，但与\(U(1)\)不同，它们是非阿贝尔的。
+
+自旋为零给出了旋转群最简单的表示。自旋为零的态在每一个旋转下都不变，因此每个群元素都由一维恒等表示来代表：
+\begin{equation}
+D^{(0)}(R)=1.
+\end{equation}
+群本身仍然有无穷多个旋转；变得平凡的是自旋为零态上的表示。
+
+群与其某一个表示之间的这种区分是本质性的。旋转群在作用于标量时并不会坍缩为一个单元素群。相反，它的每一个元素在那个特定的标量态上都由同一个数\(1\)来代表。
+
+\section{一般的自旋二分之一态}
+
+自旋二分之一系统有两个基态。相对于选定的\(z\)轴，
+\begin{equation}
+\lvert\uparrow\rangle=
+\begin{pmatrix}1\\0\end{pmatrix},
+\qquad
+\lvert\downarrow\rangle=
+\begin{pmatrix}0\\1\end{pmatrix}.
+\end{equation}
+一般态是一个二分量旋量，
+\begin{equation}
+\lvert\psi\rangle=
+\begin{pmatrix}\alpha_1\\\alpha_2\end{pmatrix},
+\qquad
+|\alpha_1|^2+|\alpha_2|^2=1.
+\label{eq:l3-spinor}
+\end{equation}
+其分量是复数。选择\((\alpha_1,\alpha_2)=(1,0)\)即为自旋向上，而\((0,1)\)为自旋向下。一般的归一化组合描述沿某个其他方向极化的自旋。
+
+emph{向上}和emph{向下}这些词只有在选定轴之后才有意义。这里该轴是\(z\)。不同的测量轴有不同的一对基态，而沿一个轴为确定向上的态在另一个基中一般表现为叠加态。旋转物理自旋或旋转参考轴会相应地改变系数。
+
+两个复振幅包含四个实参数。归一化去掉一个，物理上无关的整体相位去掉另一个，剩下两个实参数。这恰好是选择一个球面上的方向所需的数目。为了研究旋转，我们无需推导\((\alpha_1,\alpha_2)\)与该方向之间的显式映射。
+
+整体相位被去掉，是因为
+\begin{equation}
+\begin{pmatrix}\alpha_1\\\alpha_2\end{pmatrix}
+\quad\hbox{and}\quad
+e^{i\chi}
+\begin{pmatrix}\alpha_1\\\alpha_2\end{pmatrix}
+\end{equation}
+代表同一个物理射线。归一化固定的是总概率，而不是普通欧几里得空间中的一个方向。经过这两种等同之后，剩下的两个参数可以视为自旋极化方向的极角和方位角。
+
+当自旋被旋转时，其态变为
+\begin{equation}
+\alpha_i'=U_{ij}\alpha_j,
+\qquad
+\begin{pmatrix}\alpha_1'\\\alpha_2'\end{pmatrix}
+=
+\begin{pmatrix}
+U_{11}&U_{12}\\
+U_{21}&U_{22}
+\end{pmatrix}
+\begin{pmatrix}\alpha_1\\\alpha_2\end{pmatrix}.
+\label{eq:l3-spinor-transform}
+\end{equation}
+因此空间旋转具有一个作用于旋量的二维矩阵表示。这个表示中存在一种整体的双值性，我们将其推迟；局部地看，这些矩阵具有下文所需的变换性质。
+
+变换后的一对\((\alpha_1',\alpha_2')\)必须仍然是一个可能的量子态。因此，关于\(U\)的第一个问题不是其显式的轴角公式，而是它保持每一个输入旋量归一化的条件。
+
+\section{概率保持与酉矩阵}
+
+旋转必须把一个归一化态映射为另一个归一化态：
+\begin{equation}
+\alpha_i^*\alpha_i=\alpha_i'^*\alpha_i'=1.
+\end{equation}
+代入方程~\eqref{eq:l3-spinor-transform}，
+\begin{align}
+\alpha_i'^*\alpha_i'
+ &=(U_{ij}\alpha_j)^*(U_{ik}\alpha_k)\\
+ &=\alpha_j^*U_{ij}^*U_{ik}\alpha_k.
+\end{align}
+因此，实矢量条件的类比是
+\begin{equation}
+(U^T)^*U=\boldsymbol 1.
+\end{equation}
+转置后再取复共轭就是厄米共轭，
+\begin{equation}
+U^\dagger=(U^T)^*,
+\end{equation}
+所以保持归一化的条件是
+\begin{equation}
+U^\dagger U=\boldsymbol 1.
+\label{eq:l3-unitarity}
+\end{equation}
+
+额外的复共轭是与实矢量计算相比唯一本质性的变化。对于实矢量，\(V_iV_i\)是一个长度。对于旋量，\(\alpha_i^*\alpha_i\)是一个概率。需要复共轭来使该概率为实且非负，因此转置被厄米共轭取代。
+
+方程~\eqref{eq:l3-unitarity}也立即给出逆：
+\begin{equation}
+U^{-1}=U^\dagger.
+\end{equation}
+因此逆旋转保持同样的概率范数。与普通旋转矩阵一样，酉矩阵的乘积仍然是酉矩阵，所以该表示尊重群乘法。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]{lecture_03_figure_04.png}
+\caption{旋量旋转矩阵满足\(U^\dagger U=\boldsymbol 1\)。}
+\lectureframe{00:27:41}
+\end{figure}
+
+满足式~\eqref{eq:l3-unitarity}的矩阵是幺正的。一个一般的\(2\times2\)复矩阵一开始有八个实参数。幺正性是一个\(2\times2\)矩阵方程，它给出四个独立的实约束，于是剩下四个参数。空间转动只有三个。还需要再加一个限制，才能从整个\(U(2)\)中分离出转动的旋量表示。
+
+这四个约束也可以这样看出：把\(U\)的两列看作两个复矢量。每一列都必须具有单位范数，这给出两个实条件；两列还必须正交，这给出一个复条件，也就是两个实条件。合起来就是四个。\(U(2)\)中剩下的第四个参数，最终将被证明是一个整体的行列式相位，而不是一个新的空间转动。
+
+\section{行列式为1与\texorpdfstring{\(SU(2)\)}{SU(2)}}
+
+附加条件是
+\begin{equation}
+\det U=1.
+\label{eq:l3-det-one}
+\end{equation}
+它与群乘法相容，因为
+\begin{equation}
+\det(AB)=\det A\,\det B.
+\end{equation}
+两个行列式为1的幺正矩阵之积，其行列式仍为1；单位元的行列式也为1。这些矩阵构成一个闭子群。
+
+逆元也在该子群中。若\(\det U=1\)，则
+\begin{equation}
+\det U^{-1}=\frac{1}{\det U}=1.
+\end{equation}
+因此，施加行列式为1这一条件既不会去掉单位元，也不会破坏封闭性，更不会失去逆元。它一致地选出一个少一个连续参数的群。
+
+仅由幺正性即可推出
+\begin{equation}
+\det(U^\dagger U)=
+(\det U)^*\det U
+=|\det U|^2=1.
+\end{equation}
+它并不迫使\(\det U\)等于\(+1\)或\(-1\)。一般的幺正行列式可以是任意相位：
+\begin{equation}
+\det U=e^{i\phi},
+\qquad
+\det U^\dagger=e^{-i\phi}.
+\end{equation}
+条件~\eqref{eq:l3-det-one}固定了这个本来自由的相位，并去掉一个实参数。
+
+\begin{classroomqa}
+\audiencequestion{在没有行列式为1这一条件时，\(U^\dagger U=\boldsymbol 1\)是否迫使\(\det U^\dagger\)等于\(\det U\)，或者只能取\(+1\)或\(-1\)？\lecturetimestamp{00:31:21}}
+\lecturerresponse{不。这两个行列式互为复共轭。它们可以是\(e^{i\phi}\)和\(e^{-i\phi}\)，其乘积为1。于是，特殊幺正限制把二者都固定为1。}
+\end{classroomqa}
+
+幺正的\(n\times n\)矩阵构成\(U(n)\)。对于\(n=1\)，幺正矩阵就只是相位\(e^{i\phi}\)，给出\(U(1)\)。行列式为1的子群就是\emph{特殊幺正群}，
+\begin{equation}
+SU(n)=\{U\in U(n):\det U=1\}.
+\end{equation}
+二分量旋量受到\(SU(2)\)的作用，而这是一个三参数群。
+
+这一记号同时记录了两个限制：\(U\)表示幺正，而\(S\)表示特殊，即行列式为1。这些特殊幺正群反复出现，因为它们在保持一个复内积的同时，排除了由行列式携带的独立公共相位。
+
+局部地看，\(SU(2)\)具有转动自旋二分之一态所需的同一转动代数与乘法结构。整体地看，必须记住那个被推迟讨论的微妙之处：\(SU(2)\)是普通转动群\(SO(3)\)的双覆盖，因此\(SU(2)\)的两个元素对应一个空间转动。\editorialnote{双覆盖的表述使源材料中提到但未展开的二值性变得精确。}
+
+\section{无穷小转动与泡利矩阵}
+
+\begin{classroomqa}
+\audiencequestion{自旋矩阵，或者说泡利矩阵，是在这一构造的何处进入的？\lecturetimestamp{00:33:16}}
+\lecturerresponse{当群元素取得非常接近单位元时，也就是对应一个非常小角度的转动时，它们就出现了。它们是这些无穷小转动的生成元。}
+\end{classroomqa}
+
+从
+\begin{equation}
+U=\boldsymbol 1+\epsilon M+O(\epsilon^2),
+\label{eq:l3-small-u-anti}
+\end{equation}
+开始，其中\(\epsilon\)是实数且很小。于是
+\begin{equation}
+U^\dagger=\boldsymbol 1+\epsilon M^\dagger+O(\epsilon^2),
+\end{equation}
+而幺正性给出
+\begin{align}
+U^\dagger U
+ &=\boldsymbol 1+\epsilon(M^\dagger+M)+O(\epsilon^2).
+\end{align}
+到一阶，
+\begin{equation}
+M^\dagger=-M.
+\end{equation}
+因此，式~\eqref{eq:l3-small-u-anti}中的矩阵\(M\)是反厄米的。
+
+这里只保留\(\epsilon\)的线性项。乘积\(\epsilon^2M^\dagger M\)被丢弃，因为它是二阶的。这就是在单位元附近工作的好处：非线性的群条件变成了关于其生成元的线性条件。
+
+更方便的是提取出一个\(i\)因子：
+\begin{equation}
+U=\boldsymbol 1+i\epsilon H+O(\epsilon^2).
+\label{eq:l3-small-u-herm}
+\end{equation}
+复共轭把\(i\)变为\(-i\)，所以
+\begin{equation}
+U^\dagger=\boldsymbol 1-i\epsilon H^\dagger+O(\epsilon^2).
+\end{equation}
+现在
+\begin{equation}
+U^\dagger U
+=\boldsymbol 1+i\epsilon(H-H^\dagger)+O(\epsilon^2),
+\end{equation}
+而一阶幺正性要求
+\begin{equation}
+H^\dagger=H.
+\end{equation}
+把\(i\)因子显式提出后，生成元是厄米的。
+
+乘以\(i\)并没有改变允许的无穷小矩阵；它只是改变了用来命名生成元的约定。物理学通常选择厄米生成元，因为它们的本征值是实数，而且相关的可观测量，例如角动量，是厄米的。
+
+行列式为1的条件给出了无迹性\editorialnote{口述的行列式展开中下标一度出现混乱。修正后的线性项为\(A_{11}+A_{22}=\operatorname{tr}A\)；非对角乘积从二阶项开始。}。对于小的\(2\times2\)
+矩阵\(A\)，
+\begin{equation}
+\det(\boldsymbol 1+A)
+=
+\det
+\begin{pmatrix}
+1+A_{11}&A_{12}\\
+A_{21}&1+A_{22}
+\end{pmatrix}.
+\end{equation}
+展开后，
+\begin{align}
+\det(\boldsymbol 1+A)
+ &=(1+A_{11})(1+A_{22})-A_{12}A_{21}\\
+ &=1+A_{11}+A_{22}+O(A^2)\\
+ &=1+\operatorname{tr}A+O(A^2).
+\end{align}
+将其应用于\(A=i\epsilon H\)，
+\begin{equation}
+\det U=1+i\epsilon\,\operatorname{tr}H+O(\epsilon^2).
+\end{equation}
+因此\(\det U=1\)要求
+\begin{equation}
+\operatorname{tr}H=0.
+\end{equation}
+迹条件恰好去掉了与单位矩阵成正比的生成元。一般的厄米\(2\times2\)矩阵有四个实参数：两个实对角元和一个复非对角元。它的迹固定了一个实组合，剩下三个。这与可以绕其进行无穷小空间转动的三个轴相对应。
+
+\(SU(2)\)的无穷小生成元因此是无迹厄米\(2\times2\)矩阵。三个泡利矩阵构成一组基：
+\begin{equation}
+\begin{aligned}
+\sigma_x&=
+\begin{pmatrix}0&1\\1&0\end{pmatrix},
+&
+\sigma_y&=
+\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+\\[0.4em]
+\sigma_z&=
+\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\end{aligned}
+\end{equation}
+每个生成元都可以写成
+\begin{equation}
+H=a_x\sigma_x+a_y\sigma_y+a_z\sigma_z.
+\end{equation}
+绕\(x\)轴的小转动选取\(\sigma_x\)；绕\(y\)轴的小转动选取\(\sigma_y\)；而绕任何其他轴的转动则选取相应的线性组合。在\(\hbar=1\)的单位制下，自旋算符为
+\begin{equation}
+S_i=\frac{\sigma_i}{2}.
+\end{equation}
+
+例如，位于\(x\)与\(y\)正中间的轴所用的生成元正比于
+\begin{equation}
+\frac{\sigma_x+\sigma_y}{\sqrt2}.
+\end{equation}
+系数向量\((a_x,a_y,a_z)\)的方向选取转动轴，而其大小与\(\epsilon\)结合来确定小角度。这就是角动量对易子中出现的自旋矩阵与有限转动算符之间的联系。特别地，
+\begin{equation}
+[S_x,S_y]=iS_z
+\end{equation}
+及其循环伙伴编码了此前从几何上已经看到的非对易性。标准的有限转动通过将无穷小生成元指数化得到\editorialnote{指数形式的有限转动公式是无穷小构造的标准完成；原始材料只推导了生成元条件及其泡利矩阵基。}，
+\begin{equation}
+U(\hat{\boldsymbol n},\theta)
+=\exp\left(-\frac{i\theta}{2}\,
+\hat{\boldsymbol n}\cdot\boldsymbol\sigma\right).
+\end{equation}
+\section{三态色空间}
+
+表示的组合可以稍后再谈。现在我们离开空间自旋，回到夸克色。夸克仍然具有自旋二分之一，但它的色是一个独立的三态度自由度：
+\begin{equation}
+\lvert r\rangle,\qquad
+\lvert g\rangle,\qquad
+\lvert b\rangle.
+\end{equation}
+一般的色态为
+\begin{equation}
+\begin{aligned}
+\lvert q\rangle_{\mathrm{color}}
+={}&
+\alpha_r\lvert r\rangle
++\alpha_g\lvert g\rangle
++\alpha_b\lvert b\rangle,
+\\
+&|\alpha_r|^2+|\alpha_g|^2+|\alpha_b|^2=1.
+\end{aligned}
+\end{equation}
+等价地，
+\begin{equation}
+q=
+\begin{pmatrix}
+\alpha_r\\
+\alpha_g\\
+\alpha_b
+\end{pmatrix}.
+\end{equation}
+模平方是在选定色基下红、绿、蓝的概率。同样的三重态记号可以组装三个夸克场算符，
+\begin{equation}
+\psi=
+\begin{pmatrix}
+\psi_r\\
+\psi_g\\
+\psi_b
+\end{pmatrix}.
+\end{equation}
+
+自旋与色在概念上必须分开。自旋标签告诉我们态在物理空间转动下如何变换。色标签告诉我们态在一个不转动实验室的内部对称性下如何变换。一个夸克态同时带有这两种标签，尽管目前的讨论为了集中讨论色而略去了自旋。
+
+把三个场算符写在一列中不仅仅是记账。它使得可以用一个矩阵方程来陈述对称性。一个变换可以把一个红场变成红、绿、蓝场的线性组合，正如空间转动把一个矢量分量变成其他分量的线性组合一样。
+
+人们可以先想象交换两种颜色的离散变换。更大的对称性包含所有三种颜色的连续混合。一个简单的交换矩阵可能需要伴随一个相位，以使其行列式等于1；于是该交换被嵌入到特殊酉群中。
+
+对于两个基态，裸交换表示为
+\begin{equation}
+X=
+\begin{pmatrix}0&1\\1&0\end{pmatrix},
+\qquad
+\det X=-1.
+\end{equation}
+将整个矩阵乘以\(i\)得到
+\begin{equation}
+\det(iX)=i^2\det X=1.
+\end{equation}
+因此，只要相位选择一致，离散交换就可以作为更大连续群的一个特定元素出现。
+
+\begin{classroomqa}
+\audiencequestion{一个仅仅交换两个基态的矩阵，其行列式对\(SU(2)\)来说是不是错的？\lecturetimestamp{00:43:46}}
+\lecturerresponse{裸交换的行列式为\(-1\)。适当的\(i\)因子提供了一个行列式为1的代表，因此该交换可以包含在连续的特殊酉变换之中。}
+\end{classroomqa}
+
+\section{\texorpdfstring{\(SU(3)\)}{SU(3)}与八个色生成元}
+
+连续的色变换为
+\begin{equation}
+\begin{aligned}
+q'&=Uq,
+&
+U^\dagger U&=\boldsymbol 1,
+\\
+\det U&=1,
+&
+U&\in SU(3).
+\end{aligned}
+\label{eq:l3-su3-action}
+\end{equation}
+其数学与用于旋量的特殊酉构造相同，但现在\(U\)是\(3\times3\)。这不是物理空间的转动。它是内部色空间中的转动。
+
+酉性保持色态的归一化：
+\begin{equation}
+q^\dagger q
+=|\alpha_r|^2+|\alpha_g|^2+|\alpha_b|^2.
+\end{equation}
+行列式为1从连续混合中去掉了共同的\(U(1)\)相位方向。所得的矩阵可以进行简单的交换、相对相位改变以及真正的连续叠加，同时仍处于一个封闭的群中。
+
+参数计数是直接的。一个\(3\times3\)复矩阵有九个复元素，即十八个实参数。矩阵方程\(U^\dagger U=\boldsymbol 1\)施加九个实条件。行列式为1又去掉一个：
+\begin{equation}
+\dim SU(3)=18-9-1=8.
+\end{equation}
+因此\(SU(3)\)有八个独立的无穷小生成元。
+
+九个实酉性条件同样可以借助\(U\)的列来理解。三个复列必须各自具有单位范数，并且每一对都必须正交。这些条件去掉了原有十八个实参数中的九个。行列式的相位又去掉第十个，剩下八个。这是\(SU(2)\)的\(8-4-1=3\)计数在三态情形下的类比。
+
+八的出现与最终产生八种胶子的是同一个事实。说胶子不是九种，是因为行列式限制去掉了一个方向，这只是一种助记说法。更确切地说，九个色-反色矩阵分解为一个与单位矩阵成正比的色单态方向，以及八个无迹方向。这八个无迹生成元构成QCD胶子所携带的伴随色结构。\editorialnote{单态加八重态这一表述，是原文有意采用的启发式行列式说法的标准精确版本；其规范场构造留待后文。}
+
+在现阶段，与八种胶子的关系只是一个路标，还不是完整的推导。要得到规范粒子，必须把色对称性提升为局域对称性，并确定补偿场。参数计数已经表明的是，一个\(SU(3)\)色变换可以从单位元开始偏离的独立方向有八个。
+
+\section{色对称性约束QCD}
+
+基本的对称性陈述是：物理在方程~\eqref{eq:l3-su3-action}中的色变换下不变。这是量子色动力学的核心内部对称性。混合色分量在形式上类似于混合自旋向上和自旋向下的振幅，而那些旋量变换又与空间方向的旋转相关，但这三个空间不可混淆。
+
+把色称为一种对称性，意味着改变色基不会改变物理预言。红、绿、蓝是三个基矢的方便名称，而不是三种可观测的颜料。对色分量同时作\(SU(3)\)旋转，必须使定律的形式保持不变。这种不变性不是可有可无的美学特征；它是QCD的组织原则。
+
+对称性限制拉格朗日量。在先前的\(U(1)\)例子中，共同相位变换下的不变性把允许的项限制为含有场与其共轭的平衡因子。在QCD中，每一项同样必须在\(SU(3)\)色变换下不变。这一要求对相互作用、守恒量以及胶子场的形式都有影响。
+
+假设某个候选的项带有一个裸露的色指标。在方程~\eqref{eq:l3-su3-action}下，该指标会旋转，因此该项本身不可能不变。允许的项必须把色指标缩并为不变量组合，或者使用其变换能补偿这一变化的规范场。这就是对称性原理的实际力量：它排除任意耦合，并组织起余下的相互作用。
+
+QCD的完整构造还需要一步：必须允许色变换逐点变化，而规范场必须补偿这种局域变化。\editorialnote{把色对称性局域化，是对全局\(SU(3)\)讨论的标准规范理论完成；本讲稿并未展开。}这一发展属于下一阶段。就目前而言，基本结构已经就位：一个色三重态受到具有八个生成元的特殊酉三态对称性的作用。
+
+这一计算在群论方面已经推进到目前所需的地步。我们从可以在普通空间中画出的旋转出发，过渡到作用于矢量和旋量的矩阵，然后在内部色空间中重复了同样的逻辑。下一步可以带着已经可用的数学框架回到粒子物理学，而不是要求形式体系一次承担全部物理内容。
