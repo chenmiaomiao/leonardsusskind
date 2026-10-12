@@ -67,6 +67,36 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNotNone(p.validate('Hello', 'こんにちは 3', 'ja'))
         self.assertEqual(p.validate('position', '位�置', 'zh'), 'corrupt Unicode/control character')
 
+    def test_math_at_end_of_heading_has_separate_closing_brace(self):
+        source = r'\chapter{The meaning of \(k\)}'
+        masked, protected = p.protect(source)
+        a, math, b = p.TOKEN.findall(masked)
+        self.assertEqual(p.restore(masked, protected), source)
+        self.assertIsNone(p.validate(masked, a + math + 'の意味' + b, 'ja', protected))
+
+    def test_layout_arguments_are_not_prose(self):
+        source = r'\begin{adjustbox}{max width=\linewidth}Hello\end{adjustbox}'
+        masked, frozen = p.protect(source)
+        self.assertNotIn('max width', masked)
+        self.assertEqual(p.restore(masked, frozen), source)
+        bad = source.replace('max width', '最大宽度').replace('Hello', '你好')
+        self.assertEqual(p.restore_layout_arguments(source, bad), source.replace('Hello', '你好'))
+
+    def test_empty_content_does_not_stop_other_chapters(self):
+        def completion(*args, **kwargs):
+            try:
+                raise RuntimeError('chat backend returned an empty message')
+            except RuntimeError as exc:
+                raise RuntimeError('deepseek completion failed after 3 attempt(s): RuntimeError') from exc
+        with patch.dict(p.sys.modules, {'llm_chat_backend': SimpleNamespace(run_chat_completion=completion)}):
+            with self.assertRaises(p.InvalidReply):
+                p.chat('Translate', Path('/unused'), SimpleNamespace(toolkit_root=Path('/unused'), model='fixture'))
+        self.assertFalse(p.PROVIDER_STOP.is_set())
+
+    def test_layout_dimensions_are_explicit(self):
+        self.assertIn('paperwidth=177.6mm,paperheight=252mm', p.page_layout())
+        self.assertIn(r'\fancyfoot[C]', p.page_layout())
+
     def test_url_protected_link_title_translated(self):
         text, _ = p.protect(r'\href{https://example.com}{Readable title}')
         self.assertNotIn('example.com', text)

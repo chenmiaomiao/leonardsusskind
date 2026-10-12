@@ -27,6 +27,7 @@ WORK = ROOT / '.translation-work'
 OUT = ROOT / 'translations'
 MANIFEST = ROOT / 'references/polished_translation_queue.json'
 VERSION = 1
+LAYOUT = 'a5-1.2-dimensions-v1'
 TOKEN = re.compile(r'@@T\d{6}@@')
 LANGS = {'ja': 'modern Japanese', 'zh': 'modern Simplified Chinese'}
 NUMBER_WORDS = dict(zip(
@@ -121,7 +122,8 @@ def protect(tex):
         macros=[MacroSpec(k, v) for k, v in {**TEXT_MACROS, **FROZEN_MACROS,
             'resizebox': '*{{{', 'scalebox': '{[{', 'item': '['}.items()],
         environments=[EnvironmentSpec('classroomqa', ''),
-                      EnvironmentSpec('figure', '['), EnvironmentSpec('table', '[')])
+                      EnvironmentSpec('figure', '['), EnvironmentSpec('table', '['),
+                      EnvironmentSpec('adjustbox', '{'), EnvironmentSpec('minipage', '[{')])
     nodes, _, length = lw.LatexWalker(tex, latex_context=context,
                                     tolerant_parsing=False).get_latex_nodes()
     if length != len(tex):
@@ -189,11 +191,12 @@ def split_closing_tokens(masked, protected):
     updated = list(protected)
     expansion = {}
     for i, value in enumerate(protected):
-        if re.fullmatch(r'\}{2,}', value):
+        math_close = re.fullmatch(r'(\\\(.*\\\)|\$[^$]+\$)(\}+)', value, re.S)
+        if re.fullmatch(r'\}{2,}', value) or math_close:
             token = f'@@T{i:06d}@@'
-            updated[i] = '}'
+            updated[i] = math_close[1] if math_close else '}'
             extra = []
-            for _ in value[1:]:
+            for _ in (math_close[2] if math_close else value[1:]):
                 extra.append(f'@@T{len(updated):06d}@@')
                 updated.append('}')
             expansion[token] = token + ''.join(extra)
@@ -497,6 +500,11 @@ def chat(prompt, dest, args, *, model=None):
             run_chat_completion(prompt, dest, dest.with_suffix('.usage.jsonl'), provider='deepseek',
                                 model=model or args.model, timeout_seconds=600, max_attempts=3)
         except Exception as exc:
+            cause = exc
+            while cause is not None:
+                if 'chat backend returned an empty message' in str(cause):
+                    raise InvalidReply('Provider returned no content; bounded content repair required') from exc
+                cause = cause.__cause__
             PROVIDER_STOP.set()
             raise ProviderUnavailable(str(exc)) from exc
         try:
@@ -708,7 +716,54 @@ def translated_preamble(source, lang):
              'proofname': ('証明', '证明'), 'bibname': ('参考文献', '参考文献')}
     suffix = '\n' + '\n'.join(f'\\renewcommand{{\\{k}}}{{{v[0 if lang == "ja" else 1]}}}' for k, v in names.items())
     # CJK italics are not supplied by Noto. Keep readable upright CJK, Latin italic intact.
-    return prefix + t + suffix + '\n\\emergencystretch=2em\n\\pdfstringdefDisableCommands{\\def\\proseunicodefont{}}\n'
+    return prefix + t + suffix + '\n\\emergencystretch=2em\n\\pdfstringdefDisableCommands{\\def\\proseunicodefont{}}\n' + page_layout()
+
+
+def page_layout():
+    """An explicit paper profile, independent of the legacy 1.2x font variant."""
+    return r'''
+\geometry{paperwidth=177.6mm,paperheight=252mm,left=16mm,right=16mm,
+ top=18mm,bottom=18mm,includeheadfoot,headheight=28pt,headsep=7mm,footskip=9mm}
+\usepackage{scrextend}
+\changefontsizes[17pt]{12pt}
+\raggedbottom
+\renewenvironment{classroomqa}{\par\medskip\begingroup}{\par\endgroup\medskip}
+\fancyhf{}
+\fancyhead[L]{\parbox{\textwidth}{\raggedright\fontsize{9}{11}\selectfont\nouppercase{\leftmark}}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+'''
+
+
+def restore_layout_arguments(source, translated):
+    """Legacy caches exposed layout options as prose. Restore only those AST spans."""
+    context = lw.get_default_latex_context_db()
+    context.add_context_category('layout', prepend=True, environments=[
+        EnvironmentSpec('adjustbox', '{'), EnvironmentSpec('minipage', '[{'),
+        EnvironmentSpec('tabular', '[{'), EnvironmentSpec('tabular*', '{{'),
+        EnvironmentSpec('longtable', '[{')])
+
+    def spans(text):
+        nodes, _, _ = lw.LatexWalker(text, latex_context=context).get_latex_nodes()
+        result = []
+        def walk(items):
+            for node in items:
+                if isinstance(node, lw.LatexEnvironmentNode):
+                    if node.environmentname in {'adjustbox', 'minipage', 'tabular', 'tabular*', 'longtable'}:
+                        result.extend((node.environmentname, arg.pos, arg.len, text[arg.pos:arg.pos+arg.len])
+                                      for arg in node.nodeargd.argnlist if arg)
+                    walk(node.nodelist)
+                elif isinstance(node, lw.LatexGroupNode):
+                    walk(node.nodelist)
+        walk(nodes)
+        return result
+    original, target = spans(source), spans(translated)
+    if [s[0] for s in original] != [s[0] for s in target]:
+        raise ValueError('Layout environment structure changed')
+    for old, new in reversed(list(zip(original, target))):
+        translated = translated[:new[1]] + old[3] + translated[new[1]+new[2]:]
+    return translated
 
 
 def cover(book, lang):
@@ -747,6 +802,7 @@ def assemble(book, lang):
         # Font substitution affects translated prose only, never frozen math.
         masked = re.sub(r'[\u0370-\u03ff]', lambda m: '{\\proseunicodefont ' + m.group() + '}', ''.join(translated))
         rendered = restore(masked, p['protected'])
+        rendered = restore_layout_arguments((src / rel).read_text(), rendered)
         if rel == 'course.tex':
             def graphic_paths(match):
                 paths = re.findall(r'\{([^{}]*)\}', match.group(1))
@@ -874,8 +930,9 @@ def compile_book(book, lang, args):
     dst = assemble(book, lang)
     build = WORK / 'build' / book['id'] / lang
     build.mkdir(parents=True, exist_ok=True)
-    for _ in range(3):
-        run = subprocess.run(['xelatex', '-interaction=nonstopmode', '-halt-on-error', '-no-shell-escape',
+    for pass_number in range(3):
+        run = subprocess.run(['xelatex', *(['-no-pdf'] if pass_number < 2 else []),
+                              '-interaction=nonstopmode', '-halt-on-error', '-no-shell-escape',
                               f'-output-directory={build}', 'course.tex'], cwd=dst,
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=900)
         (build / 'compile-output.txt').write_bytes(run.stdout)
@@ -886,7 +943,8 @@ def compile_book(book, lang, args):
     errors = [s for s in ['Missing character:', 'undefined references', 'multiply defined'] if s in log]
     with fitz.open(build / 'course.pdf') as pdf:
         text = ''.join(page.get_text() for page in pdf)
-        qa = {'pages': len(pdf), 'outline_entries': len(pdf.get_toc()),
+        qa = {'layout_profile': LAYOUT, 'paper_mm': [177.6, 252],
+              'pages': len(pdf), 'outline_entries': len(pdf.get_toc()),
               'cjk_characters': len(re.findall(r'[\u3400-\u9fff\u3040-\u30ff]', text)),
               'image_placements': sum(len(page.get_images()) for page in pdf),
               'overflows': overflows, 'errors': errors}
@@ -988,6 +1046,7 @@ def validated_output(book, lang):
         return False
     q = read(quality)
     return (q.get('status') == 'validated'
+            and q.get('layout_profile') == LAYOUT
             and hashlib.sha256(pdf.read_bytes()).hexdigest() == q.get('pdf_sha256')
             and all((folder / p).is_file() and digest((folder / p).read_text()) == sha
                     for p, sha in q.get('translated_tex', {}).items())
@@ -1080,6 +1139,12 @@ def run(args):
     with (WORK / 'queue.lock').open('w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         books = read(MANIFEST)['books']
+        if getattr(args, 'book', None):
+            books = [b for b in books if b['id'] == args.book]
+            if not books:
+                raise ValueError('Unknown book id')
+        elif not args.pilot_only:
+            books.sort(key=lambda b: all(language_complete(b, l) for l in LANGS))
         if not args.pilot_only and not (WORK / 'pilot-approved.json').exists():
             raise RuntimeError('First run --pilot-only; inspect both PDFs and approve-pilot before full queue')
         if args.pilot_only:
