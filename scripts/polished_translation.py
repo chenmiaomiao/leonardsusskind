@@ -601,6 +601,13 @@ def review_sample(book, lang, args):
                  '"source_quote": "...", "translation_quote": "...", "correction": "...", "reason": "..."}]}. '
                  'For accurate pairs, do NOT create issue entries. A sentence saying there is no error '
                  'must never be listed as an issue. If all pairs are accurate, return pass=true and issues=[]. '
+                 'Flag only a demonstrable change in physical meaning, missing information, or grammatical '
+                 'damage that obscures the meaning. Synonyms and equivalent explanations are not errors. '
+                 'For example, radial position may be called a radial coordinate; only X matters is '
+                 'equivalent to depends only on X; confining is equivalent to having a confining effect. '
+                 'A number sector is a fixed-particle-number subspace. Acting from the left means left '
+                 'multiplication, not reversed ordering. Do not rewrite a numerical approximation or '
+                 'claim made by the English source when the translation preserves it faithfully. '
                  'This is sampled semantic review, not full-book review.\n' + json.dumps(batch, ensure_ascii=False),
                  batch_path, args)
         if reply.get('pass') is not True or reply.get('issues') != []:
