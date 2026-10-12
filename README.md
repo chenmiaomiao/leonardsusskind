@@ -248,9 +248,9 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Particle Physics 1: Basic Concepts (2009 fall) | [Available PDF](translations/supplementary--particle_physics_1_basic_concepts--2009_fall/ja/book.pdf) | [Available PDF](translations/supplementary--particle_physics_1_basic_concepts--2009_fall/zh/book.pdf) |
 | Particle Physics 2: Standard Model (2010 winter) | [Available PDF](translations/supplementary--particle_physics_2_standard_model--2010_winter/ja/book.pdf) | [Available PDF](translations/supplementary--particle_physics_2_standard_model--2010_winter/zh/book.pdf) |
 | Particle Physics 3: Supersymmetry and Grand Unification (2010 spring) | [Available PDF](translations/supplementary--particle_physics_3_supersymmetry_and_grand_unification--2010_spring/ja/book.pdf) | [Available PDF](translations/supplementary--particle_physics_3_supersymmetry_and_grand_unification--2010_spring/zh/book.pdf) |
-| Topics in String Theory (2011 winter topics in string theory) | In preparation (0/848 segments) | In preparation (0/848 segments) |
-| String Theory and M-Theory (2010 fall string theory and m theory) | In preparation (0/953 segments) | In preparation (0/953 segments) |
-| Classical Mechanics (2011 fall theoretical minimum) | In preparation (0/888 segments) | In preparation (0/888 segments) |
+| Topics in String Theory (2011 winter topics in string theory) | In preparation (848/848 segments) | In preparation (848/848 segments) |
+| String Theory and M-Theory (2010 fall string theory and m theory) | In preparation (952/953 segments) | In preparation (953/953 segments) |
+| Classical Mechanics (2011 fall theoretical minimum) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/zh/book.pdf) |
 | Quantum Mechanics (2012 winter theoretical minimum alt title) | In preparation (0/868 segments) | In preparation (0/868 segments) |
 | Special Relativity (2012 spring theoretical minimum) | In preparation (0/1097 segments) | In preparation (0/1097 segments) |
 | General Relativity (2012 fall theoretical minimum) | In preparation (0/921 segments) | In preparation (0/921 segments) |
