@@ -1,0 +1,656 @@
+\chapter{概率、信息与熵}
+
+\lectureoverview{统计力学始于微观定律与不完全知识相遇之处。我们首先使概率变得精确，然后追问确定性运动本身如何赋予概率、守恒定律如何划分状态空间，以及为什么保信息的动力学自然地导向熵。第一定律和第零定律只有在这一结构就位之后才进入。}
+
+\section{为什么需要统计力学？}
+
+统计力学有时被描述为旧物理学。这种描述没有抓住要点。它既是前现代的，又是现代的，而且很可能在任何接替我们所知理论的后现代物理学中仍然有用。具体的模型来来去去；热力学第二定律却一再作为路标而存留下来。每当一种对自然的描述似乎凭空制造出秩序、从根本上抹除信息，或使一个封闭系统退化到不自然的简单状态时，第二定律就警告我们：有某种东西被遗漏了。
+
+这门学科或许不如新发现的粒子那样引人注目，但它至少同样深刻，而且远为普遍。气体、液体、固体、辐射、黑洞、信息和量子场都需要统计推理。事实上，用来发现粒子的实验装置若没有它就无法被理解。这就是为什么一代又一代强有力的物理学家精通统计力学，即使他们的主要工作在其他领域：这门学科很有用，但它也异常优美。
+
+要看清为什么需要它，先从力学所提供的理想情形开始。一个封闭系统要么是我们所考虑的整个宇宙，要么是一个被隔离得足够好、以致其环境不影响它的子系统。如果我们知道它的初始条件和它的演化定律，那么经典力学就提供完整的预测。量子力学修改了可被预测的内容，但它同样有一个精确定义的状态，以及一条预测该理论所允许的最大信息的定律。
+
+原则上可预测与有用的理解之间存在严重的差别。一份列出这个房间里每个分子的位置和速度的清单会长得不可思议，几乎立刻就会改变，而且几乎回答不了我们真正关心的任何问题。因此，精确的微观定律可以同时是完全可预测的，又在实践上毫无用处。
+
+统计力学就是应用于这种物理情形的概率论。当初始条件不被完全精确地知道时，当定律只被近似地知道时，当系统是开放的时，或者仅仅当微观变量的数目大到无法追踪时，它就成为必要的。这一切都不意味着预测薄弱。大数往往使统计预测变得异常锐利。
+
+考虑一个孤立的气体盒子。我们无法预测每个分子的轨迹，然而少数宏观数据使我们能够高精度地预测压强、能量以及许多其他体量。仍然不确定的是涨落。在某个不可预测的时刻，一个小区域可能包含比平均更多的分子，而另一个区域包含更少。这样的事件位于概率分布的尾部：不太可能，但并非被禁止。我们可以计算这类涨落应当以多高的频率发生，而不必预测某一次具体发生的时刻。
+
+抛硬币显示出同样的区别。在十亿次公平抛掷中，正面和反面的数目将接近相等。如果我们抛得足够频繁，一长串正面最终会出现，但概率论预测的是它的频率，而不是事先指定它的时刻。统计力学是为那些其元素太小、太多，或两者兼而有之的系统而设计的。
+
+本课程将展开这些定律以及它们对物质的应用。这门学科值得反复学习：人们学会它，忘掉其中一部分，然后再一次学会它，并对哪些观念是根本的有了更深的感觉。我们从那个支配随后一切的观念开始。
+
+\section{作为原始语言的概率}
+
+概率为什么有效，并不是概率演算本身所能解释的。一个概率性预测可能在某一次试验中失败；这正是某个结果可能但不太可能的含义。该理论告诉我们例外是如何分布的。它并不消除例外。因此我们把概率当作一个原始概念，并陈述它所服从的规则。
+
+\subsection{状态与归一化}
+
+设\(i\)标记一个可能的结果或系统的一个可能状态。对于一枚硬币，\(i\)可以表示正面或反面。对于一颗骰子，它可以从\(1\)取到\(6\)。对于两颗骰子，一对指标记录两个面。我们从有限离散状态空间开始，
+\begin{equation}
+ i=1,\ldots,N,
+\end{equation}
+之后再过渡到无穷多个以及连续多个状态。
+
+无知并不意味着系统没有状态。它意味着我们不知道系统处于哪个状态，因此我们为每种可能性赋予一个概率\(p_i\)。基本规则是
+\begin{align}
+ p_i &\geq 0, \label{eq:sm1-prob-positive}\\
+ \sum_{i=1}^{N}p_i &=1. \label{eq:sm1-prob-normalization}
+\end{align}
+这些备选情形互斥且穷尽：其中恰好有一个发生。负概率在这里没有地位，而总和为一，因为某个允许的结果必定会发生。
+
+\subsection{频率与大数定律}
+
+概率通过重复试验与实验相联系。假设同一个实验进行了\(N_{\mathrm{trials}}\)次，并令\(N(i)\)为产生结果\(i\)的试验次数。那么频率解释为
+\begin{equation}
+ p_i=
+ \lim_{N_{\mathrm{trials}}\to\infty}
+ \frac{N(i)}{N_{\mathrm{trials}}}.
+ \label{eq:sm1-frequency}
+\end{equation}
+这是一个通过理想极限表述的物理假设。没有实验室会进行无穷多次实验。其主张是，足够多的试验会使该比值稳定在足够接近\(p_i\)处，以满足预期的预测。有限样本会在极限值附近涨落。
+
+\subsection{平均值}
+
+现在为每个状态赋予一个数\(f(i)\)。它可以是能量、动量，或我们希望测量的任何其他量。其期望值为
+\begin{equation}
+ \langle f\rangle=\sum_i f(i)p_i.
+ \label{eq:sm1-expectation}
+\end{equation}
+即使在量子力学之外，括号记号也很方便。用频率的语言，同一个平均值为
+\begin{equation}
+ \langle f\rangle
+ =
+ \lim_{N_{\mathrm{trials}}\to\infty}
+ \frac{1}{N_{\mathrm{trials}}}
+ \sum_i f(i)N(i).
+ \label{eq:sm1-frequency-average}
+\end{equation}
+
+对于一枚硬币，定义
+\begin{equation}
+ f(\mathrm{H})=+1,
+ \qquad
+ f(\mathrm{T})=-1.
+\end{equation}
+如果正面和反面各有概率\(1/2\)，那么
+\begin{equation}
+ \langle f\rangle
+ =(+1)\frac12+(-1)\frac12=0.
+\end{equation}
+平均值不必是一个可能的结果。硬币从不会落在零上；零概括了其两个可能取值的分布。
+
+这段简短的插曲确定了本学科通篇使用的词汇：状态、概率、频率和期望值。
+
+\section{赋予概率的三种方式}
+
+\subsection{对称性}
+
+为什么我们通常给硬币的两个面赋予相等的概率？第一个答案是对称性。将一枚近乎理想的硬币翻转会交换正面和反面，而不改变实验。于是没有物理理由偏向任一结果。真实的标记或瑕疵会引入微小的偏置，但对称模型刻画了预期的实验：
+\begin{equation}
+ p(\mathrm{H})=p(\mathrm{T})=\frac12.
+\end{equation}
+
+同样的论证给对称骰子的每个面赋予概率\(1/6\)。更一般地，由对称性相联系的构型被赋予相等的概率，除非某些额外信息破坏了该对称性。
+
+\subsection{实验}
+
+一颗形状不规则的骰子没有交换全部六个面的对称性。在这种情况下，仅靠对称性给不出答案。人们可能拥有一个更深入的力学模型来预测偏置，但若没有这样的模型，诚实的做法就是实验：多次投掷骰子，记录频率，等待它们稳定下来，并在后续预测中使用所得的概率表。
+
+对称性和实验并不是相互竞争的定义。它们是关于一个概率分布的两种信息来源。统计力学将大量依赖对称性，但动力学提供了第三条途径。
+
+\subsection{来自确定性运动的概率}
+
+想象一个不规则物体，具有六种有颜色的构型。它按照确定的更新法则在固定的离散时间间隔改变状态：
+\begin{equation}
+ R\longrightarrow B\longrightarrow Y\longrightarrow G
+ \longrightarrow O\longrightarrow P\longrightarrow R.
+ \label{eq:sm1-six-cycle}
+\end{equation}
+该物体本身不必具有任何几何对称性。该法则只说明给定构型之后是哪个构型。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_02.png}
+\caption{期望值公式留在左侧黑板上，而六个确定性颜色更新列在右侧。}
+\lectureframe{00:26:28}
+\end{figure}
+
+当画成一个有向循环时，黑板上的列表更加清晰：
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  >=Latex,
+  state/.style={draw,circle,minimum size=8mm,inner sep=1pt}
+]
+\node[state] (R) at (90:2.2) {$R$};
+\node[state] (B) at (30:2.2) {$B$};
+\node[state] (Y) at (-30:2.2) {$Y$};
+\node[state] (G) at (-90:2.2) {$G$};
+\node[state] (O) at (-150:2.2) {$O$};
+\node[state] (P) at (150:2.2) {$P$};
+\draw[->] (R) -- (B);
+\draw[->] (B) -- (Y);
+\draw[->] (Y) -- (G);
+\draw[->] (G) -- (O);
+\draw[->] (O) -- (P);
+\draw[->] (P) -- (R);
+\end{tikzpicture}
+\caption{一个单一的六状态轨道。每个周期内每个状态都被访问一次。}
+\label{fig:sm1-six-cycle}
+\end{figure}
+
+假设我们不知道初始状态，并在一个未知时刻进行快照。由于每一步持续的时间相等，系统在每个颜色中度过一个周期的六分之一：
+\begin{equation}
+ p(R)=p(B)=p(Y)=p(G)=p(O)=p(P)=\frac16.
+ \label{eq:sm1-uniform-cycle}
+\end{equation}
+这一相等并非来自物体的形状。它来自在各状态中度过的相等时间。
+
+我们可以重新排列箭头，得到一种不同的微观法则，同时仍然形成一个六状态循环。具体顺序改变了，但快照概率仍为\(1/6\)，因为每个状态在每个周期中仍然出现一次。因此这一预测既不需要起点，也不需要具体顺序。它只需要轨道结构以及每次更新所对应的相等时间。
+
+\begin{classroomqa}
+\classquestion{如果物体并不对称，那么在什么意义上给每种颜色赋予概率\(1/6\)才是合理的？}
+\lecturerresponse{这种赋值是动力学性的，而非几何性的。在一个六步轨道上未知相位处拍摄的快照，采样的是六个等长的时间槽。相关的等价性在于轨道上的位置之间，而不在于物体的各个面之间。如果停留时间不相等，概率也会不相等。
+\lecturetimestamp{00:27:11--00:29:49}}
+\end{classroomqa}
+
+\section{不连通的循环与守恒量}
+
+确定性定律不必把所有状态都放在同一条轨道上。考虑两个不连通的循环，
+\begin{equation}
+ R\longrightarrow B\longrightarrow G\longrightarrow R,
+ \qquad
+ P\longrightarrow Y\longrightarrow O\longrightarrow P.
+ \label{eq:sm1-two-cycles}
+\end{equation}
+如果我们知道系统位于第一个循环上，那么
+\begin{equation}
+ \begin{aligned}
+ p(R)=p(B)=p(G)&=\frac13,\\
+ p(P)=p(Y)=p(O)&=0.
+ \end{aligned}
+\end{equation}
+知道它位于第二个循环上则把这些赋值颠倒过来。
+
+更一般的情形需要先验权重。把两个循环分别标记为\(+1\)和\(-1\)，并设它们的概率为\(p_+\)和\(p_-\)，且满足
+\begin{equation}
+ p_++p_-=1.
+\end{equation}
+于是
+\begin{align}
+ p(R)=p(B)=p(G)&=\frac{p_+}{3},\\
+ p(P)=p(Y)=p(O)&=\frac{p_-}{3}.
+ \label{eq:sm1-sector-weights}
+\end{align}
+因子\(1/3\)来自循环内部的运动。而数\(p_+\)和\(p_-\)则不然。它们必须来自额外的知识，也许是另一个实验，或是另一个选定初始扇区的系统。
+
+标记\(+1\)和\(-1\)定义了一个守恒量：一旦系统从某个循环出发，更新定律绝不会把它带到另一个循环。人们可以把这个量称为能量，或者给它一个占位名称，比如\emph{zilch}。它的名称是次要的。守恒意味着状态空间被划分为动力学无法跨越的区域。
+
+这些循环不必包含相同数目的状态。一个四态轨道和一个二态轨道仍然定义两个守恒扇区。等时采样于是在第一个扇区内给出\(1/4\)，在第二个扇区内给出\(1/2\)，每种情形都再乘以该扇区的先验概率。统计力学必须回答两个逻辑上彼此分离的问题：
+\begin{enumerate}
+\item 给定一个守恒扇区，动力学在其各状态中花费多少时间？
+\item 应当给守恒扇区本身赋予什么概率？
+\end{enumerate}
+
+\begin{classroomqa}
+\audiencequestion{我们是否假设一个守恒扇区内的所有状态都获得相同的概率？}
+\lecturerresponse{对于这里展示的离散玩具定律，是的，因为每个状态持续相同的时间间隔，而且运动是确定性的。无知之处在于轨道的初始相位。具有毫秒级时间分辨的探测器无法分辨微秒级的更新，尽管足够快的快照仍然能够识别出被捕捉到的状态。在更一般的系统中，不相等的停留时间必须被显式地纳入。
+\lecturetimestamp{00:36:16--00:37:17}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{如果拍摄两次快照，而第一次识别出某一条循环，那么第二次是否应当识别出同一条循环？}
+\lecturerresponse{是的。这正是守恒的含义。一旦测量确定了守恒量的值，未来的概率就可以以该值为条件，而另一个扇区中的状态获得概率零。
+\lecturetimestamp{00:37:18--00:37:45}}
+\end{classroomqa}
+
+\subsection{两个系统之间共享的能量}
+
+现在用能量替换那个抽象标记。一个孤立盒子是封闭系统，具有守恒的能量。两个孤立盒子有两个分别守恒的能量，因为它们不发生相互作用。用一条允许能量流动的狭窄通道把它们连接起来，则各自的能量可以改变，而总量保持固定。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_03.png}
+\caption{两个子系统由一条狭窄通道连接，能量可以通过该通道。}
+\lectureframe{00:39:19}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex]
+\draw[thick,rounded corners=4pt] (-4,1.8) rectangle (-0.7,-1.5);
+\draw[thick,rounded corners=4pt] (0.7,1.5) rectangle (4,-1.8);
+\draw[thick] (-0.7,0.45) -- (0.7,0.45);
+\draw[thick] (-0.7,-0.35) -- (0.7,-0.35);
+\draw[<->,very thick] (-0.45,0.05) -- (0.45,0.05);
+\node at (-2.35,0.15) {subsystem \(1\)};
+\node at (2.35,-0.15) {subsystem \(2\)};
+\node[above] at (0,0.5) {energy exchange};
+\end{tikzpicture}
+\caption{一旦连接被打开，只有\(E_1+E_2\)是守恒的。能量分配变成了一个概率问题。}
+\label{fig:sm1-connected-systems}
+\end{figure}
+
+给定总能量，我们可以问子系统\(1\)具有\(E_1\)而子系统\(2\)具有剩余部分的概率是多少。相同的盒子平均而言应当具有相等的能量，但平均值并不是整个分布。因此，确定一个子系统的概率的一种方式，是把它嵌入一个更大的封闭系统中，而该系统的守恒律提供了缺失的信息。这一构造将在统计力学中反复出现。
+
+\section{好定律、坏定律与负第一定律}
+
+并非每一条确定性更新规则都可以作为基本定律。考虑映射
+\begin{equation}
+ \begin{aligned}
+ R&\mapsto R,& B&\mapsto R,& Y&\mapsto R,\\
+ G&\mapsto R,& O&\mapsto R,& P&\mapsto R.
+ \end{aligned}
+ \label{eq:sm1-all-to-red}
+\end{equation}
+它完美地预测未来：一步之后状态是红色。它在相反方向上失效。一旦系统是红色，就没有任何东西揭示它来自蓝色、黄色、绿色、橙色、紫色，还是红色自身。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  >=Latex,
+  state/.style={draw,circle,minimum size=8mm,inner sep=1pt}
+]
+\node[state,fill=red!12] (R) at (0,0) {$R$};
+\node[state] (B) at (-3,1.6) {$B$};
+\node[state] (Y) at (-3,0) {$Y$};
+\node[state] (G) at (-3,-1.6) {$G$};
+\node[state] (O) at (3,1.6) {$O$};
+\node[state] (P) at (3,-1.6) {$P$};
+\draw[->] (B) -- (R);
+\draw[->] (Y) -- (R);
+\draw[->] (G) -- (R);
+\draw[->] (O) -- (R);
+\draw[->] (P) -- (R);
+\draw[->,loop above] (R) to (R);
+\end{tikzpicture}
+\caption{一个多对一的定律预测下一个状态，却抹去了可能的过去状态之间的区别。}
+\label{fig:sm1-bad-law}
+\end{figure}
+
+相比之下，闭合循环则保留记录。如果已知经过的时间，我们就能把状态向前或向后演化，即使已经过了成千上万个周期。定律保留了不同初始条件之间的区别。Susskind 把这一要求称为\emph{物理学第一定律之负}：信息在根本上不会丢失。
+
+对于有限的离散状态空间，图示判据很简单：
+\begin{quote}
+一条好的定律中，每个状态都恰好有一条出射箭头和恰好一条入射箭头。
+\end{quote}
+出射箭头决定未来；入射箭头重建过去。在数学上，更新是状态的一个置换。
+
+\subsection{摩擦只是一个表面上的反例}
+
+连续情形下的对应物是刘维尔定理。摩擦似乎与它矛盾。把一块橡皮在桌面上滑动，无论橡皮从哪里开始，它最终都会停下来。一个示意性的阻力方程为
+\begin{equation}
+ m\ddot x=-\gamma\dot x,
+ \qquad \gamma>0.
+ \label{eq:sm1-drag}
+\end{equation}
+其速度按指数衰减。如果这就是一个密封房间中每个粒子的最底层定律，那么一切运动都会消失，温度会降到零，许多初始状态会坍缩到一个最终状态。能量守恒会失效，信息会消失，无序度会减小。这将是“一切都变红”的连续版本。
+
+真实的摩擦并非如此。橡皮会加热桌面、自身以及周围环境。微观位置和动量记录了从可见运动中丢失的那些区别。摩擦是在未观测的自由度被省略之后，针对一个子系统所建立的有效方程；它并不是针对完整闭合系统的基本耗散定律。
+
+\begin{classroomqa}
+\classquestion{微分方程
+\(m\ddot x=-\gamma\dot x\) 表示什么，为什么它不是基本的闭合系统定律？}
+\lecturerresponse{它表示黏性阻力。仅凭它自身，它会把每个速度都驱向零，这会使气体无论初始温度如何都冷却到零。在实际的闭合描述中，失去的机械能和信息会进入微观自由度。只有在这些变量被消去之后，阻力方程才是可靠的。
+\lecturetimestamp{00:44:40--00:48:56}}
+\end{classroomqa}
+
+\section{被占据状态与第一熵}
+
+信息守恒有一个等价的概率表述。假设\(M\) 个状态中有 \(N\) 个被赋予相等的概率，
+\begin{equation}
+ p_i=
+ \begin{cases}
+ 1/M, & i\text{ in the occupied set},\\
+ 0, & i\text{ outside it}.
+ \end{cases}
+ \label{eq:sm1-uniform-occupied}
+\end{equation}
+一个保持信息的更新可以重新洗牌哪些状态被占据，但它不能把它们合并。在之后的每个时刻，仍然有 \(M\) 个概率为 \(1/M\) 的状态。相比之下，那个坏的映射 \eqref{eq:sm1-all-to-red} 可以把许多被占据状态坍缩成一个。
+
+数 \(M\) 衡量的是无知程度。如果 \(M=N\)，则每个状态都可能，我们的无知达到最大。如果 \(M=1\)，则微观状态被精确知道。因此熵的第一个定义是
+\begin{equation}
+ S=\log M.
+ \label{eq:sm1-entropy-logm}
+\end{equation}
+它给出
+\begin{equation}
+ S_{\max}=\log N,
+ \qquad
+ S_{\min}=0.
+\end{equation}
+如果状态空间是无限的，则不一定存在有限的上界。
+
+在这一展开中，熵出现在温度之前，甚至出现在能量守恒的正式陈述之前。在这个意义上，它更为基本。然而，它并不是仅由力学系统本身决定的性质。它同时依赖于系统以及表示已知信息的概率分布。同一个力学系统，可能被拥有不同信息的观察者赋予不同的熵。
+
+在精确的微观演化下，被占据的状态只是被重新排列，因此这个细粒化熵是守恒的。在实践中，我们会丢失时间信息、丢弃关联，并且无法追踪数量巨大的变量。于是我们的概率分布会扩展到更多备选状态上，而赋予粗粒描述的熵会增加。我们的可用描述要丢失信息，并不需要方程本身破坏信息。
+
+\begin{classroomqa}
+\classquestion{一个具有 \(N\) 个状态的有限系统，其最大可能熵是多少？}
+\lecturerresponse{它是 \(\log N\)，当所有 \(N\) 个状态等概率时达到。最小熵为零，当一个状态的概率为一时达到。因此，熵既衡量知识状态，也衡量可用的状态空间。
+\lecturetimestamp{00:56:46--00:58:19}}
+\end{classroomqa}
+
+\section{连续相空间中的刘维尔流}
+
+对于具有连续位置和动量的粒子，微观状态是相空间中的一个点。我们把坐标写作 \(q_a\)，把它们的共轭动量写作 \(p_a\)。当粒子很多时，会有数量极其巨大的轴；一幅带有一个 \(q\) 和一个 \(p\) 的二维图只是替代表示。相空间是偶数维的，因为每个坐标都有一个动量伙伴。
+
+假设我们的知识由一个区域\(\Omega_0\)表示：概率密度在该区域内部均匀，在外部为零。例如，知道每个粒子都位于房间内会限制位置坐标，而对其速率的限制则约束动量坐标。
+
+哈密顿演化将每个相空间点沿一条轨迹携带。邻近的点移动到邻近的点，被占据的区域像一块不可压缩流体一样流动：
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[>=Latex,scale=0.95]
+\draw[->] (-4.2,0) -- (4.3,0) node[right] {$q$};
+\draw[->] (-3.7,-2.2) -- (-3.7,2.4) node[above] {$p$};
+\draw[fill=blue!12,thick]
+  (-3.0,-0.5) .. controls (-2.7,1.0) and (-1.3,1.2) .. (-0.9,0.1)
+  .. controls (-0.6,-1.0) and (-2.2,-1.4) .. cycle;
+\node at (-1.9,0.0) {$\Omega_0$};
+\draw[->,very thick] (-0.3,0.2) -- (0.8,0.2);
+\draw[fill=orange!15,thick]
+  (1.2,-1.1) .. controls (1.5,0.3) and (2.3,1.8) .. (3.2,1.1)
+  .. controls (3.6,0.7) and (2.8,-0.4) .. (2.5,-1.5)
+  .. controls (2.1,-1.8) and (1.5,-1.6) .. cycle;
+\node at (2.35,0.1) {$\Omega_t$};
+\end{tikzpicture}
+\caption{哈密顿流可以拉伸和剪切被占据的相空间区域，但它保持其体积不变。}
+\label{fig:sm1-liouville-flow}
+\end{figure}
+
+刘维尔定理指出
+\begin{equation}
+ \operatorname{Vol}(\Omega_t)
+ =
+ \operatorname{Vol}(\Omega_0).
+ \label{eq:sm1-liouville-volume}
+\end{equation}
+如果初始密度在\(\Omega_0\)上均匀，则输运后的密度在\(\Omega_t\)上均匀。这是保持被占据离散态的数量和权重不变的连续类比。
+
+该定理还从几何上解决了摩擦疑难。仅看橡皮擦可见的动量，一团可能性似乎向\(p=0\)收缩。而在完整相空间中，这团可能性扩散到橡皮擦和桌子中分子的位置与动量中。一个投影可以收缩，而完整的高维体积保持不变。
+
+\begin{classroomqa}
+\classquestion{如果每条可见轨迹都趋于静止，被占据的相空间区域是否已经坍缩到轴\(p=0\)上？}
+\lecturerresponse{仅在约化投影中如此。完整系统包含桌子、橡皮擦和环境的微观变量。当可见动量范围变窄时，分布通过这些隐藏方向扩散。刘维尔定理适用于完整的闭合相空间，而不适用于一组不完整的宏观变量。
+\lecturetimestamp{01:04:37--01:06:29}}
+\end{classroomqa}
+
+\section{从负第一定律到第一定律}
+
+\subsection{对第零定律的简要考察}
+
+在陈述第一定律之前，先命名第零定律是有用的。热平衡尚未定义，因此目前该定律只是一个结构性陈述：
+\begin{quote}
+如果系统\(A\)与\(B\)处于热平衡，且\(B\)与\(C\)处于热平衡，那么\(A\)与\(C\)处于热平衡。
+\end{quote}
+这种传递性以后将使温度成为可能。目前我们暂且搁置它。
+
+\subsection{能量守恒}
+
+闭合系统的第一定律就是
+\begin{equation}
+ \frac{dE}{dt}=0.
+ \label{eq:sm1-first-law}
+\end{equation}
+其紧凑形式掩盖了它的力量。能量是一个守恒量，而能量一词以后将获得更多的热力学内容。
+
+如果一个闭合系统由两部分组成，且它们的能量是可加的，
+\begin{equation}
+ E=E_1+E_2,
+\end{equation}
+那么
+\begin{equation}
+ \frac{dE_1}{dt}+\frac{dE_2}{dt}=0,
+ \qquad\text{or}\qquad
+ \frac{dE_1}{dt}=-\frac{dE_2}{dt}.
+ \label{eq:sm1-energy-exchange}
+\end{equation}
+第二种形式使交换变得明确：一个子系统失去的能量被另一个子系统获得。
+
+可加性假设需要谨慎对待。两个引力粒子各自具有动能，但它们的相互作用贡献了一份属于这一对的势能。总能量是守恒的，尽管它不能精确地写成一个物体的能量加上另一个物体的能量。
+
+热力学常常允许一种极好的可加近似，因为体能量随体积标度，而大块相邻部分之间的短程相互作用能主要随它们的接触面积标度。把一张大桌子分成若干块：每块的内部能量是体积效应，而相邻块之间的耦合是表面效应。对于大块而言，后者相对较小。方程
+\eqref{eq:sm1-first-law}对闭合整体是精确的；子系统形式
+\eqref{eq:sm1-energy-exchange}则假设相互作用能可忽略。
+
+\begin{classroomqa}
+\audiencequestion{归一化条件\(\sum_i p_i=1\)是否也假设所列结果是互斥的？}
+\lecturerresponse{是的。状态标签的定义使得各备选结果不重叠：如果骰子处于黄色状态，它并不同时处于红色状态。在日常语言中颜色可以混合，但概率计算中使用的状态划分必须由互斥的备选结果组成。
+\lecturetimestamp{01:12:14--01:12:55}}
+\end{classroomqa}
+
+\section{回到熵}
+
+讲座现在明确回到未完成的事项。温度虽然为感官所熟悉，却是一个导出量。必须先确立熵和能量，才能干净地定义温度。
+
+\subsection{一般概率分布}
+
+特殊定义\(S=\log M\)适用于\(M\)个状态等概率且所有其他状态概率为零的情形。一般分布不必是矩形的。其权重可以在状态标签上平滑或不规则地变化。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_05.png}
+\caption{在离散状态标签上绘制的概率分布。所需用于熵的特征是分布的展宽，而非精确的曲线。}
+\lectureframe{01:14:40}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[>=Latex,scale=0.93]
+\draw[->] (-4.2,0) -- (4.4,0) node[right] {state label \(i\)};
+\draw[->] (-4,0) -- (-4,3.2) node[above] {$p_i$};
+\foreach \x in {-3.6,-3.1,...,3.6}
+  \draw (\x,0.08) -- (\x,-0.08);
+\draw[very thick]
+  plot[smooth] coordinates {
+  (-3.7,0.12) (-3.0,0.28) (-2.3,0.72) (-1.6,1.45)
+  (-0.9,2.25) (-0.2,2.65) (0.5,2.28) (1.2,1.55)
+  (1.9,0.88) (2.7,0.38) (3.5,0.14)};
+\draw (-1.8,-0.18) -- (-1.8,-0.5);
+\draw (1.8,-0.18) -- (1.8,-0.5);
+\draw[<->] (-1.8,-0.46) -- (1.8,-0.46);
+\node at (0,-0.82) {effective spread};
+\end{tikzpicture}
+}
+\caption{窄分布比宽分布携带更少的不确定性。熵必须度量整个分布。}
+\label{fig:sm1-probability-spread}
+\end{figure}
+
+一般定义为
+\begin{equation}
+ S=-\sum_i p_i\log p_i.
+ \label{eq:sm1-shannon-entropy}
+\end{equation}
+利用\eqref{eq:sm1-expectation}，这即为
+\begin{equation}
+ S=-\langle\log p\rangle.
+\end{equation}
+负号补偿了当\(0<p_i<1\)时\(\log p_i<0\)这一事实。
+
+\subsection{恢复均匀结果}
+
+我们必须检验一般公式能重现第一个定义。对于未占据的状态，\(p_i=0\)，而\(\log p_i\)发散。其乘积具有定义良好的极限值
+\begin{equation}
+ \lim_{p\to0^+}p\log p=0.
+ \label{eq:sm1-plogp-limit}
+\end{equation}
+因此概率为零的状态不贡献任何东西。
+
+\begin{classroomqa}
+\audiencequestion{如果\(p_i=0\)，该项真的消失吗？零的对数是负无穷。}
+\lecturerresponse{该项由极限\(\lim_{p\to0^+}p\log p\)定义，其值为零。因子\(p\)趋于零的速度快于对数发散的速度。因此任意不可能的状态做出任意小的贡献，而完全不可能的状态不贡献任何东西。
+\lecturetimestamp{01:18:27--01:19:46}}
+\end{classroomqa}
+
+对于\(M\)个被占据状态中的每一个，\(p_i=1/M\)。因此
+\begin{align}
+ S
+ &=-\sum_{\mathrm{occupied}\ i}
+ \frac1M\log\!\left(\frac1M\right)\\
+ &=-M\frac1M\log\!\left(\frac1M\right)\\
+ &=-\log\!\left(\frac1M\right)
+ =\log M.
+ \label{eq:sm1-entropy-check}
+\end{align}
+一般表达式与特殊表达式完全一致。更宽的分布给更多备选赋予可观的权重，因此具有更大的熵；更窄的分布具有更小的熵。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{lecture_01_figure_06.png}
+\caption{标记的宽度\(M\)强调了显著概率的展宽与熵之间的联系。}
+\lectureframe{01:16:42}
+\end{figure}
+
+熵属于状态空间上的概率分布。它不是像单个微观态的能量或动量那样的裸可观测量。一个精确状态可以由集中在该状态上的分布表示，此时熵为零，但当知识状态改变时熵会改变。
+
+\section{硬币、比特与显式计数}
+
+设\(n\)为硬币的数量。微观构型的数目为
+\begin{equation}
+ N=2^n.
+ \label{eq:sm1-coin-state-count}
+\end{equation}
+如果对硬币一无所知，所有\(2^n\)种构型等概率，且
+\begin{equation}
+ S_{\max}=\log(2^n)=n\log2.
+ \label{eq:sm1-coin-max-entropy}
+\end{equation}
+熵对独立硬币的数目是可加的。
+
+以\(2\)为底的对数时，一个完全未知的二态系统具有一比特的熵。以自然对数时，它具有熵\(\log2\)。单位是约定的；底层的序与可加性不变。
+
+在另一极端，如果每枚硬币都已知，则恰好有一种构型概率为一：
+\begin{equation}
+ S=0.
+\end{equation}
+更多的知识意味着更少的熵。
+
+现在假设\(n\)枚硬币中恰好有一枚是反面，其余都是正面，且反面的位置未知。有\(n\)种等可能的构型，对应反面每一种可能的位置，因此
+\begin{equation}
+ S=\log n.
+ \label{eq:sm1-one-tail-entropy}
+\end{equation}
+这通常不是\(\log2\)的整数倍。比特是一种方便的单位，而非声称每个熵都以整比特为步长出现。
+
+\begin{classroomqa}
+\audiencequestion{\(\log2\)的出现仅仅是因为每枚硬币有两种可能状态吗？一个三态元素会给出\(\log3\)吗？}
+\lecturerresponse{正是如此。一个具有\(k\)种可能状态的均匀未知元素贡献\(\log k\)。二进制开关在计算机中特别方便，因为物理开关自然地实现两个稳定状态，也因为二是最小的非平凡整数。
+\lecturetimestamp{01:29:55--01:30:48}}
+\end{classroomqa}
+
+\begin{classroomqa}
+\audiencequestion{对数以什么为底？}
+\lecturerresponse{在这些物理公式中，\(\log\)表示自然对数。信息理论家常用底\(2\)，因此熵直接以比特度量。改变底会将每个熵乘以一个固定的换算因子，不改变任何物理结论。
+\lecturetimestamp{01:30:49--01:32:06}}
+\end{classroomqa}
+
+\section{连续相空间中的熵}
+
+回到经典相空间\(\Gamma\)。如果概率密度在体积为\(V_\Gamma\)的区域上均匀，而在外部为零，则计数\(M\)个等可能状态的类比为
+\begin{equation}
+ S=\log\!\left(\frac{V_\Gamma}{V_0}\right).
+ \label{eq:sm1-continuous-uniform}
+\end{equation}
+这里\(V_\Gamma\)是坐标与动量的完整高维空间中的体积，而非普通空间体积。固定体积\(V_0\)是一个参考相空间元胞，使对数无量纲。令\(V_0=1\)即得黑板上使用的简写\(S=\log V_\Gamma\)。
+
+对于一般的概率密度\(P(q,p)\)，离散求和变为相空间积分。归一化为
+\begin{equation}
+ \int_\Gamma d\Gamma\,P(q,p)=1,
+ \label{eq:sm1-continuous-normalization}
+\end{equation}
+而熵为
+\begin{equation}
+ S=-\int_\Gamma d\Gamma\,
+ P(q,p)\log\!\bigl[P(q,p)V_0\bigr].
+ \label{eq:sm1-continuous-entropy}
+\end{equation}
+该密度是每个相空间单元的概率。从概念上讲，
+\eqref{eq:sm1-continuous-entropy}仍然衡量概率分布的广泛程度；对于均匀的团块，它约化为以参考单元为单位测量的占据体积的对数。改变那个固定的单元会使每个连续熵平移同一个相加常数，而熵差保持不变。
+
+\begin{classroomqa}
+\audiencequestion{为什么坐标符号从\(x\)变成了\(q\)？}
+\lecturerresponse{没有物理上的变化。经典力学通常用\(x\)或\(q\)表示坐标，用\(p\)表示共轭动量。符号的更换只是一时疏忽；相空间的构造是相同的。
+\lecturetimestamp{01:37:10--01:37:39}}
+\end{classroomqa}
+
+温度和玻尔兹曼分布被有意推迟。接下来的任务将是定义热平衡，然后确定其概率分布。
+
+\section{关于关联、可加性与信息的问题}
+
+\subsection{关联意味着一次测量会改变另一个分布}
+
+对独立硬币的完全无知会给每种构型赋予相等的概率。此时测量一枚硬币不会告诉我们关于任何其他硬币的任何信息。它们的分布保持不变。
+
+单尾系综则不同。如果被测量的一枚硬币是反面，那么其他每一枚硬币都必定是正面。如果被测量的硬币是正面，那么唯一的那枚反面必定位于剩余的\(n-1\)枚硬币之中，因此每个剩余位置的条件概率为
+\begin{equation}
+\begin{aligned}
+ p(&\text{tail at a specified remaining position}\\
+   &\mid\text{measured head})=\frac{1}{n-1}.
+\end{aligned}
+ \label{eq:sm1-conditional-tail}
+\end{equation}
+这就是关联：得知一个变量会改变赋予另一个变量的概率分布。
+
+\begin{classroomqa}
+\audiencequestion{在熵的例子中是否假设了硬币之间的独立性？}
+\lecturerresponse{只有当完全无知被表示为所有\(2^n\)种构型等概率时才是如此。在这种情况下，测量一枚硬币不会改变其他硬币的分布。单尾例子则是明确关联的：一次测量会更新其他地方的可能性。所述信息决定了正在使用的是哪一种概率分布。
+\lecturetimestamp{01:38:43--01:41:58}}
+\end{classroomqa}
+
+不连通循环的例子具有相同的逻辑形式。测量守恒的\(+1\)或\(-1\)标签会把所有后续状态限制在一个扇区内。以守恒信息为条件会改变容许的分布。
+
+对于无关联的系统，熵是可加的。如果
+\begin{equation}
+ p_{ij}=p_i^{(A)}p_j^{(B)},
+\end{equation}
+那么
+\begin{align}
+ S_{AB}
+ &=-\sum_{i,j}p_i^{(A)}p_j^{(B)}
+ \log\!\left[p_i^{(A)}p_j^{(B)}\right]\\
+ &=S_A+S_B.
+ \label{eq:sm1-entropy-additivity}
+\end{align}
+关联会阻止这种因式分解，并减小这一对系统的独立不确定性。
+
+作为练习，设想一排二值变量，其中一个处于上态会使每个邻居有四分之一的可能处于下态。测量一个位置会立即改变对附近位置的已知情况。这样的分布是关联的，其熵不能通过把孤立的单点熵相加而不考虑这些关联来求得。
+
+\subsection{玻尔兹曼、香农与量子不确定性}
+
+\begin{classroomqa}
+\audiencequestion{较早期的热力学熵与香农的信息论熵有何关系？}
+\lecturerresponse{两者中出现相同的函数形式：
+\(-\sum_i p_i\log p_i\)。香农通常使用以\(2\)为底的对数，而物理学家通常使用自然对数，并在熵以热力学单位表示时恢复玻尔兹曼常数。数学上的差别只是一个固定的换算因子，尽管提供概率的物理问题可能非常不同。
+\lecturetimestamp{01:44:05--01:46:06}}
+\end{classroomqa}
+
+对于等概率的微观状态，热力学公式常写作
+\begin{equation}
+ S_{\mathrm{thermo}}=k_{\mathrm B}\log W,
+ \label{eq:sm1-boltzmann-formula}
+\end{equation}
+其中\(W\)是可及微观状态数。在\(k_{\mathrm B}=1\)的单位下，这恰好就是\(S=\log W\)。玻尔兹曼常数在温度单位与能量单位之间进行换算；温度的自然的微观尺度就是能量。
+
+\begin{classroomqa}
+\audiencequestion{这个熵是否只是海森堡不确定性原理的另一种形式？}
+\lecturerresponse{不是。这里的熵衡量的是可能状态上概率分布的不确定性。用量子语言来说，它是混合态的不确定性，而不是即使在纯态下也可能存在的内禀测量不确定性。这两个概念必须加以区分。
+\lecturetimestamp{01:46:07--01:47:31}}
+\end{classroomqa}
+
+\section{已经确立的内容}
+
+起点并不是定律中的随机性。确定性动力学，再加上对初始状态的不完全知识，已经产生了概率。单条轨道通过在每个状态中所花费的时间来赋予权重；互不连通的轨道揭示守恒量，并要求在各扇区之间引入先验权重。可容许的微观定律保持区分性，这在有限状态空间中意味着每个状态都有一条入箭头和一条出箭头，而在连续力学中则成为刘维尔定理。
+
+这一结构首先给出
+\begin{equation}
+ S=\log M
+\end{equation}
+其中\(M\)个占据状态等概率，然后给出
+\begin{equation}
+ S=-\sum_i p_i\log p_i,
+\end{equation}
+并最终给出其相空间积分。熵记录的是一个概率分布，因而是一种知识状态。即使实用的粗粒化描述会丢失细粒度信息，微观定律仍保持它。
+
+能量守恒提供了第一定律，而子系统能量的可加性要求相互作用能可以忽略。熵在一种平行条件下是可加的：子系统的概率必须不相关联。这两种可加性为下一步作好准备，在那里热平衡、温度和玻尔兹曼分布将把能量与概率联系起来。
