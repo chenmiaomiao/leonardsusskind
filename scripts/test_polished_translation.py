@@ -22,6 +22,39 @@ class TranslationTests(unittest.TestCase):
         self.assertNotIn('00:12:34', text)
         self.assertNotIn('tbp', text)
 
+    def test_heading_prose_cannot_escape_closing_braces(self):
+        source, frozen = p.protect(r'\section{The Common Value of \texorpdfstring{\(L^2\)}{L squared}}')
+        a, b, c, d = p.TOKEN.findall(source)
+        self.assertIsNone(p.validate(source, a + b + 'Lの二乗' + c + 'の共通値' + d, 'ja', frozen))
+        self.assertEqual(p.validate(source, a + b + 'Lの二乗' + c + d + 'の共通値', 'ja', frozen),
+                         'heading text escaped its title argument')
+        self.assertEqual(p.validate(source, a + '@' + b + 'Lの二乗' + c + d, 'ja', frozen),
+                         'stray placeholder character')
+
+    def test_closing_token_migration_preserves_existing_tex_and_ids(self):
+        old = [r'\section{', r'\texorpdfstring{\(L^2\)}{', '}}']
+        masked = '@@T000000@@Value @@T000001@@L squared@@T000002@@'
+        updated, frozen, expansion = p.split_closing_tokens(masked, old)
+        self.assertEqual(p.restore(masked, old), p.restore(updated, frozen))
+        self.assertEqual(frozen[:2], old[:2])
+        self.assertEqual(expansion, {'@@T000002@@': '@@T000002@@@@T000003@@'})
+        self.assertEqual(p.split_closing_tokens(updated, frozen), (updated, frozen, {}))
+
+    def test_malformed_json_is_archived_and_retried_once(self):
+        with TemporaryDirectory() as tmp:
+            dest = Path(tmp) / 'reply.json'
+            calls = []
+
+            def completion(prompt, path, log, **kwargs):
+                calls.append(prompt)
+                path.write_text('{broken' if len(calls) == 1 else '{"translations": {"0": "text"}}')
+
+            with patch.dict(p.sys.modules, {'llm_chat_backend': SimpleNamespace(run_chat_completion=completion)}):
+                result = p.chat('Translate', dest, SimpleNamespace(toolkit_root=Path(tmp), model='fixture'))
+            self.assertEqual(len(calls), 2)
+            self.assertEqual(result, {'translations': {'0': 'text'}})
+            self.assertEqual(len(list(Path(tmp).glob('*.invalid-json'))), 1)
+
     def test_no_unsafe_model_syntax(self):
         self.assertIsNotNone(p.validate('Hello', r'\input{secret}', 'ja'))
         self.assertIsNotNone(p.validate('@@T000000@@ Hello', 'こんにちは', 'ja'))

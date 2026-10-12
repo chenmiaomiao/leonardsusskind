@@ -163,7 +163,24 @@ def protect(tex):
     masked = ''.join(pieces)
     if restore(masked, protected) != tex:
         raise ValueError('TeX masking is not lossless')
+    masked, protected, _ = split_closing_tokens(masked, protected)
     return masked, protected
+
+
+def split_closing_tokens(masked, protected):
+    """Separate adjacent argument endings without changing existing token IDs."""
+    updated = list(protected)
+    expansion = {}
+    for i, value in enumerate(protected):
+        if re.fullmatch(r'\}{2,}', value):
+            token = f'@@T{i:06d}@@'
+            updated[i] = '}'
+            extra = []
+            for _ in value[1:]:
+                extra.append(f'@@T{len(updated):06d}@@')
+                updated.append('}')
+            expansion[token] = token + ''.join(extra)
+    return TOKEN.sub(lambda m: expansion.get(m.group(), m.group()), masked), updated, expansion
 
 
 def restore(masked, protected):
@@ -231,6 +248,21 @@ def validate(source, translated, lang, protected=None):
     prose = TOKEN.sub('', translated)
     if re.search(r'[{}\\%$&#_^~]|```|@@T', prose):
         return 'new TeX/transport syntax'
+    if '@' in prose and '@' not in TOKEN.sub('', source):
+        return 'stray placeholder character'
+    if protected is not None:
+        source_tex = restore(source, protected)
+        if re.match(r'\s*\\(?:chapter|section|subsection|subsubsection|paragraph)\b', source_tex):
+            def heading_only(tex):
+                try:
+                    nodes, _, _ = lw.LatexWalker(tex, tolerant_parsing=False).get_latex_nodes()
+                except lw.LatexWalkerParseError:
+                    return False
+                nodes = [n for n in nodes if not isinstance(n, lw.LatexCommentNode)
+                         and not (isinstance(n, lw.LatexCharsNode) and not n.chars.strip())]
+                return len(nodes) == 1 and isinstance(nodes[0], lw.LatexMacroNode)
+            if heading_only(source_tex) and not heading_only(restore(translated, protected)):
+                return 'heading text escaped its title argument'
     number_prose = TOKEN.sub('', source).lower()
     source_words = Counter()
     for phrase, number in {'one and a half': '1.5', 'two and a half': '2.5',
@@ -307,6 +339,7 @@ def prepare():
         path = WORK / 'prepared' / slug / (rel + '.json')
         if path.exists() and read(path) != payload:
             old = read(path)
+            _, split_protected, expansion = split_closing_tokens('', old['protected'])
             for lang in LANGS:
                 cache = WORK / 'results' / slug / lang / (rel + '.json')
                 if cache.exists():
@@ -317,9 +350,18 @@ def prepare():
                     data['accepted'] = {}
                     for k, v in previous.items():
                         i = int(k)
-                        if i < len(payload['parts']) and old['parts'][i] == payload['parts'][i]:
-                            if restore(old['parts'][i], old['protected']) == restore(payload['parts'][i], payload['protected']):
-                                data['accepted'][k] = v
+                        if i >= len(payload['parts']):
+                            continue
+                        old_source = old['parts'][i]
+                        candidate = v
+                        if expansion and split_protected == payload['protected']:
+                            old_source = TOKEN.sub(lambda m: expansion.get(m.group(), m.group()), old_source)
+                            candidate = TOKEN.sub(lambda m: expansion.get(m.group(), m.group()), candidate)
+                        if (old_source == payload['parts'][i]
+                                and restore(old['parts'][i], old['protected']) == restore(payload['parts'][i], payload['protected'])
+                                and restore(v, old['protected']) == restore(candidate, payload['protected'])
+                                and validate(payload['parts'][i], candidate, lang, payload['protected']) is None):
+                            data['accepted'][k] = candidate
                     write(cache, data)
         write(path, payload)
     write(MANIFEST, result)
@@ -391,15 +433,27 @@ def apply_reviewed_repairs(path):
         if dest.exists():
             shutil.copy2(dest, dest.with_suffix(f'.{time.time_ns()}.bak'))
         write(dest, result)
+        quality = OUT / book['id'] / lang / 'quality.json'
+        if quality.exists():
+            qa = read(quality)
+            qa.update({'status': 'needs_rebuild', 'reason': 'Reviewed translation cache changed'})
+            write(quality, qa)
     print(f'Applied {len(packet["repairs"])} reviewed repairs', flush=True)
 
 
 def chat(prompt, dest, args):
     sys.path.insert(0, str(args.toolkit_root / 'scripts/interlinear'))
     from llm_chat_backend import run_chat_completion
-    run_chat_completion(prompt, dest, dest.with_suffix('.usage.jsonl'), provider='deepseek',
-                        model=args.model, timeout_seconds=600, max_attempts=3)
-    return read(dest)
+    for attempt in range(2):
+        run_chat_completion(prompt, dest, dest.with_suffix('.usage.jsonl'), provider='deepseek',
+                            model=args.model, timeout_seconds=600, max_attempts=3)
+        try:
+            return read(dest)
+        except json.JSONDecodeError:
+            dest.rename(dest.with_suffix(f'.{time.time_ns()}.invalid-json'))
+            if attempt:
+                raise
+            prompt += '\nThe previous response was not valid JSON. Escape every backslash and quote; return only the requested JSON object.'
 
 
 def translate_file(book, lang, rel, args):
@@ -591,9 +645,13 @@ def review_sample(book, lang, args):
     for start in range(0, len(pairs), 10):
         batch = pairs[start:start + 10]
         batch_path = report.with_name(lang + '.' + digest(json.dumps(batch, ensure_ascii=False))[:20] + '.batch.json')
+        reply = None
         if batch_path.exists():
-            reply = read(batch_path)
-        else:
+            try:
+                reply = read(batch_path)
+            except json.JSONDecodeError:
+                batch_path.rename(batch_path.with_suffix(f'.{time.time_ns()}.invalid-json'))
+        if reply is None:
             reply = chat('Audit these source/translation pairs for material physics mistranslation, missing '
                  'qualifications or added claims. Ignore style preferences and preserved English math labels. '
                  'Return JSON {"pass": true/false, "issues": [{"chapter": "...", '
@@ -649,6 +707,9 @@ def compile_book(book, lang, args):
     qa.update({'status': 'validated', 'pdf_sha256': hashlib.sha256((dst / 'book.pdf').read_bytes()).hexdigest(),
                'semantic_review': 'sampled, not exhaustive', 'sample_pairs': review['pairs_reviewed'],
                'review_adjudications': review.get('adjudications', []),
+               'translation_results': {rel: digest(json.dumps(read(result_path(book, lang, rel))['accepted'],
+                                      ensure_ascii=False, sort_keys=True))
+                                      for rel in book['source_files'] if rel != 'common_preamble.tex'},
                'source_files': book['source_files'],
                'translated_tex': {str(p.relative_to(dst)): digest(p.read_text()) for p in dst.rglob('*.tex')}})
     write(dst / 'quality.json', qa)
@@ -733,7 +794,10 @@ def validated_output(book, lang):
     return (q.get('status') == 'validated'
             and hashlib.sha256(pdf.read_bytes()).hexdigest() == q.get('pdf_sha256')
             and all((folder / p).is_file() and digest((folder / p).read_text()) == sha
-                    for p, sha in q.get('translated_tex', {}).items()))
+                    for p, sha in q.get('translated_tex', {}).items())
+            and all(result_path(book, lang, rel).is_file() and digest(json.dumps(
+                    read(result_path(book, lang, rel))['accepted'], ensure_ascii=False, sort_keys=True)) == sha
+                    for rel, sha in q.get('translation_results', {}).items()))
 
 
 def publish_book(book):

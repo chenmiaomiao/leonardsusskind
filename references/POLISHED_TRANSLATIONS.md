@@ -109,6 +109,19 @@ The original report is retained, and the published quality record includes the
 decisions. A changed sample or new issue cannot inherit a dismissal. There is
 no blanket reviewer bypass or automatic acceptance of model corrections.
 
+Visual TOC inspection also caught translated words placed after a heading's
+closing braces. The parser now protects adjacent argument endings separately,
+allowing natural Japanese/Chinese suffixes *inside* a title. Existing caches
+are migrated without changing their restored TeX or making translation calls;
+invalid entries are not silently retained. Whole-heading AST checks reject
+text outside its argument, and stray placeholder characters fail validation.
+Corrections mark the affected PDF as needing a rebuild. New quality records
+also bind availability to accepted-translation hashes, not only PDF/TeX hashes.
+
+Malformed JSON responses are archived and retried once at the transport level;
+invalid cached review replies cannot permanently poison a resume. No accepted
+translation is discarded by that retry.
+
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
 README edits outside the generated block, or files over 95 MiB. A publication
