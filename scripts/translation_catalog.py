@@ -136,7 +136,8 @@ def decorate_readmes():
             links = ['<a href="' + READER + '?' + html.escape(urlencode({'book': link[1], 'lang': lang})) + '">' + label + '</a>'
                      for lang, label in [('en', 'English'), ('ja', '日本語'), ('zh', '中文')] if lang in row['editions']]
             annotation = '\n      <!-- edition-links --><br><sub>' + ' · '.join(links) + '</sub><!-- /edition-links -->\n    '
-            return cell.replace('</td>', annotation + '</td>')
+            # A blank line ends the GFM HTML block; indented rows then become code.
+            return re.sub(r'\s*</td>$', lambda _: annotation + '</td>', cell)
         text = re.sub(r'<td align="center">.*?</td>', annotate, text, flags=re.S)
         # Older README translations have no cover catalog. Add one shared, compact
         # catalog rather than leaving their language announcement disconnected.
