@@ -999,7 +999,9 @@ def validated_output(book, lang):
 def publish_book(book):
     """Publish only owned outputs; refuse a dirty index or edits outside README markers."""
     def git(*args):
-        return subprocess.check_output(['git', *args], cwd=ROOT, text=True, stderr=subprocess.STDOUT)
+        return subprocess.check_output(['git', *args], cwd=ROOT, text=True, stderr=subprocess.STDOUT,
+                                       timeout=900 if args[0] == 'push' else 60,
+                                       env={**os.environ, 'GIT_TERMINAL_PROMPT': '0'})
     if git('diff', '--cached', '--name-only').strip():
         raise RuntimeError('Index has staged changes; automatic publication deferred')
     paths = ['README.md', *[str(p.relative_to(ROOT)) for p in (ROOT / 'i18n').glob('README.*.md')]]
@@ -1116,6 +1118,8 @@ def run(args):
                     blocked.append(book['id'])
                 if args.publish and complete:
                     try:
+                        write(WORK / 'status.json', {'state': 'publishing', 'book': book['id'],
+                                                    'updated_at': time.time()})
                         publish_book(book)
                         write(WORK / 'publication.json', {'book': book['id'], 'state': 'pushed'})
                         report['publication'] = 'pushed'

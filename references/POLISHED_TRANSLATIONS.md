@@ -198,6 +198,20 @@ frozen TeX or equations, and prior accepted wording is retained in the local
 repair history. Deterministic publication/compile failures remain explicit
 blockers; no agent is authorized to weaken checks or rewrite pipeline code.
 
+Part 3 subsequently passed with 642/642 segments in each language. Its separate
+Japanese/Chinese PDFs have 144/137 pages, 95 outline entries each, 97 chapter
+figures plus the cover, 327 display equations, and 818 inline formulas. Both
+math inventories and figure commands match the English source. No overflow,
+missing glyphs or out-of-page text was detected; representative TOC, figure,
+and equation pages were inspected visually. Reasoning reviews covered 64/42
+pairs. The new targeted repair corrected two genuine Chinese distinctions
+(velocity vs speed, and lattice vs lattice point), then passed re-review with
+no manual dismissals. Publication commit: `d845a58c`.
+
+The recovery/validation regression suite now contains 34 tests, including
+restart budgets, response recovery, provider cooldowns, retaining earlier
+accepted wording, and continuing after blocked chapters/books.
+
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
 README edits outside the generated block, or files over 95 MiB. A publication
