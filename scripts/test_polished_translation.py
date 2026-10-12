@@ -96,6 +96,16 @@ class TranslationTests(unittest.TestCase):
     def test_layout_dimensions_are_explicit(self):
         self.assertIn('paperwidth=177.6mm,paperheight=252mm', p.page_layout())
         self.assertIn(r'\fancyfoot[C]', p.page_layout())
+        self.assertIn(r'\setlength{\headwidth}{\textwidth}', p.page_layout())
+
+    def test_caption_boundary_escape_is_rejected(self):
+        source, protected = p.protect(r'\begin{figure}\caption{A particle diagram.}\label{fig:one}\end{figure}')
+        tokens = p.TOKEN.findall(source)
+        caption_start = next(t for t in tokens if p.restore(t, protected).endswith(r'\caption{'))
+        closing = next(t for t in tokens if p.restore(t, protected).startswith('}'))
+        target = source.replace('A particle diagram.', '粒子の').replace(closing, closing + '図。', 1)
+        self.assertEqual(p.validate(source, target, 'ja', protected), 'caption text escaped its argument')
+        self.assertTrue(caption_start)
 
     def test_url_protected_link_title_translated(self):
         text, _ = p.protect(r'\href{https://example.com}{Readable title}')
@@ -409,6 +419,7 @@ class TranslationTests(unittest.TestCase):
                 return [{'stage': 'translation', 'error': 'bad paragraph'}]
 
             with patch.object(p, 'verify_sources'), patch.object(p, 'update_readmes'), \
+                 patch.object(p, 'language_complete', return_value=True), \
                  patch.object(p, 'validated_output', side_effect=lambda b, l: b['id'] in complete), \
                  patch.object(p, 'run_book', side_effect=process) as runner:
                 p.run(args)

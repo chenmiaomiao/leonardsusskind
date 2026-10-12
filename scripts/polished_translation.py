@@ -27,7 +27,7 @@ WORK = ROOT / '.translation-work'
 OUT = ROOT / 'translations'
 MANIFEST = ROOT / 'references/polished_translation_queue.json'
 VERSION = 1
-LAYOUT = 'a5-1.2-dimensions-v1'
+LAYOUT = 'a5-1.2-dimensions-v2'
 TOKEN = re.compile(r'@@T\d{6}@@')
 LANGS = {'ja': 'modern Japanese', 'zh': 'modern Simplified Chinese'}
 NUMBER_WORDS = dict(zip(
@@ -258,6 +258,49 @@ def token_integrity(source, translated, protected):
     return zones(before) == zones(after)
 
 
+def caption_escapes(source, translated, protected):
+    """Locate plain caption text moved beyond its original closing argument."""
+    expanded, spans, cursor = '', [], 0
+    for match in TOKEN.finditer(source):
+        expanded += source[cursor:match.start()]
+        value = restore(match[0], protected)
+        spans.append((len(expanded), len(expanded) + len(value), match))
+        expanded += value
+        cursor = match.end()
+    expanded += source[cursor:]
+    if '\\caption{' not in expanded:
+        return []
+    context = lw.get_default_latex_context_db()
+    context.add_context_category('caption-audit', prepend=True, macros=[MacroSpec('caption', '[{')])
+    nodes, _, _ = lw.LatexWalker(expanded, latex_context=context).get_latex_nodes()
+    captions = []
+    def walk(items):
+        for node in items:
+            if isinstance(node, lw.LatexMacroNode) and node.macroname == 'caption':
+                args = [arg for arg in node.nodeargd.argnlist if arg] if node.nodeargd else []
+                if args:
+                    captions.append(args[-1].pos + args[-1].len - 1)
+            elif isinstance(node, (lw.LatexGroupNode, lw.LatexEnvironmentNode)):
+                walk(node.nodelist)
+    walk(nodes)
+    moves = []
+    for position in captions:
+        found = next((m for start, end, m in spans if start == position), None)
+        if found is None or not restore(found[0], protected).startswith('}'):
+            continue
+        following = TOKEN.search(source, found.end())
+        if source[found.end():following.start() if following else len(source)].strip():
+            continue
+        close = translated.find(found[0])
+        end = translated.find(following[0], close + len(found[0])) if following else len(translated)
+        if close < 0 or end < 0:
+            continue
+        tail = translated[close + len(found[0]):end]
+        if tail.strip() and not TOKEN.search(tail) and not re.search(r'[{}\\]', tail):
+            moves.append((close, end, tail.rstrip() + found[0] + '\n'))
+    return moves
+
+
 def validate(source, translated, lang, protected=None):
     if not isinstance(translated, str) or not translated.strip():
         return 'empty translation'
@@ -271,6 +314,8 @@ def validate(source, translated, lang, protected=None):
     if '@' in prose and '@' not in TOKEN.sub('', source):
         return 'stray placeholder character'
     if protected is not None:
+        if caption_escapes(source, translated, protected):
+            return 'caption text escaped its argument'
         source_tex = restore(source, protected)
         if re.match(r'\s*\\(?:chapter|section|subsection|subsubsection|paragraph)\b', source_tex):
             def heading_only(tex):
@@ -729,6 +774,7 @@ def page_layout():
 \raggedbottom
 \renewenvironment{classroomqa}{\par\medskip\begingroup}{\par\endgroup\medskip}
 \fancyhf{}
+\setlength{\headwidth}{\textwidth}
 \fancyhead[L]{\parbox{\textwidth}{\raggedright\fontsize{9}{11}\selectfont\nouppercase{\leftmark}}}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
@@ -782,6 +828,33 @@ def cover(book, lang):
     return titlepage
 
 
+def layout_repairs(book, lang, rel, text):
+    # The three timestamp footnotes on this verified page need 2 pt more depth.
+    # This leaves over 17 mm bottom margin and does not change any source prose.
+    replacements = []
+    if (book['id'] == 'supplementary--cosmology_and_black_holes--2011_winter_topics_in_string_theory'
+            and lang == 'zh' and rel == 'chapters/lecture_08/content.tex'):
+        anchor = '\\begin{equation}\n\\ddot r\\sim-\\frac{G_NM}{r^2}+H^2r.'
+        replacements.append((anchor, '\\enlargethispage{2pt}\n' + anchor))
+    if (book['id'] == 'core--statistical_mechanics--2013_spring_theoretical_minimum'
+            and lang == 'ja' and rel == 'chapters/lecture_06/content.tex'):
+        anchor = '\\begin{figure}[H]\n\\centering\n\\includegraphics[width=0.90\\textwidth]{lecture_06_figure_16.png}'
+        # Flush the earlier float rather than squeeze two large board figures.
+        replacements.append((anchor, '\\clearpage\n' + anchor))
+    if book['id'] == 'core--cosmology--2013_winter_theoretical_minimum' and rel == 'chapters/lecture_06/content.tex':
+        if lang == 'zh':
+            anchor = '\\begin{equation}\n\\frac{GM}{r^2}=\\frac{v^2}{r},'
+            replacements.append((anchor, '\\enlargethispage{1pt}\n' + anchor))
+        else:
+            anchor = '\\eqref{eq:c06-null-ray}と\\eqref{eq:c06-redshift}が結果'
+            replacements.append((anchor, '\\eqref{eq:c06-null-ray}\\allowbreak と\\allowbreak\\eqref{eq:c06-redshift}\\allowbreak が結果'))
+    for anchor, replacement in replacements:
+        if text.count(anchor) != 1:
+            raise ValueError('Reviewed page-layout anchor changed')
+        text = text.replace(anchor, replacement)
+    return text
+
+
 def assemble(book, lang):
     src = ROOT / 'generated_course_notes' / book['course']
     dst = OUT / book['id'] / lang
@@ -803,6 +876,7 @@ def assemble(book, lang):
         masked = re.sub(r'[\u0370-\u03ff]', lambda m: '{\\proseunicodefont ' + m.group() + '}', ''.join(translated))
         rendered = restore(masked, p['protected'])
         rendered = restore_layout_arguments((src / rel).read_text(), rendered)
+        rendered = layout_repairs(book, lang, rel, rendered)
         if rel == 'course.tex':
             def graphic_paths(match):
                 paths = re.findall(r'\{([^{}]*)\}', match.group(1))
@@ -997,7 +1071,7 @@ def update_readmes():
                 cells.append(f'In preparation ({st[lang]}/{st["segments_per_language"]} segments)')
         table.append(f'| {book["titles"]["en"]} ({book["course"].split("/")[-1].replace("_", " ")}) | ' + ' | '.join(cells) + ' |')
     block = ('<!-- polished-translations:start -->\n## Final Polished Translations\n\n'
-             'Japanese and Simplified Chinese editions are being prepared from the accepted final '
+             'Japanese and Simplified Chinese editions are produced from the accepted final '
              'English companion TeX only. These are AI-assisted translations, not lecturer-endorsed '
              'editions. Equations and original board figures are preserved; labels within them remain '
              'as in the English source. A download is marked available only after complete segment '
@@ -1010,16 +1084,16 @@ def update_readmes():
         if path.parent.name == 'i18n':
             locale = path.name.removeprefix('README.').removesuffix('.md')
             heading, notice, label = {
-                'ja': ('最終推敲版の翻訳', '最終推敲済みの英語講義ノートから、日本語版と簡体字中国語版を順次作成しています。数式・図版を保持し、検証済みのPDFのみ公開します。原講師が公認した翻訳ではありません。', '日本語・中国語版の公開状況'),
-                'zh-Hans': ('最终润色版译本', '正在根据最终润色的英文讲义，依次制作日文版与简体中文版。保留公式与图版，仅发布通过检查的PDF。这些译本未经原讲师认可。', '日文与中文版发布进度'),
-                'zh-Hant': ('最終潤色版譯本', '正在根據最終潤色的英文講義，依次製作日文版與簡體中文版。保留公式與圖版，僅發布通過檢查的PDF。這些譯本未經原講師認可。', '日文與中文版發布進度'),
+                'ja': ('最終推敲版の翻訳', '日本語版と簡体字中国語版は最終推敲済みの英語講義ノートに基づきます。数式・図版を保持し、検証済みのPDFのみ公開します。原講師が公認した翻訳ではありません。', '日本語・中国語版の公開状況'),
+                'zh-Hans': ('最终润色版译本', '日文版与简体中文版均以最终润色的英文讲义为依据。保留公式与图版，仅发布通过检查的PDF。这些译本未经原讲师认可。', '日文与中文版发布进度'),
+                'zh-Hant': ('最終潤色版譯本', '日文版與簡體中文版均以最終潤色的英文講義為依據。保留公式與圖版，僅發布通過檢查的PDF。這些譯本未經原講師認可。', '日文與中文版發布進度'),
                 'de': ('Uebersetzungen der finalen Ausgabe', 'Japanische und chinesische Ausgaben entstehen aus den final redigierten englischen Notizen. Formeln und Abbildungen bleiben erhalten; nur gepruefte PDFs werden verlinkt.', 'Verfuegbarkeit und Pruefverfahren'),
-                'es': ('Traducciones de la edición final', 'Se preparan versiones en japonés y chino a partir del texto inglés revisado. Se conservan las ecuaciones y figuras; solo se enlazan los PDF verificados.', 'Disponibilidad y controles'),
-                'fr': ('Traductions de la version finale', 'Des versions japonaises et chinoises sont en préparation à partir du texte anglais révisé. Les équations et figures sont conservées ; seuls les PDF vérifiés sont proposés.', 'Disponibilité et vérification'),
-                'ko': ('최종 교정판 번역', '최종 교정된 영어 강의 노트를 바탕으로 일본어판과 중국어판을 준비합니다. 수식과 그림을 유지하며 검증된 PDF만 공개합니다.', '번역판 공개 현황'),
-                'ru': ('Переводы окончательной редакции', 'Готовятся японское и китайское издания окончательно отредактированных английских конспектов. Формулы и рисунки сохраняются; публикуются только проверенные PDF.', 'Доступность и проверка'),
-                'vi': ('Bản dịch từ bản hiệu đính cuối', 'Đang chuẩn bị bản tiếng Nhật và tiếng Trung từ bản tiếng Anh đã hiệu đính. Giữ nguyên công thức và hình; chỉ công bố PDF đã kiểm tra.', 'Tiến độ và kiểm tra'),
-                'ar': ('ترجمات النسخة النهائية', 'يجري إعداد نسختين يابانية وصينية من النص الإنجليزي المنقح، مع الحفاظ على المعادلات والرسوم ونشر ملفات PDF بعد التحقق.', 'حالة الإتاحة والتحقق'),
+                'es': ('Traducciones de la edición final', 'Las versiones en japonés y chino se basan en el texto inglés revisado. Se conservan las ecuaciones y figuras; solo se enlazan los PDF verificados.', 'Disponibilidad y controles'),
+                'fr': ('Traductions de la version finale', 'Les versions japonaises et chinoises sont fondées sur le texte anglais révisé. Les équations et figures sont conservées ; seuls les PDF vérifiés sont proposés.', 'Disponibilité et vérification'),
+                'ko': ('최종 교정판 번역', '일본어판과 중국어판은 최종 교정된 영어 강의 노트를 바탕으로 합니다. 수식과 그림을 유지하며 검증된 PDF만 공개합니다.', '번역판 공개 현황'),
+                'ru': ('Переводы окончательной редакции', 'Японское и китайское издания основаны на окончательно отредактированных английских конспектах. Формулы и рисунки сохраняются; публикуются только проверенные PDF.', 'Доступность и проверка'),
+                'vi': ('Bản dịch từ bản hiệu đính cuối', 'Bản tiếng Nhật và tiếng Trung dựa trên bản tiếng Anh đã hiệu đính. Giữ nguyên công thức và hình; chỉ công bố PDF đã kiểm tra.', 'Tiến độ và kiểm tra'),
+                'ar': ('ترجمات النسخة النهائية', 'تستند النسختان اليابانية والصينية إلى النص الإنجليزي المنقح، مع الحفاظ على المعادلات والرسوم ونشر ملفات PDF بعد التحقق.', 'حالة الإتاحة والتحقق'),
             }[locale]
             adjusted = ('<!-- polished-translations:start -->\n## ' + heading + '\n\n' + notice + '\n\n'
                         f'[{label}](../README.md#final-polished-translations)\n'

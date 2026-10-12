@@ -6,6 +6,39 @@
 
 # Репозиторий конспектов лекций Леонарда Сасскинда
 
+<!-- reading-languages:start -->
+## Читайте на английском, японском и китайском
+
+Для 16 окончательно отредактированных книг доступны японские и упрощённые китайские издания наряду с английскими оригиналами. PDF выпускаются отдельно для каждого языка; в Bunko можно выбирать выровненные языковые слои.
+
+Новые переводные PDF используют бумагу 177.6 × 252 мм (обе стороны A5 × 1.2), шрифт 12 pt и сохраняют формулы и рисунки. Старое обозначение «pocket 1.2x» означает увеличение шрифта, а не этот формат бумаги.
+
+Мы расширяем многоязычную библиотеку. Приглашаем помогать с другими языками, научной вычиткой, доступностью и вёрсткой через issue или обоснованное исправление. Другие языки запланированы, но пока не опубликованы.
+
+[Bunko](https://lachlan.lazying.art/Bunko/) · [LazyLearn](https://learn.lazying.art/leonardsusskind-reader.html) · [GitHub Issues](https://github.com/lachlanchen/leonardsusskind/issues)
+<!-- reading-languages:end -->
+
+<!-- language-covers:start -->
+<table>
+<tr><td><img width="85" src="../figs/readme-covers/demystifying_the_higgs_boson.png" alt="Demystifying the Higgs Boson"></td><td><strong>Demystifying the Higgs Boson</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=demystifying-the-higgs-boson&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=demystifying-the-higgs-boson&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=demystifying-the-higgs-boson&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/advanced_quantum_mechanics.png" alt="Advanced Quantum Mechanics"></td><td><strong>Advanced Quantum Mechanics</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=advanced-quantum-mechanics&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=advanced-quantum-mechanics&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=advanced-quantum-mechanics&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/quantum_entanglement_part_1.png" alt="Quantum Entanglement Part 1"></td><td><strong>Quantum Entanglement Part 1</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-1&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-1&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-1&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/quantum_entanglement_part_3.png" alt="Quantum Entanglement Part 3"></td><td><strong>Quantum Entanglement Part 3</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-3&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-3&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-entanglement-part-3&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/particle_physics_1_basic_concepts.png" alt="Particle Physics 1: Basic Concepts"></td><td><strong>Particle Physics 1: Basic Concepts</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-1-basic-concepts&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-1-basic-concepts&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-1-basic-concepts&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/particle_physics_2_standard_model.png" alt="Particle Physics 2: Standard Model"></td><td><strong>Particle Physics 2: Standard Model</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-2-standard-model&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-2-standard-model&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-2-standard-model&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/particle_physics_3_supersymmetry_and_grand_unification.png" alt="Particle Physics 3: Supersymmetry and Grand Unification"></td><td><strong>Particle Physics 3: Supersymmetry and Grand Unification</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-3-supersymmetry-and-grand-unification&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-3-supersymmetry-and-grand-unification&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=particle-physics-3-supersymmetry-and-grand-unification&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/topics_in_string_theory.png" alt="Topics in String Theory"></td><td><strong>Topics in String Theory</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=topics-in-string-theory&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=topics-in-string-theory&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=topics-in-string-theory&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/string_theory_and_m_theory.png" alt="String Theory and M-Theory"></td><td><strong>String Theory and M-Theory</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=string-theory-and-m-theory&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=string-theory-and-m-theory&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=string-theory-and-m-theory&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/classical_mechanics_theoretical_minimum.png" alt="Classical Mechanics"></td><td><strong>Classical Mechanics</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=classical-mechanics-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=classical-mechanics-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=classical-mechanics-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/quantum_mechanics_theoretical_minimum.png" alt="Quantum Mechanics"></td><td><strong>Quantum Mechanics</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-mechanics-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-mechanics-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=quantum-mechanics-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/special_relativity_theoretical_minimum.png" alt="Special Relativity"></td><td><strong>Special Relativity</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=special-relativity-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=special-relativity-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=special-relativity-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/general_relativity_theoretical_minimum.png" alt="General Relativity"></td><td><strong>General Relativity</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=general-relativity-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=general-relativity-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=general-relativity-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/statistical_mechanics_theoretical_minimum.png" alt="Statistical Mechanics"></td><td><strong>Statistical Mechanics</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=statistical-mechanics-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=statistical-mechanics-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=statistical-mechanics-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/cosmology_theoretical_minimum.png" alt="Cosmology"></td><td><strong>Cosmology</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-theoretical-minimum&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-theoretical-minimum&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-theoretical-minimum&amp;lang=zh">中文</a></td></tr>
+<tr><td><img width="85" src="../figs/readme-covers/cosmology_legacy.png" alt="Cosmology"></td><td><strong>Cosmology</strong><br><a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-legacy&amp;lang=en">English</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-legacy&amp;lang=ja">日本語</a> · <a href="https://learn.lazying.art/leonardsusskind-reader.html?book=cosmology-legacy&amp;lang=zh">中文</a></td></tr>
+</table>
+<!-- language-covers:end -->
+
 ![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg)
 ![Content Type](https://img.shields.io/badge/content-Lecture%20Notes%20%26%20LaTeX-informational)
 ![Status](https://img.shields.io/badge/status-Active%20Archive-success)
@@ -361,13 +394,29 @@ xdg-open supplemental_particle_physics_1/ch1/main.pdf
 
 ## Читать в Bunko
 
-В [веб-читалке Bunko](https://lachlan.lazying.art/Bunko/) доступны 19 независимо подготовленных англоязычных учебных томов, включая девять дополнительных курсов. [Приложение в App Store](https://apps.apple.com/us/app/bunko-classics-with-ruby/id6815137919) опубликовано, но раздел физики пока есть только во внутренней тестовой сборке. Публичный выпуск в Google Play ожидается.
+[Bunko](https://lachlan.lazying.art/Bunko/) · Для 16 окончательно отредактированных книг доступны японские и упрощённые китайские издания наряду с английскими оригиналами. PDF выпускаются отдельно для каждого языка; в Bunko можно выбирать выровненные языковые слои.
 
 
 <!-- polished-translations:start -->
 ## Переводы окончательной редакции
 
-Готовятся японское и китайское издания окончательно отредактированных английских конспектов. Формулы и рисунки сохраняются; публикуются только проверенные PDF.
+Японское и китайское издания основаны на окончательно отредактированных английских конспектах. Формулы и рисунки сохраняются; публикуются только проверенные PDF.
 
 [Доступность и проверка](../README.md#final-polished-translations)
 <!-- polished-translations:end -->
+
+<!-- reading-citation:start -->
+## Цитирование и поддержка
+
+Эта ссылка относится к независимым сопроводительным заметкам; исходные лекции цитируйте отдельно.
+
+[CITATION.cff](../CITATION.cff) · [GitHub Sponsors](https://github.com/sponsors/lachlanchen)
+
+```bibtex
+@software{lazyingart_susskind_companion_notes,
+  author = {{LazyingArt contributors}},
+  title = {Leonard Susskind Lecture Notes: Independent Multilingual Companion Editions},
+  url = {https://github.com/lachlanchen/leonardsusskind}
+}
+```
+<!-- reading-citation:end -->

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Lossless cache migration and three source-bound, manually reviewed repairs."""
 import fcntl
+import re
 import time
 import polished_translation as p
 
@@ -43,7 +44,20 @@ def migrate():
 def reviewed_repairs():
     for book in p.read(p.MANIFEST)['books']:
         rows = []
-        if book['id'] == 'supplementary--string_theory--2010_fall_string_theory_and_m_theory':
+        if book['id'] == 'supplementary--advanced_quantum_mechanics--2013_fall':
+            rel, key = 'chapters/lecture_01/content.tex', '124'
+            prepared = p.read(p.WORK / 'prepared' / book['id'] / (rel + '.json'))
+            source = prepared['parts'][int(key)]
+            match = re.search(r'(?P<a>@@T\d{6}@@), not (?P<b>@@T\d{6}@@)', source)
+            assert match and p.restore(match['a'], prepared['protected']) == r'\(\psi(x-\epsilon)\)'
+            assert p.restore(match['b'], prepared['protected']) == r'\(\psi(x+\epsilon)\)'
+            old = p.read(p.result_path(book, 'ja', rel))['accepted'][key]
+            wrong = match['a'] + 'ではなく' + match['b']
+            if wrong in old:
+                translation = old.replace(wrong, match['b'] + 'ではなく' + match['a'])
+                rows.append(('ja', rel, key, translation,
+                             'Corrected reversed negation: a right active shift uses psi(x-epsilon), NOT psi(x+epsilon); confirmed against the neighboring derivation.'))
+        elif book['id'] == 'supplementary--string_theory--2010_fall_string_theory_and_m_theory':
             rel, key = 'chapters/lecture_01/content.tex', '272'
             prepared = p.read(p.WORK / 'prepared' / book['id'] / (rel + '.json'))
             source = prepared['parts'][int(key)]
@@ -71,12 +85,13 @@ def reviewed_repairs():
             cache = p.read(p.result_path(book, lang, rel))
             if cache['accepted'].get(key) == translation:
                 continue
-            if key in cache['accepted']:
+            if key in cache['accepted'] and book['id'] != 'supplementary--advanced_quantum_mechanics--2013_fall':
                 raise ValueError('Refusing to replace a later accepted translation')
             packet['repairs'].append({'lang': lang, 'file': rel, 'segment_id': key,
                 'source_sha256': prepared['source_sha256'],
                 'source': p.restore(prepared['parts'][int(key)], prepared['protected']),
-                'translation': translation, 'reason': reason})
+                'translation': translation, 'reason': reason,
+                **({'previous_sha256': p.digest(cache['accepted'][key])} if key in cache['accepted'] else {})})
         if packet['repairs']:
             path = p.WORK / 'reviewed-repairs' / (book['id'] + '-boundaries.json')
             p.write(path, packet)

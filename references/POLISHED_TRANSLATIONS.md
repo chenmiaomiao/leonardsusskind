@@ -6,9 +6,9 @@ legacy unpolished PDFs, or the earlier duplicate lecture runs. It includes the
 16 books, 145 chapters, Japanese and Simplified Chinese editions.
 
 Each language is an **independent, normally readable book**, not an interlinear
-export. The original English edition remains unchanged. Bunko/LazyLearn may
-later compose interlinear editions from the aligned paragraph data, but that
-must not replace or delay these standalone translations.
+export. The original English edition remains unchanged. Bunko also uses aligned
+English/Japanese/Chinese paragraph layers; LazyLearn links to the independent
+PDFs. These reader exports do not replace the standalone translations.
 
 The short Higgs book is the first pilot. Both translated PDFs must pass a
 manual visual/semantic review before the other courses start. These are
@@ -134,6 +134,64 @@ The original report is retained, and the published quality record includes the
 decisions. A changed sample or new issue cannot inherit a dismissal. There is
 no blanket reviewer bypass or automatic acceptance of model corrections.
 
+## Reading Editions and Release Checks
+
+The default translated PDF profile is `a5-1.2-dimensions-v2`: **177.6 x 252 mm**
+(each A5 dimension multiplied by 1.2), 12 pt body text on a 17 pt baseline,
+16 mm side margins, and 18 mm top/bottom margins including header and footer.
+This is not the old `pocket_1_2x` type-enlargement profile. Existing English
+PDFs are unchanged. Running headers wrap within the text width, classroom
+questions may break across pages, and page numbers retain a bottom margin.
+Source-anchored page adjustments handle three footnote/float cases without
+shrinking figures, changing equations, or suppressing overflow diagnostics.
+
+`scripts/audit_reading_editions.py` compares every chapter's mathematical,
+diagram and figure-command inventories against the immutable English source,
+checks every PDF page's dimensions and text bounds, and records the result in
+`references/reading_editions_audit.json`. The per-edition `quality.json` files
+also bind the accepted translation, TeX, PDF and layout hashes to passing
+compile and sampled semantic checks. These checks are evidence, not a claim
+of exhaustive human proofreading or error-free translation.
+
+`scripts/repair_caption_boundaries.py` detects translated caption prose that
+escaped its source-defined braces. Its opt-in repair moves existing characters
+only, requires the previous translation hash, backs up the cache and schedules
+fresh semantic review and compilation. Do not repair a cache while the queue
+lock is held. The caption validator prevents recurrence in new output.
+
+The Bunko importer lives in `../Bunko/tools/import_polished_physics.py`; the
+published content lives in `../bunko-books`, not in the app repository. It
+retains schema 1 and existing book identities and adds aligned `en`, `ja`, `zh`
+layers. Coverage checks include front matter, overviews, classroom Q&A,
+footnotes, captions and tables. Equations are protected before Pandoc parsing
+and every rich expression must render with the app's KaTeX configuration.
+Matched passage IDs and old content-addressed files remain valid for readers.
+No new translation calls are made by the reader importer.
+
+Release commands after the queue has exited:
+
+```bash
+python scripts/audit_reading_editions.py
+python ../Bunko/tools/import_polished_physics.py
+python ../bunko-books/tools/catalogue.py --write
+python scripts/polished_translation.py readme
+python scripts/translation_catalog.py --reader ../LazyLearn/docs/leonardsusskind-reader.html
+python ../Bunko/tools/check_polished_reader.py
+python ../LazyLearn/tests/check_susskind_reader.py
+```
+
+The generated catalogue exposes only currently validated translations. It
+drives the language links under README covers, all eleven localized availability
+notices, and LazyLearn's PDF language selector. Existing English links remain
+available. Publish the book PDFs and Bunko catalogue before the website changes;
+then run `../LazyLearn/tests/check_susskind_reader.py --live` to verify the actual
+published PDFs on desktop and mobile. The reader starts at page width with its
+outline closed so a phone's reading area is not covered by the sidebar.
+
+Use scoped publication commits when neighboring repositories have unrelated
+work in progress. Do not deploy an unrelated Bunko app branch: content updates
+use the existing reader contract and require only the `bunko-books` release.
+
 Visual TOC inspection also caught translated words placed after a heading's
 closing braces. The parser now protects adjacent argument endings separately,
 allowing natural Japanese/Chinese suffixes *inside* a title. Existing caches
@@ -158,7 +216,7 @@ a deliberately reversed electric-charge statement. This is pilot evidence,
 not a guarantee. Review caches include the model identity, so a model change
 cannot silently reuse a weaker review. No Codex translation workers were added.
 
-## Verified Checkpoint: 2026-10-12
+## Earlier Verified Checkpoint: 2026-10-12
 
 Advanced Quantum Mechanics is complete in both standalone languages:
 
