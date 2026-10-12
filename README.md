@@ -245,7 +245,7 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Advanced Quantum Mechanics (2013 fall) | [Available PDF](translations/supplementary--advanced_quantum_mechanics--2013_fall/ja/book.pdf) | [Available PDF](translations/supplementary--advanced_quantum_mechanics--2013_fall/zh/book.pdf) |
 | Quantum Entanglement Part 1 (2006 fall part 1) | [Available PDF](translations/supplementary--quantum_entanglement--2006_fall_part_1/ja/book.pdf) | [Available PDF](translations/supplementary--quantum_entanglement--2006_fall_part_1/zh/book.pdf) |
 | Quantum Entanglement Part 3 (2006 fall part 3) | [Available PDF](translations/supplementary--quantum_entanglement--2006_fall_part_3/ja/book.pdf) | [Available PDF](translations/supplementary--quantum_entanglement--2006_fall_part_3/zh/book.pdf) |
-| Particle Physics 1: Basic Concepts (2009 fall) | In preparation (0/1120 segments) | In preparation (0/1120 segments) |
+| Particle Physics 1: Basic Concepts (2009 fall) | [Available PDF](translations/supplementary--particle_physics_1_basic_concepts--2009_fall/ja/book.pdf) | [Available PDF](translations/supplementary--particle_physics_1_basic_concepts--2009_fall/zh/book.pdf) |
 | Particle Physics 2: Standard Model (2010 winter) | In preparation (0/1066 segments) | In preparation (0/1066 segments) |
 | Particle Physics 3: Supersymmetry and Grand Unification (2010 spring) | In preparation (0/878 segments) | In preparation (0/878 segments) |
 | Topics in String Theory (2011 winter topics in string theory) | In preparation (0/848 segments) | In preparation (0/848 segments) |

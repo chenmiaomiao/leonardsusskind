@@ -1,0 +1,698 @@
+\chapter{デルタ関数、量子場、保存則}
+
+先に導入した単純な量子場は、散乱・生成・消滅を概略的に記述するには十分であるが、そこからさらに引き出せるものがある。とくに、保存則が粒子過程にどのように入り込むかを示している。量子場理論の完全な講義は数回の講義よりはるかに長くかかる。ここでの目的はもっと狭い。最も単純な場を用いて、エネルギー保存則がどこから来るのか、なぜ固定標的では散乱粒子の運動量が保存されなくてよいのか、そして位相不変性がどのように電荷保存を表すのかを、機械的に見ていく。
+
+場に戻る前に、二つの数学的道具が必要である。ディラックのデルタ関数と、生成・消滅演算子のブラベクトルへの作用である。
+
+\section{ディラックのデルタ関数}
+
+座標を\(y\)と呼び、それが後に位置を表すのか、波数なのか、それとも何か別のものを表すのかは決めないでおく。まず、\(y=a\)の近くに集中した、普通のこぶ状の関数から始める。こぶをどんどん狭くしていく。高さを固定したままだと面積はゼロに縮んでしまうので、幅を狭くするにつれて高さを上げ、高さと幅の積を1に保つ。その極限として得られる対象がディラックのデルタ関数\(\delta(y-a)\)である。
+
+\(y=a\)から離れると消え、\(y=a\)において無限に鋭く集中し、単位面積をもつ：
+\begin{equation}
+\delta(y-a)=0\quad (y\neq a),
+\qquad
+\int_{-\infty}^{\infty}dy\,\delta(y-a)=1.
+\end{equation}
+重要な点は、局在性と固定された面積の組み合わせである。ピークを狭めてもそれは消えない。同時にその高さが増大するからである。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_04_figure_02.png}
+\caption{\(y=a\)を中心とする単位面積のデルタ関数のスパイク。}
+\lectureframe{00:05:50}
+\end{figure}
+
+同じ描像は、垂直なスパイクとして理想化できる：
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-3.1,0) -- (3.3,0) node[right] {$y$};
+\draw[very thick] (0,0) -- (0,2.9);
+\draw (0,-0.15) node[below] {$y=a$};
+\node at (1.35,1.65) {$\delta(y-a)$};
+\end{tikzpicture}
+\caption{\(\delta(y-a)\)がその引数の零点に局在することの理想化。}
+\end{figure}
+
+デルタ関数はフーリエ積分に自然に現れる。しばらく、全長\(L\)の周期的な空間区間に戻ろう。周期的モードは
+\begin{equation}
+e^{ikx},
+\end{equation}
+であり、ここで\(k\)は許される波数の一つである：
+\begin{equation}
+k_n=\frac{2\pi n}{L},
+\qquad n\in\mathbb Z.
+\end{equation}
+区間は\(0\leq x<L\)として表してもよいが、原点を中央に置いて
+\begin{equation}
+-\frac L2\leq x<\frac L2.
+\end{equation}
+とする方がより対称的である。端点は同一視される。\(L/2\)を越えると\(-L/2\)に戻る。
+
+一つの許されたモードを周期的区間全体にわたって積分する：
+\begin{equation}
+I_L(k)=\int_{-L/2}^{L/2}dx\,e^{ikx}.
+\end{equation}
+\(k=0\)ならば、被積分関数は恒等的に1であり、答えは\(L\)である。\(k\neq0\)が許された値ならば、振動の正の部分と負の部分が周期の整数倍にわたって打ち消し合う。したがって
+\begin{equation}
+I_L(k)=
+\begin{cases}
+L,&k=0,\\[4pt]
+0,&k\neq0,
+\end{cases}
+\qquad
+k=\frac{2\pi n}{L}.
+\end{equation}
+
+次に\(I_L(k)\)を、許された\(k\)の離散集合上の関数とみなす。隣り合う値の間隔は
+\begin{equation}
+\Delta k=\frac{2\pi}{L}.
+\end{equation}
+である。\(k=0\)において関数は高さ\(L\)をもち、他のすべての許された値ではゼロである。離散的なスパイクを描く目的で、幅を\(k\)間隔一つ分とする。その面積は
+\begin{equation}
+(\text{height})(\text{width})
+=L\frac{2\pi}{L}=2\pi.
+\end{equation}
+となる。\(L\)が大きくなると、高さは大きくなり、間隔は縮まり、面積は\(2\pi\)のままである。無限体積の極限でスパイクは\(2\pi\delta(k)\)となり、形式的なフーリエ恒等式
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,e^{ikx}=2\pi\delta(k).
+\end{equation}
+を与える。変数\(x\)と\(k\)は指数関数の中に対称的に現れる。それらの役割を入れ替えると、相棒の恒等式
+\begin{equation}
+\int_{-\infty}^{\infty}dk\,e^{ikx}=2\pi\delta(x).
+\end{equation}
+が得られる。これら二つの初等的な規則は、まもなくすべての相互作用時間にわたる積分をエネルギー保存の条件へと変えるであろう。
+
+\section{ブラ、ケット、そして左へ作用する演算子}
+
+ケットは量子状態を表す記号的な表記である。当面の目的では、初期状態をケットとして書き、最終状態をブラとして書く。ブラとケットを組み合わせると内積が得られ、それは数である。それらの数、あるいはその絶対値の二乗が、最終的に実験と比較できるものである。
+
+\begin{classroomqa}
+\lecturetimestamp{00:15:30}
+\audiencequestion{``ケット''という語は、実際に以前導入されていただろうか。}
+\lecturerresponse{はい。ケットはブラケット記法の半分であり、今導入されたもう半分はブラである。}
+\end{classroomqa}
+
+調和振動子では、占有数状態はケット\(\lvert n\rangle\)としてもブラ\(\langle n\rvert\)としても書ける。それらの内積は
+\begin{equation}
+\langle m\vert n\rangle=\delta_{mn}
+=\begin{cases}
+1,&m=n,\\
+0,&m\neq n.
+\end{cases}
+\end{equation}
+である。クロネッカーのデルタ\(\delta_{mn}\)はディラックのデルタ関数の離散的類似物である。
+
+生成・消滅演算子はケットに通常の仕方で作用する：
+\begin{align}
+a^\dagger\lvert n\rangle&=\sqrt{n+1}\,\lvert n+1\rangle,\\
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle.
+\end{align}
+生成・消滅演算子は\(a^+\)および\(a^-\)とも表記される。ここでは\(a^\dagger\)および\(a\)を終始用いる。
+
+同じ演算子はブラにどのように作用すべきだろうか。表記法では、演算子が左に作用するときはブラの右側に置かれる。定義は、演算子が先にケットに作用しても、先にブラに作用しても、行列要素が同じ値になるように選ばれる。次を考えよう。
+\begin{equation}
+\langle n\rvert a^\dagger\lvert m\rangle.
+\end{equation}
+ケットに作用させると、
+\begin{align}
+\langle n\rvert a^\dagger\lvert m\rangle
+&=\sqrt{m+1}\,\langle n\vert m+1\rangle\\
+&=\sqrt{m+1}\,\delta_{n,m+1}.
+\end{align}
+が得られる。これは\(n=m+1\)のとき、あるいは同値であるが\(m=n-1\)のときにのみ非零である。ブラに作用させて同じ条件を再現するには、\(a^\dagger\)がそのラベルを下げなければならない：
+\begin{equation}
+\langle n\rvert a^\dagger
+=\sqrt n\,\langle n-1\rvert.
+\end{equation}
+数因子は\(\sqrt n\)である。なぜなら、非零の行列要素では\(n=m+1\)だからである。消滅演算子は相補的な規則に従う。
+\begin{equation}
+\langle n\rvert a
+=\sqrt{n+1}\,\langle n+1\rvert.
+\end{equation}
+したがって、\(a^\dagger\)はケットを上げるがブラを下げ、\(a\)はケットを下げるがブラを上げる。
+
+その利点は数演算子の行列要素
+\begin{equation}
+\langle n\rvert a^\dagger a\lvert n\rangle.
+\end{equation}
+において明らかである。右に作用させると、
+\begin{align}
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle,\\
+a^\dagger\lvert n-1\rangle&=\sqrt n\,\lvert n\rangle,
+\end{align}
+したがって
+\begin{equation}
+\langle n\rvert a^\dagger a\lvert n\rangle
+=n\langle n\vert n\rangle=n.
+\end{equation}
+となる。代わりに左に作用させると、
+\begin{align}
+\langle n\rvert a^\dagger&=\sqrt n\,\langle n-1\rvert,\\
+\langle n-1\rvert a&=\sqrt n\,\langle n\rvert,
+\end{align}
+となり、同じ答えが導かれる。どちらの方向がより基本的かを決める必要はない。どちらの方向でも同じ数を与えるように計算が組み立てられている。
+
+\section{空間と時間における量子場}
+
+このような記帳の理由は素粒子物理学にある。微視的スケールでは、主な実験的手段は粒子を衝突させ、何が現れるかを観測することである。1個または2個の粒子からなる初期状態は、4個、5個、7個、9個、あるいはその他の数の状態に変わりうる。生成演算子と消滅演算子から構成される量子場は、そのような過程のための言語を提供する。
+
+まず1次元空間で考える。3次元の使用を妨げる本質的なものは何もない。\(x\)と\(k\)は単に3成分のベクトルになるだけである。また、次の単位を使うと便利である。
+\begin{equation}
+\hbar=1.
+\end{equation}
+そのとき運動量と波数は同じ数値をもつ。
+\begin{equation}
+\vec p=\vec k.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.58\textwidth]{lecture_04_figure_03.png}
+\caption{自然単位\(\hbar=1\)と同一視\(\vec p=\vec k\)。}
+\lectureframe{00:36:56}
+\end{figure}
+
+\(\psi\)が消滅させ、\(\psi^\dagger\)が生成するという規約を採用する。
+\begin{align}
+\psi(x)&=\sum_k a(k)e^{ikx},\\
+\psi^\dagger(x)&=\sum_k a^\dagger(k)e^{-ikx}.
+\end{align}
+和は周期空間では\(k=2\pi n/L\)についてとられ、無限空間では連続になる。第2の式は第1の式のエルミート共役である。これは複素共役の演算子版と考えることもできる。\footnote{黒板では一時的に生成場の展開\(\sum_k a^\dagger(k)e^{-ikx}\)を\(\Psi\)とラベル付けし、後にダガーの割り当てについてためらう。ここでのラベルは、その後の散乱計算とまったく同様に、\(\psi\)が消滅させ、\(\psi^\dagger\)が生成するように大域的に固定されている。}
+
+なぜこの定義なのか。この段階での最良の答えは、それが有用だからである。これは運動量モードの単純な和であり、その係数はまさに粒子を除去または追加する演算子である。詳細な正当化は、力学とそれが可能にする計算から与えられる。
+
+\editorialnote{共役な空間場が導入された直後の原資料の短い部分は、追加の規格化や解釈の記述を支えるのに十分なほど明瞭ではない。確実な内容は、定義の有用性のところから再開する。}
+
+これまでのところ、場は位置に依存するが時間には依存しない。場は振動し、各波数\(k\)には対応する振動数\(\omega(k)\)が付随する。確定した振動数\(\omega\)をもつ対象は時間依存性
+\begin{equation}
+e^{i\omega t}=\cos(\omega t)+i\sin(\omega t).
+\end{equation}
+をもつ。共役な位相を2つの場の展開に付ける。
+\begin{align}
+\psi(x,t)&=\sum_k a(k)e^{ikx}e^{-i\omega(k)t},\\
+\psi^\dagger(x,t)&=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+これで各空間モードはその波数に適した振動数で振動し、場は空間と時間の両方に依存する。
+
+\section{非相対論的場の方程式}
+
+\(\omega\)と\(k\)の関係が、場が従う微分方程式を決定する。単一の量子について、波と粒子の関係は
+\begin{equation}
+E=\hbar\omega,
+\qquad
+p=\hbar k.
+\end{equation}
+である。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{lecture_04_figure_04.png}
+\caption{エネルギーと振動数、運動量と波数の関係\(E=\hbar\omega\)および\(p=\hbar k\)。}
+\lectureframe{00:41:28}
+\end{figure}
+
+\(\hbar=1\)のもとでは、エネルギーは振動数であり、運動量は波数である。
+\begin{equation}
+E=\omega,
+\qquad
+p=k.
+\end{equation}
+光よりはるかに遅く運動する非相対論的粒子では、運動エネルギーと運動量は
+\begin{equation}
+E=\frac{p^2}{2m}.
+\end{equation}
+に従う。これは\(E=\tfrac12 mv^2\)と\(p=mv\)から得られる関係と同じである。これらの関係を組み合わせると、非相対論的分散関係
+\begin{equation}
+\omega(k)=\frac{k^2}{2m}.
+\end{equation}
+が得られる。
+
+生成場について、モード展開は
+\begin{equation}
+\psi^\dagger(x,t)=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+である。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.66\textwidth]{lecture_04_figure_05.png}
+\caption{非相対論的場の方程式を始めるために用いられる時間依存モード展開。}
+\lectureframe{00:43:23}
+\end{figure}
+
+時間に関して微分すると、
+\begin{equation}
+\dot\psi^\dagger(x,t)
+=\sum_k i\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+となる。位置に関して1回微分すると、
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial x}
+=\sum_k(-ik)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+となる。これらの導関数の間に直接的な一階の関係は存在しない。なぜなら、時間微分は\(\omega(k)\)を引き出すのに対し、空間微分1回は\(k\)を引き出すからである。この区別を明示的に見るために、線形分散関係
+\begin{equation}
+\omega(k)=k.
+\end{equation}
+を想像してみよう。このとき時間微分は\(i\omega=ik\)を引き出すのに対し、空間微分1回は\(-ik\)を引き出す。モードごとに見れば、
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{\partial\psi^\dagger}{\partial x}.
+\end{equation}
+となる。この仮想的な場は一階の方程式を満たすであろう。しかしここでは\(\omega=k^2/(2m)\)であるから、空間に関する二階微分が必要となる：
+\begin{align}
+\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=\sum_k(-k^2)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}\\
+&=-2m\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{00:47:14}
+\audiencequestion{空間微分から出てくるマイナス符号は本当にそこにあるべきなのでしょうか？}
+\lecturerresponse{はい。\(e^{-ikx}\)の\(x\)に関する各微分は\(-ik\)を引き出し、2回の微分は\((-ik)^2=-k^2\)を与えます。したがって\(k^2=2m\omega\)を代入すると\(-2m\omega\)が得られます。}
+\end{classroomqa}
+
+時間微分に\(i\)を掛けると、空間に関する二階微分を\(2m\)で割った場合と同じモード係数が得られる：
+\begin{align}
+i\dot\psi^\dagger
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t},\\
+\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+したがって
+\begin{equation}
+i\frac{\partial\psi^\dagger}{\partial t}
+=\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2},
+\end{equation}
+あるいは、等価的に
+\begin{equation}
+-i\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_04_figure_06.png}
+\caption{生成場のモード展開の時間微分と空間微分。}
+\lectureframe{00:49:06}
+\end{figure}
+
+\begin{classroomqa}
+\lecturetimestamp{00:49:43}
+\audiencequestion{係数は\(1/(2m)^2\)ですか？}
+\lecturerresponse{いいえ。\(1/(2m)\)です。}
+\end{classroomqa}
+
+共役な消滅場は、おなじみのSchr\"odingerの形
+\begin{equation}
+i\frac{\partial\psi}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi}{\partial x^2}.
+\end{equation}
+に従う。この2つの場の方程式はエルミート共役である。\footnote{符号の確認の際、黒板には空間項が一時的に逆の符号で書かれていた。表示されたモードの位相を直接微分すると、ここに書かれた共役対の方程式が得られる。}
+
+この方程式は初等量子力学のSchr\"odinger方程式と同じ形をしているが、それを満たす対象は異なる。初等量子力学では、波動関数は絶対値の二乗が確率的に解釈される複素数値関数である。ここでは\(\psi\)と\(\psi^\dagger\)は演算子である：\(\psi\)は粒子を消し、\(\psi^\dagger\)は粒子を加える。この共役対は粒子と場の間の直接的な結びつきを与える。
+
+多数の量子が関係するモードを占めるとき、場は近似的に古典的に振る舞うことができる。ちょうど、強く励起された調和振動子は古典的に見えるが、1量子の振動子はそうでないのと同じである。大きな占有数は大きな古典的スケールを可能にし、適切な相対的揺らぎを小さくすることができる。
+
+\editorialnote{大きな占有数だけでは古典場にとって十分ではない。位相コヒーレントな半古典状態も必要である。数固有状態は確定した位相を持たず、非零の平均場を持つ必要もない。}
+
+\section{固定標的と散乱振幅}
+
+これらの場はどのように使われるのか？最も単純な散乱過程を考えよう。粒子が、その反跳を無視できるほど重い標的に出会う。標的は空間に永遠に固定されている。粒子は反射され、透過され、あるいは方向を変えられうる。3次元では、その出ていく方向は入ってくる方向と異なりうる。
+
+粒子の運動量は衝突の前後で同じである必要はない。運動量は完全な物理系に対して保存されるが、標的が失われた運動量を吸収する。標的の運動が数学的記述から省かれると、粒子だけの運動量は保存されない。
+
+そのエネルギーは理想化された模型では異なる振る舞いをする。テニスボールを壁に投げつけることを想像してみよう。実際のテニスボールは熱くなり変形するが、それらの効果を無視すれば、運動量が反転しても同じ運動エネルギーで戻ってくる。固定標的模型はその区別を再現するように設計されている：粒子のエネルギーは保存されるが、その運動量は変化しうる。
+
+空間を水平に、時間を垂直に描く。標的は垂直線\(x=0\)である。運動量\(k_i\)の入射一粒子状態が標的に到達し、運動量\(k_f\)の出射一粒子状態がそれを離れる。
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-3.2,0) -- (3.2,0) node[right] {space};
+\draw[->] (0,-0.3) -- (0,4.2) node[above] {time};
+\draw[very thick] (0,0) -- (0,3.8);
+\node[left] at (-0.15,3.55) {$x=0$};
+\draw[thick,->] (-2.2,0.8) -- (0,2.0);
+\node[below] at (-1.45,1.05) {$k_i$};
+\draw[thick,->] (0,2.0) -- (2.2,3.2);
+\node[above] at (1.5,2.9) {$k_f$};
+\fill (0,2.0) circle (1.4pt);
+\end{tikzpicture}
+\caption{運動量\(k_i\)の粒子が\(x=0\)に固定された標的から散乱され、運動量\(k_f\)で出てくる。}
+\end{figure}
+
+吸収と再放出の言葉を使う。標的は入射粒子を消滅させ、直ちに出射粒子を、おそらく異なる運動量で生成する。これは散乱事象の数学的模型にすぎない。例えば実際の原子は光子を吸収し、しばらく励起状態にとどまり、後で放出することができる。
+
+\begin{classroomqa}
+\lecturetimestamp{01:02:28}
+\audiencequestion{なぜ粒子は直ちに吸収され、再放出されなければならないのか。}
+\lecturerresponse{自然界ではそうである必要はない。一点における瞬間的な吸収と再放出は、ここで用いている単純化された模型である。}
+\end{classroomqa}
+
+初期状態には\(k_i\)モードに1個の粒子が含まれ、他のどのモードにも粒子はない。占有数を用いた表現では、\(k_i\)に対応する成分を除いてすべての成分がゼロであり、その成分は1である。完全なリストを次のように略記すれば十分である。
+\begin{equation}
+\lvert k_i\rangle=a^\dagger(k_i)\lvert0\rangle.
+\end{equation}
+同様に、
+\begin{equation}
+\langle k_f\rvert=\langle0\rvert a(k_f).
+\end{equation}
+
+標的および時刻\(t\)における消滅は\(\psi(0,t)\)で表され、同じ点および時刻における即時の再生成は\(\psi^\dagger(0,t)\)で表される。事象が起こる特別な時刻は存在しない。入射粒子が標的に到達するたびに起こり得て、どの時刻でも相互作用の強さは同じである。特別な時刻が存在しないことを表すために、すべての\(t\)について積分する。
+\begin{equation}
+\int_{-\infty}^{\infty}dt\,\psi^\dagger(0,t)\psi(0,t).
+\end{equation}
+この演算子を初期ケットに作用させると、ある状態が生成される。その最終ブラとの重なりが、指定された遷移の振幅である。確率は、振幅の絶対値を二乗した後に初めて得られる。
+
+さらにもう1つの数が必要である。\(g\)が粒子と標的の間の相互作用の強さを測るとしよう。この記帳模型では、主要な振幅を模式的に次のように書く。\footnote{状態の規格化因子および一次摂動論の慣例的な全体因子は省略されており、計算には演算子の選択則とエネルギー保存を担う部分のみを用いる。}
+\begin{equation}
+\mathcal A_{i\to f}
+=g\left\langle k_f\left|
+\int_{-\infty}^{\infty}dt\,
+\psi^\dagger(0,t)\psi(0,t)
+\right|k_i\right\rangle.
+\end{equation}
+係数\(g\)は結合定数と呼ばれる。荷電標的が光子を散乱する場合、電荷が相互作用の強さの関連する尺度を与える。電荷を大きくすると散乱の傾向が増大する。
+
+異なる相互作用は非常に異なる結合をもつ。陽子に到達する中間子は強い相互作用を起こし、比較的大きな散乱の強さをもつ。荷電陽子によって散乱される光子は、より小さな電磁結合をもつ。陽子と相互作用するニュートリノは、さらに小さな結合をもつ。
+
+\begin{classroomqa}
+\lecturetimestamp{01:09:09}
+\audiencequestion{この単純な模型は電子に対して有効か。}
+\lecturerresponse{いくつかの種類の散乱に対する単純化された代用としてのみ有効である。まだ電子や特定の一つの標的についての現実的な理論として読むべきではない。}
+\end{classroomqa}
+
+核子による重力子の重力散乱は極めて弱いであろう。これらの例は一つの普遍的な\(g\)を共有しているわけではない。素粒子物理学には多くの結合定数が存在する。
+
+また、有効結合が常に振動数に依存しない必要もない。
+
+\begin{classroomqa}
+\lecturetimestamp{01:10:31}
+\audiencequestion{なぜ\(g\)を\(\omega\)や\(k\)の関数ではなく定数とみなすのか。}
+\lecturerresponse{常に定数である必要はない。光子が原子に吸収され、原子がある時間励起状態にとどまり、光子が後で放出される場合、有効散乱は振動数に依存し得る。定数\(g\)は現在の瞬間的模型に属するものである。}
+\end{classroomqa}
+
+当面は\(g\)を定数に保ち、この最も単純な選択の帰結を計算する。
+
+\begin{classroomqa}
+\lecturetimestamp{01:12:32}
+\audiencequestion{\(g=1\)ならば、散乱確率は1でなければならないのか。}
+\lecturerresponse{そうではない。計算している表式は、小さな\(g\)に対する主要な近似にすぎない。結合が小さくなければ、高次の摂動論が必要である。1より大きい確率は、物理的な確率ではなく、一段階近似の破綻を示すものであろう。}
+\end{classroomqa}
+
+\section{モード和の縮約}
+
+\(x=0\)では、空間位相は1に等しいので、
+\begin{align}
+\psi(0,t)&=\sum_k a(k)e^{-i\omega(k)t},\\
+\psi^\dagger(0,t)&=\sum_\ell a^\dagger(\ell)e^{i\omega(\ell)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{01:13:58}
+\audiencequestion{標的が\(x=0\)にあるので、空間的指数因子は省略すべきか。}
+\lecturerresponse{はい。標的では\(e^{ikx}=e^{ik0}=1\)であり、共役な空間因子もまた1である。}
+\end{classroomqa}
+
+2つの和で異なるダミーラベル\(k\)と\(\ell\)を使う。代入すると
+\begin{align}
+\mathcal A_{i\to f}
+&=g\int_{-\infty}^{\infty}dt
+\sum_{\ell,k}
+e^{i\omega(\ell)t}e^{-i\omega(k)t}
+\langle k_f\rvert a^\dagger(\ell)a(k)\lvert k_i\rangle.
+\end{align}
+\(k\)-和のどの項が生き残れるか。消滅演算子はすべての空モードでゼロを与える。初期状態はモード\(k_i\)にのみ粒子を含むので、\(k=k_i\)である。\(\ell\)-和のどの項が生き残れるか。左向きに作用して、\(a^\dagger(\ell)\)は最終ブラが表す粒子を除去しなければならないので、\(\ell=k_f\)である。両方の和が崩壊する：
+\begin{align}
+\mathcal A_{i\to f}
+&=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+\langle k_f\rvert a^\dagger(k_f)a(k_i)\lvert k_i\rangle.
+\end{align}
+消滅演算子は初期の1粒子ケットを真空に変え、
+\begin{equation}
+a(k_i)\lvert k_i\rangle=\lvert0\rangle,
+\end{equation}
+生成演算子は左向きに作用して、最終の1粒子ブラを真空ブラに変える：
+\begin{equation}
+\langle k_f\rvert a^\dagger(k_f)=\langle0\rvert.
+\end{equation}
+したがってそれらの行列要素は
+\begin{equation}
+\langle0\vert0\rangle=1.
+\end{equation}
+演算子の帳尻はすべて1に帰着する。結合が\(g\)を与え、残る非自明な部分は時間積分である：
+\begin{equation}
+\mathcal A_{i\to f}
+=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}.
+\end{equation}
+
+\editorialnote{01での短い聴衆からの質問：18：40は資料から復元できない。応答はこの1粒子計算を相対論的または多粒子の問題と区別している。これ以上正確なやり取りは安全に再構成できない。}
+
+ここで先のデルタ関数の恒等式が直接適用できる：
+\begin{equation}
+\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+=2\pi\delta(\omega_f-\omega_i).
+\end{equation}
+したがって
+\begin{equation}
+\boxed{
+\mathcal A_{i\to f}
+=2\pi g\,\delta(\omega_f-\omega_i)
+}.
+\end{equation}
+振幅は
+\begin{equation}
+\omega_f=\omega_i.
+\end{equation}
+でない限り消える。\(\hbar=1\)なので、これは\(E_f=E_i\)である。すべての相互作用時刻が同じように扱われたため、エネルギー保存が現れた。時間積分が有限区間に制限されていれば、厳密なデルタ関数ではなく広がった関数を生じただろう。時間の平行移動の下での厳密な不変性が、厳密なエネルギー保存条件を与えるのである。
+
+\begin{classroomqa}
+\lecturetimestamp{01:21:30}
+\audiencequestion{確率を得るには振幅を二乗しなければならない。二乗したとき、デルタ関数はどうなるのか。}
+\lecturerresponse{二乗されたデルタ関数には特別な注意が必要である。ここで必要な点は確実である。すなわち、初期エネルギーと終エネルギーが等しくない限り、結果はゼロである。エネルギー保存の台の上では、模式的な二乗された前因子は\(4\pi^2g^2\)を含む。}
+\end{classroomqa}
+
+\editorialnote{規格化された遷移確率または遷移率は、単に\(\delta(\omega_f-\omega_i)^2\)を捨てることによって得ることはできない。それには有限時間による正則化と、整合の取れた状態の規格化が必要である。したがって、\(4\pi^2g^2\)は、原資料で強調されている模式的な二乗された前因子としてのみ保持される。}
+
+この点標的相互作用では、エネルギー条件以外に一つの最終運動量を別のものと区別するものは何もない。したがって3次元では、この模型は同じエネルギーをもつすべての出射運動量に等しい主要な重みを割り当てる---言い換えれば、固定エネルギー球面上のすべての出射方向に等しい重みを割り当てる。その等方性はこの非常に単純な点散乱体の性質であり、すべての実在の標的の性質ではない。
+
+この計算から、互いに関連する三つの考え方が得られた。係数\(g\)は相互作用の強さを測る。ブラ・演算子・ケットの式は散乱振幅であり、その絶対値の二乗が確率に入る。最も重要なのは、すべての時間にわたる積分がエネルギーのデルタ関数を生じることである。時間並進対称性がエネルギー保存を強制する。
+
+\section{標的または結合が変わると何が変わるか？}
+
+原点\(x=0\)は便宜のために選ばれたにすぎない。標的を\(x=x_{\mathrm T}\)に置く。\(\psi^\dagger(x_{\mathrm T},t)\psi(x_{\mathrm T},t)\)の空間因子は
+\begin{equation}
+e^{-ik_f x_{\mathrm T}}e^{ik_i x_{\mathrm T}}
+=e^{i(k_i-k_f)x_{\mathrm T}}.
+\end{equation}
+を与える。したがって振幅は
+\begin{equation}
+\mathcal A_{i\to f}(x_{\mathrm T})
+=e^{i(k_i-k_f)x_{\mathrm T}}
+\mathcal A_{i\to f}(0).
+\end{equation}
+となる。
+
+\begin{classroomqa}
+\lecturetimestamp{01:24:37}
+\audiencequestion{標的が\(x=0\)にあるように位置を常に再定義できるか？}
+\lecturerresponse{この単一の固定された標的については、はい。それが\(x_{\mathrm T}\neq0\)に置かれたままなら、その位置は振幅の中に位相\(e^{i(k_i-k_f)x_{\mathrm T}}\)として現れる。複素共役の位相を掛けると、それは確率から除かれる。}
+\end{classroomqa}
+
+実際、
+\begin{equation}
+\left|e^{i(k_i-k_f)x_{\mathrm T}}\right|^2=1.
+\end{equation}
+振幅は標的の位置を覚えているが、この1標的の確率はそうではない。
+
+ここで非対称性を逆にしよう。相互作用がある位置でしか起こり得ないが、ただ1つの特別な時刻にのみ起こると仮定する。位置に関する積分は
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,
+e^{i(k_i-k_f)x}
+=2\pi\delta(k_i-k_f),
+\end{equation}
+を与えるだろうが、時刻を固定するとエネルギーデルタ関数は除かれるだろう。
+
+\begin{classroomqa}
+\lecturetimestamp{01:26:41}
+\audiencequestion{相互作用がどこで起こったかが問題でなく、ただ1つの固定された時刻にのみ起こったなら、別の量が保存されるだろうか？}
+\lecturerresponse{はい。すべての位置にわたる積分は運動量保存を強制するだろうが、特別な相互作用時刻は厳密なエネルギー保存を除くだろう。完全な2粒子問題では、相互作用は任意の時刻と任意の場所で起こり得る。}
+\end{classroomqa}
+
+これはまた、陽な時間依存性に物理的解釈を与える。結合が\(g(t)\)である場合、あるいは外部からの介入が突然散乱を可能にする場合、すべての時刻が等価ではない。そのとき簡約された記述は、省略された外部力学とエネルギーを交換し得る。
+
+\begin{classroomqa}
+\lecturetimestamp{01:28:29}
+\audiencequestion{結合定数は主に実験から得られるのですか、また時間依存する結合とは何を意味するのですか。}
+\lecturerresponse{はい、それらの値は実験的に決定される。明示的な時間依存は通常、系の運動している、あるいは変化している部分が取り残されていることを意味し、ちょうど固定標的模型で標的の反跳が取り残されたのと同じである。失われて見えるエネルギーは、それら省略された自由度に属している。}
+\end{classroomqa}
+
+運動する標的は最も単純な例である。
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:23}
+\audiencequestion{運動する標的に当てることは、粒子のエネルギーが保存されない例ですか。}
+\lecturerresponse{はい。標的の規定された運動がエネルギーの勘定から省略されていれば、それは粒子にエネルギーを与えたり奪ったりすることができる。}
+\end{classroomqa}
+
+標的が点状であることももう一つの単純化である。
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:43}
+\audiencequestion{標的の大きさはいつ、入射波の大きさや波長と比較されなければならないのですか。}
+\lecturerresponse{現在の模型では標的は大きさゼロである。有限の標的の大きさは、波長と比較されるときに付加的な効果を確かに生じるが、その精密化は後回しにされる。}
+\end{classroomqa}
+
+ここで運動する標的に戻ろう。テニスボールに向かって動く壁を想像せよ。壁はボールにエネルギーを与えることができる。壁の運動が規定され、そのエネルギーが省略されていれば、ボールのエネルギーだけは保存されない。数学的には、これは標的の位置における時間依存であり、必ずしも\(g\)における時間依存ではない。
+
+したがって生成消滅演算子は、まさに望まれていたことを行った。すなわち、それらは一つの粒子状態から別の粒子状態への遷移を記述し、一方で場の時空依存性が、その遷移に伴うどの保存条件を課すかを決定する。
+
+\section{電荷の数え上げと位相不変性}
+
+各粒子種はそれ自身の場を持つ。例えば電子と光子は同じ\(\psi\)では記述されない。すでに利用可能な代数で電荷の数え上げを明らかにするために、暫定的に\(\psi\)を電子のような場を表すものとせよ。\(\psi\)はそのような荷電粒子を一つ消滅させ、\(\psi^\dagger\)は一つ生成する。これは数え上げのためのボソン的な代用であり、本物のフェルミオン的電子場にはまだ導入されていない代数が必要である。
+
+固定標的因子
+\begin{equation}
+\psi^\dagger\psi
+\end{equation}
+は一つの粒子を消滅させ、一つを生成する。一つの電子が入り、一つが出るので、この種が担う電荷は変化しない。
+
+ここで、一つの電子が入り、二つが同じ点から出ることを想像せよ。対応する演算子積は一つの消滅場と二つの生成場を含むであろう。
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi.
+\end{equation}
+電子場に対して、これは正味一つの電子を生成し、電荷保存に反するであろう。二つの電子が入り二つが出ることは、代わりに
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+で表すことができ、これは生成場と消滅場の数が等しい。二つが入り三つが出ることは
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+を必要とし、やはり正味の電荷を変える。当面の規則は単純である。電荷を保存する相互作用は、同じ数の\(\psi\)と\(\psi^\dagger\)を含む。
+
+\begin{classroomqa}
+\lecturetimestamp{01:34:27}
+\audiencequestion{この電荷保存の検査に、場の演算子の順序は関係しますか。}
+\lecturerresponse{当面の検査は\(\psi\)と\(\psi^\dagger\)の因子の数に関わり、それらの順序には関わらない。順序の異なる積がその他の点で同一であるかどうかは、別の問題である。}
+\end{classroomqa}
+
+単に数えるよりも深い数学的な診断がある。場に定数の位相を掛けよ。
+\begin{equation}
+\psi\longrightarrow e^{i\alpha}\psi.
+\end{equation}
+\(\psi^\dagger\)はエルミート共役であるから、共役な位相で変換する。
+\begin{equation}
+\psi^\dagger\longrightarrow e^{-i\alpha}\psi^\dagger.
+\end{equation}
+二つの場の数が等しい式は不変である。例えば、
+\begin{align}
+\psi^\dagger\psi
+&\longrightarrow
+e^{-i\alpha}e^{i\alpha}\psi^\dagger\psi
+=\psi^\dagger\psi,\\
+\psi^\dagger\psi^\dagger\psi\psi
+&\longrightarrow
+e^{-2i\alpha}e^{2i\alpha}
+\psi^\dagger\psi^\dagger\psi\psi
+=\psi^\dagger\psi^\dagger\psi\psi.
+\end{align}
+数が等しくない式は変化する。したがって
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi
+\longrightarrow
+e^{-i\alpha}\psi^\dagger\psi^\dagger\psi.
+\end{equation}
+許される電荷保存相互作用は、まさにこの大域的位相変化の下で不変なものである。位相不変性と電荷保存は、この単純な場の言語では同じ規則の二つの記述である。
+
+組み合わせ
+\begin{equation}
+\psi+\psi^\dagger
+\end{equation}
+は任意の位相回転の下で不変ではない。
+
+\begin{classroomqa}
+\lecturetimestamp{01:37:53}
+\audiencequestion{それは\(\psi\)の実部ではないですか。}
+\lecturerresponse{はい。それは\(\psi\)の実部に比例し、\(\psi\)に位相を掛けるとその実部が変わる。したがってそれは位相不変ではない。}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:38:05}
+\audiencequestion{電子が標的に当たり、多数の二次電子が放出されるなら、どうして電荷は依然として保存され得るのですか。}
+\lecturerresponse{その過程で標的は受動的ではない。原子が多数の電子を放出するなら、原子自身が電荷と状態を変える。その動力学を含めなければならず、標的もまた量子場で記述されなければならない。}
+\end{classroomqa}
+
+この時点で三つの対応関係が見えてくる。時間並進不変性はエネルギー保存に対応する。大域的位相不変性は電荷保存に対応する。空間並進不変性は運動量保存に対応するが、空間に関する完全な計算はまだ実行されていない。
+
+\section{演算子の順序と最低次模型の限界}
+
+簡単のため、上記の積ではすべての生成場を左に、すべての消滅場を右に置いている。交互に並べた積でも数は等しくでき、したがって電荷数え上げのテストは通過するが、演算子の順序は他の点で式に影響しうる。
+
+\begin{classroomqa}
+\lecturetimestamp{01:40:02}
+\audiencequestion{同じ種類の過程を\(\psi\psi^\dagger\psi\psi^\dagger\)のような交互に並べた因子で書くことはできるか。}
+\lecturerresponse{それでも数は等しく、したがって電荷の規則は満たすが、一般にはすべてのダガーを左に置いた式と同じ式ではない。異なる順序の並べ替えは後回しにする。}
+\end{classroomqa}
+
+\editorialnote{01時41分10における聴衆の質問の文言は損傷がひどく復元できない。復元可能な応答は、\(\psi\)と\(\psi^\dagger\)の数が等しいことは位相不変性と電荷保存を意味し、数が等しくないことはどちらも意味しない、と繰り返している。}
+
+対称性と保存則のこれらの結びつきはネーターの定理の実例である。古典力学ではその定理が一般的枠組みを与えるが、ここでは同じ結びつきが量子場の位相とデルタ関数を通して直接示されている。
+
+主要な固定標的の結果にも明らかな有効範囲がある。\(4\pi^2g^2\)のような概略的な確率の前因子は、1に近づくか超えると信頼できなくなる。
+
+\begin{classroomqa}
+\lecturetimestamp{01:43:33}
+\audiencequestion{この概略的な結果は、\(g\)がおよそ\(1/(2\pi)\)より小さくなければならないことを意味するのか。}
+\lecturerresponse{\(g\)がこの第一項が有用であるほど小さいか、さもなければ模型が不完全である。粒子は一度散乱し、戻って二度散乱し、次に三度散乱し、以下同様に続く。完全な振幅は無限級数である。\(g\)が小さいときにのみ最も単純な項が支配的であり、そうでなければ多くのファインマン図を足し上げなければならない。}
+\end{classroomqa}
+
+単純な時空の図はファインマン図の始まりである。その頂点は基本的な可能性を指定する。一粒子が入り一粒子が出ることは\(\psi^\dagger\psi\)のような因子に対応し、二粒子が入り二粒子が出ることは\(\psi^\dagger\psi^\dagger\psi\psi\)のような因子に対応する。頂点を繰り返すと結合のより高い冪と級数の高次項が生成される。
+
+\begin{classroomqa}
+\lecturetimestamp{01:45:39}
+\audiencequestion{結合定数は虚数成分をもちうるか。}
+\lecturerresponse{複素結合定数は起こりうる。既約な\(T\)奇の位相の組み合わせは時間反転不変性の破れを示しうる。時間反転した過程は対称性に関連する振幅をもつ必要はない。}
+\end{classroomqa}
+
+\editorialnote{このやり取りでQCDの\(\theta\)パラメータが言及されたが、それは\(T\)奇の相互作用に掛かる実数の係数であり、結合の虚数成分ではない。除去可能な位相や吸収的な複素位相はそれ自体では\(T\)の破れを確立しない。この推論は既約な\(T\)奇の位相の組み合わせにのみ当てはまる。}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:02}
+\audiencequestion{出ていく粒子は、入ってくる粒子が吸収されるのと同じ瞬間ではなく、その前または後に放出されうるか。}
+\lecturerresponse{それはもっともな質問だが、瞬間的な模型はそれを扱わない。より一般的な時間順序は後回しにする。}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:44}
+\audiencequestion{この構成はどのように相対論的にされるのか。}
+\lecturerresponse{簡単な示唆は、共役な部分を組み合わせ、\(\omega(k)\)の平方根を含む分母を入れることである。完全な構成は後回しにする。}
+\end{classroomqa}
+
+\editorialnote{口頭で述べられた簡略な相対論的公式は、組版するのに十分安全に復元できない。述べられた構成要素と後回しにされたことのみを保持する。}
+
+電荷保存は静止質量の保存とも鋭く区別されなければならない。
+
+\begin{classroomqa}
+\lecturetimestamp{01:48:22}
+\audiencequestion{静止質量は電荷と同じ構造的な意味で保存されるのか。}
+\lecturerresponse{いいえ。ガリレイ的非相対論的力学では、質量は加法的な保存量である。相対論的反応では、個々の粒子の静止質量の和は保存される必要はない。電子と陽電子は電荷が保存されたまま二つの光子に消滅しうる。}
+\end{classroomqa}
+
+\editorialnote{完全に閉じた相対論的系では、全四元運動量が保存されるため、その系の不変質量は固定されている。対消滅の例が関わるのは個々の粒子の静止質量の和であり、閉じた系の不変質量ではない。}
+
+したがって、加法的質量の保存は有効な非相対論的事実であり、電荷保存と同等の基礎的規則ではない。上で見出した位相不変性が、より深い電荷対称性を表している。
+
+次の段階は、ボソン的な代役をフェルミオン場に置き換え、複数の粒子種---電子、ミューオン、クォーク、光子など---を、それぞれが独自の場と独自の許された相互作用を持つものとして扱えるようにすることである。
+
+\begin{classroomqa}
+\lecturetimestamp{01:50:39}
+\audiencequestion{これまでボソン場しか展開していないのに、先の例を電子場と呼ぶのは正当だったのか。}
+\lecturerresponse{電子のボソン版、すなわち代役としてのみである。真のフェルミオン理論はまだ導入されていない。}
+\end{classroomqa}

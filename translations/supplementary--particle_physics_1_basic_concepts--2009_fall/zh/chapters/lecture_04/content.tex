@@ -1,0 +1,694 @@
+\chapter{{\proseunicodefont δ}函数、量子场与守恒定律}
+
+前面引入的简单量子场足以概要地描述散射、产生和湮灭，但还能从中提取更多内容。特别地，它展示了守恒定律如何进入粒子过程。量子场论的完整课程所需时间远多于几讲；这里的目标更为有限。我们将用最简单的场来机械地看清能量守恒从何而来、为什么固定靶不必守恒散射粒子的动量，以及相位不变性如何编码电荷守恒。
+
+在回到场之前，需要两件数学工具：狄拉克{\proseunicodefont δ}函数，以及产生和湮灭算符对左矢的作用。
+
+\section{狄拉克{\proseunicodefont δ}函数}
+
+把坐标称为\(y\)，暂不决定它以后代表位置、波数还是别的什么。从集中于\(y=a\)附近的一个普通团块状函数开始。让这个团块越来越窄。如果它的高度保持不变，其面积就会缩小到零，因此在宽度减小时要升高高度，使高度乘以宽度保持为1。极限对象就是狄拉克{\proseunicodefont δ}函数\(\delta(y-a)\)。
+
+它在\(y=a\)之外为零，在\(y=a\)处无限尖锐地集中，并且具有单位面积：
+\begin{equation}
+\delta(y-a)=0\quad (y\neq a),
+\qquad
+\int_{-\infty}^{\infty}dy\,\delta(y-a)=1.
+\end{equation}
+要点在于局域性与固定面积的结合。把峰变窄并不会使它消失，因为其高度同时增大。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.68\textwidth]{lecture_04_figure_02.png}
+\caption{以\(y=a\)为中心的单位面积{\proseunicodefont δ}函数尖峰。}
+\lectureframe{00:05:50}
+\end{figure}
+
+同一图像可以理想化为一条竖直尖峰：
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-3.1,0) -- (3.3,0) node[right] {$y$};
+\draw[very thick] (0,0) -- (0,2.9);
+\draw (0,-0.15) node[below] {$y=a$};
+\node at (1.35,1.65) {$\delta(y-a)$};
+\end{tikzpicture}
+\caption{\(\delta(y-a)\)在其自变量零点处的理想化局域化。}
+\end{figure}
+
+{\proseunicodefont δ}函数自然地出现在傅里叶积分中。暂时回到总长度为\(L\)的周期性空间区间。一个周期模式是
+\begin{equation}
+e^{ikx},
+\end{equation}
+其中\(k\)是允许的波数之一
+\begin{equation}
+k_n=\frac{2\pi n}{L},
+\qquad n\in\mathbb Z.
+\end{equation}
+该区间可以表示为\(0\leq x<L\)，但把原点放在中间并使用
+\begin{equation}
+-\frac L2\leq x<\frac L2.
+\end{equation}
+更为对称。端点被等同起来：越过\(L/2\)就回到\(-L/2\)。
+
+把一个允许的模式在整个周期区间上积分：
+\begin{equation}
+I_L(k)=\int_{-L/2}^{L/2}dx\,e^{ikx}.
+\end{equation}
+如果\(k=0\)，被积函数恒为1，答案为\(L\)。如果\(k\neq0\)是一个允许值，振荡的正负部分在整数个周期上相互抵消。因此
+\begin{equation}
+I_L(k)=
+\begin{cases}
+L,&k=0,\\[4pt]
+0,&k\neq0,
+\end{cases}
+\qquad
+k=\frac{2\pi n}{L}.
+\end{equation}
+
+现在把\(I_L(k)\)视为定义在允许的\(k\)的离散集合上的函数。相邻值之间的间距是
+\begin{equation}
+\Delta k=\frac{2\pi}{L}.
+\end{equation}
+在\(k=0\)处函数高度为\(L\)；在其他每个允许值处它为零。为了画出这个离散尖峰，给它一个\(k\)间距的宽度。它的面积于是为
+\begin{equation}
+(\text{height})(\text{width})
+=L\frac{2\pi}{L}=2\pi.
+\end{equation}
+随着\(L\)增大，高度增大，间距缩小，而面积保持为\(2\pi\)。在无限体积极限下，尖峰变为\(2\pi\delta(k)\)，给出形式上的傅里叶恒等式
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,e^{ikx}=2\pi\delta(k).
+\end{equation}
+变量\(x\)和\(k\)在指数中对称地出现。交换它们的角色给出伴随恒等式
+\begin{equation}
+\int_{-\infty}^{\infty}dk\,e^{ikx}=2\pi\delta(x).
+\end{equation}
+这两条基本规则很快就会把对所有相互作用时间的积分变成能量守恒条件。
+
+\section{左矢、右矢与向左作用的算符}
+
+右矢是量子态的符号记法。就目前目的而言，初态将写成右矢，末态写成左矢。把左矢和右矢放在一起产生内积，它是一个数。这些数，或它们的绝对平方，最终才是可以与实验比较的东西。
+
+\begin{classroomqa}
+\lecturetimestamp{00:15:30}
+\audiencequestion{“``ket''”这个词之前真的被引入过吗？}
+\lecturerresponse{是的。ket是bra-ket记号的一半；现在引入的另一半是bra。}
+\end{classroomqa}
+
+对于谐振子，占据数态既可以写成右矢\(\lvert n\rangle\)，也可以写成左矢\(\langle n\rvert\)。它们的内积是
+\begin{equation}
+\langle m\vert n\rangle=\delta_{mn}
+=\begin{cases}
+1,&m=n,\\
+0,&m\neq n.
+\end{cases}
+\end{equation}
+克罗内克{\proseunicodefont δ}\(\delta_{mn}\)是狄拉克{\proseunicodefont δ}函数的离散类比。
+
+产生和湮灭算符以熟悉的方式作用于右矢：
+\begin{align}
+a^\dagger\lvert n\rangle&=\sqrt{n+1}\,\lvert n+1\rangle,\\
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle.
+\end{align}
+产生和湮灭算符也可以记为\(a^+\)和\(a^-\)；这里将通篇使用\(a^\dagger\)和\(a\)。
+
+同样的算符应如何作用于左矢？当算符向左作用时，记号把算符放在左矢的右侧。这样定义是为了使矩阵元无论先作用于右矢还是先作用于左矢都取相同的值。考虑
+\begin{equation}
+\langle n\rvert a^\dagger\lvert m\rangle.
+\end{equation}
+作用于右矢给出
+\begin{align}
+\langle n\rvert a^\dagger\lvert m\rangle
+&=\sqrt{m+1}\,\langle n\vert m+1\rangle\\
+&=\sqrt{m+1}\,\delta_{n,m+1}.
+\end{align}
+仅当\(n=m+1\)，或等价地当\(m=n-1\)时，它才非零。要通过作用于左矢来重现同一条件，\(a^\dagger\)必须降低其标号：
+\begin{equation}
+\langle n\rvert a^\dagger
+=\sqrt n\,\langle n-1\rvert.
+\end{equation}
+数值因子为\(\sqrt n\)，因为在非零矩阵元上\(n=m+1\)。湮灭算符服从互补的规则
+\begin{equation}
+\langle n\rvert a
+=\sqrt{n+1}\,\langle n+1\rvert.
+\end{equation}
+因此\(a^\dagger\)升高右矢但降低左矢，而\(a\)降低右矢但升高左矢。
+
+其优势在数算符的矩阵元中显而易见
+\begin{equation}
+\langle n\rvert a^\dagger a\lvert n\rangle.
+\end{equation}
+向右作用，
+\begin{align}
+a\lvert n\rangle&=\sqrt n\,\lvert n-1\rangle,\\
+a^\dagger\lvert n-1\rangle&=\sqrt n\,\lvert n\rangle,
+\end{align}
+所以
+\begin{equation}
+\langle n\rvert a^\dagger a\lvert n\rangle
+=n\langle n\vert n\rangle=n.
+\end{equation}
+改为向左作用，
+\begin{align}
+\langle n\rvert a^\dagger&=\sqrt n\,\langle n-1\rvert,\\
+\langle n-1\rvert a&=\sqrt n\,\langle n\rvert,
+\end{align}
+得到同样的答案。人们不必判定哪个方向更基本；这套演算被安排成无论哪个方向都给出相同的数。
+
+\section{空间与时间中的量子场}
+
+这种记账法的理由在于粒子物理学。在微观尺度上，主要的实验手段是碰撞粒子并观察产生什么。一个含有一个或两个粒子的初态可能变成含有四个、五个、七个、九个或其他数目的态。由产生和湮灭算符构建的量子场为这类过程提供了一种语言。
+
+先在一维空间中工作。没有什么本质性的东西妨碍使用三维：\(x\)和\(k\)只需变成具有三个分量的矢量。使用其中
+\begin{equation}
+\hbar=1.
+\end{equation}
+的单位也很方便。于是动量和波矢具有相同的数值，
+\begin{equation}
+\vec p=\vec k.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.58\textwidth]{lecture_04_figure_03.png}
+\caption{自然单位\(\hbar=1\)以及等同关系\(\vec p=\vec k\)。}
+\lectureframe{00:36:56}
+\end{figure}
+
+采用如下约定：\(\psi\)湮灭而\(\psi^\dagger\)产生：
+\begin{align}
+\psi(x)&=\sum_k a(k)e^{ikx},\\
+\psi^\dagger(x)&=\sum_k a^\dagger(k)e^{-ikx}.
+\end{align}
+求和遍历周期空间中的\(k=2\pi n/L\)，并在无限空间中变为连续的。第二个方程是第一个方程的厄米共轭。它也可以被看作复共轭的算符类比。\footnote{黑板暂时把产生场展开式\(\sum_k a^\dagger(k)e^{-ikx}\)标记为\(\Psi\)，后来又在 dagger 的归属上犹豫。这里的标记是全局固定的，使得\(\psi\)湮灭而\(\psi^\dagger\)产生，与随后的散射计算完全一致。}
+
+为什么采用这个定义？在这个阶段，最好的答案是它有用。它是动量模式上的一个简单求和，而其系数正是移除或添加粒子的那些算符。详细的论证来自动力学以及它所使之成为可能的计算。
+
+\editorialnote{在引入共轭空间场之后紧接着的一小段源文本不够清晰，无法支持额外的归一化或解释性陈述。可靠的内容从该定义的有用性处恢复。}
+
+到目前为止，场依赖于位置但不依赖于时间。场会振荡，而每个波数\(k\)都有一个相关的频率\(\omega(k)\)。具有确定频率\(\omega\)的客体有时间依赖关系
+\begin{equation}
+e^{i\omega t}=\cos(\omega t)+i\sin(\omega t).
+\end{equation}
+把共轭相位附加到两个场展开式上：
+\begin{align}
+\psi(x,t)&=\sum_k a(k)e^{ikx}e^{-i\omega(k)t},\\
+\psi^\dagger(x,t)&=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+现在每个空间模式以其波数所对应的频率振荡，而场同时依赖于空间和时间。
+
+\section{非相对论场方程}
+
+\(\omega\)与\(k\)之间的关系决定了场所服从的微分方程。对于单个量子，波粒关系为
+\begin{equation}
+E=\hbar\omega,
+\qquad
+p=\hbar k.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{lecture_04_figure_04.png}
+\caption{能量-频率与动量-波数关系\(E=\hbar\omega\)和\(p=\hbar k\)。}
+\lectureframe{00:41:28}
+\end{figure}
+
+在\(\hbar=1\)下，能量就是频率，动量就是波数：
+\begin{equation}
+E=\omega,
+\qquad
+p=k.
+\end{equation}
+对于运动速度远小于光速的非相对论粒子，动能和动量服从
+\begin{equation}
+E=\frac{p^2}{2m}.
+\end{equation}
+这与由\(E=\tfrac12 mv^2\)和\(p=mv\)得到的关系相同。把这些关系结合起来，得到非相对论色散关系
+\begin{equation}
+\omega(k)=\frac{k^2}{2m}.
+\end{equation}
+
+对于产生场，模式展开为
+\begin{equation}
+\psi^\dagger(x,t)=\sum_k a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.66\textwidth]{lecture_04_figure_05.png}
+\caption{用于开始非相对论场方程的时间依赖模式展开。}
+\lectureframe{00:43:23}
+\end{figure}
+
+对时间求导：
+\begin{equation}
+\dot\psi^\dagger(x,t)
+=\sum_k i\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+对位置求一次导：
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial x}
+=\sum_k(-ik)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{equation}
+这些导数之间不存在直接的一阶关系，因为时间导数会带下\(\omega(k)\)，而一次空间导数会带下\(k\)。为了明确看出这一区别，设想线性色散关系
+\begin{equation}
+\omega(k)=k.
+\end{equation}
+此时时间导数会带下\(i\omega=ik\)，而一阶空间导数会带下\(-ik\)。逐模式地，
+\begin{equation}
+\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{\partial\psi^\dagger}{\partial x}.
+\end{equation}
+那个假想的场会满足一个一阶方程。然而在这里，\(\omega=k^2/(2m)\)，因此需要二阶空间导数：
+\begin{align}
+\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=\sum_k(-k^2)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}\\
+&=-2m\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{00:47:14}
+\audiencequestion{空间导数带来的那个负号真的应该在那里吗？}
+\lecturerresponse{是的。\(e^{-ikx}\)的每一次\(x\)导数都会带下\(-ik\)，而两次导数给出\((-ik)^2=-k^2\)。因此代入\(k^2=2m\omega\)便得到\(-2m\omega\)。}
+\end{classroomqa}
+
+将时间导数乘以\(i\)，得到的模式系数与将二阶空间导数除以\(2m\)相同：
+\begin{align}
+i\dot\psi^\dagger
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t},\\
+\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}
+&=-\sum_k\omega(k)a^\dagger(k)e^{-ikx}e^{i\omega(k)t}.
+\end{align}
+因此
+\begin{equation}
+i\frac{\partial\psi^\dagger}{\partial t}
+=\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2},
+\end{equation}
+或者等价地，
+\begin{equation}
+-i\frac{\partial\psi^\dagger}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi^\dagger}{\partial x^2}.
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.72\textwidth]{lecture_04_figure_06.png}
+\caption{产生场模式展开的时间导数和空间导数。}
+\lectureframe{00:49:06}
+\end{figure}
+
+\begin{classroomqa}
+\lecturetimestamp{00:49:43}
+\audiencequestion{系数是\(1/(2m)^2\)吗？}
+\lecturerresponse{不。它是\(1/(2m)\)。}
+\end{classroomqa}
+
+共轭湮灭场遵循熟悉的Schr\"odinger形式
+\begin{equation}
+i\frac{\partial\psi}{\partial t}
+=-\frac{1}{2m}\frac{\partial^2\psi}{\partial x^2}.
+\end{equation}
+这两个场方程互为厄米共轭。\footnote{在检查符号时，黑板上曾短暂地给出符号相反的空间项。对写出的模式相位直接求导，得到的就是这里写下的这一对共轭方程。}
+
+该方程与初等量子力学中的Schr\"odinger方程形式相同，但满足它的对象不同。在初等量子力学中，波函数是一个复值函数，其绝对值的平方被解释为概率。在这里，\(\psi\)和\(\psi^\dagger\)是算符：\(\psi\)移除一个粒子，\(\psi^\dagger\)添加一个粒子。这一对共轭量在粒子与场之间提供了直接联系。
+
+当大量量子占据相关模式时，场可以近似地表现为经典场，正如强激发的谐振子可以看起来是经典的，而单量子谐振子则不然。大的占据数使大的经典尺度成为可能，并能使适当的相对涨落变小。
+
+\editorialnote{仅凭大的占据数并不足以构成经典场。还需要一个相位相干的半经典态；数本征态没有确定的相位，也不必有非零的平均场。}
+
+\section{固定靶与散射振幅}
+
+这些场如何使用？考虑最简单的散射过程。一个粒子遇到一个重到可以忽略其反冲的靶。该靶永远固定在空间中。粒子可以被反射、透射或被改变方向；在三维中，其出射方向可以不同于入射方向。
+
+粒子在碰撞前后的动量不必相同。对于完整的物理系统，动量是守恒的，但靶吸收了缺失的动量。一旦靶的运动从数学描述中被省略，粒子自身的动量就不再守恒。
+
+在理想化模型中，它的能量表现不同。想象把一个网球扔向墙壁。真实的网球会发热并变形，但如果忽略这些效应，它会以相同的动能返回，尽管其动量反向。固定靶模型正是为了再现这一区别而设计的：粒子的能量守恒，而其动量可以改变。
+
+水平画空间，竖直画时间。靶是竖直线\(x=0\)。一个动量为\(k_i\)的入射单粒子态到达靶，一个动量为\(k_f\)的出射单粒子态离开它。
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-3.2,0) -- (3.2,0) node[right] {space};
+\draw[->] (0,-0.3) -- (0,4.2) node[above] {time};
+\draw[very thick] (0,0) -- (0,3.8);
+\node[left] at (-0.15,3.55) {$x=0$};
+\draw[thick,->] (-2.2,0.8) -- (0,2.0);
+\node[below] at (-1.45,1.05) {$k_i$};
+\draw[thick,->] (0,2.0) -- (2.2,3.2);
+\node[above] at (1.5,2.9) {$k_f$};
+\fill (0,2.0) circle (1.4pt);
+\end{tikzpicture}
+\caption{一个动量为\(k_i\)的粒子从固定在\(x=0\)的靶上散射，并以动量\(k_f\)出射。}
+\end{figure}
+
+使用吸收和再发射的语言。靶湮灭入射粒子，并立即产生出射粒子，后者可以具有不同的动量。这只是对散射事件的数学模型；例如，一个实际的原子可以吸收一个光子，保持激发一段时间，然后再发射。
+
+\begin{classroomqa}
+\lecturetimestamp{01:02:28}
+\audiencequestion{为什么粒子必须立即被吸收并重新发射？}
+\lecturerresponse{在自然界中并非必须如此。在同一点上的瞬时吸收与重新发射是这里所采用的简化模型。}
+\end{classroomqa}
+
+初态在\(k_i\)模式中包含一个粒子，而在任何其他模式中都不含粒子。用占据数语言来说，除了与\(k_i\)相关联的那一项为一之外，每一项都为零。将整个列表缩写为
+\begin{equation}
+\lvert k_i\rangle=a^\dagger(k_i)\lvert0\rangle.
+\end{equation}
+就足够了。类似地，
+\begin{equation}
+\langle k_f\rvert=\langle0\rvert a(k_f).
+\end{equation}
+
+在靶上和时间\(t\)处的湮灭由\(\psi(0,t)\)表示；在同一点和同一时刻的立即重新产生由\(\psi^\dagger(0,t)\)表示。并不存在该事件发生的优先时刻。只要入射粒子到达靶，它就可以发生，并且在每一时刻都具有相同的相互作用强度。为了表达不存在特殊时刻这一点，对所有\(t\)积分：
+\begin{equation}
+\int_{-\infty}^{\infty}dt\,\psi^\dagger(0,t)\psi(0,t).
+\end{equation}
+作用于初态右矢时，该算符产生一个态。它与末态左矢的重叠就是所指定跃迁的振幅。只有在取振幅的绝对平方之后才得到概率。
+
+还需要一个数。令\(g\)度量粒子与靶之间相互作用的强度。在这一记账模型中，将示意性的领头振幅写为\footnote{态归一化因子以及一阶微扰论的常规整体因子被省略；计算只使用算符选择定则和能量守恒的支集。}
+\begin{equation}
+\mathcal A_{i\to f}
+=g\left\langle k_f\left|
+\int_{-\infty}^{\infty}dt\,
+\psi^\dagger(0,t)\psi(0,t)
+\right|k_i\right\rangle.
+\end{equation}
+系数\(g\)称为耦合常数。对于带电靶散射光子，电荷提供了相互作用强度的相关度量：增加电荷会增加散射的倾向。
+
+不同的相互作用具有非常不同的耦合。到达质子的介子经历强相互作用，并具有相对较大的散射强度。被带电质子散射的光子具有较小的电磁耦合。与质子相互作用的中微子则具有更小的耦合。
+
+\begin{classroomqa}
+\lecturetimestamp{01:09:09}
+\audiencequestion{这个简单模型对电子有效吗？}
+\lecturerresponse{它只能作为若干种散射的简化替代。目前还不应把它解读为关于电子或任何某一特定靶的现实理论。}
+\end{classroomqa}
+
+引力子被原子核的引力散射会极其微弱。这些例子并不共享同一个普适的\(g\)；粒子物理学包含许多耦合常数。
+
+有效耦合也不必总是与频率无关。
+
+\begin{classroomqa}
+\lecturetimestamp{01:10:31}
+\audiencequestion{为什么把\(g\)取为常数，而不是\(\omega\)或\(k\)的函数？}
+\lecturerresponse{它不必总是常数。如果一个光子被原子吸收，原子在一段时间内保持激发，而光子稍后被发射，那么有效散射可以依赖于频率。常数\(g\)属于当前的瞬时模型。}
+\end{classroomqa}
+
+目前，保持\(g\)为常数，并计算这一最简单选择的后果。
+
+\begin{classroomqa}
+\lecturetimestamp{01:12:32}
+\audiencequestion{如果\(g=1\)，散射概率必须为一吗？}
+\lecturerresponse{不。所计算的表达式只是小\(g\)时的领头近似。如果耦合不小，就需要更高阶的微扰论；大于一的概率将标志单步近似的失效，而不是一个物理概率。}
+\end{classroomqa}
+
+\section{消去模式求和}
+
+在\(x=0\)处，空间相位等于一，因此
+\begin{align}
+\psi(0,t)&=\sum_k a(k)e^{-i\omega(k)t},\\
+\psi^\dagger(0,t)&=\sum_\ell a^\dagger(\ell)e^{i\omega(\ell)t}.
+\end{align}
+
+\begin{classroomqa}
+\lecturetimestamp{01:13:58}
+\audiencequestion{既然靶位于\(x=0\)，是否应当省略空间指数因子？}
+\lecturerresponse{是的。在靶处\(e^{ikx}=e^{ik0}=1\)，共轭空间因子也等于一。}
+\end{classroomqa}
+
+在两个求和中使用不同的哑标\(k\)和\(\ell\)。代入后得到
+\begin{align}
+\mathcal A_{i\to f}
+&=g\int_{-\infty}^{\infty}dt
+\sum_{\ell,k}
+e^{i\omega(\ell)t}e^{-i\omega(k)t}
+\langle k_f\rvert a^\dagger(\ell)a(k)\lvert k_i\rangle.
+\end{align}
+\(k\)-求和中的哪一项能够存活？湮灭算符在每一个空模式中都给出零。初态只在模式\(k_i\)中包含一个粒子，因此\(k=k_i\)。\(\ell\)-求和中的哪一项能够存活？向左作用时，\(a^\dagger(\ell)\)必须移除末态左矢所代表的粒子，因此\(\ell=k_f\)。两个求和都坍缩为：
+\begin{align}
+\mathcal A_{i\to f}
+&=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+\langle k_f\rvert a^\dagger(k_f)a(k_i)\lvert k_i\rangle.
+\end{align}
+湮灭算符把初始的单粒子右矢变为真空，
+\begin{equation}
+a(k_i)\lvert k_i\rangle=\lvert0\rangle,
+\end{equation}
+而创生算符向左作用，把末态的单粒子左矢变为真空左矢，
+\begin{equation}
+\langle k_f\rvert a^\dagger(k_f)=\langle0\rvert.
+\end{equation}
+因此它们的矩阵元为
+\begin{equation}
+\langle0\vert0\rangle=1.
+\end{equation}
+所有算符记账都归结为一；耦合提供\(g\)，剩下的非平凡部分是时间积分：
+\begin{equation}
+\mathcal A_{i\to f}
+=g\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}.
+\end{equation}
+
+\editorialnote{在01处的一个简短听众提问：18：40无法从来源中恢复。回答将这一单粒子计算与相对论性或多粒子问题区分开来；无法可靠地重建更精确的交流。}
+
+现在先前的{\proseunicodefont δ}函数恒等式可直接应用：
+\begin{equation}
+\int_{-\infty}^{\infty}dt\,
+e^{i(\omega_f-\omega_i)t}
+=2\pi\delta(\omega_f-\omega_i).
+\end{equation}
+因此
+\begin{equation}
+\boxed{
+\mathcal A_{i\to f}
+=2\pi g\,\delta(\omega_f-\omega_i)
+}.
+\end{equation}
+除非
+\begin{equation}
+\omega_f=\omega_i.
+\end{equation}
+否则振幅为零。由于\(\hbar=1\)，这就是\(E_f=E_i\)。能量守恒之所以出现，是因为每个相互作用时间都被同等对待。如果时间积分被限制在有限区间内，它会产生一个展宽的函数，而不是精确的{\proseunicodefont δ}函数。正是时间平移下的精确不变性给出了精确的能量守恒条件。
+
+\begin{classroomqa}
+\lecturetimestamp{01:21:30}
+\audiencequestion{必须对振幅取平方才能得到概率。{\proseunicodefont δ}函数平方时会发生什么？}
+\lecturerresponse{{\proseunicodefont δ}函数的平方需要额外小心。这里所需的要点是可靠的：除非初态和末态能量相等，否则结果为零。在能量守恒的支集上，示意性的平方前因子包含\(4\pi^2g^2\)。}
+\end{classroomqa}
+
+\editorialnote{不能通过简单地丢弃\(\delta(\omega_f-\omega_i)^2\)来得到归一化的跃迁概率或速率。它需要有限时间正则化和一致的状态归一化。因此，\(4\pi^2g^2\)仅作为来源中强调的示意性平方前因子被保留。}
+
+在这种点靶相互作用中，除了能量条件之外，没有任何东西能区分一个末态动量与另一个末态动量。因此，在三维情形下，该模型对所有具有相同能量的出射动量赋予相等的主导权重---等价地，对固定能量球面上的所有出射方向赋予相等的主导权重。这种各向同性是这一极其简单的点散射体的性质，而不是每个真实靶的性质。
+
+这一计算提供了三个相互关联的思想。系数\(g\)衡量相互作用强度。左矢-算符-右矢表达式是一个散射振幅，其绝对值的平方进入概率。最重要的是，对所有时间积分产生能量{\proseunicodefont δ}函数：时间平移对称性强制能量守恒。
+
+\section{当靶或耦合改变时，什么会改变？}
+
+原点\(x=0\)只是为了方便而选择的。把靶放在\(x=x_{\mathrm T}\)。\(\psi^\dagger(x_{\mathrm T},t)\psi(x_{\mathrm T},t)\)中的空间因子给出
+\begin{equation}
+e^{-ik_f x_{\mathrm T}}e^{ik_i x_{\mathrm T}}
+=e^{i(k_i-k_f)x_{\mathrm T}}.
+\end{equation}
+因此振幅变为
+\begin{equation}
+\mathcal A_{i\to f}(x_{\mathrm T})
+=e^{i(k_i-k_f)x_{\mathrm T}}
+\mathcal A_{i\to f}(0).
+\end{equation}
+
+\begin{classroomqa}
+\lecturetimestamp{01:24:37}
+\audiencequestion{总能重新定义位置，使靶位于\(x=0\)吗？}
+\lecturerresponse{对于这个单一固定靶，是的。如果把它留在\(x_{\mathrm T}\neq0\)，它的位置在振幅中表现为相位\(e^{i(k_i-k_f)x_{\mathrm T}}\)。乘以复共轭相位会把它从概率中移除。}
+\end{classroomqa}
+
+确实，
+\begin{equation}
+\left|e^{i(k_i-k_f)x_{\mathrm T}}\right|^2=1.
+\end{equation}
+振幅记得靶的位置，但这个单靶概率不记得。
+
+现在反转不对称性。假设相互作用可以发生在任意位置，但只发生在一个特定的时间。对位置积分会给出
+\begin{equation}
+\int_{-\infty}^{\infty}dx\,
+e^{i(k_i-k_f)x}
+=2\pi\delta(k_i-k_f),
+\end{equation}
+而固定时间则会移除能量{\proseunicodefont δ}函数。
+
+\begin{classroomqa}
+\lecturetimestamp{01:26:41}
+\audiencequestion{如果相互作用发生在哪里无关紧要，但它只发生在一个固定时间，那么会守恒一个不同的量吗？}
+\lecturerresponse{是的。对所有位置积分会强制动量守恒，而特定的相互作用时间会移除精确的能量守恒。在一个完整的两粒子问题中，相互作用可以发生在任意时间和任意地点。}
+\end{classroomqa}
+
+这也给出了显式时间依赖的物理解释。如果耦合是\(g(t)\)，或者外部干预突然使散射成为可能，那么并非每个时间都是等价的。约化描述随后可能与任何被省略的外部动力学交换能量。
+
+\begin{classroomqa}
+\lecturetimestamp{01:28:29}
+\audiencequestion{耦合常数大多来自实验吗？依赖于时间的耦合又意味着什么？}
+\lecturerresponse{是的，它们的数值由实验确定。显式的时间依赖通常意味着系统中某个运动或变化的部分被遗漏了，正如固定靶模型中忽略了靶的反冲一样。看似缺失的能量属于那些被忽略的自由度。}
+\end{classroomqa}
+
+运动靶是最简单的例子。
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:23}
+\audiencequestion{击中运动靶是不是一个粒子能量不守恒的例子？}
+\lecturerresponse{是的。如果靶的规定运动被排除在能量记账之外，它就可以向粒子提供能量或从中取走能量。}
+\end{classroomqa}
+
+靶的点状性质是另一种简化。
+
+\begin{classroomqa}
+\lecturetimestamp{01:29:43}
+\audiencequestion{什么时候必须把靶的大小与入射波的大小或波长进行比较？}
+\lecturerresponse{在当前模型中，靶的大小为零。有限的靶大小在与波长比较时确实会产生额外效应，但这一改进被推迟了。}
+\end{classroomqa}
+
+现在回到运动靶。想象一堵墙朝网球运动。墙可以把能量给予球。如果墙的运动是规定的，并且它的能量被忽略，那么仅球本身的能量并不守恒。在数学上，这是靶位置的时间依赖，而不一定是\(g\)的时间依赖。
+
+因此，产生和湮灭算符恰好完成了想要做的事情：它们描述从一个粒子态到另一个粒子态的跃迁，而场的时空依赖则决定伴随该跃迁的是哪些守恒条件。
+
+\section{电荷计数与相位不变性}
+
+每种粒子都有各自的场。例如，电子和光子并不由同一个\(\psi\)描述。为了用已有的代数揭示电荷计数，暂时让\(\psi\)代表一个类电子场：\(\psi\)湮灭一个这样的带电粒子，\(\psi^\dagger\)产生一个。这只是用于记账的玻色型替代物；真正的费米型电子场需要尚未引入的代数。
+
+固定靶因子
+\begin{equation}
+\psi^\dagger\psi
+\end{equation}
+湮灭一个粒子并产生一个粒子。一个电子进入，一个电子出去，因此这种粒子所携带的电荷不变。
+
+现在想象一个电子从同一点进入，两个电子离开。相应的算符乘积会包含一个湮灭场和两个产生场，
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi.
+\end{equation}
+对于电子场，这会净产生一个电子，从而违反电荷守恒。两个电子进入、两个电子离开则可以用
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+表示，其中产生场和湮灭场的数目相等。两个进入、三个离开则需要
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi^\dagger\psi\psi,
+\end{equation}
+并且同样会改变净电荷。直接的规则很简单：守恒电荷的相互作用中，\(\psi\)和\(\psi^\dagger\)的数目相同。
+
+\begin{classroomqa}
+\lecturetimestamp{01:34:27}
+\audiencequestion{在这个电荷守恒检验中，场算符的顺序重要吗？}
+\lecturerresponse{这个直接检验关心的是\(\psi\)和\(\psi^\dagger\)因子的数目，而不是它们的顺序。顺序不同的乘积在其他方面是否相同，是另一个问题。}
+\end{classroomqa}
+
+有一个比单纯计数更深刻的数学诊断方法。将场乘以一个常数相位：
+\begin{equation}
+\psi\longrightarrow e^{i\alpha}\psi.
+\end{equation}
+因为\(\psi^\dagger\)是厄米共轭，它按共轭相位变换，
+\begin{equation}
+\psi^\dagger\longrightarrow e^{-i\alpha}\psi^\dagger.
+\end{equation}
+两种场数目相等的表达式保持不变。例如，
+\begin{align}
+\psi^\dagger\psi
+&\longrightarrow
+e^{-i\alpha}e^{i\alpha}\psi^\dagger\psi
+=\psi^\dagger\psi,\\
+\psi^\dagger\psi^\dagger\psi\psi
+&\longrightarrow
+e^{-2i\alpha}e^{2i\alpha}
+\psi^\dagger\psi^\dagger\psi\psi
+=\psi^\dagger\psi^\dagger\psi\psi.
+\end{align}
+数目不相等的表达式则会改变。因此
+\begin{equation}
+\psi^\dagger\psi^\dagger\psi
+\longrightarrow
+e^{-i\alpha}\psi^\dagger\psi^\dagger\psi.
+\end{equation}
+允许的守恒电荷的相互作用，正是在这种整体相位变化下不变的相互作用。在这种简单的场语言中，相位不变性和电荷守恒是同一条规则的两种描述。
+
+组合
+\begin{equation}
+\psi+\psi^\dagger
+\end{equation}
+在任意相位旋转下并不保持不变。
+
+\begin{classroomqa}
+\lecturetimestamp{01:37:53}
+\audiencequestion{那不就是\(\psi\)的实部吗？}
+\lecturerresponse{是的。它与\(\psi\)的实部成正比，而将\(\psi\)乘以一个相位会改变该实部。因此它不是相位不变的。}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:38:05}
+\audiencequestion{如果一个电子撞击靶并发射出许多次级电子，电荷怎么还能守恒？}
+\lecturerresponse{在这个过程中靶并不是被动的。如果一个原子发射出许多电子，原子本身的电荷和状态都会改变。必须把它的动力学包括进来，靶也必须用量子场来描述。}
+\end{classroomqa}
+
+至此可以看到三种对应关系。时间平移不变性对应能量守恒。整体相位不变性对应电荷守恒。空间平移不变性对应动量守恒，尽管完整的空间计算仍有待完成。
+
+\section{算符次序与最低阶模型的局限}
+
+为简单起见，上述乘积将所有产生场置于左侧，所有湮灭场置于右侧。交错排列的乘积仍可具有相等的数目，因而通过电荷计数检验，但算符次序可能以其他方式影响表达式。
+
+\begin{classroomqa}
+\lecturetimestamp{01:40:02}
+\audiencequestion{同一种过程能否用诸如\(\psi\psi^\dagger\psi\psi^\dagger\)这样的交错因子来书写？}
+\lecturerresponse{它仍然具有相等的数目，因而满足电荷规则，但它一般并不等同于将所有匕首号置于左侧的表达式。不同次序之间的重排问题暂且搁置。}
+\end{classroomqa}
+
+\editorialnote{在01:41:10处听众提问的措辞损坏过甚，无法复原。可恢复的回应重申：\(\psi\)与\(\psi^\dagger\)数目相等意味着相位不变性与电荷守恒，而数目不等则两者皆不意味着。}
+
+这些对称性与守恒定律之间的联系是诺特定理的实例。在经典力学中，该定理给出一般框架；在这里，同样的联系已通过量子场的相位与{\proseunicodefont δ}函数直接展示出来。
+
+领头固定靶结果也有一个明显的适用范围。诸如\(4\pi^2g^2\)这样的示意性概率前因子一旦接近或超过1，便不可信赖。
+
+\begin{classroomqa}
+\lecturetimestamp{01:43:33}
+\audiencequestion{这个示意性结果是否意味着\(g\)必须小于大约\(1/(2\pi)\)？}
+\lecturerresponse{要么\(g\)足够小，使这一首项有用，要么模型是不完备的。一个粒子可以散射一次、返回后再散射两次，然后三次，如此等等。完整振幅是一个无穷级数。只有当\(g\)很小时，最简单的项才占主导；否则必须对许多费曼图求和。}
+\end{classroomqa}
+
+这些简单的时空图像是费曼图的雏形。它们的顶点规定了基本可能性：一个粒子进、一个粒子出对应诸如\(\psi^\dagger\psi\)这样的因子；两个进、两个出对应诸如\(\psi^\dagger\psi^\dagger\psi\psi\)这样的因子。重复的顶点生成耦合的更高次幂以及级数中的高阶项。
+
+\begin{classroomqa}
+\lecturetimestamp{01:45:39}
+\audiencequestion{耦合常数能否具有虚部？}
+\lecturerresponse{复耦合常数是可能出现的。不可约的\(T\)-奇相位组合可以标志时间反演不变性的破坏：时间反演后的过程未必带有由对称性关联的振幅。}
+\end{classroomqa}
+
+\editorialnote{这次交流中提到了QCD的\(\theta\)参数，但它是乘在一个\(T\)-奇相互作用上的实系数，而不是耦合的虚部。一个可移除的相位或一个吸收性复相位本身并不确立\(T\)破坏。该推断仅适用于不可约的\(T\)-奇相位组合。}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:02}
+\audiencequestion{出射粒子能否在入射粒子被吸收之前或之后发射，而不是在同一瞬间？}
+\lecturerresponse{这是个合理的问题，但瞬时模型并不处理它。更一般的时间次序暂且搁置。}
+\end{classroomqa}
+
+\begin{classroomqa}
+\lecturetimestamp{01:47:44}
+\audiencequestion{这一构造如何相对论化？}
+\lecturerresponse{简要的提示是将共轭部分结合起来，并纳入一个涉及\(\omega(k)\)平方根的分母。完整的构造暂且搁置。}
+\end{classroomqa}
+
+\editorialnote{口头给出的简要相对论公式无法可靠复原到足以排版的程度。仅保留其所陈述的要素与搁置说明。}
+
+电荷守恒还必须与静质量守恒严格区分开来。
+
+\begin{classroomqa}
+\lecturetimestamp{01:48:22}
+\audiencequestion{静质量是否以与电荷相同的结构意义守恒？}
+\lecturerresponse{不。在伽利略非相对论力学中，质量是一个可加的守恒量。在相对论性反应中，各粒子静质量之和未必守恒。一个电子和一个正电子可以湮灭为两个光子，而电荷仍然守恒。}
+\end{classroomqa}
+
+\editorialnote{对于一个完整的封闭相对论系统，总四维动量守恒，因此该系统的不变质量是固定的。湮灭的例子涉及各个粒子静质量之和，而不是封闭系统的不变质量。}
+
+因此，可加质量的守恒是一种有效的非相对论性事实，而不是与电荷守恒同等地位的基本规则。上文发现的相位不变性表达了更深层的电荷对称性。
+
+接下来的步骤是用费米子场取代玻色子替代物，并允许多种粒子---电子、{\proseunicodefont μ}子、夸克、光子及其他粒子---各自拥有自己的场和自己允许的相互作用。
+
+\begin{classroomqa}
+\lecturetimestamp{01:50:39}
+\audiencequestion{在目前只发展了玻色子场的情况下，把先前的例子称为电子场是否合理？}
+\lecturerresponse{只能作为电子的玻色子版本或替代物。真正的费米子理论尚未引入。}
+\end{classroomqa}
