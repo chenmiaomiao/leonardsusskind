@@ -122,6 +122,17 @@ Malformed JSON responses are archived and retried once at the transport level;
 invalid cached review replies cannot permanently poison a resume. No accepted
 translation is discarded by that retry.
 
+### Review Model Qualification
+
+Translation remains on `deepseek-chat`; semantic review uses the independently
+tested `deepseek-reasoner` route (`--review-model` overrides it). The basic chat
+reviewer repeatedly called equivalent translations errors, and once suggested
+reversing an operator product that was copied faithfully. In a six-case pilot,
+the reasoning route correctly accepted all five faithful passages and rejected
+a deliberately reversed electric-charge statement. This is pilot evidence,
+not a guarantee. Review caches include the model identity, so a model change
+cannot silently reuse a weaker review. No Codex translation workers were added.
+
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
 README edits outside the generated block, or files over 95 MiB. A publication

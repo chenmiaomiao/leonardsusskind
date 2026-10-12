@@ -441,12 +441,12 @@ def apply_reviewed_repairs(path):
     print(f'Applied {len(packet["repairs"])} reviewed repairs', flush=True)
 
 
-def chat(prompt, dest, args):
+def chat(prompt, dest, args, *, model=None):
     sys.path.insert(0, str(args.toolkit_root / 'scripts/interlinear'))
     from llm_chat_backend import run_chat_completion
     for attempt in range(2):
         run_chat_completion(prompt, dest, dest.with_suffix('.usage.jsonl'), provider='deepseek',
-                            model=args.model, timeout_seconds=600, max_attempts=3)
+                            model=model or args.model, timeout_seconds=600, max_attempts=3)
         try:
             return read(dest)
         except json.JSONDecodeError:
@@ -623,6 +623,7 @@ def adjudicated_review(book, lang, report):
 
 
 def review_sample(book, lang, args):
+    review_model = getattr(args, 'review_model', 'deepseek-reasoner')
     pairs = []
     for rel in book['source_files']:
         if not (rel.endswith('content.tex') or rel == 'course.tex'):
@@ -638,13 +639,14 @@ def review_sample(book, lang, args):
             pairs.append({'chapter': rel, 'source': restore(p['parts'][int(key)], p['protected']),
                           'translation': restore(t, p['protected']), 'segment_id': key})
     report = WORK / 'reviews' / book['id'] / f'{lang}.json'
-    sample_hash = digest(json.dumps(pairs, ensure_ascii=False))
+    sample_hash = digest(json.dumps({'model': review_model, 'pairs': pairs}, ensure_ascii=False))
     if report.exists() and read(report).get('sample_sha256') == sample_hash:
         return adjudicated_review(book, lang, read(report))
     issues = []
     for start in range(0, len(pairs), 10):
         batch = pairs[start:start + 10]
-        batch_path = report.with_name(lang + '.' + digest(json.dumps(batch, ensure_ascii=False))[:20] + '.batch.json')
+        batch_path = report.with_name(lang + '.' + digest(json.dumps(
+            {'model': review_model, 'pairs': batch}, ensure_ascii=False))[:20] + '.batch.json')
         reply = None
         if batch_path.exists():
             try:
@@ -667,10 +669,11 @@ def review_sample(book, lang, args):
                  'multiplication, not reversed ordering. Do not rewrite a numerical approximation or '
                  'claim made by the English source when the translation preserves it faithfully. '
                  'This is sampled semantic review, not full-book review.\n' + json.dumps(batch, ensure_ascii=False),
-                 batch_path, args)
+                 batch_path, args, model=review_model)
         if reply.get('pass') is not True or reply.get('issues') != []:
             issues.extend(reply.get('issues') or [{'reason': 'Invalid reviewer response', 'batch': start}])
-    report_data = {'pass': not issues, 'issues': issues, 'sample_sha256': sample_hash, 'pairs_reviewed': len(pairs)}
+    report_data = {'pass': not issues, 'issues': issues, 'sample_sha256': sample_hash,
+                   'pairs_reviewed': len(pairs), 'model': review_model}
     write(report, report_data)
     return adjudicated_review(book, lang, report_data)
 
@@ -706,6 +709,7 @@ def compile_book(book, lang, args):
     shutil.copy2(build / 'course.pdf', dst / 'book.pdf')
     qa.update({'status': 'validated', 'pdf_sha256': hashlib.sha256((dst / 'book.pdf').read_bytes()).hexdigest(),
                'semantic_review': 'sampled, not exhaustive', 'sample_pairs': review['pairs_reviewed'],
+               'review_model': review['model'],
                'review_adjudications': review.get('adjudications', []),
                'translation_results': {rel: digest(json.dumps(read(result_path(book, lang, rel))['accepted'],
                                       ensure_ascii=False, sort_keys=True))
@@ -876,6 +880,7 @@ def main():
     parser.add_argument('--workers', type=int, default=5)
     parser.add_argument('--ramp-seconds', type=float, default=1)
     parser.add_argument('--model', default='deepseek-chat')
+    parser.add_argument('--review-model', default='deepseek-reasoner')
     parser.add_argument('--toolkit-root', type=Path, default=ROOT.parent / 'ZhJpBook')
     parser.add_argument('--pilot-only', action='store_true')
     parser.add_argument('--publish', action='store_true', help='Commit and push validated outputs only')
