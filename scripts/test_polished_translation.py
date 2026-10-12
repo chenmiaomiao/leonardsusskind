@@ -26,6 +26,7 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNotNone(p.validate('Hello', r'\input{secret}', 'ja'))
         self.assertIsNotNone(p.validate('@@T000000@@ Hello', 'こんにちは', 'ja'))
         self.assertIsNotNone(p.validate('Hello', 'こんにちは 3', 'ja'))
+        self.assertEqual(p.validate('position', '位�置', 'zh'), 'corrupt Unicode/control character')
 
     def test_url_protected_link_title_translated(self):
         text, _ = p.protect(r'\href{https://example.com}{Readable title}')
@@ -105,6 +106,11 @@ class TranslationTests(unittest.TestCase):
                 p.write(packet, {'book': 'fixture', 'repairs': [{**row, 'translation': '18の状態'}]})
                 with self.assertRaisesRegex(ValueError, 'Existing translation changed'):
                     p.apply_reviewed_repairs(packet)
+                result['accepted']['0'] = '18個の状�態'
+                p.write(p.result_path(book, 'ja', 'chapter.tex'), result)
+                p.write(packet, {'book': 'fixture', 'repairs': [{
+                    **row, 'previous_sha256': p.digest(result['accepted']['0'])}]})
+                p.apply_reviewed_repairs(packet)
 
     def test_inline_math_can_move_but_not_across_structural_boundaries(self):
         source = '@@T000000@@One @@T000001@@ two @@T000002@@@@T000003@@'

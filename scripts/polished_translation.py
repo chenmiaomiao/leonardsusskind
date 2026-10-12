@@ -224,6 +224,8 @@ def token_integrity(source, translated, protected):
 def validate(source, translated, lang, protected=None):
     if not isinstance(translated, str) or not translated.strip():
         return 'empty translation'
+    if re.search(r'[\ufffd\ud800-\udfff\x00-\x08\x0b\x0c\x0e-\x1f]', translated):
+        return 'corrupt Unicode/control character'
     if not token_integrity(source, translated, protected):
         return 'protected token order/coverage changed'
     prose = TOKEN.sub('', translated)
@@ -362,7 +364,11 @@ def apply_reviewed_repairs(path):
             raise ValueError(f'Invalid repair: {rel}:{key}: {issue}')
         identity = (lang, rel)
         if identity not in pending:
-            pending[identity] = load_results(book, lang, rel, prepared)
+            dest = result_path(book, lang, rel)
+            pending[identity] = read(dest) if dest.exists() else {
+                'source_sha256': prepared['source_sha256'], 'accepted': {}}
+            if pending[identity]['source_sha256'] != prepared['source_sha256']:
+                raise ValueError('Stale translation cache')
         result = pending[identity]
         previous = result['accepted'].get(key)
         if previous is not None and previous != row['translation']:
@@ -374,6 +380,12 @@ def apply_reviewed_repairs(path):
             'reason': row['reason'], 'packet_sha256': digest(path.read_text()),
             'translation_sha256': digest(row['translation'])}
     # Validate the whole packet before changing any cache file.
+    for (lang, rel), result in pending.items():
+        prepared = read(WORK / 'prepared' / book['id'] / (rel + '.json'))
+        for key, text in result['accepted'].items():
+            issue = validate(prepared['parts'][int(key)], text, lang, prepared['protected'])
+            if issue:
+                raise ValueError(f'Unresolved cached error: {rel}:{key}: {issue}')
     for (lang, rel), result in pending.items():
         dest = result_path(book, lang, rel)
         if dest.exists():
@@ -421,7 +433,8 @@ def translate_file(book, lang, rel, args):
                 'left@@T000001@@right becomes 左@@T000001@@右, not 左右. '
                 'Return JSON {"translations": {"id": "translated paragraph"}} with all supplied IDs only. '
                 'No TeX commands, markdown, new numbers, or comments. Translate headings and introductory '
-                'paragraphs just as carefully as body text. Proper names may remain Latin. '
+                'paragraphs just as carefully as body text. Proper names may remain Latin, but ordinary '
+                'prose such as companion notes or Professor must be translated, not left in English. '
                 f'Book: {book["titles"]["en"]}. Target title: {book["titles"][lang]}. '
                 'Use Japanese scientific style (である調) or readable modern Chinese as appropriate. '
                 'In Japanese use 標準模型 for Standard Model, 弱ゲージボソン for weak boson, '
@@ -539,7 +552,7 @@ def assemble(book, lang):
 def review_sample(book, lang, args):
     pairs = []
     for rel in book['source_files']:
-        if not rel.endswith('content.tex'):
+        if not (rel.endswith('content.tex') or rel == 'course.tex'):
             continue
         p = read(WORK / 'prepared' / book['id'] / (rel + '.json'))
         result = load_results(book, lang, rel, p)

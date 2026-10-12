@@ -92,6 +92,13 @@ one Chinese paragraph repeated a Hamiltonian token and was rewritten to use it
 once. Unsupported numeric paraphrases were corrected without loosening the
 global preservation checks. Balance was not the blocker.
 
+The subsequent PDF gate caught two U+FFFD replacement characters in otherwise
+intact words. Both were checked against the source and repaired; the segment
+validator now rejects corrupt Unicode/control characters before compilation.
+Front matter is included in semantic review, and ordinary English wording must
+be translated even when nearby proper names remain Latin. These repairs do not
+change any frozen equation or original image.
+
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
 README edits outside the generated block, or files over 95 MiB. A publication
