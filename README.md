@@ -251,7 +251,7 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Topics in String Theory (2011 winter topics in string theory) | In preparation (848/848 segments) | In preparation (848/848 segments) |
 | String Theory and M-Theory (2010 fall string theory and m theory) | In preparation (952/953 segments) | In preparation (953/953 segments) |
 | Classical Mechanics (2011 fall theoretical minimum) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--classical_mechanics--2011_fall_theoretical_minimum/zh/book.pdf) |
-| Quantum Mechanics (2012 winter theoretical minimum alt title) | In preparation (0/868 segments) | In preparation (0/868 segments) |
+| Quantum Mechanics (2012 winter theoretical minimum alt title) | [Available PDF](translations/core--quantum_mechanics--2012_winter_theoretical_minimum_alt_title/ja/book.pdf) | [Available PDF](translations/core--quantum_mechanics--2012_winter_theoretical_minimum_alt_title/zh/book.pdf) |
 | Special Relativity (2012 spring theoretical minimum) | In preparation (0/1097 segments) | In preparation (0/1097 segments) |
 | General Relativity (2012 fall theoretical minimum) | In preparation (0/921 segments) | In preparation (0/921 segments) |
 | Statistical Mechanics (2013 spring theoretical minimum) | In preparation (0/911 segments) | In preparation (0/911 segments) |
