@@ -91,6 +91,11 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNone(p.validate('eigenvalues of unit magnitude', '固有値の絶対値は1', 'ja'))
         self.assertIsNone(p.validate('their commutator is unity', '它们的对易子为1', 'zh'))
         self.assertIsNotNone(p.validate('a unit of energy', '能量为1', 'zh'))
+        self.assertIsNone(p.validate('the first row and the second column', '第1行と第2列', 'ja'))
+        self.assertIsNone(p.validate('a single trial and a quarter turn', '1回の試行と4分の1回転', 'ja'))
+        self.assertIsNotNone(p.validate('a quarter turn', '3分の1回転', 'ja'))
+        self.assertIsNone(p.validate('a penny and a dime', '1セント硬貨と10セント硬貨', 'ja'))
+        self.assertIsNotNone(p.validate('a penny and a dime', '5セント硬貨と10セント硬貨', 'ja'))
 
     def test_reference_glue_and_accented_names_can_move_with_prose(self):
         source, frozen = p.protect(r'Now set \(y=x\) in Eq.~\eqref{test}.')

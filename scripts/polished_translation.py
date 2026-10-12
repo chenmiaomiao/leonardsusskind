@@ -38,6 +38,9 @@ for _tens, _value in zip('twenty thirty forty fifty sixty seventy eighty ninety'
         if _number != '0':
             NUMBER_WORDS[_tens + '-' + _ones] = str(_value + int(_number))
             NUMBER_WORDS[_tens + ' ' + _ones] = str(_value + int(_number))
+NUMBER_WORDS.update(dict(zip(
+    'first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth'.split(), map(str, range(1, 13)))))
+NUMBER_WORDS.update({'single': '1', 'penny': '1', 'pennies': '1', 'dime': '10', 'dimes': '10'})
 NUMBER_WORD_PATTERN = re.compile(r'\b(?:' + '|'.join(
     re.escape(w) for w in sorted(NUMBER_WORDS, key=len, reverse=True)) + r')\b')
 TEXT_MACROS = {
@@ -198,7 +201,7 @@ def needs_translation(text):
 def movable_token(value):
     value = value.strip()
     return bool(re.fullmatch(
-        r'\d+(?:[.,]\d+)*|\$(?:[^$]|\\\$)+\$|\\\(.*\\\)|~?\\(?:eqref|ref|pageref)\{[^{}]*\}'
+        r'\d+(?:[.,]\d+)*|\$(?:[^$]|\\\$)+\$|\\\(.*\\\)|~?\\(?:eqref|ref|pageref)\{[^{}]*\}|--|---|``|\x27\x27|~'
         r'|[A-Za-z]+\\(?:c|v|H|u|k|\x27|`|\^|"|~)(?:\{[A-Za-z]\}|[A-Za-z])[A-Za-z]*', value, re.S))
 
 
@@ -277,7 +280,9 @@ def validate(source, translated, lang, protected=None):
     for number, count in source_words.items():
         normalized_source[str(Fraction(number))] += count
     try:
-        candidate_numbers = Counter(str(Fraction(n)) for n in re.findall(r'\d+(?:\.\d+)?(?:/\d+)?', prose))
+        # Japanese names the denominator first: 4分の1 is exactly one quarter.
+        number_text = re.sub(r'(\d+)分の(\d+)', lambda m: m[2] + '/' + m[1], prose)
+        candidate_numbers = Counter(str(Fraction(n)) for n in re.findall(r'\d+(?:\.\d+)?(?:/\d+)?', number_text))
     except ZeroDivisionError:
         return 'invalid numerical fraction'
     if candidate_numbers - normalized_source:

@@ -73,7 +73,10 @@ Check `.translation-work/status.json` and `queue.log` before restarting.
 ## Validation Repairs
 
 Number-word validation recognizes zero through ninety-nine (including compound
-forms), common fractions, and mathematical unity/unit magnitude. It still
+forms), first through twelfth, single occurrences, common fractions, and
+mathematical unity/unit magnitude. Japanese denominator-first fractions such as
+`4分の1` are compared as rational values; penny/dime denominations are recognized
+when those exact source words occur. It still
 rejects unsupported new quantities. Immutable accented names and nonbreaking
 reference glue may follow natural target-language word order. Math can pass
 around a complete emphasis group, but not into or out of its braces. Duplicate
@@ -132,6 +135,30 @@ the reasoning route correctly accepted all five faithful passages and rejected
 a deliberately reversed electric-charge statement. This is pilot evidence,
 not a guarantee. Review caches include the model identity, so a model change
 cannot silently reuse a weaker review. No Codex translation workers were added.
+
+## Verified Checkpoint: 2026-10-12
+
+Advanced Quantum Mechanics is complete in both standalone languages:
+
+| Check | Japanese | Chinese |
+| --- | ---: | ---: |
+| Accepted segments | 840/840 | 840/840 |
+| PDF pages | 142 | 128 |
+| Outline entries | 130 | 130 |
+| Image placements, including cover | 30 | 30 |
+| Displayed equation environments retained | 501 | 501 |
+| Inline math fragments retained | 1,147 | 1,147 |
+| Chapter figure commands retained | 29 | 29 |
+| Reasoning-model semantic sample | 56 pairs | 38 pairs |
+| Overflow / missing glyph / out-of-page text | 0 | 0 |
+
+The final reasoning reviews passed with no issues and no manual dismissals.
+Cover, contents and figure pages were visually inspected, including the repaired
+math-bearing title. The final books were pushed in `50b47822`. All 16 original
+English source sets were verified unchanged. This is sampled semantic evidence,
+not a claim of exhaustive error-free translation. The next Quantum Entanglement
+book resumes from its cached segments; remaining books still require generation
+and all finalization gates.
 
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
