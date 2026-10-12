@@ -80,6 +80,11 @@ Per-book failures and publication state are retained under
 An interrupted request with a saved valid response is recovered without a new
 API call. Malformed or missing responses still consume the finite content
 attempt budget; transport failures refund it because they produced no content.
+Transient connection, timeout, rate-limit or server failures may resume the
+queue twice after five- and ten-minute cooldowns. No calls run during the wait;
+STOP is checked every five seconds. Authentication/payment failures stop for
+owner attention, never automatic charging or endless credit checks. Override
+with `--transport-resumes` and `--transport-retry-seconds`.
 
 ## Validation Repairs
 

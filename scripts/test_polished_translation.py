@@ -337,7 +337,7 @@ class TranslationTests(unittest.TestCase):
             p.write(p.result_path(book, 'ja', 'chapter.tex'), {'source_sha256': 'sha', 'accepted': {'0': old}})
             report = {'issues': [{'chapter': 'chapter.tex', 'segment_id': '0', 'reason': 'Fixture only'}]}
             with patch.object(p, 'chat', return_value={'translations': {'0': '電荷の説明。'}}):
-                self.assertFalse(p.repair_review(book, 'ja', report, SimpleNamespace()))
+                self.assertTrue(p.repair_review(book, 'ja', report, SimpleNamespace()))
             self.assertEqual(p.read(p.result_path(book, 'ja', 'chapter.tex'))['accepted']['0'], old)
             with patch.object(p, 'chat', return_value={'translations': {'0': '電荷は' + token + 'である。'}}):
                 self.assertTrue(p.repair_review(book, 'ja', report, SimpleNamespace()))
@@ -345,6 +345,9 @@ class TranslationTests(unittest.TestCase):
             self.assertEqual(result['superseded']['0'], [old])
             self.assertEqual(result['review_ids'], ['0'])
             self.assertEqual(p.read(p.OUT / 'fixture/ja/quality.json')['status'], 'needs_rebuild')
+            with patch.object(p, 'chat') as chat:
+                self.assertFalse(p.repair_review(book, 'ja', report, SimpleNamespace()))
+                chat.assert_not_called()
 
     def test_failed_batch_does_not_abandon_remaining_chapter(self):
         with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
@@ -382,6 +385,31 @@ class TranslationTests(unittest.TestCase):
             self.assertEqual(runner.call_count, 2)
             self.assertEqual(p.read(p.WORK / 'status.json')['blocked_books'], ['first'])
             self.assertEqual(p.read(p.WORK / 'book-state/second.json')['state'], 'complete')
+
+    def test_transport_recovery_waits_only_for_transient_failures(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            p.write(p.WORK / 'status.json', {'state': 'provider_blocked'})
+            args = SimpleNamespace(transport_resumes=2, transport_retry_seconds=0)
+            with patch.object(p, 'run', side_effect=[p.ProviderUnavailable('status=429'), None]) as run:
+                p.run_with_transport_recovery(args)
+                self.assertEqual(run.call_count, 2)
+            with patch.object(p, 'run', side_effect=p.ProviderUnavailable('status=402')) as run:
+                with self.assertRaises(p.ProviderUnavailable):
+                    p.run_with_transport_recovery(args)
+                self.assertEqual(run.call_count, 1)
+            with patch.object(p, 'run', side_effect=p.ProviderUnavailable('APIConnectionError')) as run:
+                with self.assertRaises(p.ProviderUnavailable):
+                    p.run_with_transport_recovery(args)
+                self.assertEqual(run.call_count, 3)
+
+    def test_transport_wait_honors_stop_marker(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            p.write(p.WORK / 'status.json', {'state': 'provider_blocked'})
+            (p.WORK / 'STOP').touch()
+            with patch.object(p, 'run', side_effect=p.ProviderUnavailable('status=503')), patch.object(p.time, 'sleep') as sleep:
+                p.run_with_transport_recovery(SimpleNamespace(transport_resumes=2, transport_retry_seconds=300))
+                sleep.assert_not_called()
+            self.assertEqual(p.read(p.WORK / 'status.json')['state'], 'paused')
 
     def test_preamble_retains_custom_macros_and_localizes_labels(self):
         source = r'\usepackage[utf8]{inputenc}' + '\n' + r'\newcommand{\custom}[1]{#1}\newcommand{\lectureoverview}[1]{\paragraph{Overview.} #1}'

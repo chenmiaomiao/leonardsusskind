@@ -525,7 +525,8 @@ def accept_candidates(prepared, result, rows, translations, lang, stage):
             if previous is not None and previous != translated:
                 result.setdefault('superseded', {}).setdefault(key, []).append(previous)
             result['accepted'][key] = translated
-            if stage != 'writer' or TOKEN.findall(source) != TOKEN.findall(translated):
+            if (stage != 'writer' or result.get('attempts', {}).get(key, {}).get('writer', 0) > 1
+                    or TOKEN.findall(source) != TOKEN.findall(translated)):
                 result['review_ids'] = sorted(set(result.get('review_ids', []) + [key]), key=int)
             result.get('candidates', {}).pop(key, None)
     return errors
@@ -664,9 +665,6 @@ def translate_file(book, lang, rel, args):
                     'read_only_token_legend': {token: p['protected'][int(token[3:9])]
                         for source in eligible.values() for token in TOKEN.findall(source)}}, ensure_ascii=False))
             request_segments(book, lang, rel, p, result, eligible, args, 'writer', errors, prompt)
-            if attempt:
-                result['review_ids'] = sorted(set(result.get('review_ids', []) + [k for k in eligible if k in result['accepted']]), key=int)
-                write(result_path(book, lang, rel), result)
             pending = {k: s for k, s in pending.items() if k not in result['accepted']}
             print(json.dumps({'book': book['id'], 'lang': lang, 'file': rel,
                               'accepted': len(result['accepted']), 'pending_batch': len(pending)}, ensure_ascii=False), flush=True)
@@ -844,7 +842,7 @@ def repair_review(book, lang, report, args):
         if rel not in book['source_files'] or not key.isdigit():
             continue
         grouped.setdefault(rel, {}).setdefault(key, []).append(issue)
-    changed = False
+    attempted = False
     for rel, issues in grouped.items():
         prepared = read(WORK / 'prepared' / book['id'] / (rel + '.json'))
         result = load_results(book, lang, rel, prepared)
@@ -853,13 +851,13 @@ def repair_review(book, lang, report, args):
         for key, findings in issues.items():
             before = result['accepted'][key]
             errors = {key: findings}
-            request_segments(book, lang, rel, prepared, result,
-                             {key: prepared['parts'][int(key)]}, args, 'semantic', errors)
+            requested = request_segments(book, lang, rel, prepared, result,
+                                         {key: prepared['parts'][int(key)]}, args, 'semantic', errors)
+            attempted = attempted or requested
             if result['accepted'][key] != before:
-                changed = True
                 quality = OUT / book['id'] / lang / 'quality.json'
                 write(quality, {'status': 'needs_rebuild', 'reason': 'Semantic repair changed translation'})
-    return changed
+    return attempted
 
 
 def compile_book(book, lang, args):
@@ -1048,7 +1046,8 @@ def run_book(book, args):
             try:
                 future.result()
             except ProviderUnavailable as exc:
-                provider_failure = exc
+                if provider_failure is None or 'Provider stopped;' not in str(exc):
+                    provider_failure = exc
             except Exception as exc:
                 errors.append({'stage': 'translation', 'language': lang, 'file': rel, 'error': str(exc)})
             update_readmes()
@@ -1134,6 +1133,27 @@ def run(args):
               ('pilot_ready' if args.pilot_only else 'complete')), 'blocked_books': blocked, 'updated_at': time.time()})
 
 
+def run_with_transport_recovery(args):
+    for attempt in range(args.transport_resumes + 1):
+        try:
+            return run(args)
+        except ProviderUnavailable as exc:
+            retryable = re.search(r'status=(?:408|409|425|429|5\d\d)\b|API(?:Connection|Timeout)Error', str(exc))
+            if not retryable or attempt == args.transport_resumes:
+                raise
+            remaining = args.transport_retry_seconds * 2 ** attempt
+            state = read(WORK / 'status.json')
+            write(WORK / 'status.json', {**state, 'state': 'waiting_for_provider',
+                  'retry_at': time.time() + remaining, 'resume_attempt': attempt + 1})
+            while remaining > 0:
+                if (WORK / 'STOP').exists():
+                    write(WORK / 'status.json', {**state, 'state': 'paused'})
+                    return
+                seconds = min(5, remaining)
+                time.sleep(seconds)
+                remaining -= seconds
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['prepare', 'run', 'status', 'compile', 'approve-pilot', 'readme', 'repair', 'review'])
@@ -1141,6 +1161,8 @@ def main():
     parser.add_argument('--ramp-seconds', type=float, default=1)
     parser.add_argument('--model', default='deepseek-chat')
     parser.add_argument('--review-model', default='deepseek-reasoner')
+    parser.add_argument('--transport-resumes', type=int, choices=range(4), default=2)
+    parser.add_argument('--transport-retry-seconds', type=int, default=300)
     parser.add_argument('--toolkit-root', type=Path, default=ROOT.parent / 'ZhJpBook')
     parser.add_argument('--pilot-only', action='store_true')
     parser.add_argument('--publish', action='store_true', help='Commit and push validated outputs only')
@@ -1151,6 +1173,8 @@ def main():
     args = parser.parse_args()
     if not 1 <= args.workers <= 5:
         parser.error('Use 1 to 5 workers')
+    if args.transport_retry_seconds < 0:
+        parser.error('Transport delay cannot be negative')
     with ExitStack() as stack:
         if args.command in {'prepare', 'compile', 'approve-pilot', 'repair', 'review'}:
             WORK.mkdir(parents=True, exist_ok=True)
@@ -1159,7 +1183,7 @@ def main():
         if args.command == 'prepare':
             prepare()
         elif args.command == 'run':
-            run(args)
+            run_with_transport_recovery(args)
         elif args.command == 'status':
             print(json.dumps(status(), ensure_ascii=False, indent=2))
         elif args.command == 'readme':
