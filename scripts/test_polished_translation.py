@@ -49,6 +49,63 @@ class TranslationTests(unittest.TestCase):
         self.assertIsNone(p.validate('one and a half times, at two standard deviations', '1.5倍で2標準偏差', 'ja'))
         self.assertIsNone(p.validate('Spin-One-Half', 'スピン1/2', 'ja'))
 
+    def test_teen_compound_and_unity_are_not_invented_numbers(self):
+        self.assertIsNone(p.validate('eight and eighteen elements', '8個と18個の元素', 'ja'))
+        self.assertIsNone(p.validate('exactly thirty-seven particles', 'ちょうど37個の粒子', 'ja'))
+        self.assertIsNotNone(p.validate('exactly thirty-seven particles', 'ちょうど38個の粒子', 'ja'))
+        self.assertIsNotNone(p.validate('exactly thirty-seven particles', '30個と7個の粒子', 'ja'))
+        self.assertIsNone(p.validate('eigenvalues of unit magnitude', '固有値の絶対値は1', 'ja'))
+        self.assertIsNone(p.validate('their commutator is unity', '它们的对易子为1', 'zh'))
+        self.assertIsNotNone(p.validate('a unit of energy', '能量为1', 'zh'))
+
+    def test_reference_glue_and_accented_names_can_move_with_prose(self):
+        source, frozen = p.protect(r'Now set \(y=x\) in Eq.~\eqref{test}.')
+        tokens = p.TOKEN.findall(source)
+        self.assertIsNone(p.validate(source, '式' + tokens[1] + 'において' + tokens[0] + 'と置く。', 'ja', frozen))
+        self.assertTrue(p.movable_token(r'Schr\"odinger'))
+
+    def test_inline_math_can_pass_around_but_not_enter_emphasis(self):
+        source, frozen = p.protect(r'The integer \(n_i\) is the \emph{occupation number} of oscillator \(i\).')
+        a, opening, closing, b = p.TOKEN.findall(source)
+        valid = '整数' + a + '是第' + b + '个振子的' + opening + '占据数' + closing + '。'
+        invalid = '整数' + a + '是' + opening + '第' + b + '个占据数' + closing + '。'
+        self.assertIsNone(p.validate(source, valid, 'zh', frozen))
+        self.assertIsNotNone(p.validate(source, invalid, 'zh', frozen))
+
+    def test_repeated_equation_token_is_still_rejected(self):
+        source, frozen = p.protect(r'Both \(x\) and \(y\) commute with \(H\).')
+        a, b, h = p.TOKEN.findall(source)
+        self.assertIsNotNone(p.validate(source, a + '与' + h + '对易，' + b + '也与' + h + '对易。', 'zh', frozen))
+
+    def test_unknown_nested_structure_does_not_open_a_math_escape(self):
+        frozen = [r'\emph{', r'\footnote{', '$x$', '}', '}']
+        source = '@@T000000@@A@@T000001@@B@@T000002@@@@T000003@@@@T000004@@'
+        escaped = '@@T000000@@A@@T000001@@B@@T000003@@@@T000004@@@@T000002@@'
+        self.assertFalse(p.token_integrity(source, escaped, frozen))
+
+    def test_source_bound_repair_validates_whole_packet_before_writing(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp) / 'work'), patch.object(p, 'MANIFEST', Path(tmp) / 'manifest.json'):
+            book = {'id': 'fixture', 'source_files': {'chapter.tex': 'sha'}}
+            p.write(p.MANIFEST, {'books': [book]})
+            p.write(p.WORK / 'prepared/fixture/chapter.tex.json', {
+                'source_sha256': 'sha', 'parts': ['eighteen states'], 'protected': []})
+            packet = Path(tmp) / 'repairs.json'
+            row = {'lang': 'ja', 'file': 'chapter.tex', 'segment_id': '0', 'source_sha256': 'sha',
+                   'source': 'eighteen states', 'translation': '18個の状態', 'reason': 'Number-word check'}
+            p.write(packet, {'book': 'fixture', 'repairs': [row, {**row, 'source': 'stale'}]})
+            with patch.object(p, 'verify_sources'):
+                with self.assertRaisesRegex(ValueError, 'Stale repair source'):
+                    p.apply_reviewed_repairs(packet)
+                self.assertFalse(p.result_path(book, 'ja', 'chapter.tex').exists())
+                p.write(packet, {'book': 'fixture', 'repairs': [row]})
+                p.apply_reviewed_repairs(packet)
+                result = p.read(p.result_path(book, 'ja', 'chapter.tex'))
+                self.assertEqual(result['accepted'], {'0': '18個の状態'})
+                self.assertEqual(result['review_ids'], ['0'])
+                p.write(packet, {'book': 'fixture', 'repairs': [{**row, 'translation': '18の状態'}]})
+                with self.assertRaisesRegex(ValueError, 'Existing translation changed'):
+                    p.apply_reviewed_repairs(packet)
+
     def test_inline_math_can_move_but_not_across_structural_boundaries(self):
         source = '@@T000000@@One @@T000001@@ two @@T000002@@@@T000003@@'
         protected = [r'\section{', '$x$', '$y$', '}']

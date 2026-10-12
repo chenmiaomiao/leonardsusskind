@@ -29,7 +29,17 @@ MANIFEST = ROOT / 'references/polished_translation_queue.json'
 VERSION = 1
 TOKEN = re.compile(r'@@T\d{6}@@')
 LANGS = {'ja': 'modern Japanese', 'zh': 'modern Simplified Chinese'}
-NUMBER_WORDS = dict(zip('zero one two three four five six seven eight nine ten eleven twelve'.split(), map(str, range(13))))
+NUMBER_WORDS = dict(zip(
+    'zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split(),
+    map(str, range(20))))
+for _tens, _value in zip('twenty thirty forty fifty sixty seventy eighty ninety'.split(), range(20, 100, 10)):
+    NUMBER_WORDS[_tens] = str(_value)
+    for _ones, _number in list(NUMBER_WORDS.items())[:10]:
+        if _number != '0':
+            NUMBER_WORDS[_tens + '-' + _ones] = str(_value + int(_number))
+            NUMBER_WORDS[_tens + ' ' + _ones] = str(_value + int(_number))
+NUMBER_WORD_PATTERN = re.compile(r'\b(?:' + '|'.join(
+    re.escape(w) for w in sorted(NUMBER_WORDS, key=len, reverse=True)) + r')\b')
 TEXT_MACROS = {
     'chapter': '*[{', 'section': '*[{', 'subsection': '*[{',
     'subsubsection': '*[{', 'paragraph': '*[{', 'caption': '[{',
@@ -170,7 +180,9 @@ def needs_translation(text):
 
 def movable_token(value):
     value = value.strip()
-    return bool(re.fullmatch(r'\d+(?:[.,]\d+)*|\$(?:[^$]|\\\$)+\$|\\\(.*\\\)|\\(?:eqref|ref|pageref)\{[^{}]*\}', value, re.S))
+    return bool(re.fullmatch(
+        r'\d+(?:[.,]\d+)*|\$(?:[^$]|\\\$)+\$|\\\(.*\\\)|~?\\(?:eqref|ref|pageref)\{[^{}]*\}'
+        r'|[A-Za-z]+\\(?:c|v|H|u|k|\x27|`|\^|"|~)(?:\{[A-Za-z]\}|[A-Za-z])[A-Za-z]*', value, re.S))
 
 
 def token_integrity(source, translated, protected):
@@ -188,11 +200,23 @@ def token_integrity(source, translated, protected):
 
     def zones(sequence):
         result, anchor = {}, None
+        styles = []
         for token in sequence:
             if token in movable:
                 result[token] = anchor
             elif token not in displays:
-                anchor = token
+                value = protected[int(token[3:9])].strip()
+                # A complete inline style is an island, not a new prose block.
+                # Math can pass around it, but cannot enter or leave its braces.
+                if re.fullmatch(r'\\(?:emph|textbf|textit|texttt)\{', value):
+                    styles.append(anchor)
+                    anchor = token
+                elif value == '}' and styles:
+                    anchor = styles.pop()
+                else:
+                    # Unknown nested constructs remain conservative boundaries.
+                    styles.clear()
+                    anchor = token
         return result
     return zones(before) == zones(after)
 
@@ -209,11 +233,12 @@ def validate(source, translated, lang, protected=None):
     source_words = Counter()
     for phrase, number in {'one and a half': '1.5', 'two and a half': '2.5',
                            'one-half': '1/2', 'one half': '1/2', 'three quarters': '3/4',
+                           'unit magnitude': '1', 'unit modulus': '1', 'unit norm': '1', 'unity': '1',
                            'half': '0.5', 'quarter': '0.25', 'twice': '2', 'thrice': '3'}.items():
         pattern = r'\b' + re.escape(phrase) + r'\b'
         source_words[number] += len(re.findall(pattern, number_prose))
         number_prose = re.sub(pattern, '', number_prose)
-    source_words.update(NUMBER_WORDS[w] for w in re.findall(r'\b[A-Za-z]+\b', number_prose) if w in NUMBER_WORDS)
+    source_words.update(NUMBER_WORDS[m.group()] for m in NUMBER_WORD_PATTERN.finditer(number_prose))
     normalized_source = Counter()
     for number, count in source_words.items():
         normalized_source[str(Fraction(number))] += count
@@ -317,6 +342,46 @@ def load_results(book, lang, rel, prepared):
     return result
 
 
+def apply_reviewed_repairs(path):
+    """Import explicit, source-bound repairs without re-generating accepted prose."""
+    packet = read(path)
+    book = next(b for b in read(MANIFEST)['books'] if b['id'] == packet['book'])
+    verify_sources(book)
+    pending = {}
+    for row in packet['repairs']:
+        lang, rel, key = row['lang'], row['file'], str(row['segment_id'])
+        if lang not in LANGS or rel not in book['source_files'] or not row.get('reason'):
+            raise ValueError('Invalid repair scope or missing review reason')
+        prepared = read(WORK / 'prepared' / book['id'] / (rel + '.json'))
+        source = prepared['parts'][int(key)]
+        if (row['source_sha256'] != prepared['source_sha256']
+                or row['source'] != restore(source, prepared['protected'])):
+            raise ValueError(f'Stale repair source: {rel}:{key}')
+        issue = validate(source, row['translation'], lang, prepared['protected'])
+        if issue:
+            raise ValueError(f'Invalid repair: {rel}:{key}: {issue}')
+        identity = (lang, rel)
+        if identity not in pending:
+            pending[identity] = load_results(book, lang, rel, prepared)
+        result = pending[identity]
+        previous = result['accepted'].get(key)
+        if previous is not None and previous != row['translation']:
+            if row.get('previous_sha256') != digest(previous):
+                raise ValueError(f'Existing translation changed: {rel}:{key}')
+        result['accepted'][key] = row['translation']
+        result['review_ids'] = sorted(set(result.get('review_ids', []) + [key]), key=int)
+        result.setdefault('repairs', {})[key] = {
+            'reason': row['reason'], 'packet_sha256': digest(path.read_text()),
+            'translation_sha256': digest(row['translation'])}
+    # Validate the whole packet before changing any cache file.
+    for (lang, rel), result in pending.items():
+        dest = result_path(book, lang, rel)
+        if dest.exists():
+            shutil.copy2(dest, dest.with_suffix(f'.{time.time_ns()}.bak'))
+        write(dest, result)
+    print(f'Applied {len(packet["repairs"])} reviewed repairs', flush=True)
+
+
 def chat(prompt, dest, args):
     sys.path.insert(0, str(args.toolkit_root / 'scripts/interlinear'))
     from llm_chat_backend import run_chat_completion
@@ -363,6 +428,9 @@ def translate_file(book, lang, rel, args):
                 'カイラリティ for chirality; render year dates as 年に, not で. '
                 'In Chinese retain the 年 year marker after a year token; never write 在YEAR中 for a date. '
                 'Distinguish applying an operator from holding it constant; do not change the physical action.\n'
+                'Frozen expressions cannot be repeated, even if repeating them would be natural: use a '
+                'pronoun or restructure the sentence instead. English spelled-out numbers up to '
+                'ninety-nine and unity may use equivalent Arabic numerals. Never add explanatory quantities. '
                 + json.dumps({'paragraphs': pending, 'previous_errors': errors,
                     'read_only_token_legend': {token: p['protected'][int(token[3:9])]
                         for source in pending.values() for token in TOKEN.findall(source)}}, ensure_ascii=False))
@@ -697,7 +765,7 @@ def run(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['prepare', 'run', 'status', 'compile', 'approve-pilot', 'readme'])
+    parser.add_argument('command', choices=['prepare', 'run', 'status', 'compile', 'approve-pilot', 'readme', 'repair'])
     parser.add_argument('--workers', type=int, default=5)
     parser.add_argument('--ramp-seconds', type=float, default=1)
     parser.add_argument('--model', default='deepseek-chat')
@@ -706,11 +774,12 @@ def main():
     parser.add_argument('--publish', action='store_true', help='Commit and push validated outputs only')
     parser.add_argument('--book')
     parser.add_argument('--evidence', help='Human review note; required for approving the pilot')
+    parser.add_argument('--repairs', type=Path, help='Source-bound reviewed repair JSON')
     args = parser.parse_args()
     if not 1 <= args.workers <= 5:
         parser.error('Use 1 to 5 workers')
     with ExitStack() as stack:
-        if args.command in {'prepare', 'compile', 'approve-pilot'}:
+        if args.command in {'prepare', 'compile', 'approve-pilot', 'repair'}:
             WORK.mkdir(parents=True, exist_ok=True)
             lock = stack.enter_context((WORK / 'queue.lock').open('w'))
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -722,6 +791,10 @@ def main():
             print(json.dumps(status(), ensure_ascii=False, indent=2))
         elif args.command == 'readme':
             update_readmes()
+        elif args.command == 'repair':
+            if not args.repairs:
+                parser.error('--repairs is required')
+            apply_reviewed_repairs(args.repairs)
         elif args.command == 'compile':
             book = next(b for b in read(MANIFEST)['books'] if b['id'] == args.book)
             for lang in LANGS:

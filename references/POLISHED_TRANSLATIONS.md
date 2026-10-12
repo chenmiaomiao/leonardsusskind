@@ -5,6 +5,11 @@ legacy unpolished PDFs, or the earlier duplicate lecture runs. It includes the
 15-course editorial queue and its completed eight-chapter Cosmology pilot:
 16 books, 145 chapters, Japanese and Simplified Chinese editions.
 
+Each language is an **independent, normally readable book**, not an interlinear
+export. The original English edition remains unchanged. Bunko/LazyLearn may
+later compose interlinear editions from the aligned paragraph data, but that
+must not replace or delay these standalone translations.
+
 The short Higgs book is the first pilot. Both translated PDFs must pass a
 manual visual/semantic review before the other courses start. These are
 AI-assisted companion translations, not Susskind manuscripts or endorsed
@@ -64,6 +69,28 @@ requests, staggered one second apart; books advance sequentially, not in paralle
 Compile jobs are serial. `touch .translation-work/STOP` stops at the next book
 boundary. Remove that marker to resume. Accepted caches survive interruptions.
 Check `.translation-work/status.json` and `queue.log` before restarting.
+
+## Validation Repairs
+
+Number-word validation recognizes zero through ninety-nine (including compound
+forms), common fractions, and mathematical unity/unit magnitude. It still
+rejects unsupported new quantities. Immutable accented names and nonbreaking
+reference glue may follow natural target-language word order. Math can pass
+around a complete emphasis group, but not into or out of its braces. Duplicate
+tokens, missing figures, structural movement, and changed equations still fail.
+
+Use `repair --repairs PATH.json` for reviewed corrections. The packet records
+the book ID and per-row language, source file, segment ID, source hash, complete
+restored source, masked translation, and review reason. The tool validates the
+entire packet first, backs up changed caches, and schedules every repair for
+additional semantic review. Replacing already accepted text also requires its
+`previous_sha256`. No full-chapter regeneration is required.
+
+On 2026-10-12, ten Advanced Quantum Mechanics segments were checked against the
+English source. Most failures were overly restrictive numerical/order checks;
+one Chinese paragraph repeated a Hamiltonian token and was rewritten to use it
+once. Unsupported numeric paraphrases were corrected without loosening the
+global preservation checks. Balance was not the blocker.
 
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
