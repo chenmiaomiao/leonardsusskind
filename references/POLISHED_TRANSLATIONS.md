@@ -99,6 +99,16 @@ Front matter is included in semantic review, and ordinary English wording must
 be translated even when nearby proper names remain Latin. These repairs do not
 change any frozen equation or original image.
 
+Semantic review now runs before the expensive PDF passes. The `review --book ID
+--language ja` command reruns only changed review batches without compiling.
+Already validated language editions are skipped when the other language needs
+repair. Source-checked false positives can be explicitly adjudicated under
+`.translation-work/review-decisions/`: each dismissal is tied to the exact
+source/translation sample hash and exact issue hash, with a written reason.
+The original report is retained, and the published quality record includes the
+decisions. A changed sample or new issue cannot inherit a dismissal. There is
+no blanket reviewer bypass or automatic acceptance of model corrections.
+
 Readme status is generated deterministically. `--publish` makes a scoped commit
 and pushes each validated pair of PDFs. It refuses a pre-existing staged index,
 README edits outside the generated block, or files over 95 MiB. A publication

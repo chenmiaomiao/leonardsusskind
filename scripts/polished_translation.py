@@ -551,6 +551,23 @@ def assemble(book, lang):
     return dst
 
 
+def adjudicated_review(book, lang, report):
+    path = WORK / 'review-decisions' / book['id'] / (lang + '.' + report['sample_sha256'] + '.json')
+    if not path.exists():
+        return report
+    packet = read(path)
+    if packet.get('sample_sha256') != report['sample_sha256']:
+        raise ValueError('Stale review adjudication')
+    issues = {digest(json.dumps(i, ensure_ascii=False, sort_keys=True)): i for i in report['issues']}
+    for decision in packet['decisions']:
+        if (decision.get('decision') != 'dismiss' or not decision.get('reason')
+                or decision.get('issue_sha256') not in issues):
+            raise ValueError('Invalid or stale review decision')
+        del issues[decision['issue_sha256']]
+    return {**report, 'raw_issues': report['issues'], 'issues': list(issues.values()),
+            'pass': not issues, 'adjudications': packet['decisions']}
+
+
 def review_sample(book, lang, args):
     pairs = []
     for rel in book['source_files']:
@@ -569,7 +586,7 @@ def review_sample(book, lang, args):
     report = WORK / 'reviews' / book['id'] / f'{lang}.json'
     sample_hash = digest(json.dumps(pairs, ensure_ascii=False))
     if report.exists() and read(report).get('sample_sha256') == sample_hash:
-        return read(report)
+        return adjudicated_review(book, lang, read(report))
     issues = []
     for start in range(0, len(pairs), 10):
         batch = pairs[start:start + 10]
@@ -590,13 +607,16 @@ def review_sample(book, lang, args):
             issues.extend(reply.get('issues') or [{'reason': 'Invalid reviewer response', 'batch': start}])
     report_data = {'pass': not issues, 'issues': issues, 'sample_sha256': sample_hash, 'pairs_reviewed': len(pairs)}
     write(report, report_data)
-    return report_data
+    return adjudicated_review(book, lang, report_data)
 
 
 def compile_book(book, lang, args):
     import fitz
     write(OUT / book['id'] / lang / 'quality.json', {'status': 'building'})
     dst = assemble(book, lang)
+    review = review_sample(book, lang, args)
+    if review.get('pass') is not True or review.get('issues') != []:
+        raise RuntimeError(f'Sampled semantic review needs repair: {lang}')
     build = WORK / 'build' / book['id'] / lang
     build.mkdir(parents=True, exist_ok=True)
     for _ in range(3):
@@ -618,12 +638,10 @@ def compile_book(book, lang, args):
     write(build / 'quality.json', qa)
     if errors or overflows or not qa['outline_entries'] or qa['cjk_characters'] < 100:
         raise RuntimeError(f'PDF quality gate needs repair: {build}/quality.json')
-    review = review_sample(book, lang, args)
-    if review.get('pass') is not True or review.get('issues') != []:
-        raise RuntimeError(f'Sampled semantic review needs repair: {lang}')
     shutil.copy2(build / 'course.pdf', dst / 'book.pdf')
     qa.update({'status': 'validated', 'pdf_sha256': hashlib.sha256((dst / 'book.pdf').read_bytes()).hexdigest(),
                'semantic_review': 'sampled, not exhaustive', 'sample_pairs': review['pairs_reviewed'],
+               'review_adjudications': review.get('adjudications', []),
                'source_files': book['source_files'],
                'translated_tex': {str(p.relative_to(dst)): digest(p.read_text()) for p in dst.rglob('*.tex')}})
     write(dst / 'quality.json', qa)
@@ -764,6 +782,8 @@ def run(args):
                         future.result()
                         update_readmes()
                 for lang in LANGS:
+                    if validated_output(book, lang):
+                        continue
                     compile_book(book, lang, args)
                     update_readmes()
                 if args.publish:
@@ -781,7 +801,7 @@ def run(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['prepare', 'run', 'status', 'compile', 'approve-pilot', 'readme', 'repair'])
+    parser.add_argument('command', choices=['prepare', 'run', 'status', 'compile', 'approve-pilot', 'readme', 'repair', 'review'])
     parser.add_argument('--workers', type=int, default=5)
     parser.add_argument('--ramp-seconds', type=float, default=1)
     parser.add_argument('--model', default='deepseek-chat')
@@ -789,13 +809,14 @@ def main():
     parser.add_argument('--pilot-only', action='store_true')
     parser.add_argument('--publish', action='store_true', help='Commit and push validated outputs only')
     parser.add_argument('--book')
+    parser.add_argument('--language', choices=list(LANGS))
     parser.add_argument('--evidence', help='Human review note; required for approving the pilot')
     parser.add_argument('--repairs', type=Path, help='Source-bound reviewed repair JSON')
     args = parser.parse_args()
     if not 1 <= args.workers <= 5:
         parser.error('Use 1 to 5 workers')
     with ExitStack() as stack:
-        if args.command in {'prepare', 'compile', 'approve-pilot', 'repair'}:
+        if args.command in {'prepare', 'compile', 'approve-pilot', 'repair', 'review'}:
             WORK.mkdir(parents=True, exist_ok=True)
             lock = stack.enter_context((WORK / 'queue.lock').open('w'))
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -811,6 +832,11 @@ def main():
             if not args.repairs:
                 parser.error('--repairs is required')
             apply_reviewed_repairs(args.repairs)
+        elif args.command == 'review':
+            book = next(b for b in read(MANIFEST)['books'] if b['id'] == args.book)
+            verify_sources(book)
+            for lang in ([args.language] if args.language else LANGS):
+                print(json.dumps({'language': lang, **review_sample(book, lang, args)}, ensure_ascii=False, indent=2))
         elif args.command == 'compile':
             book = next(b for b in read(MANIFEST)['books'] if b['id'] == args.book)
             for lang in LANGS:

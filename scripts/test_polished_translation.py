@@ -112,6 +112,23 @@ class TranslationTests(unittest.TestCase):
                     **row, 'previous_sha256': p.digest(result['accepted']['0'])}]})
                 p.apply_reviewed_repairs(packet)
 
+    def test_review_adjudication_is_bound_to_exact_sample_and_issue(self):
+        with TemporaryDirectory() as tmp, patch.object(p, 'WORK', Path(tmp)):
+            book = {'id': 'fixture'}
+            issue = {'source_quote': 'roughly one percent', 'translation_quote': 'およそ1パーセント',
+                     'correction': '0.7パーセント'}
+            report = {'pass': False, 'issues': [issue], 'sample_sha256': 'current'}
+            path = p.WORK / 'review-decisions/fixture/ja.current.json'
+            p.write(path, {'sample_sha256': 'current', 'decisions': [{
+                'issue_sha256': p.digest(p.json.dumps(issue, ensure_ascii=False, sort_keys=True)),
+                'decision': 'dismiss', 'reason': 'The translation preserves the source approximation.'}]})
+            effective = p.adjudicated_review(book, 'ja', report)
+            self.assertTrue(effective['pass'])
+            self.assertEqual(effective['raw_issues'], [issue])
+            self.assertFalse(p.adjudicated_review(book, 'ja', {**report, 'sample_sha256': 'changed'})['pass'])
+            with self.assertRaisesRegex(ValueError, 'stale review decision'):
+                p.adjudicated_review(book, 'ja', {**report, 'issues': [{'other': 'issue'}]})
+
     def test_inline_math_can_move_but_not_across_structural_boundaries(self):
         source = '@@T000000@@One @@T000001@@ two @@T000002@@@@T000003@@'
         protected = [r'\section{', '$x$', '$y$', '}']
