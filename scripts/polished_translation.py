@@ -654,6 +654,8 @@ def translate_file(book, lang, rel, args):
                 'In Japanese use 標準模型 for Standard Model, 弱ゲージボソン for weak boson, '
                 'カイラリティ for chirality; render year dates as 年に, not で. '
                 'In Chinese retain the 年 year marker after a year token; never write 在YEAR中 for a date. '
+                'In Chinese velocity is 速度 and speed is 速率; do not erase their vector/scalar distinction. '
+                'A lattice is a 点阵 or 网格, not a single 格点 (lattice site). '
                 'Distinguish applying an operator from holding it constant; do not change the physical action.\n'
                 'Use idiomatic scientific sentences around displayed equations rather than mechanically '
                 'copying English word order. Introduce transformations as transformations, not literal sending. '
