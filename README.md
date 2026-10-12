@@ -255,7 +255,7 @@ Japanese and Simplified Chinese editions are being prepared from the accepted fi
 | Special Relativity (2012 spring theoretical minimum) | [Available PDF](translations/core--special_relativity--2012_spring_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--special_relativity--2012_spring_theoretical_minimum/zh/book.pdf) |
 | General Relativity (2012 fall theoretical minimum) | [Available PDF](translations/core--general_relativity--2012_fall_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--general_relativity--2012_fall_theoretical_minimum/zh/book.pdf) |
 | Statistical Mechanics (2013 spring theoretical minimum) | [Available PDF](translations/core--statistical_mechanics--2013_spring_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--statistical_mechanics--2013_spring_theoretical_minimum/zh/book.pdf) |
-| Cosmology (2013 winter theoretical minimum) | In preparation (0/825 segments) | In preparation (0/825 segments) |
+| Cosmology (2013 winter theoretical minimum) | [Available PDF](translations/core--cosmology--2013_winter_theoretical_minimum/ja/book.pdf) | [Available PDF](translations/core--cosmology--2013_winter_theoretical_minimum/zh/book.pdf) |
 | Cosmology (2009 winter legacy cosmology) | In preparation (0/553 segments) | In preparation (0/553 segments) |
 
 [Workflow and limitations](references/POLISHED_TRANSLATIONS.md)
